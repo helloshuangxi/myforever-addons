@@ -1,0 +1,501 @@
+local _, ns = ...
+local call = ns.SafeCall
+local scanner = ns.GatherScan
+
+local skills = { mining = 186, herbalism = 182, fishing = 356 }
+local trackingSpells = { [2580] = "mining", [2383] = "herbalism", [43308] = "fishing" }
+local trackingNames = {
+    ["寻找矿物"] = "mining", ["寻找草药"] = "herbalism", ["寻找鱼群"] = "fishing",
+    ["Find Minerals"] = "mining", ["Find Herbs"] = "herbalism", ["Find Fish"] = "fishing",
+}
+local colors = { mining = {1, 0.76, 0.36}, herbalism = {0.56, 0.9, 0.54}, fishing = {0.5, 0.82, 1} }
+local pollInterval, targetLifetime, quietTime = 0.10, 3.5, 10
+local HUD_WIDTH, HUD_HEIGHT = 244, 58
+local hud, arrow, title, detail, doneButton
+local target, targetUntil, previewUntil
+local adjusting, moving, resize
+local activeTracking
+local announcements, nextSound = {}, 0
+local heardResources = {}
+local lastTrackingHint
+
+local function number(value)
+    return not (issecretvalue and issecretvalue(value)) and type(value) == "number"
+        and value == value and math.abs(value) < math.huge
+end
+
+local function readTracking()
+    local minimap = C_Minimap
+    local count = call(minimap and minimap.GetNumTrackingTypes)
+    if not number(count) or type(minimap.GetTrackingInfo) ~= "function" then return nil end
+    local active = {}
+    for index = 1, count do
+        local info = call(minimap.GetTrackingInfo, index)
+        if type(info) == "table" and info.active == true then
+            local filter = not info.spellID and call(minimap.GetTrackingFilter, index)
+            local spellID = info.spellID or (filter and filter.spellID)
+            local kind = trackingSpells[spellID] or trackingNames[info.name]
+            if kind then active[kind] = true end
+        end
+    end
+    return active
+end
+
+local function learnedGathering()
+    local ranks = {}
+    if ns.detectReady then
+        for _, profession in ipairs(ns.professions) do
+            if number(profession.rank) and profession.rank > 0 then
+                ranks[profession.id] = profession.rank + (profession.modifier or 0)
+            end
+        end
+    end
+    return ranks
+end
+
+local function canScan(ranks)
+    for kind, id in pairs(skills) do
+        if ranks[id] and (not activeTracking or activeTracking[kind]) then return true end
+    end
+    return false
+end
+
+local function updateTrackingHint(ranks)
+    local missing = {}
+    if ns.detectReady and activeTracking and not canScan(ranks) then
+        for _, kind in ipairs({"mining", "herbalism", "fishing"}) do
+            if ranks[skills[kind]] and not activeTracking[kind] then
+                missing[#missing + 1] = kind == "mining" and "寻找矿物"
+                    or kind == "herbalism" and "寻找草药" or "寻找鱼群"
+            end
+        end
+    end
+    local hint = #missing > 0 and "小地图检测暂停：请在小地图追踪中开启" .. table.concat(missing, "／") .. "。" or nil
+    ns.gatherTrackingHint = hint
+    if hint and hint ~= lastTrackingHint then ns.Print(hint) end
+    lastTrackingHint = hint
+end
+
+local function plain(value, kind)
+    return not (issecretvalue and issecretvalue(value)) and type(value) == kind
+end
+
+local function playerPaused()
+    for index = 1, 3 do
+        local query = index == 1 and InCombatLockdown or index == 2 and UnitAffectingCombat or UnitIsDeadOrGhost
+        local blocked = call(query, "player")
+        if issecretvalue and issecretvalue(blocked) then return true end
+        if plain(blocked, "boolean") and blocked then return true end
+    end
+    return false
+end
+
+local function resourceKey(name)
+    return ns.GatherResourceKey and ns.GatherResourceKey(name) or name
+end
+
+local function pruneHeard(now)
+    for name, record in pairs(heardResources) do
+        if now - record.lastSeen >= quietTime then heardResources[name] = nil end
+    end
+end
+
+-- The two detectors share playback and acknowledge an existing notice from
+-- the other source, rather than sounding twice for the same nearby resource.
+function ns.ObserveGatherResource(name)
+    local now = call(GetTime)
+    if not number(now) or not plain(name, "string") then return end
+    name = resourceKey(name)
+    pruneHeard(now)
+    if heardResources[name] then heardResources[name].lastSeen = now end
+end
+
+function ns.PlayGatherNotice(name, source, preview)
+    if not ns.db or ns.db.gatherSound ~= true then return false, "muted" end
+    if not preview and ns.db.gatherAlerts ~= true then return false, "disabled" end
+    if ns.gatherSoundWorldPaused or playerPaused() then return false, "paused" end
+    local now = call(GetTime)
+    if not number(now) then return false, "no-clock" end
+    pruneHeard(now)
+    local named = plain(name, "string") and plain(source, "string")
+    name = named and resourceKey(name) or name
+    local record = named and heardResources[name]
+    if record and not record.sources[source] then
+        record.sources[source] = true
+        return true, "shared"
+    end
+    if now < nextSound then return false, "cooldown" end
+    nextSound = now + 4 -- Limit retries too, including a muted client channel.
+    local played = call(PlaySound, SOUNDKIT and SOUNDKIT.MAP_PING or 3175)
+    if not plain(played, "boolean") or not played then return false, "failed" end
+    if named then heardResources[name] = {sources = {[source] = true}, lastSeen = now} end
+    ns.gatherNoticeSoundCount = (ns.gatherNoticeSoundCount or 0) + 1
+    return true, "played"
+end
+
+local function clearTarget()
+    target, targetUntil = nil, nil
+    hud:Hide()
+    ns.gatherAlertLabel = nil
+end
+
+local function eligibleResource(name, ranks, requireTracking)
+    if not plain(name, "string") then return end
+    local kind, required = ns.GatherResource(name)
+    local rank = kind and ranks[skills[kind]]
+    if number(rank) and number(required) and rank >= required
+        and (not requireTracking or not activeTracking or activeTracking[kind]) then return kind end
+end
+
+local function nearbyTarget(ranks, now)
+    if not ns.db.gatherSparkles or not plain(ns.gatherNearbyResources, "table") then return end
+    local nearest
+    for _, resource in ipairs(ns.gatherNearbyResources) do
+        local kind = plain(resource, "table") and eligibleResource(resource.name, ranks, false)
+        if kind and number(resource.seenAt) and now >= resource.seenAt and now-resource.seenAt <= 0.6
+            and (not nearest or resource.name < nearest.name) then
+            nearest = {name = resource.name, kind = kind, nearby = true}
+        end
+    end
+    return nearest
+end
+
+local function minimapTarget(resources, ranks, now)
+    if not plain(resources, "table") then return end
+    for name, lastSeen in pairs(announcements) do
+        if now - lastSeen >= quietTime then announcements[name] = nil end
+    end
+    local chosen
+    for _, resource in ipairs(resources) do
+        local kind = plain(resource, "table") and eligibleResource(resource.name, ranks, true)
+        if kind and number(resource.seenAt) and now >= resource.seenAt and now - resource.seenAt <= 8 then
+            ns.ObserveGatherResource(resource.name)
+            local key = resourceKey(resource.name)
+            if announcements[key] then announcements[key] = now end
+            -- A compact sample can contain several real names. Give an
+            -- unannounced fresh name a turn, rather than always selecting the
+            -- first name and permanently starving the others.
+            local chosenSeen=chosen and announcements[resourceKey(chosen.name)]
+            local seen=announcements[key]
+            if not chosen or (chosenSeen and not seen)
+                or ((not chosenSeen)==(not seen) and resource.name<chosen.name) then
+                chosen = {name = resource.name, kind = kind, minimap = true}
+            end
+        end
+    end
+    local key = chosen and resourceKey(chosen.name)
+    if chosen and not announcements[key] then
+        local heard, result = ns.PlayGatherNotice(chosen.name, "minimap")
+        ns.gatherAlertSoundResult = result
+        if heard then announcements[key] = now end
+    end
+    return chosen
+end
+
+local function render(current)
+    title:ClearAllPoints()
+    title:SetPoint("TOPLEFT", hud, "TOPLEFT", 12, -10)
+    title:SetWidth(HUD_WIDTH - 24)
+    title:SetText(current.layoutOnly and current.name or "附近有 " .. current.name)
+    title:SetTextColor(unpack(colors[current.kind]))
+    arrow:Hide()
+    detail:SetText(current.layoutOnly and "" or current.nearby and "就在附近" or "小地图范围内")
+    hud:Show()
+    ns.gatherAlertLabel = current.layoutOnly and nil or "附近有 " .. current.name
+end
+
+local function restorePlacement()
+    local db = ns.db
+    hud:SetScale(db.gatherScale)
+    hud:ClearAllPoints()
+    -- Saved offsets are in UIParent units so scaling keeps the anchor in place.
+    hud:SetPoint(db.gatherPoint, UIParent, db.gatherRelativePoint,
+        db.gatherX / db.gatherScale, db.gatherY / db.gatherScale)
+end
+
+local function stopMoving()
+    if not moving then return end
+    moving = false
+    hud:StopMovingOrSizing()
+    local point, _, relativePoint, x, y = hud:GetPoint()
+    if type(point) == "string" and type(relativePoint) == "string" and number(x) and number(y) then
+        local db = ns.db
+        db.gatherPoint, db.gatherRelativePoint = point, relativePoint
+        db.gatherX, db.gatherY = x * db.gatherScale, y * db.gatherScale
+    end
+end
+
+local function adjustmentLabel()
+    detail:SetText(string.format("拖右下角缩放 · %d%%", math.floor(ns.db.gatherScale * 100 + 0.5)))
+end
+
+local function renderIdle()
+    if adjusting then
+        render({ name = "调整采集提示", kind = "mining", layoutOnly = true })
+        adjustmentLabel()
+    else
+        clearTarget()
+    end
+end
+
+local function startResizing()
+    if moving or resize then return end
+    local x, y = GetCursorPosition()
+    local left, top = hud:GetLeft(), hud:GetTop()
+    local parentScale = UIParent:GetEffectiveScale()
+    if not left or not top or not parentScale or parentScale <= 0 then return end
+    local scale = hud:GetEffectiveScale() / parentScale
+    resize = {
+        cursorX = x, cursorY = y, parentScale = parentScale, startScale = ns.db.gatherScale,
+        left = left * scale - (UIParent:GetLeft() or 0),
+        top = top * scale - (UIParent:GetBottom() or 0),
+    }
+end
+
+local function resizeToCursor()
+    local x, y = GetCursorPosition()
+    local dx = (x - resize.cursorX) / resize.parentScale
+    local dy = (resize.cursorY - y) / resize.parentScale
+    -- Project the drag onto the frame diagonal to scale the notice together.
+    local delta = (dx * HUD_WIDTH + dy * HUD_HEIGHT) / (HUD_WIDTH^2 + HUD_HEIGHT^2)
+    local scale = math.floor(math.max(0.7, math.min(1.3, resize.startScale + delta)) * 100 + 0.5) / 100
+    local db = ns.db
+    if scale == db.gatherScale then return end
+    db.gatherPoint, db.gatherRelativePoint = "TOPLEFT", "BOTTOMLEFT"
+    db.gatherX, db.gatherY, db.gatherScale = resize.left, resize.top, scale
+    restorePlacement()
+    if adjusting then adjustmentLabel() end
+end
+
+local function finishInteraction()
+    if resize then resizeToCursor(); resize = nil end
+    stopMoving()
+    scanner.Reset()
+end
+
+local function setAdjusting(enabled)
+    stopMoving()
+    adjusting, previewUntil, resize = enabled, nil, nil
+    scanner.Reset()
+    clearTarget()
+    doneButton:SetShown(enabled)
+    if enabled then renderIdle() end
+end
+
+function ns.CreateGatherAlerts()
+    hud = CreateFrame("Frame", nil, UIParent, "BackdropTemplate")
+    hud:SetSize(HUD_WIDTH, HUD_HEIGHT)
+    restorePlacement()
+    hud:SetFrameStrata("HIGH")
+    hud:SetClampedToScreen(true)
+    hud:SetMovable(true)
+    hud:RegisterForDrag("LeftButton")
+    hud:SetScript("OnDragStart", function()
+        if not resize then
+            hud:StartMoving()
+            moving = true
+        end
+    end)
+    hud:SetScript("OnDragStop", finishInteraction)
+    hud:SetScript("OnMouseUp", function(_, button)
+        if button == "LeftButton" then finishInteraction() end
+    end)
+    hud:SetScript("OnHide", function()
+        stopMoving()
+        resize = nil
+    end)
+    hud:EnableMouse(true)
+    hud:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8X8", edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 1 })
+    hud:SetBackdropColor(0.05, 0.07, 0.08, 0.92)
+    hud:SetBackdropBorderColor(0.48, 0.39, 0.24, 0.95)
+
+    arrow = hud:CreateTexture(nil, "ARTWORK")
+    arrow:SetSize(38, 38)
+    arrow:SetPoint("LEFT", hud, "LEFT", 10, 0)
+    arrow:SetTexture("Interface\\Minimap\\MinimapArrow")
+    title = hud:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+    title:SetPoint("TOPLEFT", hud, "TOPLEFT", 56, -10)
+    title:SetWidth(178)
+    title:SetJustifyH("LEFT")
+    title:SetWordWrap(false)
+    detail = hud:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    detail:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -5)
+
+    doneButton = CreateFrame("Button", nil, hud)
+    doneButton:SetSize(40, 20)
+    doneButton:SetPoint("TOPRIGHT", hud, "TOPRIGHT", -8, -7)
+    doneButton:SetHighlightTexture("Interface\\Buttons\\WHITE8X8")
+    doneButton:GetHighlightTexture():SetVertexColor(0.9, 0.77, 0.48, 0.16)
+    local doneLabel = doneButton:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    doneLabel:SetPoint("CENTER")
+    doneLabel:SetText("完成")
+    doneButton:SetScript("OnClick", function() setAdjusting(false) end)
+    doneButton:Hide()
+
+    local resizeGrip = CreateFrame("Button", nil, hud)
+    resizeGrip:SetSize(18, 18)
+    resizeGrip:SetPoint("BOTTOMRIGHT", hud, "BOTTOMRIGHT", -2, 2)
+    resizeGrip:SetNormalTexture("Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Up")
+    resizeGrip:SetHighlightTexture("Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Highlight")
+    resizeGrip:RegisterForDrag("LeftButton")
+    resizeGrip:SetScript("OnDragStart", startResizing)
+    resizeGrip:SetScript("OnDragStop", finishInteraction)
+    resizeGrip:SetScript("OnMouseUp", function(_, button)
+        if button == "LeftButton" then finishInteraction() end
+    end)
+    hud:Hide()
+
+    local ticker = CreateFrame("Frame", nil, UIParent)
+    for _, event in ipairs({ "PLAYER_ENTERING_WORLD", "PLAYER_LEAVING_WORLD", "PLAYER_LOGOUT", "ZONE_CHANGED_NEW_AREA", "MINIMAP_UPDATE_TRACKING",
+        "MINIMAP_UPDATE_ZOOM", "SPELLS_CHANGED" }) do
+        pcall(ticker.RegisterEvent, ticker, event)
+    end
+    ticker:SetScript("OnEvent", function(_, event)
+        if event == "MINIMAP_UPDATE_TRACKING" then
+            local current = readTracking()
+            if current and activeTracking
+                and current.mining == activeTracking.mining and current.herbalism == activeTracking.herbalism
+                and current.fishing == activeTracking.fishing then return end
+        end
+        if event == "PLAYER_LEAVING_WORLD" or event == "PLAYER_LOGOUT" then ns.gatherSoundWorldPaused = true
+        elseif event == "PLAYER_ENTERING_WORLD" then ns.gatherSoundWorldPaused = false end
+        scanner.Reset()
+        if event ~= "MINIMAP_UPDATE_ZOOM" then activeTracking = readTracking() end
+        if event == "PLAYER_ENTERING_WORLD" or event == "ZONE_CHANGED_NEW_AREA" then announcements = {} end
+        target, targetUntil = nil, nil
+        if event == "PLAYER_LEAVING_WORLD" or event == "PLAYER_LOGOUT" or event == "ZONE_CHANGED_NEW_AREA" then
+            ns.gatherNearbyResources = nil
+        end
+        if not adjusting and not previewUntil and not moving and not resize then clearTarget() end
+    end)
+
+    local elapsedSincePoll = 0
+    ticker:SetScript("OnUpdate", function(_, elapsed)
+        -- Mouse-up can be lost when the pointer leaves the window or focus changes.
+        if (moving or resize) and call(IsMouseButtonDown, "LeftButton") == false then finishInteraction() end
+        if resize then
+            resizeToCursor(); return
+        end
+        if moving then
+            return
+        end
+        elapsedSincePoll = elapsedSincePoll + elapsed
+        if elapsedSincePoll < pollInterval then return end
+        elapsedSincePoll = 0
+        local now = GetTime()
+        if previewUntil and now < previewUntil then
+            return
+        end
+        if previewUntil then previewUntil = nil; clearTarget() end
+
+        local ranks = learnedGathering()
+        if ns.gatherSoundWorldPaused or not ns.db.gatherAlerts or playerPaused() then
+            ns.gatherTrackingHint = nil
+            if not ns.db.gatherAlerts then lastTrackingHint = nil end
+            scanner.Reset()
+            target, targetUntil = nil, nil
+            ns.gatherScanCount = 0
+            renderIdle()
+            return
+        end
+        updateTrackingHint(ranks)
+        if scanner.IsSupported() and canScan(ranks) and Minimap and call(Minimap.IsVisible, Minimap) then
+            -- The source router returns fresh confirmed names only: no resource
+            -- position, heading or repeated cached tooltip hint.
+            local names = scanner.ScanNames()
+            if plain(names, "table") then
+                local resources = {}
+                for _, item in ipairs(names) do
+                    if plain(item, "table") and plain(item.name, "string") then
+                        resources[#resources + 1] = {name = item.name, seenAt = now}
+                    end
+                end
+                target = minimapTarget(resources, ranks, now)
+                targetUntil = target and now + targetLifetime or nil
+                ns.gatherScanPasses = (ns.gatherScanPasses or 0) + 1
+                ns.gatherScanCount = #resources
+            end
+        else
+            scanner.Reset()
+            target, targetUntil = nil, nil
+            ns.gatherScanCount = 0
+        end
+        local nearby = nearbyTarget(ranks, now)
+        if nearby then render(nearby)
+        elseif target and now < targetUntil and eligibleResource(target.name, ranks, true) then render(target)
+        else renderIdle() end
+    end)
+    activeTracking = readTracking()
+end
+
+function ns.GatherCommand(action)
+    if action == "debug" then
+        if ns.gatherTrackingHint then ns.Print(ns.gatherTrackingHint) end
+        local data = call(scanner.ScanDiagnostics)
+        if not plain(data, "table") then
+            ns.Print("当前没有可用的读取诊断。")
+            return
+        end
+        local function names(items)
+            local result = {}
+            if plain(items, "table") then
+                for _, name in ipairs(items) do
+                    if plain(name, "string") and ns.GatherResource(name) then result[#result + 1] = name end
+                end
+            end
+            return #result > 0 and table.concat(result, "、") or "无"
+        end
+        ns.Print((data.method == "cursor" and "替身地图实验" or "原方式") .. "读取状态："
+            .. tostring(data.state or "unknown") .. " / " .. tostring(data.reason or "none"))
+        ns.Print((data.method == "cursor" and "累计读取 " or "上轮采样 ") .. tostring(number(data.sampleCount) and data.sampleCount or 0)
+            .. " 点；矿草原文名称：" .. names(data.rawKnownNames))
+        ns.Print("上轮有效名称：" .. names(data.acceptedNames) .. "；过滤名称：" .. names(data.rejectedKnownNames))
+        if data.method == "cursor" then
+            local function count(key)
+                local value = data[key]
+                return tostring(number(value) and value >= 0 and math.floor(value) or 0)
+            end
+            ns.Print("累计原生提示：空返回 " .. count("tooltipNilCount") .. "，空表 " .. count("tooltipEmptyCount")
+                .. "，非空 " .. count("tooltipNonemptyCount") .. "，已知矿草 " .. count("tooltipKnownCount")
+                .. "，其他 " .. count("tooltipUnknownCount") .. "，异常 " .. count("tooltipInvalidCount"))
+        end
+        return
+    end
+    if action == "move" then
+        setAdjusting(not adjusting)
+        if adjusting then ns.Print("拖动采集提示框移动，拖右下角缩放，点「完成」退出预览。") end
+        return
+    end
+    if action == "test" then
+        if adjusting then setAdjusting(false) end
+        previewUntil = GetTime() + 5
+        scanner.Reset()
+        render({name = "铜矿（测试）", kind = "mining", minimap = true})
+        ns.PlayGatherNotice(nil, nil, true)
+        return
+    end
+    if action == "original" or action == "cursor" or action == "experiment" then
+        ns.db.gatherMethod = action == "original" and "original" or "cursor"
+        scanner.Reset("source-change")
+        target, targetUntil, previewUntil = nil, nil, nil
+        setAdjusting(false)
+        clearTarget()
+    elseif action == "on" or action == "off" then
+        ns.db.gatherAlerts = action == "on"
+        setAdjusting(false)
+    elseif action == "mute" or action == "unmute" then
+        ns.db.gatherSound = action == "unmute"
+    end
+    ns.Print("采集提醒" .. (ns.db.gatherAlerts and "已开启" or "已关闭") .. "，声音" .. (ns.db.gatherSound and "开启" or "静音") .. "。")
+    ns.Print("读取方式：" .. (ns.db.gatherMethod == "cursor" and "替身地图实验（仅本机）" or "原方式") .. "。")
+    if not scanner.IsSupported() then
+        ns.Print("当前客户端没有可用的小地图资源读取接口。")
+    end
+    if activeTracking and not next(activeTracking) then ns.Print("请先在小地图追踪中开启寻找矿物、草药或鱼群。") end
+    ns.Print("小地图读取资源 " .. tostring(ns.gatherScanCount or 0) .. " 种，完成扫描 "
+        .. tostring(ns.gatherScanPasses or 0) .. " 次；提示音调用成功 " .. tostring(ns.gatherNoticeSoundCount or 0) .. " 次。")
+    if ns.gatherAlertLabel then ns.Print("当前提示：" .. ns.gatherAlertLabel) end
+    ns.Print("/myprof gather on / off · mute / unmute · test 试听提示")
+    ns.Print("/myprof gather move 调整位置与大小")
+    ns.Print("/myprof gather original 回到原方式 · cursor 使用替身地图实验")
+end

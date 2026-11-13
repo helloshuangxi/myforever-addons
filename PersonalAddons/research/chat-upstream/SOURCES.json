@@ -1,0 +1,520 @@
+[
+  {
+    "path": "Blizzard_APIDocumentationGenerated/ChatInfoDocumentation.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_APIDocumentationGenerated/ChatInfoDocumentation.lua",
+    "sha256": "996cf3c4956d7d79716c082fa7bccf06e008fd191f108c85546f9fdec66e1a73",
+    "bytes": 132990
+  },
+  {
+    "path": "Blizzard_ChatFrameBase/Shared/ChatFrameEditBox.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ChatFrameBase/Shared/ChatFrameEditBox.lua",
+    "sha256": "f33ac29bd85bd18e4681ffeef7203736cdd81b030a63a5ebca0bbfe536f3da55",
+    "bytes": 26801
+  },
+  {
+    "path": "Blizzard_ChatFrameBase/Shared/ChatFrameUtil.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ChatFrameBase/Shared/ChatFrameUtil.lua",
+    "sha256": "6a02ff22782645e4e24072a388f6ceba670a237839f315e6c659e2c55abdaab5",
+    "bytes": 39349
+  },
+  {
+    "path": "Blizzard_ChatFrameBase/Shared/ChatFrame.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ChatFrameBase/Shared/ChatFrame.lua",
+    "sha256": "aa90c07f38d353f7a2c6bc90755e2e620814f87fdade7820b058aaa565a1b184",
+    "bytes": 7275
+  },
+  {
+    "path": "Blizzard_APIDocumentationGenerated/SimpleEditBoxAPIDocumentation.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_APIDocumentationGenerated/SimpleEditBoxAPIDocumentation.lua",
+    "sha256": "aa932f643f66a880c6191043f7597b59d0c9f45df86f229c0322013d533a1aa8",
+    "bytes": 17005
+  },
+  {
+    "path": "Blizzard_APIDocumentationGenerated/ChatConstantsDocumentation.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_APIDocumentationGenerated/ChatConstantsDocumentation.lua",
+    "sha256": "054dbce92640323faefa4f187526a9ce1b62f3e4a4ec7b3e2615e947a231f69e",
+    "bytes": 8855
+  },
+  {
+    "path": "Blizzard_ChatFrameBase/Mainline/ChatFrameEditBox.xml",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ChatFrameBase/Mainline/ChatFrameEditBox.xml",
+    "sha256": "a5b4f11889801d738d21e038cf4c54a2c2dc3251f594b1165a9bdd8c39d892b3",
+    "bytes": 4510
+  },
+  {
+    "path": "Blizzard_ChatFrameBase/Mainline/ChatFrameOverrides.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ChatFrameBase/Mainline/ChatFrameOverrides.lua",
+    "sha256": "28ea920d16ac303fe0952275c3d7b72c9d0e044df53d77c0ddd83c01f41f3de6",
+    "bytes": 29512
+  },
+  {
+    "path": "Blizzard_ChatFrameBase/Camelot/ChatFrameOverrides.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ChatFrameBase/Camelot/ChatFrameOverrides.lua",
+    "sha256": "5b1458cc7a1333dd40991c10105fbf01a957e716445a2235b0fd6f83ff190ac2",
+    "bytes": 142
+  },
+  {
+    "path": "Blizzard_ChatFrameBase/Camelot/ChatFrameUtilOverrides.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ChatFrameBase/Camelot/ChatFrameUtilOverrides.lua",
+    "sha256": "1e62ae31d53328373e43c50929070f5a7ff13fff0d1ec42a46f60dfae2f00e6d",
+    "bytes": 1546
+  },
+  {
+    "path": "Blizzard_ChatFrameBase/Shared/ChatFrameFilters.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ChatFrameBase/Shared/ChatFrameFilters.lua",
+    "sha256": "4aec8d709374dd61dde5feb6a02e7dacfe5df71da21f453a07a5029b9d545ec8",
+    "bytes": 6212
+  },
+  {
+    "path": "Blizzard_ChatFrameBase/Shared/ChatFrameFiltersSecure.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ChatFrameBase/Shared/ChatFrameFiltersSecure.lua",
+    "sha256": "5478fc871b0f8b4c6fbe3eace91b6a4e7fe5b3ddd4cf69cce7726f339083080d",
+    "bytes": 434
+  },
+  {
+    "path": "Blizzard_ChatFrameBase/Shared/ChatFrameConstants.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ChatFrameBase/Shared/ChatFrameConstants.lua",
+    "sha256": "b297d9b857abab78d4bcd41a2a2480a7f29519a72bd1fd90d94b0e8a390e6460",
+    "bytes": 4421
+  },
+  {
+    "path": "Blizzard_ChatFrameBase/Blizzard_ChatFrameBase.toc",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ChatFrameBase/Blizzard_ChatFrameBase.toc",
+    "sha256": "a1529be5e26cb8da84b74dd5060dbd977fc9dd85c0e846e611648db979f664c3",
+    "bytes": 2087
+  },
+  {
+    "path": "Blizzard_DeprecatedChatInfo/Deprecated_ChatFrame.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_DeprecatedChatInfo/Deprecated_ChatFrame.lua",
+    "sha256": "4159e3f1e09cf3bfc8934f76442e047f4a7bd3b72b2df128af99d6eb15194b5f",
+    "bytes": 7810
+  },
+  {
+    "path": "Blizzard_DeprecatedChatInfo/Deprecated_ChatInfo.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_DeprecatedChatInfo/Deprecated_ChatInfo.lua",
+    "sha256": "de70a811ee6e33e74003e374ad0fadd2883f300e7534ae9e7a28851791e1c98d",
+    "bytes": 623
+  },
+  {
+    "path": "Blizzard_FrameXML/ItemRef.lua",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "path": "Blizzard_FrameXML/SetItemRef.lua",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "path": "Blizzard_APIDocumentationGenerated/SimpleFrameAPIDocumentation.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_APIDocumentationGenerated/SimpleFrameAPIDocumentation.lua",
+    "sha256": "c00bc77ee27f8fd81ba8b8d1bfd85fbd0ad817b22457adbe5adca6876a1d604a",
+    "bytes": 33561
+  },
+  {
+    "path": "Blizzard_APIDocumentationGenerated/SimpleFontStringAPIDocumentation.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_APIDocumentationGenerated/SimpleFontStringAPIDocumentation.lua",
+    "sha256": "156e370421081e6a8ec78afdee8e4306686cecc99f0d2163c1b62ce9a5ddbe96",
+    "bytes": 13725
+  },
+  {
+    "path": "Blizzard_APIDocumentationGenerated/NameUtilDocumentation.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_APIDocumentationGenerated/NameUtilDocumentation.lua",
+    "sha256": "bcf55a13a1896f27924715c0da45df888d8206386f313736300248ffedd79286",
+    "bytes": 653
+  },
+  {
+    "path": "Blizzard_APIDocumentationGenerated/UnitDocumentation.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_APIDocumentationGenerated/UnitDocumentation.lua",
+    "sha256": "93004ac1b260127741471b7861360cdf7536afcb18d4c1db73b7259faa43e61c",
+    "bytes": 121174
+  },
+  {
+    "path": "Blizzard_ChatFrameUtil/Blizzard_ChatFrameUtil.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ChatFrameUtil/Blizzard_ChatFrameUtil.lua",
+    "sha256": "814b0ad564388b33d5d457dc8ce1dcc56dbb45f3dd10047e1c4b6a3c1b539e6c",
+    "bytes": 1088
+  },
+  {
+    "path": "Blizzard_FrameXMLUtil/Camelot/NameUtil.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_FrameXMLUtil/Camelot/NameUtil.lua",
+    "sha256": "7962083374911f6435074acf5ea03b34f8768202be8fa3a2d32347ff86a55098",
+    "bytes": 1613
+  },
+  {
+    "path": "Blizzard_FrameXMLUtil/NameUtil.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_FrameXMLUtil/NameUtil.lua",
+    "sha256": "91a1d0516b5cb09e284b7a466085de8019cf9b311f8565d6d9decf11ffef1d1b",
+    "bytes": 2009
+  },
+  {
+    "path": "Blizzard_SharedXML/HelpTip.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_SharedXML/HelpTip.lua",
+    "sha256": "4604af53cb9e157acfd10304cfbc3ae0ff7c98249e340f401717446feaa4106c",
+    "bytes": 23093
+  },
+  {
+    "path": "Blizzard_SharedXML/HelpTip.xml",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_SharedXML/HelpTip.xml",
+    "sha256": "2e050aa67f4272b4fec3bf0f73f7156793692f8f784755fd0d365a8d03701681",
+    "bytes": 1661
+  },
+  {
+    "path": "Blizzard_UIPanels_Game/Mainline/ItemRef.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_UIPanels_Game/Mainline/ItemRef.lua",
+    "sha256": "09d07806ea2d35d5a6ff1712c3db30ca05ad4be143f00267d2aaf9cabf656fed",
+    "bytes": 16711
+  },
+  {
+    "path": "Blizzard_UIPanels_Game/Mainline/ItemRefHandlers.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_UIPanels_Game/Mainline/ItemRefHandlers.lua",
+    "sha256": "ef3653dff4aa4f7bfef21d99de383a72c568f4af2f7c4531b712c0fe76bc6694",
+    "bytes": 13882
+  },
+  {
+    "path": "Blizzard_SharedXML/Mainline/SharedUIPanelTemplates.xml",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_SharedXML/Mainline/SharedUIPanelTemplates.xml",
+    "sha256": "3ef3c573e14f073c779018da4ca92c06a21648081a1067f966e6b92688a53ff9",
+    "bytes": 92846
+  },
+  {
+    "path": "Blizzard_ChatFrameBase/Mainline/ChatFrameUtilOverrides.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ChatFrameBase/Mainline/ChatFrameUtilOverrides.lua",
+    "sha256": "e3b6841717bf9e4cbd62680cc6fe4518be186a34cbb9523ecd094b1a8251ff8e",
+    "bytes": 6513
+  },
+  {
+    "path": "Blizzard_ChatFrameBase/Mainline/ChatFrameEditBoxOverrides.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ChatFrameBase/Mainline/ChatFrameEditBoxOverrides.lua",
+    "sha256": "5277b753e7fe73e9c94ffa41f2840646f5cb1aa18d29f2c8d7cef45f512ccc7d",
+    "bytes": 1886
+  },
+  {
+    "path": "Blizzard_Communities/CommunitiesHyperlink.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_Communities/CommunitiesHyperlink.lua",
+    "sha256": "062558bbf4cf129de86e157fa7591a6d501801663859d8a3170ceeccc87da23e",
+    "bytes": 1482
+  },
+  {
+    "path": "Blizzard_ReportFrameShared/ReportFrameShared.xml",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ReportFrameShared/ReportFrameShared.xml",
+    "sha256": "014fae7a07d25a4fa98772fe2909302778b1c02fc626be9cd5e535485d3905f6",
+    "bytes": 8882
+  },
+  {
+    "path": "Blizzard_RecruitAFriend/RecruitAFriendFrame.xml",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_RecruitAFriend/RecruitAFriendFrame.xml",
+    "sha256": "d570c471c6fadc04a3fa63ff0a0554f3efc0a21becf423c00b5e814f7571f629",
+    "bytes": 34103
+  },
+  {
+    "path": "Blizzard_Communities/CommunitiesChatFrame.xml",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_Communities/CommunitiesChatFrame.xml",
+    "sha256": "99bfb9389db11e5c1007f7bd60374c5c7ab03361cd929f71979d61a062df3e29",
+    "bytes": 3324
+  },
+  {
+    "path": "Blizzard_FrameXMLUtil/Blizzard_FrameXMLUtil.toc",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_FrameXMLUtil/Blizzard_FrameXMLUtil.toc",
+    "sha256": "482d04e8a389f5a9a017901f807f961eda9c5c9d9e7d215145f5c94c5f95ce08",
+    "bytes": 2365
+  },
+  {
+    "path": "Blizzard_UIPanels_Game/Mainline/QuestInfo.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_UIPanels_Game/Mainline/QuestInfo.lua",
+    "sha256": "2397fa46eeb872d751bb167502708ba6da7bf131be38152c9b2e5d386cc2774b",
+    "bytes": 50718
+  },
+  {
+    "path": "Blizzard_UIPanels_Game/Mainline/QuestInfo.xml",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_UIPanels_Game/Mainline/QuestInfo.xml",
+    "sha256": "52d322a20d5cd67bc0fb08eabdd778b37c1aaff0f98c8f4541619a0bca412de7",
+    "bytes": 28177
+  },
+  {
+    "path": "Blizzard_Channels/Mainline/ChannelFrame.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_Channels/Mainline/ChannelFrame.lua",
+    "sha256": "be0ed78e233f67b6dc25b0a041d0a96ac2c6ef7888a29d03cf092393d31fa667",
+    "bytes": 38693
+  },
+  {
+    "path": "Blizzard_APIDocumentationGenerated/PartyInfoDocumentation.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_APIDocumentationGenerated/PartyInfoDocumentation.lua",
+    "sha256": "8bcc5fed8ddc03c06163da0bcd5a70fcc31afbdc53d21dbd3e9300ce7e3f89ef",
+    "bytes": 22815
+  },
+  {
+    "path": "Blizzard_Channels/Mainline/ChannelList.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_Channels/Mainline/ChannelList.lua",
+    "sha256": "9327a0df21db0db74d9ef45f59dfc734df91f8414fa3f36289cb06909bb955c5",
+    "bytes": 15051
+  },
+  {
+    "path": "Blizzard_ChatFrameBase/Mainline/FloatingChatFrame.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ChatFrameBase/Mainline/FloatingChatFrame.lua",
+    "sha256": "c14c237fa92286aca1d98f3de29acd6f48fb9885c0613d160630e246ec1ba7a2",
+    "bytes": 93931
+  },
+  {
+    "path": "Blizzard_ChatFrameBase/Shared/FloatingChatFrame.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ChatFrameBase/Shared/FloatingChatFrame.lua",
+    "sha256": "12a88a9a33936e5c8ecaf39415f69c4b1b1c19b2fb633827e1890d4316423760",
+    "bytes": 1240
+  },
+  {
+    "path": "Blizzard_ChatFrameBase/Shared/FloatingChatFrameGame.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ChatFrameBase/Shared/FloatingChatFrameGame.lua",
+    "sha256": "90dae05c6322128684a1a8fc4d036e9695085eabac33278ec09abedbf423a362",
+    "bytes": 154
+  },
+  {
+    "path": "Blizzard_UIPanelTemplates/Mainline/UIPanelTemplates.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_UIPanelTemplates/Mainline/UIPanelTemplates.lua",
+    "sha256": "b2e6b89d76c3dc4ebc2ba3895a223753190f3c5ff58b2d06547812f6dd923a2e",
+    "bytes": 8799
+  },
+  {
+    "path": "Blizzard_SharedXML/Mainline/SharedUIPanelTemplates.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_SharedXML/Mainline/SharedUIPanelTemplates.lua",
+    "sha256": "12f9600965f41d0c0ace7b2270c7928f0f4d3229d634e881f1daaf5ef1f03e65",
+    "bytes": 71423
+  },
+  {
+    "path": "Blizzard_SharedXML/SecureUIPanelTemplates.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_SharedXML/SecureUIPanelTemplates.lua",
+    "sha256": "56a75519f2851e2cc0e65f0b2226d49759e9729470d998c5166e6300e4f787b2",
+    "bytes": 4311
+  },
+  {
+    "path": "Blizzard_UIPanelTemplates/Mainline/UIPanelTemplates.xml",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_UIPanelTemplates/Mainline/UIPanelTemplates.xml",
+    "sha256": "5ea3c9dd37e269d9b5676294fd044d59700f3fecff7c9ba0c384d28ac6c6b180",
+    "bytes": 60762
+  },
+  {
+    "path": "Blizzard_SharedXML/CommonUIPanelTemplates.xml",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_SharedXML/CommonUIPanelTemplates.xml",
+    "sha256": "295706f57fecc50c12b11a27df25556058220ddd2e92cfac4004ea4c2fae0eda",
+    "bytes": 433
+  },
+  {
+    "path": "Blizzard_SharedXML/Backdrop.xml",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_SharedXML/Backdrop.xml",
+    "sha256": "714370d03094142b4d6711740cc1b437df125231d8f7ab271fe16234d48af7b5",
+    "bytes": 399
+  },
+  {
+    "path": "Blizzard_SharedXML/Backdrop.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_SharedXML/Backdrop.lua",
+    "sha256": "f3e392d8e8fa058cba9c03747ae32626b80e96cd6b34ffd643d34cdc75635618",
+    "bytes": 13290
+  },
+  {
+    "path": "Blizzard_APIDocumentationGenerated/FriendListDocumentation.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_APIDocumentationGenerated/FriendListDocumentation.lua",
+    "sha256": "1009b28bd100f734bb124e38389d9e9c8c034ecf05d5de32e261e803361c4c06",
+    "bytes": 15642
+  },
+  {
+    "path": "Blizzard_APIDocumentationGenerated/PlayerInfoDocumentation.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_APIDocumentationGenerated/PlayerInfoDocumentation.lua",
+    "sha256": "1b48d47177ec5957d0f04160a1ab12aafbbe89da4f142437e0a83e05d4b54311",
+    "bytes": 8140
+  },
+  {
+    "path": "Blizzard_SharedXML/PortraitFrame.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_SharedXML/PortraitFrame.lua",
+    "sha256": "00d463d167ee87b547a8cc8cdf0cf39860ee2c163a8b16caaf43b9decd89c24f",
+    "bytes": 3940
+  },
+  {
+    "path": "Blizzard_FriendsFrame/Camelot/FriendsFrame.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_FriendsFrame/Camelot/FriendsFrame.lua",
+    "sha256": "d02e7da61591fc9443a5a58828a97a9a11b163fa5c4278132958a8499009daef",
+    "bytes": 90062
+  },
+  {
+    "path": "Blizzard_FriendsFrame/Mainline/FriendsFrame.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_FriendsFrame/Mainline/FriendsFrame.lua",
+    "sha256": "d0f8d34d4a477e162d98c8460a2b0f619ec2449bbc4e1cefb28fb71cd6011714",
+    "bytes": 99405
+  },
+  {
+    "path": "Blizzard_FriendsFrame/Mainline/FriendsListTemplates.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_FriendsFrame/Mainline/FriendsListTemplates.lua",
+    "sha256": "dad55d3695dbbf685ecf9efdcceedd65134d15573b51c88d84477e78bf156af6",
+    "bytes": 61348
+  },
+  {
+    "path": "Blizzard_FriendsFrame/Mainline/FriendsListUtil.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_FriendsFrame/Mainline/FriendsListUtil.lua",
+    "sha256": "1572da93c2fdcfa52128f05d236a41977e023c1e61b10f40f9fcd0249c7222a0",
+    "bytes": 20595
+  },
+  {
+    "path": "Blizzard_APIDocumentationGenerated/PaperDollInfoDocumentation.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_APIDocumentationGenerated/PaperDollInfoDocumentation.lua",
+    "sha256": "ff7ec82e6fad2b12ce370b043bed4bc6508128ea3a9e7c6ae88b749579d4b776",
+    "bytes": 11551
+  },
+  {
+    "path": "Blizzard_APIDocumentationGenerated/TextureUtilsDocumentation.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_APIDocumentationGenerated/TextureUtilsDocumentation.lua",
+    "sha256": "78c6540e66386cbc2b866cba0d7f13aa975a04fd21ffe6b12fbb78f8b6014442",
+    "bytes": 5762
+  },
+  {
+    "path": "Blizzard_APIDocumentationGenerated/PlayerScriptDocumentation.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_APIDocumentationGenerated/PlayerScriptDocumentation.lua",
+    "sha256": "61ae4d1471b8ac8696a2a56e335bf6484d2cb3a31b2fa81637430afb58bde9a2",
+    "bytes": 36752
+  },
+  {
+    "path": "Blizzard_APIDocumentationGenerated/PlayerDocumentation.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_APIDocumentationGenerated/PlayerDocumentation.lua",
+    "sha256": "db061985e2cee0f01fd45b935a119ee7b4c509179688e508ee46dc7f6bcfb93a",
+    "bytes": 107
+  },
+  {
+    "path": "Blizzard_APIDocumentationGenerated/UnitSexConstantsDocumentation.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_APIDocumentationGenerated/UnitSexConstantsDocumentation.lua",
+    "sha256": "f970f9aa0a1f79625cf4b22c68e7703ee4b7c3d90be3d0cd9ba5211677041b1e",
+    "bytes": 542
+  },
+  {
+    "path": "Blizzard_APIDocumentationGenerated/PlayerInfoSharedDocumentation.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_APIDocumentationGenerated/PlayerInfoSharedDocumentation.lua",
+    "sha256": "6b1f5bd40076b6a8814c077dd851ef0cebe12373b7f373deb4b5405697238ec4",
+    "bytes": 923
+  },
+  {
+    "path": "Blizzard_FriendsFrame/Camelot/FriendsFrame.xml",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_FriendsFrame/Camelot/FriendsFrame.xml",
+    "sha256": "e109e97e5396d9043c913bda62dce37a06a8f3af9d6e00af8a635c602b77eb48",
+    "bytes": 37311
+  },
+  {
+    "path": "Blizzard_ChatFrameBase/Mainline/ChatEmoteConstants.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ChatFrameBase/Mainline/ChatEmoteConstants.lua",
+    "sha256": "af8483eba1f2145429ec69f70e5a9a8e9f729893f31c440e25ae7ed48725d31b",
+    "bytes": 8555
+  },
+  {
+    "path": "Blizzard_UnitFrame/Camelot/PetFrame.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_UnitFrame/Camelot/PetFrame.lua",
+    "sha256": "fbf347253351cda0f59c47f2b462852249eba90a3ab808e166884310a38fe2e5",
+    "bytes": 799
+  },
+  {
+    "path": "Blizzard_UnitFrame/Mainline/PetFrame.xml",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_UnitFrame/Mainline/PetFrame.xml",
+    "sha256": "23ff44a6eeb5bbdf58e19003646e4018fe1493b3534c8bbda37573f32360c8e0",
+    "bytes": 8170
+  },
+  {
+    "path": "Blizzard_UnitFrame/Mainline/PetFrame.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_UnitFrame/Mainline/PetFrame.lua",
+    "sha256": "ff95e9a05749c1dca99cd43f6b970e55488ada3f810c36f311529b99dc3e1ede",
+    "bytes": 6498
+  },
+  {
+    "path": "Blizzard_FrameXML/PetHappiness.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_FrameXML/PetHappiness.lua",
+    "sha256": "83204d3346c40c94eaf07eb1d2a0fa650292ae0e73542482102ca67dc73c55a8",
+    "bytes": 2966
+  },
+  {
+    "path": "Blizzard_FrameXML/PetHappiness.xml",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_FrameXML/PetHappiness.xml",
+    "sha256": "8ea5a30acdde67e2a37f90e25f9ca1fa2a25b2394c89b7ba2cb3b5284895015d",
+    "bytes": 537
+  },
+  {
+    "path": "Blizzard_ColorPickerFrame/Mainline/ColorPickerFrame.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ColorPickerFrame/Mainline/ColorPickerFrame.lua",
+    "sha256": "a3871ec75b0c39265260a4634b87ef49ac7ff9e25674eaff206ab6c53244b30f",
+    "bytes": 10518
+  },
+  {
+    "path": "Blizzard_ColorPickerFrame/Mainline/ColorPickerFrame.xml",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ColorPickerFrame/Mainline/ColorPickerFrame.xml",
+    "sha256": "109bcbb0472576e90b4b7ec56e66cf1e0a538ffc49073281a006c490a6e9d1d7",
+    "bytes": 8408
+  },
+  {
+    "path": "Blizzard_ColorPickerFrame/Shared/ColorPickerFrame.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ColorPickerFrame/Shared/ColorPickerFrame.lua",
+    "sha256": "5130e7c6480abb0e850dfaf188cb5b1637fc588f2d119d60fabf95d061605cb7",
+    "bytes": 227
+  },
+  {
+    "path": "Blizzard_ColorPickerFrame/Blizzard_ColorPickerFrame.toc",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ColorPickerFrame/Blizzard_ColorPickerFrame.toc",
+    "sha256": "1d8c1a005d0468892bd298f06820d61f36660c472ff35f2c5793ba0d054c1572",
+    "bytes": 217
+  },
+  {
+    "path": "Blizzard_APIDocumentationGenerated/SimpleSliderAPIDocumentation.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_APIDocumentationGenerated/SimpleSliderAPIDocumentation.lua",
+    "sha256": "f988b61cf0b1c777fb6c755e49faf20827a06613649d6f7ae1ec6e99f60fa24b",
+    "bytes": 3746
+  },
+  {
+    "path": "Blizzard_APIDocumentationGenerated/SimpleFrameScriptObjectAPIDocumentation.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_APIDocumentationGenerated/SimpleFrameScriptObjectAPIDocumentation.lua",
+    "sha256": "09c85f7ee160d6f4d39765ba92a93ccd112d9e578b48d6f99b79f65e2ec42b1d",
+    "bytes": 7560
+  },
+  {
+    "path": "Blizzard_APIDocumentationGenerated/SimpleFrameScriptObjectConstantsDocumentation.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_APIDocumentationGenerated/SimpleFrameScriptObjectConstantsDocumentation.lua",
+    "sha256": "b8f47117380e659b09f06bf011109280d86133013cc7d9ba889d8f03fcd27709",
+    "bytes": 3412
+  },
+  {
+    "path": "Blizzard_APIDocumentationGenerated/SimpleScriptRegionAPIDocumentation.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_APIDocumentationGenerated/SimpleScriptRegionAPIDocumentation.lua",
+    "sha256": "3718e5f81b99525819264d2f50e473080541d655978f88ca85582acc4073fd82",
+    "bytes": 15047
+  },
+  {
+    "path": "Blizzard_SharedXML/Shared/Slider/MinimalSlider.xml",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_SharedXML/Shared/Slider/MinimalSlider.xml",
+    "sha256": "ad511a5eb5761179979e11bb2f32cf535c21ee83be7321ad29b7fa5e2f4706f5",
+    "bytes": 3584
+  },
+  {
+    "path": "Blizzard_SharedXML/Shared/Slider/MinimalSlider.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_SharedXML/Shared/Slider/MinimalSlider.lua",
+    "sha256": "c5ce270ea91c02326db936c07fbca5b148ccff2168639cf077523301900456e5",
+    "bytes": 6582
+  },
+  {
+    "path": "Blizzard_FrameXML/DeprecatedTemplates.xml",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_FrameXML/DeprecatedTemplates.xml",
+    "sha256": "6062c9986b29e9d144b422b0963444dbc3626c3bd34a994cf4ab20dd8f3359fc",
+    "bytes": 5844
+  },
+  {
+    "path": "Blizzard_UIPanelTemplates/Camelot/UIPanelTemplatesOverrides.xml",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_UIPanelTemplates/Camelot/UIPanelTemplatesOverrides.xml",
+    "sha256": "ed9c0bdfeddf0f672c93d46c712d5b7e0992dfb031e5d667a8cb0256bc1cb4ff",
+    "bytes": 1819
+  },
+  {
+    "path": "Blizzard_UIPanelTemplates/Mainline/UIPanelTemplatesOverrides.xml",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_UIPanelTemplates/Mainline/UIPanelTemplatesOverrides.xml",
+    "sha256": "4af5df6d3e6685c50c3f39eb37659578aef14ff0e459324744cce6f06260e26e",
+    "bytes": 1845
+  },
+  {
+    "path": "Blizzard_SharedXML/Blizzard_SharedXML.toc",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_SharedXML/Blizzard_SharedXML.toc",
+    "sha256": "533affae69a56106afb238aab68e0d54437a8fb17a54c511ad5d831dd3ae4024",
+    "bytes": 8814
+  },
+  {
+    "path": "Blizzard_UIPanelTemplates/Blizzard_UIPanelTemplates.toc",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_UIPanelTemplates/Blizzard_UIPanelTemplates.toc",
+    "sha256": "7dd3f9c257ef9a86e1ac70292b5f1e76f48b6ac00bb1b7d416f7c24168bfcfca",
+    "bytes": 437
+  }
+]

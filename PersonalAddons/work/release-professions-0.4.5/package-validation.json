@@ -1,0 +1,32 @@
+{
+  "version": "0.4.5",
+  "channel": "trial",
+  "sourceCodeFiles": 11,
+  "archiveFiles": 15,
+  "bytes": 56401,
+  "sha256": "c6861f5b6ad9051a55c97dd83c7d92fb0012623b6bd6d79885dc5921f0ffa81c",
+  "crcPassed": true,
+  "packageBytesMatchSource": true,
+  "privateDataIncluded": false,
+  "simulatedChecks": 1167,
+  "uiChecks": 138,
+  "independentReview": "passed",
+  "newGameTestPerformed": false,
+  "files": {
+    "Core.lua": "ad1dc7c5bda26d47efd3a77c8ed4ae0b2af09ba28d1204c842422479e40464d9",
+    "API.lua": "477b6a1c5d6660ff8661bf09779c2da1157f299da4a6445fe2577c81656a0200",
+    "ItemLinks.lua": "4f80ae78bd5c82e6b9bcda8af711729b052279838055da94a61956a6173f476c",
+    "Trainers.lua": "49fd00450a90b6cfe960fc6555bb166faa3c45ed9f02f276407bc6393fe0aa3c",
+    "TrainerPins.lua": "4e47f9d79858bc9a3dee869e2df69cfd32a2b7e58752537bdcf42efd10208bbf",
+    "GatherResources.lua": "870bb3dfca0a78cbc16a4b6d5d234b9ce3937bf7cf81a05c8c29d837dd14ad45",
+    "GatherSparkles.lua": "2355cbb293044cf710b27567009d2e1276068a52c47e5a6412931a55afde86a0",
+    "GatherScan.lua": "9424ce812ee4839ba6df1e21742eb81565c2396c595253c190b45c77402fcddc",
+    "GatherAlerts.lua": "d1632b6f774eae8a180bf631bece6d6b7cd030335cfcddd492044da8b535046f",
+    "UI.lua": "398b96b68c0d9853804bac13dde404328b934c504e337f2c1f886906162b5a54",
+    "Main.lua": "18b107dc41c589a8dac02868905f8d851a6e5976bf3a62358c1aaacf060220f8",
+    "MyForeverProfessions.toc": "f993644e019c76fd577ac9d49e7c47bbe07f562ddc99df12372b0a37f450d033",
+    "LICENSE.txt": "9919c208f8f2f554730d6ab0dfa0574eec47b3b331a5cdf368d9c0d68939f4e5",
+    "商业技能助手使用说明.md": "03ccb15a0d554aa6d64d99abc12676109728421c254dc21a26f87284104e1ffb",
+    "PROFESSIONS-VALIDATION.md": "60896941413f3e4ad75db6c12dcb259e316d79367acb476a3a9a3120ee75351c"
+  }
+}

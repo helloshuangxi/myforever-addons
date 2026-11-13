@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "changed": [
+    "downloads/MyForeverProfessions-0.4.6-Trial.zip",
+    "downloads/MyForeverProfessions-0.4.6-Trial.zip.sha256",
+    "index.html",
+    "professions/index.html",
+    "professions/latest.json",
+    "professions/releases.json"
+  ],
+  "deleted": [],
+  "oldPackagesUnchanged": true,
+  "chatLatest": "0.9.1",
+  "managerLatest": "0.1.0"
+}

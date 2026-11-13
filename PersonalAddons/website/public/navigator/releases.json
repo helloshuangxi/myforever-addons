@@ -1,0 +1,317 @@
+{
+  "schema_version": 1,
+  "name": "MyForeverNavigator",
+  "latest": "0.4.0",
+  "releases": [
+    {
+      "schema_version": 1,
+      "name": "MyForeverNavigator",
+      "display_name": "我的无限 · 世界向导",
+      "homepage": "https://afabiaoge.xyz/navigator/",
+      "installation": "完整退出游戏，将 MyForeverNavigator 文件夹放入 _forever_/Interface/AddOns/，保留 WTF，然后重新启动游戏。",
+      "automatic_install": false,
+      "version": "0.4.0",
+      "channel": "trial",
+      "published_at": "2026-11-13",
+      "compatibility": {
+        "product": "国服魔兽世界：无限",
+        "client": "1.60.1",
+        "interface": 16001
+      },
+      "changes": [
+        "新增 Questie NPC 扩展目录：启用兼容的 Questie 与 QuestieDB 后，将可定位 NPC 加入既有搜索、分类、收藏与导航；保留 427 点精选底库和原有标识。",
+        "补充商人、旅店、银行、拍卖、兽栏、修理与其他训练师等服务，新增任务与其他 NPC 分类；潜行者训练师归入盗贼，专业与宠物训练师分开。",
+        "分批读取数据库并按 NPC／地图去重，仅接入客户端认可的区域地图与有效坐标；未就绪或读取失败时保留原目录并显示状态。",
+        "同地图多刷新点使用可见参考位置，开始导航后固定所选坐标；目标相位不可见时暂停，只释放自有追踪，保留其他插件的后续更改。",
+        "保留固定小尺寸半透明 HUD、大地图任务导航按钮、任务双击／命令、个人地点与现有离线任务参考。"
+      ],
+      "validation": [
+        "11 个 Lua 文件通过 Lua 5.1 语法，12 组模拟通过：新增 Questie 目录 328 项、端到端 44 项、主界面／HUD 540 项、导航 249 项、任务导航 7083 项、任务 UI 254 项，任务参考累计核验 831039 个返回点。覆盖晚就绪、去重、分批读取、副本别名、相位、多刷新点固定和原生追踪所有权。",
+        "通过本机 Questie 12.8.0 与 QuestieDB 1.1.0 的真实数据库离线接口检查，执行 50 个 DB Lua 文件；治安官杜汉、旅店老板法雷、马迪亚斯·肖尔、伊安·斯托姆可搜索、收藏和读取参考位置，并验证英文别名和潜行者训练师分类。地图 API 使用模型，数量不作为游戏实测覆盖承诺。",
+        "当前客户端停在角色创建页，未登录或重载角色；新增目录显示、物理点击、NPC 站位、真实相位和导航行程尚未游戏实测。覆盖依赖所装数据库、客户端识别地图与角色状态，参考坐标不是实时 NPC 追踪。"
+      ],
+      "package_note": "世界向导源码、离线参考、说明及pfQuest MIT声明；不附送Questie数据库，不含WTF或个人数据",
+      "download": {
+        "url": "https://afabiaoge.xyz/downloads/MyForeverNavigator-0.4.0-Trial.zip",
+        "filename": "MyForeverNavigator-0.4.0-Trial.zip",
+        "size_bytes": 580740,
+        "sha256": "d7f849601b9a2da73873c48e8960e0e95fdac47bf3ad68e132421b055d993b67"
+      }
+    },
+    {
+      "schema_version": 1,
+      "name": "MyForeverNavigator",
+      "display_name": "我的无限 · 世界向导",
+      "homepage": "https://afabiaoge.xyz/navigator/",
+      "installation": "完整退出游戏，将 MyForeverNavigator 文件夹放入 _forever_/Interface/AddOns/，保留 WTF，然后重新启动游戏。",
+      "automatic_install": false,
+      "version": "0.3.3",
+      "channel": "trial",
+      "published_at": "2026-11-09",
+      "compatibility": {
+        "product": "国服魔兽世界：无限",
+        "client": "1.60.1",
+        "interface": 16001
+      },
+      "changes": [
+        "方向浮窗缩为固定300×84，仅显示名称、箭头、方向／短状态、距离和“地图”“关闭”两按钮；到达、跨区或异常时也不展开大框。",
+        "移除浮窗上的区域坐标、到达与交通长说明、原生追踪说明及全部悬停操作提示；资料仍可在主目录和“当前导航”页查看。",
+        "背景改为半透明，文字保持清楚；两个按钮扩大文字空间并居中，避免只显示省略号。名称区可拖动，正文继续穿透场景操作。",
+        "保留八方向、大地图原生“追踪”旁导航、任务双击／命令、收藏及自定义地点。"
+      ],
+      "validation": [
+        "10 个Lua文件通过Lua5.1语法，十组模拟通过；主界面HUD538项，另回归任务UI254、导航249、任务解析与位置上下文7083个断言和任务参考数据。覆盖固定高度、允许元素、透明度、无tooltip、中文按钮几何、方向及地图／停止处理器。",
+        "已在当前角色内重载观察：威尔海姆修士目标16米、已到达状态保持小条，背景透见，地图／关闭中文完整，无坐标或长说明。没有移动角色或改变目标。",
+        "本次未以物理鼠标验证按钮、拖动、实际转向或跨区行程；这些仍以模拟为依据，不能写成全部游戏实测。截图只作本地检查，未公开。"
+      ],
+      "package_note": "独立源码、任务参考、说明与MIT来源；保留旧包，不含角色任务、WTF或个人数据",
+      "download": {
+        "url": "https://afabiaoge.xyz/downloads/MyForeverNavigator-0.3.3-Trial.zip",
+        "filename": "MyForeverNavigator-0.3.3-Trial.zip",
+        "size_bytes": 570598,
+        "sha256": "cef60b3f44b495baa13a8351525ab3ea2d3ad1ac277df4e68a50eda953a24ca9"
+      }
+    },
+    {
+      "schema_version": 1,
+      "name": "MyForeverNavigator",
+      "display_name": "我的无限 · 世界向导",
+      "homepage": "https://afabiaoge.xyz/navigator/",
+      "installation": "完整退出游戏，将 MyForeverNavigator 文件夹放入 _forever_/Interface/AddOns/，保留 WTF，然后重新启动游戏。",
+      "automatic_install": false,
+      "version": "0.3.2",
+      "channel": "trial",
+      "published_at": "2026-11-09",
+      "compatibility": {
+        "product": "国服魔兽世界：无限",
+        "client": "1.60.1",
+        "interface": 16001
+      },
+      "changes": [
+        "导航箭头下新增角色相对的“前方、右前方、右侧、右后方、后方、左后方、左侧、左前方”，随角色转向更新，便于直接判断行进方向。",
+        "强化目标名称、距离、箭头与方向文字；地图、关闭按钮和常规操作信息缩小收淡，操作说明放入标题工具提示，跨区与异常状态继续明确展示。",
+        "到达、跨区、缺少朝向或方向角无效时显示对应状态，不标注虚构的前后左右。",
+        "保留大地图右侧任务详情中原生“追踪”旁的“导航”按钮，任务双击、命令、多目标选择及已有收藏继续可用。"
+      ],
+      "validation": [
+        "10 个 Lua 文件通过 Lua 5.1 语法及十组模拟回归；覆盖角色相对八方向、角度归一化、非法值与非方向状态降级、HUD布局和操作弱化，并回归大地图任务按钮、任务进度、临时目标与原生追踪归属。",
+        "检查时游戏未运行，方向文字与箭头的实机对应、显示层级和物理鼠标操作尚未游戏实测。模拟不能代替真实角色转向与任务行程验证。",
+        "本版不修改427 NPC目录及经典任务参考数据；箭头和距离保持直线参考，不计算道路绕行、楼层或最短路线。"
+      ],
+      "package_note": "独立源码、任务参考、说明与 MIT 来源许可；保留旧包，不含角色任务、WTF 或个人数据",
+      "download": {
+        "url": "https://afabiaoge.xyz/downloads/MyForeverNavigator-0.3.2-Trial.zip",
+        "filename": "MyForeverNavigator-0.3.2-Trial.zip",
+        "size_bytes": 570444,
+        "sha256": "291afa405730ef3db8be628fdd0bbb6cbeaf21c64d5b58441bb014c1b948b716"
+      }
+    },
+    {
+      "schema_version": 1,
+      "name": "MyForeverNavigator",
+      "display_name": "我的无限 · 世界向导",
+      "homepage": "https://afabiaoge.xyz/navigator/",
+      "installation": "完整退出游戏，将 MyForeverNavigator 文件夹放入 _forever_/Interface/AddOns/，保留 WTF，然后重新启动游戏。",
+      "automatic_install": false,
+      "version": "0.3.1",
+      "channel": "trial",
+      "published_at": "2026-11-09",
+      "compatibility": {
+        "product": "国服魔兽世界：无限",
+        "client": "1.60.1",
+        "interface": 16001
+      },
+      "changes": [
+        "大地图右侧当前任务详情底部，在原生“追踪”旁新增“导航”按钮。选中任务后单击即可查询任务 NPC、物品来源、任务地点或完成后的交付位置。",
+        "按钮随任务切换与详情显示刷新，点击时重读当前任务；多个目标继续弹窗选择，无效任务禁用入口。",
+        "底栏四个按钮同排，保留原生放弃、共享、追踪操作。原有任务双击与 /mynav quest 命令继续可用。"
+      ],
+      "validation": [
+        "Lua 5.1 语法与十组模拟检查通过；任务 UI 专项覆盖新按钮的延迟加载、重复初始化、任务切换、点击重读 ID、无效任务、隐藏、战斗补刷及底栏布局，保留原生按钮操作。",
+        "检查时游戏未运行，大地图按钮的实际显示、字体、物理点击与真实任务行程尚未游戏实测；原生结构与模拟核对不能替代游戏验证。",
+        "本版保持 427 NPC / 45 图目录与经典任务参考数据不变；3,817 个任务仅有部分目标或交付位置参考，不承诺全任务目标覆盖，物品位置表示来源而非固定物品或库存。"
+      ],
+      "package_note": "独立源码、任务参考、说明与 MIT 来源许可；保留旧包，不含角色任务、WTF 或个人数据",
+      "download": {
+        "url": "https://afabiaoge.xyz/downloads/MyForeverNavigator-0.3.1-Trial.zip",
+        "filename": "MyForeverNavigator-0.3.1-Trial.zip",
+        "size_bytes": 569000,
+        "sha256": "64175bd964ab862cc73e6f963fda7c82d265cd482bdecec97d7e211e144d8436"
+      }
+    },
+    {
+      "schema_version": 1,
+      "name": "MyForeverNavigator",
+      "display_name": "我的无限 · 世界向导",
+      "homepage": "https://afabiaoge.xyz/navigator/",
+      "installation": "完整退出游戏，将 MyForeverNavigator 文件夹放入 _forever_/Interface/AddOns/，保留 WTF，然后重新启动游戏。",
+      "automatic_install": false,
+      "version": "0.3.0",
+      "channel": "trial",
+      "published_at": "2026-11-08",
+      "compatibility": {
+        "product": "国服魔兽世界：无限",
+        "client": "1.60.1",
+        "interface": 16001
+      },
+      "changes": [
+        "新增原生任务列表双击导航：查询任务 NPC、物品来源、任务物件或要求前往的地点；任务完成后再次双击查询交付地点，也可使用 /mynav quest [任务ID]。",
+        "单一可靠目标直接指引，多个地点或进度不明时用六条分页窗口选择；选择前复核当前进度，目标完成或阶段变化后停止旧指引，避免继续指向已完成目标。",
+        "优先读取客户端任务下一站，辅以 3,817 个经典任务的部分目标或交付参考。物品导航标明掉落、容器或商人来源；没有可靠坐标时显示缺失说明和原生任务地图入口。",
+        "任务临时导航不占个人地点名额，停止或重载后清理；具体候选用精确航点，原生任务下一站用任务级追踪，保留玩家和其他插件后来切换的追踪。",
+        "任务日志普通左键单击稍候区分双击，Shift／其他修饰与右键保持原生即时操作；保留 427 NPC 目录、九职业训练师分类、收藏与自定义地点。"
+      ],
+      "validation": [
+        "10 个 Lua 文件通过 Lua 5.1 语法检查，十组独立模拟通过：导航 249 项、主界面 409 项、任务解析与位置上下文 7,083 个断言、任务 UI 188 项。覆盖跨区地图、进度变化、双击时序、原生首击隐藏、按钮池复用、战斗和追踪归属。",
+        "任务参考有 3,817 个任务至少一处目标或交付位置，其中 3,762 个有交付参考、1,365 个至少一项目标可定位；46 图，57,775 个实体样本与 36 个区域点。累计核验 831,039 个 getter 返回点并检查副本隔离；不代表所有任务或全部目标已覆盖。",
+        "检查时游戏未运行，物理双击、真实任务流程、运行时原生 UI 兼容、目标站位、获取条件与实际行程尚未游戏验证。原生界面源码与模拟核对不能代替游戏实测。"
+      ],
+      "package_note": "独立源码、经典任务参考、说明与 MIT 来源许可；保留旧包，不含角色任务、WTF 或个人数据",
+      "download": {
+        "url": "https://afabiaoge.xyz/downloads/MyForeverNavigator-0.3.0-Trial.zip",
+        "filename": "MyForeverNavigator-0.3.0-Trial.zip",
+        "size_bytes": 566990,
+        "sha256": "62dc08d48a6c82049b206707c578bc9b4cb6b5e365596196ac4497fc2469fa83"
+      }
+    },
+    {
+      "schema_version": 1,
+      "name": "MyForeverNavigator",
+      "display_name": "我的无限 · 世界向导",
+      "homepage": "https://afabiaoge.xyz/navigator/",
+      "installation": "完整退出游戏，将 MyForeverNavigator 文件夹放入 _forever_/Interface/AddOns/，保留 WTF，然后重新启动游戏。",
+      "automatic_install": false,
+      "version": "0.2.2",
+      "channel": "trial",
+      "published_at": "2026-11-08",
+      "compatibility": {
+        "product": "国服魔兽世界：无限",
+        "client": "1.60.1",
+        "interface": 16001
+      },
+      "changes": [
+        "新增独立“职业训练师”分类，放在“全部 NPC”之后，可按战士、圣骑士、猎人、盗贼、牧师、萨满祭司、法师、术士、德鲁伊查找。",
+        "新增 195 位职业训练师，覆盖六座主城、新手地区与部分野外地区；总目录扩展到 427 个 NPC / 45 张地图。保留最近优先、名称排序、阵营与当前区域筛选。",
+        "按精确训练师头衔、功能标志、明确阵营和一致坐标收录；宠物训练师、商业专业训练师及职业任务联系人不混入角色职业训练师分类。",
+        "侧栏位置随用途数量调整，训练师入口、职业细分类、翻页与底部提示互不重叠；三页布局和已有收藏、自定义地点继续保留。"
+      ],
+      "validation": [
+        "7 个 Lua 文件通过 Lua 5.1 语法检查，七组模拟检查通过，其中导航 175 项、UI 409 项；覆盖全部九职业精确数量、双方阵营、中英文搜索、职业分页与侧栏无重叠。原有 232 条点位逐字段与逐行不变，目录两次生成结果字节一致。",
+        "195 个训练师点位由固定公开原表交叉核对；拒绝 40 个缺少功能标志、明确阵营或一致坐标的候选。本次客户端停留启动提示页，新增训练师目录与侧栏尚未完成角色内实测，NPC 站位、训练条件及实际行程仍需核验。",
+        "距离与箭头仍是直线参考；没有新增完整物品／任务库、道路寻路、多点队列或行程 ETA。管理器安装和更新检查使用隔离目录。"
+      ],
+      "package_note": "独立源码、说明、验证与来源许可；保留旧包与现有地点，不含 WTF、SavedVariables 或个人数据",
+      "download": {
+        "url": "https://afabiaoge.xyz/downloads/MyForeverNavigator-0.2.2-Trial.zip",
+        "filename": "MyForeverNavigator-0.2.2-Trial.zip",
+        "size_bytes": 63807,
+        "sha256": "0b3dbc687c00e3cedc35d094e635c6f5bb43d3334bdf947b9d32c0b164bf51c4"
+      }
+    },
+    {
+      "schema_version": 1,
+      "name": "MyForeverNavigator",
+      "display_name": "我的无限 · 世界向导",
+      "homepage": "https://afabiaoge.xyz/navigator/",
+      "installation": "完整退出游戏，将 MyForeverNavigator 文件夹放入 _forever_/Interface/AddOns/，保留 WTF，然后重新启动游戏。",
+      "automatic_install": false,
+      "version": "0.2.1",
+      "channel": "trial",
+      "published_at": "2026-11-08",
+      "compatibility": {
+        "product": "国服魔兽世界：无限",
+        "client": "1.60.1",
+        "interface": 16001
+      },
+      "changes": [
+        "界面分为“找 NPC / 我的地点 / 当前导航”三页，搜索目录、管理收藏和查看当前目标各有独立位置。",
+        "NPC 左侧按声望与军需官、材料商人、特殊 NPC、常用服务分类，再按声望阵营或用途细分；细分类分页显示，保留最近／名称排序。",
+        "阵营与区域筛选、更多资料默认收起；新增地点表单只在“我的地点”中按需展开，减少主界面拥挤。",
+        "收藏／自定义地点使用独立搜索与分页，不再被 NPC 用途、阵营或区域筛选隐藏；当前导航页集中显示目标、距离、追踪状态与停止操作。",
+        "延续原生航点追踪、坐标输入、地图标记导入与紧凑方向框，保留已有收藏、自定义地点和窗口位置。"
+      ],
+      "validation": [
+        "7 个 Lua 文件通过 Lua 5.1 语法检查，七组模拟检查通过，其中导航专项 175 项、UI 274 项，另覆盖全部 232 个内置 NPC 的稳定分类与数据只读。",
+        "已在实际角色内确认三页布局、用途与木喉熊怪细分类、筛选展开、个人地点表单、导航空状态，以及附近目标 89 米显示和原生航点追踪开启。交互通过本地命令调用真实控件处理器完成，非鼠标点击测试；结束后恢复原地图航点与追踪状态。",
+        "物理鼠标点击、箭头朝向、行走到达、地图缩放、跨区行程及全部 NPC 站位仍待实测。目录仍为 232 个 NPC / 45 张地图；尚无完整物品／任务库、道路寻路、多点队列或行程 ETA，距离与箭头为直线参考。"
+      ],
+      "package_note": "独立源码、说明、验证与来源许可；保留旧版本下载，不含 WTF、SavedVariables 或个人地点",
+      "download": {
+        "url": "https://afabiaoge.xyz/downloads/MyForeverNavigator-0.2.1-Trial.zip",
+        "filename": "MyForeverNavigator-0.2.1-Trial.zip",
+        "size_bytes": 52254,
+        "sha256": "3487f3087aca631142ef9d5795ee7901f3ada6ec33a5c7c2895a779f5bda8f72"
+      }
+    },
+    {
+      "schema_version": 1,
+      "name": "MyForeverNavigator",
+      "display_name": "我的无限 · 世界向导",
+      "homepage": "https://afabiaoge.xyz/navigator/",
+      "installation": "完整退出游戏，将 MyForeverNavigator 文件夹放入 _forever_/Interface/AddOns/，保留 WTF，然后重新启动游戏。",
+      "automatic_install": false,
+      "version": "0.2.0",
+      "channel": "trial",
+      "published_at": "2026-11-08",
+      "compatibility": {
+        "product": "国服魔兽世界：无限",
+        "client": "1.60.1",
+        "interface": 16001
+      },
+      "changes": [
+        "搜索结果默认按可靠直线距离最近优先，列表显示米／公里；支持名称排序，未知距离或跨大陆明确标注。",
+        "开始导航即可设置并超级追踪原生地图航点，无需先打开地图；接口不可用、战斗或副本场景诚实回退。停止时只取消仍属于自己的追踪，不删除共享地图标记。",
+        "方向框改为大箭头与独立距离显示，增加地图快捷入口；正常说明放到标题提示，跨区与异常说明完整展示，正文不拦截场景点击。",
+        "新增原生地图标记导入和 /mynav pin；新增当前区域 /mynav way X Y 名称、#地图ID 格式和逗号输入，不抢占其他插件的全局 /way。",
+        "每次开始导航后首次进入目标坐标附近只提醒一次；不默认播放声音、不自动删点或切换下一站。收藏、自定义地点与窗口位置继续保留。"
+      ],
+      "validation": [
+        "6 个 Lua 文件通过 Lua 5.1 语法检查，六组模拟检查通过，其中导航专项 175 项、UI 72 项。覆盖距离排序与只读上下文、原生追踪归属、共享 pin 保护、导入去重、坐标格式、到达去重、紧凑 HUD 与鼠标穿透边界。",
+        "上一版已在真实客户端确认绿色“导”字按钮显示与命令调位。本次客户端尚未进入角色，0.2.0 新功能未完成角色内实测；NPC 站位、箭头朝向、地图缩放与实际行程仍需核验。",
+        "目录仍为 232 个 NPC 点位、45 张地图。没有因本次优化新增完整物品／任务数据库、最近邮箱／银行目录、多点队列、道路寻路或行程 ETA；距离和箭头继续是直线参考。"
+      ],
+      "package_note": "独立源码、说明、验证与来源许可；保留旧版本下载，不含 WTF、SavedVariables 或个人地点",
+      "download": {
+        "url": "https://afabiaoge.xyz/downloads/MyForeverNavigator-0.2.0-Trial.zip",
+        "filename": "MyForeverNavigator-0.2.0-Trial.zip",
+        "size_bytes": 45029,
+        "sha256": "8dd8a2ba352a0edda815b140fe82372750cfc2b7761ea4057db5bf913a02c2e8"
+      }
+    },
+    {
+      "schema_version": 1,
+      "name": "MyForeverNavigator",
+      "display_name": "我的无限 · 世界向导",
+      "homepage": "https://afabiaoge.xyz/navigator/",
+      "installation": "完整退出游戏，将 MyForeverNavigator 文件夹放入 _forever_/Interface/AddOns/，保留 WTF，然后重新启动游戏。",
+      "automatic_install": false,
+      "version": "0.1.2",
+      "channel": "trial",
+      "published_at": "2026-11-08",
+      "compatibility": {
+        "product": "国服魔兽世界：无限",
+        "client": "1.60.1",
+        "interface": 16001
+      },
+      "changes": [
+        "首次公开发布世界向导：内置 232 个 NPC 点位，覆盖 45 张区域与主城地图，包含声望与军需官、材料商人、特殊 NPC 及飞行管理员。",
+        "提供名称、声望、用途与 NPC ID 搜索，以及阵营、区域、收藏和自定义地点筛选。",
+        "提供世界地图标记、直线方向与距离参考；跨大陆显示交通建议，不计算道路绕行或最短路线。",
+        "加入与“聊”“商”同款的绿色“导”字按钮，可拖动保存位置；支持收藏、保存坐标与玩家当前位置。",
+        "通过官网独立版本元数据供支持世界向导的最新版插件管理器下载与检查更新。"
+      ],
+      "validation": [
+        "6 个 Lua 文件通过 Lua 5.1 语法检查；目录、核心搜索与存储、启动命令、地图导航、可选数据源和 UI 六组模拟检查通过，其中地图导航 93 项、UI 42 项。",
+        "已在 macOS 无限 1.60.1（build 70862）的真实客户端画面确认绿色“导”字按钮显示，并通过游戏内命令移动到现有“商”“聊”按钮同侧。未将该操作表述为鼠标拖动或完整导航实测。",
+        "NPC 实际站位、商品与解锁条件、箭头朝向、跨区实际行程、地图缩放标记及完整窗口操作仍待游戏实测。点位来自固定版本公开资料与坐标系核对，不是实时 NPC 追踪。"
+      ],
+      "package_note": "插件源码、使用说明、验证记录与数据来源许可；不含角色配置、聊天数据或个人地点",
+      "download": {
+        "url": "https://afabiaoge.xyz/downloads/MyForeverNavigator-0.1.2-Trial.zip",
+        "filename": "MyForeverNavigator-0.1.2-Trial.zip",
+        "size_bytes": 39076,
+        "sha256": "650f657742b92d3a922cfff3a5aee6731ba03f7a92603fb5cf7a9e5334afbde5"
+      }
+    }
+  ]
+}

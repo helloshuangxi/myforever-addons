@@ -1,0 +1,32 @@
+[
+  {
+    "path": "Blizzard_Channels/Mainline/ChannelFrame.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_Channels/Mainline/ChannelFrame.lua",
+    "sha256": "be0ed78e233f67b6dc25b0a041d0a96ac2c6ef7888a29d03cf092393d31fa667",
+    "bytes": 38693
+  },
+  {
+    "path": "Blizzard_Channels/Mainline/ChannelList.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_Channels/Mainline/ChannelList.lua",
+    "sha256": "9327a0df21db0db74d9ef45f59dfc734df91f8414fa3f36289cb06909bb955c5",
+    "bytes": 15051
+  },
+  {
+    "path": "Blizzard_Channels/Blizzard_Channels.toc",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_Channels/Blizzard_Channels.toc",
+    "sha256": "b035570827da73b41be8c5e833520a3ff73da14bc71d8afcc7252c2e01434ecd",
+    "bytes": 490
+  },
+  {
+    "path": "Blizzard_APIDocumentationGenerated/ChatInfoDocumentation.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_APIDocumentationGenerated/ChatInfoDocumentation.lua",
+    "sha256": "996cf3c4956d7d79716c082fa7bccf06e008fd191f108c85546f9fdec66e1a73",
+    "bytes": 132990
+  },
+  {
+    "path": "Blizzard_APIDocumentationGenerated/ChatSharedDocumentation.lua",
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_APIDocumentationGenerated/ChatSharedDocumentation.lua",
+    "sha256": "3ba4a6d01baca1a62ddf8c627e1aac5d0eab4f0ff27b2654313b3cb05bf58b96",
+    "bytes": 563
+  }
+]

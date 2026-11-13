@@ -1,0 +1,21 @@
+{
+  "started_at": "2026-11-12T09:30:58.961851+00:00",
+  "completed_at": "2026-11-12T09:30:59.652109+00:00",
+  "command": [
+    "/Users/mashuangxi/World of Warcraft/PersonalAddons/work/targets-0.1.46-dotnet/runtime/dotnet",
+    "/Users/mashuangxi/World of Warcraft/PersonalAddons/Manager/artifacts/source/targets-0.2.1/Manager/Tests/bin/Debug/net10.0/MyForeverManager.Tests.dll",
+    "--site-root",
+    "/Users/mashuangxi/World of Warcraft/PersonalAddons/work/targets-0.1.46-site/public",
+    "--targets-zip",
+    "/Users/mashuangxi/World of Warcraft/PersonalAddons/dist/MyForeverTargets-0.1.46-Trial.zip",
+    "--navigator-zip",
+    "/Users/mashuangxi/World of Warcraft/PersonalAddons/work/targets-0.1.46-site/public/downloads/MyForeverNavigator-0.3.3-Trial.zip"
+  ],
+  "runtime": "10.0.15 arm64 official SHA512 checked",
+  "manager_source": "public0.2.1 frozen source",
+  "tests_dll_sha256": "82fd319608af812ee62565e3dcc403f21a57a3d869af80ba86c4cebd2b3476ea",
+  "targets_zip_sha256": "5c5865a8dc8f850bde6b359f5729a7195c48eb49b4ea42c0812002ec521634bf",
+  "exit_code": 0,
+  "result": "RESULT: 68 passed, 0 failed",
+  "scope": "private random fixtures; no HTTPS live flag; no real game installation touched"
+}

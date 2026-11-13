@@ -1,0 +1,59 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "path": "",
+      "status": 200,
+      "bytes": 8991,
+      "sha256": "724f283f9e92f6e52b2f9944334dc66c0be377a12a1534c9a14b80312dc71e93"
+    },
+    {
+      "path": "manager/",
+      "status": 200,
+      "bytes": 10570,
+      "sha256": "5db01ce0afea0085966f3a9bf3b18843fe7016b51bae265779e4f54c447082eb"
+    },
+    {
+      "path": "manager/latest.json",
+      "status": 200,
+      "bytes": 2979,
+      "sha256": "3b81eca5bd5ae776382ef0ea0a6d229a8ccfbc38c7559eb3f2304d9d00ca0f30"
+    },
+    {
+      "path": "manager/releases.json",
+      "status": 200,
+      "bytes": 3273,
+      "sha256": "6c0adfe174df4719fc60ea8362d51ec55ba5c035467818e707f5e5cc9a61f648"
+    },
+    {
+      "path": "latest.json",
+      "status": 200,
+      "bytes": 2124,
+      "sha256": "8dd350d747cf026fce8ee3e49eb928416bb87f48e073f108f292152b4b71e7fa"
+    },
+    {
+      "path": "professions/latest.json",
+      "status": 200,
+      "bytes": 1450,
+      "sha256": "1398e8bb8d3580c633b723af77a378886ed55b7e1e33402588eedc3185d87282"
+    },
+    {
+      "path": "MyForeverManager-0.1.0-Trial-win-x64.zip",
+      "status": 206,
+      "size_bytes": 41644299,
+      "range_matches": true
+    },
+    {
+      "path": "MyForeverManager-0.1.0-Trial-osx-arm64.zip",
+      "status": 206,
+      "size_bytes": 41195262,
+      "range_matches": true
+    },
+    {
+      "path": "MyForeverManager-0.1.0-Trial-osx-x64.zip",
+      "status": 206,
+      "size_bytes": 43681565,
+      "range_matches": true
+    }
+  ]
+}

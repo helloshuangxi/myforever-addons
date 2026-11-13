@@ -1,0 +1,24 @@
+.portal-intro{max-width:1440px;margin:auto;padding:65px var(--gutter) 48px}
+.portal-eyebrow{font-size:var(--small);letter-spacing:.06em;color:var(--muted);margin-bottom:24px}
+.portal-intro h1{font-size:clamp(46px,5vw,72px)}
+.portal-intro .lead{max-width:40em;margin-top:24px}
+.addon-catalog{max-width:1440px;margin:auto;padding:0 var(--gutter) 60px}
+.addon-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px}
+.addon-card{display:flex;flex-direction:column;align-items:flex-start;min-width:0;padding:38px;background:var(--paper);border-top:4px solid var(--accent)}
+.addon-card h2{font-size:clamp(28px,2.5vw,36px);line-height:1.35}
+.addon-code{font-size:var(--small);color:var(--muted);letter-spacing:.02em;margin-top:10px;overflow-wrap:anywhere}
+.addon-description{font-size:var(--body);line-height:1.8;margin-top:24px;max-width:30em}
+.addon-version{font-size:var(--small);color:var(--muted);margin-top:26px;padding-top:22px;border-top:1px solid var(--surface);width:100%}
+.addon-actions{display:flex;flex-wrap:wrap;align-items:center;gap:18px 25px;margin-top:auto;padding-top:24px;width:100%}
+.addon-actions .button{font-size:16px;gap:20px;min-height:54px}
+.addon-actions .text-link{font-size:15px;white-space:nowrap}
+.portal-download-note{font-size:var(--small);color:var(--muted);margin-top:24px}
+.portal-author{max-width:1440px;margin:auto;padding:0 var(--gutter) 70px}
+.portal-author .author-section{margin-top:0;padding:24px;background:var(--surface)}
+.portal-author .author-game-profile{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:1000px){.addon-card{padding:28px}.addon-grid{grid-template-columns:1fr;gap:22px}.addon-actions{display:flex;align-items:flex-start;flex-direction:column}.portal-author .author-game-profile{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:720px){.portal-intro{padding-top:35px;padding-bottom:35px}.portal-intro h1{font-size:40px}.portal-intro .lead{font-size:17px}.portal-intro .lead br{display:none}.addon-grid{grid-template-columns:1fr;gap:24px}.addon-card{padding:25px}.addon-card h2{font-size:30px}.addon-actions{flex-direction:row;align-items:center;gap:16px}.addon-actions .button{width:100%;justify-content:space-between}.addon-actions .text-link{min-height:36px;display:flex;align-items:center}.addon-catalog{padding-bottom:40px}.portal-author{padding-bottom:45px}.portal-author .author-section{padding:20px}.site-header nav{justify-content:flex-start;gap:4px 24px}}
+
+.portal-manager{max-width:1440px;margin:0 auto 60px;padding:32px var(--gutter);display:flex;align-items:center;justify-content:space-between;gap:36px;background:var(--surface)}
+.portal-manager .portal-eyebrow{margin-bottom:12px}.portal-manager h2{font-size:32px}.portal-manager p:last-child{margin-top:15px;font-size:16px;color:var(--muted)}.portal-manager>.button{flex-shrink:0}
+@media(max-width:720px){.portal-manager{margin-bottom:40px;display:block;padding-block:28px}.portal-manager h2{font-size:29px}.portal-manager>.button{margin-top:24px;width:100%}}

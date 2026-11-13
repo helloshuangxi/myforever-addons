@@ -1,0 +1,6825 @@
+{
+  "schemaVersion": 1,
+  "sources": {
+    "pfquest": "104f35678ca39ab1fb78b655f815cc7016f5e0c8",
+    "foreverReference": "aa1d7e7294596cf50a6fd0946dfae0d969cb9623"
+  },
+  "selection": {
+    "exactTitles": {
+      "Warrior Trainer": [
+        "warrior",
+        "Warrior",
+        "战士"
+      ],
+      "Paladin Trainer": [
+        "paladin",
+        "Paladin",
+        "圣骑士"
+      ],
+      "Hunter Trainer": [
+        "hunter",
+        "Hunter",
+        "猎人"
+      ],
+      "Rogue Trainer": [
+        "rogue",
+        "Rogue",
+        "盗贼"
+      ],
+      "Priest Trainer": [
+        "priest",
+        "Priest",
+        "牧师"
+      ],
+      "Shaman Trainer": [
+        "shaman",
+        "Shaman",
+        "萨满祭司"
+      ],
+      "Mage Trainer": [
+        "mage",
+        "Mage",
+        "法师"
+      ],
+      "Warlock Trainer": [
+        "warlock",
+        "Warlock",
+        "术士"
+      ],
+      "Druid Trainer": [
+        "druid",
+        "Druid",
+        "德鲁伊"
+      ]
+    },
+    "requiredNpcFlagsBit": 16,
+    "requireExplicitPfquestFaction": true,
+    "requireFactionAgreement": true,
+    "maximumCoordinateError": 0.65,
+    "coordinateErrorUnit": "sum of map percentage-point X/Y differences"
+  },
+  "summary": {
+    "candidates": 235,
+    "points": 195,
+    "npcs": 195,
+    "maps": 19,
+    "classes": {
+      "warrior": 32,
+      "paladin": 11,
+      "hunter": 29,
+      "rogue": 24,
+      "priest": 28,
+      "shaman": 11,
+      "mage": 24,
+      "warlock": 21,
+      "druid": 15
+    },
+    "factions": {
+      "Horde": 90,
+      "Alliance": 105
+    },
+    "excluded": {
+      "missing_trainer_flag": 36,
+      "missing_pfquest_faction": 2,
+      "no_coordinate_agreement": 2
+    }
+  },
+  "candidates": [
+    {
+      "npcID": 198,
+      "classKey": "mage",
+      "name": "Khelden Bremen",
+      "title": "Mage Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 12,
+          "mapID": 1429,
+          "pfquest": [
+            49.7,
+            39.4
+          ],
+          "converted": [
+            49.7,
+            39.4
+          ],
+          "referenceMinError": 0.04000000000000625
+        }
+      ],
+      "pointIDs": [
+        "npc-198-1429"
+      ]
+    },
+    {
+      "npcID": 328,
+      "classKey": "mage",
+      "name": "Zaldimar Wefhellt",
+      "title": "Mage Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 12,
+          "mapID": 1429,
+          "pfquest": [
+            43.2,
+            66.2
+          ],
+          "converted": [
+            43.2,
+            66.2
+          ],
+          "referenceMinError": 0.060000000000002274
+        }
+      ],
+      "pointIDs": [
+        "npc-328-1429"
+      ]
+    },
+    {
+      "npcID": 373,
+      "classKey": "shaman",
+      "name": "Murak Winterborn",
+      "title": "Shaman Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 375,
+      "classKey": "priest",
+      "name": "Priestess Anetta",
+      "title": "Priest Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 12,
+          "mapID": 1429,
+          "pfquest": [
+            49.8,
+            39.5
+          ],
+          "converted": [
+            49.8,
+            39.5
+          ],
+          "referenceMinError": 0.020000000000003126
+        }
+      ],
+      "pointIDs": [
+        "npc-375-1429"
+      ]
+    },
+    {
+      "npcID": 376,
+      "classKey": "priest",
+      "name": "High Priestess Laurena",
+      "title": "Priest Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1519,
+          "mapID": 1453,
+          "pfquest": [
+            38.6,
+            26.1
+          ],
+          "converted": [
+            49.548255578093304,
+            44.6321237113402
+          ],
+          "referenceMinError": 0.050379289433500674
+        }
+      ],
+      "pointIDs": [
+        "npc-376-1453"
+      ]
+    },
+    {
+      "npcID": 377,
+      "classKey": "priest",
+      "name": "Priestess Josetta",
+      "title": "Priest Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 12,
+          "mapID": 1429,
+          "pfquest": [
+            43.3,
+            65.7
+          ],
+          "converted": [
+            43.3,
+            65.7
+          ],
+          "referenceMinError": 0.03999999999999204
+        }
+      ],
+      "pointIDs": [
+        "npc-377-1429"
+      ]
+    },
+    {
+      "npcID": 459,
+      "classKey": "warlock",
+      "name": "Drusilla La Salle",
+      "title": "Warlock Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 12,
+          "mapID": 1429,
+          "pfquest": [
+            49.9,
+            42.6
+          ],
+          "converted": [
+            49.9,
+            42.6
+          ],
+          "referenceMinError": 0.0799999999999983
+        }
+      ],
+      "pointIDs": [
+        "npc-459-1429"
+      ]
+    },
+    {
+      "npcID": 460,
+      "classKey": "warlock",
+      "name": "Alamar Grimm",
+      "title": "Warlock Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1,
+          "mapID": 1426,
+          "pfquest": [
+            28.6,
+            66.1
+          ],
+          "converted": [
+            28.6,
+            66.1
+          ],
+          "referenceMinError": 0.09000000000000341
+        }
+      ],
+      "pointIDs": [
+        "npc-460-1426"
+      ]
+    },
+    {
+      "npcID": 461,
+      "classKey": "warlock",
+      "name": "Demisette Cloyce",
+      "title": "Warlock Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1519,
+          "mapID": 1453,
+          "pfquest": [
+            25.3,
+            78.2
+          ],
+          "converted": [
+            39.25896551724138,
+            84.9478556701031
+          ],
+          "referenceMinError": 0.031109847138274915
+        }
+      ],
+      "pointIDs": [
+        "npc-461-1453"
+      ]
+    },
+    {
+      "npcID": 542,
+      "classKey": "druid",
+      "name": "Califex of the Deep Wood",
+      "title": "Druid Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 837,
+      "classKey": "priest",
+      "name": "Branstock Khalder",
+      "title": "Priest Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1,
+          "mapID": 1426,
+          "pfquest": [
+            28.6,
+            66.4
+          ],
+          "converted": [
+            28.6,
+            66.4
+          ],
+          "referenceMinError": 0.010000000000005116
+        }
+      ],
+      "pointIDs": [
+        "npc-837-1426"
+      ]
+    },
+    {
+      "npcID": 895,
+      "classKey": "hunter",
+      "name": "Thorgas Grimson",
+      "title": "Hunter Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1,
+          "mapID": 1426,
+          "pfquest": [
+            29.2,
+            67.5
+          ],
+          "converted": [
+            29.2,
+            67.5
+          ],
+          "referenceMinError": 0.06999999999999673
+        }
+      ],
+      "pointIDs": [
+        "npc-895-1426"
+      ]
+    },
+    {
+      "npcID": 906,
+      "classKey": "warlock",
+      "name": "Maximillian Crowe",
+      "title": "Warlock Trainer",
+      "npcFlags": 17,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 12,
+          "mapID": 1429,
+          "pfquest": [
+            44.4,
+            66.2
+          ],
+          "converted": [
+            44.4,
+            66.2
+          ],
+          "referenceMinError": 0.04999999999999005
+        }
+      ],
+      "pointIDs": [
+        "npc-906-1429"
+      ]
+    },
+    {
+      "npcID": 911,
+      "classKey": "warrior",
+      "name": "Llane Beshere",
+      "title": "Warrior Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 12,
+          "mapID": 1429,
+          "pfquest": [
+            50.2,
+            42.3
+          ],
+          "converted": [
+            50.2,
+            42.3
+          ],
+          "referenceMinError": 0.04999999999999716
+        }
+      ],
+      "pointIDs": [
+        "npc-911-1429"
+      ]
+    },
+    {
+      "npcID": 912,
+      "classKey": "warrior",
+      "name": "Thran Khorman",
+      "title": "Warrior Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1,
+          "mapID": 1426,
+          "pfquest": [
+            28.8,
+            67.2
+          ],
+          "converted": [
+            28.8,
+            67.2
+          ],
+          "referenceMinError": 0.06999999999998963
+        }
+      ],
+      "pointIDs": [
+        "npc-912-1426"
+      ]
+    },
+    {
+      "npcID": 913,
+      "classKey": "warrior",
+      "name": "Lyria Du Lac",
+      "title": "Warrior Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 12,
+          "mapID": 1429,
+          "pfquest": [
+            41.1,
+            65.8
+          ],
+          "converted": [
+            41.1,
+            65.8
+          ],
+          "referenceMinError": 0.03999999999999915
+        }
+      ],
+      "pointIDs": [
+        "npc-913-1429"
+      ]
+    },
+    {
+      "npcID": 914,
+      "classKey": "warrior",
+      "name": "Ander Germaine",
+      "title": "Warrior Trainer",
+      "npcFlags": 17,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1519,
+          "mapID": 1453,
+          "pfquest": [
+            78.2,
+            47.6
+          ],
+          "converted": [
+            80.1840365111562,
+            61.26913402061855
+          ],
+          "referenceMinError": 0.01509750946235755
+        }
+      ],
+      "pointIDs": [
+        "npc-914-1453"
+      ]
+    },
+    {
+      "npcID": 915,
+      "classKey": "rogue",
+      "name": "Jorik Kerridan",
+      "title": "Rogue Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 12,
+          "mapID": 1429,
+          "pfquest": [
+            50.3,
+            39.9
+          ],
+          "converted": [
+            50.3,
+            39.9
+          ],
+          "referenceMinError": 0.030000000000008242
+        }
+      ],
+      "pointIDs": [
+        "npc-915-1429"
+      ]
+    },
+    {
+      "npcID": 916,
+      "classKey": "rogue",
+      "name": "Solm Hargrin",
+      "title": "Rogue Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1,
+          "mapID": 1426,
+          "pfquest": [
+            28.4,
+            67.5
+          ],
+          "converted": [
+            28.4,
+            67.5
+          ],
+          "referenceMinError": 0.0400000000000027
+        }
+      ],
+      "pointIDs": [
+        "npc-916-1426"
+      ]
+    },
+    {
+      "npcID": 917,
+      "classKey": "rogue",
+      "name": "Keryn Sylvius",
+      "title": "Rogue Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 12,
+          "mapID": 1429,
+          "pfquest": [
+            43.9,
+            65.9
+          ],
+          "converted": [
+            43.9,
+            65.9
+          ],
+          "referenceMinError": 0.06999999999999318
+        }
+      ],
+      "pointIDs": [
+        "npc-917-1429"
+      ]
+    },
+    {
+      "npcID": 918,
+      "classKey": "rogue",
+      "name": "Osborne the Night Man",
+      "title": "Rogue Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1519,
+          "mapID": 1453,
+          "pfquest": [
+            74.6,
+            52.8
+          ],
+          "converted": [
+            77.39896551724138,
+            65.29296907216495
+          ],
+          "referenceMinError": 0.0480654105936793
+        }
+      ],
+      "pointIDs": [
+        "npc-918-1453"
+      ]
+    },
+    {
+      "npcID": 925,
+      "classKey": "paladin",
+      "name": "Brother Sammuel",
+      "title": "Paladin Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 12,
+          "mapID": 1429,
+          "pfquest": [
+            50.4,
+            42.1
+          ],
+          "converted": [
+            50.4,
+            42.1
+          ],
+          "referenceMinError": 0.04999999999999716
+        }
+      ],
+      "pointIDs": [
+        "npc-925-1429"
+      ]
+    },
+    {
+      "npcID": 926,
+      "classKey": "paladin",
+      "name": "Bromos Grummner",
+      "title": "Paladin Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1,
+          "mapID": 1426,
+          "pfquest": [
+            28.8,
+            68.3
+          ],
+          "converted": [
+            28.8,
+            68.3
+          ],
+          "referenceMinError": 0.05999999999999872
+        }
+      ],
+      "pointIDs": [
+        "npc-926-1426"
+      ]
+    },
+    {
+      "npcID": 927,
+      "classKey": "paladin",
+      "name": "Brother Wilhelm",
+      "title": "Paladin Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 12,
+          "mapID": 1429,
+          "pfquest": [
+            41.1,
+            66.0
+          ],
+          "converted": [
+            41.1,
+            66.0
+          ],
+          "referenceMinError": 0.04000000000000625
+        }
+      ],
+      "pointIDs": [
+        "npc-927-1429"
+      ]
+    },
+    {
+      "npcID": 928,
+      "classKey": "paladin",
+      "name": "Lord Grayson Shadowbreaker",
+      "title": "Paladin Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1519,
+          "mapID": 1453,
+          "pfquest": [
+            37.2,
+            33.3
+          ],
+          "converted": [
+            48.465172413793105,
+            50.203587628865975
+          ],
+          "referenceMinError": 0.05158478492712959
+        }
+      ],
+      "pointIDs": [
+        "npc-928-1453"
+      ]
+    },
+    {
+      "npcID": 944,
+      "classKey": "mage",
+      "name": "Marryk Nurribit",
+      "title": "Mage Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1,
+          "mapID": 1426,
+          "pfquest": [
+            28.7,
+            66.4
+          ],
+          "converted": [
+            28.7,
+            66.4
+          ],
+          "referenceMinError": 0.0400000000000027
+        }
+      ],
+      "pointIDs": [
+        "npc-944-1426"
+      ]
+    },
+    {
+      "npcID": 985,
+      "classKey": "warrior",
+      "name": "Malosh",
+      "title": "Warrior Trainer",
+      "npcFlags": 17,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 8,
+          "mapID": 1435,
+          "pfquest": [
+            44.9,
+            57.6
+          ],
+          "converted": [
+            44.9,
+            57.6
+          ],
+          "referenceMinError": 0.02999999999999403
+        }
+      ],
+      "pointIDs": [
+        "npc-985-1435"
+      ]
+    },
+    {
+      "npcID": 986,
+      "classKey": "shaman",
+      "name": "Haromm",
+      "title": "Shaman Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 8,
+          "mapID": 1435,
+          "pfquest": [
+            48.2,
+            57.9
+          ],
+          "converted": [
+            48.2,
+            57.9
+          ],
+          "referenceMinError": 0.05000000000000426
+        }
+      ],
+      "pointIDs": [
+        "npc-986-1435"
+      ]
+    },
+    {
+      "npcID": 987,
+      "classKey": "hunter",
+      "name": "Ogromm",
+      "title": "Hunter Trainer",
+      "npcFlags": 17,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 8,
+          "mapID": 1435,
+          "pfquest": [
+            47.3,
+            53.4
+          ],
+          "converted": [
+            47.3,
+            53.4
+          ],
+          "referenceMinError": 0.07000000000000028
+        }
+      ],
+      "pointIDs": [
+        "npc-987-1435"
+      ]
+    },
+    {
+      "npcID": 988,
+      "classKey": "warlock",
+      "name": "Kartosh",
+      "title": "Warlock Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 8,
+          "mapID": 1435,
+          "pfquest": [
+            48.7,
+            55.6
+          ],
+          "converted": [
+            48.7,
+            55.6
+          ],
+          "referenceMinError": 0.09000000000000341
+        }
+      ],
+      "pointIDs": [
+        "npc-988-1435"
+      ]
+    },
+    {
+      "npcID": 1226,
+      "classKey": "priest",
+      "name": "Maxan Anvol",
+      "title": "Priest Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1,
+          "mapID": 1426,
+          "pfquest": [
+            47.3,
+            52.2
+          ],
+          "converted": [
+            47.3,
+            52.2
+          ],
+          "referenceMinError": 0.05000000000001137
+        }
+      ],
+      "pointIDs": [
+        "npc-1226-1426"
+      ]
+    },
+    {
+      "npcID": 1228,
+      "classKey": "mage",
+      "name": "Magis Sparkmantle",
+      "title": "Mage Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1,
+          "mapID": 1426,
+          "pfquest": [
+            47.5,
+            52.1
+          ],
+          "converted": [
+            47.5,
+            52.1
+          ],
+          "referenceMinError": 0.020000000000003126
+        }
+      ],
+      "pointIDs": [
+        "npc-1228-1426"
+      ]
+    },
+    {
+      "npcID": 1229,
+      "classKey": "warrior",
+      "name": "Granis Swiftaxe",
+      "title": "Warrior Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1,
+          "mapID": 1426,
+          "pfquest": [
+            47.4,
+            52.6
+          ],
+          "converted": [
+            47.4,
+            52.6
+          ],
+          "referenceMinError": 0.0899999999999963
+        }
+      ],
+      "pointIDs": [
+        "npc-1229-1426"
+      ]
+    },
+    {
+      "npcID": 1231,
+      "classKey": "hunter",
+      "name": "Grif Wildheart",
+      "title": "Hunter Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1,
+          "mapID": 1426,
+          "pfquest": [
+            45.8,
+            53.0
+          ],
+          "converted": [
+            45.8,
+            53.0
+          ],
+          "referenceMinError": 0.05000000000000426
+        }
+      ],
+      "pointIDs": [
+        "npc-1231-1426"
+      ]
+    },
+    {
+      "npcID": 1232,
+      "classKey": "paladin",
+      "name": "Azar Stronghammer",
+      "title": "Paladin Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1,
+          "mapID": 1426,
+          "pfquest": [
+            47.6,
+            52.1
+          ],
+          "converted": [
+            47.6,
+            52.1
+          ],
+          "referenceMinError": 0.030000000000001137
+        }
+      ],
+      "pointIDs": [
+        "npc-1232-1426"
+      ]
+    },
+    {
+      "npcID": 1234,
+      "classKey": "rogue",
+      "name": "Hogral Bakkan",
+      "title": "Rogue Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1,
+          "mapID": 1426,
+          "pfquest": [
+            47.6,
+            52.6
+          ],
+          "converted": [
+            47.6,
+            52.6
+          ],
+          "referenceMinError": 0.04999999999999716
+        }
+      ],
+      "pointIDs": [
+        "npc-1234-1426"
+      ]
+    },
+    {
+      "npcID": 1403,
+      "classKey": "warrior",
+      "name": "Mogwah",
+      "title": "Warrior Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 1404,
+      "classKey": "hunter",
+      "name": "Kragg",
+      "title": "Hunter Trainer",
+      "npcFlags": 17,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 33,
+          "mapID": 1434,
+          "pfquest": [
+            31.2,
+            28.7
+          ],
+          "converted": [
+            31.2,
+            28.7
+          ],
+          "referenceMinError": 0.05000000000000071
+        }
+      ],
+      "pointIDs": [
+        "npc-1404-1434"
+      ]
+    },
+    {
+      "npcID": 1406,
+      "classKey": "shaman",
+      "name": "Ghok",
+      "title": "Shaman Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 1408,
+      "classKey": "warlock",
+      "name": "Thragg",
+      "title": "Warlock Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 1409,
+      "classKey": "druid",
+      "name": "Moorah Stormhoof",
+      "title": "Druid Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 1410,
+      "classKey": "priest",
+      "name": "Loranna Dawnfyre UNUSED (Reuse me)",
+      "title": "Priest Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "AH",
+      "referenceFaction": null,
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 1411,
+      "classKey": "rogue",
+      "name": "Ian Strom",
+      "title": "Rogue Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": null,
+      "referenceFaction": "AH",
+      "status": "excluded",
+      "reason": "missing_pfquest_faction"
+    },
+    {
+      "npcID": 1901,
+      "classKey": "warrior",
+      "name": "Kelstrum Stonebreaker",
+      "title": "Warrior Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1537,
+          "mapID": 1455,
+          "pfquest": [
+            67.0,
+            90.1
+          ],
+          "converted": [
+            67.0,
+            90.1
+          ],
+          "referenceMinError": 0.0800000000000125
+        }
+      ],
+      "pointIDs": [
+        "npc-1901-1455"
+      ]
+    },
+    {
+      "npcID": 2119,
+      "classKey": "warrior",
+      "name": "Dannal Stern",
+      "title": "Warrior Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 85,
+          "mapID": 1420,
+          "pfquest": [
+            32.7,
+            65.6
+          ],
+          "converted": [
+            32.7,
+            65.6
+          ],
+          "referenceMinError": 0.04999999999999716
+        }
+      ],
+      "pointIDs": [
+        "npc-2119-1420"
+      ]
+    },
+    {
+      "npcID": 2122,
+      "classKey": "rogue",
+      "name": "David Trias",
+      "title": "Rogue Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 85,
+          "mapID": 1420,
+          "pfquest": [
+            32.5,
+            65.7
+          ],
+          "converted": [
+            32.5,
+            65.7
+          ],
+          "referenceMinError": 0.0799999999999983
+        }
+      ],
+      "pointIDs": [
+        "npc-2122-1420"
+      ]
+    },
+    {
+      "npcID": 2123,
+      "classKey": "priest",
+      "name": "Dark Cleric Duesten",
+      "title": "Priest Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 85,
+          "mapID": 1420,
+          "pfquest": [
+            31.1,
+            66.0
+          ],
+          "converted": [
+            31.1,
+            66.0
+          ],
+          "referenceMinError": 0.03999999999999915
+        }
+      ],
+      "pointIDs": [
+        "npc-2123-1420"
+      ]
+    },
+    {
+      "npcID": 2124,
+      "classKey": "mage",
+      "name": "Isabella",
+      "title": "Mage Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 85,
+          "mapID": 1420,
+          "pfquest": [
+            30.9,
+            66.1
+          ],
+          "converted": [
+            30.9,
+            66.1
+          ],
+          "referenceMinError": 0.06999999999999318
+        }
+      ],
+      "pointIDs": [
+        "npc-2124-1420"
+      ]
+    },
+    {
+      "npcID": 2126,
+      "classKey": "warlock",
+      "name": "Maximillion",
+      "title": "Warlock Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 85,
+          "mapID": 1420,
+          "pfquest": [
+            30.9,
+            66.3
+          ],
+          "converted": [
+            30.9,
+            66.3
+          ],
+          "referenceMinError": 0.050000000000007816
+        }
+      ],
+      "pointIDs": [
+        "npc-2126-1420"
+      ]
+    },
+    {
+      "npcID": 2127,
+      "classKey": "warlock",
+      "name": "Rupert Boch",
+      "title": "Warlock Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 85,
+          "mapID": 1420,
+          "pfquest": [
+            61.6,
+            52.4
+          ],
+          "converted": [
+            61.6,
+            52.4
+          ],
+          "referenceMinError": 0.00999999999999801
+        }
+      ],
+      "pointIDs": [
+        "npc-2127-1420"
+      ]
+    },
+    {
+      "npcID": 2128,
+      "classKey": "mage",
+      "name": "Cain Firesong",
+      "title": "Mage Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 85,
+          "mapID": 1420,
+          "pfquest": [
+            62.0,
+            52.5
+          ],
+          "converted": [
+            62.0,
+            52.5
+          ],
+          "referenceMinError": 0.060000000000002274
+        }
+      ],
+      "pointIDs": [
+        "npc-2128-1420"
+      ]
+    },
+    {
+      "npcID": 2129,
+      "classKey": "priest",
+      "name": "Dark Cleric Beryl",
+      "title": "Priest Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 85,
+          "mapID": 1420,
+          "pfquest": [
+            61.6,
+            52.2
+          ],
+          "converted": [
+            61.6,
+            52.2
+          ],
+          "referenceMinError": 0.04000000000000625
+        }
+      ],
+      "pointIDs": [
+        "npc-2129-1420"
+      ]
+    },
+    {
+      "npcID": 2130,
+      "classKey": "rogue",
+      "name": "Marion Call",
+      "title": "Rogue Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 85,
+          "mapID": 1420,
+          "pfquest": [
+            61.8,
+            52.0
+          ],
+          "converted": [
+            61.8,
+            52.0
+          ],
+          "referenceMinError": 0.04999999999999716
+        }
+      ],
+      "pointIDs": [
+        "npc-2130-1420"
+      ]
+    },
+    {
+      "npcID": 2131,
+      "classKey": "warrior",
+      "name": "Austil de Mon",
+      "title": "Warrior Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 85,
+          "mapID": 1420,
+          "pfquest": [
+            61.9,
+            52.5
+          ],
+          "converted": [
+            61.9,
+            52.5
+          ],
+          "referenceMinError": 0.0899999999999963
+        }
+      ],
+      "pointIDs": [
+        "npc-2131-1420"
+      ]
+    },
+    {
+      "npcID": 2217,
+      "classKey": "druid",
+      "name": "Undead Druid Trainer",
+      "title": "Druid Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 2218,
+      "classKey": "hunter",
+      "name": "Undead Hunter Trainer",
+      "title": "Hunter Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 2219,
+      "classKey": "shaman",
+      "name": "Undead Shaman Trainer",
+      "title": "Shaman Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 3030,
+      "classKey": "shaman",
+      "name": "Siln Skychaser",
+      "title": "Shaman Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 215,
+          "mapID": 1412,
+          "pfquest": [
+            34.4,
+            21.1
+          ],
+          "converted": [
+            35.723682071031234,
+            30.788714159760186
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 405,
+          "mapID": 1443,
+          "pfquest": [
+            88.0,
+            48.3
+          ],
+          "converted": [
+            88.0,
+            48.3
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1638,
+          "mapID": 1456,
+          "pfquest": [
+            22.8,
+            21.1
+          ],
+          "converted": [
+            22.8,
+            21.1
+          ],
+          "referenceMinError": 0.029999999999997584
+        }
+      ],
+      "pointIDs": [
+        "npc-3030-1456"
+      ]
+    },
+    {
+      "npcID": 3031,
+      "classKey": "shaman",
+      "name": "Tigor Skychaser",
+      "title": "Shaman Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 215,
+          "mapID": 1412,
+          "pfquest": [
+            34.6,
+            20.7
+          ],
+          "converted": [
+            35.89058408215661,
+            30.454977076353376
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 405,
+          "mapID": 1443,
+          "pfquest": [
+            88.2,
+            47.8
+          ],
+          "converted": [
+            88.2,
+            47.8
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1638,
+          "mapID": 1456,
+          "pfquest": [
+            23.6,
+            18.8
+          ],
+          "converted": [
+            23.6,
+            18.8
+          ],
+          "referenceMinError": 0.05000000000000071
+        }
+      ],
+      "pointIDs": [
+        "npc-3031-1456"
+      ]
+    },
+    {
+      "npcID": 3032,
+      "classKey": "shaman",
+      "name": "Beram Skychaser",
+      "title": "Shaman Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 215,
+          "mapID": 1412,
+          "pfquest": [
+            34.3,
+            20.7
+          ],
+          "converted": [
+            35.64023106546854,
+            30.454977076353376
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 405,
+          "mapID": 1443,
+          "pfquest": [
+            87.8,
+            47.8
+          ],
+          "converted": [
+            87.8,
+            47.8
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1638,
+          "mapID": 1456,
+          "pfquest": [
+            22.0,
+            18.8
+          ],
+          "converted": [
+            22.0,
+            18.8
+          ],
+          "referenceMinError": 0.010000000000001563
+        }
+      ],
+      "pointIDs": [
+        "npc-3032-1456"
+      ]
+    },
+    {
+      "npcID": 3033,
+      "classKey": "druid",
+      "name": "Turak Runetotem",
+      "title": "Druid Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 215,
+          "mapID": 1412,
+          "pfquest": [
+            45.3,
+            22.4
+          ],
+          "converted": [
+            44.81984167736414,
+            31.873359680832305
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1638,
+          "mapID": 1456,
+          "pfquest": [
+            76.5,
+            27.2
+          ],
+          "converted": [
+            76.5,
+            27.2
+          ],
+          "referenceMinError": 0.039999999999995595
+        }
+      ],
+      "pointIDs": [
+        "npc-3033-1456"
+      ]
+    },
+    {
+      "npcID": 3034,
+      "classKey": "druid",
+      "name": "Sheal Runetotem",
+      "title": "Druid Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 215,
+          "mapID": 1412,
+          "pfquest": [
+            45.5,
+            22.3
+          ],
+          "converted": [
+            44.98674368848951,
+            31.789925409980604
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1638,
+          "mapID": 1456,
+          "pfquest": [
+            77.1,
+            27.0
+          ],
+          "converted": [
+            77.1,
+            27.0
+          ],
+          "referenceMinError": 0.060000000000005826
+        }
+      ],
+      "pointIDs": [
+        "npc-3034-1456"
+      ]
+    },
+    {
+      "npcID": 3036,
+      "classKey": "druid",
+      "name": "Kym Wildmane",
+      "title": "Druid Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 215,
+          "mapID": 1412,
+          "pfquest": [
+            45.5,
+            22.9
+          ],
+          "converted": [
+            44.98674368848951,
+            32.29053103509081
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1638,
+          "mapID": 1456,
+          "pfquest": [
+            77.1,
+            29.8
+          ],
+          "converted": [
+            77.1,
+            29.8
+          ],
+          "referenceMinError": 0.07000000000001094
+        }
+      ],
+      "pointIDs": [
+        "npc-3036-1456"
+      ]
+    },
+    {
+      "npcID": 3038,
+      "classKey": "hunter",
+      "name": "Kary Thunderhorn",
+      "title": "Hunter Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 215,
+          "mapID": 1412,
+          "pfquest": [
+            41.7,
+            34.8
+          ],
+          "converted": [
+            41.815605477107404,
+            42.2192092664433
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1638,
+          "mapID": 1456,
+          "pfquest": [
+            58.5,
+            88.3
+          ],
+          "converted": [
+            58.5,
+            88.3
+          ],
+          "referenceMinError": 0.03999999999999915
+        }
+      ],
+      "pointIDs": [
+        "npc-3038-1456"
+      ]
+    },
+    {
+      "npcID": 3039,
+      "classKey": "hunter",
+      "name": "Holt Thunderhorn",
+      "title": "Hunter Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 215,
+          "mapID": 1412,
+          "pfquest": [
+            41.4,
+            35.1
+          ],
+          "converted": [
+            41.56525246041934,
+            42.46951207899841
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1638,
+          "mapID": 1456,
+          "pfquest": [
+            57.3,
+            89.8
+          ],
+          "converted": [
+            57.3,
+            89.8
+          ],
+          "referenceMinError": 0.009999999999990905
+        }
+      ],
+      "pointIDs": [
+        "npc-3039-1456"
+      ]
+    },
+    {
+      "npcID": 3040,
+      "classKey": "hunter",
+      "name": "Urek Thunderhorn",
+      "title": "Hunter Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 215,
+          "mapID": 1412,
+          "pfquest": [
+            41.8,
+            34.5
+          ],
+          "converted": [
+            41.89905648267008,
+            41.9689064538882
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1638,
+          "mapID": 1456,
+          "pfquest": [
+            59.1,
+            86.9
+          ],
+          "converted": [
+            59.1,
+            86.9
+          ],
+          "referenceMinError": 0.060000000000002274
+        }
+      ],
+      "pointIDs": [
+        "npc-3040-1456"
+      ]
+    },
+    {
+      "npcID": 3041,
+      "classKey": "warrior",
+      "name": "Torm Ragetotem",
+      "title": "Warrior Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 215,
+          "mapID": 1412,
+          "pfquest": [
+            41.4,
+            34.6
+          ],
+          "converted": [
+            41.56525246041934,
+            42.052340724739906
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1638,
+          "mapID": 1456,
+          "pfquest": [
+            57.2,
+            87.4
+          ],
+          "converted": [
+            57.2,
+            87.4
+          ],
+          "referenceMinError": 0.07000000000000028
+        }
+      ],
+      "pointIDs": [
+        "npc-3041-1456"
+      ]
+    },
+    {
+      "npcID": 3042,
+      "classKey": "warrior",
+      "name": "Sark Ragetotem",
+      "title": "Warrior Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 215,
+          "mapID": 1412,
+          "pfquest": [
+            41.4,
+            35.0
+          ],
+          "converted": [
+            41.56525246041934,
+            42.38607780814671
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1638,
+          "mapID": 1456,
+          "pfquest": [
+            57.0,
+            89.5
+          ],
+          "converted": [
+            57.0,
+            89.5
+          ],
+          "referenceMinError": 0.020000000000003126
+        }
+      ],
+      "pointIDs": [
+        "npc-3042-1456"
+      ]
+    },
+    {
+      "npcID": 3043,
+      "classKey": "warrior",
+      "name": "Ker Ragetotem",
+      "title": "Warrior Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 215,
+          "mapID": 1412,
+          "pfquest": [
+            41.5,
+            34.2
+          ],
+          "converted": [
+            41.648703465982024,
+            41.718603641333104
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1638,
+          "mapID": 1456,
+          "pfquest": [
+            57.6,
+            85.5
+          ],
+          "converted": [
+            57.6,
+            85.5
+          ],
+          "referenceMinError": 0.020000000000003126
+        }
+      ],
+      "pointIDs": [
+        "npc-3043-1456"
+      ]
+    },
+    {
+      "npcID": 3044,
+      "classKey": "priest",
+      "name": "Miles Welsh",
+      "title": "Priest Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 215,
+          "mapID": 1412,
+          "pfquest": [
+            34.9,
+            20.0
+          ],
+          "converted": [
+            36.14093709884467,
+            29.870937180391465
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 405,
+          "mapID": 1443,
+          "pfquest": [
+            88.5,
+            47.0
+          ],
+          "converted": [
+            88.5,
+            47.0
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1638,
+          "mapID": 1456,
+          "pfquest": [
+            25.3,
+            15.3
+          ],
+          "converted": [
+            25.3,
+            15.3
+          ],
+          "referenceMinError": 0.05000000000000071
+        }
+      ],
+      "pointIDs": [
+        "npc-3044-1456"
+      ]
+    },
+    {
+      "npcID": 3045,
+      "classKey": "priest",
+      "name": "Malakai Cross",
+      "title": "Priest Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 215,
+          "mapID": 1412,
+          "pfquest": [
+            34.8,
+            21.4
+          ],
+          "converted": [
+            36.05748609328198,
+            31.039016972315288
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 405,
+          "mapID": 1443,
+          "pfquest": [
+            88.4,
+            48.7
+          ],
+          "converted": [
+            88.4,
+            48.7
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1638,
+          "mapID": 1456,
+          "pfquest": [
+            24.6,
+            22.6
+          ],
+          "converted": [
+            24.6,
+            22.6
+          ],
+          "referenceMinError": 0.07000000000000384
+        }
+      ],
+      "pointIDs": [
+        "npc-3045-1456"
+      ]
+    },
+    {
+      "npcID": 3046,
+      "classKey": "priest",
+      "name": "Father Cobb",
+      "title": "Priest Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 215,
+          "mapID": 1412,
+          "pfquest": [
+            35.0,
+            21.1
+          ],
+          "converted": [
+            36.22438810440735,
+            30.788714159760186
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 405,
+          "mapID": 1443,
+          "pfquest": [
+            88.6,
+            48.2
+          ],
+          "converted": [
+            88.6,
+            48.2
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1638,
+          "mapID": 1456,
+          "pfquest": [
+            25.6,
+            20.7
+          ],
+          "converted": [
+            25.6,
+            20.7
+          ],
+          "referenceMinError": 0.03999999999999915
+        }
+      ],
+      "pointIDs": [
+        "npc-3046-1456"
+      ]
+    },
+    {
+      "npcID": 3047,
+      "classKey": "mage",
+      "name": "Archmage Shymm",
+      "title": "Mage Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 215,
+          "mapID": 1412,
+          "pfquest": [
+            34.4,
+            19.8
+          ],
+          "converted": [
+            35.723682071031234,
+            29.704068638688064
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 405,
+          "mapID": 1443,
+          "pfquest": [
+            88.0,
+            46.8
+          ],
+          "converted": [
+            88.0,
+            46.8
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1638,
+          "mapID": 1456,
+          "pfquest": [
+            22.8,
+            14.5
+          ],
+          "converted": [
+            22.8,
+            14.5
+          ],
+          "referenceMinError": 0.06999999999999851
+        }
+      ],
+      "pointIDs": [
+        "npc-3047-1456"
+      ]
+    },
+    {
+      "npcID": 3048,
+      "classKey": "mage",
+      "name": "Ursyn Ghull",
+      "title": "Mage Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 215,
+          "mapID": 1412,
+          "pfquest": [
+            35.0,
+            19.7
+          ],
+          "converted": [
+            36.22438810440735,
+            29.62063436783636
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 405,
+          "mapID": 1443,
+          "pfquest": [
+            88.6,
+            46.7
+          ],
+          "converted": [
+            88.6,
+            46.7
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1638,
+          "mapID": 1456,
+          "pfquest": [
+            25.7,
+            14.2
+          ],
+          "converted": [
+            25.7,
+            14.2
+          ],
+          "referenceMinError": 0.009999999999999787
+        }
+      ],
+      "pointIDs": [
+        "npc-3048-1456"
+      ]
+    },
+    {
+      "npcID": 3049,
+      "classKey": "mage",
+      "name": "Thurston Xane",
+      "title": "Mage Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 215,
+          "mapID": 1412,
+          "pfquest": [
+            34.9,
+            21.1
+          ],
+          "converted": [
+            36.14093709884467,
+            30.788714159760186
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 405,
+          "mapID": 1443,
+          "pfquest": [
+            88.5,
+            48.3
+          ],
+          "converted": [
+            88.5,
+            48.3
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1638,
+          "mapID": 1456,
+          "pfquest": [
+            25.2,
+            21.0
+          ],
+          "converted": [
+            25.2,
+            21.0
+          ],
+          "referenceMinError": 0.05999999999999872
+        }
+      ],
+      "pointIDs": [
+        "npc-3049-1456"
+      ]
+    },
+    {
+      "npcID": 3059,
+      "classKey": "warrior",
+      "name": "Harutt Thunderhorn",
+      "title": "Warrior Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 215,
+          "mapID": 1412,
+          "pfquest": [
+            44.0,
+            76.1
+          ],
+          "converted": [
+            43.73497860504921,
+            76.67756312819608
+          ],
+          "referenceMinError": 0.057458266754707665
+        }
+      ],
+      "pointIDs": [
+        "npc-3059-1412"
+      ]
+    },
+    {
+      "npcID": 3060,
+      "classKey": "druid",
+      "name": "Gart Mistrunner",
+      "title": "Druid Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 215,
+          "mapID": 1412,
+          "pfquest": [
+            45.1,
+            75.9
+          ],
+          "converted": [
+            44.652939666238765,
+            76.51069458649269
+          ],
+          "referenceMinError": 0.042245079746074055
+        }
+      ],
+      "pointIDs": [
+        "npc-3060-1412"
+      ]
+    },
+    {
+      "npcID": 3061,
+      "classKey": "hunter",
+      "name": "Lanka Farshot",
+      "title": "Hunter Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 215,
+          "mapID": 1412,
+          "pfquest": [
+            44.3,
+            75.7
+          ],
+          "converted": [
+            43.98533162173727,
+            76.34382604478927
+          ],
+          "referenceMinError": 0.03150557694799261
+        }
+      ],
+      "pointIDs": [
+        "npc-3061-1412"
+      ]
+    },
+    {
+      "npcID": 3062,
+      "classKey": "shaman",
+      "name": "Meela Dawnstrider",
+      "title": "Shaman Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 215,
+          "mapID": 1412,
+          "pfquest": [
+            45.0,
+            75.9
+          ],
+          "converted": [
+            44.56948866067608,
+            76.51069458649269
+          ],
+          "referenceMinError": 0.05981675283123167
+        }
+      ],
+      "pointIDs": [
+        "npc-3062-1412"
+      ]
+    },
+    {
+      "npcID": 3063,
+      "classKey": "warrior",
+      "name": "Krang Stonehoof",
+      "title": "Warrior Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 215,
+          "mapID": 1412,
+          "pfquest": [
+            49.5,
+            60.6
+          ],
+          "converted": [
+            48.324783910997006,
+            63.745251146182326
+          ],
+          "referenceMinError": 0.030467235185319907
+        }
+      ],
+      "pointIDs": [
+        "npc-3063-1412"
+      ]
+    },
+    {
+      "npcID": 3064,
+      "classKey": "druid",
+      "name": "Gennia Runetotem",
+      "title": "Druid Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 215,
+          "mapID": 1412,
+          "pfquest": [
+            48.5,
+            59.6
+          ],
+          "converted": [
+            47.490273855370134,
+            62.91090843766531
+          ],
+          "referenceMinError": 0.04936541770482705
+        }
+      ],
+      "pointIDs": [
+        "npc-3064-1412"
+      ]
+    },
+    {
+      "npcID": 3065,
+      "classKey": "hunter",
+      "name": "Yaw Sharpmane",
+      "title": "Hunter Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 215,
+          "mapID": 1412,
+          "pfquest": [
+            47.8,
+            55.7
+          ],
+          "converted": [
+            46.906116816431314,
+            59.65697187444895
+          ],
+          "referenceMinError": 0.030855058017635884
+        }
+      ],
+      "pointIDs": [
+        "npc-3065-1412"
+      ]
+    },
+    {
+      "npcID": 3066,
+      "classKey": "shaman",
+      "name": "Narm Skychaser",
+      "title": "Shaman Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 215,
+          "mapID": 1412,
+          "pfquest": [
+            48.4,
+            59.2
+          ],
+          "converted": [
+            47.40682284980744,
+            62.57717135425851
+          ],
+          "referenceMinError": 0.04399420406595311
+        }
+      ],
+      "pointIDs": [
+        "npc-3066-1412"
+      ]
+    },
+    {
+      "npcID": 3153,
+      "classKey": "warrior",
+      "name": "Frang",
+      "title": "Warrior Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 14,
+          "mapID": 1411,
+          "pfquest": [
+            42.9,
+            69.4
+          ],
+          "converted": [
+            42.9,
+            69.4
+          ],
+          "referenceMinError": 0.04999999999999005
+        }
+      ],
+      "pointIDs": [
+        "npc-3153-1411"
+      ]
+    },
+    {
+      "npcID": 3154,
+      "classKey": "hunter",
+      "name": "Jen'shan",
+      "title": "Hunter Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 14,
+          "mapID": 1411,
+          "pfquest": [
+            42.8,
+            69.3
+          ],
+          "converted": [
+            42.8,
+            69.3
+          ],
+          "referenceMinError": 0.07000000000000739
+        }
+      ],
+      "pointIDs": [
+        "npc-3154-1411"
+      ]
+    },
+    {
+      "npcID": 3155,
+      "classKey": "rogue",
+      "name": "Rwag",
+      "title": "Rogue Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 14,
+          "mapID": 1411,
+          "pfquest": [
+            41.3,
+            68.0
+          ],
+          "converted": [
+            41.3,
+            68.0
+          ],
+          "referenceMinError": 0.01999999999999602
+        }
+      ],
+      "pointIDs": [
+        "npc-3155-1411"
+      ]
+    },
+    {
+      "npcID": 3156,
+      "classKey": "warlock",
+      "name": "Nartok",
+      "title": "Warlock Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 14,
+          "mapID": 1411,
+          "pfquest": [
+            40.7,
+            68.5
+          ],
+          "converted": [
+            40.7,
+            68.5
+          ],
+          "referenceMinError": 0.07000000000000028
+        }
+      ],
+      "pointIDs": [
+        "npc-3156-1411"
+      ]
+    },
+    {
+      "npcID": 3157,
+      "classKey": "shaman",
+      "name": "Shikrik",
+      "title": "Shaman Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 14,
+          "mapID": 1411,
+          "pfquest": [
+            42.4,
+            69.0
+          ],
+          "converted": [
+            42.4,
+            69.0
+          ],
+          "referenceMinError": 0.00999999999999801
+        }
+      ],
+      "pointIDs": [
+        "npc-3157-1411"
+      ]
+    },
+    {
+      "npcID": 3169,
+      "classKey": "warrior",
+      "name": "Tarshaw Jaggedscar",
+      "title": "Warrior Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 14,
+          "mapID": 1411,
+          "pfquest": [
+            54.2,
+            42.5
+          ],
+          "converted": [
+            54.2,
+            42.5
+          ],
+          "referenceMinError": 0.04000000000000625
+        }
+      ],
+      "pointIDs": [
+        "npc-3169-1411"
+      ]
+    },
+    {
+      "npcID": 3170,
+      "classKey": "rogue",
+      "name": "Kaplak",
+      "title": "Rogue Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 14,
+          "mapID": 1411,
+          "pfquest": [
+            52.0,
+            43.7
+          ],
+          "converted": [
+            52.0,
+            43.7
+          ],
+          "referenceMinError": 0.030000000000008242
+        }
+      ],
+      "pointIDs": [
+        "npc-3170-1411"
+      ]
+    },
+    {
+      "npcID": 3171,
+      "classKey": "hunter",
+      "name": "Thotar",
+      "title": "Hunter Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 14,
+          "mapID": 1411,
+          "pfquest": [
+            51.8,
+            43.5
+          ],
+          "converted": [
+            51.8,
+            43.5
+          ],
+          "referenceMinError": 0.060000000000002274
+        }
+      ],
+      "pointIDs": [
+        "npc-3171-1411"
+      ]
+    },
+    {
+      "npcID": 3172,
+      "classKey": "warlock",
+      "name": "Dhugru Gorelust",
+      "title": "Warlock Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 14,
+          "mapID": 1411,
+          "pfquest": [
+            54.4,
+            41.2
+          ],
+          "converted": [
+            54.4,
+            41.2
+          ],
+          "referenceMinError": 0.01999999999999602
+        }
+      ],
+      "pointIDs": [
+        "npc-3172-1411"
+      ]
+    },
+    {
+      "npcID": 3173,
+      "classKey": "shaman",
+      "name": "Swart",
+      "title": "Shaman Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 14,
+          "mapID": 1411,
+          "pfquest": [
+            54.4,
+            42.6
+          ],
+          "converted": [
+            54.4,
+            42.6
+          ],
+          "referenceMinError": 0.030000000000001137
+        }
+      ],
+      "pointIDs": [
+        "npc-3173-1411"
+      ]
+    },
+    {
+      "npcID": 3324,
+      "classKey": "warlock",
+      "name": "Grol'dar",
+      "title": "Warlock Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1637,
+          "mapID": 1454,
+          "pfquest": [
+            48.0,
+            45.9
+          ],
+          "converted": [
+            48.0,
+            45.9
+          ],
+          "referenceMinError": 0.05000000000000426
+        }
+      ],
+      "pointIDs": [
+        "npc-3324-1454"
+      ]
+    },
+    {
+      "npcID": 3325,
+      "classKey": "warlock",
+      "name": "Mirket",
+      "title": "Warlock Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1637,
+          "mapID": 1454,
+          "pfquest": [
+            48.6,
+            47.0
+          ],
+          "converted": [
+            48.6,
+            47.0
+          ],
+          "referenceMinError": 0.06999999999999318
+        }
+      ],
+      "pointIDs": [
+        "npc-3325-1454"
+      ]
+    },
+    {
+      "npcID": 3326,
+      "classKey": "warlock",
+      "name": "Zevrost",
+      "title": "Warlock Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1637,
+          "mapID": 1454,
+          "pfquest": [
+            48.5,
+            45.4
+          ],
+          "converted": [
+            48.5,
+            45.4
+          ],
+          "referenceMinError": 0.060000000000002274
+        }
+      ],
+      "pointIDs": [
+        "npc-3326-1454"
+      ]
+    },
+    {
+      "npcID": 3327,
+      "classKey": "rogue",
+      "name": "Gest",
+      "title": "Rogue Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1637,
+          "mapID": 1454,
+          "pfquest": [
+            42.7,
+            51.5
+          ],
+          "converted": [
+            42.7,
+            51.5
+          ],
+          "referenceMinError": 0.030000000000008242
+        }
+      ],
+      "pointIDs": [
+        "npc-3327-1454"
+      ]
+    },
+    {
+      "npcID": 3328,
+      "classKey": "rogue",
+      "name": "Ormok",
+      "title": "Rogue Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1637,
+          "mapID": 1454,
+          "pfquest": [
+            43.9,
+            54.6
+          ],
+          "converted": [
+            43.9,
+            54.6
+          ],
+          "referenceMinError": 0.030000000000001137
+        }
+      ],
+      "pointIDs": [
+        "npc-3328-1454"
+      ]
+    },
+    {
+      "npcID": 3344,
+      "classKey": "shaman",
+      "name": "Kardris Dreamseeker",
+      "title": "Shaman Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1637,
+          "mapID": 1454,
+          "pfquest": [
+            38.8,
+            36.4
+          ],
+          "converted": [
+            38.8,
+            36.4
+          ],
+          "referenceMinError": 0.030000000000001137
+        }
+      ],
+      "pointIDs": [
+        "npc-3344-1454"
+      ]
+    },
+    {
+      "npcID": 3352,
+      "classKey": "hunter",
+      "name": "Ormak Grimshot",
+      "title": "Hunter Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1637,
+          "mapID": 1454,
+          "pfquest": [
+            66.0,
+            18.5
+          ],
+          "converted": [
+            66.0,
+            18.5
+          ],
+          "referenceMinError": 0.0799999999999983
+        }
+      ],
+      "pointIDs": [
+        "npc-3352-1454"
+      ]
+    },
+    {
+      "npcID": 3353,
+      "classKey": "warrior",
+      "name": "Grezz Ragefist",
+      "title": "Warrior Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1637,
+          "mapID": 1454,
+          "pfquest": [
+            79.8,
+            31.4
+          ],
+          "converted": [
+            79.8,
+            31.4
+          ],
+          "referenceMinError": 0.02999999999999403
+        }
+      ],
+      "pointIDs": [
+        "npc-3353-1454"
+      ]
+    },
+    {
+      "npcID": 3354,
+      "classKey": "warrior",
+      "name": "Sorek",
+      "title": "Warrior Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1637,
+          "mapID": 1454,
+          "pfquest": [
+            80.4,
+            32.4
+          ],
+          "converted": [
+            80.4,
+            32.4
+          ],
+          "referenceMinError": 0.030000000000001137
+        }
+      ],
+      "pointIDs": [
+        "npc-3354-1454"
+      ]
+    },
+    {
+      "npcID": 3401,
+      "classKey": "rogue",
+      "name": "Shenthul",
+      "title": "Rogue Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1637,
+          "mapID": 1454,
+          "pfquest": [
+            43.0,
+            53.7
+          ],
+          "converted": [
+            43.0,
+            53.7
+          ],
+          "referenceMinError": 0.0899999999999963
+        }
+      ],
+      "pointIDs": [
+        "npc-3401-1454"
+      ]
+    },
+    {
+      "npcID": 3403,
+      "classKey": "shaman",
+      "name": "Sian'tsu",
+      "title": "Shaman Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1637,
+          "mapID": 1454,
+          "pfquest": [
+            37.8,
+            36.5
+          ],
+          "converted": [
+            37.8,
+            36.5
+          ],
+          "referenceMinError": 0.09000000000000341
+        }
+      ],
+      "pointIDs": [
+        "npc-3403-1454"
+      ]
+    },
+    {
+      "npcID": 3406,
+      "classKey": "hunter",
+      "name": "Xor'juul",
+      "title": "Hunter Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1637,
+          "mapID": 1454,
+          "pfquest": [
+            67.2,
+            20.2
+          ],
+          "converted": [
+            67.2,
+            20.2
+          ],
+          "referenceMinError": 0.03999999999999204
+        }
+      ],
+      "pointIDs": [
+        "npc-3406-1454"
+      ]
+    },
+    {
+      "npcID": 3407,
+      "classKey": "hunter",
+      "name": "Sian'dur",
+      "title": "Hunter Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1637,
+          "mapID": 1454,
+          "pfquest": [
+            68.0,
+            17.8
+          ],
+          "converted": [
+            68.0,
+            17.8
+          ],
+          "referenceMinError": 0.04000000000000625
+        }
+      ],
+      "pointIDs": [
+        "npc-3407-1454"
+      ]
+    },
+    {
+      "npcID": 3408,
+      "classKey": "warrior",
+      "name": "Zel'mak",
+      "title": "Warrior Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1637,
+          "mapID": 1454,
+          "pfquest": [
+            80.4,
+            29.5
+          ],
+          "converted": [
+            80.4,
+            29.5
+          ],
+          "referenceMinError": 0.020000000000010232
+        }
+      ],
+      "pointIDs": [
+        "npc-3408-1454"
+      ]
+    },
+    {
+      "npcID": 3593,
+      "classKey": "warrior",
+      "name": "Alyissia",
+      "title": "Warrior Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 141,
+          "mapID": 1438,
+          "pfquest": [
+            59.6,
+            38.4
+          ],
+          "converted": [
+            59.6,
+            38.4
+          ],
+          "referenceMinError": 0.0799999999999983
+        }
+      ],
+      "pointIDs": [
+        "npc-3593-1438"
+      ]
+    },
+    {
+      "npcID": 3594,
+      "classKey": "rogue",
+      "name": "Frahun Shadewhisper",
+      "title": "Rogue Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 141,
+          "mapID": 1438,
+          "pfquest": [
+            59.6,
+            38.7
+          ],
+          "converted": [
+            59.6,
+            38.7
+          ],
+          "referenceMinError": 0.0800000000000054
+        }
+      ],
+      "pointIDs": [
+        "npc-3594-1438"
+      ]
+    },
+    {
+      "npcID": 3595,
+      "classKey": "priest",
+      "name": "Shanda",
+      "title": "Priest Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 141,
+          "mapID": 1438,
+          "pfquest": [
+            59.2,
+            40.4
+          ],
+          "converted": [
+            59.2,
+            40.4
+          ],
+          "referenceMinError": 0.07000000000000028
+        }
+      ],
+      "pointIDs": [
+        "npc-3595-1438"
+      ]
+    },
+    {
+      "npcID": 3596,
+      "classKey": "hunter",
+      "name": "Ayanna Everstride",
+      "title": "Hunter Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 141,
+          "mapID": 1438,
+          "pfquest": [
+            58.7,
+            40.4
+          ],
+          "converted": [
+            58.7,
+            40.4
+          ],
+          "referenceMinError": 0.09000000000001052
+        }
+      ],
+      "pointIDs": [
+        "npc-3596-1438"
+      ]
+    },
+    {
+      "npcID": 3597,
+      "classKey": "druid",
+      "name": "Mardant Strongoak",
+      "title": "Druid Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 141,
+          "mapID": 1438,
+          "pfquest": [
+            58.6,
+            40.3
+          ],
+          "converted": [
+            58.6,
+            40.3
+          ],
+          "referenceMinError": 0.03999999999999915
+        }
+      ],
+      "pointIDs": [
+        "npc-3597-1438"
+      ]
+    },
+    {
+      "npcID": 3598,
+      "classKey": "warrior",
+      "name": "Kyra Windblade",
+      "title": "Warrior Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 141,
+          "mapID": 1438,
+          "pfquest": [
+            56.2,
+            59.2
+          ],
+          "converted": [
+            56.2,
+            59.2
+          ],
+          "referenceMinError": 0.01999999999999602
+        }
+      ],
+      "pointIDs": [
+        "npc-3598-1438"
+      ]
+    },
+    {
+      "npcID": 3599,
+      "classKey": "rogue",
+      "name": "Jannok Breezesong",
+      "title": "Rogue Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 141,
+          "mapID": 1438,
+          "pfquest": [
+            56.4,
+            60.1
+          ],
+          "converted": [
+            56.4,
+            60.1
+          ],
+          "referenceMinError": 0.05999999999999517
+        }
+      ],
+      "pointIDs": [
+        "npc-3599-1438"
+      ]
+    },
+    {
+      "npcID": 3600,
+      "classKey": "priest",
+      "name": "Laurna Morninglight",
+      "title": "Priest Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 141,
+          "mapID": 1438,
+          "pfquest": [
+            55.6,
+            56.7
+          ],
+          "converted": [
+            55.6,
+            56.7
+          ],
+          "referenceMinError": 0.0899999999999963
+        }
+      ],
+      "pointIDs": [
+        "npc-3600-1438"
+      ]
+    },
+    {
+      "npcID": 3601,
+      "classKey": "hunter",
+      "name": "Dazalar",
+      "title": "Hunter Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 141,
+          "mapID": 1438,
+          "pfquest": [
+            56.7,
+            59.5
+          ],
+          "converted": [
+            56.7,
+            59.5
+          ],
+          "referenceMinError": 0.030000000000001137
+        }
+      ],
+      "pointIDs": [
+        "npc-3601-1438"
+      ]
+    },
+    {
+      "npcID": 3602,
+      "classKey": "druid",
+      "name": "Kal",
+      "title": "Druid Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 141,
+          "mapID": 1438,
+          "pfquest": [
+            55.9,
+            61.6
+          ],
+          "converted": [
+            55.9,
+            61.6
+          ],
+          "referenceMinError": 0.09000000000000341
+        }
+      ],
+      "pointIDs": [
+        "npc-3602-1438"
+      ]
+    },
+    {
+      "npcID": 3706,
+      "classKey": "priest",
+      "name": "Tai'jin",
+      "title": "Priest Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 14,
+          "mapID": 1411,
+          "pfquest": [
+            54.3,
+            42.9
+          ],
+          "converted": [
+            54.3,
+            42.9
+          ],
+          "referenceMinError": 0.07000000000000028
+        }
+      ],
+      "pointIDs": [
+        "npc-3706-1411"
+      ]
+    },
+    {
+      "npcID": 3707,
+      "classKey": "priest",
+      "name": "Ken'jai",
+      "title": "Priest Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 14,
+          "mapID": 1411,
+          "pfquest": [
+            42.4,
+            68.8
+          ],
+          "converted": [
+            42.4,
+            68.8
+          ],
+          "referenceMinError": 0.05000000000000426
+        }
+      ],
+      "pointIDs": [
+        "npc-3707-1411"
+      ]
+    },
+    {
+      "npcID": 3963,
+      "classKey": "hunter",
+      "name": "Danlaar Nightstride",
+      "title": "Hunter Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 331,
+          "mapID": 1440,
+          "pfquest": [
+            50.1,
+            67.9
+          ],
+          "converted": [
+            50.1,
+            67.9
+          ],
+          "referenceMinError": 0.0899999999999963
+        }
+      ],
+      "pointIDs": [
+        "npc-3963-1440"
+      ]
+    },
+    {
+      "npcID": 4087,
+      "classKey": "warrior",
+      "name": "Arias'ta Bladesinger",
+      "title": "Warrior Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 141,
+          "mapID": 1438,
+          "pfquest": [
+            29.4,
+            54.2
+          ],
+          "converted": [
+            29.4,
+            54.2
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1657,
+          "mapID": 1457,
+          "pfquest": [
+            58.7,
+            34.9
+          ],
+          "converted": [
+            58.7,
+            34.9
+          ],
+          "referenceMinError": 0.00999999999999801
+        }
+      ],
+      "pointIDs": [
+        "npc-4087-1457"
+      ]
+    },
+    {
+      "npcID": 4089,
+      "classKey": "warrior",
+      "name": "Sildanair",
+      "title": "Warrior Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 141,
+          "mapID": 1438,
+          "pfquest": [
+            30.0,
+            55.7
+          ],
+          "converted": [
+            30.0,
+            55.7
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1657,
+          "mapID": 1457,
+          "pfquest": [
+            61.8,
+            42.2
+          ],
+          "converted": [
+            61.8,
+            42.2
+          ],
+          "referenceMinError": 0.03999999999999204
+        }
+      ],
+      "pointIDs": [
+        "npc-4089-1457"
+      ]
+    },
+    {
+      "npcID": 4090,
+      "classKey": "priest",
+      "name": "Astarii Starseeker",
+      "title": "Priest Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 141,
+          "mapID": 1438,
+          "pfquest": [
+            25.2,
+            63.8
+          ],
+          "converted": [
+            25.2,
+            63.8
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1657,
+          "mapID": 1457,
+          "pfquest": [
+            38.3,
+            81.0
+          ],
+          "converted": [
+            38.3,
+            81.0
+          ],
+          "referenceMinError": 0.0799999999999983
+        }
+      ],
+      "pointIDs": [
+        "npc-4090-1457"
+      ]
+    },
+    {
+      "npcID": 4091,
+      "classKey": "priest",
+      "name": "Jandria",
+      "title": "Priest Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 141,
+          "mapID": 1438,
+          "pfquest": [
+            25.1,
+            64.1
+          ],
+          "converted": [
+            25.1,
+            64.1
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1657,
+          "mapID": 1457,
+          "pfquest": [
+            37.9,
+            82.7
+          ],
+          "converted": [
+            37.9,
+            82.7
+          ],
+          "referenceMinError": 0.04999999999999005
+        }
+      ],
+      "pointIDs": [
+        "npc-4091-1457"
+      ]
+    },
+    {
+      "npcID": 4092,
+      "classKey": "priest",
+      "name": "Lariia",
+      "title": "Priest Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 141,
+          "mapID": 1438,
+          "pfquest": [
+            25.6,
+            65.4
+          ],
+          "converted": [
+            25.6,
+            65.4
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1657,
+          "mapID": 1457,
+          "pfquest": [
+            40.3,
+            88.7
+          ],
+          "converted": [
+            40.3,
+            88.7
+          ],
+          "referenceMinError": 0.07000000000000028
+        }
+      ],
+      "pointIDs": [
+        "npc-4092-1457"
+      ]
+    },
+    {
+      "npcID": 4138,
+      "classKey": "hunter",
+      "name": "Jeen'ra Nightrunner",
+      "title": "Hunter Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 141,
+          "mapID": 1438,
+          "pfquest": [
+            25.5,
+            48.1
+          ],
+          "converted": [
+            25.5,
+            48.1
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1657,
+          "mapID": 1457,
+          "pfquest": [
+            39.7,
+            5.4
+          ],
+          "converted": [
+            39.7,
+            5.4
+          ],
+          "referenceMinError": 0.029999999999996696
+        }
+      ],
+      "pointIDs": [
+        "npc-4138-1457"
+      ]
+    },
+    {
+      "npcID": 4146,
+      "classKey": "hunter",
+      "name": "Jocaste",
+      "title": "Hunter Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 141,
+          "mapID": 1438,
+          "pfquest": [
+            25.6,
+            48.7
+          ],
+          "converted": [
+            25.6,
+            48.7
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1657,
+          "mapID": 1457,
+          "pfquest": [
+            40.4,
+            8.5
+          ],
+          "converted": [
+            40.4,
+            8.5
+          ],
+          "referenceMinError": 0.06999999999999673
+        }
+      ],
+      "pointIDs": [
+        "npc-4146-1457"
+      ]
+    },
+    {
+      "npcID": 4163,
+      "classKey": "rogue",
+      "name": "Syurna",
+      "title": "Rogue Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 141,
+          "mapID": 1438,
+          "pfquest": [
+            24.9,
+            51.5
+          ],
+          "converted": [
+            24.9,
+            51.5
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1657,
+          "mapID": 1457,
+          "pfquest": [
+            37.0,
+            21.9
+          ],
+          "converted": [
+            37.0,
+            21.9
+          ],
+          "referenceMinError": 0.019999999999999574
+        }
+      ],
+      "pointIDs": [
+        "npc-4163-1457"
+      ]
+    },
+    {
+      "npcID": 4205,
+      "classKey": "hunter",
+      "name": "Dorion",
+      "title": "Hunter Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 141,
+          "mapID": 1438,
+          "pfquest": [
+            26.0,
+            48.4
+          ],
+          "converted": [
+            26.0,
+            48.4
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1657,
+          "mapID": 1457,
+          "pfquest": [
+            42.2,
+            7.3
+          ],
+          "converted": [
+            42.2,
+            7.3
+          ],
+          "referenceMinError": 0.03999999999999826
+        }
+      ],
+      "pointIDs": [
+        "npc-4205-1457"
+      ]
+    },
+    {
+      "npcID": 4214,
+      "classKey": "rogue",
+      "name": "Erion Shadewhisper",
+      "title": "Rogue Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 141,
+          "mapID": 1438,
+          "pfquest": [
+            24.4,
+            52.3
+          ],
+          "converted": [
+            24.4,
+            52.3
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1657,
+          "mapID": 1457,
+          "pfquest": [
+            34.5,
+            25.9
+          ],
+          "converted": [
+            34.5,
+            25.9
+          ],
+          "referenceMinError": 0.05000000000000426
+        }
+      ],
+      "pointIDs": [
+        "npc-4214-1457"
+      ]
+    },
+    {
+      "npcID": 4215,
+      "classKey": "rogue",
+      "name": "Anishar",
+      "title": "Rogue Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 141,
+          "mapID": 1438,
+          "pfquest": [
+            25.1,
+            51.3
+          ],
+          "converted": [
+            25.1,
+            51.3
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1657,
+          "mapID": 1457,
+          "pfquest": [
+            37.9,
+            20.9
+          ],
+          "converted": [
+            37.9,
+            20.9
+          ],
+          "referenceMinError": 0.04000000000000625
+        }
+      ],
+      "pointIDs": [
+        "npc-4215-1457"
+      ]
+    },
+    {
+      "npcID": 4217,
+      "classKey": "druid",
+      "name": "Mathrengyl Bearwalker",
+      "title": "Druid Trainer",
+      "npcFlags": 23,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 141,
+          "mapID": 1438,
+          "pfquest": [
+            24.6,
+            48.7
+          ],
+          "converted": [
+            24.6,
+            48.7
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1657,
+          "mapID": 1457,
+          "pfquest": [
+            35.4,
+            8.4
+          ],
+          "converted": [
+            35.4,
+            8.4
+          ],
+          "referenceMinError": 0.030000000000001137
+        }
+      ],
+      "pointIDs": [
+        "npc-4217-1457"
+      ]
+    },
+    {
+      "npcID": 4218,
+      "classKey": "druid",
+      "name": "Denatharion",
+      "title": "Druid Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 141,
+          "mapID": 1438,
+          "pfquest": [
+            24.4,
+            48.5
+          ],
+          "converted": [
+            24.4,
+            48.5
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1657,
+          "mapID": 1457,
+          "pfquest": [
+            34.8,
+            7.4
+          ],
+          "converted": [
+            34.8,
+            7.4
+          ],
+          "referenceMinError": 0.05999999999999428
+        }
+      ],
+      "pointIDs": [
+        "npc-4218-1457"
+      ]
+    },
+    {
+      "npcID": 4219,
+      "classKey": "druid",
+      "name": "Fylerian Nightwing",
+      "title": "Druid Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 141,
+          "mapID": 1438,
+          "pfquest": [
+            24.2,
+            48.7
+          ],
+          "converted": [
+            24.2,
+            48.7
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1657,
+          "mapID": 1457,
+          "pfquest": [
+            33.5,
+            8.3
+          ],
+          "converted": [
+            33.5,
+            8.3
+          ],
+          "referenceMinError": 0.059999999999996945
+        }
+      ],
+      "pointIDs": [
+        "npc-4219-1457"
+      ]
+    },
+    {
+      "npcID": 4563,
+      "classKey": "warlock",
+      "name": "Kaal Soulreaper",
+      "title": "Warlock Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 85,
+          "mapID": 1420,
+          "pfquest": [
+            66.1,
+            68.4
+          ],
+          "converted": [
+            66.1,
+            68.4
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1497,
+          "mapID": 1458,
+          "pfquest": [
+            86.2,
+            15.9
+          ],
+          "converted": [
+            86.2,
+            15.9
+          ],
+          "referenceMinError": 0.039999999999990266
+        }
+      ],
+      "pointIDs": [
+        "npc-4563-1458"
+      ]
+    },
+    {
+      "npcID": 4564,
+      "classKey": "warlock",
+      "name": "Luther Pickman",
+      "title": "Warlock Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 85,
+          "mapID": 1420,
+          "pfquest": [
+            66.2,
+            68.3
+          ],
+          "converted": [
+            66.2,
+            68.3
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1497,
+          "mapID": 1458,
+          "pfquest": [
+            86.4,
+            15.3
+          ],
+          "converted": [
+            86.4,
+            15.3
+          ],
+          "referenceMinError": 0.08000000000000185
+        }
+      ],
+      "pointIDs": [
+        "npc-4564-1458"
+      ]
+    },
+    {
+      "npcID": 4565,
+      "classKey": "warlock",
+      "name": "Richard Kerwin",
+      "title": "Warlock Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 85,
+          "mapID": 1420,
+          "pfquest": [
+            66.7,
+            68.4
+          ],
+          "converted": [
+            66.7,
+            68.4
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1497,
+          "mapID": 1458,
+          "pfquest": [
+            88.9,
+            15.9
+          ],
+          "converted": [
+            88.9,
+            15.9
+          ],
+          "referenceMinError": 0.04999999999999183
+        }
+      ],
+      "pointIDs": [
+        "npc-4565-1458"
+      ]
+    },
+    {
+      "npcID": 4566,
+      "classKey": "mage",
+      "name": "Kaelystia Hatebringer",
+      "title": "Mage Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 85,
+          "mapID": 1420,
+          "pfquest": [
+            65.9,
+            68.0
+          ],
+          "converted": [
+            65.9,
+            68.0
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1497,
+          "mapID": 1458,
+          "pfquest": [
+            85.0,
+            14.0
+          ],
+          "converted": [
+            85.0,
+            14.0
+          ],
+          "referenceMinError": 0.039999999999995595
+        }
+      ],
+      "pointIDs": [
+        "npc-4566-1458"
+      ]
+    },
+    {
+      "npcID": 4567,
+      "classKey": "mage",
+      "name": "Pierce Shackleton",
+      "title": "Mage Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 85,
+          "mapID": 1420,
+          "pfquest": [
+            65.9,
+            67.9
+          ],
+          "converted": [
+            65.9,
+            67.9
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1497,
+          "mapID": 1458,
+          "pfquest": [
+            85.4,
+            13.5
+          ],
+          "converted": [
+            85.4,
+            13.5
+          ],
+          "referenceMinError": 0.059999999999996945
+        }
+      ],
+      "pointIDs": [
+        "npc-4567-1458"
+      ]
+    },
+    {
+      "npcID": 4568,
+      "classKey": "mage",
+      "name": "Anastasia Hartwell",
+      "title": "Mage Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 85,
+          "mapID": 1420,
+          "pfquest": [
+            65.9,
+            67.2
+          ],
+          "converted": [
+            65.9,
+            67.2
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1497,
+          "mapID": 1458,
+          "pfquest": [
+            85.1,
+            10.0
+          ],
+          "converted": [
+            85.1,
+            10.0
+          ],
+          "referenceMinError": 0.07000000000000561
+        }
+      ],
+      "pointIDs": [
+        "npc-4568-1458"
+      ]
+    },
+    {
+      "npcID": 4582,
+      "classKey": "rogue",
+      "name": "Carolyn Ward",
+      "title": "Rogue Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1497,
+          "mapID": 1458,
+          "pfquest": [
+            83.9,
+            72.1
+          ],
+          "converted": [
+            83.9,
+            72.1
+          ],
+          "referenceMinError": 0.07000000000000739
+        }
+      ],
+      "pointIDs": [
+        "npc-4582-1458"
+      ]
+    },
+    {
+      "npcID": 4583,
+      "classKey": "rogue",
+      "name": "Miles Dexter",
+      "title": "Rogue Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1497,
+          "mapID": 1458,
+          "pfquest": [
+            85.2,
+            71.6
+          ],
+          "converted": [
+            85.2,
+            71.6
+          ],
+          "referenceMinError": 0.03999999999999204
+        }
+      ],
+      "pointIDs": [
+        "npc-4583-1458"
+      ]
+    },
+    {
+      "npcID": 4584,
+      "classKey": "rogue",
+      "name": "Gregory Charles",
+      "title": "Rogue Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1497,
+          "mapID": 1458,
+          "pfquest": [
+            84.9,
+            73.5
+          ],
+          "converted": [
+            84.9,
+            73.5
+          ],
+          "referenceMinError": 0.05000000000001137
+        }
+      ],
+      "pointIDs": [
+        "npc-4584-1458"
+      ]
+    },
+    {
+      "npcID": 4593,
+      "classKey": "warrior",
+      "name": "Christoph Walker",
+      "title": "Warrior Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 85,
+          "mapID": 1420,
+          "pfquest": [
+            57.8,
+            68.3
+          ],
+          "converted": [
+            57.8,
+            68.3
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1497,
+          "mapID": 1458,
+          "pfquest": [
+            46.9,
+            15.2
+          ],
+          "converted": [
+            46.9,
+            15.2
+          ],
+          "referenceMinError": 0.060000000000002274
+        }
+      ],
+      "pointIDs": [
+        "npc-4593-1458"
+      ]
+    },
+    {
+      "npcID": 4594,
+      "classKey": "warrior",
+      "name": "Angela Curthas",
+      "title": "Warrior Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 85,
+          "mapID": 1420,
+          "pfquest": [
+            58.1,
+            68.4
+          ],
+          "converted": [
+            58.1,
+            68.4
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1497,
+          "mapID": 1458,
+          "pfquest": [
+            48.3,
+            16.0
+          ],
+          "converted": [
+            48.3,
+            16.0
+          ],
+          "referenceMinError": 0.060000000000002274
+        }
+      ],
+      "pointIDs": [
+        "npc-4594-1458"
+      ]
+    },
+    {
+      "npcID": 4595,
+      "classKey": "warrior",
+      "name": "Baltus Fowler",
+      "title": "Warrior Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 85,
+          "mapID": 1420,
+          "pfquest": [
+            57.9,
+            68.7
+          ],
+          "converted": [
+            57.9,
+            68.7
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1497,
+          "mapID": 1458,
+          "pfquest": [
+            47.4,
+            17.3
+          ],
+          "converted": [
+            47.4,
+            17.3
+          ],
+          "referenceMinError": 0.010000000000001563
+        }
+      ],
+      "pointIDs": [
+        "npc-4595-1458"
+      ]
+    },
+    {
+      "npcID": 4606,
+      "classKey": "priest",
+      "name": "Aelthalyste",
+      "title": "Priest Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "excluded",
+      "coordinateChecks": [
+        {
+          "areaID": 85,
+          "mapID": 1420,
+          "pfquest": [
+            58.2,
+            68.9
+          ],
+          "converted": [
+            58.2,
+            68.9
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1497,
+          "mapID": 1458,
+          "pfquest": [
+            49.0,
+            18.3
+          ],
+          "converted": [
+            49.0,
+            18.3
+          ],
+          "referenceMinError": 1.4399999999999977
+        }
+      ],
+      "reason": "no_coordinate_agreement"
+    },
+    {
+      "npcID": 4607,
+      "classKey": "priest",
+      "name": "Father Lankester",
+      "title": "Priest Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "excluded",
+      "coordinateChecks": [
+        {
+          "areaID": 85,
+          "mapID": 1420,
+          "pfquest": [
+            58.3,
+            68.4
+          ],
+          "converted": [
+            58.3,
+            68.4
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1497,
+          "mapID": 1458,
+          "pfquest": [
+            49.4,
+            15.9
+          ],
+          "converted": [
+            49.4,
+            15.9
+          ],
+          "referenceMinError": 1.549999999999999
+        }
+      ],
+      "reason": "no_coordinate_agreement"
+    },
+    {
+      "npcID": 4608,
+      "classKey": "priest",
+      "name": "Father Lazarus",
+      "title": "Priest Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 85,
+          "mapID": 1420,
+          "pfquest": [
+            57.9,
+            69.1
+          ],
+          "converted": [
+            57.9,
+            69.1
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1497,
+          "mapID": 1458,
+          "pfquest": [
+            47.6,
+            18.9
+          ],
+          "converted": [
+            47.6,
+            18.9
+          ],
+          "referenceMinError": 0.030000000000001137
+        }
+      ],
+      "pointIDs": [
+        "npc-4608-1458"
+      ]
+    },
+    {
+      "npcID": 4985,
+      "classKey": "druid",
+      "name": "World Druid Trainer",
+      "title": "Druid Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "AH",
+      "referenceFaction": "AH",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 4986,
+      "classKey": "hunter",
+      "name": "World Hunter Trainer",
+      "title": "Hunter Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "AH",
+      "referenceFaction": "AH",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 4987,
+      "classKey": "mage",
+      "name": "World Mage Trainer",
+      "title": "Mage Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "AH",
+      "referenceFaction": "AH",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 4988,
+      "classKey": "paladin",
+      "name": "World Paladin Trainer",
+      "title": "Paladin Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "AH",
+      "referenceFaction": "AH",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 4989,
+      "classKey": "priest",
+      "name": "World Priest Trainer",
+      "title": "Priest Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "AH",
+      "referenceFaction": "AH",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 4990,
+      "classKey": "rogue",
+      "name": "World Rogue Trainer",
+      "title": "Rogue Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "AH",
+      "referenceFaction": "AH",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 4991,
+      "classKey": "shaman",
+      "name": "World Shaman Trainer",
+      "title": "Shaman Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "AH",
+      "referenceFaction": "AH",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 4992,
+      "classKey": "warrior",
+      "name": "World Warrior Trainer",
+      "title": "Warrior Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "AH",
+      "referenceFaction": "AH",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 4993,
+      "classKey": "warlock",
+      "name": "World Warlock Trainer",
+      "title": "Warlock Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "AH",
+      "referenceFaction": "AH",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 5113,
+      "classKey": "warrior",
+      "name": "Kelv Sternhammer",
+      "title": "Warrior Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1537,
+          "mapID": 1455,
+          "pfquest": [
+            70.3,
+            90.7
+          ],
+          "converted": [
+            70.3,
+            90.7
+          ],
+          "referenceMinError": 0.09000000000000341
+        }
+      ],
+      "pointIDs": [
+        "npc-5113-1455"
+      ]
+    },
+    {
+      "npcID": 5114,
+      "classKey": "warrior",
+      "name": "Bilban Tosslespanner",
+      "title": "Warrior Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1537,
+          "mapID": 1455,
+          "pfquest": [
+            65.9,
+            88.4
+          ],
+          "converted": [
+            65.9,
+            88.4
+          ],
+          "referenceMinError": 0.009999999999990905
+        }
+      ],
+      "pointIDs": [
+        "npc-5114-1455"
+      ]
+    },
+    {
+      "npcID": 5115,
+      "classKey": "hunter",
+      "name": "Daera Brightspear",
+      "title": "Hunter Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1537,
+          "mapID": 1455,
+          "pfquest": [
+            71.0,
+            89.8
+          ],
+          "converted": [
+            71.0,
+            89.8
+          ],
+          "referenceMinError": 0.030000000000001137
+        }
+      ],
+      "pointIDs": [
+        "npc-5115-1455"
+      ]
+    },
+    {
+      "npcID": 5116,
+      "classKey": "hunter",
+      "name": "Olmin Burningbeard",
+      "title": "Hunter Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1537,
+          "mapID": 1455,
+          "pfquest": [
+            70.9,
+            83.6
+          ],
+          "converted": [
+            70.9,
+            83.6
+          ],
+          "referenceMinError": 0.020000000000010232
+        }
+      ],
+      "pointIDs": [
+        "npc-5116-1455"
+      ]
+    },
+    {
+      "npcID": 5117,
+      "classKey": "hunter",
+      "name": "Regnus Thundergranite",
+      "title": "Hunter Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1537,
+          "mapID": 1455,
+          "pfquest": [
+            69.9,
+            82.9
+          ],
+          "converted": [
+            69.9,
+            82.9
+          ],
+          "referenceMinError": 0.030000000000001137
+        }
+      ],
+      "pointIDs": [
+        "npc-5117-1455"
+      ]
+    },
+    {
+      "npcID": 5141,
+      "classKey": "priest",
+      "name": "Theodrus Frostbeard",
+      "title": "Priest Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1537,
+          "mapID": 1455,
+          "pfquest": [
+            24.1,
+            8.4
+          ],
+          "converted": [
+            24.1,
+            8.4
+          ],
+          "referenceMinError": 0.030000000000002913
+        }
+      ],
+      "pointIDs": [
+        "npc-5141-1455"
+      ]
+    },
+    {
+      "npcID": 5142,
+      "classKey": "priest",
+      "name": "Braenna Flintcrag",
+      "title": "Priest Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1537,
+          "mapID": 1455,
+          "pfquest": [
+            24.4,
+            9.2
+          ],
+          "converted": [
+            24.4,
+            9.2
+          ],
+          "referenceMinError": 0.05000000000000249
+        }
+      ],
+      "pointIDs": [
+        "npc-5142-1455"
+      ]
+    },
+    {
+      "npcID": 5143,
+      "classKey": "priest",
+      "name": "Toldren Deepiron",
+      "title": "Priest Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1537,
+          "mapID": 1455,
+          "pfquest": [
+            25.2,
+            10.8
+          ],
+          "converted": [
+            25.2,
+            10.8
+          ],
+          "referenceMinError": 0.05000000000000249
+        }
+      ],
+      "pointIDs": [
+        "npc-5143-1455"
+      ]
+    },
+    {
+      "npcID": 5144,
+      "classKey": "mage",
+      "name": "Bink",
+      "title": "Mage Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1537,
+          "mapID": 1455,
+          "pfquest": [
+            27.2,
+            8.3
+          ],
+          "converted": [
+            27.2,
+            8.3
+          ],
+          "referenceMinError": 0.05000000000000071
+        }
+      ],
+      "pointIDs": [
+        "npc-5144-1455"
+      ]
+    },
+    {
+      "npcID": 5145,
+      "classKey": "mage",
+      "name": "Juli Stormkettle",
+      "title": "Mage Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1537,
+          "mapID": 1455,
+          "pfquest": [
+            26.3,
+            6.8
+          ],
+          "converted": [
+            26.3,
+            6.8
+          ],
+          "referenceMinError": 0.03000000000000025
+        }
+      ],
+      "pointIDs": [
+        "npc-5145-1455"
+      ]
+    },
+    {
+      "npcID": 5146,
+      "classKey": "mage",
+      "name": "Nittlebur Sparkfizzle",
+      "title": "Mage Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1537,
+          "mapID": 1455,
+          "pfquest": [
+            25.9,
+            6.2
+          ],
+          "converted": [
+            25.9,
+            6.2
+          ],
+          "referenceMinError": 0.060000000000001386
+        }
+      ],
+      "pointIDs": [
+        "npc-5146-1455"
+      ]
+    },
+    {
+      "npcID": 5147,
+      "classKey": "paladin",
+      "name": "Valgar Highforge",
+      "title": "Paladin Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1537,
+          "mapID": 1455,
+          "pfquest": [
+            23.7,
+            5.1
+          ],
+          "converted": [
+            23.7,
+            5.1
+          ],
+          "referenceMinError": 0.0
+        }
+      ],
+      "pointIDs": [
+        "npc-5147-1455"
+      ]
+    },
+    {
+      "npcID": 5148,
+      "classKey": "paladin",
+      "name": "Beldruk Doombrow",
+      "title": "Paladin Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1537,
+          "mapID": 1455,
+          "pfquest": [
+            24.5,
+            4.5
+          ],
+          "converted": [
+            24.5,
+            4.5
+          ],
+          "referenceMinError": 0.08000000000000096
+        }
+      ],
+      "pointIDs": [
+        "npc-5148-1455"
+      ]
+    },
+    {
+      "npcID": 5149,
+      "classKey": "paladin",
+      "name": "Brandur Ironhammer",
+      "title": "Paladin Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1537,
+          "mapID": 1455,
+          "pfquest": [
+            23.1,
+            6.1
+          ],
+          "converted": [
+            23.1,
+            6.1
+          ],
+          "referenceMinError": 0.06999999999999762
+        }
+      ],
+      "pointIDs": [
+        "npc-5149-1455"
+      ]
+    },
+    {
+      "npcID": 5165,
+      "classKey": "rogue",
+      "name": "Hulfdan Blackbeard",
+      "title": "Rogue Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1537,
+          "mapID": 1455,
+          "pfquest": [
+            52.0,
+            14.8
+          ],
+          "converted": [
+            52.0,
+            14.8
+          ],
+          "referenceMinError": 0.0799999999999983
+        }
+      ],
+      "pointIDs": [
+        "npc-5165-1455"
+      ]
+    },
+    {
+      "npcID": 5166,
+      "classKey": "rogue",
+      "name": "Ormyr Flinteye",
+      "title": "Rogue Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1537,
+          "mapID": 1455,
+          "pfquest": [
+            52.9,
+            15.0
+          ],
+          "converted": [
+            52.9,
+            15.0
+          ],
+          "referenceMinError": 0.019999999999997797
+        }
+      ],
+      "pointIDs": [
+        "npc-5166-1455"
+      ]
+    },
+    {
+      "npcID": 5167,
+      "classKey": "rogue",
+      "name": "Fenthwick",
+      "title": "Rogue Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1537,
+          "mapID": 1455,
+          "pfquest": [
+            51.5,
+            15.3
+          ],
+          "converted": [
+            51.5,
+            15.3
+          ],
+          "referenceMinError": 0.02999999999999936
+        }
+      ],
+      "pointIDs": [
+        "npc-5167-1455"
+      ]
+    },
+    {
+      "npcID": 5171,
+      "classKey": "warlock",
+      "name": "Thistleheart",
+      "title": "Warlock Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1537,
+          "mapID": 1455,
+          "pfquest": [
+            51.1,
+            6.6
+          ],
+          "converted": [
+            51.1,
+            6.6
+          ],
+          "referenceMinError": 0.019999999999998685
+        }
+      ],
+      "pointIDs": [
+        "npc-5171-1455"
+      ]
+    },
+    {
+      "npcID": 5172,
+      "classKey": "warlock",
+      "name": "Briarthorn",
+      "title": "Warlock Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1537,
+          "mapID": 1455,
+          "pfquest": [
+            50.3,
+            5.7
+          ],
+          "converted": [
+            50.3,
+            5.7
+          ],
+          "referenceMinError": 0.0900000000000043
+        }
+      ],
+      "pointIDs": [
+        "npc-5172-1455"
+      ]
+    },
+    {
+      "npcID": 5173,
+      "classKey": "warlock",
+      "name": "Alexander Calder",
+      "title": "Warlock Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1537,
+          "mapID": 1455,
+          "pfquest": [
+            50.1,
+            7.5
+          ],
+          "converted": [
+            50.1,
+            7.5
+          ],
+          "referenceMinError": 0.07000000000000295
+        }
+      ],
+      "pointIDs": [
+        "npc-5173-1455"
+      ]
+    },
+    {
+      "npcID": 5479,
+      "classKey": "warrior",
+      "name": "Wu Shen",
+      "title": "Warrior Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1519,
+          "mapID": 1453,
+          "pfquest": [
+            78.7,
+            45.8
+          ],
+          "converted": [
+            80.5708519269777,
+            59.87626804123711
+          ],
+          "referenceMinError": 0.027119968214812218
+        }
+      ],
+      "pointIDs": [
+        "npc-5479-1453"
+      ]
+    },
+    {
+      "npcID": 5480,
+      "classKey": "warrior",
+      "name": "Ilsa Corbin",
+      "title": "Warrior Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1519,
+          "mapID": 1453,
+          "pfquest": [
+            78.5,
+            45.7
+          ],
+          "converted": [
+            80.4161257606491,
+            59.79888659793815
+          ],
+          "referenceMinError": 0.007239162710945379
+        }
+      ],
+      "pointIDs": [
+        "npc-5480-1453"
+      ]
+    },
+    {
+      "npcID": 5484,
+      "classKey": "priest",
+      "name": "Brother Benjamin",
+      "title": "Priest Trainer",
+      "npcFlags": 17,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1519,
+          "mapID": 1453,
+          "pfquest": [
+            42.1,
+            30.0
+          ],
+          "converted": [
+            52.25596348884381,
+            47.65
+          ],
+          "referenceMinError": 0.024036511156189988
+        }
+      ],
+      "pointIDs": [
+        "npc-5484-1453"
+      ]
+    },
+    {
+      "npcID": 5489,
+      "classKey": "priest",
+      "name": "Brother Joshua",
+      "title": "Priest Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1519,
+          "mapID": 1453,
+          "pfquest": [
+            38.5,
+            26.9
+          ],
+          "converted": [
+            49.470892494929004,
+            45.25117525773196
+          ],
+          "referenceMinError": 0.07028276280295387
+        }
+      ],
+      "pointIDs": [
+        "npc-5489-1453"
+      ]
+    },
+    {
+      "npcID": 5491,
+      "classKey": "paladin",
+      "name": "Arthur the Faithful",
+      "title": "Paladin Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1519,
+          "mapID": 1453,
+          "pfquest": [
+            38.7,
+            32.8
+          ],
+          "converted": [
+            49.625618661257604,
+            49.81668041237113
+          ],
+          "referenceMinError": 0.03893824888648112
+        }
+      ],
+      "pointIDs": [
+        "npc-5491-1453"
+      ]
+    },
+    {
+      "npcID": 5492,
+      "classKey": "paladin",
+      "name": "Katherine the Pure",
+      "title": "Paladin Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1519,
+          "mapID": 1453,
+          "pfquest": [
+            37.2,
+            31.9
+          ],
+          "converted": [
+            48.465172413793105,
+            49.12024742268041
+          ],
+          "referenceMinError": 0.0450750088872951
+        }
+      ],
+      "pointIDs": [
+        "npc-5492-1453"
+      ]
+    },
+    {
+      "npcID": 5495,
+      "classKey": "warlock",
+      "name": "Ursula Deline",
+      "title": "Warlock Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1519,
+          "mapID": 1453,
+          "pfquest": [
+            26.1,
+            77.2
+          ],
+          "converted": [
+            39.87787018255578,
+            84.1740412371134
+          ],
+          "referenceMinError": 0.028088580330816626
+        }
+      ],
+      "pointIDs": [
+        "npc-5495-1453"
+      ]
+    },
+    {
+      "npcID": 5496,
+      "classKey": "warlock",
+      "name": "Sandahl",
+      "title": "Warlock Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1519,
+          "mapID": 1453,
+          "pfquest": [
+            25.8,
+            79.2
+          ],
+          "converted": [
+            39.64578093306288,
+            85.72167010309279
+          ],
+          "referenceMinError": 0.032548963844320156
+        }
+      ],
+      "pointIDs": [
+        "npc-5496-1453"
+      ]
+    },
+    {
+      "npcID": 5497,
+      "classKey": "mage",
+      "name": "Jennea Cannon",
+      "title": "Mage Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1519,
+          "mapID": 1453,
+          "pfquest": [
+            38.6,
+            79.3
+          ],
+          "converted": [
+            49.548255578093304,
+            85.79905154639175
+          ],
+          "referenceMinError": 0.01269287551494358
+        }
+      ],
+      "pointIDs": [
+        "npc-5497-1453"
+      ]
+    },
+    {
+      "npcID": 5498,
+      "classKey": "mage",
+      "name": "Elsharin",
+      "title": "Mage Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1519,
+          "mapID": 1453,
+          "pfquest": [
+            36.9,
+            81.1
+          ],
+          "converted": [
+            48.2330831643002,
+            87.19191752577319
+          ],
+          "referenceMinError": 0.051165638527002955
+        }
+      ],
+      "pointIDs": [
+        "npc-5498-1453"
+      ]
+    },
+    {
+      "npcID": 5501,
+      "classKey": "hunter",
+      "name": "Kaerbrus",
+      "title": "Hunter Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 361,
+          "mapID": 1448,
+          "pfquest": [
+            61.9,
+            23.6
+          ],
+          "converted": [
+            61.9,
+            23.6
+          ],
+          "referenceMinError": 0.030000000000001137
+        }
+      ],
+      "pointIDs": [
+        "npc-5501-1448"
+      ]
+    },
+    {
+      "npcID": 5504,
+      "classKey": "druid",
+      "name": "Sheldras Moontree",
+      "title": "Druid Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1519,
+          "mapID": 1453,
+          "pfquest": [
+            20.9,
+            55.5
+          ],
+          "converted": [
+            35.85498985801217,
+            67.38226804123711
+          ],
+          "referenceMinError": 0.01725789924928023
+        }
+      ],
+      "pointIDs": [
+        "npc-5504-1453"
+      ]
+    },
+    {
+      "npcID": 5505,
+      "classKey": "druid",
+      "name": "Theridran",
+      "title": "Druid Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1519,
+          "mapID": 1453,
+          "pfquest": [
+            21.2,
+            51.6
+          ],
+          "converted": [
+            36.08707910750507,
+            64.36439175257732
+          ],
+          "referenceMinError": 0.048529139917611985
+        }
+      ],
+      "pointIDs": [
+        "npc-5505-1453"
+      ]
+    },
+    {
+      "npcID": 5506,
+      "classKey": "druid",
+      "name": "Maldryn",
+      "title": "Druid Trainer",
+      "npcFlags": 17,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1519,
+          "mapID": 1453,
+          "pfquest": [
+            19.1,
+            52.7
+          ],
+          "converted": [
+            34.46245436105477,
+            65.21558762886598
+          ],
+          "referenceMinError": 0.0580419899207385
+        }
+      ],
+      "pointIDs": [
+        "npc-5506-1453"
+      ]
+    },
+    {
+      "npcID": 5515,
+      "classKey": "hunter",
+      "name": "Einris Brightspear",
+      "title": "Hunter Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1519,
+          "mapID": 1453,
+          "pfquest": [
+            61.6,
+            15.3
+          ],
+          "converted": [
+            67.34176470588235,
+            36.27492783505154
+          ],
+          "referenceMinError": 0.03316312916918207
+        }
+      ],
+      "pointIDs": [
+        "npc-5515-1453"
+      ]
+    },
+    {
+      "npcID": 5516,
+      "classKey": "hunter",
+      "name": "Ulfir Ironbeard",
+      "title": "Hunter Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1519,
+          "mapID": 1453,
+          "pfquest": [
+            61.9,
+            14.7
+          ],
+          "converted": [
+            67.57385395537526,
+            35.81063917525773
+          ],
+          "referenceMinError": 0.04678521988247297
+        }
+      ],
+      "pointIDs": [
+        "npc-5516-1453"
+      ]
+    },
+    {
+      "npcID": 5517,
+      "classKey": "hunter",
+      "name": "Thorfin Stoneshield",
+      "title": "Hunter Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1519,
+          "mapID": 1453,
+          "pfquest": [
+            62.5,
+            14.9
+          ],
+          "converted": [
+            68.03803245436106,
+            35.96540206185567
+          ],
+          "referenceMinError": 0.06263039250539038
+        }
+      ],
+      "pointIDs": [
+        "npc-5517-1453"
+      ]
+    },
+    {
+      "npcID": 5612,
+      "classKey": "warlock",
+      "name": "Gimrizz Shadowcog",
+      "title": "Warlock Trainer",
+      "npcFlags": 17,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1,
+          "mapID": 1426,
+          "pfquest": [
+            47.3,
+            53.7
+          ],
+          "converted": [
+            47.3,
+            53.7
+          ],
+          "referenceMinError": 0.04000000000000625
+        }
+      ],
+      "pointIDs": [
+        "npc-5612-1426"
+      ]
+    },
+    {
+      "npcID": 5880,
+      "classKey": "mage",
+      "name": "Un'Thuwa",
+      "title": "Mage Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 14,
+          "mapID": 1411,
+          "pfquest": [
+            56.3,
+            75.1
+          ],
+          "converted": [
+            56.3,
+            75.1
+          ],
+          "referenceMinError": 0.020000000000010232
+        }
+      ],
+      "pointIDs": [
+        "npc-5880-1411"
+      ]
+    },
+    {
+      "npcID": 5882,
+      "classKey": "mage",
+      "name": "Pephredo",
+      "title": "Mage Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 14,
+          "mapID": 1411,
+          "pfquest": [
+            42.7,
+            9.5
+          ],
+          "converted": [
+            42.7,
+            9.5
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1637,
+          "mapID": 1454,
+          "pfquest": [
+            38.4,
+            85.6
+          ],
+          "converted": [
+            38.4,
+            85.6
+          ],
+          "referenceMinError": 0.0899999999999892
+        }
+      ],
+      "pointIDs": [
+        "npc-5882-1454"
+      ]
+    },
+    {
+      "npcID": 5883,
+      "classKey": "mage",
+      "name": "Enyo",
+      "title": "Mage Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 14,
+          "mapID": 1411,
+          "pfquest": [
+            42.8,
+            9.5
+          ],
+          "converted": [
+            42.8,
+            9.5
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1637,
+          "mapID": 1454,
+          "pfquest": [
+            38.8,
+            85.7
+          ],
+          "converted": [
+            38.8,
+            85.7
+          ],
+          "referenceMinError": 0.04999999999999716
+        }
+      ],
+      "pointIDs": [
+        "npc-5883-1454"
+      ]
+    },
+    {
+      "npcID": 5884,
+      "classKey": "mage",
+      "name": "Mai'ah",
+      "title": "Mage Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 14,
+          "mapID": 1411,
+          "pfquest": [
+            42.5,
+            69.0
+          ],
+          "converted": [
+            42.5,
+            69.0
+          ],
+          "referenceMinError": 0.05000000000000426
+        }
+      ],
+      "pointIDs": [
+        "npc-5884-1411"
+      ]
+    },
+    {
+      "npcID": 5885,
+      "classKey": "mage",
+      "name": "Deino",
+      "title": "Mage Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 14,
+          "mapID": 1411,
+          "pfquest": [
+            42.7,
+            9.6
+          ],
+          "converted": [
+            42.7,
+            9.6
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1637,
+          "mapID": 1454,
+          "pfquest": [
+            38.4,
+            86.1
+          ],
+          "converted": [
+            38.4,
+            86.1
+          ],
+          "referenceMinError": 0.0800000000000054
+        }
+      ],
+      "pointIDs": [
+        "npc-5885-1454"
+      ]
+    },
+    {
+      "npcID": 5959,
+      "classKey": "warrior",
+      "name": "World Dwarf Male Warrior Trainer",
+      "title": "Warrior Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "AH",
+      "referenceFaction": "AH",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 5960,
+      "classKey": "rogue",
+      "name": "World Human Male Rogue Trainer",
+      "title": "Rogue Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "AH",
+      "referenceFaction": "AH",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 5961,
+      "classKey": "mage",
+      "name": "World Gnome Male Mage Trainer",
+      "title": "Mage Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "AH",
+      "referenceFaction": "AH",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 5962,
+      "classKey": "warlock",
+      "name": "World Orc Male Warlock Trainer",
+      "title": "Warlock Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "AH",
+      "referenceFaction": "AH",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 5963,
+      "classKey": "druid",
+      "name": "World Tauren Male Druid Trainer",
+      "title": "Druid Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "AH",
+      "referenceFaction": "AH",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 5964,
+      "classKey": "priest",
+      "name": "World Undead Male Priest Trainer",
+      "title": "Priest Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "AH",
+      "referenceFaction": "AH",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 5965,
+      "classKey": "shaman",
+      "name": "World Troll Male Shaman Trainer",
+      "title": "Shaman Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "AH",
+      "referenceFaction": "AH",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 5966,
+      "classKey": "warrior",
+      "name": "World Night Elf Male Warrior Trainer",
+      "title": "Warrior Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "AH",
+      "referenceFaction": "AH",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 5967,
+      "classKey": "warrior",
+      "name": "World Dwarf Female Warrior Trainer",
+      "title": "Warrior Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "AH",
+      "referenceFaction": "AH",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 5968,
+      "classKey": "rogue",
+      "name": "World Human Female Rogue Trainer",
+      "title": "Rogue Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "AH",
+      "referenceFaction": "AH",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 5969,
+      "classKey": "mage",
+      "name": "World Gnome Female Mage Trainer",
+      "title": "Mage Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "AH",
+      "referenceFaction": "AH",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 5970,
+      "classKey": "warlock",
+      "name": "World Orc Female Warlock Trainer",
+      "title": "Warlock Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "AH",
+      "referenceFaction": "AH",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 5971,
+      "classKey": "shaman",
+      "name": "World Troll Female Shaman Trainer",
+      "title": "Shaman Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "AH",
+      "referenceFaction": "AH",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 5972,
+      "classKey": "druid",
+      "name": "World Tauren Female Druid Trainer",
+      "title": "Druid Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "AH",
+      "referenceFaction": "AH",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 5973,
+      "classKey": "priest",
+      "name": "World Undead Female Priest Trainer",
+      "title": "Priest Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "AH",
+      "referenceFaction": "AH",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 6014,
+      "classKey": "priest",
+      "name": "X'yera",
+      "title": "Priest Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 14,
+          "mapID": 1411,
+          "pfquest": [
+            42.0,
+            10.1
+          ],
+          "converted": [
+            42.0,
+            10.1
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1637,
+          "mapID": 1454,
+          "pfquest": [
+            36.0,
+            87.7
+          ],
+          "converted": [
+            36.0,
+            87.7
+          ],
+          "referenceMinError": 0.03999999999999915
+        }
+      ],
+      "pointIDs": [
+        "npc-6014-1454"
+      ]
+    },
+    {
+      "npcID": 6018,
+      "classKey": "priest",
+      "name": "Ur'kyo",
+      "title": "Priest Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 14,
+          "mapID": 1411,
+          "pfquest": [
+            41.9,
+            10.1
+          ],
+          "converted": [
+            41.9,
+            10.1
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1637,
+          "mapID": 1454,
+          "pfquest": [
+            35.6,
+            87.8
+          ],
+          "converted": [
+            35.6,
+            87.8
+          ],
+          "referenceMinError": 0.02999999999999403
+        }
+      ],
+      "pointIDs": [
+        "npc-6018-1454"
+      ]
+    },
+    {
+      "npcID": 7311,
+      "classKey": "mage",
+      "name": "Uthel'nay",
+      "title": "Mage Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 14,
+          "mapID": 1411,
+          "pfquest": [
+            42.9,
+            9.7
+          ],
+          "converted": [
+            42.9,
+            9.7
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1637,
+          "mapID": 1454,
+          "pfquest": [
+            39.2,
+            86.3
+          ],
+          "converted": [
+            39.2,
+            86.3
+          ],
+          "referenceMinError": 0.07000000000000739
+        }
+      ],
+      "pointIDs": [
+        "npc-7311-1454"
+      ]
+    },
+    {
+      "npcID": 7312,
+      "classKey": "mage",
+      "name": "Dink",
+      "title": "Mage Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1537,
+          "mapID": 1455,
+          "pfquest": [
+            27.2,
+            8.6
+          ],
+          "converted": [
+            27.2,
+            8.6
+          ],
+          "referenceMinError": 0.06999999999999851
+        }
+      ],
+      "pointIDs": [
+        "npc-7312-1455"
+      ]
+    },
+    {
+      "npcID": 7315,
+      "classKey": "warrior",
+      "name": "Darnath Bladesinger",
+      "title": "Warrior Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 141,
+          "mapID": 1438,
+          "pfquest": [
+            29.5,
+            54.3
+          ],
+          "converted": [
+            29.5,
+            54.3
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1657,
+          "mapID": 1457,
+          "pfquest": [
+            58.9,
+            35.3
+          ],
+          "converted": [
+            58.9,
+            35.3
+          ],
+          "referenceMinError": 0.09000000000000341
+        }
+      ],
+      "pointIDs": [
+        "npc-7315-1457"
+      ]
+    },
+    {
+      "npcID": 7488,
+      "classKey": "mage",
+      "name": "Haka'wani",
+      "title": "Mage Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 8140,
+      "classKey": "paladin",
+      "name": "Brother Karman",
+      "title": "Paladin Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 15,
+          "mapID": 1445,
+          "pfquest": [
+            67.4,
+            47.4
+          ],
+          "converted": [
+            67.4,
+            47.4
+          ],
+          "referenceMinError": 0.00999999999999801
+        }
+      ],
+      "pointIDs": [
+        "npc-8140-1445"
+      ]
+    },
+    {
+      "npcID": 8141,
+      "classKey": "warrior",
+      "name": "Captain Evencane",
+      "title": "Warrior Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 15,
+          "mapID": 1445,
+          "pfquest": [
+            67.9,
+            48.4
+          ],
+          "converted": [
+            67.9,
+            48.4
+          ],
+          "referenceMinError": 0.030000000000008242
+        }
+      ],
+      "pointIDs": [
+        "npc-8141-1445"
+      ]
+    },
+    {
+      "npcID": 8142,
+      "classKey": "druid",
+      "name": "Jannos Lighthoof",
+      "title": "Druid Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 357,
+          "mapID": 1444,
+          "pfquest": [
+            76.0,
+            42.3
+          ],
+          "converted": [
+            76.0,
+            42.3
+          ],
+          "referenceMinError": 0.030000000000001137
+        }
+      ],
+      "pointIDs": [
+        "npc-8142-1444"
+      ]
+    },
+    {
+      "npcID": 8308,
+      "classKey": "hunter",
+      "name": "Alenndaar Lapidaar",
+      "title": "Hunter Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 331,
+          "mapID": 1440,
+          "pfquest": [
+            18.0,
+            59.8
+          ],
+          "converted": [
+            18.0,
+            59.8
+          ],
+          "referenceMinError": 0.0400000000000027
+        },
+        {
+          "areaID": 406,
+          "mapID": 1442,
+          "pfquest": [
+            52.9,
+            16.7
+          ],
+          "converted": [
+            52.9,
+            16.7
+          ],
+          "referenceMinError": null
+        }
+      ],
+      "pointIDs": [
+        "npc-8308-1440"
+      ]
+    },
+    {
+      "npcID": 9465,
+      "classKey": "druid",
+      "name": "Golhine the Hooded",
+      "title": "Druid Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 361,
+          "mapID": 1448,
+          "pfquest": [
+            61.9,
+            24.5
+          ],
+          "converted": [
+            61.9,
+            24.5
+          ],
+          "referenceMinError": 0.07000000000000028
+        }
+      ],
+      "pointIDs": [
+        "npc-9465-1448"
+      ]
+    },
+    {
+      "npcID": 10291,
+      "classKey": "warrior",
+      "name": "Krysteea",
+      "title": "Warrior Trainer",
+      "npcFlags": 0,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "excluded",
+      "reason": "missing_trainer_flag"
+    },
+    {
+      "npcID": 10930,
+      "classKey": "hunter",
+      "name": "Dargh Trueaim",
+      "title": "Hunter Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 38,
+          "mapID": 1432,
+          "pfquest": [
+            82.4,
+            62.4
+          ],
+          "converted": [
+            82.4,
+            62.4
+          ],
+          "referenceMinError": 0.010000000000005116
+        }
+      ],
+      "pointIDs": [
+        "npc-10930-1432"
+      ]
+    },
+    {
+      "npcID": 11397,
+      "classKey": "priest",
+      "name": "Nara Meideros",
+      "title": "Priest Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1519,
+          "mapID": 1453,
+          "pfquest": [
+            20.7,
+            50.1
+          ],
+          "converted": [
+            35.70026369168357,
+            63.203670103092776
+          ],
+          "referenceMinError": 0.043933794776343404
+        }
+      ],
+      "pointIDs": [
+        "npc-11397-1453"
+      ]
+    },
+    {
+      "npcID": 11401,
+      "classKey": "priest",
+      "name": "Priestess Alathea",
+      "title": "Priest Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 141,
+          "mapID": 1438,
+          "pfquest": [
+            25.4,
+            63.8
+          ],
+          "converted": [
+            25.4,
+            63.8
+          ],
+          "referenceMinError": null
+        },
+        {
+          "areaID": 1657,
+          "mapID": 1457,
+          "pfquest": [
+            39.5,
+            81.2
+          ],
+          "converted": [
+            39.5,
+            81.2
+          ],
+          "referenceMinError": 0.020000000000003126
+        }
+      ],
+      "pointIDs": [
+        "npc-11401-1457"
+      ]
+    },
+    {
+      "npcID": 11406,
+      "classKey": "priest",
+      "name": "High Priest Rohan",
+      "title": "Priest Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1537,
+          "mapID": 1455,
+          "pfquest": [
+            24.7,
+            8.2
+          ],
+          "converted": [
+            24.7,
+            8.2
+          ],
+          "referenceMinError": 0.07000000000000028
+        }
+      ],
+      "pointIDs": [
+        "npc-11406-1455"
+      ]
+    },
+    {
+      "npcID": 12042,
+      "classKey": "druid",
+      "name": "Loganaar",
+      "title": "Druid Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": null,
+      "referenceFaction": "AH",
+      "status": "excluded",
+      "reason": "missing_pfquest_faction"
+    },
+    {
+      "npcID": 13283,
+      "classKey": "rogue",
+      "name": "Lord Tony Romano",
+      "title": "Rogue Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "A",
+      "referenceFaction": "A",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1519,
+          "mapID": 1453,
+          "pfquest": [
+            78.3,
+            57.0
+          ],
+          "converted": [
+            80.2613995943205,
+            68.54298969072165
+          ],
+          "referenceMinError": 0.05561071495785086
+        }
+      ],
+      "pointIDs": [
+        "npc-13283-1453"
+      ]
+    },
+    {
+      "npcID": 13417,
+      "classKey": "shaman",
+      "name": "Sagorne Creststrider",
+      "title": "Shaman Trainer",
+      "npcFlags": 19,
+      "pfquestFaction": "H",
+      "referenceFaction": "H",
+      "status": "included",
+      "coordinateChecks": [
+        {
+          "areaID": 1637,
+          "mapID": 1454,
+          "pfquest": [
+            38.7,
+            35.9
+          ],
+          "converted": [
+            38.7,
+            35.9
+          ],
+          "referenceMinError": 0.06000000000000938
+        }
+      ],
+      "pointIDs": [
+        "npc-13417-1454"
+      ]
+    }
+  ]
+}

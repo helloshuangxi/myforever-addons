@@ -1,0 +1,109 @@
+{
+  "version": "0.4.7-dev.6",
+  "checkedAt": "2026-11-09T10:30:53.747983+08:00",
+  "state": "private_candidate_pending_user_game_test",
+  "scope": "Training-panel hierarchy, direct resize and persistent Esc collapse; original resource-reader robustness only. No native minimap move/scale/mask or resource navigation.",
+  "testCommand": "PersonalAddons/.venv/bin/python PersonalAddons/run_professions_tests.py",
+  "luaSyntaxFiles": 11,
+  "simulatedChecks": 1802,
+  "checksBySuite": {
+    "api": 188,
+    "core": 104,
+    "display": 13,
+    "gatherAlerts": 77,
+    "gatherScan": 469,
+    "gatherSparkles": 209,
+    "itemLinks": 82,
+    "mainIntegration": 168,
+    "trainerPins": 162,
+    "trainers": 69,
+    "ui": 261
+  },
+  "result": "passed",
+  "integrationMockRepair": "First aggregate run exposed missing SetNormalTexture in Main test mock; expanded existing native Frame API mock, retained original Main assertions, added Esc/refresh lifecycle integration checks; final complete suite passed.",
+  "sourceHashes": {
+    "_forever_/Interface/AddOns/MyForeverProfessions/API.lua": "477b6a1c5d6660ff8661bf09779c2da1157f299da4a6445fe2577c81656a0200",
+    "_forever_/Interface/AddOns/MyForeverProfessions/Core.lua": "d4276f32c505f9cab2dceea160701e19cbe49e0b643633bd85b0e51c614a928f",
+    "_forever_/Interface/AddOns/MyForeverProfessions/GatherAlerts.lua": "084402e6eedce7417fa6e1b60bb04d34bacbf2a6c9699dbfc4b328117139e7fb",
+    "_forever_/Interface/AddOns/MyForeverProfessions/GatherResources.lua": "a3f660faf0a0196f28c352f7d0d84887cfbfd84c14a58274270dd2716e91a11b",
+    "_forever_/Interface/AddOns/MyForeverProfessions/GatherScan.lua": "17dad376447cbad1cfbe3ed9ca06d36c669657e5cf99dee9d9ac83f4d493db09",
+    "_forever_/Interface/AddOns/MyForeverProfessions/GatherSparkles.lua": "12be44acd612a9668c92dc822387c4c8b94f5fadcebfa55efef77aa73ff11899",
+    "_forever_/Interface/AddOns/MyForeverProfessions/ItemLinks.lua": "4f80ae78bd5c82e6b9bcda8af711729b052279838055da94a61956a6173f476c",
+    "_forever_/Interface/AddOns/MyForeverProfessions/Main.lua": "18b107dc41c589a8dac02868905f8d851a6e5976bf3a62358c1aaacf060220f8",
+    "_forever_/Interface/AddOns/MyForeverProfessions/TrainerPins.lua": "4e47f9d79858bc9a3dee869e2df69cfd32a2b7e58752537bdcf42efd10208bbf",
+    "_forever_/Interface/AddOns/MyForeverProfessions/Trainers.lua": "49fd00450a90b6cfe960fc6555bb166faa3c45ed9f02f276407bc6393fe0aa3c",
+    "_forever_/Interface/AddOns/MyForeverProfessions/UI.lua": "3540e3ded23856aeffc90c9b7910909286e1379faf34a3a4a9a2723f0d0b5dda",
+    "_forever_/Interface/AddOns/MyForeverProfessions/MyForeverProfessions.toc": "c3fa4c7303819484ad56e3e229e308791ae29648f1c1b0bef2f6cae31fa4ad0a",
+    "PersonalAddons/tests/professions_ui_test.lua": "c719e3b5d3c027dcd6c02f0a098bb0ada0563f08762c91021278f09ea1b63ad5",
+    "PersonalAddons/tests/professions_gather_scan_test.lua": "3e5e44eed7d9910e0d2b9ef4d1b0dc5bee241ac580fb00815273b0180df4cc12",
+    "PersonalAddons/tests/professions_main_test.lua": "14aa19867cadc386d6e199cee9f1b694b991426c68a82c87f25938262c45ab3b"
+  },
+  "independentReview": {
+    "result": "passed",
+    "ui": "Final frozen source reviewed; prior title-drag/Hide counterexample closed, current position saved before collapsed-icon placement. 261 targeted checks passed; no remaining blockers.",
+    "scanner": "469 targeted checks passed, independently reviewed; 6 additional in-memory restoration/hover recovery checks passed.",
+    "limitation": "Static and simulated only. No gameplay or acoustic confirmation."
+  },
+  "preview": {
+    "report": "preview/report.json",
+    "sourceSha256": "3540e3ded23856aeffc90c9b7910909286e1379faf34a3a4a9a2723f0d0b5dda",
+    "views": 20,
+    "limitations": [
+      "真实 UI.lua 在 Lupa 中执行；虚构专业与物品样本，不读取角色数据。",
+      "使用系统中文替代字体，WoW 字体、字距及 GetStringHeight 可能不同；需游戏内确认。",
+      "仅记录 frame API 与锚点。背景为实参近似色块，图标与状态条纹理为占位，不仿造游戏截图。",
+      "缩放为构造时 65/100/160%；不验证真实鼠标拖动、屏幕钳制、Esc、游戏滚动与渲染裁切。"
+    ],
+    "rootViewed": [
+      "crafting-100.png",
+      "crafting-160.png",
+      "crafting-content.png",
+      "long-alternative-100.png",
+      "long-alternative-content.png",
+      "unlearned-065.png",
+      "gathering-100.png",
+      "no-recipes-100.png"
+    ],
+    "rootVisualFinding": "No observed material/recommendation/action text collision in the listed simulated views; native font/rendering and input still require gameplay verification.",
+    "finalLifecyclePatchPixels": "25/25 PNG hashes unchanged after re-render with final source; see preview/png-provenance-refresh.json",
+    "textInkOverlaps": 0,
+    "panelOutsideViewport": 0
+  },
+  "runtime": {
+    "gameRunningAtInventory": false,
+    "startedGame": false,
+    "loggedIn": false,
+    "reloaded": false,
+    "modifiedSavedVariables": false,
+    "newPanelGesturesVerifiedInGame": false,
+    "automaticMinimapResourceDetectionVerified": false,
+    "soundAudibilityVerified": false
+  },
+  "noticeSettings": "No changes to gather alert, sound or sparkle preferences. Last real-game reading in dev.5 was true/true/true; not re-read this turn.",
+  "upstream": {
+    "version": "1.8.4",
+    "commit": "31605d139d203ad7c8a2f366f039d7430debb64d",
+    "url": "https://github.com/Krelock/NodeSight/releases/tag/v1.8.4",
+    "adopted": [
+      "Public/unrestricted tooltip container and line validation",
+      "Passive mouse-focus ancestry check for Minimap descendants"
+    ],
+    "notAdopted": [
+      "Native Minimap repositioning or EmptyMask",
+      "Changing other addon frame input flags",
+      "NodeSightAPI cached results as a fresh discovery feed"
+    ],
+    "verification": "Official metadata and read-only pinned source review; no third-party addon install or runtime test."
+  },
+  "publication": {
+    "allowed": false,
+    "reason": "User requires local test and explicit approval before publishing this candidate.",
+    "createdPublicZip": false,
+    "modifiedWebsite": false,
+    "deployedWebsite": false,
+    "existing046ZipSha256": "6d1e93b4d9865216d46d532770813b38572692134a8dd16333f87d864cf62bb6",
+    "candidate047Zips": []
+  },
+  "testOutput": "full-test-output.txt",
+  "titleDragRepair": "Active title drags stop and save before Esc/collapse icon placement, ancestor/programmatic hide, locking or resize takeover; MouseUp and lost-release watchdog clear the polling script."
+}

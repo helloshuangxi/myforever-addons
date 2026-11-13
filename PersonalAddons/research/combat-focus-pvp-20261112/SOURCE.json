@@ -1,0 +1,245 @@
+{
+  "reviewDate": "2026-11-12",
+  "method": "Public text source only; never loaded or executed; upstream HEAD recorded at review time, not a claim about latest packaged release; no MyForeverTargets changes.",
+  "projects": [
+    {
+      "id": "BattleGroundEnemies",
+      "repo": "BullseiWoWAddons/BattleGroundEnemies",
+      "commit": "4e96f79ff93953fd012bb147ff9b3b422319f18b",
+      "commitDate": "2025-08-18T19:12:49Z",
+      "version": "TOC @project-version@ placeholder; Interface 110200",
+      "paths": [
+        "BattleGroundEnemies.toc",
+        "Main.lua",
+        "Mainframe.lua",
+        "PlayerButton.lua"
+      ],
+      "licenseLookup": "HTTP Error 404: Not Found"
+    },
+    {
+      "id": "GladiusEx",
+      "repo": "vendethiel/GladiusEx",
+      "commit": "085cefb71926172730330131f4c8dca409960c16",
+      "commitDate": "2025-12-17T17:17:42Z",
+      "version": "No Version field in source TOC; Interface 110005/110007/110100/110200",
+      "paths": [
+        "GladiusEx.toc",
+        "GladiusEx.lua",
+        "modules/clicks.lua",
+        "modules/drtracker.lua"
+      ],
+      "licenseLookup": "HTTP Error 404: Not Found"
+    },
+    {
+      "id": "sArena_Updated2",
+      "repo": "Sammers21/sArena_Updated2_by_sammers",
+      "commit": "f7306d90a55ca8ba7d9092ead2b93a62bd24c848",
+      "commitDate": "2026-03-22T20:44:52Z",
+      "version": "4.0.1; Interface 120001/120000",
+      "paths": [
+        "sArena_Updated2_by_sammers.toc",
+        "Frames.lua",
+        "Events.lua"
+      ],
+      "license": "MIT"
+    },
+    {
+      "id": "Gladius_original",
+      "repo": "Resike/Gladius",
+      "commit": "ae82b29e40d6d31a361d043f97beb14aa33e0ba7",
+      "commitDate": "2025-04-21T22:12:08Z",
+      "version": "8.2.0; Interface 110100/40402",
+      "paths": [
+        "Gladius.toc",
+        "Gladius.lua",
+        "Modules/Clicks.lua",
+        "Modules/DRTracker.lua"
+      ],
+      "licenseLookup": "HTTP Error 404: Not Found"
+    },
+    {
+      "id": "Gladius_updated",
+      "repo": "Sammers21/Gladius_Updated_by_sammers",
+      "commit": "a7b95e5745d5124031ce0b6276fd89a79369a335",
+      "commitDate": "2026-03-22T20:44:52Z",
+      "version": "2026.1.1; Interface 120001/120000",
+      "paths": [
+        "Gladius_Updated_by_sammers.toc",
+        "Gladius.lua",
+        "Modules/Clicks.lua",
+        "Modules/DRTracker.lua"
+      ],
+      "license": "MIT"
+    }
+  ],
+  "files": [
+    {
+      "project": "BattleGroundEnemies",
+      "path": "PersonalAddons/research/combat-focus-pvp-20261112/BattleGroundEnemies/BattleGroundEnemies.toc",
+      "upstreamPath": "BattleGroundEnemies.toc",
+      "url": "https://raw.githubusercontent.com/BullseiWoWAddons/BattleGroundEnemies/4e96f79ff93953fd012bb147ff9b3b422319f18b/BattleGroundEnemies.toc",
+      "sha256": "1dc371ca41f7896cc3ceb86b2845fd79e3a8bc6590c0454a7751f1865b4f0e1e",
+      "bytes": 1421
+    },
+    {
+      "project": "BattleGroundEnemies",
+      "path": "PersonalAddons/research/combat-focus-pvp-20261112/BattleGroundEnemies/Main.lua",
+      "upstreamPath": "Main.lua",
+      "url": "https://raw.githubusercontent.com/BullseiWoWAddons/BattleGroundEnemies/4e96f79ff93953fd012bb147ff9b3b422319f18b/Main.lua",
+      "sha256": "5e817f45c14ee5255a55ed5458001a3aa86a0877729d82fee93b555c8e04adc6",
+      "bytes": 79691
+    },
+    {
+      "project": "BattleGroundEnemies",
+      "path": "PersonalAddons/research/combat-focus-pvp-20261112/BattleGroundEnemies/Mainframe.lua",
+      "upstreamPath": "Mainframe.lua",
+      "url": "https://raw.githubusercontent.com/BullseiWoWAddons/BattleGroundEnemies/4e96f79ff93953fd012bb147ff9b3b422319f18b/Mainframe.lua",
+      "sha256": "8a0eff95357f2c46e209edcc6f1ff3ce29433218e05b1370d2aaf93e6471db43",
+      "bytes": 44767
+    },
+    {
+      "project": "BattleGroundEnemies",
+      "path": "PersonalAddons/research/combat-focus-pvp-20261112/BattleGroundEnemies/PlayerButton.lua",
+      "upstreamPath": "PlayerButton.lua",
+      "url": "https://raw.githubusercontent.com/BullseiWoWAddons/BattleGroundEnemies/4e96f79ff93953fd012bb147ff9b3b422319f18b/PlayerButton.lua",
+      "sha256": "393c9475bc5a8ff9c3242a04fd4e87f32d7a0455d6ef428f95931f2c8c828c37",
+      "bytes": 44568
+    },
+    {
+      "project": "GladiusEx",
+      "path": "PersonalAddons/research/combat-focus-pvp-20261112/GladiusEx/GladiusEx.toc",
+      "upstreamPath": "GladiusEx.toc",
+      "url": "https://raw.githubusercontent.com/vendethiel/GladiusEx/085cefb71926172730330131f4c8dca409960c16/GladiusEx.toc",
+      "sha256": "1cdf2269b5a5173d6ae152c276f3c4d6aa9abd8f30098a3a2c5171e59f69be41",
+      "bytes": 902
+    },
+    {
+      "project": "GladiusEx",
+      "path": "PersonalAddons/research/combat-focus-pvp-20261112/GladiusEx/GladiusEx.lua",
+      "upstreamPath": "GladiusEx.lua",
+      "url": "https://raw.githubusercontent.com/vendethiel/GladiusEx/085cefb71926172730330131f4c8dca409960c16/GladiusEx.lua",
+      "sha256": "77cb90c72e051780470af38df78724c11a48a4cf6ad232efc3678bae1ccfc396",
+      "bytes": 54774
+    },
+    {
+      "project": "GladiusEx",
+      "path": "PersonalAddons/research/combat-focus-pvp-20261112/GladiusEx/modules/clicks.lua",
+      "upstreamPath": "modules/clicks.lua",
+      "url": "https://raw.githubusercontent.com/vendethiel/GladiusEx/085cefb71926172730330131f4c8dca409960c16/modules/clicks.lua",
+      "sha256": "723ae51174e17544de40bb2bb6366c97e9b5b044367755642e82849d3676cd98",
+      "bytes": 6551
+    },
+    {
+      "project": "GladiusEx",
+      "path": "PersonalAddons/research/combat-focus-pvp-20261112/GladiusEx/modules/drtracker.lua",
+      "upstreamPath": "modules/drtracker.lua",
+      "url": "https://raw.githubusercontent.com/vendethiel/GladiusEx/085cefb71926172730330131f4c8dca409960c16/modules/drtracker.lua",
+      "sha256": "7db72f12440c20e64667de1fcc36225b48d17b63d55c046538e11adee4387b57",
+      "bytes": 26062
+    },
+    {
+      "project": "sArena_Updated2",
+      "path": "PersonalAddons/research/combat-focus-pvp-20261112/sArena_Updated2/sArena_Updated2_by_sammers.toc",
+      "upstreamPath": "sArena_Updated2_by_sammers.toc",
+      "url": "https://raw.githubusercontent.com/Sammers21/sArena_Updated2_by_sammers/f7306d90a55ca8ba7d9092ead2b93a62bd24c848/sArena_Updated2_by_sammers.toc",
+      "sha256": "6b51757f664d7e6787ca3aab1a17e60ac6c5025e1d20e8a13c20f15f6fc40cb8",
+      "bytes": 1047
+    },
+    {
+      "project": "sArena_Updated2",
+      "path": "PersonalAddons/research/combat-focus-pvp-20261112/sArena_Updated2/Frames.lua",
+      "upstreamPath": "Frames.lua",
+      "url": "https://raw.githubusercontent.com/Sammers21/sArena_Updated2_by_sammers/f7306d90a55ca8ba7d9092ead2b93a62bd24c848/Frames.lua",
+      "sha256": "e504513020dc28aaaebf061c9e81d9309d8b264e7a7f401f2c4392523fa0c861",
+      "bytes": 5839
+    },
+    {
+      "project": "sArena_Updated2",
+      "path": "PersonalAddons/research/combat-focus-pvp-20261112/sArena_Updated2/Events.lua",
+      "upstreamPath": "Events.lua",
+      "url": "https://raw.githubusercontent.com/Sammers21/sArena_Updated2_by_sammers/f7306d90a55ca8ba7d9092ead2b93a62bd24c848/Events.lua",
+      "sha256": "bb1d11156dee969782a50aed04d90fdee21ec5ec8ee0767eacc4c5070ec625e6",
+      "bytes": 16013
+    },
+    {
+      "project": "Gladius_original",
+      "path": "PersonalAddons/research/combat-focus-pvp-20261112/Gladius_original/Gladius.toc",
+      "upstreamPath": "Gladius.toc",
+      "url": "https://raw.githubusercontent.com/Resike/Gladius/ae82b29e40d6d31a361d043f97beb14aa33e0ba7/Gladius.toc",
+      "sha256": "73829b815989672911a1b66f102ecef372c8c38902cf28b768548940b749f2d8",
+      "bytes": 657
+    },
+    {
+      "project": "Gladius_original",
+      "path": "PersonalAddons/research/combat-focus-pvp-20261112/Gladius_original/Gladius.lua",
+      "upstreamPath": "Gladius.lua",
+      "url": "https://raw.githubusercontent.com/Resike/Gladius/ae82b29e40d6d31a361d043f97beb14aa33e0ba7/Gladius.lua",
+      "sha256": "98a6ef06ad85daf4a3b6e5dae9e60f2caab3d3d5857849a609f3cf3ea1a752e4",
+      "bytes": 28830
+    },
+    {
+      "project": "Gladius_original",
+      "path": "PersonalAddons/research/combat-focus-pvp-20261112/Gladius_original/Modules/Clicks.lua",
+      "upstreamPath": "Modules/Clicks.lua",
+      "url": "https://raw.githubusercontent.com/Resike/Gladius/ae82b29e40d6d31a361d043f97beb14aa33e0ba7/Modules/Clicks.lua",
+      "sha256": "c6553c2d86858529fb5cf868d9fe8639b11f7428bd9b59e6a1f8f401a9bd1f7b",
+      "bytes": 6816
+    },
+    {
+      "project": "Gladius_original",
+      "path": "PersonalAddons/research/combat-focus-pvp-20261112/Gladius_original/Modules/DRTracker.lua",
+      "upstreamPath": "Modules/DRTracker.lua",
+      "url": "https://raw.githubusercontent.com/Resike/Gladius/ae82b29e40d6d31a361d043f97beb14aa33e0ba7/Modules/DRTracker.lua",
+      "sha256": "085bda9be46b4d16faa78de87dba8d5a09564d706e559c5552a06c1a67f182bf",
+      "bytes": 19213
+    },
+    {
+      "project": "Gladius_updated",
+      "path": "PersonalAddons/research/combat-focus-pvp-20261112/Gladius_updated/Gladius_Updated_by_sammers.toc",
+      "upstreamPath": "Gladius_Updated_by_sammers.toc",
+      "url": "https://raw.githubusercontent.com/Sammers21/Gladius_Updated_by_sammers/a7b95e5745d5124031ce0b6276fd89a79369a335/Gladius_Updated_by_sammers.toc",
+      "sha256": "61ec9c70d96ec2d2e46d3b72e4f2c5e3bec625f1c4b6e9d609a67c298139513e",
+      "bytes": 747
+    },
+    {
+      "project": "Gladius_updated",
+      "path": "PersonalAddons/research/combat-focus-pvp-20261112/Gladius_updated/Gladius.lua",
+      "upstreamPath": "Gladius.lua",
+      "url": "https://raw.githubusercontent.com/Sammers21/Gladius_Updated_by_sammers/a7b95e5745d5124031ce0b6276fd89a79369a335/Gladius.lua",
+      "sha256": "caa720b43500daa3a2f08bb077d5da5ce9e7660b1b3c83b7950bcc8cea64d2c7",
+      "bytes": 36093
+    },
+    {
+      "project": "Gladius_updated",
+      "path": "PersonalAddons/research/combat-focus-pvp-20261112/Gladius_updated/Modules/Clicks.lua",
+      "upstreamPath": "Modules/Clicks.lua",
+      "url": "https://raw.githubusercontent.com/Sammers21/Gladius_Updated_by_sammers/a7b95e5745d5124031ce0b6276fd89a79369a335/Modules/Clicks.lua",
+      "sha256": "0e86f003a326310eabc53c8866fe1cc3fa303474e1a58e2612659d508db20db9",
+      "bytes": 6821
+    },
+    {
+      "project": "Gladius_updated",
+      "path": "PersonalAddons/research/combat-focus-pvp-20261112/Gladius_updated/Modules/DRTracker.lua",
+      "upstreamPath": "Modules/DRTracker.lua",
+      "url": "https://raw.githubusercontent.com/Sammers21/Gladius_Updated_by_sammers/a7b95e5745d5124031ce0b6276fd89a79369a335/Modules/DRTracker.lua",
+      "sha256": "bda2c751b1f48e476e3793af7248478ca5de7e1859532d46be4cfffbe20b18fe",
+      "bytes": 33147
+    },
+    {
+      "project": "sArena_Updated2",
+      "path": "PersonalAddons/research/combat-focus-pvp-20261112/sArena_Updated2/LICENSE.upstream",
+      "upstreamPath": "LICENSE.txt",
+      "url": "https://github.com/Sammers21/sArena_Updated2_by_sammers/blob/f7306d90a55ca8ba7d9092ead2b93a62bd24c848/LICENSE.txt",
+      "sha256": "504baf8521df2787fa550752228c457b0085e4e6c128f8065ff4c9c0d28c96c6",
+      "bytes": 1062
+    },
+    {
+      "project": "Gladius_updated",
+      "path": "PersonalAddons/research/combat-focus-pvp-20261112/Gladius_updated/LICENSE.upstream",
+      "upstreamPath": "LICENSE",
+      "url": "https://github.com/Sammers21/Gladius_Updated_by_sammers/blob/a7b95e5745d5124031ce0b6276fd89a79369a335/LICENSE",
+      "sha256": "05ccc17e9ff036abe6855774160bd9762e3d0e0e734c7fb91eff327382afdec1",
+      "bytes": 1065
+    }
+  ]
+}

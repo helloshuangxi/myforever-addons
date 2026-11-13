@@ -1,0 +1,1058 @@
+{
+  "title": "模拟布局，非游戏截图",
+  "source_sha256": "3540e3ded23856aeffc90c9b7910909286e1379faf34a3a4a9a2723f0d0b5dda",
+  "dependencies": {
+    "python": "/Users/mashuangxi/World of Warcraft/PersonalAddons/.venv/bin/python",
+    "lua": "lupa.lua51",
+    "pillow": "/Users/mashuangxi/.codex/skills/sprite-gen/.venv/lib/python3.12/site-packages/PIL",
+    "font": "/System/Library/Fonts/Hiragino Sans GB.ttc"
+  },
+  "limitations": [
+    "真实 UI.lua 在 Lupa 中执行；虚构专业与物品样本，不读取角色数据。",
+    "使用系统中文替代字体，WoW 字体、字距及 GetStringHeight 可能不同；需游戏内确认。",
+    "仅记录 frame API 与锚点。背景为实参近似色块，图标与状态条纹理为占位，不仿造游戏截图。",
+    "缩放为构造时 65/100/160%；不验证真实鼠标拖动、屏幕钳制、Esc、游戏滚动与渲染裁切。"
+  ],
+  "checks": [
+    {
+      "scene": "crafting",
+      "scale": 0.65,
+      "scroll_position": "top",
+      "panel_in_viewport": true,
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            185.4,
+            119.45,
+            186.7,
+            127.25
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            185.4,
+            411.95,
+            186.7,
+            419.75
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            185.4,
+            443.15,
+            186.7,
+            450.95
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            185.4,
+            474.35,
+            186.7,
+            482.15
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "crafting",
+      "scale": 1,
+      "scroll_position": "top",
+      "panel_in_viewport": true,
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            268,
+            145.0,
+            270,
+            157.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            268,
+            595.0,
+            270,
+            607.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            268,
+            643.0,
+            270,
+            655.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            268,
+            691.0,
+            270,
+            703.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "crafting",
+      "scale": 1,
+      "scroll_position": "bottom",
+      "panel_in_viewport": true,
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            268,
+            -71.0,
+            270,
+            -59.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            268,
+            379.0,
+            270,
+            391.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            268,
+            427.0,
+            270,
+            439.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            268,
+            475.0,
+            270,
+            487.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "crafting",
+      "scale": 1.6,
+      "scroll_position": "top",
+      "panel_in_viewport": true,
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            409.6,
+            188.8,
+            412.8,
+            208.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            409.6,
+            908.8,
+            412.8,
+            928.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            409.6,
+            985.6,
+            412.8,
+            1004.8
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            409.6,
+            1062.4,
+            412.8,
+            1081.6
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "long-alternative",
+      "scale": 0.65,
+      "scroll_position": "top",
+      "panel_in_viewport": true,
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            185.4,
+            119.45,
+            186.7,
+            127.25
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            185.4,
+            397.0,
+            186.7,
+            404.8
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            185.4,
+            428.2,
+            186.7,
+            436.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            185.4,
+            459.4,
+            186.7,
+            467.2
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "long-alternative",
+      "scale": 1,
+      "scroll_position": "top",
+      "panel_in_viewport": true,
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            268,
+            145.0,
+            270,
+            157.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            268,
+            572.0,
+            270,
+            584.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            268,
+            620.0,
+            270,
+            632.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            268,
+            668.0,
+            270,
+            680.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "long-alternative",
+      "scale": 1,
+      "scroll_position": "bottom",
+      "panel_in_viewport": true,
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            268,
+            -48.0,
+            270,
+            -36.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            268,
+            379.0,
+            270,
+            391.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            268,
+            427.0,
+            270,
+            439.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            268,
+            475.0,
+            270,
+            487.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "long-alternative",
+      "scale": 1.6,
+      "scroll_position": "top",
+      "panel_in_viewport": true,
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            409.6,
+            188.8,
+            412.8,
+            208.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            409.6,
+            872.0,
+            412.8,
+            891.2
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            409.6,
+            948.8,
+            412.8,
+            968.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            409.6,
+            1025.6,
+            412.8,
+            1044.8
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "gathering",
+      "scale": 0.65,
+      "scroll_position": "top",
+      "panel_in_viewport": true,
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            185.4,
+            119.45,
+            186.7,
+            127.25
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            185.4,
+            150.65,
+            186.7,
+            158.45
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            185.4,
+            339.15,
+            186.7,
+            346.95
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            185.4,
+            370.35,
+            186.7,
+            378.15
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "gathering",
+      "scale": 1,
+      "scroll_position": "top",
+      "panel_in_viewport": true,
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            268,
+            145.0,
+            270,
+            157.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            268,
+            193.0,
+            270,
+            205.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            268,
+            483.0,
+            270,
+            495.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            268,
+            531.0,
+            270,
+            543.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "gathering",
+      "scale": 1,
+      "scroll_position": "bottom",
+      "panel_in_viewport": true,
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            268,
+            89.0,
+            270,
+            101.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            268,
+            137.0,
+            270,
+            149.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            268,
+            427.0,
+            270,
+            439.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            268,
+            475.0,
+            270,
+            487.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "gathering",
+      "scale": 1.6,
+      "scroll_position": "top",
+      "panel_in_viewport": true,
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            409.6,
+            188.8,
+            412.8,
+            208.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            409.6,
+            265.6,
+            412.8,
+            284.8
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            409.6,
+            729.6,
+            412.8,
+            748.8
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            409.6,
+            806.4,
+            412.8,
+            825.6
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "unlearned",
+      "scale": 0.65,
+      "scroll_position": "top",
+      "panel_in_viewport": true,
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            185.4,
+            119.45,
+            186.7,
+            127.25
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            185.4,
+            150.65,
+            186.7,
+            158.45
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            185.4,
+            181.85,
+            186.7,
+            189.65
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            185.4,
+            281.95,
+            186.7,
+            289.75
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "unlearned",
+      "scale": 1,
+      "scroll_position": "top",
+      "panel_in_viewport": true,
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            268,
+            145.0,
+            270,
+            157.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            268,
+            193.0,
+            270,
+            205.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            268,
+            241.0,
+            270,
+            253.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            268,
+            395.0,
+            270,
+            407.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "unlearned",
+      "scale": 1,
+      "scroll_position": "bottom",
+      "panel_in_viewport": true,
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            268,
+            145.0,
+            270,
+            157.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            268,
+            193.0,
+            270,
+            205.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            268,
+            241.0,
+            270,
+            253.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            268,
+            395.0,
+            270,
+            407.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "unlearned",
+      "scale": 1.6,
+      "scroll_position": "top",
+      "panel_in_viewport": true,
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            409.6,
+            188.8,
+            412.8,
+            208.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            409.6,
+            265.6,
+            412.8,
+            284.8
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            409.6,
+            342.4,
+            412.8,
+            361.6
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            409.6,
+            588.8,
+            412.8,
+            608.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "no-recipes",
+      "scale": 0.65,
+      "scroll_position": "top",
+      "panel_in_viewport": true,
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            185.4,
+            119.45,
+            186.7,
+            127.25
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            185.4,
+            150.65,
+            186.7,
+            158.45
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            185.4,
+            181.85,
+            186.7,
+            189.65
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            185.4,
+            213.05,
+            186.7,
+            220.85
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "no-recipes",
+      "scale": 1,
+      "scroll_position": "top",
+      "panel_in_viewport": true,
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            268,
+            145.0,
+            270,
+            157.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            268,
+            193.0,
+            270,
+            205.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            268,
+            241.0,
+            270,
+            253.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            268,
+            289.0,
+            270,
+            301.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "no-recipes",
+      "scale": 1,
+      "scroll_position": "bottom",
+      "panel_in_viewport": true,
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            268,
+            145.0,
+            270,
+            157.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            268,
+            193.0,
+            270,
+            205.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            268,
+            241.0,
+            270,
+            253.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            268,
+            289.0,
+            270,
+            301.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "no-recipes",
+      "scale": 1.6,
+      "scroll_position": "top",
+      "panel_in_viewport": true,
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            409.6,
+            188.8,
+            412.8,
+            208.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            409.6,
+            265.6,
+            412.8,
+            284.8
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            409.6,
+            342.4,
+            412.8,
+            361.6
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            409.6,
+            419.2,
+            412.8,
+            438.4
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    }
+  ]
+}

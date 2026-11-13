@@ -1,0 +1,9692 @@
+{
+  "title": "模拟布局，非游戏截图",
+  "scene": "long-alternative",
+  "scroll_position": "top",
+  "scale": 1,
+  "window": [
+    372,
+    474
+  ],
+  "viewport": [
+    1440,
+    1000
+  ],
+  "source": "/Users/mashuangxi/World of Warcraft/_forever_/Interface/AddOns/MyForeverProfessions/UI.lua",
+  "source_sha256": "a3e0a346a7584b5bcc86683aa030d6faaa0cf6884e557063235cb23dbe4afa5b",
+  "core_source": "/Users/mashuangxi/World of Warcraft/_forever_/Interface/AddOns/MyForeverProfessions/Core.lua",
+  "core_sha256": "abb64fa194e0e7881e1e2f4094a0bac22977ff6290988acc1243dcff892ea5a8",
+  "limitations": [
+    "真实 Core.lua 与 UI.lua 在 Lupa Lua 5.1 中执行；虚构专业与物品样本，不读取角色数据。",
+    "使用系统中文替代字体，WoW 字体、字距及 GetStringHeight 可能不同；需游戏内确认。",
+    "仅记录 frame API 与锚点。背景为实参近似色块，图标与状态条纹理为占位，不仿造游戏截图。",
+    "窗口为340×260、372×474、700×800，均使用scale=1；不验证真实鼠标拖动、屏幕钳制、Esc与游戏像素。"
+  ],
+  "frames": [
+    {
+      "id": 1,
+      "kind": "Frame",
+      "name": "UIParent",
+      "shown": true,
+      "width": 1440,
+      "height": 1000,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": null,
+      "alias": "UIParent",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [],
+      "physical_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 2,
+      "kind": "Frame",
+      "name": "MyForeverProfessionsPanel",
+      "template": "BackdropTemplate",
+      "shown": true,
+      "width": 372,
+      "height": 474,
+      "scale": 1,
+      "alpha": 1,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "clamped": true,
+      "parent": 1,
+      "alias": "panel",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "backdropColor": [
+        0.035,
+        0.045,
+        0.055,
+        0.94
+      ],
+      "backdropBorderColor": [
+        0.53,
+        0.44,
+        0.28,
+        0.8
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 1,
+          "relativePoint": "TOPLEFT",
+          "x": 32,
+          "y": -72
+        }
+      ],
+      "physical_rect": [
+        32,
+        72,
+        404,
+        546
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 3,
+      "kind": "FontString",
+      "template": "GameFontNormal",
+      "shown": true,
+      "width": 176,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "商业技能助手",
+      "fontSize": 14,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 2,
+      "alias": "panel.title",
+      "textColor": [
+        0.94,
+        0.82,
+        0.57
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 2,
+          "relativePoint": "TOPLEFT",
+          "x": 13,
+          "y": -13
+        }
+      ],
+      "physical_rect": [
+        45,
+        85,
+        221,
+        99
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 4,
+      "kind": "Frame",
+      "shown": true,
+      "width": 200,
+      "height": 30,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 2,
+      "alias": "panel.drag",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 2,
+          "relativePoint": "TOPLEFT",
+          "x": 4,
+          "y": -4
+        }
+      ],
+      "physical_rect": [
+        36,
+        76,
+        236,
+        106
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 5,
+      "kind": "Button",
+      "shown": true,
+      "width": 39,
+      "height": 23,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 2,
+      "alias": "panel.controls.refresh",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPRIGHT",
+          "relative": 2,
+          "relativePoint": "TOPRIGHT",
+          "x": -84,
+          "y": -7
+        }
+      ],
+      "physical_rect": [
+        281,
+        79,
+        320,
+        102
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 6,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 5,
+      "alias": "frame.6",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.9,
+        0.77,
+        0.48,
+        0.12
+      ],
+      "points": [],
+      "physical_rect": [
+        281,
+        79,
+        281,
+        79
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 7,
+      "kind": "FontString",
+      "template": "GameFontNormalSmall",
+      "shown": true,
+      "width": 39,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "刷新",
+      "fontSize": 12,
+      "justifyH": "CENTER",
+      "justifyV": "MIDDLE",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 5,
+      "alias": "panel.controls.refresh.label",
+      "textColor": [
+        0.68,
+        0.73,
+        0.77
+      ],
+      "points": [
+        {
+          "point": "CENTER",
+          "relative": 5,
+          "relativePoint": "CENTER",
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        281.0,
+        84.5,
+        320.0,
+        96.5
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 8,
+      "kind": "Button",
+      "shown": true,
+      "width": 39,
+      "height": 23,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 2,
+      "alias": "panel.controls.lock",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPRIGHT",
+          "relative": 2,
+          "relativePoint": "TOPRIGHT",
+          "x": -44,
+          "y": -7
+        }
+      ],
+      "physical_rect": [
+        321,
+        79,
+        360,
+        102
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 9,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 8,
+      "alias": "frame.9",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.9,
+        0.77,
+        0.48,
+        0.12
+      ],
+      "points": [],
+      "physical_rect": [
+        321,
+        79,
+        321,
+        79
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 10,
+      "kind": "FontString",
+      "template": "GameFontNormalSmall",
+      "shown": true,
+      "width": 39,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "锁定",
+      "fontSize": 12,
+      "justifyH": "CENTER",
+      "justifyV": "MIDDLE",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 8,
+      "alias": "panel.controls.lock.label",
+      "textColor": [
+        0.68,
+        0.73,
+        0.77
+      ],
+      "points": [
+        {
+          "point": "CENTER",
+          "relative": 8,
+          "relativePoint": "CENTER",
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        321.0,
+        84.5,
+        360.0,
+        96.5
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 11,
+      "kind": "Button",
+      "shown": true,
+      "width": 26,
+      "height": 23,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 2,
+      "alias": "panel.controls.collapse",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPRIGHT",
+          "relative": 2,
+          "relativePoint": "TOPRIGHT",
+          "x": -12,
+          "y": -7
+        }
+      ],
+      "physical_rect": [
+        366,
+        79,
+        392,
+        102
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 12,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 11,
+      "alias": "frame.12",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.9,
+        0.77,
+        0.48,
+        0.12
+      ],
+      "points": [],
+      "physical_rect": [
+        366,
+        79,
+        366,
+        79
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 13,
+      "kind": "FontString",
+      "template": "GameFontNormalSmall",
+      "shown": true,
+      "width": 26,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "-",
+      "fontSize": 12,
+      "justifyH": "CENTER",
+      "justifyV": "MIDDLE",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 11,
+      "alias": "panel.controls.collapse.label",
+      "textColor": [
+        0.68,
+        0.73,
+        0.77
+      ],
+      "points": [
+        {
+          "point": "CENTER",
+          "relative": 11,
+          "relativePoint": "CENTER",
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        366.0,
+        84.5,
+        392.0,
+        96.5
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 14,
+      "kind": "Button",
+      "shown": true,
+      "width": 39,
+      "height": 23,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 2,
+      "alias": "panel.controls.gather",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPRIGHT",
+          "relative": 2,
+          "relativePoint": "TOPRIGHT",
+          "x": -125,
+          "y": -7
+        }
+      ],
+      "physical_rect": [
+        240,
+        79,
+        279,
+        102
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 15,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 14,
+      "alias": "frame.15",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.9,
+        0.77,
+        0.48,
+        0.12
+      ],
+      "points": [],
+      "physical_rect": [
+        240,
+        79,
+        240,
+        79
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 16,
+      "kind": "FontString",
+      "template": "GameFontNormalSmall",
+      "shown": true,
+      "width": 39,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "采集",
+      "fontSize": 12,
+      "justifyH": "CENTER",
+      "justifyV": "MIDDLE",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 14,
+      "alias": "panel.controls.gather.label",
+      "textColor": [
+        0.68,
+        0.73,
+        0.77
+      ],
+      "points": [
+        {
+          "point": "CENTER",
+          "relative": 14,
+          "relativePoint": "CENTER",
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        240.0,
+        84.5,
+        279.0,
+        96.5
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 17,
+      "kind": "Button",
+      "shown": true,
+      "enabled": true,
+      "width": 104,
+      "height": 23,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 2,
+      "alias": "panel.controls.open",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 2,
+          "relativePoint": "TOPLEFT",
+          "x": 14,
+          "y": -33
+        }
+      ],
+      "physical_rect": [
+        46,
+        105,
+        150,
+        128
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 18,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 17,
+      "alias": "frame.18",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.9,
+        0.77,
+        0.48,
+        0.12
+      ],
+      "points": [],
+      "physical_rect": [
+        46,
+        105,
+        46,
+        105
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 19,
+      "kind": "FontString",
+      "template": "GameFontNormalSmall",
+      "shown": true,
+      "width": 104,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "打开技能书",
+      "fontSize": 12,
+      "justifyH": "CENTER",
+      "justifyV": "MIDDLE",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 17,
+      "alias": "panel.controls.open.label",
+      "textColor": [
+        0.68,
+        0.73,
+        0.77
+      ],
+      "points": [
+        {
+          "point": "CENTER",
+          "relative": 17,
+          "relativePoint": "CENTER",
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 20,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 232,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "当前：炼金术",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 2,
+      "alias": "panel.summary",
+      "textColor": [
+        0.58,
+        0.63,
+        0.68
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 2,
+          "relativePoint": "TOPLEFT",
+          "x": 127,
+          "y": -39
+        }
+      ],
+      "physical_rect": [
+        159,
+        111,
+        391,
+        123
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 21,
+      "kind": "ScrollFrame",
+      "shown": true,
+      "width": 330,
+      "height": 378,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 2,
+      "alias": "panel.scroll",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 2,
+          "relativePoint": "TOPLEFT",
+          "x": 15,
+          "y": -68
+        }
+      ],
+      "physical_rect": [
+        47,
+        140,
+        377,
+        518
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 22,
+      "kind": "Frame",
+      "shown": true,
+      "width": 330,
+      "height": 571,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "scrollChild": true,
+      "parent": 21,
+      "alias": "panel.content",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [],
+      "physical_rect": [
+        47,
+        140,
+        377,
+        711
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 23,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": false,
+      "width": 330,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 22,
+      "alias": "frame.23",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 22,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -9
+        }
+      ],
+      "physical_rect": [
+        47,
+        149,
+        377,
+        149
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 24,
+      "kind": "Slider",
+      "shown": true,
+      "width": 9,
+      "height": 374,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 2,
+      "alias": "panel.scrollbar",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPRIGHT",
+          "relative": 2,
+          "relativePoint": "TOPRIGHT",
+          "x": -12,
+          "y": -70
+        }
+      ],
+      "physical_rect": [
+        383,
+        142,
+        392,
+        516
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 25,
+      "kind": "Texture",
+      "shown": true,
+      "width": 7,
+      "height": 26,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 24,
+      "alias": "frame.25",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.61,
+        0.53,
+        0.36,
+        0.7
+      ],
+      "points": [
+        {
+          "point": "TOP",
+          "relative": 24,
+          "relativePoint": "TOP",
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        384.0,
+        142,
+        391.0,
+        168
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 26,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 252,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "372 × 474",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 2,
+      "alias": "panel.footer",
+      "textColor": [
+        0.54,
+        0.6,
+        0.65
+      ],
+      "points": [
+        {
+          "point": "BOTTOMLEFT",
+          "relative": 2,
+          "relativePoint": "BOTTOMLEFT",
+          "x": 15,
+          "y": 10
+        }
+      ],
+      "physical_rect": [
+        47,
+        524,
+        299,
+        536
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 27,
+      "kind": "Button",
+      "shown": true,
+      "width": 24,
+      "height": 23,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 2,
+      "alias": "panel.controls.minus",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "BOTTOMRIGHT",
+          "relative": 2,
+          "relativePoint": "BOTTOMRIGHT",
+          "x": -60,
+          "y": 4
+        }
+      ],
+      "physical_rect": [
+        320,
+        519,
+        344,
+        542
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 28,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 27,
+      "alias": "frame.28",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.9,
+        0.77,
+        0.48,
+        0.12
+      ],
+      "points": [],
+      "physical_rect": [
+        320,
+        519,
+        320,
+        519
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 29,
+      "kind": "FontString",
+      "template": "GameFontNormalSmall",
+      "shown": true,
+      "width": 24,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "-",
+      "fontSize": 12,
+      "justifyH": "CENTER",
+      "justifyV": "MIDDLE",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 27,
+      "alias": "panel.controls.minus.label",
+      "textColor": [
+        0.68,
+        0.73,
+        0.77
+      ],
+      "points": [
+        {
+          "point": "CENTER",
+          "relative": 27,
+          "relativePoint": "CENTER",
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        320.0,
+        524.5,
+        344.0,
+        536.5
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 30,
+      "kind": "Button",
+      "shown": true,
+      "width": 24,
+      "height": 23,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 2,
+      "alias": "panel.controls.plus",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "BOTTOMRIGHT",
+          "relative": 2,
+          "relativePoint": "BOTTOMRIGHT",
+          "x": -32,
+          "y": 4
+        }
+      ],
+      "physical_rect": [
+        348,
+        519,
+        372,
+        542
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 31,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 30,
+      "alias": "frame.31",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.9,
+        0.77,
+        0.48,
+        0.12
+      ],
+      "points": [],
+      "physical_rect": [
+        348,
+        519,
+        348,
+        519
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 32,
+      "kind": "FontString",
+      "template": "GameFontNormalSmall",
+      "shown": true,
+      "width": 24,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "+",
+      "fontSize": 12,
+      "justifyH": "CENTER",
+      "justifyV": "MIDDLE",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 30,
+      "alias": "panel.controls.plus.label",
+      "textColor": [
+        0.68,
+        0.73,
+        0.77
+      ],
+      "points": [
+        {
+          "point": "CENTER",
+          "relative": 30,
+          "relativePoint": "CENTER",
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        348.0,
+        524.5,
+        372.0,
+        536.5
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 33,
+      "kind": "Button",
+      "shown": true,
+      "width": 20,
+      "height": 20,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 2,
+      "alias": "panel.controls.resize",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "BOTTOMRIGHT",
+          "relative": 2,
+          "relativePoint": "BOTTOMRIGHT",
+          "x": -3,
+          "y": 3
+        }
+      ],
+      "physical_rect": [
+        381,
+        523,
+        401,
+        543
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 34,
+      "kind": "Texture",
+      "shown": true,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Up",
+      "parent": 33,
+      "alias": "frame.34",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "allPoints": 33,
+      "points": [],
+      "physical_rect": [
+        381,
+        523,
+        401,
+        543
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 35,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Highlight",
+      "parent": 33,
+      "alias": "frame.35",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [],
+      "physical_rect": [
+        381,
+        523,
+        381,
+        523
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 36,
+      "kind": "Button",
+      "name": "MyForeverProfessionsCollapsedIcon",
+      "template": "BackdropTemplate",
+      "shown": false,
+      "width": 42,
+      "height": 42,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "clamped": true,
+      "parent": 1,
+      "alias": "panel.collapsedIcon",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "backdropColor": [
+        0.42,
+        0.82,
+        0.58,
+        0.98
+      ],
+      "backdropBorderColor": [
+        0.42,
+        0.82,
+        0.58,
+        0.98
+      ],
+      "points": [],
+      "physical_rect": [
+        0,
+        0,
+        42,
+        42
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 37,
+      "kind": "FontString",
+      "template": "GameFontHighlight",
+      "shown": true,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "商",
+      "fontSize": 12,
+      "fontPath": "mock-system-cjk-font",
+      "justifyH": "CENTER",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "OVERLAY",
+      "parent": 36,
+      "alias": "panel.collapsedIcon.label",
+      "textColor": [
+        0.06,
+        0.16,
+        0.1,
+        1
+      ],
+      "points": [
+        {
+          "point": "CENTER",
+          "relative": 36,
+          "relativePoint": "CENTER",
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        15.0,
+        15.0,
+        27.0,
+        27.0
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        0,
+        0,
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": 38,
+      "kind": "Frame",
+      "shown": true,
+      "width": 330,
+      "height": 427,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 22,
+      "alias": "panel.cards.1",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 22,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        47,
+        140,
+        377,
+        567
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 39,
+      "kind": "Button",
+      "shown": true,
+      "width": 330,
+      "height": 42,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 38,
+      "alias": "panel.cards.1.header",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 38,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        47,
+        140,
+        377,
+        182
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 40,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 39,
+      "alias": "frame.40",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.9,
+        0.77,
+        0.48,
+        0.12
+      ],
+      "points": [],
+      "physical_rect": [
+        47,
+        140,
+        47,
+        140
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 41,
+      "kind": "FontString",
+      "template": "GameFontNormalSmall",
+      "shown": true,
+      "width": 180,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "炼金术",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "MIDDLE",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 39,
+      "alias": "panel.cards.1.header.label",
+      "textColor": [
+        0.93,
+        0.86,
+        0.7
+      ],
+      "points": [
+        {
+          "point": "LEFT",
+          "relative": 39,
+          "relativePoint": "LEFT",
+          "x": 43,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        90,
+        155.0,
+        270,
+        167.0
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 42,
+      "kind": "Texture",
+      "shown": true,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "BACKGROUND",
+      "sublayer": 0,
+      "parent": 39,
+      "alias": "panel.cards.1.header.bg",
+      "colorTexture": [
+        0.075,
+        0.09,
+        0.11,
+        0.96
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "allPoints": 39,
+      "points": [],
+      "physical_rect": [
+        47,
+        140,
+        377,
+        182
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 43,
+      "kind": "Texture",
+      "shown": true,
+      "width": 196.79999999999998,
+      "height": 40,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\TargetingFrame\\UI-StatusBar",
+      "layer": "BACKGROUND",
+      "sublayer": 1,
+      "parent": 39,
+      "alias": "panel.cards.1.header.fill",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.2,
+        0.48,
+        0.7,
+        0.56
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 39,
+          "relativePoint": "TOPLEFT",
+          "x": 1,
+          "y": -1
+        }
+      ],
+      "physical_rect": [
+        48.0,
+        141,
+        244.8,
+        181
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 44,
+      "kind": "Texture",
+      "shown": true,
+      "width": 330,
+      "height": 1,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "ARTWORK",
+      "parent": 39,
+      "alias": "panel.cards.1.header.rule",
+      "colorTexture": [
+        0.55,
+        0.48,
+        0.33,
+        0.35
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "BOTTOMLEFT",
+          "relative": 39,
+          "relativePoint": "BOTTOMLEFT",
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        47,
+        181,
+        377,
+        182
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 45,
+      "kind": "Texture",
+      "shown": true,
+      "width": 24,
+      "height": 24,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Icons\\Trade_Alchemy",
+      "layer": "ARTWORK",
+      "parent": 39,
+      "alias": "panel.cards.1.header.icon",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "LEFT",
+          "relative": 39,
+          "relativePoint": "LEFT",
+          "x": 9,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        56,
+        149.0,
+        80,
+        173.0
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 46,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 82,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "45 / 75",
+      "fontSize": 12,
+      "justifyH": "RIGHT",
+      "justifyV": "MIDDLE",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 39,
+      "alias": "panel.cards.1.header.rank",
+      "textColor": [
+        0.81,
+        0.86,
+        0.9
+      ],
+      "points": [
+        {
+          "point": "RIGHT",
+          "relative": 39,
+          "relativePoint": "RIGHT",
+          "x": -27,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        268,
+        155.0,
+        350,
+        167.0
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 47,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 16,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "-",
+      "fontSize": 12,
+      "justifyH": "CENTER",
+      "justifyV": "MIDDLE",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 39,
+      "alias": "panel.cards.1.header.toggle",
+      "textColor": [
+        0.77,
+        0.68,
+        0.48
+      ],
+      "points": [
+        {
+          "point": "RIGHT",
+          "relative": 39,
+          "relativePoint": "RIGHT",
+          "x": -7,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        354,
+        155.0,
+        370,
+        167.0
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 48,
+      "kind": "Frame",
+      "shown": true,
+      "width": 318,
+      "height": 372,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 38,
+      "alias": "panel.cards.1.details",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 38,
+          "relativePoint": "TOPLEFT",
+          "x": 6,
+          "y": -49
+        }
+      ],
+      "physical_rect": [
+        53,
+        189,
+        371,
+        561
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 49,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": false,
+      "width": 318,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 48,
+      "alias": "panel.cards.1.progress",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 48,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -2
+        }
+      ],
+      "physical_rect": [
+        53,
+        191,
+        371,
+        191
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 50,
+      "kind": "Button",
+      "shown": true,
+      "width": 318,
+      "height": 34,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 48,
+      "alias": "panel.cards.1.trainer",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 48,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -328
+        }
+      ],
+      "physical_rect": [
+        53,
+        517,
+        371,
+        551
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 51,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 50,
+      "alias": "frame.51",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.9,
+        0.77,
+        0.48,
+        0.12
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        517,
+        53,
+        517
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 52,
+      "kind": "FontString",
+      "template": "GameFontNormalSmall",
+      "shown": true,
+      "width": 288,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "训练师：长名字训练师示例\n丹莫罗 47.7, 52.3",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 50,
+      "alias": "panel.cards.1.trainer.label",
+      "textColor": [
+        0.68,
+        0.73,
+        0.77
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 50,
+          "relativePoint": "TOPLEFT",
+          "x": 24,
+          "y": -2
+        }
+      ],
+      "physical_rect": [
+        77,
+        519,
+        365,
+        546
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 53,
+      "kind": "Texture",
+      "shown": true,
+      "width": 18,
+      "height": 18,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Icons\\Trade_Mining",
+      "layer": "ARTWORK",
+      "parent": 50,
+      "alias": "panel.cards.1.trainer.icon",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 50,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -1
+        }
+      ],
+      "physical_rect": [
+        53,
+        518,
+        71,
+        536
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 54,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": false,
+      "width": 318,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 48,
+      "alias": "panel.cards.1.note",
+      "textColor": [
+        0.65,
+        0.69,
+        0.72
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 48,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        53,
+        189,
+        371,
+        189
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 55,
+      "kind": "Button",
+      "shown": true,
+      "width": 318,
+      "height": 43,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 48,
+      "alias": "panel.cards.1.choices.1",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 48,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -211
+        }
+      ],
+      "physical_rect": [
+        53,
+        400,
+        371,
+        443
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 56,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 55,
+      "alias": "panel.cards.1.choices.1.highlight",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.9,
+        0.77,
+        0.48,
+        0.12
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        400,
+        53,
+        400
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 57,
+      "kind": "FontString",
+      "template": "GameFontNormalSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "初级治疗药水",
+      "fontSize": 12,
+      "fontPath": "mock-system-cjk-font",
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 55,
+      "alias": "panel.cards.1.choices.1.label",
+      "textColor": [
+        0.83,
+        0.40669999999999995,
+        0.14939999999999998
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 55,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -6
+        }
+      ],
+      "physical_rect": [
+        63,
+        406,
+        359,
+        418
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 58,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": false,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 55,
+      "alias": "panel.cards.1.choices.1.role",
+      "textColor": [
+        0.72,
+        0.79,
+        0.84
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 55,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -6
+        }
+      ],
+      "physical_rect": [
+        63,
+        406,
+        359,
+        406
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 59,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "材料可做 0 次",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 55,
+      "alias": "panel.cards.1.choices.1.stock",
+      "textColor": [
+        0.66,
+        0.72,
+        0.76
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 55,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -21
+        }
+      ],
+      "physical_rect": [
+        63,
+        421,
+        359,
+        433
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 60,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "BACKGROUND",
+      "parent": 55,
+      "alias": "panel.cards.1.choices.1.bg",
+      "colorTexture": [
+        0.13,
+        0.2,
+        0.25,
+        0.8
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "allPoints": 55,
+      "points": [],
+      "physical_rect": [
+        53,
+        400,
+        371,
+        443
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 61,
+      "kind": "Texture",
+      "shown": false,
+      "width": 3,
+      "height": 37,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "ARTWORK",
+      "parent": 55,
+      "alias": "panel.cards.1.choices.1.marker",
+      "colorTexture": [
+        0.76,
+        0.68,
+        0.44,
+        1
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 55,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -3
+        }
+      ],
+      "physical_rect": [
+        53,
+        403,
+        56,
+        440
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 62,
+      "kind": "Button",
+      "shown": true,
+      "width": 318,
+      "height": 81,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 48,
+      "alias": "panel.cards.1.choices.2",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 48,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        53,
+        189,
+        371,
+        270
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 63,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 62,
+      "alias": "panel.cards.1.choices.2.highlight",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.9,
+        0.77,
+        0.48,
+        0.12
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        189,
+        53,
+        189
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 64,
+      "kind": "FontString",
+      "template": "GameFontNormalSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "超长中文训练项目名称用于检查自然换行与材料区域是否发生遮挡",
+      "fontSize": 14,
+      "fontPath": "mock-system-cjk-font",
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 62,
+      "alias": "panel.cards.1.choices.2.label",
+      "textColor": [
+        1,
+        0.83,
+        0.25
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 62,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -25
+        }
+      ],
+      "physical_rect": [
+        63,
+        214,
+        359,
+        245
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 65,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "当前选择",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 62,
+      "alias": "panel.cards.1.choices.2.role",
+      "textColor": [
+        0.72,
+        0.79,
+        0.84
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 62,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -6
+        }
+      ],
+      "physical_rect": [
+        63,
+        195,
+        359,
+        207
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 66,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "材料可做 1 次",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 62,
+      "alias": "panel.cards.1.choices.2.stock",
+      "textColor": [
+        0.66,
+        0.72,
+        0.76
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 62,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -59
+        }
+      ],
+      "physical_rect": [
+        63,
+        248,
+        359,
+        260
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 67,
+      "kind": "Texture",
+      "shown": true,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "BACKGROUND",
+      "parent": 62,
+      "alias": "panel.cards.1.choices.2.bg",
+      "colorTexture": [
+        0.13,
+        0.2,
+        0.25,
+        0.8
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "allPoints": 62,
+      "points": [],
+      "physical_rect": [
+        53,
+        189,
+        371,
+        270
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 68,
+      "kind": "Texture",
+      "shown": true,
+      "width": 3,
+      "height": 75,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "ARTWORK",
+      "parent": 62,
+      "alias": "panel.cards.1.choices.2.marker",
+      "colorTexture": [
+        0.76,
+        0.68,
+        0.44,
+        1
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 62,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -3
+        }
+      ],
+      "physical_rect": [
+        53,
+        192,
+        56,
+        267
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 69,
+      "kind": "Button",
+      "shown": true,
+      "width": 318,
+      "height": 43,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 48,
+      "alias": "panel.cards.1.choices.3",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 48,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -260
+        }
+      ],
+      "physical_rect": [
+        53,
+        449,
+        371,
+        492
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 70,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 69,
+      "alias": "panel.cards.1.choices.3.highlight",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.9,
+        0.77,
+        0.48,
+        0.12
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        449,
+        53,
+        449
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 71,
+      "kind": "FontString",
+      "template": "GameFontNormalSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "初级防御药剂",
+      "fontSize": 12,
+      "fontPath": "mock-system-cjk-font",
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 69,
+      "alias": "panel.cards.1.choices.3.label",
+      "textColor": [
+        0.2905,
+        0.6971999999999999,
+        0.3735
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 69,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -6
+        }
+      ],
+      "physical_rect": [
+        63,
+        455,
+        359,
+        467
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 72,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": false,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 69,
+      "alias": "panel.cards.1.choices.3.role",
+      "textColor": [
+        0.72,
+        0.79,
+        0.84
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 69,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -6
+        }
+      ],
+      "physical_rect": [
+        63,
+        455,
+        359,
+        455
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 73,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "材料可做 3 次",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 69,
+      "alias": "panel.cards.1.choices.3.stock",
+      "textColor": [
+        0.66,
+        0.72,
+        0.76
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 69,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -21
+        }
+      ],
+      "physical_rect": [
+        63,
+        470,
+        359,
+        482
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 74,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "BACKGROUND",
+      "parent": 69,
+      "alias": "panel.cards.1.choices.3.bg",
+      "colorTexture": [
+        0.13,
+        0.2,
+        0.25,
+        0.8
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "allPoints": 69,
+      "points": [],
+      "physical_rect": [
+        53,
+        449,
+        371,
+        492
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 75,
+      "kind": "Texture",
+      "shown": false,
+      "width": 3,
+      "height": 37,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "ARTWORK",
+      "parent": 69,
+      "alias": "panel.cards.1.choices.3.marker",
+      "colorTexture": [
+        0.76,
+        0.68,
+        0.44,
+        1
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 69,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -3
+        }
+      ],
+      "physical_rect": [
+        53,
+        452,
+        56,
+        489
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 76,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": false,
+      "width": 318,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 48,
+      "alias": "panel.cards.1.materialTitle",
+      "textColor": [
+        0.75,
+        0.79,
+        0.82
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        189,
+        371,
+        189
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 77,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": false,
+      "width": 318,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 48,
+      "alias": "panel.cards.1.materials",
+      "textColor": [
+        0.7,
+        0.75,
+        0.78
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 48,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -187
+        }
+      ],
+      "physical_rect": [
+        53,
+        376,
+        371,
+        376
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 78,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 318,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "其他可选",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 48,
+      "alias": "panel.cards.1.otherTitle",
+      "textColor": [
+        0.59,
+        0.66,
+        0.71
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 48,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -194
+        }
+      ],
+      "physical_rect": [
+        63,
+        383,
+        381,
+        395
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 79,
+      "kind": "Texture",
+      "shown": true,
+      "width": 318,
+      "height": 1,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "ARTWORK",
+      "parent": 48,
+      "alias": "panel.cards.1.auxRule",
+      "colorTexture": [
+        0.4,
+        0.45,
+        0.49,
+        0.28
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 48,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -318
+        }
+      ],
+      "physical_rect": [
+        53,
+        507,
+        371,
+        508
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 80,
+      "kind": "Frame",
+      "shown": true,
+      "width": 330,
+      "height": 48,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 22,
+      "alias": "panel.cards.2",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 22,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -427
+        }
+      ],
+      "physical_rect": [
+        47,
+        567,
+        377,
+        615
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 81,
+      "kind": "Button",
+      "shown": true,
+      "width": 330,
+      "height": 42,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 80,
+      "alias": "panel.cards.2.header",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 80,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        47,
+        567,
+        377,
+        609
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 82,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 81,
+      "alias": "frame.82",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.9,
+        0.77,
+        0.48,
+        0.12
+      ],
+      "points": [],
+      "physical_rect": [
+        47,
+        567,
+        47,
+        567
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 83,
+      "kind": "FontString",
+      "template": "GameFontNormalSmall",
+      "shown": true,
+      "width": 180,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "采矿",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "MIDDLE",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 81,
+      "alias": "panel.cards.2.header.label",
+      "textColor": [
+        0.93,
+        0.86,
+        0.7
+      ],
+      "points": [
+        {
+          "point": "LEFT",
+          "relative": 81,
+          "relativePoint": "LEFT",
+          "x": 43,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        90,
+        582.0,
+        270,
+        594.0
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 84,
+      "kind": "Texture",
+      "shown": true,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "BACKGROUND",
+      "sublayer": 0,
+      "parent": 81,
+      "alias": "panel.cards.2.header.bg",
+      "colorTexture": [
+        0.075,
+        0.09,
+        0.11,
+        0.96
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "allPoints": 81,
+      "points": [],
+      "physical_rect": [
+        47,
+        567,
+        377,
+        609
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 85,
+      "kind": "Texture",
+      "shown": true,
+      "width": 139.9466666666667,
+      "height": 40,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\TargetingFrame\\UI-StatusBar",
+      "layer": "BACKGROUND",
+      "sublayer": 1,
+      "parent": 81,
+      "alias": "panel.cards.2.header.fill",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.2,
+        0.48,
+        0.7,
+        0.56
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 81,
+          "relativePoint": "TOPLEFT",
+          "x": 1,
+          "y": -1
+        }
+      ],
+      "physical_rect": [
+        48.0,
+        568,
+        187.947,
+        608
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 86,
+      "kind": "Texture",
+      "shown": true,
+      "width": 330,
+      "height": 1,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "ARTWORK",
+      "parent": 81,
+      "alias": "panel.cards.2.header.rule",
+      "colorTexture": [
+        0.55,
+        0.48,
+        0.33,
+        0.35
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "BOTTOMLEFT",
+          "relative": 81,
+          "relativePoint": "BOTTOMLEFT",
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        47,
+        608,
+        377,
+        609
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 87,
+      "kind": "Texture",
+      "shown": true,
+      "width": 24,
+      "height": 24,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Icons\\Trade_Mining",
+      "layer": "ARTWORK",
+      "parent": 81,
+      "alias": "panel.cards.2.header.icon",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "LEFT",
+          "relative": 81,
+          "relativePoint": "LEFT",
+          "x": 9,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        56,
+        576.0,
+        80,
+        600.0
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 88,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 82,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "32 / 75",
+      "fontSize": 12,
+      "justifyH": "RIGHT",
+      "justifyV": "MIDDLE",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 81,
+      "alias": "panel.cards.2.header.rank",
+      "textColor": [
+        0.81,
+        0.86,
+        0.9
+      ],
+      "points": [
+        {
+          "point": "RIGHT",
+          "relative": 81,
+          "relativePoint": "RIGHT",
+          "x": -27,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        268,
+        582.0,
+        350,
+        594.0
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 89,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 16,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "+",
+      "fontSize": 12,
+      "justifyH": "CENTER",
+      "justifyV": "MIDDLE",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 81,
+      "alias": "panel.cards.2.header.toggle",
+      "textColor": [
+        0.77,
+        0.68,
+        0.48
+      ],
+      "points": [
+        {
+          "point": "RIGHT",
+          "relative": 81,
+          "relativePoint": "RIGHT",
+          "x": -7,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        354,
+        582.0,
+        370,
+        594.0
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 90,
+      "kind": "Frame",
+      "shown": false,
+      "width": 318,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 80,
+      "alias": "panel.cards.2.details",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 80,
+          "relativePoint": "TOPLEFT",
+          "x": 6,
+          "y": -49
+        }
+      ],
+      "physical_rect": [
+        53,
+        616,
+        371,
+        616
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 91,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": false,
+      "width": 318,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 90,
+      "alias": "panel.cards.2.progress",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 90,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -2
+        }
+      ],
+      "physical_rect": [
+        53,
+        618,
+        371,
+        618
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 92,
+      "kind": "Button",
+      "shown": true,
+      "width": 318,
+      "height": 23,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 90,
+      "alias": "panel.cards.2.trainer",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        616,
+        371,
+        639
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 93,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 92,
+      "alias": "frame.93",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.9,
+        0.77,
+        0.48,
+        0.12
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        616,
+        53,
+        616
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 94,
+      "kind": "FontString",
+      "template": "GameFontNormalSmall",
+      "shown": true,
+      "width": 288,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 92,
+      "alias": "panel.cards.2.trainer.label",
+      "textColor": [
+        0.68,
+        0.73,
+        0.77
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 92,
+          "relativePoint": "TOPLEFT",
+          "x": 24,
+          "y": -2
+        }
+      ],
+      "physical_rect": [
+        77,
+        618,
+        365,
+        618
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 95,
+      "kind": "Texture",
+      "shown": true,
+      "width": 18,
+      "height": 18,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "ARTWORK",
+      "parent": 92,
+      "alias": "panel.cards.2.trainer.icon",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 92,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -1
+        }
+      ],
+      "physical_rect": [
+        53,
+        617,
+        71,
+        635
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 96,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 318,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 90,
+      "alias": "panel.cards.2.note",
+      "textColor": [
+        0.65,
+        0.69,
+        0.72
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        616,
+        371,
+        616
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 97,
+      "kind": "Button",
+      "shown": true,
+      "width": 318,
+      "height": 23,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 90,
+      "alias": "panel.cards.2.choices.1",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        616,
+        371,
+        639
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 98,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 97,
+      "alias": "panel.cards.2.choices.1.highlight",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.9,
+        0.77,
+        0.48,
+        0.12
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        616,
+        53,
+        616
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 99,
+      "kind": "FontString",
+      "template": "GameFontNormalSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 97,
+      "alias": "panel.cards.2.choices.1.label",
+      "textColor": [
+        0.72,
+        0.76,
+        0.79
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 97,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -24
+        }
+      ],
+      "physical_rect": [
+        63,
+        640,
+        359,
+        640
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 100,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 97,
+      "alias": "panel.cards.2.choices.1.role",
+      "textColor": [
+        0.72,
+        0.79,
+        0.84
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 97,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -6
+        }
+      ],
+      "physical_rect": [
+        63,
+        622,
+        359,
+        622
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 101,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 97,
+      "alias": "panel.cards.2.choices.1.stock",
+      "textColor": [
+        0.66,
+        0.72,
+        0.76
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        616,
+        349,
+        616
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 102,
+      "kind": "Texture",
+      "shown": true,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "BACKGROUND",
+      "parent": 97,
+      "alias": "panel.cards.2.choices.1.bg",
+      "colorTexture": [
+        0.13,
+        0.2,
+        0.25,
+        0.8
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "allPoints": 97,
+      "points": [],
+      "physical_rect": [
+        53,
+        616,
+        371,
+        639
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 103,
+      "kind": "Texture",
+      "shown": true,
+      "width": 3,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "ARTWORK",
+      "parent": 97,
+      "alias": "panel.cards.2.choices.1.marker",
+      "colorTexture": [
+        0.76,
+        0.68,
+        0.44,
+        1
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 97,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -3
+        }
+      ],
+      "physical_rect": [
+        53,
+        619,
+        56,
+        619
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 104,
+      "kind": "Button",
+      "shown": true,
+      "width": 318,
+      "height": 23,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 90,
+      "alias": "panel.cards.2.choices.2",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        616,
+        371,
+        639
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 105,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 104,
+      "alias": "panel.cards.2.choices.2.highlight",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.9,
+        0.77,
+        0.48,
+        0.12
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        616,
+        53,
+        616
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 106,
+      "kind": "FontString",
+      "template": "GameFontNormalSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 104,
+      "alias": "panel.cards.2.choices.2.label",
+      "textColor": [
+        0.72,
+        0.76,
+        0.79
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 104,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -24
+        }
+      ],
+      "physical_rect": [
+        63,
+        640,
+        359,
+        640
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 107,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 104,
+      "alias": "panel.cards.2.choices.2.role",
+      "textColor": [
+        0.72,
+        0.79,
+        0.84
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 104,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -6
+        }
+      ],
+      "physical_rect": [
+        63,
+        622,
+        359,
+        622
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 108,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 104,
+      "alias": "panel.cards.2.choices.2.stock",
+      "textColor": [
+        0.66,
+        0.72,
+        0.76
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        616,
+        349,
+        616
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 109,
+      "kind": "Texture",
+      "shown": true,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "BACKGROUND",
+      "parent": 104,
+      "alias": "panel.cards.2.choices.2.bg",
+      "colorTexture": [
+        0.13,
+        0.2,
+        0.25,
+        0.8
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "allPoints": 104,
+      "points": [],
+      "physical_rect": [
+        53,
+        616,
+        371,
+        639
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 110,
+      "kind": "Texture",
+      "shown": true,
+      "width": 3,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "ARTWORK",
+      "parent": 104,
+      "alias": "panel.cards.2.choices.2.marker",
+      "colorTexture": [
+        0.76,
+        0.68,
+        0.44,
+        1
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 104,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -3
+        }
+      ],
+      "physical_rect": [
+        53,
+        619,
+        56,
+        619
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 111,
+      "kind": "Button",
+      "shown": true,
+      "width": 318,
+      "height": 23,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 90,
+      "alias": "panel.cards.2.choices.3",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        616,
+        371,
+        639
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 112,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 111,
+      "alias": "panel.cards.2.choices.3.highlight",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.9,
+        0.77,
+        0.48,
+        0.12
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        616,
+        53,
+        616
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 113,
+      "kind": "FontString",
+      "template": "GameFontNormalSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 111,
+      "alias": "panel.cards.2.choices.3.label",
+      "textColor": [
+        0.72,
+        0.76,
+        0.79
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 111,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -24
+        }
+      ],
+      "physical_rect": [
+        63,
+        640,
+        359,
+        640
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 114,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 111,
+      "alias": "panel.cards.2.choices.3.role",
+      "textColor": [
+        0.72,
+        0.79,
+        0.84
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 111,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -6
+        }
+      ],
+      "physical_rect": [
+        63,
+        622,
+        359,
+        622
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 115,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 111,
+      "alias": "panel.cards.2.choices.3.stock",
+      "textColor": [
+        0.66,
+        0.72,
+        0.76
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        616,
+        349,
+        616
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 116,
+      "kind": "Texture",
+      "shown": true,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "BACKGROUND",
+      "parent": 111,
+      "alias": "panel.cards.2.choices.3.bg",
+      "colorTexture": [
+        0.13,
+        0.2,
+        0.25,
+        0.8
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "allPoints": 111,
+      "points": [],
+      "physical_rect": [
+        53,
+        616,
+        371,
+        639
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 117,
+      "kind": "Texture",
+      "shown": true,
+      "width": 3,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "ARTWORK",
+      "parent": 111,
+      "alias": "panel.cards.2.choices.3.marker",
+      "colorTexture": [
+        0.76,
+        0.68,
+        0.44,
+        1
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 111,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -3
+        }
+      ],
+      "physical_rect": [
+        53,
+        619,
+        56,
+        619
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 118,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 318,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 90,
+      "alias": "panel.cards.2.materialTitle",
+      "textColor": [
+        0.75,
+        0.79,
+        0.82
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        616,
+        371,
+        616
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 119,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 318,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 90,
+      "alias": "panel.cards.2.materials",
+      "textColor": [
+        0.7,
+        0.75,
+        0.78
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        616,
+        371,
+        616
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 120,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 318,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "其他可选",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 90,
+      "alias": "panel.cards.2.otherTitle",
+      "textColor": [
+        0.59,
+        0.66,
+        0.71
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        616,
+        371,
+        628
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 121,
+      "kind": "Texture",
+      "shown": true,
+      "width": 318,
+      "height": 1,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "ARTWORK",
+      "parent": 90,
+      "alias": "panel.cards.2.auxRule",
+      "colorTexture": [
+        0.4,
+        0.45,
+        0.49,
+        0.28
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        616,
+        371,
+        617
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 122,
+      "kind": "Frame",
+      "shown": true,
+      "width": 330,
+      "height": 48,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 22,
+      "alias": "panel.cards.3",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 22,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -475
+        }
+      ],
+      "physical_rect": [
+        47,
+        615,
+        377,
+        663
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 123,
+      "kind": "Button",
+      "shown": true,
+      "width": 330,
+      "height": 42,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 122,
+      "alias": "panel.cards.3.header",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 122,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        47,
+        615,
+        377,
+        657
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 124,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 123,
+      "alias": "frame.124",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.9,
+        0.77,
+        0.48,
+        0.12
+      ],
+      "points": [],
+      "physical_rect": [
+        47,
+        615,
+        47,
+        615
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 125,
+      "kind": "FontString",
+      "template": "GameFontNormalSmall",
+      "shown": true,
+      "width": 180,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "烹饪",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "MIDDLE",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 123,
+      "alias": "panel.cards.3.header.label",
+      "textColor": [
+        0.63,
+        0.66,
+        0.69
+      ],
+      "points": [
+        {
+          "point": "LEFT",
+          "relative": 123,
+          "relativePoint": "LEFT",
+          "x": 43,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        90,
+        630.0,
+        270,
+        642.0
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 126,
+      "kind": "Texture",
+      "shown": true,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "BACKGROUND",
+      "sublayer": 0,
+      "parent": 123,
+      "alias": "panel.cards.3.header.bg",
+      "colorTexture": [
+        0.075,
+        0.09,
+        0.11,
+        0.96
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "allPoints": 123,
+      "points": [],
+      "physical_rect": [
+        47,
+        615,
+        377,
+        657
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 127,
+      "kind": "Texture",
+      "shown": false,
+      "width": 1,
+      "height": 40,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\TargetingFrame\\UI-StatusBar",
+      "layer": "BACKGROUND",
+      "sublayer": 1,
+      "parent": 123,
+      "alias": "panel.cards.3.header.fill",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.2,
+        0.48,
+        0.7,
+        0.56
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 123,
+          "relativePoint": "TOPLEFT",
+          "x": 1,
+          "y": -1
+        }
+      ],
+      "physical_rect": [
+        48,
+        616,
+        49,
+        656
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 128,
+      "kind": "Texture",
+      "shown": true,
+      "width": 330,
+      "height": 1,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "ARTWORK",
+      "parent": 123,
+      "alias": "panel.cards.3.header.rule",
+      "colorTexture": [
+        0.55,
+        0.48,
+        0.33,
+        0.35
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "BOTTOMLEFT",
+          "relative": 123,
+          "relativePoint": "BOTTOMLEFT",
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        47,
+        656,
+        377,
+        657
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 129,
+      "kind": "Texture",
+      "shown": true,
+      "width": 24,
+      "height": 24,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Icons\\INV_Misc_Book_09",
+      "layer": "ARTWORK",
+      "parent": 123,
+      "alias": "panel.cards.3.header.icon",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "LEFT",
+          "relative": 123,
+          "relativePoint": "LEFT",
+          "x": 9,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        56,
+        624.0,
+        80,
+        648.0
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 130,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 82,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "未学习",
+      "fontSize": 12,
+      "justifyH": "RIGHT",
+      "justifyV": "MIDDLE",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 123,
+      "alias": "panel.cards.3.header.rank",
+      "textColor": [
+        0.81,
+        0.86,
+        0.9
+      ],
+      "points": [
+        {
+          "point": "RIGHT",
+          "relative": 123,
+          "relativePoint": "RIGHT",
+          "x": -27,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        268,
+        630.0,
+        350,
+        642.0
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 131,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 16,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "+",
+      "fontSize": 12,
+      "justifyH": "CENTER",
+      "justifyV": "MIDDLE",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 123,
+      "alias": "panel.cards.3.header.toggle",
+      "textColor": [
+        0.77,
+        0.68,
+        0.48
+      ],
+      "points": [
+        {
+          "point": "RIGHT",
+          "relative": 123,
+          "relativePoint": "RIGHT",
+          "x": -7,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        354,
+        630.0,
+        370,
+        642.0
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 132,
+      "kind": "Frame",
+      "shown": false,
+      "width": 318,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 122,
+      "alias": "panel.cards.3.details",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 122,
+          "relativePoint": "TOPLEFT",
+          "x": 6,
+          "y": -49
+        }
+      ],
+      "physical_rect": [
+        53,
+        664,
+        371,
+        664
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 133,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": false,
+      "width": 318,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 132,
+      "alias": "panel.cards.3.progress",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 132,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -2
+        }
+      ],
+      "physical_rect": [
+        53,
+        666,
+        371,
+        666
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 134,
+      "kind": "Button",
+      "shown": true,
+      "width": 318,
+      "height": 23,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 132,
+      "alias": "panel.cards.3.trainer",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        664,
+        371,
+        687
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 135,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 134,
+      "alias": "frame.135",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.9,
+        0.77,
+        0.48,
+        0.12
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        664,
+        53,
+        664
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 136,
+      "kind": "FontString",
+      "template": "GameFontNormalSmall",
+      "shown": true,
+      "width": 288,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 134,
+      "alias": "panel.cards.3.trainer.label",
+      "textColor": [
+        0.68,
+        0.73,
+        0.77
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 134,
+          "relativePoint": "TOPLEFT",
+          "x": 24,
+          "y": -2
+        }
+      ],
+      "physical_rect": [
+        77,
+        666,
+        365,
+        666
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 137,
+      "kind": "Texture",
+      "shown": true,
+      "width": 18,
+      "height": 18,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "ARTWORK",
+      "parent": 134,
+      "alias": "panel.cards.3.trainer.icon",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 134,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -1
+        }
+      ],
+      "physical_rect": [
+        53,
+        665,
+        71,
+        683
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 138,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 318,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 132,
+      "alias": "panel.cards.3.note",
+      "textColor": [
+        0.65,
+        0.69,
+        0.72
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        664,
+        371,
+        664
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 139,
+      "kind": "Button",
+      "shown": true,
+      "width": 318,
+      "height": 23,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 132,
+      "alias": "panel.cards.3.choices.1",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        664,
+        371,
+        687
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 140,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 139,
+      "alias": "panel.cards.3.choices.1.highlight",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.9,
+        0.77,
+        0.48,
+        0.12
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        664,
+        53,
+        664
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 141,
+      "kind": "FontString",
+      "template": "GameFontNormalSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 139,
+      "alias": "panel.cards.3.choices.1.label",
+      "textColor": [
+        0.72,
+        0.76,
+        0.79
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 139,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -24
+        }
+      ],
+      "physical_rect": [
+        63,
+        688,
+        359,
+        688
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 142,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 139,
+      "alias": "panel.cards.3.choices.1.role",
+      "textColor": [
+        0.72,
+        0.79,
+        0.84
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 139,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -6
+        }
+      ],
+      "physical_rect": [
+        63,
+        670,
+        359,
+        670
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 143,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 139,
+      "alias": "panel.cards.3.choices.1.stock",
+      "textColor": [
+        0.66,
+        0.72,
+        0.76
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        664,
+        349,
+        664
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 144,
+      "kind": "Texture",
+      "shown": true,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "BACKGROUND",
+      "parent": 139,
+      "alias": "panel.cards.3.choices.1.bg",
+      "colorTexture": [
+        0.13,
+        0.2,
+        0.25,
+        0.8
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "allPoints": 139,
+      "points": [],
+      "physical_rect": [
+        53,
+        664,
+        371,
+        687
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 145,
+      "kind": "Texture",
+      "shown": true,
+      "width": 3,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "ARTWORK",
+      "parent": 139,
+      "alias": "panel.cards.3.choices.1.marker",
+      "colorTexture": [
+        0.76,
+        0.68,
+        0.44,
+        1
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 139,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -3
+        }
+      ],
+      "physical_rect": [
+        53,
+        667,
+        56,
+        667
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 146,
+      "kind": "Button",
+      "shown": true,
+      "width": 318,
+      "height": 23,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 132,
+      "alias": "panel.cards.3.choices.2",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        664,
+        371,
+        687
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 147,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 146,
+      "alias": "panel.cards.3.choices.2.highlight",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.9,
+        0.77,
+        0.48,
+        0.12
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        664,
+        53,
+        664
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 148,
+      "kind": "FontString",
+      "template": "GameFontNormalSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 146,
+      "alias": "panel.cards.3.choices.2.label",
+      "textColor": [
+        0.72,
+        0.76,
+        0.79
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 146,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -24
+        }
+      ],
+      "physical_rect": [
+        63,
+        688,
+        359,
+        688
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 149,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 146,
+      "alias": "panel.cards.3.choices.2.role",
+      "textColor": [
+        0.72,
+        0.79,
+        0.84
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 146,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -6
+        }
+      ],
+      "physical_rect": [
+        63,
+        670,
+        359,
+        670
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 150,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 146,
+      "alias": "panel.cards.3.choices.2.stock",
+      "textColor": [
+        0.66,
+        0.72,
+        0.76
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        664,
+        349,
+        664
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 151,
+      "kind": "Texture",
+      "shown": true,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "BACKGROUND",
+      "parent": 146,
+      "alias": "panel.cards.3.choices.2.bg",
+      "colorTexture": [
+        0.13,
+        0.2,
+        0.25,
+        0.8
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "allPoints": 146,
+      "points": [],
+      "physical_rect": [
+        53,
+        664,
+        371,
+        687
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 152,
+      "kind": "Texture",
+      "shown": true,
+      "width": 3,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "ARTWORK",
+      "parent": 146,
+      "alias": "panel.cards.3.choices.2.marker",
+      "colorTexture": [
+        0.76,
+        0.68,
+        0.44,
+        1
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 146,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -3
+        }
+      ],
+      "physical_rect": [
+        53,
+        667,
+        56,
+        667
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 153,
+      "kind": "Button",
+      "shown": true,
+      "width": 318,
+      "height": 23,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 132,
+      "alias": "panel.cards.3.choices.3",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        664,
+        371,
+        687
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 154,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 153,
+      "alias": "panel.cards.3.choices.3.highlight",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.9,
+        0.77,
+        0.48,
+        0.12
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        664,
+        53,
+        664
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 155,
+      "kind": "FontString",
+      "template": "GameFontNormalSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 153,
+      "alias": "panel.cards.3.choices.3.label",
+      "textColor": [
+        0.72,
+        0.76,
+        0.79
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 153,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -24
+        }
+      ],
+      "physical_rect": [
+        63,
+        688,
+        359,
+        688
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 156,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 153,
+      "alias": "panel.cards.3.choices.3.role",
+      "textColor": [
+        0.72,
+        0.79,
+        0.84
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 153,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -6
+        }
+      ],
+      "physical_rect": [
+        63,
+        670,
+        359,
+        670
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 157,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 153,
+      "alias": "panel.cards.3.choices.3.stock",
+      "textColor": [
+        0.66,
+        0.72,
+        0.76
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        664,
+        349,
+        664
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 158,
+      "kind": "Texture",
+      "shown": true,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "BACKGROUND",
+      "parent": 153,
+      "alias": "panel.cards.3.choices.3.bg",
+      "colorTexture": [
+        0.13,
+        0.2,
+        0.25,
+        0.8
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "allPoints": 153,
+      "points": [],
+      "physical_rect": [
+        53,
+        664,
+        371,
+        687
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 159,
+      "kind": "Texture",
+      "shown": true,
+      "width": 3,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "ARTWORK",
+      "parent": 153,
+      "alias": "panel.cards.3.choices.3.marker",
+      "colorTexture": [
+        0.76,
+        0.68,
+        0.44,
+        1
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 153,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -3
+        }
+      ],
+      "physical_rect": [
+        53,
+        667,
+        56,
+        667
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 160,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 318,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 132,
+      "alias": "panel.cards.3.materialTitle",
+      "textColor": [
+        0.75,
+        0.79,
+        0.82
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        664,
+        371,
+        664
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 161,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 318,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 132,
+      "alias": "panel.cards.3.materials",
+      "textColor": [
+        0.7,
+        0.75,
+        0.78
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        664,
+        371,
+        664
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 162,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 318,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "其他可选",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 132,
+      "alias": "panel.cards.3.otherTitle",
+      "textColor": [
+        0.59,
+        0.66,
+        0.71
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        664,
+        371,
+        676
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 163,
+      "kind": "Texture",
+      "shown": true,
+      "width": 318,
+      "height": 1,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "ARTWORK",
+      "parent": 132,
+      "alias": "panel.cards.3.auxRule",
+      "colorTexture": [
+        0.4,
+        0.45,
+        0.49,
+        0.28
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        664,
+        371,
+        665
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 164,
+      "kind": "Frame",
+      "shown": true,
+      "width": 330,
+      "height": 48,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 22,
+      "alias": "panel.cards.4",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 22,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -523
+        }
+      ],
+      "physical_rect": [
+        47,
+        663,
+        377,
+        711
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 165,
+      "kind": "Button",
+      "shown": true,
+      "width": 330,
+      "height": 42,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 164,
+      "alias": "panel.cards.4.header",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 164,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        47,
+        663,
+        377,
+        705
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 166,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 165,
+      "alias": "frame.166",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.9,
+        0.77,
+        0.48,
+        0.12
+      ],
+      "points": [],
+      "physical_rect": [
+        47,
+        663,
+        47,
+        663
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 167,
+      "kind": "FontString",
+      "template": "GameFontNormalSmall",
+      "shown": true,
+      "width": 180,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "急救",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "MIDDLE",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 165,
+      "alias": "panel.cards.4.header.label",
+      "textColor": [
+        0.93,
+        0.86,
+        0.7
+      ],
+      "points": [
+        {
+          "point": "LEFT",
+          "relative": 165,
+          "relativePoint": "LEFT",
+          "x": 43,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        90,
+        678.0,
+        270,
+        690.0
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 168,
+      "kind": "Texture",
+      "shown": true,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "BACKGROUND",
+      "sublayer": 0,
+      "parent": 165,
+      "alias": "panel.cards.4.header.bg",
+      "colorTexture": [
+        0.075,
+        0.09,
+        0.11,
+        0.96
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "allPoints": 165,
+      "points": [],
+      "physical_rect": [
+        47,
+        663,
+        377,
+        705
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 169,
+      "kind": "Texture",
+      "shown": true,
+      "width": 109.33333333333333,
+      "height": 40,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\TargetingFrame\\UI-StatusBar",
+      "layer": "BACKGROUND",
+      "sublayer": 1,
+      "parent": 165,
+      "alias": "panel.cards.4.header.fill",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.2,
+        0.48,
+        0.7,
+        0.56
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 165,
+          "relativePoint": "TOPLEFT",
+          "x": 1,
+          "y": -1
+        }
+      ],
+      "physical_rect": [
+        48.0,
+        664,
+        157.333,
+        704
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 170,
+      "kind": "Texture",
+      "shown": true,
+      "width": 330,
+      "height": 1,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "ARTWORK",
+      "parent": 165,
+      "alias": "panel.cards.4.header.rule",
+      "colorTexture": [
+        0.55,
+        0.48,
+        0.33,
+        0.35
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "BOTTOMLEFT",
+          "relative": 165,
+          "relativePoint": "BOTTOMLEFT",
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        47,
+        704,
+        377,
+        705
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 171,
+      "kind": "Texture",
+      "shown": true,
+      "width": 24,
+      "height": 24,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Icons\\INV_Misc_Book_09",
+      "layer": "ARTWORK",
+      "parent": 165,
+      "alias": "panel.cards.4.header.icon",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "LEFT",
+          "relative": 165,
+          "relativePoint": "LEFT",
+          "x": 9,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        56,
+        672.0,
+        80,
+        696.0
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 172,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 82,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "25 / 75",
+      "fontSize": 12,
+      "justifyH": "RIGHT",
+      "justifyV": "MIDDLE",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 165,
+      "alias": "panel.cards.4.header.rank",
+      "textColor": [
+        0.81,
+        0.86,
+        0.9
+      ],
+      "points": [
+        {
+          "point": "RIGHT",
+          "relative": 165,
+          "relativePoint": "RIGHT",
+          "x": -27,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        268,
+        678.0,
+        350,
+        690.0
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 173,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 16,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "+",
+      "fontSize": 12,
+      "justifyH": "CENTER",
+      "justifyV": "MIDDLE",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 165,
+      "alias": "panel.cards.4.header.toggle",
+      "textColor": [
+        0.77,
+        0.68,
+        0.48
+      ],
+      "points": [
+        {
+          "point": "RIGHT",
+          "relative": 165,
+          "relativePoint": "RIGHT",
+          "x": -7,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        354,
+        678.0,
+        370,
+        690.0
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 174,
+      "kind": "Frame",
+      "shown": false,
+      "width": 318,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 164,
+      "alias": "panel.cards.4.details",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 164,
+          "relativePoint": "TOPLEFT",
+          "x": 6,
+          "y": -49
+        }
+      ],
+      "physical_rect": [
+        53,
+        712,
+        371,
+        712
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 175,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": false,
+      "width": 318,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 174,
+      "alias": "panel.cards.4.progress",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 174,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -2
+        }
+      ],
+      "physical_rect": [
+        53,
+        714,
+        371,
+        714
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 176,
+      "kind": "Button",
+      "shown": true,
+      "width": 318,
+      "height": 23,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 174,
+      "alias": "panel.cards.4.trainer",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        712,
+        371,
+        735
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 177,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 176,
+      "alias": "frame.177",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.9,
+        0.77,
+        0.48,
+        0.12
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        712,
+        53,
+        712
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 178,
+      "kind": "FontString",
+      "template": "GameFontNormalSmall",
+      "shown": true,
+      "width": 288,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 176,
+      "alias": "panel.cards.4.trainer.label",
+      "textColor": [
+        0.68,
+        0.73,
+        0.77
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 176,
+          "relativePoint": "TOPLEFT",
+          "x": 24,
+          "y": -2
+        }
+      ],
+      "physical_rect": [
+        77,
+        714,
+        365,
+        714
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 179,
+      "kind": "Texture",
+      "shown": true,
+      "width": 18,
+      "height": 18,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "ARTWORK",
+      "parent": 176,
+      "alias": "panel.cards.4.trainer.icon",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 176,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -1
+        }
+      ],
+      "physical_rect": [
+        53,
+        713,
+        71,
+        731
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 180,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 318,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 174,
+      "alias": "panel.cards.4.note",
+      "textColor": [
+        0.65,
+        0.69,
+        0.72
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        712,
+        371,
+        712
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 181,
+      "kind": "Button",
+      "shown": true,
+      "width": 318,
+      "height": 23,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 174,
+      "alias": "panel.cards.4.choices.1",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        712,
+        371,
+        735
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 182,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 181,
+      "alias": "panel.cards.4.choices.1.highlight",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.9,
+        0.77,
+        0.48,
+        0.12
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        712,
+        53,
+        712
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 183,
+      "kind": "FontString",
+      "template": "GameFontNormalSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 181,
+      "alias": "panel.cards.4.choices.1.label",
+      "textColor": [
+        0.72,
+        0.76,
+        0.79
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 181,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -24
+        }
+      ],
+      "physical_rect": [
+        63,
+        736,
+        359,
+        736
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 184,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 181,
+      "alias": "panel.cards.4.choices.1.role",
+      "textColor": [
+        0.72,
+        0.79,
+        0.84
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 181,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -6
+        }
+      ],
+      "physical_rect": [
+        63,
+        718,
+        359,
+        718
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 185,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 181,
+      "alias": "panel.cards.4.choices.1.stock",
+      "textColor": [
+        0.66,
+        0.72,
+        0.76
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        712,
+        349,
+        712
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 186,
+      "kind": "Texture",
+      "shown": true,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "BACKGROUND",
+      "parent": 181,
+      "alias": "panel.cards.4.choices.1.bg",
+      "colorTexture": [
+        0.13,
+        0.2,
+        0.25,
+        0.8
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "allPoints": 181,
+      "points": [],
+      "physical_rect": [
+        53,
+        712,
+        371,
+        735
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 187,
+      "kind": "Texture",
+      "shown": true,
+      "width": 3,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "ARTWORK",
+      "parent": 181,
+      "alias": "panel.cards.4.choices.1.marker",
+      "colorTexture": [
+        0.76,
+        0.68,
+        0.44,
+        1
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 181,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -3
+        }
+      ],
+      "physical_rect": [
+        53,
+        715,
+        56,
+        715
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 188,
+      "kind": "Button",
+      "shown": true,
+      "width": 318,
+      "height": 23,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 174,
+      "alias": "panel.cards.4.choices.2",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        712,
+        371,
+        735
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 189,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 188,
+      "alias": "panel.cards.4.choices.2.highlight",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.9,
+        0.77,
+        0.48,
+        0.12
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        712,
+        53,
+        712
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 190,
+      "kind": "FontString",
+      "template": "GameFontNormalSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 188,
+      "alias": "panel.cards.4.choices.2.label",
+      "textColor": [
+        0.72,
+        0.76,
+        0.79
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 188,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -24
+        }
+      ],
+      "physical_rect": [
+        63,
+        736,
+        359,
+        736
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 191,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 188,
+      "alias": "panel.cards.4.choices.2.role",
+      "textColor": [
+        0.72,
+        0.79,
+        0.84
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 188,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -6
+        }
+      ],
+      "physical_rect": [
+        63,
+        718,
+        359,
+        718
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 192,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 188,
+      "alias": "panel.cards.4.choices.2.stock",
+      "textColor": [
+        0.66,
+        0.72,
+        0.76
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        712,
+        349,
+        712
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 193,
+      "kind": "Texture",
+      "shown": true,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "BACKGROUND",
+      "parent": 188,
+      "alias": "panel.cards.4.choices.2.bg",
+      "colorTexture": [
+        0.13,
+        0.2,
+        0.25,
+        0.8
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "allPoints": 188,
+      "points": [],
+      "physical_rect": [
+        53,
+        712,
+        371,
+        735
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 194,
+      "kind": "Texture",
+      "shown": true,
+      "width": 3,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "ARTWORK",
+      "parent": 188,
+      "alias": "panel.cards.4.choices.2.marker",
+      "colorTexture": [
+        0.76,
+        0.68,
+        0.44,
+        1
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 188,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -3
+        }
+      ],
+      "physical_rect": [
+        53,
+        715,
+        56,
+        715
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 195,
+      "kind": "Button",
+      "shown": true,
+      "width": 318,
+      "height": 23,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 174,
+      "alias": "panel.cards.4.choices.3",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        712,
+        371,
+        735
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 196,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 195,
+      "alias": "panel.cards.4.choices.3.highlight",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.9,
+        0.77,
+        0.48,
+        0.12
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        712,
+        53,
+        712
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 197,
+      "kind": "FontString",
+      "template": "GameFontNormalSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 195,
+      "alias": "panel.cards.4.choices.3.label",
+      "textColor": [
+        0.72,
+        0.76,
+        0.79
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 195,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -24
+        }
+      ],
+      "physical_rect": [
+        63,
+        736,
+        359,
+        736
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 198,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 195,
+      "alias": "panel.cards.4.choices.3.role",
+      "textColor": [
+        0.72,
+        0.79,
+        0.84
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 195,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -6
+        }
+      ],
+      "physical_rect": [
+        63,
+        718,
+        359,
+        718
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 199,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 296,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 195,
+      "alias": "panel.cards.4.choices.3.stock",
+      "textColor": [
+        0.66,
+        0.72,
+        0.76
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        712,
+        349,
+        712
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 200,
+      "kind": "Texture",
+      "shown": true,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "BACKGROUND",
+      "parent": 195,
+      "alias": "panel.cards.4.choices.3.bg",
+      "colorTexture": [
+        0.13,
+        0.2,
+        0.25,
+        0.8
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "allPoints": 195,
+      "points": [],
+      "physical_rect": [
+        53,
+        712,
+        371,
+        735
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 201,
+      "kind": "Texture",
+      "shown": true,
+      "width": 3,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "ARTWORK",
+      "parent": 195,
+      "alias": "panel.cards.4.choices.3.marker",
+      "colorTexture": [
+        0.76,
+        0.68,
+        0.44,
+        1
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 195,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -3
+        }
+      ],
+      "physical_rect": [
+        53,
+        715,
+        56,
+        715
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 202,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 318,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 174,
+      "alias": "panel.cards.4.materialTitle",
+      "textColor": [
+        0.75,
+        0.79,
+        0.82
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        712,
+        371,
+        712
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 203,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 318,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 174,
+      "alias": "panel.cards.4.materials",
+      "textColor": [
+        0.7,
+        0.75,
+        0.78
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        712,
+        371,
+        712
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 204,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 318,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "其他可选",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 174,
+      "alias": "panel.cards.4.otherTitle",
+      "textColor": [
+        0.59,
+        0.66,
+        0.71
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        712,
+        371,
+        724
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 205,
+      "kind": "Texture",
+      "shown": true,
+      "width": 318,
+      "height": 1,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "layer": "ARTWORK",
+      "parent": 174,
+      "alias": "panel.cards.4.auxRule",
+      "colorTexture": [
+        0.4,
+        0.45,
+        0.49,
+        0.28
+      ],
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [],
+      "physical_rect": [
+        53,
+        712,
+        371,
+        713
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 206,
+      "kind": "Button",
+      "shown": true,
+      "width": 298,
+      "height": 52,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 48,
+      "alias": "panel.cards.1.materialRows.1",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 48,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -92
+        }
+      ],
+      "physical_rect": [
+        63,
+        281,
+        361,
+        333
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 207,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 206,
+      "alias": "panel.cards.1.materialRows.1.highlight",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.9,
+        0.77,
+        0.48,
+        0.12
+      ],
+      "points": [],
+      "physical_rect": [
+        63,
+        281,
+        63,
+        281
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 208,
+      "kind": "FontString",
+      "template": "GameFontNormalSmall",
+      "shown": true,
+      "width": 298,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "任选  |cffffffff|Hitem:2770|h[用于检查自然换行的特别长中文材料名称以及带有括号链接的替代材料测试示例]|h|r",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 206,
+      "alias": "panel.cards.1.materialRows.1.label",
+      "textColor": [
+        0.72,
+        0.76,
+        0.79
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 206,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        63,
+        281,
+        361,
+        308
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 209,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 298,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "|cffffb080缺 1|r   |cff9da7af需 2 / 有 1|r",
+      "fontSize": 13,
+      "fontPath": "mock-system-cjk-font",
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 206,
+      "alias": "panel.cards.1.materialRows.1.counts",
+      "textColor": [
+        0.91,
+        0.78,
+        0.63
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 206,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -30
+        }
+      ],
+      "physical_rect": [
+        63,
+        311,
+        361,
+        324
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 210,
+      "kind": "Button",
+      "shown": true,
+      "width": 298,
+      "height": 37,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 48,
+      "alias": "panel.cards.1.materialRows.2",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 48,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -147
+        }
+      ],
+      "physical_rect": [
+        63,
+        336,
+        361,
+        373
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 211,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 210,
+      "alias": "panel.cards.1.materialRows.2.highlight",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.9,
+        0.77,
+        0.48,
+        0.12
+      ],
+      "points": [],
+      "physical_rect": [
+        63,
+        336,
+        63,
+        336
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 212,
+      "kind": "FontString",
+      "template": "GameFontNormalSmall",
+      "shown": true,
+      "width": 298,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "任选  |cffffffff|Hitem:2771|h[锡矿石]|h|r",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 210,
+      "alias": "panel.cards.1.materialRows.2.label",
+      "textColor": [
+        0.72,
+        0.76,
+        0.79
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 210,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        63,
+        336,
+        361,
+        348
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 213,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 298,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "|cffb9dfc1缺 0|r   |cff9da7af需 2 / 有 4|r",
+      "fontSize": 13,
+      "fontPath": "mock-system-cjk-font",
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 210,
+      "alias": "panel.cards.1.materialRows.2.counts",
+      "textColor": [
+        0.91,
+        0.78,
+        0.63
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 210,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -15
+        }
+      ],
+      "physical_rect": [
+        63,
+        351,
+        361,
+        364
+      ],
+      "visible_with_ancestors": true,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 214,
+      "kind": "Button",
+      "shown": false,
+      "width": 298,
+      "height": 37,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "parent": 48,
+      "alias": "panel.cards.1.materialRows.3",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 48,
+          "relativePoint": "TOPLEFT",
+          "x": 10,
+          "y": -155
+        }
+      ],
+      "physical_rect": [
+        63,
+        344,
+        361,
+        381
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 215,
+      "kind": "Texture",
+      "shown": false,
+      "width": 0,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 0,
+      "texture": "Interface\\Buttons\\WHITE8X8",
+      "parent": 214,
+      "alias": "panel.cards.1.materialRows.3.highlight",
+      "textColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "vertexColor": [
+        0.9,
+        0.77,
+        0.48,
+        0.12
+      ],
+      "points": [],
+      "physical_rect": [
+        63,
+        344,
+        63,
+        344
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 216,
+      "kind": "FontString",
+      "template": "GameFontNormalSmall",
+      "shown": true,
+      "width": 298,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "|cffffffff|Hitem:3371|h[空瓶]|h|r",
+      "fontSize": 12,
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 214,
+      "alias": "panel.cards.1.materialRows.3.label",
+      "textColor": [
+        0.72,
+        0.76,
+        0.79
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 214,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "physical_rect": [
+        63,
+        344,
+        361,
+        356
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    },
+    {
+      "id": 217,
+      "kind": "FontString",
+      "template": "GameFontHighlightSmall",
+      "shown": true,
+      "width": 298,
+      "height": 0,
+      "scale": 1,
+      "alpha": 1,
+      "scroll": 0,
+      "text": "|cffb9dfc1缺 0|r   |cff9da7af需 1 / 有 6|r",
+      "fontSize": 13,
+      "fontPath": "mock-system-cjk-font",
+      "justifyH": "LEFT",
+      "justifyV": "TOP",
+      "spacing": 3,
+      "wordWrap": true,
+      "layer": "OVERLAY",
+      "parent": 214,
+      "alias": "panel.cards.1.materialRows.3.counts",
+      "textColor": [
+        0.91,
+        0.78,
+        0.63
+      ],
+      "points": [
+        {
+          "point": "TOPLEFT",
+          "relative": 214,
+          "relativePoint": "TOPLEFT",
+          "x": 0,
+          "y": -15
+        }
+      ],
+      "physical_rect": [
+        63,
+        359,
+        361,
+        372
+      ],
+      "visible_with_ancestors": false,
+      "clip_rect": [
+        47,
+        140,
+        377,
+        518
+      ]
+    }
+  ]
+}

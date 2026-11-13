@@ -1,0 +1,74 @@
+{
+  "checked_at_utc": "2026-11-11T12:10:29.790236+00:00",
+  "build": "1.60.1 (70862)",
+  "commit": "9dc84f0d3bbae1768ac3405b3716000bd93eda06",
+  "method": "read_only_source_and_author_publications_no_game_actions",
+  "sources": [
+    {
+      "source_path": "Blizzard_APIDocumentationGenerated/FrameAPINamePlateDocumentation.lua",
+      "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/9dc84f0d3bbae1768ac3405b3716000bd93eda06/Interface/AddOns/Blizzard_APIDocumentationGenerated/FrameAPINamePlateDocumentation.lua",
+      "sha256": "f0f7568dbe39cc0eca2dac21dad311b3fd6e1eb4eed00e7cc36b6acadc63d66c",
+      "existing_experiment_source": "PersonalAddons/research/guid-mouseover-20261110/native/FrameAPINamePlateDocumentation.lua",
+      "byte_identical_to_existing_experiment_source": true
+    },
+    {
+      "source_path": "Blizzard_APIDocumentationGenerated/NamePlateDocumentation.lua",
+      "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/9dc84f0d3bbae1768ac3405b3716000bd93eda06/Interface/AddOns/Blizzard_APIDocumentationGenerated/NamePlateDocumentation.lua",
+      "sha256": "1af6fb8f2428211ce696b2af18d09503116a12920d28ca76231bedb72a88292c",
+      "existing_experiment_source": "PersonalAddons/research/guid-mouseover-20261110/native/NamePlateDocumentation.lua",
+      "byte_identical_to_existing_experiment_source": true
+    },
+    {
+      "source_path": "Blizzard_APIDocumentationGenerated/NamePlateManagerDocumentation.lua",
+      "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/9dc84f0d3bbae1768ac3405b3716000bd93eda06/Interface/AddOns/Blizzard_APIDocumentationGenerated/NamePlateManagerDocumentation.lua",
+      "sha256": "f578c27a202373b896ae15469e3800dafac55f7e1382ae5a0ab42bd253444c22",
+      "existing_experiment_source": "PersonalAddons/research/guid-mouseover-20261110/native/NamePlateManagerDocumentation.lua",
+      "byte_identical_to_existing_experiment_source": true
+    },
+    {
+      "source_path": "Blizzard_NamePlates/Blizzard_NamePlateUnitFrame.lua",
+      "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/9dc84f0d3bbae1768ac3405b3716000bd93eda06/Interface/AddOns/Blizzard_NamePlates/Blizzard_NamePlateUnitFrame.lua",
+      "sha256": "5a3f506c65d645bee3ad3e82fbf70313839705095a618efeca3a919303bfa422",
+      "existing_experiment_source": "PersonalAddons/research/guid-mouseover-20261110/native/NamePlates-Blizzard_NamePlateUnitFrame.lua",
+      "byte_identical_to_existing_experiment_source": true
+    },
+    {
+      "source_path": "Blizzard_NamePlates/Blizzard_NamePlates.xml",
+      "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/9dc84f0d3bbae1768ac3405b3716000bd93eda06/Interface/AddOns/Blizzard_NamePlates/Blizzard_NamePlates.xml",
+      "sha256": "b151afd9c36ae1679cde38d7b42158a8f114a1d964e0f51b4bf1d392ee7abd33"
+    },
+    {
+      "source_path": "Blizzard_APIDocumentationGenerated/SimpleButtonAPIDocumentation.lua",
+      "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/9dc84f0d3bbae1768ac3405b3716000bd93eda06/Interface/AddOns/Blizzard_APIDocumentationGenerated/SimpleButtonAPIDocumentation.lua",
+      "sha256": "77d01584823f347dc819f2eff5771dfd63ef108afae251a7042657f06a52e16e"
+    }
+  ],
+  "findings": {
+    "per_plate_hit_test_methods_are_existing_tested_api": true,
+    "can_change_hit_test_points_meaning": "Permission predicate. Usually blocked for tainted code in combat except assignment tick or same-tick untainted update; no target or focus identity creation.",
+    "hit_test_bounds": "NamePlateManager documented hit testing is clamped within actual nameplate bounds.",
+    "lua_nameplate_click": "Native NamePlateUnitFrame explicitly disables mouse; C++ internal hit-test frame performs real detection. XML only has OnLoad and OnEvent, no OnClick target handler.",
+    "secure_click_delegation": "SECURE_ACTIONS.click only calls delegate:Click after access and forbidden-input checks; it does not perform native C++ spatial hit testing. No evidence of a callable native target delegate exposed by nameplate APIs.",
+    "scope_of_conclusion": "No new public mechanism found in these 70862 API families; not a proof that no client API exists anywhere."
+  },
+  "enemyframes_author_sources": [
+    {
+      "url": "https://www.curseforge.com/wow/addons/enemyframes",
+      "observed": "Description begins with author notice that clicking to target is broken after newest Blizzard update; latest file 1.3.0 lists Forever 1.60.1."
+    },
+    {
+      "url": "https://www.reddit.com/r/WowUI/comments/1x0vw2v/comment/peofiv9/",
+      "observed": "Author explains old workaround enlarged native nameplates and mapped click area onto addon bars; placement limitation above mobs."
+    },
+    {
+      "url": "https://www.reddit.com/r/WowUI/comments/1x0vw2v/comment/19s6ufln3dko5/",
+      "observed": "Author reports newest build appeared to fix old workaround and clicking no longer works.",
+      "absolute_comment_timestamp": "not_verified",
+      "timestamp_note": "Only relative ages exposed by web renderer; direct HTML fetch returned403. Do not infer calendar date or precise patch number."
+    }
+  ],
+  "not_used_as_current_proof": [
+    "Blizzard 7.1 archived blue post says nameplate token spell casts disallowed, but also says targeting still allowed; therefore it cannot prove current70862 TargetUnit behavior.",
+    "Wiki UnitToken prohibition is secondary and current C++ implementation is not public."
+  ]
+}

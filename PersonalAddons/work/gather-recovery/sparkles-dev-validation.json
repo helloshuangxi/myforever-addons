@@ -1,0 +1,132 @@
+{
+  "version": "0.4.5-dev.3",
+  "date": "2026-11-07",
+  "published": false,
+  "luaSyntaxFiles": 11,
+  "simulatedChecks": 1068,
+  "sparkleChecks": 108,
+  "liveSparkleValidation": "Dev.2 copper-node visual, off/on, scale and reload checks passed. Dev.3 nearby sound is code/simulation reviewed only; full minimap/direction/sound release gate remains unmet.",
+  "originalInteractionCVars": {
+    "SoftTargetInteract": "1",
+    "SoftTargetIconGameObject": "0",
+    "SoftTargetInteractArc": "0",
+    "SoftTargetInteractRange": "10.000000"
+  },
+  "automation": {
+    "id": "nodesight",
+    "schedule": "daily 10:00 Asia/Shanghai"
+  },
+  "sourceSHA256": {
+    "Core.lua": "ad1dc7c5bda26d47efd3a77c8ed4ae0b2af09ba28d1204c842422479e40464d9",
+    "GatherSparkles.lua": "31bb5f0d51b4d9bdcfc183302132e66a2882939db4557a40befd5624cb9d3c8b",
+    "Main.lua": "18b107dc41c589a8dac02868905f8d851a6e5976bf3a62358c1aaacf060220f8",
+    "MyForeverProfessions.toc": "76a3543e0bf060057655af586bf66b993125945e6a13cf290064fcb225590eb1",
+    "UI.lua": "e882f44ab3346b86dd58c1f44b51379210cd248e3d4dd8840a496df7316a5777",
+    "GatherAlerts.lua": "82518d25719b7b0f056e3f7ddba24d2986cabe5778015d1d73f082dd9e71efda"
+  },
+  "liveSession20261107": {
+    "client": "1.60.1.70862 macOS",
+    "loadedVersion": "0.4.5-dev.1",
+    "versionReadAt": "18:58 Asia/Shanghai",
+    "npcAreaMatchedCount": 0,
+    "afterOff": [
+      "1",
+      "0",
+      "0",
+      "10.000000"
+    ],
+    "afterOn": [
+      "3",
+      "1",
+      "2",
+      "30"
+    ],
+    "offOnPassed": true,
+    "temporaryMovementBindings": {
+      "LEFT": {
+        "before": "",
+        "temporary": "TURNLEFT"
+      },
+      "RIGHT": {
+        "before": "",
+        "temporary": "TURNRIGHT"
+      }
+    },
+    "movementBindingsRestored": true,
+    "resourceVisual": "Observed dev.1 small sparkles at copper before reload; enhanced dev.2 results below."
+  },
+  "visibilitySession20261107": {
+    "client": "1.60.1.70862 macOS",
+    "localTime": "19:18-19:25 Asia/Shanghai",
+    "loadedVersion": "0.4.5-dev.2",
+    "map": "Dun Morogh",
+    "mapPosition": [
+      42.8,
+      44.8
+    ],
+    "nativeObject": true,
+    "resourceName": "铜矿",
+    "matchedCount": 1,
+    "outlineAndLargerSparkleVisible": true,
+    "animatedPositionsAndBrightnessObserved": true,
+    "offHides": true,
+    "onRestores": true,
+    "finalEnabled": true,
+    "finalScale": 1.2,
+    "reloadVisibleAtScales": [
+      1,
+      1.2
+    ],
+    "savedScaleReadBack": 1.2,
+    "movementBindingsRestoredReadBack": [
+      true,
+      true
+    ],
+    "resourceGatheredByAgent": false,
+    "characterMovedByAgent": false,
+    "initialPaintIssue": "First reload created visible texture objects without pixels. Repainting after the first visible layout fixed the observed case; tested with two subsequent reloads.",
+    "diagnosticRestriction": "One manual Texture:GetPoint query was denied by the client; stopped using it and closed the dialog. No geometry reads were added to production code.",
+    "unverified": [
+      "herbs",
+      "other terrain",
+      "farther detection range",
+      "full automatic minimap detection",
+      "reliable direction",
+      "automatic sound chain"
+    ]
+  },
+  "gatherAlertsChecks": 43,
+  "nearbySoundDevelopment20261107": {
+    "version": "0.4.5-dev.3",
+    "status": "implemented; simulated checks and independent code review passed; live test deferred by user",
+    "userDecision": "先完成代码，稍后测试",
+    "liveAutomaticTriggerVerified": false,
+    "liveAudibleSoundVerified": false,
+    "gameReloadedByAgent": false,
+    "characterMovedByAgent": false,
+    "published": false,
+    "luaSyntaxFiles": 11,
+    "simulatedChecks": 1068,
+    "sparklesChecks": 108,
+    "gatherAlertsChecks": 43,
+    "playbackCooldownSeconds": 4,
+    "absenceToRearmSeconds": 10,
+    "respectsSettings": [
+      "gatherSparkles",
+      "gatherAlerts",
+      "gatherSound"
+    ],
+    "regressions": [
+      "continuous resource GUID availability changes do not repeat sound",
+      "cross-source same-name claim does not suppress later new readable GUID",
+      "temporary unit change with unreadable GUID conservatively shares same-name receipt"
+    ],
+    "limitations": [
+      "nearby native resource nameplates only",
+      "no resource bearing",
+      "unreadable GUID falls back conservatively to resource name",
+      "PlaySound success does not verify user heard audio"
+    ],
+    "published044ZipSHA256": "cad46e8c6077d6f108e3a7cc3eb8c679a4bbe55782a761a82d70dac9066a0574"
+  }
+}

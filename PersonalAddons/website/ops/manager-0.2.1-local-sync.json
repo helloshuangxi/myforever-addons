@@ -1,0 +1,40 @@
+{
+  "status": "synced",
+  "name": "MyForeverManager",
+  "version": "0.2.1",
+  "changed_files": [
+    "manager/downloads/MyForeverManager-0.2.1-Trial-win-x64.zip",
+    "manager/downloads/MyForeverManager-0.2.1-Trial-win-x64.zip.sha256",
+    "manager/downloads/MyForeverManager-0.2.1-Trial-osx-arm64.zip",
+    "manager/downloads/MyForeverManager-0.2.1-Trial-osx-arm64.zip.sha256",
+    "manager/downloads/MyForeverManager-0.2.1-Trial-osx-x64.zip",
+    "manager/downloads/MyForeverManager-0.2.1-Trial-osx-x64.zip.sha256",
+    "manager/latest.json",
+    "manager/releases.json",
+    "manager/index.html",
+    "sitemap.xml"
+  ],
+  "downloads": [
+    {
+      "platform": "win-x64",
+      "filename": "MyForeverManager-0.2.1-Trial-win-x64.zip",
+      "url": "https://afabiaoge.xyz/manager/downloads/MyForeverManager-0.2.1-Trial-win-x64.zip",
+      "size_bytes": 41644589,
+      "sha256": "932c808e346fe307b0ff213b496840e88e4d3988d0950e99c0a8315e125b6bcb"
+    },
+    {
+      "platform": "osx-arm64",
+      "filename": "MyForeverManager-0.2.1-Trial-osx-arm64.zip",
+      "url": "https://afabiaoge.xyz/manager/downloads/MyForeverManager-0.2.1-Trial-osx-arm64.zip",
+      "size_bytes": 41196799,
+      "sha256": "be4c91aa7d777d3dfc24de0004f1ae542b7eededc825d0673ab6d7453bd29bec"
+    },
+    {
+      "platform": "osx-x64",
+      "filename": "MyForeverManager-0.2.1-Trial-osx-x64.zip",
+      "url": "https://afabiaoge.xyz/manager/downloads/MyForeverManager-0.2.1-Trial-osx-x64.zip",
+      "size_bytes": 43682311,
+      "sha256": "f41788d362a0afe9cdfb343f0c26b26d605a1b4ffd80463ce16398186ea8087f"
+    }
+  ]
+}

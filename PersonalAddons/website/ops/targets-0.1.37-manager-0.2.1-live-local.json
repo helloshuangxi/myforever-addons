@@ -1,0 +1,84 @@
+{
+  "status": "passed",
+  "checked_at": "2026-11-11T10:04:24.108734+00:00",
+  "location": "local Mac public HTTPS",
+  "results": [
+    {
+      "path": "/",
+      "status": 200,
+      "bytes": 10564,
+      "sha256": "34e25e1500ebd38fa844c4504e88e7aa480c31939ca2f90709eae4064e0b706c",
+      "cache": "no-cache"
+    },
+    {
+      "path": "/targets/",
+      "status": 200,
+      "bytes": 17211,
+      "sha256": "ae738c89d17924ea7584404a0e8e72b7d8c06df59a8e5040b42d8184effd9c1a",
+      "cache": "no-cache"
+    },
+    {
+      "path": "/targets/latest.json",
+      "status": 200,
+      "bytes": 3505,
+      "sha256": "cdb7b06d361e5fe66534d49b5e01573770d89c54736a6c5e73ad5a9599dcbb77",
+      "cache": "no-cache"
+    },
+    {
+      "path": "/targets/releases.json",
+      "status": 200,
+      "bytes": 3756,
+      "sha256": "4d539eb122acf721b5d0525035a65789ae52e2179f224d4fb0de1bc37b8e953e",
+      "cache": "no-cache"
+    },
+    {
+      "path": "/manager/",
+      "status": 200,
+      "bytes": 12971,
+      "sha256": "5632d540eaba2176a32ad1d8429cc982f2b9a6cd57d33117247792c3d65f0ad8",
+      "cache": "no-cache"
+    },
+    {
+      "path": "/manager/latest.json",
+      "status": 200,
+      "bytes": 2846,
+      "sha256": "ac184b9ca143cc282f616ab82d16db6d36cb5ed704252e9be4476571c96cd733",
+      "cache": "no-cache"
+    },
+    {
+      "path": "/manager/releases.json",
+      "status": 200,
+      "bytes": 9501,
+      "sha256": "fdebee57f77cbcf1a139e570bdcda560f78576cac634290bf4eb065521d99ccb",
+      "cache": "no-cache"
+    },
+    {
+      "path": "/downloads/MyForeverTargets-0.1.37-Trial.zip",
+      "status": 200,
+      "bytes": 162136,
+      "sha256": "6955d72563c0510304798d444ed5cde56b5688a7fa2c18111d38d4c02d4c2366",
+      "cache": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "https://afabiaoge.xyz/manager/downloads/MyForeverManager-0.2.1-Trial-win-x64.zip",
+      "status": 206,
+      "content_range": "bytes 0-1023/41644589",
+      "cache": "public, max-age=31536000, immutable",
+      "scope": "First 1024 bytes locally; full SHA validated separately on server via HTTPS"
+    },
+    {
+      "path": "https://afabiaoge.xyz/manager/downloads/MyForeverManager-0.2.1-Trial-osx-arm64.zip",
+      "status": 206,
+      "content_range": "bytes 0-1023/41196799",
+      "cache": "public, max-age=31536000, immutable",
+      "scope": "First 1024 bytes locally; full SHA validated separately on server via HTTPS"
+    },
+    {
+      "path": "https://afabiaoge.xyz/manager/downloads/MyForeverManager-0.2.1-Trial-osx-x64.zip",
+      "status": 206,
+      "content_range": "bytes 0-1023/43682311",
+      "cache": "public, max-age=31536000, immutable",
+      "scope": "First 1024 bytes locally; full SHA validated separately on server via HTTPS"
+    }
+  ]
+}

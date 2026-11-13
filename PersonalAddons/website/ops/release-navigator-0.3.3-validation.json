@@ -1,0 +1,107 @@
+{
+  "version": "0.3.3",
+  "channel": "trial",
+  "date": "2026-11-09",
+  "status": "published-and-verified",
+  "package": {
+    "filename": "MyForeverNavigator-0.3.3-Trial.zip",
+    "bytes": 570598,
+    "sha256": "cef60b3f44b495baa13a8351525ab3ea2d3ad1ac277df4e68a50eda953a24ca9",
+    "allowlisted_files": 14
+  },
+  "hud": {
+    "width": 300,
+    "height": 84,
+    "background_alpha": 0.56,
+    "frame_alpha_unchanged": true,
+    "visible_elements": [
+      "name",
+      "arrow",
+      "direction_or_short_state",
+      "distance",
+      "map",
+      "close"
+    ],
+    "auxiliary_text_and_tooltips_removed": true,
+    "buttons": {
+      "labels": [
+        "地图",
+        "关闭"
+      ],
+      "width": 48,
+      "height": 28
+    }
+  },
+  "simulation": {
+    "lua51_files": 10,
+    "groups": 10,
+    "main_ui_hud_assertions": 538,
+    "quest_ui_assertions": 254,
+    "navigation_assertions": 249,
+    "quest_navigation_assertions": 7083,
+    "returned_points_checked": 831039,
+    "passed": true
+  },
+  "game": {
+    "reloaded_via_local_command_outside_combat": true,
+    "actual_target": "威尔海姆修士",
+    "observed_distance_m": 16,
+    "observed_state": "已到达",
+    "compact_background_and_button_labels": "confirmed in actual game image",
+    "player_movement_or_target_change": false,
+    "not_verified": [
+      "physical button clicks",
+      "dragging",
+      "heading changes",
+      "cross-zone journeys"
+    ],
+    "raw_screenshots_published": false
+  },
+  "preservation": {
+    "data_and_navigation_code_unchanged": true,
+    "map_details_navigation_button": "retained",
+    "prior_public_packages": 28,
+    "professions_candidate_published": false,
+    "other_public_versions": {
+      "Chat": "0.9.3",
+      "Professions": "0.4.6",
+      "Manager": "0.2.0"
+    },
+    "prior_public_packages_verified_unchanged": 28
+  },
+  "manager": {
+    "version": "0.2.0",
+    "isolated_checks_passed": 64,
+    "live_checks": 68,
+    "live_checks_passed": true
+  },
+  "website": {
+    "local_check": "passed",
+    "freeze": "PersonalAddons/work/navigator-0.3.3-site",
+    "live": "passed",
+    "verified_resources": 96,
+    "checked_at": "2026-11-09T13:33:02.646364+00:00",
+    "download_sha256": "cef60b3f44b495baa13a8351525ab3ea2d3ad1ac277df4e68a50eda953a24ca9",
+    "existing_services": {
+      "www": {
+        "status": 301,
+        "location": "https://afabiaoge.xyz/"
+      },
+      "chat_health": {
+        "status": 200
+      },
+      "studio_protected": {
+        "status": 200,
+        "final_url": "https://studio.afabiaoge.xyz/login",
+        "login_required": true
+      },
+      "community": {
+        "status": 200,
+        "returned_items": 0,
+        "has_more": false,
+        "write_test_performed": false
+      }
+    }
+  },
+  "release": "20261109T132825Z"
+}

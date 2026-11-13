@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://afabiaoge.xyz/sitemap.xml

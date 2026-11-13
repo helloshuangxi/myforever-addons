@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>MyForeverManager</AssemblyName>
+    <RootNamespace>MyForeverManager.Desktop</RootNamespace>
+    <Version>0.3.1</Version>
+    <InformationalVersion>0.3.1</InformationalVersion>
+    <Product>我的无限插件管理器</Product>
+    <Company>Hyder</Company>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>../packaging/MyForeverManager.ico</ApplicationIcon>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <PublishTrimmed>false</PublishTrimmed>
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="../packaging/icon.png" LogicalName="Manager.Icon" />
+    <PackageReference Include="Avalonia" Version="11.3.22" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.3.22" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.22" />
+    <ProjectReference Include="../Core/MyForeverManager.Core.csproj" />
+  </ItemGroup>
+</Project>

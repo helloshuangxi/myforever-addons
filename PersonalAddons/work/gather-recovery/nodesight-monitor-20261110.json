@@ -1,0 +1,2376 @@
+{
+  "checkedAt": "2026-11-10T02:01:49.467922+00:00",
+  "endpoints": {
+    "releases/latest": {
+      "url": "https://api.github.com/repos/Krelock/NodeSight/releases/438775900",
+      "assets_url": "https://api.github.com/repos/Krelock/NodeSight/releases/438775900/assets",
+      "upload_url": "https://uploads.github.com/repos/Krelock/NodeSight/releases/438775900/assets{?name,label}",
+      "html_url": "https://github.com/Krelock/NodeSight/releases/tag/v1.9.0",
+      "id": 438775900,
+      "author": {
+        "login": "Krelock",
+        "id": 142703219,
+        "node_id": "U_kgDOCIF6cw",
+        "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/Krelock",
+        "html_url": "https://github.com/Krelock",
+        "followers_url": "https://api.github.com/users/Krelock/followers",
+        "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+        "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+        "organizations_url": "https://api.github.com/users/Krelock/orgs",
+        "repos_url": "https://api.github.com/users/Krelock/repos",
+        "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/Krelock/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "node_id": "RE_kwDOVIVYY84aJzBc",
+      "tag_name": "v1.9.0",
+      "target_commitish": "main",
+      "name": "NodeSight 1.9.0",
+      "draft": false,
+      "immutable": false,
+      "prerelease": false,
+      "created_at": "2026-11-09T05:35:14Z",
+      "updated_at": "2026-11-09T05:35:45Z",
+      "published_at": "2026-11-09T05:35:45Z",
+      "assets": [
+        {
+          "url": "https://api.github.com/repos/Krelock/NodeSight/releases/assets/726362361",
+          "id": 726362361,
+          "node_id": "RA_kwDOVIVYY84rS2j5",
+          "name": "NodeSight-1.9.0.zip",
+          "label": "",
+          "uploader": {
+            "login": "Krelock",
+            "id": 142703219,
+            "node_id": "U_kgDOCIF6cw",
+            "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/Krelock",
+            "html_url": "https://github.com/Krelock",
+            "followers_url": "https://api.github.com/users/Krelock/followers",
+            "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+            "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+            "organizations_url": "https://api.github.com/users/Krelock/orgs",
+            "repos_url": "https://api.github.com/users/Krelock/repos",
+            "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/Krelock/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "content_type": "application/zip",
+          "state": "uploaded",
+          "size": 153957,
+          "digest": "sha256:ccb5dde20b310324ce2c5200779a7a8a043844554a3c0d874681c5e955a027e2",
+          "download_count": 34,
+          "created_at": "2026-11-09T05:35:44Z",
+          "updated_at": "2026-11-09T05:35:44Z",
+          "browser_download_url": "https://github.com/Krelock/NodeSight/releases/download/v1.9.0/NodeSight-1.9.0.zip"
+        }
+      ],
+      "tarball_url": "https://api.github.com/repos/Krelock/NodeSight/tarball/v1.9.0",
+      "zipball_url": "https://api.github.com/repos/Krelock/NodeSight/zipball/v1.9.0",
+      "body": "## NodeSight 1.9.0\n\n### New\n\n- **Map while scanning (Beta)** (on by default). While the minimap is hidden for a scan, the world map's picture of where you are shows in its place, moving as you walk. Not with a rotating minimap. On the **Scanning** page.\n- **Fade in and out** (on by default). The minimap and its buttons fade into the map picture before a scan and back after, instead of blinking. Each scan starts a moment later. On the **Scanning** page.\n- **Fewer blinks** (on by default). When your mouse goes over a window (your bags) or you hold a mouse button to turn mid-scan, the minimap stays hidden for a moment instead of flashing back: up to 2 seconds over a window, 1 while you hold a button. On the **Scanning** page.\n\n### Changes\n\n- **Scan every (seconds)** (10 by default). Turned on at 10 once for everyone who had it off and doesn't use Scan as you move. On the **Scanning** page.\n- **NPC windows**. Scans wait while a vendor, quest giver, bank, mailbox, auction house or trade window is open, so addons that sell junk or turn in quests for you aren't interrupted.\n\n### Fixes\n\n- **EllesmereUI**. Its coordinates and zoom buttons no longer show up under your mouse during a scan.\n- **Mail icon**. With Leatrix Plus or another minimap addon, the mail tooltip no longer pops up and pauses scans.\n- **Minimap icons**. Icons other addons put on or next to the minimap stay hidden and can't be hovered during a scan, including ones added mid-scan.\n- **Buttons shown on hover**. Addon buttons that only show when you hover the minimap (Leatrix Plus) no longer flash under your mouse at the start of a scan.\n- **Day/night dial**. It stays on top of the minimap's border during a scan, and hidden if your UI hides it.\n"
+    },
+    "commits?per_page=15": [
+      {
+        "sha": "7d282780cd8e41c0ceef813b4a6e0bdac4b4f904",
+        "node_id": "C_kwDOVIVYY9oAKDdkMjgyNzgwY2Q4ZTQxYzBjZWVmODEzYjRhNmUwYmRhYzRiNGY5MDQ",
+        "commit": {
+          "author": {
+            "name": "Krelock",
+            "email": "142703219+Krelock@users.noreply.github.com",
+            "date": "2026-11-09T05:35:14Z"
+          },
+          "committer": {
+            "name": "Krelock",
+            "email": "142703219+Krelock@users.noreply.github.com",
+            "date": "2026-11-09T05:35:14Z"
+          },
+          "message": "NodeSight 1.9.0",
+          "tree": {
+            "sha": "cbf04672231b70f2518fd6cebd8d1bb9ad582840",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/git/trees/cbf04672231b70f2518fd6cebd8d1bb9ad582840"
+          },
+          "url": "https://api.github.com/repos/Krelock/NodeSight/git/commits/7d282780cd8e41c0ceef813b4a6e0bdac4b4f904",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/Krelock/NodeSight/commits/7d282780cd8e41c0ceef813b4a6e0bdac4b4f904",
+        "html_url": "https://github.com/Krelock/NodeSight/commit/7d282780cd8e41c0ceef813b4a6e0bdac4b4f904",
+        "comments_url": "https://api.github.com/repos/Krelock/NodeSight/commits/7d282780cd8e41c0ceef813b4a6e0bdac4b4f904/comments",
+        "author": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "31605d139d203ad7c8a2f366f039d7430debb64d",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/commits/31605d139d203ad7c8a2f366f039d7430debb64d",
+            "html_url": "https://github.com/Krelock/NodeSight/commit/31605d139d203ad7c8a2f366f039d7430debb64d"
+          }
+        ]
+      },
+      {
+        "sha": "31605d139d203ad7c8a2f366f039d7430debb64d",
+        "node_id": "C_kwDOVIVYY9oAKDMxNjA1ZDEzOWQyMDNhZDdjOGEyZjM2NmYwMzlkNzQzMGRlYmI2NGQ",
+        "commit": {
+          "author": {
+            "name": "Krelock",
+            "email": "142703219+Krelock@users.noreply.github.com",
+            "date": "2026-11-09T01:59:37Z"
+          },
+          "committer": {
+            "name": "Krelock",
+            "email": "142703219+Krelock@users.noreply.github.com",
+            "date": "2026-11-09T01:59:37Z"
+          },
+          "message": "NodeSight 1.8.4",
+          "tree": {
+            "sha": "d5c8a564cd3e4586cd60a0585aa36bb04f084cd9",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/git/trees/d5c8a564cd3e4586cd60a0585aa36bb04f084cd9"
+          },
+          "url": "https://api.github.com/repos/Krelock/NodeSight/git/commits/31605d139d203ad7c8a2f366f039d7430debb64d",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/Krelock/NodeSight/commits/31605d139d203ad7c8a2f366f039d7430debb64d",
+        "html_url": "https://github.com/Krelock/NodeSight/commit/31605d139d203ad7c8a2f366f039d7430debb64d",
+        "comments_url": "https://api.github.com/repos/Krelock/NodeSight/commits/31605d139d203ad7c8a2f366f039d7430debb64d/comments",
+        "author": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "aeb0248543c9b8a21a4dfbb071ec4a268fe82a93",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/commits/aeb0248543c9b8a21a4dfbb071ec4a268fe82a93",
+            "html_url": "https://github.com/Krelock/NodeSight/commit/aeb0248543c9b8a21a4dfbb071ec4a268fe82a93"
+          }
+        ]
+      },
+      {
+        "sha": "aeb0248543c9b8a21a4dfbb071ec4a268fe82a93",
+        "node_id": "C_kwDOVIVYY9oAKGFlYjAyNDg1NDNjOWI4YTIxYTRkZmJiMDcxZWM0YTI2OGZlODJhOTM",
+        "commit": {
+          "author": {
+            "name": "Krelock",
+            "email": "142703219+Krelock@users.noreply.github.com",
+            "date": "2026-11-09T00:40:35Z"
+          },
+          "committer": {
+            "name": "Krelock",
+            "email": "142703219+Krelock@users.noreply.github.com",
+            "date": "2026-11-09T00:40:35Z"
+          },
+          "message": "NodeSight 1.8.3",
+          "tree": {
+            "sha": "d74f16a17f410d7dfe9c2257339e5321de28aef1",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/git/trees/d74f16a17f410d7dfe9c2257339e5321de28aef1"
+          },
+          "url": "https://api.github.com/repos/Krelock/NodeSight/git/commits/aeb0248543c9b8a21a4dfbb071ec4a268fe82a93",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/Krelock/NodeSight/commits/aeb0248543c9b8a21a4dfbb071ec4a268fe82a93",
+        "html_url": "https://github.com/Krelock/NodeSight/commit/aeb0248543c9b8a21a4dfbb071ec4a268fe82a93",
+        "comments_url": "https://api.github.com/repos/Krelock/NodeSight/commits/aeb0248543c9b8a21a4dfbb071ec4a268fe82a93/comments",
+        "author": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "12b1522b4141a480774c743b22490d48e560b54f",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/commits/12b1522b4141a480774c743b22490d48e560b54f",
+            "html_url": "https://github.com/Krelock/NodeSight/commit/12b1522b4141a480774c743b22490d48e560b54f"
+          }
+        ]
+      },
+      {
+        "sha": "12b1522b4141a480774c743b22490d48e560b54f",
+        "node_id": "C_kwDOVIVYY9oAKDEyYjE1MjJiNDE0MWE0ODA3NzRjNzQzYjIyNDkwZDQ4ZTU2MGI1NGY",
+        "commit": {
+          "author": {
+            "name": "Krelock",
+            "email": "142703219+Krelock@users.noreply.github.com",
+            "date": "2026-11-08T22:13:54Z"
+          },
+          "committer": {
+            "name": "Krelock",
+            "email": "142703219+Krelock@users.noreply.github.com",
+            "date": "2026-11-08T22:13:54Z"
+          },
+          "message": "NodeSight 1.8.2",
+          "tree": {
+            "sha": "3b55b240bd56dcded0fa3319af8e5b84f0f97dca",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/git/trees/3b55b240bd56dcded0fa3319af8e5b84f0f97dca"
+          },
+          "url": "https://api.github.com/repos/Krelock/NodeSight/git/commits/12b1522b4141a480774c743b22490d48e560b54f",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/Krelock/NodeSight/commits/12b1522b4141a480774c743b22490d48e560b54f",
+        "html_url": "https://github.com/Krelock/NodeSight/commit/12b1522b4141a480774c743b22490d48e560b54f",
+        "comments_url": "https://api.github.com/repos/Krelock/NodeSight/commits/12b1522b4141a480774c743b22490d48e560b54f/comments",
+        "author": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "9919159d0b177244884e6dc68896b6f72775e228",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/commits/9919159d0b177244884e6dc68896b6f72775e228",
+            "html_url": "https://github.com/Krelock/NodeSight/commit/9919159d0b177244884e6dc68896b6f72775e228"
+          }
+        ]
+      },
+      {
+        "sha": "9919159d0b177244884e6dc68896b6f72775e228",
+        "node_id": "C_kwDOVIVYY9oAKDk5MTkxNTlkMGIxNzcyNDQ4ODRlNmRjNjg4OTZiNmY3Mjc3NWUyMjg",
+        "commit": {
+          "author": {
+            "name": "Krelock",
+            "email": "142703219+Krelock@users.noreply.github.com",
+            "date": "2026-11-08T07:14:47Z"
+          },
+          "committer": {
+            "name": "Krelock",
+            "email": "142703219+Krelock@users.noreply.github.com",
+            "date": "2026-11-08T07:14:47Z"
+          },
+          "message": "NodeSight 1.8.1",
+          "tree": {
+            "sha": "bf313062c587cd06cf67c87ace671d4917201fdd",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/git/trees/bf313062c587cd06cf67c87ace671d4917201fdd"
+          },
+          "url": "https://api.github.com/repos/Krelock/NodeSight/git/commits/9919159d0b177244884e6dc68896b6f72775e228",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/Krelock/NodeSight/commits/9919159d0b177244884e6dc68896b6f72775e228",
+        "html_url": "https://github.com/Krelock/NodeSight/commit/9919159d0b177244884e6dc68896b6f72775e228",
+        "comments_url": "https://api.github.com/repos/Krelock/NodeSight/commits/9919159d0b177244884e6dc68896b6f72775e228/comments",
+        "author": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "2afee038e21d38ef5abdc13075c33ad328df1172",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/commits/2afee038e21d38ef5abdc13075c33ad328df1172",
+            "html_url": "https://github.com/Krelock/NodeSight/commit/2afee038e21d38ef5abdc13075c33ad328df1172"
+          }
+        ]
+      },
+      {
+        "sha": "2afee038e21d38ef5abdc13075c33ad328df1172",
+        "node_id": "C_kwDOVIVYY9oAKDJhZmVlMDM4ZTIxZDM4ZWY1YWJkYzEzMDc1YzMzYWQzMjhkZjExNzI",
+        "commit": {
+          "author": {
+            "name": "Krelock",
+            "email": "142703219+Krelock@users.noreply.github.com",
+            "date": "2026-11-08T07:00:24Z"
+          },
+          "committer": {
+            "name": "Krelock",
+            "email": "142703219+Krelock@users.noreply.github.com",
+            "date": "2026-11-08T07:00:24Z"
+          },
+          "message": "NodeSight 1.8.1",
+          "tree": {
+            "sha": "705ba3db304b26b025d8818f27536a97e0995b56",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/git/trees/705ba3db304b26b025d8818f27536a97e0995b56"
+          },
+          "url": "https://api.github.com/repos/Krelock/NodeSight/git/commits/2afee038e21d38ef5abdc13075c33ad328df1172",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/Krelock/NodeSight/commits/2afee038e21d38ef5abdc13075c33ad328df1172",
+        "html_url": "https://github.com/Krelock/NodeSight/commit/2afee038e21d38ef5abdc13075c33ad328df1172",
+        "comments_url": "https://api.github.com/repos/Krelock/NodeSight/commits/2afee038e21d38ef5abdc13075c33ad328df1172/comments",
+        "author": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "d4edf2c05713a5416b40ad972f64d600fe583560",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/commits/d4edf2c05713a5416b40ad972f64d600fe583560",
+            "html_url": "https://github.com/Krelock/NodeSight/commit/d4edf2c05713a5416b40ad972f64d600fe583560"
+          }
+        ]
+      },
+      {
+        "sha": "d4edf2c05713a5416b40ad972f64d600fe583560",
+        "node_id": "C_kwDOVIVYY9oAKGQ0ZWRmMmMwNTcxM2E1NDE2YjQwYWQ5NzJmNjRkNjAwZmU1ODM1NjA",
+        "commit": {
+          "author": {
+            "name": "Krelock",
+            "email": "142703219+Krelock@users.noreply.github.com",
+            "date": "2026-11-08T06:52:16Z"
+          },
+          "committer": {
+            "name": "Krelock",
+            "email": "142703219+Krelock@users.noreply.github.com",
+            "date": "2026-11-08T06:52:16Z"
+          },
+          "message": "NodeSight 1.8.1",
+          "tree": {
+            "sha": "c5e9b9031c80450a9dbd78872b54a2e7138fdfe1",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/git/trees/c5e9b9031c80450a9dbd78872b54a2e7138fdfe1"
+          },
+          "url": "https://api.github.com/repos/Krelock/NodeSight/git/commits/d4edf2c05713a5416b40ad972f64d600fe583560",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/Krelock/NodeSight/commits/d4edf2c05713a5416b40ad972f64d600fe583560",
+        "html_url": "https://github.com/Krelock/NodeSight/commit/d4edf2c05713a5416b40ad972f64d600fe583560",
+        "comments_url": "https://api.github.com/repos/Krelock/NodeSight/commits/d4edf2c05713a5416b40ad972f64d600fe583560/comments",
+        "author": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "167f215163796bda9c4041b8d0810deb33f08a81",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/commits/167f215163796bda9c4041b8d0810deb33f08a81",
+            "html_url": "https://github.com/Krelock/NodeSight/commit/167f215163796bda9c4041b8d0810deb33f08a81"
+          }
+        ]
+      },
+      {
+        "sha": "167f215163796bda9c4041b8d0810deb33f08a81",
+        "node_id": "C_kwDOVIVYY9oAKDE2N2YyMTUxNjM3OTZiZGE5YzQwNDFiOGQwODEwZGViMzNmMDhhODE",
+        "commit": {
+          "author": {
+            "name": "Krelock",
+            "email": "142703219+Krelock@users.noreply.github.com",
+            "date": "2026-11-08T05:52:01Z"
+          },
+          "committer": {
+            "name": "Krelock",
+            "email": "142703219+Krelock@users.noreply.github.com",
+            "date": "2026-11-08T05:52:01Z"
+          },
+          "message": "NodeSight 1.8.0",
+          "tree": {
+            "sha": "0924740fec7d1679f5a413b24946ed1ab0cd117d",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/git/trees/0924740fec7d1679f5a413b24946ed1ab0cd117d"
+          },
+          "url": "https://api.github.com/repos/Krelock/NodeSight/git/commits/167f215163796bda9c4041b8d0810deb33f08a81",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/Krelock/NodeSight/commits/167f215163796bda9c4041b8d0810deb33f08a81",
+        "html_url": "https://github.com/Krelock/NodeSight/commit/167f215163796bda9c4041b8d0810deb33f08a81",
+        "comments_url": "https://api.github.com/repos/Krelock/NodeSight/commits/167f215163796bda9c4041b8d0810deb33f08a81/comments",
+        "author": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "2e8abb0022968c878e57f25925ad1bd965179ac7",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/commits/2e8abb0022968c878e57f25925ad1bd965179ac7",
+            "html_url": "https://github.com/Krelock/NodeSight/commit/2e8abb0022968c878e57f25925ad1bd965179ac7"
+          }
+        ]
+      },
+      {
+        "sha": "2e8abb0022968c878e57f25925ad1bd965179ac7",
+        "node_id": "C_kwDOVIVYY9oAKDJlOGFiYjAwMjI5NjhjODc4ZTU3ZjI1OTI1YWQxYmQ5NjUxNzlhYzc",
+        "commit": {
+          "author": {
+            "name": "Krelock",
+            "email": "142703219+Krelock@users.noreply.github.com",
+            "date": "2026-11-08T05:34:45Z"
+          },
+          "committer": {
+            "name": "Krelock",
+            "email": "142703219+Krelock@users.noreply.github.com",
+            "date": "2026-11-08T05:34:45Z"
+          },
+          "message": "NodeSight 1.8.0",
+          "tree": {
+            "sha": "42e2c52ad91149743781d2276c10861e96f877d1",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/git/trees/42e2c52ad91149743781d2276c10861e96f877d1"
+          },
+          "url": "https://api.github.com/repos/Krelock/NodeSight/git/commits/2e8abb0022968c878e57f25925ad1bd965179ac7",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/Krelock/NodeSight/commits/2e8abb0022968c878e57f25925ad1bd965179ac7",
+        "html_url": "https://github.com/Krelock/NodeSight/commit/2e8abb0022968c878e57f25925ad1bd965179ac7",
+        "comments_url": "https://api.github.com/repos/Krelock/NodeSight/commits/2e8abb0022968c878e57f25925ad1bd965179ac7/comments",
+        "author": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "4184c70c7f53ef311352909fb37c3e13de6cbfbc",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/commits/4184c70c7f53ef311352909fb37c3e13de6cbfbc",
+            "html_url": "https://github.com/Krelock/NodeSight/commit/4184c70c7f53ef311352909fb37c3e13de6cbfbc"
+          }
+        ]
+      },
+      {
+        "sha": "4184c70c7f53ef311352909fb37c3e13de6cbfbc",
+        "node_id": "C_kwDOVIVYY9oAKDQxODRjNzBjN2Y1M2VmMzExMzUyOTA5ZmIzN2MzZTEzZGU2Y2JmYmM",
+        "commit": {
+          "author": {
+            "name": "Krelock",
+            "email": "142703219+Krelock@users.noreply.github.com",
+            "date": "2026-11-07T23:42:18Z"
+          },
+          "committer": {
+            "name": "GitHub",
+            "email": "noreply@github.com",
+            "date": "2026-11-07T23:42:18Z"
+          },
+          "message": "Found a new method to get minimap symbols back, working on it.",
+          "tree": {
+            "sha": "ca70f5eefaba53e9a1da195f36f9736aca176a18",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/git/trees/ca70f5eefaba53e9a1da195f36f9736aca176a18"
+          },
+          "url": "https://api.github.com/repos/Krelock/NodeSight/git/commits/4184c70c7f53ef311352909fb37c3e13de6cbfbc",
+          "comment_count": 0,
+          "verification": {
+            "verified": true,
+            "reason": "valid",
+            "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJq77daCRC1aQ7uu5UhlAAAT3MQAHwITWdN2uYXLiLeiq2e0OjI\nJUGwAFezT17arCacGy5Oo4+3WS5584umPeV8MzhyPD8xkpoeLr1sCcHeYYZHoPCO\nWeev5oATC7w0zBYIrt2aScycRnxcdb5353F8n60xLgCZi7sMkWlz6ieuA+blZ+WU\nOV0Wxl0iyA01ykluoMxYRjhKXiIxTNUWAApFmthDjgPueXUTUF3lj5EAb5oTjpBz\nPj38htF7AsycGBIC050TlD4iGq76vZY+5UkcmztJNGX5LU1H5Np7ig+LBmFCS70c\n46XViZl/PDPjO9KnLVAILZQVZ9Ba1pC9MhCgIfndnwAnf9LVX1EWejA0birlglrj\n80qd3Ia/yJ715FRySx3v3Y5XrOnyI6vxTEq7bWnbvPQhlGrxDXzZZv0Bemuoj7NJ\nT2ZDkB6BCJd4EP6QG99Z0HVAlo1IoRrv4kTufzNBfOw9OHwxSF+2+fn5rrnk4yQj\ni+DUy/lk7Yd/8hRSCeS/KqleQwGZPKC0xn59Oc+7n8TvZ8FiKLZaT9hGwH2SDJKM\nRIM2dyjHXprJimnLhgPaayGZqLRbRjUP8Jm799WBGI1FWXBOb+W0SFcUDBXhbrYP\nWazGq85bqaTndDDPNGOplC0weMS2FsZfaVn0aiPj11eHOCGh2PGghl7azU/hE4Ur\n/sMvJFtZUysCZ9cOghQx\n=XfUb\n-----END PGP SIGNATURE-----\n",
+            "payload": "tree ca70f5eefaba53e9a1da195f36f9736aca176a18\nparent f922db7957bbc83dc7d0047057ab5c5bf3ba7085\nauthor Krelock <142703219+Krelock@users.noreply.github.com> 1794094938 -0500\ncommitter GitHub <noreply@github.com> 1794094938 -0500\n\nFound a new method to get minimap symbols back, working on it.",
+            "verified_at": "2026-11-07T23:42:18Z"
+          }
+        },
+        "url": "https://api.github.com/repos/Krelock/NodeSight/commits/4184c70c7f53ef311352909fb37c3e13de6cbfbc",
+        "html_url": "https://github.com/Krelock/NodeSight/commit/4184c70c7f53ef311352909fb37c3e13de6cbfbc",
+        "comments_url": "https://api.github.com/repos/Krelock/NodeSight/commits/4184c70c7f53ef311352909fb37c3e13de6cbfbc/comments",
+        "author": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "web-flow",
+          "id": 19864447,
+          "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+          "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/web-flow",
+          "html_url": "https://github.com/web-flow",
+          "followers_url": "https://api.github.com/users/web-flow/followers",
+          "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+          "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+          "organizations_url": "https://api.github.com/users/web-flow/orgs",
+          "repos_url": "https://api.github.com/users/web-flow/repos",
+          "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/web-flow/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "f922db7957bbc83dc7d0047057ab5c5bf3ba7085",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/commits/f922db7957bbc83dc7d0047057ab5c5bf3ba7085",
+            "html_url": "https://github.com/Krelock/NodeSight/commit/f922db7957bbc83dc7d0047057ab5c5bf3ba7085"
+          }
+        ]
+      },
+      {
+        "sha": "f922db7957bbc83dc7d0047057ab5c5bf3ba7085",
+        "node_id": "C_kwDOVIVYY9oAKGY5MjJkYjc5NTdiYmM4M2RjN2QwMDQ3MDU3YWI1YzViZjNiYTcwODU",
+        "commit": {
+          "author": {
+            "name": "Krelock",
+            "email": "142703219+Krelock@users.noreply.github.com",
+            "date": "2026-11-07T07:37:13Z"
+          },
+          "committer": {
+            "name": "GitHub",
+            "email": "noreply@github.com",
+            "date": "2026-11-07T07:37:13Z"
+          },
+          "message": "Blizzard patched out the minimap symbols (the herb and ore icons on the minimap) in today's update, sorry everyone. It's the same on every version. The sparkles still work fine. I'll keep looking for a new way but I don't think there is one.\n\nBlizzard patched out the minimap symbols (the herb and ore icons on the minimap) in today's update, sorry everyone. It's the same on every version. The sparkles still work fine. I'll keep looking for a new way but I don't think there is one.",
+          "tree": {
+            "sha": "b8e70a1abdb379307c7f616d170bddc0ed523e2e",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/git/trees/b8e70a1abdb379307c7f616d170bddc0ed523e2e"
+          },
+          "url": "https://api.github.com/repos/Krelock/NodeSight/git/commits/f922db7957bbc83dc7d0047057ab5c5bf3ba7085",
+          "comment_count": 0,
+          "verification": {
+            "verified": true,
+            "reason": "valid",
+            "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJq7tUpCRC1aQ7uu5UhlAAAd7QQADqpdciIuhIxUBLWKQhDd0sG\nvmxjnGJwZLGp/ApvAokhx1m1vLJ6hDTMZMll4/lJsfIS9gR4BvZqOph2lKQLEvNH\n2ZxienGfCGDTcQgOFYtkvVJ2xanOcneslyfww3cRfD/bcp1d6ZqsIIVDWSO5O2nT\n0+ysDE44LiTId2bjdgaETgHwEQA1UEw9XlPVq6TgQhDsrZ9mqvh/zF4T6hRLE2br\nMMt0ZwrN5+Yo/lVX9ipZkAgcY2rS5pA8dX/ugDuH2TxyunFI3D7Ae6/TttMNUNpj\neVPGzYCdB7w08XX9iSDWbZbaNxgl7J+hW8Pgph8uHaJcO+1NY5utgcWGoahvvDeY\nMU+BDVyB/7b9t1UBXOrI5RO9HhOOUIh2UflR7C/it/ulTntXndiVsT1MV6bQRKDM\n7G53ThXokpIht0KGLvMXqQXX4Xee2y2A70Ez8+zydCQQc8m0I8KO94f94WXrxKfq\neASwvtkfEJcsL9VEDpGtpT/TzjsVlN5z0Akq82f3HEidykU8PjSqV4yJlmzklIAl\nmdg3+xCuUf6Lke85vFDsh8sBUnAZlLAbtvIn4WqrGFPGrj7/htGjFykZCEo538ej\n4+W6LqUPaCi8o0Ssfr7W3VxzLNWmgjpmH+raJU6K/U3QbrFEb4BmRYLSQTW0+2Cg\nZwj90XI9hE6P2jpfxmkK\n=HS7a\n-----END PGP SIGNATURE-----\n",
+            "payload": "tree b8e70a1abdb379307c7f616d170bddc0ed523e2e\nparent 6fd30545beae8ad896f59264b301cdc27a4e5b2b\nauthor Krelock <142703219+Krelock@users.noreply.github.com> 1794037033 -0500\ncommitter GitHub <noreply@github.com> 1794037033 -0500\n\nBlizzard patched out the minimap symbols (the herb and ore icons on the minimap) in today's update, sorry everyone. It's the same on every version. The sparkles still work fine. I'll keep looking for a new way but I don't think there is one.\n\nBlizzard patched out the minimap symbols (the herb and ore icons on the minimap) in today's update, sorry everyone. It's the same on every version. The sparkles still work fine. I'll keep looking for a new way but I don't think there is one.",
+            "verified_at": "2026-11-07T07:37:13Z"
+          }
+        },
+        "url": "https://api.github.com/repos/Krelock/NodeSight/commits/f922db7957bbc83dc7d0047057ab5c5bf3ba7085",
+        "html_url": "https://github.com/Krelock/NodeSight/commit/f922db7957bbc83dc7d0047057ab5c5bf3ba7085",
+        "comments_url": "https://api.github.com/repos/Krelock/NodeSight/commits/f922db7957bbc83dc7d0047057ab5c5bf3ba7085/comments",
+        "author": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "web-flow",
+          "id": 19864447,
+          "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+          "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/web-flow",
+          "html_url": "https://github.com/web-flow",
+          "followers_url": "https://api.github.com/users/web-flow/followers",
+          "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+          "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+          "organizations_url": "https://api.github.com/users/web-flow/orgs",
+          "repos_url": "https://api.github.com/users/web-flow/repos",
+          "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/web-flow/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "6fd30545beae8ad896f59264b301cdc27a4e5b2b",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/commits/6fd30545beae8ad896f59264b301cdc27a4e5b2b",
+            "html_url": "https://github.com/Krelock/NodeSight/commit/6fd30545beae8ad896f59264b301cdc27a4e5b2b"
+          }
+        ]
+      },
+      {
+        "sha": "6fd30545beae8ad896f59264b301cdc27a4e5b2b",
+        "node_id": "C_kwDOVIVYY9oAKDZmZDMwNTQ1YmVhZThhZDg5NmY1OTI2NGIzMDFjZGMyN2E0ZTViMmI",
+        "commit": {
+          "author": {
+            "name": "Krelock",
+            "email": "142703219+Krelock@users.noreply.github.com",
+            "date": "2026-11-07T03:33:08Z"
+          },
+          "committer": {
+            "name": "Krelock",
+            "email": "142703219+Krelock@users.noreply.github.com",
+            "date": "2026-11-07T03:33:08Z"
+          },
+          "message": "NodeSight 1.7.0: far sparkle size and line-up sliders, fades, fixes",
+          "tree": {
+            "sha": "97eaff057de0225925c0ae5b962f5ee5b9fdc7ee",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/git/trees/97eaff057de0225925c0ae5b962f5ee5b9fdc7ee"
+          },
+          "url": "https://api.github.com/repos/Krelock/NodeSight/git/commits/6fd30545beae8ad896f59264b301cdc27a4e5b2b",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/Krelock/NodeSight/commits/6fd30545beae8ad896f59264b301cdc27a4e5b2b",
+        "html_url": "https://github.com/Krelock/NodeSight/commit/6fd30545beae8ad896f59264b301cdc27a4e5b2b",
+        "comments_url": "https://api.github.com/repos/Krelock/NodeSight/commits/6fd30545beae8ad896f59264b301cdc27a4e5b2b/comments",
+        "author": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "3993d7831a1a780f87fe172c721617f5207d9718",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/commits/3993d7831a1a780f87fe172c721617f5207d9718",
+            "html_url": "https://github.com/Krelock/NodeSight/commit/3993d7831a1a780f87fe172c721617f5207d9718"
+          }
+        ]
+      },
+      {
+        "sha": "3993d7831a1a780f87fe172c721617f5207d9718",
+        "node_id": "C_kwDOVIVYY9oAKDM5OTNkNzgzMWExYTc4MGY4N2ZlMTcyYzcyMTYxN2Y1MjA3ZDk3MTg",
+        "commit": {
+          "author": {
+            "name": "Krelock",
+            "email": "142703219+Krelock@users.noreply.github.com",
+            "date": "2026-11-07T02:28:40Z"
+          },
+          "committer": {
+            "name": "Krelock",
+            "email": "142703219+Krelock@users.noreply.github.com",
+            "date": "2026-11-07T02:28:40Z"
+          },
+          "message": "NodeSight 1.7.0: Keep my tracked quest off by default, with its warning",
+          "tree": {
+            "sha": "5e69761353aa682e0afc9f5a5aa6d0ee2f4636c8",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/git/trees/5e69761353aa682e0afc9f5a5aa6d0ee2f4636c8"
+          },
+          "url": "https://api.github.com/repos/Krelock/NodeSight/git/commits/3993d7831a1a780f87fe172c721617f5207d9718",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/Krelock/NodeSight/commits/3993d7831a1a780f87fe172c721617f5207d9718",
+        "html_url": "https://github.com/Krelock/NodeSight/commit/3993d7831a1a780f87fe172c721617f5207d9718",
+        "comments_url": "https://api.github.com/repos/Krelock/NodeSight/commits/3993d7831a1a780f87fe172c721617f5207d9718/comments",
+        "author": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "2a8ab6e9a7b1c75896b9f0588308184e81c31d87",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/commits/2a8ab6e9a7b1c75896b9f0588308184e81c31d87",
+            "html_url": "https://github.com/Krelock/NodeSight/commit/2a8ab6e9a7b1c75896b9f0588308184e81c31d87"
+          }
+        ]
+      },
+      {
+        "sha": "2a8ab6e9a7b1c75896b9f0588308184e81c31d87",
+        "node_id": "C_kwDOVIVYY9oAKDJhOGFiNmU5YTdiMWM3NTg5NmI5ZjA1ODgzMDgxODRlODFjMzFkODc",
+        "commit": {
+          "author": {
+            "name": "Krelock",
+            "email": "142703219+Krelock@users.noreply.github.com",
+            "date": "2026-11-07T01:59:39Z"
+          },
+          "committer": {
+            "name": "Krelock",
+            "email": "142703219+Krelock@users.noreply.github.com",
+            "date": "2026-11-07T01:59:39Z"
+          },
+          "message": "NodeSight 1.7.0: Keep my tracked quest with quick pins",
+          "tree": {
+            "sha": "5cda9ec51c67f57cdcc950cc85b3f754bac0ffb6",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/git/trees/5cda9ec51c67f57cdcc950cc85b3f754bac0ffb6"
+          },
+          "url": "https://api.github.com/repos/Krelock/NodeSight/git/commits/2a8ab6e9a7b1c75896b9f0588308184e81c31d87",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/Krelock/NodeSight/commits/2a8ab6e9a7b1c75896b9f0588308184e81c31d87",
+        "html_url": "https://github.com/Krelock/NodeSight/commit/2a8ab6e9a7b1c75896b9f0588308184e81c31d87",
+        "comments_url": "https://api.github.com/repos/Krelock/NodeSight/commits/2a8ab6e9a7b1c75896b9f0588308184e81c31d87/comments",
+        "author": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "9a6138b26c4d73b22c55ed0f716efff71310ade3",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/commits/9a6138b26c4d73b22c55ed0f716efff71310ade3",
+            "html_url": "https://github.com/Krelock/NodeSight/commit/9a6138b26c4d73b22c55ed0f716efff71310ade3"
+          }
+        ]
+      },
+      {
+        "sha": "9a6138b26c4d73b22c55ed0f716efff71310ade3",
+        "node_id": "C_kwDOVIVYY9oAKDlhNjEzOGIyNmM0ZDczYjIyYzU1ZWQwZjcxNmVmZmY3MTMxMGFkZTM",
+        "commit": {
+          "author": {
+            "name": "Krelock",
+            "email": "142703219+Krelock@users.noreply.github.com",
+            "date": "2026-11-07T00:31:14Z"
+          },
+          "committer": {
+            "name": "Krelock",
+            "email": "142703219+Krelock@users.noreply.github.com",
+            "date": "2026-11-07T00:31:14Z"
+          },
+          "message": "NodeSight 1.7.0: far sparkles in the patch notes",
+          "tree": {
+            "sha": "3f983573a14fffea45671650ed15cb3acdbaf0e2",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/git/trees/3f983573a14fffea45671650ed15cb3acdbaf0e2"
+          },
+          "url": "https://api.github.com/repos/Krelock/NodeSight/git/commits/9a6138b26c4d73b22c55ed0f716efff71310ade3",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/Krelock/NodeSight/commits/9a6138b26c4d73b22c55ed0f716efff71310ade3",
+        "html_url": "https://github.com/Krelock/NodeSight/commit/9a6138b26c4d73b22c55ed0f716efff71310ade3",
+        "comments_url": "https://api.github.com/repos/Krelock/NodeSight/commits/9a6138b26c4d73b22c55ed0f716efff71310ade3/comments",
+        "author": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "6a9a70e788244c028915397f64f5d66b94b013e3",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/commits/6a9a70e788244c028915397f64f5d66b94b013e3",
+            "html_url": "https://github.com/Krelock/NodeSight/commit/6a9a70e788244c028915397f64f5d66b94b013e3"
+          }
+        ]
+      }
+    ],
+    "tags?per_page=12": [
+      {
+        "name": "v1.9.0",
+        "zipball_url": "https://api.github.com/repos/Krelock/NodeSight/zipball/refs/tags/v1.9.0",
+        "tarball_url": "https://api.github.com/repos/Krelock/NodeSight/tarball/refs/tags/v1.9.0",
+        "commit": {
+          "sha": "7d282780cd8e41c0ceef813b4a6e0bdac4b4f904",
+          "url": "https://api.github.com/repos/Krelock/NodeSight/commits/7d282780cd8e41c0ceef813b4a6e0bdac4b4f904"
+        },
+        "node_id": "REF_kwDOVIVYY7ByZWZzL3RhZ3MvdjEuOS4w"
+      },
+      {
+        "name": "v1.8.4",
+        "zipball_url": "https://api.github.com/repos/Krelock/NodeSight/zipball/refs/tags/v1.8.4",
+        "tarball_url": "https://api.github.com/repos/Krelock/NodeSight/tarball/refs/tags/v1.8.4",
+        "commit": {
+          "sha": "31605d139d203ad7c8a2f366f039d7430debb64d",
+          "url": "https://api.github.com/repos/Krelock/NodeSight/commits/31605d139d203ad7c8a2f366f039d7430debb64d"
+        },
+        "node_id": "REF_kwDOVIVYY7ByZWZzL3RhZ3MvdjEuOC40"
+      },
+      {
+        "name": "v1.8.3",
+        "zipball_url": "https://api.github.com/repos/Krelock/NodeSight/zipball/refs/tags/v1.8.3",
+        "tarball_url": "https://api.github.com/repos/Krelock/NodeSight/tarball/refs/tags/v1.8.3",
+        "commit": {
+          "sha": "aeb0248543c9b8a21a4dfbb071ec4a268fe82a93",
+          "url": "https://api.github.com/repos/Krelock/NodeSight/commits/aeb0248543c9b8a21a4dfbb071ec4a268fe82a93"
+        },
+        "node_id": "REF_kwDOVIVYY7ByZWZzL3RhZ3MvdjEuOC4z"
+      },
+      {
+        "name": "v1.8.2",
+        "zipball_url": "https://api.github.com/repos/Krelock/NodeSight/zipball/refs/tags/v1.8.2",
+        "tarball_url": "https://api.github.com/repos/Krelock/NodeSight/tarball/refs/tags/v1.8.2",
+        "commit": {
+          "sha": "12b1522b4141a480774c743b22490d48e560b54f",
+          "url": "https://api.github.com/repos/Krelock/NodeSight/commits/12b1522b4141a480774c743b22490d48e560b54f"
+        },
+        "node_id": "REF_kwDOVIVYY7ByZWZzL3RhZ3MvdjEuOC4y"
+      },
+      {
+        "name": "v1.8.1",
+        "zipball_url": "https://api.github.com/repos/Krelock/NodeSight/zipball/refs/tags/v1.8.1",
+        "tarball_url": "https://api.github.com/repos/Krelock/NodeSight/tarball/refs/tags/v1.8.1",
+        "commit": {
+          "sha": "9919159d0b177244884e6dc68896b6f72775e228",
+          "url": "https://api.github.com/repos/Krelock/NodeSight/commits/9919159d0b177244884e6dc68896b6f72775e228"
+        },
+        "node_id": "REF_kwDOVIVYY7ByZWZzL3RhZ3MvdjEuOC4x"
+      },
+      {
+        "name": "v1.8.0",
+        "zipball_url": "https://api.github.com/repos/Krelock/NodeSight/zipball/refs/tags/v1.8.0",
+        "tarball_url": "https://api.github.com/repos/Krelock/NodeSight/tarball/refs/tags/v1.8.0",
+        "commit": {
+          "sha": "167f215163796bda9c4041b8d0810deb33f08a81",
+          "url": "https://api.github.com/repos/Krelock/NodeSight/commits/167f215163796bda9c4041b8d0810deb33f08a81"
+        },
+        "node_id": "REF_kwDOVIVYY7ByZWZzL3RhZ3MvdjEuOC4w"
+      },
+      {
+        "name": "v1.7.0",
+        "zipball_url": "https://api.github.com/repos/Krelock/NodeSight/zipball/refs/tags/v1.7.0",
+        "tarball_url": "https://api.github.com/repos/Krelock/NodeSight/tarball/refs/tags/v1.7.0",
+        "commit": {
+          "sha": "6fd30545beae8ad896f59264b301cdc27a4e5b2b",
+          "url": "https://api.github.com/repos/Krelock/NodeSight/commits/6fd30545beae8ad896f59264b301cdc27a4e5b2b"
+        },
+        "node_id": "REF_kwDOVIVYY7ByZWZzL3RhZ3MvdjEuNy4w"
+      },
+      {
+        "name": "v1.6.3",
+        "zipball_url": "https://api.github.com/repos/Krelock/NodeSight/zipball/refs/tags/v1.6.3",
+        "tarball_url": "https://api.github.com/repos/Krelock/NodeSight/tarball/refs/tags/v1.6.3",
+        "commit": {
+          "sha": "d6b018c6d3dbb3d9c3188a483bebef534c732e8d",
+          "url": "https://api.github.com/repos/Krelock/NodeSight/commits/d6b018c6d3dbb3d9c3188a483bebef534c732e8d"
+        },
+        "node_id": "REF_kwDOVIVYY7ByZWZzL3RhZ3MvdjEuNi4z"
+      },
+      {
+        "name": "v1.6.2",
+        "zipball_url": "https://api.github.com/repos/Krelock/NodeSight/zipball/refs/tags/v1.6.2",
+        "tarball_url": "https://api.github.com/repos/Krelock/NodeSight/tarball/refs/tags/v1.6.2",
+        "commit": {
+          "sha": "c1abcebabc2594077292a98fa660be43ae99d853",
+          "url": "https://api.github.com/repos/Krelock/NodeSight/commits/c1abcebabc2594077292a98fa660be43ae99d853"
+        },
+        "node_id": "REF_kwDOVIVYY7ByZWZzL3RhZ3MvdjEuNi4y"
+      },
+      {
+        "name": "v1.6.1",
+        "zipball_url": "https://api.github.com/repos/Krelock/NodeSight/zipball/refs/tags/v1.6.1",
+        "tarball_url": "https://api.github.com/repos/Krelock/NodeSight/tarball/refs/tags/v1.6.1",
+        "commit": {
+          "sha": "f2c965cf5ab440b77b9fcb4da0ee40fc5befed93",
+          "url": "https://api.github.com/repos/Krelock/NodeSight/commits/f2c965cf5ab440b77b9fcb4da0ee40fc5befed93"
+        },
+        "node_id": "REF_kwDOVIVYY7ByZWZzL3RhZ3MvdjEuNi4x"
+      },
+      {
+        "name": "v1.6.0",
+        "zipball_url": "https://api.github.com/repos/Krelock/NodeSight/zipball/refs/tags/v1.6.0",
+        "tarball_url": "https://api.github.com/repos/Krelock/NodeSight/tarball/refs/tags/v1.6.0",
+        "commit": {
+          "sha": "719e78f49463477030d196ccb69dff2504ddc2eb",
+          "url": "https://api.github.com/repos/Krelock/NodeSight/commits/719e78f49463477030d196ccb69dff2504ddc2eb"
+        },
+        "node_id": "REF_kwDOVIVYY7ByZWZzL3RhZ3MvdjEuNi4w"
+      },
+      {
+        "name": "v1.5.6",
+        "zipball_url": "https://api.github.com/repos/Krelock/NodeSight/zipball/refs/tags/v1.5.6",
+        "tarball_url": "https://api.github.com/repos/Krelock/NodeSight/tarball/refs/tags/v1.5.6",
+        "commit": {
+          "sha": "849db708625eb9b4ee1d9e710aa12f09a61e0430",
+          "url": "https://api.github.com/repos/Krelock/NodeSight/commits/849db708625eb9b4ee1d9e710aa12f09a61e0430"
+        },
+        "node_id": "REF_kwDOVIVYY7ByZWZzL3RhZ3MvdjEuNS42"
+      }
+    ]
+  },
+  "refreshed": {
+    "latest_uncached": {
+      "url": "https://api.github.com/repos/Krelock/NodeSight/releases/latest?codex_check=20261110T020111Z",
+      "headers": {
+        "Date": "Tue, 10 Nov 2026 02:02:53 GMT",
+        "Last-Modified": "Mon, 09 Nov 2026 05:35:45 GMT",
+        "ETag": "W/\"a5c985fe701076d6480d8f40fe033d9e769ce1ddc8650d5f3b95973ea1eb006b\"",
+        "Age": null,
+        "X-Cache": null
+      },
+      "data": {
+        "url": "https://api.github.com/repos/Krelock/NodeSight/releases/438775900",
+        "assets_url": "https://api.github.com/repos/Krelock/NodeSight/releases/438775900/assets",
+        "upload_url": "https://uploads.github.com/repos/Krelock/NodeSight/releases/438775900/assets{?name,label}",
+        "html_url": "https://github.com/Krelock/NodeSight/releases/tag/v1.9.0",
+        "id": 438775900,
+        "author": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "node_id": "RE_kwDOVIVYY84aJzBc",
+        "tag_name": "v1.9.0",
+        "target_commitish": "main",
+        "name": "NodeSight 1.9.0",
+        "draft": false,
+        "immutable": false,
+        "prerelease": false,
+        "created_at": "2026-11-09T05:35:14Z",
+        "updated_at": "2026-11-09T05:35:45Z",
+        "published_at": "2026-11-09T05:35:45Z",
+        "assets": [
+          {
+            "url": "https://api.github.com/repos/Krelock/NodeSight/releases/assets/726362361",
+            "id": 726362361,
+            "node_id": "RA_kwDOVIVYY84rS2j5",
+            "name": "NodeSight-1.9.0.zip",
+            "label": "",
+            "uploader": {
+              "login": "Krelock",
+              "id": 142703219,
+              "node_id": "U_kgDOCIF6cw",
+              "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/Krelock",
+              "html_url": "https://github.com/Krelock",
+              "followers_url": "https://api.github.com/users/Krelock/followers",
+              "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+              "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+              "organizations_url": "https://api.github.com/users/Krelock/orgs",
+              "repos_url": "https://api.github.com/users/Krelock/repos",
+              "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/Krelock/received_events",
+              "type": "User",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "content_type": "application/zip",
+            "state": "uploaded",
+            "size": 153957,
+            "digest": "sha256:ccb5dde20b310324ce2c5200779a7a8a043844554a3c0d874681c5e955a027e2",
+            "download_count": 34,
+            "created_at": "2026-11-09T05:35:44Z",
+            "updated_at": "2026-11-09T05:35:44Z",
+            "browser_download_url": "https://github.com/Krelock/NodeSight/releases/download/v1.9.0/NodeSight-1.9.0.zip"
+          }
+        ],
+        "tarball_url": "https://api.github.com/repos/Krelock/NodeSight/tarball/v1.9.0",
+        "zipball_url": "https://api.github.com/repos/Krelock/NodeSight/zipball/v1.9.0",
+        "body": "## NodeSight 1.9.0\n\n### New\n\n- **Map while scanning (Beta)** (on by default). While the minimap is hidden for a scan, the world map's picture of where you are shows in its place, moving as you walk. Not with a rotating minimap. On the **Scanning** page.\n- **Fade in and out** (on by default). The minimap and its buttons fade into the map picture before a scan and back after, instead of blinking. Each scan starts a moment later. On the **Scanning** page.\n- **Fewer blinks** (on by default). When your mouse goes over a window (your bags) or you hold a mouse button to turn mid-scan, the minimap stays hidden for a moment instead of flashing back: up to 2 seconds over a window, 1 while you hold a button. On the **Scanning** page.\n\n### Changes\n\n- **Scan every (seconds)** (10 by default). Turned on at 10 once for everyone who had it off and doesn't use Scan as you move. On the **Scanning** page.\n- **NPC windows**. Scans wait while a vendor, quest giver, bank, mailbox, auction house or trade window is open, so addons that sell junk or turn in quests for you aren't interrupted.\n\n### Fixes\n\n- **EllesmereUI**. Its coordinates and zoom buttons no longer show up under your mouse during a scan.\n- **Mail icon**. With Leatrix Plus or another minimap addon, the mail tooltip no longer pops up and pauses scans.\n- **Minimap icons**. Icons other addons put on or next to the minimap stay hidden and can't be hovered during a scan, including ones added mid-scan.\n- **Buttons shown on hover**. Addon buttons that only show when you hover the minimap (Leatrix Plus) no longer flash under your mouse at the start of a scan.\n- **Day/night dial**. It stays on top of the minimap's border during a scan, and hidden if your UI hides it.\n"
+      }
+    },
+    "head_uncached": {
+      "url": "https://api.github.com/repos/Krelock/NodeSight/commits/main?codex_check=20261110T020111Z",
+      "headers": {
+        "Date": "Tue, 10 Nov 2026 02:02:53 GMT",
+        "Last-Modified": "Mon, 09 Nov 2026 05:35:14 GMT",
+        "ETag": "W/\"04895b6c19273e4f53df9b2f27a2d2c9a98c0dae046785d13c3d86ed0208a0b1\"",
+        "Age": null,
+        "X-Cache": null
+      },
+      "data": {
+        "sha": "7d282780cd8e41c0ceef813b4a6e0bdac4b4f904",
+        "node_id": "C_kwDOVIVYY9oAKDdkMjgyNzgwY2Q4ZTQxYzBjZWVmODEzYjRhNmUwYmRhYzRiNGY5MDQ",
+        "commit": {
+          "author": {
+            "name": "Krelock",
+            "email": "142703219+Krelock@users.noreply.github.com",
+            "date": "2026-11-09T05:35:14Z"
+          },
+          "committer": {
+            "name": "Krelock",
+            "email": "142703219+Krelock@users.noreply.github.com",
+            "date": "2026-11-09T05:35:14Z"
+          },
+          "message": "NodeSight 1.9.0",
+          "tree": {
+            "sha": "cbf04672231b70f2518fd6cebd8d1bb9ad582840",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/git/trees/cbf04672231b70f2518fd6cebd8d1bb9ad582840"
+          },
+          "url": "https://api.github.com/repos/Krelock/NodeSight/git/commits/7d282780cd8e41c0ceef813b4a6e0bdac4b4f904",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/Krelock/NodeSight/commits/7d282780cd8e41c0ceef813b4a6e0bdac4b4f904",
+        "html_url": "https://github.com/Krelock/NodeSight/commit/7d282780cd8e41c0ceef813b4a6e0bdac4b4f904",
+        "comments_url": "https://api.github.com/repos/Krelock/NodeSight/commits/7d282780cd8e41c0ceef813b4a6e0bdac4b4f904/comments",
+        "author": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "31605d139d203ad7c8a2f366f039d7430debb64d",
+            "url": "https://api.github.com/repos/Krelock/NodeSight/commits/31605d139d203ad7c8a2f366f039d7430debb64d",
+            "html_url": "https://github.com/Krelock/NodeSight/commit/31605d139d203ad7c8a2f366f039d7430debb64d"
+          }
+        ],
+        "stats": {
+          "total": 494,
+          "additions": 468,
+          "deletions": 26
+        },
+        "files": [
+          {
+            "sha": "5a50e4f17429e5661dabb2a05634571e9165744d",
+            "filename": "NodeSight.lua",
+            "status": "modified",
+            "additions": 439,
+            "deletions": 24,
+            "changes": 463,
+            "blob_url": "https://github.com/Krelock/NodeSight/blob/7d282780cd8e41c0ceef813b4a6e0bdac4b4f904/NodeSight.lua",
+            "raw_url": "https://github.com/Krelock/NodeSight/raw/7d282780cd8e41c0ceef813b4a6e0bdac4b4f904/NodeSight.lua",
+            "contents_url": "https://api.github.com/repos/Krelock/NodeSight/contents/NodeSight.lua?ref=7d282780cd8e41c0ceef813b4a6e0bdac4b4f904",
+            "patch": "@@ -60,10 +60,13 @@ local defaults = {\n     soundSkillUps = false, -- the sound only for herbs and ore that can give a skill-up\n     autoScan = false, -- scan each time you've moved autoScanYards, out of combat, not flying\n     autoScanYards = 30, -- yards between scans as you move\n-    autoScanSeconds = 0, -- also a scan once this many seconds have passed and you move (0: off)\n+    autoScanSeconds = 10, -- also a scan once this many seconds have passed and you move (0: off)\n     combatScan = false, -- Scan as you move and the timer in combat too\n     skipRest = true, -- no Scan as you move or timer while resting (capital cities and inns)\n     minimapShape = 1, -- 1 automatic (asks your UI addon), 2 round, 3 square\n+    scanMap = true, -- Beta: the world map's picture where the minimap was while it scans\n+    windowWait = true, -- Fewer blinks: a window under the mouse or a held mouse button mid-scan: the minimap stays hidden a moment\n+    scanFade = true, -- the stand-in fades in over the minimap before a scan moves it, and out over it after\n     switchFinders = false, -- Find Herbs and Find Minerals in turn\n     switchMeasure = 1, -- how the distance between switches is measured: 1 percent, 2 yards, 3 seconds\n     switchPercent = 40, -- distance between switches, in percent of the minimap's view radius\n@@ -1171,6 +1174,7 @@ end\n     -- A window or button under the mouse that isn't the minimap's or NodeSight's (bags opened\n     -- mid-scan, an item in them): the minimap can't be read through it.\n     local COVERED_WAIT = 2 -- seconds a scan waits paused for the mouse to leave a window\n+    local LOOK_WAIT = 1 -- Fewer blinks: seconds the minimap stays hidden while a mouse button is held\n     -- A frame drawn under the minimap (a UI addon's full-screen layer) doesn't count: the\n     -- minimap is on top of it once it's under the mouse.\n     local STRATA = { BACKGROUND = 1, LOW = 2, MEDIUM = 3, HIGH = 4, DIALOG = 5, FULLSCREEN = 6, FULLSCREEN_DIALOG = 7, TOOLTIP = 8 }\n@@ -1183,14 +1187,28 @@ end\n         if not (theirs and mine) then return false end\n         return theirs < mine or (theirs == mine and level < ourLevel)\n     end\n+    -- An NPC's window open (a vendor, quest giver, bank, mailbox, trade): no scans, so addons\n+    -- that sell or turn in quests right away aren't in a scan's way.\n+    local NPC_WINDOWS = { \"TradePartner\", \"Gossip\", \"QuestGiver\", \"Merchant\", \"Banker\", \"MailInfo\", \"Auctioneer\" }\n+    local function AtNpc()\n+        local types = Enum and Enum.PlayerInteractionType\n+        local manager = C_PlayerInteractionManager\n+        if not (types and manager and manager.IsInteractingWithNpcOfType) then return false end\n+        for _, name in ipairs(NPC_WINDOWS) do\n+            local open = types[name] and manager.IsInteractingWithNpcOfType(types[name])\n+            if not issecretvalue(open) and open then return true end\n+        end\n+        return false\n+    end\n     local function Covered()\n         local foci = GetMouseFoci and GetMouseFoci()\n         local focus = type(foci) == \"table\" and foci[1] or nil\n         if focus == nil or focus == WorldFrame then return false end\n         local first = focus\n+        local riding = key.scan and key.scan.riding\n         for _ = 1, 20 do\n             if focus == nil then break end -- (the top: a window of its own)\n-            if focus == Minimap or focus == mapFrame or focus == arrow then return false end\n+            if focus == Minimap or focus == mapFrame or focus == arrow or (riding and riding[focus]) then return false end\n             local ok, parent = pcall(focus.GetParent, focus)\n             if not ok then break end\n             focus = parent\n@@ -1239,6 +1257,79 @@ end\n     local function Apart(frame)\n         return frame == mapFrame or frame == QueueStatusButton\n     end\n+    -- No clicks or hover on a frame for the scan, given back with the minimap's own.\n+    local function QuietOne(s, frame)\n+        if Apart(frame) or (InCombatLockdown() and frame:IsProtected()) then return end\n+        if frame.IsMouseClickEnabled and frame:IsMouseClickEnabled() then\n+            s.noClicks[#s.noClicks + 1] = frame\n+            frame:SetMouseClickEnabled(false)\n+        end\n+        if frame.IsMouseMotionEnabled and frame:IsMouseMotionEnabled() then\n+            s.noMotion[#s.noMotion + 1] = frame\n+            frame:SetMouseMotionEnabled(false)\n+        end\n+    end\n+    local function QuietTree(s, parent, depth)\n+        for _, child in ipairs({ parent:GetChildren() }) do\n+            if not issecretvalue(child) then\n+                QuietOne(s, child)\n+                if depth < 6 then QuietTree(s, child, depth + 1) end\n+            end\n+        end\n+    end\n+\n+    -- Fade in and out: the frames the scan hid, fading back with the stand-in after it.\n+    local fadeBack = {}\n+\n+    -- A frame hidden until the minimap is hovered (a UI's zoom buttons, addon buttons shown on\n+    -- mouseover), as it is in a scan: shrunk from the start, so it never shows at the mouse.\n+    -- (One that was shown and comes back: KeepHidden.)\n+    -- After the scan the minimap leaving the mouse reads as the mouse leaving it, and some show\n+    -- them a moment before fading them out (LibDBIcon: a second): they stay shrunk until\n+    -- hidden again, unless the mouse really is over the minimap.\n+    local settling, settledAt = {}, 0\n+    -- Hidden by its alpha or by Hide() (EllesmereUI's zoom buttons).\n+    local function Unseen(frame, alpha)\n+        if alpha == 0 then return true end\n+        local ok, shown = pcall(frame.IsShown, frame)\n+        return ok and not issecretvalue(shown) and not shown\n+    end\n+    local function ShrinkHidden(f)\n+        if settling[f.frame] then -- (still settling from the last scan: its own alpha is 0)\n+            f.alpha, f.scale, f.hover = 0, settling[f.frame], true\n+            settling[f.frame] = nil\n+            return\n+        end\n+        if not Unseen(f.frame, f.alpha) then return end\n+        local fine, scale = pcall(f.frame.GetScale, f.frame)\n+        if fine and type(scale) == \"number\" and not issecretvalue(scale) then\n+            f.scale, f.hover = scale, true\n+            pcall(f.frame.SetScale, f.frame, 0.001)\n+        end\n+    end\n+    local function Unshrink(f)\n+        if f.hover then\n+            settling[f.frame], settledAt = f.scale, GetTime()\n+        else\n+            pcall(f.frame.SetScale, f.frame, f.scale)\n+        end\n+    end\n+    -- Each frame without a scan: their size back once hidden again (or after 3 seconds).\n+    local function Settle()\n+        if not next(settling) then return end\n+        local wait = GetTime() - settledAt\n+        if wait < 0.3 then return end\n+        local over = Minimap:IsMouseOver()\n+        for frame, scale in pairs(settling) do\n+            local ok, alpha = pcall(frame.GetAlpha, frame)\n+            if (over or wait > 3 or not ok or issecretvalue(alpha) or Unseen(frame, alpha))\n+                and not (InCombatLockdown() and frame:IsProtected()) then\n+                pcall(frame.SetScale, frame, scale)\n+                settling[frame] = nil\n+            end\n+        end\n+    end\n+\n     local ourPad = false\n     local function Disguise(s, on)\n         if on and s.wheel == nil and Minimap.IsMouseWheelEnabled and Minimap.IsMouseClickEnabled then\n@@ -1265,20 +1356,39 @@ end\n         -- The mask clips only the map: the frames on it (its ring, the zoom buttons, addons'\n         -- buttons) are hidden by their own alpha, which doesn't touch the map's drawing.\n         -- Hidden ones too: some fade in when the minimap is hovered (KeepHidden).\n+        -- Text and textures drawn on the minimap itself (a UI's coordinates) the same way.\n         if on and Minimap.SetMaskTexture and not s.kids then\n-            s.kids = {}\n-            for _, child in ipairs({ Minimap:GetChildren() }) do\n-                local ok, alpha = pcall(child.GetAlpha, child)\n-                if not Apart(child) and ok and not issecretvalue(alpha)\n+            s.kids, s.kidCount = {}, Minimap:GetNumChildren()\n+            local parts = { Minimap:GetChildren() }\n+            for _, region in ipairs({ Minimap:GetRegions() }) do parts[#parts + 1] = region end\n+            for _, child in ipairs(parts) do\n+                local ok, alpha = false, nil\n+                if not issecretvalue(child) then ok, alpha = pcall(child.GetAlpha, child) end\n+                if ok and not Apart(child) and not issecretvalue(alpha)\n                     and not (InCombatLockdown() and child:IsProtected()) then\n-                    s.kids[#s.kids + 1] = { frame = child, alpha = alpha }\n+                    local kid = { frame = child, alpha = s.orig and s.orig[child] or alpha }\n+                    s.kids[#s.kids + 1] = kid\n                     child:SetAlpha(0)\n+                    ShrinkHidden(kid)\n                 end\n             end\n         elseif not on and s.kids then\n-            for _, kid in ipairs(s.kids) do pcall(kid.frame.SetAlpha, kid.frame, kid.alpha) end\n+            s.restored = s.restored or {}\n+            for _, kid in ipairs(s.kids) do\n+                pcall(kid.frame.SetAlpha, kid.frame, kid.alpha)\n+                if kid.scale then Unshrink(kid) end\n+                s.restored[kid.frame] = kid.alpha\n+            end\n             s.kids = nil\n         end\n+        if not on and s.orig then -- (a fade-in cut short)\n+            s.restored = s.restored or {}\n+            for frame, alpha in pairs(s.orig) do\n+                pcall(frame.SetAlpha, frame, alpha)\n+                s.restored[frame] = alpha\n+            end\n+            s.orig = nil\n+        end\n         -- With a controller: hover events in free look, so the minimap is read under the stick camera.\n         if on and s.padHover == nil and C_GamePad and C_GamePad.IsEnabled and C_GamePad.IsEnabled()\n             and C_GamePad.GetAllowHoverEventsWithFreeLook then\n@@ -1314,7 +1424,7 @@ end\n                         s.noMotion[#s.noMotion + 1] = child\n                         child:SetMouseMotionEnabled(false)\n                     end\n-                    if depth < 3 then Walk(child, depth + 1) end\n+                    if depth < 6 then Walk(child, depth + 1) end\n                 end\n             end\n             pcall(Walk, Minimap, 1)\n@@ -1335,7 +1445,7 @@ end\n         -- day/night dial moved onto it) move with it but don't fade with it: hidden too, no\n         -- clicks and no hover (one above the minimap would pause the scan every other frame).\n         if on and not s.followers then\n-            s.followers = {}\n+            s.followers, s.riding = {}, {}\n             local seen = { [mapFrame] = true, [arrow] = true } -- (the eye and the coordinates have their own)\n             if QueueStatusButton then seen[QueueStatusButton] = true end\n             if s.coords then seen[s.coords] = true end\n@@ -1376,10 +1486,15 @@ end\n                             and not issecretvalue(frame:GetAlpha()) then\n                             local clicks = frame.IsMouseClickEnabled and frame:IsMouseClickEnabled()\n                             local motion = frame.IsMouseMotionEnabled and frame:IsMouseMotionEnabled()\n-                            s.followers[#s.followers + 1] = { frame = frame, alpha = frame:GetAlpha(), clicks = clicks, motion = motion }\n+                            local follower = { frame = frame, alpha = s.orig and s.orig[frame] or frame:GetAlpha(), clicks = clicks, motion = motion }\n+                            s.followers[#s.followers + 1] = follower\n                             frame:SetAlpha(0)\n+                            ShrinkHidden(follower)\n                             if clicks then frame:SetMouseClickEnabled(false) end\n                             if motion then frame:SetMouseMotionEnabled(false) end\n+                            -- Its buttons too (the mail icon a minimap addon put there).\n+                            if s.noClicks then QuietTree(s, frame, 1) end\n+                            s.riding[frame] = true\n                         elseif depth < 3 and parent ~= UIParent then\n                             Look(frame, depth + 1)\n                         end\n@@ -1389,23 +1504,34 @@ end\n             pcall(Look, UIParent, 1)\n             if MinimapCluster then pcall(Look, MinimapCluster, 1) end\n         elseif not on and s.followers then\n+            s.restored = s.restored or {}\n             for _, f in ipairs(s.followers) do\n                 pcall(f.frame.SetAlpha, f.frame, f.alpha)\n+                if f.scale then Unshrink(f) end\n+                s.restored[f.frame] = f.alpha\n                 if f.clicks then pcall(f.frame.SetMouseClickEnabled, f.frame, true) end\n                 if f.motion then pcall(f.frame.SetMouseMotionEnabled, f.frame, true) end\n             end\n-            s.followers = nil\n+            s.followers, s.riding = nil, nil\n         end\n         ns.HideQuestAreas(s, on)\n     end\n \n     -- Each frame of a scan: frames that faded in (an addon's buttons shown on the minimap's\n-    -- hover) hidden again.\n+    -- hover) hidden again. One that comes back (an addon raising it on a timer, between our\n+    -- frames) is also shrunk out of sight for the rest of the scan; its size back after.\n     local function KeepHidden(s)\n         for _, list in ipairs({ s.kids, s.followers }) do\n             for _, f in ipairs(list) do\n                 local ok, alpha = pcall(f.frame.GetAlpha, f.frame)\n-                if ok and not issecretvalue(alpha) and alpha > 0 then pcall(f.frame.SetAlpha, f.frame, 0) end\n+                if ok and not issecretvalue(alpha) and alpha > 0 then\n+                    pcall(f.frame.SetAlpha, f.frame, 0)\n+                    local fine, scale = pcall(f.frame.GetScale, f.frame)\n+                    if f.scale == nil and fine and type(scale) == \"number\" and not issecretvalue(scale) then\n+                        f.scale = scale\n+                        pcall(f.frame.SetScale, f.frame, 0.001)\n+                    end\n+                end\n             end\n         end\n     end\n@@ -1421,6 +1547,46 @@ end\n         end)\n     end\n \n+    -- Frames put on the minimap mid-scan (a map pin added): hidden and quiet too.\n+    local function Adopt(s)\n+        if not s.kids or not s.noClicks then return end\n+        local count = Minimap:GetNumChildren()\n+        if issecretvalue(count) or count == s.kidCount then return end\n+        s.kidCount = count\n+        local known = {}\n+        for _, kid in ipairs(s.kids) do known[kid.frame] = true end\n+        for _, child in ipairs({ Minimap:GetChildren() }) do\n+            if not known[child] and not issecretvalue(child) and not Apart(child)\n+                and not (InCombatLockdown() and child:IsProtected()) then\n+                local ok, alpha = pcall(child.GetAlpha, child)\n+                if ok and not issecretvalue(alpha) then\n+                    s.kids[#s.kids + 1] = { frame = child, alpha = alpha } -- (KeepHidden hides it)\n+                    QuietOne(s, child)\n+                    QuietTree(s, child, 1)\n+                end\n+            end\n+        end\n+    end\n+\n+    -- Anything on the minimap, or riding with it, that still has the mouse: quieted now (the\n+    -- game names no dot while another frame has the mouse; Covered counts it as no window,\n+    -- so its tooltip is closed like the minimap's).\n+    local function Unhover(s)\n+        if not s.noMotion then return end\n+        local foci = GetMouseFoci and GetMouseFoci()\n+        local focus = type(foci) == \"table\" and foci[1] or nil\n+        if focus == nil or issecretvalue(focus) or focus == Minimap or focus == WorldFrame or focus == arrow or Apart(focus) then return end\n+        local tied, frame = s.riding and s.riding[focus], focus\n+        for _ = 1, 20 do\n+            if tied then break end\n+            local ok, parent = pcall(frame.GetParent, frame)\n+            if not ok or not parent then break end\n+            tied = parent == Minimap or (s.riding and s.riding[parent])\n+            frame = parent\n+        end\n+        if tied then QuietOne(s, focus) end\n+    end\n+\n     -- Clicks and hover can't be given back to a protected frame in a fight: a scan that\n     -- took them stops as the fight starts, while that's still allowed.\n     function key.HoldsProtected()\n@@ -1470,6 +1636,139 @@ end\n         if text ~= stand.text then stand.text = text stand.coords:SetText(text) end\n     end\n \n+    -- The world map's art of the zone over the dark ground, centered on you at the minimap's\n+    -- zoom, so the stand-in looks like a map: its base art and the parts you explored, as the\n+    -- world map lays them, each piece cut to the minimap's square. Each frame of a scan it\n+    -- moves with you, as the minimap would; laid again only when something changed.\n+    -- Only with Map while scanning on; not with a rotating minimap, or where the zone has no art.\n+    local function StandArt(width, height, round)\n+        local map, px, py, mapWidth, mapHeight = MapPosition()\n+        local radius = C_Minimap.GetViewRadius()\n+        if map ~= stand.artMap then -- the art's list: once a scan, and on a new map\n+            stand.artMap = map\n+            stand.layer = map and (C_Map.GetMapArtLayers(map) or {})[1]\n+            stand.files = stand.layer and C_Map.GetMapArtLayerTextures(map, 1)\n+            stand.explored = stand.files and C_MapExplorationInfo and C_MapExplorationInfo.GetExploredMapTextures(map) or {}\n+        end\n+        local layer, files, explored = stand.layer, stand.files, stand.explored\n+        if not db.scanMap or not (files and files[1]) or not radius or issecretvalue(radius) or radius <= 0\n+            or C_CVar.GetCVar(\"rotateMinimap\") == \"1\" then\n+            for _, tile in ipairs(stand.tiles) do tile:Hide() end\n+            stand.artKey = nil\n+            return\n+        end\n+        local artKey = table.concat({ map, px, py, radius, width, height, tostring(round), layer.tileWidth, #files, #explored }, \" \")\n+        if artKey == stand.artKey then return end\n+        stand.artKey = artKey\n+        local mask = round and stand.artMask or nil\n+        local perYard = width / 2 / radius -- stand units per yard\n+        local sx, sy = perYard * mapWidth / layer.layerWidth, perYard * mapHeight / layer.layerHeight\n+        local tw, th = layer.tileWidth, layer.tileHeight\n+        local hw, hh = width / 2, height / 2\n+        local used = 0\n+        -- One piece of art at x, y (from the map's top left) w by h in the art's units, its\n+        -- picture filling umax, vmax of its file: the part inside the minimap's square.\n+        local function Lay(file, x, y, w, h, umax, vmax, sublevel)\n+            local left, top = (x - px * layer.layerWidth) * sx, (py * layer.layerHeight - y) * sy\n+            local right, bottom = left + w * sx, top - h * sy\n+            local l, r = math.max(left, -hw), math.min(right, hw)\n+            local t, b = math.min(top, hh), math.max(bottom, -hh)\n+            if l >= r or b >= t then return end\n+            used = used + 1\n+            local tile = stand.tiles[used]\n+            if not tile then\n+                tile = stand:CreateTexture(nil, \"BACKGROUND\", nil, 1)\n+                tile:SetVertexColor(0.6, 0.6, 0.6) -- darker, nearer the minimap's colors\n+                stand.tiles[used] = tile\n+            end\n+            if tile.mask ~= mask then\n+                if tile.mask then tile:RemoveMaskTexture(tile.mask) end\n+                if mask then tile:AddMaskTexture(mask) end\n+                tile.mask = mask\n+            end\n+            tile:SetDrawLayer(\"BACKGROUND\", sublevel)\n+            tile:SetTexture(file, nil, nil, \"TRILINEAR\")\n+            tile:SetTexCoord((l - left) / (right - left) * umax, (r - left) / (right - left) * umax,\n+                (top - t) / (top - bottom) * vmax, (top - b) / (top - bottom) * vmax)\n+            tile:SetSize(r - l, t - b)\n+            tile:ClearAllPoints()\n+            tile:SetPoint(\"TOPLEFT\", stand, \"CENTER\", l, t)\n+            tile:Show()\n+        end\n+        local cols = math.ceil(layer.layerWidth / tw)\n+        for row = 1, math.ceil(layer.layerHeight / th) do\n+            for col = 1, cols do\n+                Lay(files[(row - 1) * cols + col], (col - 1) * tw, (row - 1) * th, tw, th, 1, 1, 1)\n+            end\n+        end\n+        -- The explored parts: tiles of the art's size, the last ones in a row or column\n+        -- partly filled (their file rounded up to a power of two), as the world map does.\n+        for _, info in ipairs(explored) do\n+            if not info.isShownByMouseOver then\n+                local wide, tall = math.ceil(info.textureWidth / tw), math.ceil(info.textureHeight / th)\n+                for j = 1, tall do\n+                    local h, fileH = th, th\n+                    if j == tall then\n+                        h = info.textureHeight % th\n+                        if h == 0 then h = th end\n+                        fileH = 16\n+                        while fileH < h do fileH = fileH * 2 end\n+                    end\n+                    for k = 1, wide do\n+                        local w, fileW = tw, tw\n+                        if k == wide then\n+                            w = info.textureWidth % tw\n+                            if w == 0 then w = tw end\n+                            fileW = 16\n+                            while fileW < w do fileW = fileW * 2 end\n+                        end\n+                        Lay(info.fileDataIDs[(j - 1) * wide + k], info.offsetX + tw * (k - 1), info.offsetY + th * (j - 1),\n+                            w, h, w / fileW, h / fileH, info.isDrawOnTopLayer and 3 or 2)\n+                    end\n+                end\n+            end\n+        end\n+        for i = used + 1, #stand.tiles do stand.tiles[i]:Hide() end\n+    end\n+\n+    -- The stand-in fades in over the minimap before a scan moves it away, and out over it\n+    -- when it's back (Fade in and out): the minimap itself can't fade (drawn below full\n+    -- alpha it draws wrong), the stand-in over it can. Returns the seconds left to fade in.\n+    local FADE = 0.3\n+    local StandMove -- (below)\n+    local function StandFading(self)\n+        StandMove() -- it goes on moving with you while it fades\n+        local t = (GetTime() - self.fadeAt) / FADE\n+        if t >= 1 then\n+            self:SetAlpha(self.fadeTo)\n+            self:SetScript(\"OnUpdate\", nil)\n+            if self.fadeTo == 0 then self:Hide() end\n+        else\n+            self:SetAlpha(self.fadeFrom + (self.fadeTo - self.fadeFrom) * t)\n+        end\n+        if self.fadeTo == 0 then -- the minimap's frames back as it goes\n+            local done = t >= 1\n+            for frame, alpha in pairs(fadeBack) do\n+                pcall(frame.SetAlpha, frame, done and alpha or alpha * (1 - self:GetAlpha()))\n+            end\n+            if done then wipe(fadeBack) end\n+        end\n+    end\n+    local function StandFade(to)\n+        if not db.scanFade then\n+            if stand:GetScript(\"OnUpdate\") then stand:SetScript(\"OnUpdate\", nil) end\n+            if stand:GetAlpha() ~= 1 then stand:SetAlpha(1) end\n+            stand:SetShown(to == 1)\n+            return 0\n+        end\n+        local from = stand:IsShown() and stand:GetAlpha() or 0\n+        stand.fadeTo, stand.fadeFrom, stand.fadeAt = to, from, GetTime() - FADE * (to == 1 and from or 1 - from)\n+        stand:SetAlpha(from)\n+        stand:Show()\n+        stand:SetScript(\"OnUpdate\", StandFading)\n+        return FADE * (1 - from) * to\n+    end\n+\n     local function PinSymbols(s, on)\n         if on then\n             local left, bottom = Minimap:GetLeft(), Minimap:GetBottom()\n@@ -1480,16 +1779,22 @@ end\n             if not stand then\n                 stand = CreateFrame(\"Frame\")\n                 stand:SetParent(UIParent)\n+                stand:Hide() -- (shown by its fade)\n                 stand.ground = stand:CreateTexture(nil, \"BACKGROUND\")\n                 stand.ground:SetColorTexture(0, 0, 0, 0.35) -- light: the world shows through\n                 stand.mask = stand:CreateMaskTexture()\n                 stand.mask:SetAtlas(CIRCLE)\n                 stand.mask:SetAllPoints(stand.ground)\n+                stand.artMask = stand:CreateMaskTexture() -- the minimap's own shape, for the art\n+                stand.artMask:SetAllPoints(stand.ground)\n+                stand.tiles = {}\n                 stand.round = false -- the mask goes on when the minimap is round\n                 stand.frame = stand:CreateTexture(nil, \"OVERLAY\")\n                 stand.arrow = stand:CreateTexture(nil, \"OVERLAY\", nil, 1)\n                 stand.arrow:SetPoint(\"CENTER\")\n                 stand.coords = stand:CreateFontString(nil, \"OVERLAY\", \"GameFontHighlightSmall\")\n+                stand.dielBack = stand:CreateTexture(nil, \"OVERLAY\", nil, 2) -- the day/night dial, over the frame\n+                stand.dielRim = stand:CreateTexture(nil, \"OVERLAY\", nil, 3)\n             end\n             for _, f in ipairs({ stand, mapFrame }) do\n                 f:SetParent(UIParent)\n@@ -1511,6 +1816,18 @@ end\n                 stand.round = round\n                 if round then stand.ground:AddMaskTexture(stand.mask) else stand.ground:RemoveMaskTexture(stand.mask) end\n             end\n+            stand.artWidth, stand.artHeight = width, round and height or height * (quarters.height or 1)\n+            local shape = round and Mask()\n+            if shape and shape ~= stand.artShape then\n+                stand.artShape = shape\n+                if type(shape) == \"string\" and C_Texture.GetAtlasExists and C_Texture.GetAtlasExists(shape) then\n+                    stand.artMask:SetAtlas(shape)\n+                else\n+                    stand.artMask:SetTexture(shape, \"CLAMPTOBLACKADDITIVE\", \"CLAMPTOBLACKADDITIVE\")\n+                end\n+            end\n+            stand.artMap = false\n+            StandArt(stand.artWidth, stand.artHeight, round)\n             -- Blizzard's gold frame, where shown (UI addons hide it).\n             local compass = MinimapCompassTexture\n             local cx, cy, cw, ch\n@@ -1521,6 +1838,34 @@ end\n                 stand.frame:SetSize(cw, ch)\n                 stand.frame:SetPoint(\"CENTER\", cx, cy)\n             end\n+            -- Forever's day/night dial sits on the gold frame, beside the minimap (it doesn't move\n+            -- with it): copied over the copied frame too, so the frame's line doesn't cross it.\n+            -- Only as much as the real one is seen: a UI that hides or fades it does the same to the copy.\n+            local diel = MinimapCluster and MinimapCluster.DielFrame\n+            local seen = diel and diel:IsVisible() and diel.GetEffectiveAlpha and diel:GetEffectiveAlpha()\n+            if seen and (issecretvalue(seen) or seen <= 0) then seen = nil end\n+            local back = seen and diel.Background\n+            local rim\n+            if back then\n+                for _, region in ipairs({ diel:GetRegions() }) do\n+                    if region ~= back and region.GetAtlas and region:GetAtlas() then rim = region end\n+                end\n+            end\n+            for _, pair in ipairs({ { stand.dielBack, back }, { stand.dielRim, rim } }) do\n+                local copy, real = pair[1], pair[2]\n+                local x, y, w, h\n+                local alpha = real and real:IsShown() and real:GetAtlas() and real:GetAlpha()\n+                if alpha and (issecretvalue(alpha) or alpha <= 0) then alpha = nil end\n+                if alpha then x, y, w, h = Measure(real, eff) end\n+                copy:SetShown(x ~= nil)\n+                if x then\n+                    copy:SetAlpha(seen * alpha)\n+                    copy:SetAtlas(real:GetAtlas())\n+                    copy:SetSize(w, h)\n+                    copy:ClearAllPoints()\n+                    copy:SetPoint(\"CENTER\", x, y)\n+                end\n+            end\n             local size = 20 * (db.dotScale or 100) / 100 -- about the game's arrow, at the dots' size\n             stand.arrow:SetSize(size, size)\n             -- The coordinates, where shown.\n@@ -1532,15 +1877,22 @@ end\n                 stand.coords:SetFontObject(coords.CoordText:GetFontObject() or GameFontHighlightSmall)\n                 stand.coords:SetPoint(\"CENTER\", tx, ty)\n             end\n-            stand:Show()\n+            s.fadeIn = StandFade(1) > 0 and GetTime() + FADE * (1 - stand:GetAlpha()) or nil\n             StandArrow()\n         elseif s.pinned then\n             mapFrame:SetParent(Minimap)\n             mapFrame:SetScale(1)\n             mapFrame:SetFrameLevel(s.pinned.level)\n             mapFrame:ClearAllPoints()\n             mapFrame:SetAllPoints(Minimap)\n-            stand:Hide()\n+            if db.scanFade then -- the frames the scan hid fade back with it\n+                for frame, alpha in pairs(s.restored or {}) do\n+                    pcall(frame.SetAlpha, frame, 0)\n+                    fadeBack[frame] = alpha\n+                end\n+            end\n+            s.restored = nil\n+            StandFade(0)\n             s.pinned = nil\n         end\n     end\n@@ -1964,15 +2316,52 @@ end\n             PinSymbols(s, false)\n         else\n             PinSymbols(s, true)\n-            Disguise(s, true)\n+            if not s.fadeIn then Disguise(s, true) end\n             s.lastX, s.lastY = nil, nil -- the mouse's last move says nothing now\n         end\n         s.paused = on\n     end\n \n+    -- Fade in and out: the minimap's own frames and their alpha, to fade with the stand-in\n+    -- (ones still fading back from the last scan: their own alpha, taken from there).\n+    local function MinimapAlphas()\n+        local alphas = {}\n+        for frame, alpha in pairs(fadeBack) do alphas[frame] = alpha end\n+        wipe(fadeBack)\n+        local parts = { Minimap:GetChildren() }\n+        for _, region in ipairs({ Minimap:GetRegions() }) do parts[#parts + 1] = region end\n+        for _, child in ipairs(parts) do\n+            if alphas[child] == nil and not issecretvalue(child) and not Apart(child)\n+                and not (InCombatLockdown() and child:IsProtected()) then\n+                local ok, alpha = pcall(child.GetAlpha, child)\n+                if ok and not issecretvalue(alpha) then alphas[child] = alpha end\n+            end\n+        end\n+        return alphas\n+    end\n+\n+    -- The stand-in each frame of a scan (and of its fades): its arrow turned, its map moved with you.\n+    function StandMove()\n+        StandArrow()\n+        if stand and stand:IsShown() then StandArt(stand.artWidth, stand.artHeight, stand.round) end\n+    end\n+\n     local function KeyScanFrame()\n         local s = key.scan\n-        if not Minimap:IsVisible() then return KeyStop() end\n+        if not Minimap:IsVisible() or AtNpc() then return KeyStop() end\n+        -- Fade in and out: the minimap goes once the stand-in over it is in.\n+        if s.fadeIn then\n+            s.orig = s.orig or MinimapAlphas()\n+            if GetTime() < s.fadeIn then\n+                local t = stand and stand:GetAlpha() or 1\n+                for frame, alpha in pairs(s.orig) do pcall(frame.SetAlpha, frame, alpha * (1 - t)) end\n+                return\n+            end\n+            s.fadeIn = nil\n+            Disguise(s, true)\n+            s.orig = nil\n+            if s.at then return KeyPlace(s, s.at) end -- after a pause: that spot looked at again\n+        end\n         -- A rotating minimap turned mid-scan has turned its picture: the scan stops (the\n         -- minimap back, the symbols as they were) and runs again a moment after.\n         local facing = s.facing and PlayerFacing()\n@@ -1983,24 +2372,43 @@ end\n         end\n         -- A window under the mouse (bags opened mid-scan) pauses it too, for 2 s at most: then\n         -- it's dropped (the symbols as they were), so the minimap doesn't vanish much later.\n+        Unhover(s)\n         local covered = Covered()\n         if covered then\n             s.coveredAt = s.coveredAt or GetTime()\n             if GetTime() - s.coveredAt > COVERED_WAIT then return KeyStop() end\n         else\n             s.coveredAt = nil\n         end\n-        if covered or Mouselooking() then\n+        local looking = Mouselooking()\n+        if not looking then s.lookAt = nil end\n+        -- Fewer blinks: the minimap stays hidden where it is while a window is under the mouse\n+        -- (up to 2 s, above) or a mouse button is held to turn (up to 1 s, then paused).\n+        if db.windowWait and not s.paused and (covered or looking) then\n+            s.lookAt = looking and (s.lookAt or GetTime()) or nil\n+            if not looking or GetTime() - s.lookAt <= LOOK_WAIT then\n+                s.waited = true\n+                KeepHidden(s)\n+                return StandMove()\n+            end\n+        end\n+        if looking or covered then\n             if not s.paused then Pause(s, true) end\n             return\n         end\n         if s.paused then\n             Pause(s, false)\n+            if s.fadeIn then return end -- placed once the stand-in is in (above)\n             if s.at then return KeyPlace(s, s.at) end -- that spot looked at again\n         end\n+        if s.waited then\n+            s.waited, s.lastX, s.lastY = nil, nil, nil -- the mouse's last move says nothing now\n+            if s.at then return KeyPlace(s, s.at) end\n+        end\n         HookMappy()\n+        Adopt(s)\n         KeepHidden(s)\n-        StandArrow()\n+        StandMove()\n         if s.at then\n             local spot = s.spots[s.at]\n             -- The game looks under the mouse a frame after the minimap was placed: where the\n@@ -2079,7 +2487,7 @@ end\n         -- position to follow the symbols by).\n         local inside = IsInInstance()\n         if issecretvalue(inside) or inside then return end\n-        if (InCombatLockdown() and Minimap:IsProtected()) or Covered() then return end\n+        if (InCombatLockdown() and Minimap:IsProtected()) or Covered() or AtNpc() then return end\n         if Mouselooking() then\n             key.wanted = true\n             return\n@@ -2152,12 +2560,12 @@ end\n         local gridSpots = #spots\n         local pin = {}\n         PinSymbols(pin, true)\n-        key.scan = { pinned = pin.pinned, facing = C_CVar.GetCVar(\"rotateMinimap\") == \"1\" and PlayerFacing() or nil, spots = spots, gridSpots = gridSpots, width = width, step = step, skipped = skipped, precision = PRECISION,\n+        key.scan = { pinned = pin.pinned, fadeIn = pin.fadeIn, facing = C_CVar.GetCVar(\"rotateMinimap\") == \"1\" and PlayerFacing() or nil, spots = spots, gridSpots = gridSpots, width = width, step = step, skipped = skipped, precision = PRECISION,\n             ox = 0, oy = 0, hits = {},\n             p0 = map and { map = map, x = px, y = py, width = mapWidth, height = mapHeight } or nil,\n             left = Minimap:GetLeft(), bottom = Minimap:GetBottom(), alpha = Minimap:GetAlpha(), coords = Coords() }\n         if key.scan.coords then key.scan.coordsAlpha = key.scan.coords:GetAlpha() end\n-        Disguise(key.scan, true)\n+        if not key.scan.fadeIn then Disguise(key.scan, true) end\n         -- Most addons' round minimap buttons (LibDBIcon) open their own tooltip, not\n         -- GameTooltip, as the moving minimap passes them under the mouse: closed too.\n         local iconTip = _G[\"LibDBIconTooltip\"]\n@@ -2223,7 +2631,7 @@ end\n         local timed = seconds > 0 and now - (key.lastAt or now) >= seconds and stepping\n         if moved or timed then StartKeyScan(true) end\n     end\n-    key.Start, key.Frame, key.Stop, key.Mouselooking = StartKeyScan, KeyScanFrame, KeyStop, Mouselooking\n+    key.Start, key.Frame, key.Stop, key.Mouselooking, key.Settle = StartKeyScan, KeyScanFrame, KeyStop, Mouselooking, Settle\n     function ns.KeyScanning() return key.scan ~= nil end -- (Switch: no switch during a scan)\n end)()\n \n@@ -2242,6 +2650,7 @@ local function OnUpdate()\n         ns.QuestAreasBack()\n     end\n     -- The scan: on its key, or as you move (Scan as you move).\n+    if not key.scan then xpcall(key.Settle, geterrorhandler()) end\n     if key.scan then\n         if not xpcall(key.Frame, geterrorhandler()) then pcall(key.Stop) end\n     elseif key.stopped then -- (an error starting a scan: reported once, off until a reload)\n@@ -2481,6 +2890,12 @@ local function OnAddonLoaded()\n     end\n     -- Scan in combat was on by default for the old scan; the new one hides the minimap: off once.\n     if not settings.combatScanReset then settings.combatScan, settings.combatScanReset = false, true end\n+    -- Scan every (seconds) was off by default; now 10: moved there once, unless they scan as\n+    -- they move or chose another number.\n+    if not settings.autoScanTimerOn then\n+        if tonumber(settings.autoScanSeconds) == 0 and not settings.autoScan then settings.autoScanSeconds = 10 end\n+        settings.autoScanTimerOn = true\n+    end\n     ns.CarryOverLooks(settings)\n     -- Red symbols turned off, from before Skill colors: Off.\n     if settings.skillLook == nil and settings.hard == false then settings.skillLook = SKILL.OFF end"
+          },
+          {
+            "sha": "6e7e3493cc3f26080f87698a37c037f8d705270a",
+            "filename": "NodeSight.toc",
+            "status": "modified",
+            "additions": 1,
+            "deletions": 1,
+            "changes": 2,
+            "blob_url": "https://github.com/Krelock/NodeSight/blob/7d282780cd8e41c0ceef813b4a6e0bdac4b4f904/NodeSight.toc",
+            "raw_url": "https://github.com/Krelock/NodeSight/raw/7d282780cd8e41c0ceef813b4a6e0bdac4b4f904/NodeSight.toc",
+            "contents_url": "https://api.github.com/repos/Krelock/NodeSight/contents/NodeSight.toc?ref=7d282780cd8e41c0ceef813b4a6e0bdac4b4f904",
+            "patch": "@@ -2,7 +2,7 @@\n ## Title: NodeSight\n ## Notes: See what every herb and ore on your minimap is, with an arrow to the nearest one and gold sparkles on it when you're close.\n ## Author: Krelock\n-## Version: 1.8.4\n+## Version: 1.9.0\n ## SavedVariables: NodeSightDB\n ## SavedVariablesPerCharacter: NodeSightCharDB\n ## IconTexture: Interface\\Icons\\INV_Misc_Herb_01"
+          },
+          {
+            "sha": "45a9e79b69d5241b2684c2682d482921e5e34abf",
+            "filename": "Settings.lua",
+            "status": "modified",
+            "additions": 10,
+            "deletions": 1,
+            "changes": 11,
+            "blob_url": "https://github.com/Krelock/NodeSight/blob/7d282780cd8e41c0ceef813b4a6e0bdac4b4f904/Settings.lua",
+            "raw_url": "https://github.com/Krelock/NodeSight/raw/7d282780cd8e41c0ceef813b4a6e0bdac4b4f904/Settings.lua",
+            "contents_url": "https://api.github.com/repos/Krelock/NodeSight/contents/Settings.lua?ref=7d282780cd8e41c0ceef813b4a6e0bdac4b4f904",
+            "patch": "@@ -330,7 +330,7 @@ local function RegisterSettings()\n         \"How far you move between scans. The default is \" .. defaults.autoScanYards .. \".\",\n         UpdateScanner, 5)\n     Slider(\"autoScanSeconds\", \"Scan every (seconds)\", 0, 120,\n-        \"Also scans once this many seconds have passed since the last scan, as soon as you move (not while you stand still), so herbs and ore that appear or are taken show up. Same rules as Scan as you move (not while flying, your mouse over the world, out of combat unless Scan in combat is on). Off at 0, the default.\",\n+        \"Also scans once this many seconds have passed since the last scan, as soon as you move (not while you stand still), so herbs and ore that appear or are taken show up. Same rules as Scan as you move (not while flying, your mouse over the world, out of combat unless Scan in combat is on). Off at 0. The default is \" .. defaults.autoScanSeconds .. \".\",\n         UpdateScanner, 5, Off)\n     Checkbox(\"combatScan\", \"Scan in combat\",\n         \"Scan as you move and Scan every (seconds) keep scanning in combat too. The minimap is hidden for a moment each time, mid-fight. The Scan the minimap key binding scans in combat either way.\",\n@@ -342,6 +342,15 @@ local function RegisterSettings()\n     Dropdown(\"minimapShape\", \"Minimap shape\", ns.MapShapeChoices,\n         \"Automatic asks your UI addon and shows its answer in brackets. Pick Square if herbs and ore in the corners of a square minimap don't show up.\",\n         UpdateScanner)\n+    Checkbox(\"scanMap\", \"Map while scanning (Beta)\",\n+        \"While the minimap is hidden for a scan, shows the world map's picture of where you are in its place, moving with you. Not with a rotating minimap, or where the zone has no world map.\",\n+        UpdateScanner)\n+    Checkbox(\"scanFade\", \"Fade in and out\",\n+        \"The minimap fades into its stand-in (the map picture, or a dark fill) before a scan and back after, instead of blinking. Each scan starts a moment later.\",\n+        UpdateScanner)\n+    Checkbox(\"windowWait\", \"Fewer blinks\",\n+        \"When your mouse goes over a window (your bags) during a scan, or you hold a mouse button to turn, the minimap stays hidden for a moment (up to 2 seconds over a window, 1 while you hold a button) instead of coming back at once. Meanwhile a click on a gap in a window does nothing.\",\n+        UpdateScanner)\n \n     Page(\"Switch\")\n     Settings.CreateCheckbox(category, finders, findersTip) -- the same setting as on NodeSight's own page"
+          },
+          {
+            "sha": "ab9092942050457f31afde6d400ba7a73a0bd98c",
+            "filename": "WhatsNew.lua",
+            "status": "modified",
+            "additions": 18,
+            "deletions": 0,
+            "changes": 18,
+            "blob_url": "https://github.com/Krelock/NodeSight/blob/7d282780cd8e41c0ceef813b4a6e0bdac4b4f904/WhatsNew.lua",
+            "raw_url": "https://github.com/Krelock/NodeSight/raw/7d282780cd8e41c0ceef813b4a6e0bdac4b4f904/WhatsNew.lua",
+            "contents_url": "https://api.github.com/repos/Krelock/NodeSight/contents/WhatsNew.lua?ref=7d282780cd8e41c0ceef813b4a6e0bdac4b4f904",
+            "patch": "@@ -11,6 +11,24 @@ local ipairs = ipairs\n local ShowWhatsNew, ShowNotice\n do\n     local WHATS_NEW = {\n+        { version = \"1.9.0\",\n+            { \"New\", {\n+                { \"Map while scanning (Beta) (on by default).\", \"While the minimap is hidden for a scan, the world map's picture of where you are shows in its place, moving as you walk. Not with a rotating minimap. On the Scanning page\" },\n+                { \"Fade in and out (on by default).\", \"The minimap and its buttons fade into the map picture before a scan and back after, instead of blinking. Each scan starts a moment later. On the Scanning page\" },\n+                { \"Fewer blinks (on by default).\", \"When your mouse goes over a window (your bags) or you hold a mouse button to turn mid-scan, the minimap stays hidden for a moment instead of flashing back: up to 2 seconds over a window, 1 while you hold a button. On the Scanning page\" },\n+            } },\n+            { \"Changes\", {\n+                { \"Scan every (seconds) (10 by default).\", \"Turned on at 10 once for everyone who had it off and doesn't use Scan as you move. On the Scanning page\" },\n+                { \"NPC windows.\", \"Scans wait while a vendor, quest giver, bank, mailbox, auction house or trade window is open, so addons that sell junk or turn in quests for you aren't interrupted\" },\n+            } },\n+            { \"Fixes\", {\n+                { \"EllesmereUI.\", \"Its coordinates and zoom buttons no longer show up under your mouse during a scan\" },\n+                { \"Mail icon.\", \"With Leatrix Plus or another minimap addon, the mail tooltip no longer pops up and pauses scans\" },\n+                { \"Minimap icons.\", \"Icons other addons put on or next to the minimap stay hidden and can't be hovered during a scan, including ones added mid-scan\" },\n+                { \"Buttons shown on hover.\", \"Addon buttons that only show when you hover the minimap (Leatrix Plus) no longer flash under your mouse at the start of a scan\" },\n+                { \"Day/night dial.\", \"It stays on top of the minimap's border during a scan, and hidden if your UI hides it\" },\n+            } },\n+        },\n         { version = \"1.8.1\",\n             { \"Changes\", {\n                 { \"Scan look.\", \"While a scan runs, the minimap's circle is see-through instead of dark, so you still see the world around your symbols\" },"
+          }
+        ]
+      }
+    },
+    "releases_uncached": {
+      "url": "https://api.github.com/repos/Krelock/NodeSight/releases?per_page=8&codex_check=20261110T020111Z",
+      "headers": {
+        "Date": "Tue, 10 Nov 2026 02:02:53 GMT",
+        "Last-Modified": null,
+        "ETag": "W/\"389ad2447d54fc453981f83f88fa393c4b41ab6c32880a13d6c5c6e857105fea\"",
+        "Age": null,
+        "X-Cache": null
+      },
+      "data": [
+        {
+          "url": "https://api.github.com/repos/Krelock/NodeSight/releases/438775900",
+          "assets_url": "https://api.github.com/repos/Krelock/NodeSight/releases/438775900/assets",
+          "upload_url": "https://uploads.github.com/repos/Krelock/NodeSight/releases/438775900/assets{?name,label}",
+          "html_url": "https://github.com/Krelock/NodeSight/releases/tag/v1.9.0",
+          "id": 438775900,
+          "author": {
+            "login": "Krelock",
+            "id": 142703219,
+            "node_id": "U_kgDOCIF6cw",
+            "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/Krelock",
+            "html_url": "https://github.com/Krelock",
+            "followers_url": "https://api.github.com/users/Krelock/followers",
+            "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+            "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+            "organizations_url": "https://api.github.com/users/Krelock/orgs",
+            "repos_url": "https://api.github.com/users/Krelock/repos",
+            "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/Krelock/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "node_id": "RE_kwDOVIVYY84aJzBc",
+          "tag_name": "v1.9.0",
+          "target_commitish": "main",
+          "name": "NodeSight 1.9.0",
+          "draft": false,
+          "immutable": false,
+          "prerelease": false,
+          "created_at": "2026-11-09T05:35:14Z",
+          "updated_at": "2026-11-09T05:35:45Z",
+          "published_at": "2026-11-09T05:35:45Z",
+          "assets": [
+            {
+              "url": "https://api.github.com/repos/Krelock/NodeSight/releases/assets/726362361",
+              "id": 726362361,
+              "node_id": "RA_kwDOVIVYY84rS2j5",
+              "name": "NodeSight-1.9.0.zip",
+              "label": "",
+              "uploader": {
+                "login": "Krelock",
+                "id": 142703219,
+                "node_id": "U_kgDOCIF6cw",
+                "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+                "gravatar_id": "",
+                "url": "https://api.github.com/users/Krelock",
+                "html_url": "https://github.com/Krelock",
+                "followers_url": "https://api.github.com/users/Krelock/followers",
+                "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+                "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+                "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+                "organizations_url": "https://api.github.com/users/Krelock/orgs",
+                "repos_url": "https://api.github.com/users/Krelock/repos",
+                "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+                "received_events_url": "https://api.github.com/users/Krelock/received_events",
+                "type": "User",
+                "user_view_type": "public",
+                "site_admin": false
+              },
+              "content_type": "application/zip",
+              "state": "uploaded",
+              "size": 153957,
+              "digest": "sha256:ccb5dde20b310324ce2c5200779a7a8a043844554a3c0d874681c5e955a027e2",
+              "download_count": 34,
+              "created_at": "2026-11-09T05:35:44Z",
+              "updated_at": "2026-11-09T05:35:44Z",
+              "browser_download_url": "https://github.com/Krelock/NodeSight/releases/download/v1.9.0/NodeSight-1.9.0.zip"
+            }
+          ],
+          "tarball_url": "https://api.github.com/repos/Krelock/NodeSight/tarball/v1.9.0",
+          "zipball_url": "https://api.github.com/repos/Krelock/NodeSight/zipball/v1.9.0",
+          "body": "## NodeSight 1.9.0\n\n### New\n\n- **Map while scanning (Beta)** (on by default). While the minimap is hidden for a scan, the world map's picture of where you are shows in its place, moving as you walk. Not with a rotating minimap. On the **Scanning** page.\n- **Fade in and out** (on by default). The minimap and its buttons fade into the map picture before a scan and back after, instead of blinking. Each scan starts a moment later. On the **Scanning** page.\n- **Fewer blinks** (on by default). When your mouse goes over a window (your bags) or you hold a mouse button to turn mid-scan, the minimap stays hidden for a moment instead of flashing back: up to 2 seconds over a window, 1 while you hold a button. On the **Scanning** page.\n\n### Changes\n\n- **Scan every (seconds)** (10 by default). Turned on at 10 once for everyone who had it off and doesn't use Scan as you move. On the **Scanning** page.\n- **NPC windows**. Scans wait while a vendor, quest giver, bank, mailbox, auction house or trade window is open, so addons that sell junk or turn in quests for you aren't interrupted.\n\n### Fixes\n\n- **EllesmereUI**. Its coordinates and zoom buttons no longer show up under your mouse during a scan.\n- **Mail icon**. With Leatrix Plus or another minimap addon, the mail tooltip no longer pops up and pauses scans.\n- **Minimap icons**. Icons other addons put on or next to the minimap stay hidden and can't be hovered during a scan, including ones added mid-scan.\n- **Buttons shown on hover**. Addon buttons that only show when you hover the minimap (Leatrix Plus) no longer flash under your mouse at the start of a scan.\n- **Day/night dial**. It stays on top of the minimap's border during a scan, and hidden if your UI hides it.\n"
+        },
+        {
+          "url": "https://api.github.com/repos/Krelock/NodeSight/releases/438667867",
+          "assets_url": "https://api.github.com/repos/Krelock/NodeSight/releases/438667867/assets",
+          "upload_url": "https://uploads.github.com/repos/Krelock/NodeSight/releases/438667867/assets{?name,label}",
+          "html_url": "https://github.com/Krelock/NodeSight/releases/tag/v1.8.4",
+          "id": 438667867,
+          "author": {
+            "login": "Krelock",
+            "id": 142703219,
+            "node_id": "U_kgDOCIF6cw",
+            "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/Krelock",
+            "html_url": "https://github.com/Krelock",
+            "followers_url": "https://api.github.com/users/Krelock/followers",
+            "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+            "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+            "organizations_url": "https://api.github.com/users/Krelock/orgs",
+            "repos_url": "https://api.github.com/users/Krelock/repos",
+            "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/Krelock/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "node_id": "RE_kwDOVIVYY84aJYpb",
+          "tag_name": "v1.8.4",
+          "target_commitish": "main",
+          "name": "NodeSight 1.8.4",
+          "draft": false,
+          "immutable": false,
+          "prerelease": false,
+          "created_at": "2026-11-09T01:59:37Z",
+          "updated_at": "2026-11-09T01:59:59Z",
+          "published_at": "2026-11-09T01:59:59Z",
+          "assets": [
+            {
+              "url": "https://api.github.com/repos/Krelock/NodeSight/releases/assets/725885766",
+              "id": 725885766,
+              "node_id": "RA_kwDOVIVYY84rRCNG",
+              "name": "NodeSight-1.8.4.zip",
+              "label": "",
+              "uploader": {
+                "login": "Krelock",
+                "id": 142703219,
+                "node_id": "U_kgDOCIF6cw",
+                "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+                "gravatar_id": "",
+                "url": "https://api.github.com/users/Krelock",
+                "html_url": "https://github.com/Krelock",
+                "followers_url": "https://api.github.com/users/Krelock/followers",
+                "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+                "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+                "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+                "organizations_url": "https://api.github.com/users/Krelock/orgs",
+                "repos_url": "https://api.github.com/users/Krelock/repos",
+                "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+                "received_events_url": "https://api.github.com/users/Krelock/received_events",
+                "type": "User",
+                "user_view_type": "public",
+                "site_admin": false
+              },
+              "content_type": "application/zip",
+              "state": "uploaded",
+              "size": 147733,
+              "digest": "sha256:238ea80605c5c974e14c628283456b1bff71d81dba620dc5a7f36329018eb61a",
+              "download_count": 7,
+              "created_at": "2026-11-09T01:59:58Z",
+              "updated_at": "2026-11-09T01:59:58Z",
+              "browser_download_url": "https://github.com/Krelock/NodeSight/releases/download/v1.8.4/NodeSight-1.8.4.zip"
+            }
+          ],
+          "tarball_url": "https://api.github.com/repos/Krelock/NodeSight/tarball/v1.8.4",
+          "zipball_url": "https://api.github.com/repos/Krelock/NodeSight/zipball/v1.8.4",
+          "body": "## NodeSight 1.8.4\n\n### Fixes\n- **Leatrix Plus**. With Leatrix Plus' square minimap, the minimap no longer shows up under your mouse and jumps around during a scan. The same goes for other addons that keep their own minimap shape\n"
+        },
+        {
+          "url": "https://api.github.com/repos/Krelock/NodeSight/releases/438630252",
+          "assets_url": "https://api.github.com/repos/Krelock/NodeSight/releases/438630252/assets",
+          "upload_url": "https://uploads.github.com/repos/Krelock/NodeSight/releases/438630252/assets{?name,label}",
+          "html_url": "https://github.com/Krelock/NodeSight/releases/tag/v1.8.3",
+          "id": 438630252,
+          "author": {
+            "login": "Krelock",
+            "id": 142703219,
+            "node_id": "U_kgDOCIF6cw",
+            "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/Krelock",
+            "html_url": "https://github.com/Krelock",
+            "followers_url": "https://api.github.com/users/Krelock/followers",
+            "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+            "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+            "organizations_url": "https://api.github.com/users/Krelock/orgs",
+            "repos_url": "https://api.github.com/users/Krelock/repos",
+            "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/Krelock/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "node_id": "RE_kwDOVIVYY84aJPds",
+          "tag_name": "v1.8.3",
+          "target_commitish": "main",
+          "name": "NodeSight 1.8.3",
+          "draft": false,
+          "immutable": false,
+          "prerelease": false,
+          "created_at": "2026-11-09T00:40:35Z",
+          "updated_at": "2026-11-09T00:41:22Z",
+          "published_at": "2026-11-09T00:41:22Z",
+          "assets": [
+            {
+              "url": "https://api.github.com/repos/Krelock/NodeSight/releases/assets/725691039",
+              "id": 725691039,
+              "node_id": "RA_kwDOVIVYY84rQSqf",
+              "name": "NodeSight-1.8.3.zip",
+              "label": "",
+              "uploader": {
+                "login": "Krelock",
+                "id": 142703219,
+                "node_id": "U_kgDOCIF6cw",
+                "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+                "gravatar_id": "",
+                "url": "https://api.github.com/users/Krelock",
+                "html_url": "https://github.com/Krelock",
+                "followers_url": "https://api.github.com/users/Krelock/followers",
+                "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+                "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+                "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+                "organizations_url": "https://api.github.com/users/Krelock/orgs",
+                "repos_url": "https://api.github.com/users/Krelock/repos",
+                "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+                "received_events_url": "https://api.github.com/users/Krelock/received_events",
+                "type": "User",
+                "user_view_type": "public",
+                "site_admin": false
+              },
+              "content_type": "application/zip",
+              "state": "uploaded",
+              "size": 147581,
+              "digest": "sha256:dce8ef4cab5615bebcb6a6b4a71d630dbb9509d6956a324be1364d15fa1fc73d",
+              "download_count": 3,
+              "created_at": "2026-11-09T00:41:21Z",
+              "updated_at": "2026-11-09T00:41:21Z",
+              "browser_download_url": "https://github.com/Krelock/NodeSight/releases/download/v1.8.3/NodeSight-1.8.3.zip"
+            }
+          ],
+          "tarball_url": "https://api.github.com/repos/Krelock/NodeSight/tarball/v1.8.3",
+          "zipball_url": "https://api.github.com/repos/Krelock/NodeSight/zipball/v1.8.3",
+          "body": "## NodeSight 1.8.3\n\n### Fixes\n- **Mappy Continued**. Minimap buttons Mappy stacks along the minimap's edge no longer follow your mouse or flash during a scan\n- **TomTom**. TomTom's minimap arrow no longer follows your mouse during a scan when a minimap addon has moved it\n- **Minimap buttons**. A long row of buttons anchored to the minimap is now hidden during a scan, not just the first few\n\n### Notes\n- If your minimap or its icons follow your mouse during a scan since 1.8.2, fully restart the game (not just /reload): 1.8.2 added a file the game only loads on a restart\n"
+        },
+        {
+          "url": "https://api.github.com/repos/Krelock/NodeSight/releases/438558437",
+          "assets_url": "https://api.github.com/repos/Krelock/NodeSight/releases/438558437/assets",
+          "upload_url": "https://uploads.github.com/repos/Krelock/NodeSight/releases/438558437/assets{?name,label}",
+          "html_url": "https://github.com/Krelock/NodeSight/releases/tag/v1.8.2",
+          "id": 438558437,
+          "author": {
+            "login": "Krelock",
+            "id": 142703219,
+            "node_id": "U_kgDOCIF6cw",
+            "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/Krelock",
+            "html_url": "https://github.com/Krelock",
+            "followers_url": "https://api.github.com/users/Krelock/followers",
+            "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+            "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+            "organizations_url": "https://api.github.com/users/Krelock/orgs",
+            "repos_url": "https://api.github.com/users/Krelock/repos",
+            "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/Krelock/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "node_id": "RE_kwDOVIVYY84aI97l",
+          "tag_name": "v1.8.2",
+          "target_commitish": "main",
+          "name": "NodeSight 1.8.2",
+          "draft": false,
+          "immutable": false,
+          "prerelease": false,
+          "created_at": "2026-11-08T22:13:54Z",
+          "updated_at": "2026-11-08T22:14:26Z",
+          "published_at": "2026-11-08T22:14:26Z",
+          "assets": [
+            {
+              "url": "https://api.github.com/repos/Krelock/NodeSight/releases/assets/725364545",
+              "id": 725364545,
+              "node_id": "RA_kwDOVIVYY84rPC9B",
+              "name": "NodeSight-1.8.2.zip",
+              "label": "",
+              "uploader": {
+                "login": "Krelock",
+                "id": 142703219,
+                "node_id": "U_kgDOCIF6cw",
+                "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+                "gravatar_id": "",
+                "url": "https://api.github.com/users/Krelock",
+                "html_url": "https://github.com/Krelock",
+                "followers_url": "https://api.github.com/users/Krelock/followers",
+                "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+                "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+                "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+                "organizations_url": "https://api.github.com/users/Krelock/orgs",
+                "repos_url": "https://api.github.com/users/Krelock/repos",
+                "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+                "received_events_url": "https://api.github.com/users/Krelock/received_events",
+                "type": "User",
+                "user_view_type": "public",
+                "site_admin": false
+              },
+              "content_type": "application/zip",
+              "state": "uploaded",
+              "size": 147342,
+              "digest": "sha256:b764aab138e779db47f91beff45000bd19db2117b2c3da832e7631660d92a87b",
+              "download_count": 6,
+              "created_at": "2026-11-08T22:14:26Z",
+              "updated_at": "2026-11-08T22:14:26Z",
+              "browser_download_url": "https://github.com/Krelock/NodeSight/releases/download/v1.8.2/NodeSight-1.8.2.zip"
+            }
+          ],
+          "tarball_url": "https://api.github.com/repos/Krelock/NodeSight/tarball/v1.8.2",
+          "zipball_url": "https://api.github.com/repos/Krelock/NodeSight/zipball/v1.8.2",
+          "body": "## NodeSight 1.8.2\n\n### New\n- **Hide in combat** (off by default). No arrow while you're in combat. On the **Arrow** page\n- **Symbols for other addons**. Other addons can now use NodeSight's symbols (NodeSightAPI)\n\n### Fixes\n- **Minimap streaks**. Scan as you move should no longer leave dark streaks or patches on your minimap while you walk\n- **Other addons' minimap icons**. A sun and moon icon, border or button another addon puts on your minimap no longer flies around with your mouse during a scan\n- **Scan as you move with other addons**. Works again with addons that lay an invisible layer over the world (OPie), and the scan key works away from the minimap too\n- **BasicMinimap**. Scans should find herbs and ore with BasicMinimap\n- **Controller**. Moving with the stick no longer keeps scans from starting (they still can't run while the controller's circle is in the middle of the screen)\n- **Minimap buttons**. Buttons that fade in when you hover the minimap stay hidden during a scan\n"
+        },
+        {
+          "url": "https://api.github.com/repos/Krelock/NodeSight/releases/438095017",
+          "assets_url": "https://api.github.com/repos/Krelock/NodeSight/releases/438095017/assets",
+          "upload_url": "https://uploads.github.com/repos/Krelock/NodeSight/releases/438095017/assets{?name,label}",
+          "html_url": "https://github.com/Krelock/NodeSight/releases/tag/v1.8.1",
+          "id": 438095017,
+          "author": {
+            "login": "Krelock",
+            "id": 142703219,
+            "node_id": "U_kgDOCIF6cw",
+            "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/Krelock",
+            "html_url": "https://github.com/Krelock",
+            "followers_url": "https://api.github.com/users/Krelock/followers",
+            "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+            "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+            "organizations_url": "https://api.github.com/users/Krelock/orgs",
+            "repos_url": "https://api.github.com/users/Krelock/repos",
+            "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/Krelock/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "node_id": "RE_kwDOVIVYY84aHMyp",
+          "tag_name": "v1.8.1",
+          "target_commitish": "main",
+          "name": "NodeSight 1.8.1",
+          "draft": false,
+          "immutable": false,
+          "prerelease": false,
+          "created_at": "2026-11-08T07:14:50Z",
+          "updated_at": "2026-11-08T07:21:09Z",
+          "published_at": "2026-11-08T07:21:09Z",
+          "assets": [
+            {
+              "url": "https://api.github.com/repos/Krelock/NodeSight/releases/assets/723225111",
+              "id": 723225111,
+              "node_id": "RA_kwDOVIVYY84rG4oX",
+              "name": "NodeSight-1.8.1.zip",
+              "label": "",
+              "uploader": {
+                "login": "Krelock",
+                "id": 142703219,
+                "node_id": "U_kgDOCIF6cw",
+                "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+                "gravatar_id": "",
+                "url": "https://api.github.com/users/Krelock",
+                "html_url": "https://github.com/Krelock",
+                "followers_url": "https://api.github.com/users/Krelock/followers",
+                "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+                "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+                "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+                "organizations_url": "https://api.github.com/users/Krelock/orgs",
+                "repos_url": "https://api.github.com/users/Krelock/repos",
+                "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+                "received_events_url": "https://api.github.com/users/Krelock/received_events",
+                "type": "User",
+                "user_view_type": "public",
+                "site_admin": false
+              },
+              "content_type": "application/zip",
+              "state": "uploaded",
+              "size": 143933,
+              "digest": "sha256:07b8a350b03c30f6173f82c9dfc116dab9b1760b4cc644d919745b8fdcc0d4bd",
+              "download_count": 16,
+              "created_at": "2026-11-08T07:21:09Z",
+              "updated_at": "2026-11-08T07:21:09Z",
+              "browser_download_url": "https://github.com/Krelock/NodeSight/releases/download/v1.8.1/NodeSight-1.8.1.zip"
+            }
+          ],
+          "tarball_url": "https://api.github.com/repos/Krelock/NodeSight/tarball/v1.8.1",
+          "zipball_url": "https://api.github.com/repos/Krelock/NodeSight/zipball/v1.8.1",
+          "body": "## NodeSight 1.8.1\n\n### Changes\n- **Scan look**. While a scan runs, the minimap's circle is see-through instead of dark, so you still see the world around your symbols\n\n### Fixes\n- **Windows during a scan**. Opening your bags or moving your mouse onto a window mid-scan pauses the scan, so your minimap comes right back and item tooltips show; it carries on if you're back within 2 seconds. The scan key does nothing while your mouse is over one\n- **Minimap buttons**. A click during a scan no longer lands on another addon's button on the minimap (a calendar opening by itself, say)\n"
+        },
+        {
+          "url": "https://api.github.com/repos/Krelock/NodeSight/releases/438061526",
+          "assets_url": "https://api.github.com/repos/Krelock/NodeSight/releases/438061526/assets",
+          "upload_url": "https://uploads.github.com/repos/Krelock/NodeSight/releases/438061526/assets{?name,label}",
+          "html_url": "https://github.com/Krelock/NodeSight/releases/tag/v1.8.0",
+          "id": 438061526,
+          "author": {
+            "login": "Krelock",
+            "id": 142703219,
+            "node_id": "U_kgDOCIF6cw",
+            "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/Krelock",
+            "html_url": "https://github.com/Krelock",
+            "followers_url": "https://api.github.com/users/Krelock/followers",
+            "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+            "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+            "organizations_url": "https://api.github.com/users/Krelock/orgs",
+            "repos_url": "https://api.github.com/users/Krelock/repos",
+            "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/Krelock/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "node_id": "RE_kwDOVIVYY84aHEnW",
+          "tag_name": "v1.8.0",
+          "target_commitish": "main",
+          "name": "NodeSight 1.8.0",
+          "draft": false,
+          "immutable": false,
+          "prerelease": false,
+          "created_at": "2026-11-08T05:52:04Z",
+          "updated_at": "2026-11-08T05:52:23Z",
+          "published_at": "2026-11-08T05:52:23Z",
+          "assets": [
+            {
+              "url": "https://api.github.com/repos/Krelock/NodeSight/releases/assets/723041988",
+              "id": 723041988,
+              "node_id": "RA_kwDOVIVYY84rGL7E",
+              "name": "NodeSight-1.8.0.zip",
+              "label": "",
+              "uploader": {
+                "login": "Krelock",
+                "id": 142703219,
+                "node_id": "U_kgDOCIF6cw",
+                "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+                "gravatar_id": "",
+                "url": "https://api.github.com/users/Krelock",
+                "html_url": "https://github.com/Krelock",
+                "followers_url": "https://api.github.com/users/Krelock/followers",
+                "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+                "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+                "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+                "organizations_url": "https://api.github.com/users/Krelock/orgs",
+                "repos_url": "https://api.github.com/users/Krelock/repos",
+                "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+                "received_events_url": "https://api.github.com/users/Krelock/received_events",
+                "type": "User",
+                "user_view_type": "public",
+                "site_admin": false
+              },
+              "content_type": "application/zip",
+              "state": "uploaded",
+              "size": 143016,
+              "digest": "sha256:3f57f1ac016d66901c1e1d54205c0915d21192e92a5f095e11c4ebe12c29ac19",
+              "download_count": 6,
+              "created_at": "2026-11-08T05:52:22Z",
+              "updated_at": "2026-11-08T05:52:23Z",
+              "browser_download_url": "https://github.com/Krelock/NodeSight/releases/download/v1.8.0/NodeSight-1.8.0.zip"
+            }
+          ],
+          "tarball_url": "https://api.github.com/repos/Krelock/NodeSight/tarball/v1.8.0",
+          "zipball_url": "https://api.github.com/repos/Krelock/NodeSight/zipball/v1.8.0",
+          "body": "## NodeSight 1.8.0\n\n### New\n- **Scan the minimap** (key binding). WoW Forever's latest update broke how NodeSight read the minimap, so it scans it now: press the key and your minimap is hidden for under a second while it reads where herbs and ore are. Your symbols, your arrow, the minimap's frame and the coordinates stay on screen meanwhile. Set the key with Scan key on the new **Scanning** page, or in Keybindings > AddOns > NodeSight. Not in dungeons, raids or battlegrounds\n- **Scan as you move** (off by default). Scans each time you've moved Scan every (yards) (30 by default): not while flying, turning the camera or with your mouse over a window. On the **Scanning** page\n- **Scan every (seconds)** (Off by default). Also scans once that many seconds have passed, as soon as you move, so herbs and ore that appear or are taken show up. On the **Scanning** page\n- **Not in cities and inns** (on by default). Scan as you move and the timer don't scan in capital cities and inns; the key still does. On the **Scanning** page\n\n### Changes\n- **Scan in combat** (off by default now). Scan as you move and the timer keep scanning in fights, hiding the minimap for a moment mid-fight. It was turned off once for everyone who had it on; turn it back on on the **Scanning** page\n- **Far away sparkles (Beta)**. They don't work as well since WoW Forever's latest update: whether a far herb is above or below you can't be read any more. They were turned off once for everyone; turn them back on under **Beta**\n- **Arrow**. It lets go of a herb or ore as soon as it leaves the minimap\n- **Gathered nodes**. A herb or ore someone else gathers loses its symbol at the next scan\n- **Scan the minimap checkbox**. Gone: the scan only runs on its key, with Scan as you move or on its timer\n"
+        },
+        {
+          "url": "https://api.github.com/repos/Krelock/NodeSight/releases/437198909",
+          "assets_url": "https://api.github.com/repos/Krelock/NodeSight/releases/437198909/assets",
+          "upload_url": "https://uploads.github.com/repos/Krelock/NodeSight/releases/437198909/assets{?name,label}",
+          "html_url": "https://github.com/Krelock/NodeSight/releases/tag/v1.7.0",
+          "id": 437198909,
+          "author": {
+            "login": "Krelock",
+            "id": 142703219,
+            "node_id": "U_kgDOCIF6cw",
+            "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/Krelock",
+            "html_url": "https://github.com/Krelock",
+            "followers_url": "https://api.github.com/users/Krelock/followers",
+            "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+            "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+            "organizations_url": "https://api.github.com/users/Krelock/orgs",
+            "repos_url": "https://api.github.com/users/Krelock/repos",
+            "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/Krelock/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "node_id": "RE_kwDOVIVYY84aDyA9",
+          "tag_name": "v1.7.0",
+          "target_commitish": "main",
+          "name": "NodeSight 1.7.0",
+          "draft": false,
+          "immutable": false,
+          "prerelease": false,
+          "created_at": "2026-11-07T03:33:21Z",
+          "updated_at": "2026-11-07T04:53:08Z",
+          "published_at": "2026-11-07T00:08:55Z",
+          "assets": [
+            {
+              "url": "https://api.github.com/repos/Krelock/NodeSight/releases/assets/719483365",
+              "id": 719483365,
+              "node_id": "RA_kwDOVIVYY84q4nHl",
+              "name": "NodeSight-1.7.0.zip",
+              "label": "",
+              "uploader": {
+                "login": "Krelock",
+                "id": 142703219,
+                "node_id": "U_kgDOCIF6cw",
+                "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+                "gravatar_id": "",
+                "url": "https://api.github.com/users/Krelock",
+                "html_url": "https://github.com/Krelock",
+                "followers_url": "https://api.github.com/users/Krelock/followers",
+                "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+                "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+                "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+                "organizations_url": "https://api.github.com/users/Krelock/orgs",
+                "repos_url": "https://api.github.com/users/Krelock/repos",
+                "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+                "received_events_url": "https://api.github.com/users/Krelock/received_events",
+                "type": "User",
+                "user_view_type": "public",
+                "site_admin": false
+              },
+              "content_type": "application/zip",
+              "state": "uploaded",
+              "size": 134007,
+              "digest": "sha256:88d26d22b5eae597e4cd2b99a6577d0ca49b4005fb411bfe58e47ac46634f8bc",
+              "download_count": 38,
+              "created_at": "2026-11-07T03:33:35Z",
+              "updated_at": "2026-11-07T03:33:36Z",
+              "browser_download_url": "https://github.com/Krelock/NodeSight/releases/download/v1.7.0/NodeSight-1.7.0.zip"
+            }
+          ],
+          "tarball_url": "https://api.github.com/repos/Krelock/NodeSight/tarball/v1.7.0",
+          "zipball_url": "https://api.github.com/repos/Krelock/NodeSight/zipball/v1.7.0",
+          "body": "## NodeSight 1.7.0\n\n### New\n- **Sparkles on skinnable corpses (Beta)** (off by default). A looted corpse you can skin sparkles, so you don't run past it. Turn it on in the Sparkle window's new **Skinning** tab\n- **Landing flies**. A sparkle style for corpses: flies buzz around the corpse and land on it now and then. Pick it in the **Skinning** tab\n- **Far away sparkle size** (150% by default). Far away sparkles are bigger and easier to see. Make them bigger or smaller under **Beta**\n- **Keep my tracked quest (less accurate sparkles)** (off by default). Your tracked quest keeps the game's navigation, but Far away sparkles are much less accurate: they borrow the map pin for a moment after you turn or zoom. Under **Beta**\n- **Line up again every** (5 seconds by default). How often Far away sparkles line up again with Keep my tracked quest on. Lower is more accurate, but your quest's arrow blinks more often. Under **Beta**\n- **Symbols near you** (Shown by default). A symbol on top of your own arrow on the minimap can be see-through or hidden, so you still see which way you face. It replaces See-through near you, under **Minimap**\n- **Sound** (Minimap ping by default). Pick which of the game's sounds Sound for new finds plays: Minimap ping, Coins, Whisper, Ready check, Raid warning or Auction bell. Under Sound for new finds on **NodeSight**'s page\n- **Only for skill-ups** (off by default). Sound for new finds only plays for herbs and ore you can still get a skill-up from. Under Sound for new finds on **NodeSight**'s page\n\n### Changes\n- **Settings**. Easier to find your way around: Symbols is now **Minimap**, the pages have headings, and settings that need another one sit under it and only show while it's on. Shorter tooltips\n- **Rares on the minimap**. No longer Beta, and it moved to **Minimap** with Rare symbol\n- **Arrow size**. The arrow's name and distance now grow and shrink with the arrow\n- **Far away sparkles (Beta)**. They line up better on herbs above you, move smoothly when you turn the camera, no longer flicker and stay on in fights. Their map pin no longer shows on the world map\n- **Sparkles**. Close-range sparkles fade in over a second instead of popping in, and far away sparkles fade out as you walk up, so the two blend\n- **What's New**. The button glows after an update until you've opened the notes\n\n### Fixes\n- Far away sparkles (Beta) could keep the map pin on a node someone else gathered while Switch between herbs and ore had its finder off\n\n## NodeSight 1.6.3\n\n### New\n- **Switch page**. Switch between herbs and ore has its own page in Options now, under NodeSight. Each switch costs a global cooldown, so it can wait for a better moment. Thanks to tester617 for all of it on GitHub\n- **Distance between switches** (40% of the minimap by default). Measure it in percent of what your minimap shows, in yards or in seconds on the move, under **Switch**\n- **Pauses** (on by default). No switch while you cast, gather, loot or have something on the cursor, while stealthed, near a herb or ore, for 3 seconds after your own spells or dismounting, or with an enemy targeted within about 40 yards. Each one can be set under **Switch**\n- **Where to switch** (open world, dungeons and raids on, battlegrounds off). Plus **Only while mounted** (off by default), under **Switch**\n\n### Changes\n- **Switch between herbs and ore**. It no longer switches every 15 yards. It never switches while standing still, on a flight path, while dead or during the global cooldown, and after two switches in a row that didn't work it stops for a minute. Yards between switches is gone\n- **Minimap shape**. Automatic shows what it found in brackets: Round, Square or Mixed. Thanks to tester617\n"
+        },
+        {
+          "url": "https://api.github.com/repos/Krelock/NodeSight/releases/436920400",
+          "assets_url": "https://api.github.com/repos/Krelock/NodeSight/releases/436920400/assets",
+          "upload_url": "https://uploads.github.com/repos/Krelock/NodeSight/releases/436920400/assets{?name,label}",
+          "html_url": "https://github.com/Krelock/NodeSight/releases/tag/v1.6.3",
+          "id": 436920400,
+          "author": {
+            "login": "Krelock",
+            "id": 142703219,
+            "node_id": "U_kgDOCIF6cw",
+            "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/Krelock",
+            "html_url": "https://github.com/Krelock",
+            "followers_url": "https://api.github.com/users/Krelock/followers",
+            "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+            "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+            "organizations_url": "https://api.github.com/users/Krelock/orgs",
+            "repos_url": "https://api.github.com/users/Krelock/repos",
+            "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/Krelock/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "node_id": "RE_kwDOVIVYY84aCuBQ",
+          "tag_name": "v1.6.3",
+          "target_commitish": "main",
+          "name": "NodeSight 1.6.3",
+          "draft": false,
+          "immutable": false,
+          "prerelease": false,
+          "created_at": "2026-11-06T19:41:44Z",
+          "updated_at": "2026-11-06T19:43:27Z",
+          "published_at": "2026-11-06T19:43:27Z",
+          "assets": [
+            {
+              "url": "https://api.github.com/repos/Krelock/NodeSight/releases/assets/718339463",
+              "id": 718339463,
+              "node_id": "RA_kwDOVIVYY84q0P2H",
+              "name": "NodeSight-1.6.3.zip",
+              "label": "",
+              "uploader": {
+                "login": "Krelock",
+                "id": 142703219,
+                "node_id": "U_kgDOCIF6cw",
+                "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+                "gravatar_id": "",
+                "url": "https://api.github.com/users/Krelock",
+                "html_url": "https://github.com/Krelock",
+                "followers_url": "https://api.github.com/users/Krelock/followers",
+                "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+                "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+                "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+                "organizations_url": "https://api.github.com/users/Krelock/orgs",
+                "repos_url": "https://api.github.com/users/Krelock/repos",
+                "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+                "received_events_url": "https://api.github.com/users/Krelock/received_events",
+                "type": "User",
+                "user_view_type": "public",
+                "site_admin": false
+              },
+              "content_type": "application/zip",
+              "state": "uploaded",
+              "size": 127388,
+              "digest": "sha256:32b36b823f1e5a9fc35de315eb64130562256ea7c6c503b9c9e21c1676d6de35",
+              "download_count": 5,
+              "created_at": "2026-11-06T19:43:26Z",
+              "updated_at": "2026-11-06T19:43:26Z",
+              "browser_download_url": "https://github.com/Krelock/NodeSight/releases/download/v1.6.3/NodeSight-1.6.3.zip"
+            }
+          ],
+          "tarball_url": "https://api.github.com/repos/Krelock/NodeSight/tarball/v1.6.3",
+          "zipball_url": "https://api.github.com/repos/Krelock/NodeSight/zipball/v1.6.3",
+          "body": "## NodeSight 1.6.3\n\n### New\n- **Switch page**. Switch between herbs and ore has its own page in Options now, under NodeSight. Each switch costs a global cooldown, so it can wait for a better moment. Thanks to tester617 for all of it on GitHub\n- **Distance between switches** (40% of the minimap by default). Measure it in percent of what your minimap shows, in yards or in seconds on the move, under **Switch**\n- **Pauses** (on by default). No switch while you cast, gather, loot or have something on the cursor, while stealthed, near a herb or ore, for 3 seconds after your own spells or dismounting, or with an enemy targeted within about 40 yards. Each one can be set under **Switch**\n- **Where to switch** (open world, dungeons and raids on, battlegrounds off). Plus **Only while mounted** (off by default), under **Switch**\n\n### Changes\n- **Switch between herbs and ore**. It no longer switches every 15 yards. It never switches while standing still, on a flight path, while dead or during the global cooldown, and after two switches in a row that didn't work it stops for a minute. Yards between switches is gone\n- **Minimap shape**. Automatic shows what it found in brackets: Round, Square or Mixed. Thanks to tester617\n"
+        }
+      ]
+    },
+    "toc_main_uncached": {
+      "url": "https://raw.githubusercontent.com/Krelock/NodeSight/main/NodeSight.toc?codex_check=20261110T020111Z",
+      "headers": {
+        "Date": "Tue, 10 Nov 2026 02:02:53 GMT",
+        "Last-Modified": null,
+        "ETag": "\"695e29b30f633203a40052e005d90edbbe5eb82a9df76ecac76304acac907824\"",
+        "Age": null,
+        "X-Cache": "MISS"
+      },
+      "data": "## Interface: 16001\n## Title: NodeSight\n## Notes: See what every herb and ore on your minimap is, with an arrow to the nearest one and gold sparkles on it when you're close.\n## Author: Krelock\n## Version: 1.9.0\n## SavedVariables: NodeSightDB\n## SavedVariablesPerCharacter: NodeSightCharDB\n## IconTexture: Interface\\Icons\\INV_Misc_Herb_01\n## Category: Professions\n\nLocales\\deDE.lua\nLocales\\esES.lua\nLocales\\esMX.lua\nLocales\\frFR.lua\nLocales\\koKR.lua\nLocales\\ptBR.lua\nLocales\\zhCN.lua\nLocales\\zhTW.lua\nZones.lua\nQuestObjects.lua\nNames.lua\nRareNames.lua\nMinimapShape.lua\nNodeSight.lua\nSwitch.lua\nSparkles.lua\nFarSparkles.lua\nSparkleWindow.lua\nWhatsNew.lua\nSettings.lua\n"
+    },
+    "readme_main_uncached": {
+      "url": "https://raw.githubusercontent.com/Krelock/NodeSight/main/README.md?codex_check=20261110T020111Z",
+      "error": "HTTP Error 404: Not Found"
+    }
+  },
+  "assessment": {
+    "comparedWith": "v1.8.4 / 31605d139d203ad7c8a2f366f039d7430debb64d",
+    "githubLatestVerified": "v1.9.0",
+    "githubHeadVerified": "7d282780cd8e41c0ceef813b4a6e0bdac4b4f904",
+    "githubPublishedAt": "2026-11-09T05:35:45Z",
+    "curseforgeLatestVerified": "2.0.1",
+    "curseforgeFile": "https://www.curseforge.com/wow/addons/node-sight/files/9533303",
+    "curseforge200": "https://www.curseforge.com/wow/addons/node-sight/files/9531468",
+    "client": "WoW Forever 1.60.1; pinned GitHub TOC Interface16001",
+    "newChanges": [
+      "1.9.0 introduces stand-in world-map display, fading and fewer-blink handling plus NPC-window scan pauses",
+      "2.0.0 substitutes real minimap terrain art and tracked service/quest icons while the true minimap is hidden and moved; adds scan master switch",
+      "2.0.1 restores true minimap immediately on click/hover, fixes Group Finder/right-click loss, warns about Lueur concurrent node scanning"
+    ],
+    "methodStillMovesAndHidesRealMinimap": true,
+    "methodOfficialDescription": "https://www.curseforge.com/wow/addons/node-sight",
+    "oldSoftCursorRestorationConfirmed": false,
+    "independentPublicResourceFeedConfirmed": false,
+    "apiStaticReview": "Pinned1.9.0 NodeSightAPI.GetSymbols copies current markers and callbacks run after FinishScan; not an independent native resource feed, no per-resource freshness metadata. New CF2.0.x notes announce no independent resource API.",
+    "sourceLimit": "GitHub current HEAD/latest/TOC remain1.9.0 even with uncached requests; CF2.0.1 source not obtained (official download returned403). Do not claim2.0.1 source inspection.",
+    "verification": "Official release notes/description and pinned1.9.0 static source only. No installation, execution, gameplay interaction, addon modification, public ZIP or website deployment.",
+    "suitableUnderCurrentMinimapRestrictions": false,
+    "publicationHoldUnchanged": true
+  },
+  "researchSourceHashes": {
+    "NodeSight.lua": "0ee7ced751fc867488a5e332fab93f2a4931c68bdad6adb3fc5c9d4b0dbe699a",
+    "NodeSight.toc": "9585816f7b01106ee38a02951bc7c9d44417e7e1430322cd9db20719fa30eeed",
+    "WhatsNew.lua": "87daed72ae6d9488b7c55329919ef4e26d8841fb9f2423bd553130a46bcc1e41"
+  },
+  "automationUpdate": {
+    "id": "nodesight",
+    "baselineUpdatedTo": {
+      "github": "1.9.0 / 7d282780cd8e41c0ceef813b4a6e0bdac4b4f904",
+      "curseforge": "2.0.1 / file9533303"
+    },
+    "schedulePreserved": "daily10:00 Asia/Shanghai",
+    "publicationHoldPreserved": true,
+    "status": "ACTIVE"
+  },
+  "notificationDecision": "NOTIFY",
+  "notificationReason": "New CF2.0.0/2.0.1 scan-presentation and input-compatibility changes since prior1.8.4 baseline; no compatible old-reader restoration."
+}

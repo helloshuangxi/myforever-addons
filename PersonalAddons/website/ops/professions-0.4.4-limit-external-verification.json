@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "checked_at": "2026-11-07T06:29:55.793021+00:00",
+  "location": "local macOS external HTTPS",
+  "files": [
+    {
+      "path": "professions/",
+      "status": 200,
+      "bytes": 17870,
+      "sha256": "8189048bc69d5b0f84027d4934b9c83d83c742aa1f643ed751ff08772d2d11df",
+      "cache_control": "no-cache"
+    },
+    {
+      "path": "professions/latest.json",
+      "status": 200,
+      "bytes": 1626,
+      "sha256": "ca1a1e6e06091e5bf359a7308fbb5043901cb3cd03235cd9e746330ffca52097",
+      "cache_control": "no-cache"
+    },
+    {
+      "path": "professions/releases.json",
+      "status": 200,
+      "bytes": 11204,
+      "sha256": "1b1d215a471af9d2d9f660421b7b7979d1666c98c1a5cdbf02be6a6b9c3c1d08",
+      "cache_control": "no-cache"
+    },
+    {
+      "path": "latest.json",
+      "status": 200,
+      "bytes": 2124,
+      "sha256": "8dd350d747cf026fce8ee3e49eb928416bb87f48e073f108f292152b4b71e7fa",
+      "cache_control": "no-cache"
+    },
+    {
+      "path": "manager/latest.json",
+      "status": 200,
+      "bytes": 2979,
+      "sha256": "3b81eca5bd5ae776382ef0ea0a6d229a8ccfbc38c7559eb3f2304d9d00ca0f30",
+      "cache_control": "no-cache"
+    },
+    {
+      "path": "downloads/MyForeverProfessions-0.4.4-Trial.zip",
+      "status": 200,
+      "bytes": 53269,
+      "sha256": "cad46e8c6077d6f108e3a7cc3eb8c679a4bbe55782a761a82d70dac9066a0574",
+      "cache_control": "public, max-age=31536000, immutable"
+    }
+  ],
+  "scope": "Current professions page with explicit gathering limitation, professions metadata and original ZIP, unchanged chat/manager metadata; complete archives checked separately from server."
+}

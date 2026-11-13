@@ -1,0 +1,20 @@
+## Interface: 16001
+## Title: 我的无限 · |cffe8be75商业技能助手|r
+## Notes: 专业进度、训练推荐、附近训练师与近距离矿草闪光及提示音。/myprof
+## Author: Hyder
+## Version: 0.4.7-dev.1
+## OptionalDeps: Questie, QuestieDB
+## SavedVariablesPerCharacter: MyForeverProfessionsDB
+
+Core.lua
+API.lua
+ItemLinks.lua
+Trainers.lua
+TrainerPins.lua
+GatherResources.lua
+GatherSparkles.lua
+GatherScan.lua
+GatherCursorScan.lua
+GatherAlerts.lua
+UI.lua
+Main.lua

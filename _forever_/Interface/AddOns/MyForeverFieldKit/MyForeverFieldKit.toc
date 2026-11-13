@@ -1,0 +1,8 @@
+## Interface: 16001
+## Title: 我的无限 · 随身手册
+## Notes: 区域坐标、普通背包空格、装备耐久与本次旅途收支。输入 /myfield。
+## Author: Personal Addons
+## Version: 0.1.0
+## SavedVariablesPerCharacter: MyForeverFieldKitDB
+
+Main.lua

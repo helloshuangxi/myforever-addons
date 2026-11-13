@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#173b2e">
+<title>商业技能助手 MyForeverProfessions — 魔兽世界无限插件下载</title>
+<meta name="description" content="识别角色商业技能，查看推荐项目、材料缺口和附近训练师。试用近距离矿草闪光、资源名称与采集线索提示；方向导航仍待恢复。下载 MyForeverProfessions 试用版。">
+<link rel="canonical" href="https://afabiaoge.xyz/professions/">
+<meta property="og:title" content="MyForeverProfessions · 商业技能助手">
+<meta property="og:description" content="练什么、缺什么，一眼看清。专业进度、训练推荐、材料缺口与附近训练师，常驻游戏界面。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://afabiaoge.xyz/professions/">
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/professions/style.css">
+<script src="/script.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">跳到正文</a>
+<header class="site-header">
+  <a class="brand" href="/">我的无限<span>Hyder 的魔兽插件</span></a>
+  <nav aria-label="主导航"><a href="/">插件首页</a><a href="/chat/">聊天插件</a><a href="/professions/" aria-current="page">商业技能助手</a><a href="#screenshots">实机截图</a><a href="#install">安装</a><a href="#updates">更新</a><a href="/#community">建议楼</a></nav>
+</header>
+<main id="main">
+<section class="profession-hero" aria-labelledby="hero-title">
+  <div class="profession-intro">
+    <p class="eyebrow">MyForeverProfessions · 商业技能助手</p>
+    <h1 id="hero-title">练什么，缺什么，<br>一眼看清。</h1>
+    <p class="lead">角色的专业进度、可以练的项目、还差的材料，放在一个常驻小窗口里。展开一项，就能继续规划下一步；采集时还可查看近距离资源提示与矿草闪光。</p>
+    <!-- release:hero-download:start --><a class="button" href="/downloads/MyForeverProfessions-0.4.6-Trial.zip" download>下载 v0.4.6 试用版 <span aria-hidden="true">↗</span></a><p class="download-meta">2026-11-08 发布 · 55.9 KiB<br>适配 1.60.1 / Interface 16001</p><!-- release:hero-download:end -->
+    <a class="text-link" href="#install">第一次使用？查看安装方法</a>
+    <a class="text-link" href="#gather-alerts">近距离采集提示与闪光</a>
+  </div>
+  <aside class="profession-preview" aria-label="游戏内效果预览">
+    <div class="profession-preview-inner">
+      <a class="image-link" href="/assets/professions-overview.jpg" data-lightbox aria-label="放大商业技能助手实机截图">
+        <img src="/assets/professions-overview.jpg" alt="商业技能助手面板显示采矿 3/75、烹饪 2/75，急救和钓鱼未学习" width="480" height="320" fetchpriority="high">
+      </a>
+      <div class="stage-caption"><span>商业技能助手实机画面</span><a href="#screenshots">查看全部截图</a></div>
+      <p class="privacy-caption">已脱敏，点图可放大。</p>
+    </div>
+  </aside>
+</section>
+<section class="page-section profession-features" id="features" aria-labelledby="features-title">
+  <div class="section-intro"><h2 id="features-title">跟着角色，<br>整理好专业。</h2><p>根据当前角色识别已学技能。常用信息留在眼前，展开细节时只显示一个专业。</p></div>
+  <div class="feature-columns">
+    <article><h3>进度始终在眼前</h3><p>标题显示当前技能点与上限，进度条直观呈现比例。支持拖动、锁定、65%–160% 缩放，按角色保存位置与设置。</p><p>覆盖炼金、锻造、附魔、工程、制皮、裁缝、草药、采矿、剥皮，以及烹饪、急救、钓鱼。未学副专业也保留学习入口提示。</p></article>
+    <article><h3>材料名，少打一遍</h3><p>先点选搜索输入框，再 Shift + 左键点击材料，填入纯材料名；焦点在聊天输入框时，填入物品链接。</p><p>普通点击查看物品详情，悬停查看提示。材料输入不会自动查询或发送；实际拍卖行 Shift 点击尚未独立实测。</p></article>
+    <article><h3>训练师，各有标识</h3><p>面板显示训练师姓名、区域与坐标。地图用不同专业图标区分，靠近的位置分开排列，选中的图标缓慢闪烁。再点同一个训练师入口可隐藏图标，地图保持打开。</p><p>位置来自已安装的 Questie 与 QuestieDB 无限服数据，按阵营筛选。坐标是位置参考，可学内容以训练师窗口为准。</p></article>
+  </div>
+</section>
+<section class="screenshots page-section profession-screenshots" id="screenshots" aria-labelledby="screenshots-title">
+  <div class="section-intro"><h2 id="screenshots-title">在游戏里看效果</h2><p>从专业进度到训练师位置，点击图片查看放大后的实机画面。截图已脱敏。</p></div>
+  <div class="screenshot-gallery">
+    <figure class="screenshot-item">
+      <a class="image-link" href="/assets/professions-overview.jpg" data-lightbox>
+        <img src="/assets/professions-overview.jpg" alt="商业技能助手面板显示采矿 3/75、烹饪 2/75，急救和钓鱼未学习" width="480" height="320" loading="lazy">
+      </a>
+      <figcaption><h3>专业进度</h3><p>常驻面板显示已学专业的技能点与上限，并标出尚未学习的急救和钓鱼。</p></figcaption>
+    </figure>
+    <figure class="screenshot-item">
+      <a class="image-link" href="/assets/professions-materials.jpg" data-lightbox>
+        <img src="/assets/professions-materials.jpg" alt="采矿面板推荐熔炼铜锭，铜矿石需要 1、已有 0、缺少 1" width="390" height="370" loading="lazy">
+      </a>
+      <figcaption><h3>推荐项目与材料</h3><p>展开采矿后，面板推荐熔炼铜锭，并显示需要补 1 个铜矿石。</p></figcaption>
+    </figure>
+    <figure class="screenshot-item">
+      <a class="image-link" href="/assets/professions-trainers.jpg" data-lightbox>
+        <img src="/assets/professions-trainers.jpg" alt="地图上的矿镐、烹饪、急救和鱼竿图标分别标出四种训练师" width="630" height="420" loading="lazy">
+      </a>
+      <figcaption><h3>训练师位置</h3><p>地图上用不同图标标出采矿、烹饪、急救和钓鱼训练师。</p></figcaption>
+    </figure>
+  </div>
+</section>
+<section class="install page-section" id="install" aria-labelledby="install-title">
+  <div class="section-intro"><h2 id="install-title">装好，打开你的专业。</h2><p>适配国服《魔兽世界：无限》1.60.1，Interface 16001。当前为试用版，Windows 与 macOS 使用相同目录层级。</p></div>
+  <div class="install-layout">
+    <ol class="install-steps">
+      <li><h3>退出游戏，解压下载包</h3><p>找到解压后的 <code>MyForeverProfessions</code> 文件夹。</p></li>
+      <li><h3>放入游戏插件目录</h3><p>将整个文件夹放入 <code>_forever_/Interface/AddOns/</code>。打开该文件夹应能直接看到 TOC 文件。</p></li>
+      <li><h3>重启并启用插件</h3><p>首次安装请完整重启游戏，在插件列表勾选「我的无限 · 商业技能助手」。输入 <code>/myprof</code> 显示面板。</p></li>
+      <li><h3>首次打开各项专业</h3><p>点击「打开专业」读取配方与材料。每个已学专业都需分别打开一次；关闭原生窗口后，助手仍保持显示。</p></li>
+    </ol>
+    <div class="install-aside">
+      <div class="folder-guide"><h3>目录层级</h3><pre><code>_forever_/
+└─ Interface/
+   └─ AddOns/
+      └─ MyForeverProfessions/
+         └─ MyForeverProfessions.toc</code></pre></div>
+      <div class="upgrade-note"><h3>训练师信息需要什么？</h3><p>启用适配无限服的 <strong>Questie + QuestieDB</strong>，才能读取附近训练师。地图专业图标使用已安装插件提供的 HereBeDragons 图标库；没有图标库时保留坐标与原生地图标记。</p><p>发行包不包含这些第三方插件。专业识别、推荐与材料显示可独立使用。</p></div>
+      <div class="upgrade-note"><h3>已有版本怎么更新？</h3><p>完整退出游戏后，用新包替换旧的插件文件夹，保留 <strong>WTF</strong> 目录以保留个人设置，再重新启动游戏。从旧版升级也建议完整重启，确保所有模块加载。</p></div>
+    </div>
+  </div>
+</section>
+<section class="usage page-section" id="usage" aria-labelledby="usage-title">
+  <div class="section-intro"><h2 id="usage-title">让它待在顺手的位置。</h2><p>拖动标题移动窗口，使用右下角加减按钮或 Ctrl + 滚轮缩放。点标题右侧的减号收成与聊天按钮同尺寸的绿色「商」字图标，再点图标即可展开。「商」字图标始终可直接左键拖动，主面板锁定只限制标题；拖动松开不会误展开。</p></div>
+  <div class="usage-layout">
+    <div class="usage-notes">
+      <article><h3>按橙、黄、绿选择练习</h3><p>只推荐已学、可用、可涨点的项目，同色优先材料齐全的项目。红色、灰色、不可用及冷却中的项目不会进入推荐。</p><p>普通技能点没有可靠的内部经验或保证升级次数接口；标题显示当前点数／上限。客户端提供具体项目熟练度时，才显示还差多少熟练度。</p></article>
+      <article><h3>从材料缺口准备下一次制作</h3><p>每种材料显示单次需要量、背包已有量和缺口。可做次数只代表材料够用次数，不表示保证升级次数。采集项目不显示制造材料；采矿的熔炼配方仍显示所需材料。</p></article>
+      <article><h3>重新打开专业，更新数据</h3><p>背包、技能和配方变化时更新；战斗中暂停刷新。重载后暂用上次记录，打开原生专业窗口可重新确认配方难度。旧记录与读取范围说明可在项目悬停提示中查看。</p></article>
+      <article id="gather-alerts"><h3>靠近资源，看矿名与闪光</h3><p>原生近距离接口识别到角色技能足够的矿石或草药时，提示框显示资源名和「就在附近」。矿石用金色、草药用绿色闪光，带深色描边、加大的亮点和柔光，方便在场景中辨认。即使客户端未生成资源姓名板，确认的原生交互目标也可提供文字和声音；闪光仍需真实姓名板。显示范围取决于客户端提供的交互目标，小地图有黄点不等于已进入此范围。</p><p>只读到无法定位的矿名时，显示「采集线索：铜矿」与「位置待确认 · 暂无方向」。这可能是旧悬停内容，不能据此确认附近仍有矿；线索状态不显示箭头，也不播放发现声音。</p><p><strong>试用范围：</strong>已在 macOS 无限 1.60.1（build 70862）真实铜矿旁观察到自动「铜矿／就在附近」提示与描边闪光，矿点消失后自动清除。声音调用获客户端接受，实际听感尚未确认。无姓名板回退已通过模拟检查，现场未隔离验证。草药及其他地形待验证；完整小地图找矿和方向导航仍未恢复。</p><p>近距离确认资源时已接入一次提示音，持续可见时不反复响。可用 <code>/myprof gather test</code> 试听并预览箭头，用 <code>/myprof gather mute</code> 静音，<code>/myprof gather unmute</code> 恢复声音；自动触发已记录客户端成功调用，实际听感仍待验收。</p><p>提示框出现时，直接用左键拖框身移动，拖右下角斜纹手柄在 70%–130% 之间缩放，松开即保存。点主面板的「采集」或输入 <code>/myprof gather move</code>，没有资源时也能打开预览调整位置。</p></article>
+      <article><h3>方向什么时候能自动出现？</h3><p>开启角色已学的寻找矿物、寻找草药或寻找鱼群后，当小地图重新提供有效资源位置，插件会自动切换为名称和方向箭头，无需另开导航。这个自动切换已通过模拟检查，尚未确认当前客户端恢复定位；手动箭头预览也不代表真实导航已恢复。</p></article>
+      <article><h3>如何关闭提示或调整闪光？</h3><p><code>/myprof gather off</code> 关闭文字提醒和自动声音，<code>/myprof gather on</code> 恢复。<code>/myprof sparkle scale 1.2</code> 将闪光调到 120%，支持 60%–160%。<code>/myprof sparkle off</code> 关闭闪光及其近距离文字、声音来源，<code>/myprof sparkle on</code> 恢复。</p><p>闪光会调整游戏的近距离交互目标设置。卸载前请先执行 <code>/myprof sparkle off</code>；插件会恢复仍由它控制的设置，并保留期间由你或其他插件修改过的值。</p></article>
+    </div>
+    <div class="command-list"><h3>常用命令</h3><p>点击命令复制，再粘贴到游戏原生聊天框。</p><dl>
+      <div><dt><button class="copy-command" data-copy="/myprof" type="button"><code>/myprof</code><span>复制</span></button></dt><dd>显示商业技能助手</dd></div>
+      <div><dt><button class="copy-command" data-copy="/myprof hide" type="button"><code>/myprof hide</code><span>复制</span></button></dt><dd>隐藏面板</dd></div>
+      <div><dt><button class="copy-command" data-copy="/myprof lock" type="button"><code>/myprof lock</code><span>复制</span></button></dt><dd>锁定或解锁位置</dd></div>
+      <div><dt><button class="copy-command" data-copy="/myprof scale 1.2" type="button"><code>/myprof scale 1.2</code><span>复制</span></button></dt><dd>缩放到 120%</dd></div>
+      <div><dt><button class="copy-command" data-copy="/myprof refresh" type="button"><code>/myprof refresh</code><span>复制</span></button></dt><dd>刷新当前专业与材料</dd></div>
+      <div><dt><button class="copy-command" data-copy="/myprof gather test" type="button"><code>/myprof gather test</code><span>复制</span></button></dt><dd>预览采集箭头与声音</dd></div>
+      <div><dt><button class="copy-command" data-copy="/myprof gather move" type="button"><code>/myprof gather move</code><span>复制</span></button></dt><dd>调整采集提示位置和大小</dd></div>
+      <div><dt><button class="copy-command" data-copy="/myprof reset" type="button"><code>/myprof reset</code><span>复制</span></button></dt><dd>恢复默认位置与大小</dd></div>
+    </dl><p class="copy-status" role="status" aria-live="polite"></p></div>
+  </div>
+</section>
+<section class="updates page-section" id="updates" aria-labelledby="updates-title">
+  <div class="section-intro"><h2 id="updates-title">下载与验证记录</h2><p>这是独立的商业技能插件。版本、安装包和校验值单独维护，可与聊天插件一同使用。</p></div>
+  <div class="release-layout">
+    <!-- release:latest:start --><article class="latest-release"><h3>v0.4.6 · 试用版</h3><p class="release-date">2026-11-08</p><ul><li>补充原生交互目标识别：客户端未生成资源姓名板时，已确认且技能足够的矿草仍可触发近距离文字和声音；闪光继续跟随真实姓名板。</li><li>改进交互目标与姓名板切换时的声音去重，避免同一目标重复提醒，或误将不同可识别矿点的声音一起抑制。</li><li>状态命令分别显示闪光数量、近距离资源种类和声音调用次数，便于确认当前识别情况。</li><li>已在真实铜矿旁确认自动“铜矿／就在附近”提示和描边闪光。本次按头顶提示出现验收；小地图方向仍未恢复，实际声音听感待确认。</li></ul><a class="button" href="/downloads/MyForeverProfessions-0.4.6-Trial.zip" download>下载 v0.4.6 试用版 <span aria-hidden="true">↗</span></a><p class="package-meta">ZIP · 57,254 字节 · 插件源码、MIT 许可、使用说明和脱敏验证摘要；不含角色配置或聊天数据</p></article><!-- release:latest:end -->
+    <div class="release-detail"><h3>下载校验</h3><p>下载包只含插件源码、MIT 许可与说明，不含玩家账号数据、个人设置或第三方插件。</p>
+      <!-- release:checksum:start --><div class="checksum"><span>SHA-256</span><code>6d1e93b4d9865216d46d532770813b38572692134a8dd16333f87d864cf62bb6</code></div><!-- release:checksum:end -->
+      <a class="text-link" href="/professions/latest.json">查看版本信息 JSON</a>
+      <h3 class="validation-heading">当前验证范围</h3>
+      <!-- release:validation:start --><p>11 个 Lua 文件语法检查、1254 项模拟检查通过（近距离专项 209 项）；独立复核另有 27 项断言通过，覆盖无姓名板识别、来源顺序、失败重试与声音去重。</p><p>macOS 无限 1.60.1（build 70862）中，加载相同功能源码的 0.4.6-dev.1 后，靠近并面向真实铜矿时自动出现“铜矿／就在附近”和金色描边闪光；矿点消失后提示与特效清除。客户端记录近距离声音调用成功 3 次，用户未留意实际声音，并明确以头顶提示出现作为本次验收标准。</p><p>无姓名板回退在模拟中通过，现场触发时可见姓名板闪光，尚未隔离实测该回退路径。可靠方向、实际声音听感、草药、更多地形及其他操作系统仍待验证；本版不代表完整小地图找矿恢复。</p><!-- release:validation:end -->
+    </div>
+  </div>
+  <div class="history"><h3>版本记录</h3><!-- release:history:start --><details><summary><span>v0.4.5</span><span>2026-11-08</span></summary><p>新增近距离矿草提示：原生接口确认可采资源时显示矿名和“就在附近”，并提供带深色描边的大闪光。</p><p>保留无法定位的矿名线索，明确标注“位置待确认 · 暂无方向”；此状态不播放发现声音，也不表示附近一定有矿。</p><p>加入近距离提示音、重复提醒间隔及有效位置恢复后的自动导航切换。方向当前仍未恢复，自动声音待矿旁实测；本次先开放附近提示试用。</p><p>修复主面板锁定时“商”图标无法拖动的问题；图标可直接左键拖动，松开不误展开，位置自动保存。</p></details>
+<details><summary><span>v0.4.4</span><span>2026-11-07</span></summary><p>修复拖动或缩放提示框后可能一直暂停矿点扫描的问题，鼠标松开后自动恢复。</p><p>采集预览期间继续扫描资源，发现真实矿点后显示资源名称和方向。</p></details>
+<details><summary><span>v0.4.3</span><span>2026-11-07</span></summary><p>采集提示可直接用左键拖动框身移动，拖右下角的手柄在 70%–130% 之间缩放。松开鼠标即保存。</p><p>点主面板的「采集」可随时打开预览，用同样方式调整位置和大小。</p></details>
+<details><summary><span>v0.4.2</span><span>2026-11-07</span></summary><p>再次点击同一个训练师入口可隐藏助手的训练师图标，地图保持打开。再点可恢复显示，自动刷新期间保持隐藏。</p><p>折叠按钮改为与聊天插件同尺寸同样式的绿色「商」字按钮，大小独立于主面板缩放。</p></details>
+<details><summary><span>v0.4.1</span><span>2026-11-07</span></summary><p>主面板新增「采集」按钮，可拖动预览框并用 Ctrl 滚轮在 70%–130% 之间缩放，点「完成」保存。位置和大小按角色记录。</p><p>点击主面板右上角减号收成单个书本图标。点图标可恢复面板，未锁定时可拖动图标调整位置。</p></details>
+<details><summary><span>v0.4.0</span><span>2026-11-07</span></summary><p>采集提醒读取游戏当前的小地图追踪，筛选技能足够的已知矿脉、草药及已学钓鱼角色可追踪的鱼群。</p><p>屏幕上方显示最近资源的名称和相对角色朝向的箭头，并播放提示音；持续出现的同名目标只响一次。</p><p>提醒默认开启。新增 /myprof gather test 预览，提醒开关和静音设置按角色保存。升级后需要完整重启游戏。</p></details>
+<details><summary><span>v0.3.1</span><span>2026-11-07</span></summary><p>自动识别角色已学商业技能，常驻显示技能点与上限，按橙、黄、绿顺序推荐可涨点的已学项目。</p><p>制造项目列出单次所需材料、背包数量和缺口；Shift 点击材料向当前搜索框填入名称，聊天框则插入物品链接。</p><p>精简重复说明和旧颜色标签，支持单项展开、拖动、缩放及角色独立保存。</p><p>显示附近训练师姓名、区域和坐标；不同专业使用各自图标，邻近图标分开排列，选中图标缓慢闪烁，不叠加定位点或金框。</p><p>训练师资料读取已安装的 Questie 与 QuestieDB 无限服数据，地图分类图标复用 HereBeDragons 图标库；不附带第三方数据库。</p></details><!-- release:history:end --></div>
+</section>
+</main>
+<footer class="site-footer"><a class="brand" href="/">我的无限<span>Hyder 的魔兽插件</span></a><p>为国服《魔兽世界：无限》制作的独立插件。<br>本网站与暴雪娱乐无隶属关系。</p><a href="/#community">建议与反馈</a></footer>
+<dialog class="image-dialog" aria-label="放大查看商业技能助手截图">
+  <button type="button" class="close-dialog" aria-label="关闭截图">关闭 ×</button>
+  <img alt="">
+  <p class="dialog-caption"></p>
+  <a class="original-link" href="/assets/professions-overview.jpg" target="_blank" rel="noopener">打开大图</a>
+</dialog>
+</body>
+</html>

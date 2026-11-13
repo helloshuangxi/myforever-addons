@@ -1,0 +1,19 @@
+{
+  "requirement": "combat focus must be automatically matched and confirmed by addon GUID identity",
+  "userQuote": "必须由插件自动匹配并确认",
+  "manualAlternativeRejected": true,
+  "status": "unresolved",
+  "addonVersion": "0.1.44",
+  "implementationChanged": false,
+  "candidatePublished": false,
+  "newRuntimeTests": false,
+  "lastChecks": [
+    "secure attribute bridge",
+    "macro state drivers",
+    "restricted frame method list",
+    "native unit frame attributes",
+    "nameplate isTarget/isFocus state",
+    "nameplate target highlight object type and semantics"
+  ],
+  "requiredMissingPremise": "trusted live identity predicate in restricted environment or a proven native arbitrary-GUID focus operation"
+}

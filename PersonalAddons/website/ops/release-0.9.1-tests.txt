@@ -1,0 +1,32 @@
+Lua 5.1 syntax: 29 files passed
+All simulated checks passed. In-game acceptance remains required.
+chat_about_test: 42 checks passed
+chat_actions_test: 8 checks passed
+chat_appearance_test: 59 checks passed
+Chat communities: 266 checks passed
+chat_community_storage_test: 24 checks passed
+chat_core_test: 642 checks passed
+chat_emotes_test: 11 checks passed
+|cff70d6aa我的聊天|r 已加载：Ctrl+X 回复泡泡／最小化，/wx 打开。
+chat_history_test: 43 checks passed
+chat_item_links_test: 14 checks passed
+chat_keybindings_test: 14 checks passed
+chat_main_events_test: 11 checks passed
+chat_native_clicks_test: 25 checks passed
+chat_notifications_test: 76 checks passed
+chat_profiles_test: 234 checks passed
+|cff70d6aa我的聊天|r 已加载：Ctrl+X 回复泡泡／最小化，/wx 打开。
+chat_ui_test: 367 checks passed
+details_truncation_test: 39 flow checks passed (secret sentinel, not Blizzard runtime)
+fieldkit_test: 36 checks passed
+MyForeverMacros: 64 checks passed (Lua Lua 5.1)
+paladin_seal_test: 150 checks passed
+priest_test: 61 checks passed
+MyForeverProfessions API/events: 188 simulated checks passed
+MyForeverProfessions core: 77 simulated checks passed
+professions_display_test: 13 checks passed
+professions_item_links_test: 82 checks passed
+professions_main_test: 135 checks passed
+MyForeverProfessions trainer pins: 159 simulated checks passed
+MyForeverProfessions trainers: 69 simulated checks passed
+professions_ui_test: 87 checks passed

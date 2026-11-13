@@ -1,0 +1,330 @@
+{
+  "checkedAt": "2026-11-08T10:50:03.177096+00:00",
+  "release": {
+    "url": "https://api.github.com/repos/Krelock/NodeSight/releases/438095017",
+    "assets_url": "https://api.github.com/repos/Krelock/NodeSight/releases/438095017/assets",
+    "upload_url": "https://uploads.github.com/repos/Krelock/NodeSight/releases/438095017/assets{?name,label}",
+    "html_url": "https://github.com/Krelock/NodeSight/releases/tag/v1.8.1",
+    "id": 438095017,
+    "author": {
+      "login": "Krelock",
+      "id": 142703219,
+      "node_id": "U_kgDOCIF6cw",
+      "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/Krelock",
+      "html_url": "https://github.com/Krelock",
+      "followers_url": "https://api.github.com/users/Krelock/followers",
+      "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+      "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+      "organizations_url": "https://api.github.com/users/Krelock/orgs",
+      "repos_url": "https://api.github.com/users/Krelock/repos",
+      "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/Krelock/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "node_id": "RE_kwDOVIVYY84aHMyp",
+    "tag_name": "v1.8.1",
+    "target_commitish": "main",
+    "name": "NodeSight 1.8.1",
+    "draft": false,
+    "immutable": false,
+    "prerelease": false,
+    "created_at": "2026-11-08T07:14:50Z",
+    "updated_at": "2026-11-08T07:21:09Z",
+    "published_at": "2026-11-08T07:21:09Z",
+    "assets": [
+      {
+        "url": "https://api.github.com/repos/Krelock/NodeSight/releases/assets/723225111",
+        "id": 723225111,
+        "node_id": "RA_kwDOVIVYY84rG4oX",
+        "name": "NodeSight-1.8.1.zip",
+        "label": "",
+        "uploader": {
+          "login": "Krelock",
+          "id": 142703219,
+          "node_id": "U_kgDOCIF6cw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Krelock",
+          "html_url": "https://github.com/Krelock",
+          "followers_url": "https://api.github.com/users/Krelock/followers",
+          "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+          "organizations_url": "https://api.github.com/users/Krelock/orgs",
+          "repos_url": "https://api.github.com/users/Krelock/repos",
+          "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Krelock/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "content_type": "application/zip",
+        "state": "uploaded",
+        "size": 143933,
+        "digest": "sha256:07b8a350b03c30f6173f82c9dfc116dab9b1760b4cc644d919745b8fdcc0d4bd",
+        "download_count": 2,
+        "created_at": "2026-11-08T07:21:09Z",
+        "updated_at": "2026-11-08T07:21:09Z",
+        "browser_download_url": "https://github.com/Krelock/NodeSight/releases/download/v1.8.1/NodeSight-1.8.1.zip"
+      }
+    ],
+    "tarball_url": "https://api.github.com/repos/Krelock/NodeSight/tarball/v1.8.1",
+    "zipball_url": "https://api.github.com/repos/Krelock/NodeSight/zipball/v1.8.1",
+    "body": "## NodeSight 1.8.1\n\n### Changes\n- **Scan look**. While a scan runs, the minimap's circle is see-through instead of dark, so you still see the world around your symbols\n\n### Fixes\n- **Windows during a scan**. Opening your bags or moving your mouse onto a window mid-scan pauses the scan, so your minimap comes right back and item tooltips show; it carries on if you're back within 2 seconds. The scan key does nothing while your mouse is over one\n- **Minimap buttons**. A click during a scan no longer lands on another addon's button on the minimap (a calendar opening by itself, say)\n"
+  },
+  "commits": [
+    {
+      "sha": "9919159d0b177244884e6dc68896b6f72775e228",
+      "node_id": "C_kwDOVIVYY9oAKDk5MTkxNTlkMGIxNzcyNDQ4ODRlNmRjNjg4OTZiNmY3Mjc3NWUyMjg",
+      "commit": {
+        "author": {
+          "name": "Krelock",
+          "email": "142703219+Krelock@users.noreply.github.com",
+          "date": "2026-11-08T07:14:47Z"
+        },
+        "committer": {
+          "name": "Krelock",
+          "email": "142703219+Krelock@users.noreply.github.com",
+          "date": "2026-11-08T07:14:47Z"
+        },
+        "message": "NodeSight 1.8.1",
+        "tree": {
+          "sha": "bf313062c587cd06cf67c87ace671d4917201fdd",
+          "url": "https://api.github.com/repos/Krelock/NodeSight/git/trees/bf313062c587cd06cf67c87ace671d4917201fdd"
+        },
+        "url": "https://api.github.com/repos/Krelock/NodeSight/git/commits/9919159d0b177244884e6dc68896b6f72775e228",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/Krelock/NodeSight/commits/9919159d0b177244884e6dc68896b6f72775e228",
+      "html_url": "https://github.com/Krelock/NodeSight/commit/9919159d0b177244884e6dc68896b6f72775e228",
+      "comments_url": "https://api.github.com/repos/Krelock/NodeSight/commits/9919159d0b177244884e6dc68896b6f72775e228/comments",
+      "author": {
+        "login": "Krelock",
+        "id": 142703219,
+        "node_id": "U_kgDOCIF6cw",
+        "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/Krelock",
+        "html_url": "https://github.com/Krelock",
+        "followers_url": "https://api.github.com/users/Krelock/followers",
+        "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+        "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+        "organizations_url": "https://api.github.com/users/Krelock/orgs",
+        "repos_url": "https://api.github.com/users/Krelock/repos",
+        "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/Krelock/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "committer": {
+        "login": "Krelock",
+        "id": 142703219,
+        "node_id": "U_kgDOCIF6cw",
+        "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/Krelock",
+        "html_url": "https://github.com/Krelock",
+        "followers_url": "https://api.github.com/users/Krelock/followers",
+        "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+        "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+        "organizations_url": "https://api.github.com/users/Krelock/orgs",
+        "repos_url": "https://api.github.com/users/Krelock/repos",
+        "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/Krelock/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "parents": [
+        {
+          "sha": "2afee038e21d38ef5abdc13075c33ad328df1172",
+          "url": "https://api.github.com/repos/Krelock/NodeSight/commits/2afee038e21d38ef5abdc13075c33ad328df1172",
+          "html_url": "https://github.com/Krelock/NodeSight/commit/2afee038e21d38ef5abdc13075c33ad328df1172"
+        }
+      ]
+    },
+    {
+      "sha": "2afee038e21d38ef5abdc13075c33ad328df1172",
+      "node_id": "C_kwDOVIVYY9oAKDJhZmVlMDM4ZTIxZDM4ZWY1YWJkYzEzMDc1YzMzYWQzMjhkZjExNzI",
+      "commit": {
+        "author": {
+          "name": "Krelock",
+          "email": "142703219+Krelock@users.noreply.github.com",
+          "date": "2026-11-08T07:00:24Z"
+        },
+        "committer": {
+          "name": "Krelock",
+          "email": "142703219+Krelock@users.noreply.github.com",
+          "date": "2026-11-08T07:00:24Z"
+        },
+        "message": "NodeSight 1.8.1",
+        "tree": {
+          "sha": "705ba3db304b26b025d8818f27536a97e0995b56",
+          "url": "https://api.github.com/repos/Krelock/NodeSight/git/trees/705ba3db304b26b025d8818f27536a97e0995b56"
+        },
+        "url": "https://api.github.com/repos/Krelock/NodeSight/git/commits/2afee038e21d38ef5abdc13075c33ad328df1172",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/Krelock/NodeSight/commits/2afee038e21d38ef5abdc13075c33ad328df1172",
+      "html_url": "https://github.com/Krelock/NodeSight/commit/2afee038e21d38ef5abdc13075c33ad328df1172",
+      "comments_url": "https://api.github.com/repos/Krelock/NodeSight/commits/2afee038e21d38ef5abdc13075c33ad328df1172/comments",
+      "author": {
+        "login": "Krelock",
+        "id": 142703219,
+        "node_id": "U_kgDOCIF6cw",
+        "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/Krelock",
+        "html_url": "https://github.com/Krelock",
+        "followers_url": "https://api.github.com/users/Krelock/followers",
+        "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+        "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+        "organizations_url": "https://api.github.com/users/Krelock/orgs",
+        "repos_url": "https://api.github.com/users/Krelock/repos",
+        "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/Krelock/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "committer": {
+        "login": "Krelock",
+        "id": 142703219,
+        "node_id": "U_kgDOCIF6cw",
+        "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/Krelock",
+        "html_url": "https://github.com/Krelock",
+        "followers_url": "https://api.github.com/users/Krelock/followers",
+        "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+        "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+        "organizations_url": "https://api.github.com/users/Krelock/orgs",
+        "repos_url": "https://api.github.com/users/Krelock/repos",
+        "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/Krelock/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "parents": [
+        {
+          "sha": "d4edf2c05713a5416b40ad972f64d600fe583560",
+          "url": "https://api.github.com/repos/Krelock/NodeSight/commits/d4edf2c05713a5416b40ad972f64d600fe583560",
+          "html_url": "https://github.com/Krelock/NodeSight/commit/d4edf2c05713a5416b40ad972f64d600fe583560"
+        }
+      ]
+    },
+    {
+      "sha": "d4edf2c05713a5416b40ad972f64d600fe583560",
+      "node_id": "C_kwDOVIVYY9oAKGQ0ZWRmMmMwNTcxM2E1NDE2YjQwYWQ5NzJmNjRkNjAwZmU1ODM1NjA",
+      "commit": {
+        "author": {
+          "name": "Krelock",
+          "email": "142703219+Krelock@users.noreply.github.com",
+          "date": "2026-11-08T06:52:16Z"
+        },
+        "committer": {
+          "name": "Krelock",
+          "email": "142703219+Krelock@users.noreply.github.com",
+          "date": "2026-11-08T06:52:16Z"
+        },
+        "message": "NodeSight 1.8.1",
+        "tree": {
+          "sha": "c5e9b9031c80450a9dbd78872b54a2e7138fdfe1",
+          "url": "https://api.github.com/repos/Krelock/NodeSight/git/trees/c5e9b9031c80450a9dbd78872b54a2e7138fdfe1"
+        },
+        "url": "https://api.github.com/repos/Krelock/NodeSight/git/commits/d4edf2c05713a5416b40ad972f64d600fe583560",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/Krelock/NodeSight/commits/d4edf2c05713a5416b40ad972f64d600fe583560",
+      "html_url": "https://github.com/Krelock/NodeSight/commit/d4edf2c05713a5416b40ad972f64d600fe583560",
+      "comments_url": "https://api.github.com/repos/Krelock/NodeSight/commits/d4edf2c05713a5416b40ad972f64d600fe583560/comments",
+      "author": {
+        "login": "Krelock",
+        "id": 142703219,
+        "node_id": "U_kgDOCIF6cw",
+        "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/Krelock",
+        "html_url": "https://github.com/Krelock",
+        "followers_url": "https://api.github.com/users/Krelock/followers",
+        "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+        "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+        "organizations_url": "https://api.github.com/users/Krelock/orgs",
+        "repos_url": "https://api.github.com/users/Krelock/repos",
+        "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/Krelock/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "committer": {
+        "login": "Krelock",
+        "id": 142703219,
+        "node_id": "U_kgDOCIF6cw",
+        "avatar_url": "https://avatars.githubusercontent.com/u/142703219?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/Krelock",
+        "html_url": "https://github.com/Krelock",
+        "followers_url": "https://api.github.com/users/Krelock/followers",
+        "following_url": "https://api.github.com/users/Krelock/following{/other_user}",
+        "gists_url": "https://api.github.com/users/Krelock/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/Krelock/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/Krelock/subscriptions",
+        "organizations_url": "https://api.github.com/users/Krelock/orgs",
+        "repos_url": "https://api.github.com/users/Krelock/repos",
+        "events_url": "https://api.github.com/users/Krelock/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/Krelock/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "parents": [
+        {
+          "sha": "167f215163796bda9c4041b8d0810deb33f08a81",
+          "url": "https://api.github.com/repos/Krelock/NodeSight/commits/167f215163796bda9c4041b8d0810deb33f08a81",
+          "html_url": "https://github.com/Krelock/NodeSight/commit/167f215163796bda9c4041b8d0810deb33f08a81"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "date": "2026-11-08",
+  "timezone": "Asia/Shanghai",
+  "gameClock": "00:51-00:53",
+  "version": "0.4.5-dev.5",
+  "published": false,
+  "behavior": {
+    "priority": [
+      "valid minimap position",
+      "confirmed native nearby resource",
+      "unlocated tooltip clue"
+    ],
+    "hintTitle": "采集线索：铜矿",
+    "hintDetail": "位置待确认 · 暂无方向",
+    "hintHasBearing": false,
+    "hintTriggersDiscoverySound": false,
+    "nearbySnapshotFields": [
+      "name",
+      "kind",
+      "seenAt"
+    ],
+    "nearbyTtlSeconds": 0.6,
+    "automaticUpgradeWhenValidCoordinatesReturn": true
+  },
+  "checks": {
+    "luaSyntaxFiles": 11,
+    "simulatedChecks": 1147,
+    "scanChecks": 88,
+    "alertsChecks": 73,
+    "sparklesChecks": 122,
+    "independentReview": "passed",
+    "extraReviewerAssertions": 4
+  },
+  "live": {
+    "loadedVersion": "0.4.5-dev.5",
+    "hintTextVisible": true,
+    "hintNoArrow": true,
+    "textFitsFrame": true,
+    "gatherOffHides": true,
+    "gatherOnRestores": true,
+    "manualArrowPreviewVisible": true,
+    "hintReturnsAfterPreview": true,
+    "nearbyMatches": 0,
+    "nearbySoundSuccessCount": 0,
+    "confirmedNearbyHudVerified": false,
+    "actualCoordinatesRecovered": false,
+    "automaticAudibleSoundVerified": false,
+    "finalSettings": {
+      "gatherAlerts": true,
+      "gatherSound": true,
+      "gatherSparkles": true
+    },
+    "MFPQAbsent": true,
+    "characterMovedByAgent": false,
+    "resourcesGatheredByAgent": false,
+    "chatMessagesSentByAgent": false,
+    "otherAddonsChanged": false,
+    "temporaryDiagnosticsInstalled": false
+  },
+  "sourceSHA256": {
+    "GatherScan.lua": "9424ce812ee4839ba6df1e21742eb81565c2396c595253c190b45c77402fcddc",
+    "GatherAlerts.lua": "d1632b6f774eae8a180bf631bece6d6b7cd030335cfcddd492044da8b535046f",
+    "GatherSparkles.lua": "2355cbb293044cf710b27567009d2e1276068a52c47e5a6412931a55afde86a0",
+    "MyForeverProfessions.toc": "cc6854d573ed4f306e9d43b2e5da4bd8eeccfcd4efc6c3936e20d4f57be107ad"
+  },
+  "public044ZipSHA256": "cad46e8c6077d6f108e3a7cc3eb8c679a4bbe55782a761a82d70dac9066a0574"
+}

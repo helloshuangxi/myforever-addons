@@ -1,0 +1,56 @@
+[
+  {
+    "source": "Game client capture in session 01a1b11c-8c11-7f12-907f-25b53dc5ec01, record/image 1734-1",
+    "captured_at": "2026-11-07T00:10:01+08:00",
+    "crop": [
+      1920,
+      740,
+      2400,
+      1060
+    ],
+    "public": "assets/professions-overview.jpg",
+    "pixels": [
+      480,
+      320
+    ],
+    "bytes": 27618,
+    "sha256": "75418c7a69a3c78e5b4fc9458a11d65181d25d90b9f4bef8b2ede4f55ffff45f",
+    "redaction": "Only the inspected feature region was retained. No player or account names, chat, names in surrounding gameplay, personal overlays, or original metadata. Only the public NPC name and trainer location remain in the materials image."
+  },
+  {
+    "source": "Game client capture in session 01a1b11c-8c11-7f12-907f-25b53dc5ec01, record/image 1540-2",
+    "captured_at": "2026-11-07T00:03:34+08:00",
+    "crop": [
+      2020,
+      701,
+      2410,
+      1071
+    ],
+    "public": "assets/professions-materials.jpg",
+    "pixels": [
+      390,
+      370
+    ],
+    "bytes": 32525,
+    "sha256": "0ba11981994bfedb86ec985bda02e9496927132eadea5403ca07166f2b008277",
+    "redaction": "Only the inspected feature region was retained. No player or account names, chat, names in surrounding gameplay, personal overlays, or original metadata. Only the public NPC name and trainer location remain in the materials image."
+  },
+  {
+    "source": "Game client capture in session 01a1b11c-8c11-7f12-907f-25b53dc5ec01, record/image 1749-2",
+    "captured_at": "2026-11-07T00:10:36+08:00",
+    "crop": [
+      850,
+      534,
+      1480,
+      954
+    ],
+    "public": "assets/professions-trainers.jpg",
+    "pixels": [
+      630,
+      420
+    ],
+    "bytes": 141844,
+    "sha256": "23b492ad844c9cb367c4c47cf46dc3afd86636e9c56d52cf972f07e4465f7506",
+    "redaction": "Only the inspected feature region was retained. No player or account names, chat, names in surrounding gameplay, personal overlays, or original metadata. Only the public NPC name and trainer location remain in the materials image."
+  }
+]

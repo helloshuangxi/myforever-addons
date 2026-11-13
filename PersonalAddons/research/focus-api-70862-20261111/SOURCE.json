@@ -1,0 +1,27 @@
+{
+  "branch": "forever",
+  "commit": "9dc84f0d3bbae1768ac3405b3716000bd93eda06",
+  "build": "1.60.1 (70862)",
+  "files": [
+    {
+      "path": "PersonalAddons/research/focus-api-70862-20261111/SecureTemplates.lua",
+      "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/9dc84f0d3bbae1768ac3405b3716000bd93eda06/Interface/AddOns/Blizzard_FrameXML/SecureTemplates.lua",
+      "sha256": "b6e91f1d54f269a8bd66312b368e6fd7706028d366eee0167161ace9004cae23"
+    },
+    {
+      "path": "PersonalAddons/research/focus-api-70862-20261111/TargetScriptDocumentation.lua",
+      "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/9dc84f0d3bbae1768ac3405b3716000bd93eda06/Interface/AddOns/Blizzard_APIDocumentationGenerated/TargetScriptDocumentation.lua",
+      "sha256": "cc815dc5449118e5f2ebc9f23bee4a80a269907759c3e21e9da878e2d0682ae1"
+    },
+    {
+      "path": "PersonalAddons/research/focus-api-70862-20261111/UnitDocumentation.lua",
+      "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/9dc84f0d3bbae1768ac3405b3716000bd93eda06/Interface/AddOns/Blizzard_APIDocumentationGenerated/UnitDocumentation.lua",
+      "sha256": "93004ac1b260127741471b7861360cdf7536afcb18d4c1db73b7259faa43e61c"
+    },
+    {
+      "path": "PersonalAddons/research/focus-api-70862-20261111/RestrictedEnvironment.lua",
+      "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/9dc84f0d3bbae1768ac3405b3716000bd93eda06/Interface/AddOns/Blizzard_RestrictedAddOnEnvironment/RestrictedEnvironment.lua",
+      "sha256": "5e42ec4807156002470d957a140d107619b068c941e182af4c4a4b62e1fcd895"
+    }
+  ]
+}

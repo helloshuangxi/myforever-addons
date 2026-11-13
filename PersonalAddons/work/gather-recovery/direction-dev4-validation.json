@@ -1,0 +1,76 @@
+{
+  "date": "2026-11-08",
+  "timezone": "Asia/Shanghai",
+  "gameClock": "00:32-00:39",
+  "version": "0.4.5-dev.4",
+  "client": "1.60.1.70862 macOS",
+  "published": false,
+  "before": {
+    "loadedVersion": "0.4.5-dev.3",
+    "hud": "铜矿 / 就在附近",
+    "softInteractGameObject": false,
+    "softInteractName": null,
+    "nativePlateCount": 0
+  },
+  "probe": {
+    "y": "minimap center",
+    "xOffsetsInMapWidths": [
+      -0.3,
+      0.3,
+      3
+    ],
+    "copperTextBeforeReload": [
+      true,
+      true,
+      true
+    ],
+    "copperTextAfterReload": [
+      true,
+      true,
+      true
+    ],
+    "note": "Boolean matches only; no names outside resource catalog, GUIDs or protected geometry recorded"
+  },
+  "after": {
+    "loadedVersion": "0.4.5-dev.4",
+    "invalidNearbyHudAbsent": true,
+    "manualPreviewArrowVisible": true,
+    "manualPreviewText": "提示试听 · 右前方",
+    "previewExpired": true,
+    "gatherAlerts": true,
+    "gatherSound": true,
+    "gatherSparkles": true,
+    "nearbyMatches": 0,
+    "nearbyPlaybackSuccessCount": 0,
+    "actualResourceDirectionRecovered": false,
+    "automaticAudibleSoundVerified": false
+  },
+  "checks": {
+    "luaSyntaxFiles": 11,
+    "simulatedChecks": 1088,
+    "scanChecks": 73,
+    "independentReview": "passed",
+    "additionalHudAssertions": 4
+  },
+  "cleanup": {
+    "temporaryMFPQRemoved": true,
+    "softCursorDisabled": true,
+    "pointerRestored": true,
+    "characterMoved": false,
+    "bindingsChanged": false,
+    "otherAddonsChanged": false,
+    "temporaryFilesInstalled": false
+  },
+  "sourceSHA256": {
+    "GatherScan.lua": "eac42fcf5720b86f16a3757a3f1cc3be3115c41504bced02dccbc395cd170698",
+    "GatherAlerts.lua": "82518d25719b7b0f056e3f7ddba24d2986cabe5778015d1d73f082dd9e71efda",
+    "GatherSparkles.lua": "31bb5f0d51b4d9bdcfc183302132e66a2882939db4557a40befd5624cb9d3c8b",
+    "MyForeverProfessions.toc": "92c551d7e9956b92ce10dd4791f7df97748f8d9855bdfeeaf4c7b180973466df"
+  },
+  "upstream": {
+    "nodeSightMain": "f922db7957bbc83dc7d0047057ab5c5bf3ba7085",
+    "foreverUiHead": "9dc84f0d3bbae1768ac3405b3716000bd93eda06",
+    "directionFixFound": false
+  },
+  "published044ZipSHA256": "cad46e8c6077d6f108e3a7cc3eb8c679a4bbe55782a761a82d70dac9066a0574"
+}

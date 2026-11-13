@@ -1,0 +1,55 @@
+{
+  "checkedAt": "2026-11-08T03:18:01.564099+00:00",
+  "status": "passed",
+  "location": "local macOS via public HTTPS",
+  "files": [
+    {
+      "path": "/",
+      "status": 200,
+      "bytes": 8991,
+      "sha256": "46075cfac34b49e8ab2862cae298928117a7ed195af448faa6bd739ebd64e1ca"
+    },
+    {
+      "path": "/professions/",
+      "status": 200,
+      "bytes": 20478,
+      "sha256": "0ac907fa15475cd151e70a098423587d4bd4b3883723afb9fc78b3144c7efc0c"
+    },
+    {
+      "path": "/professions/latest.json",
+      "status": 200,
+      "bytes": 2383,
+      "sha256": "650f93ab25984c42c668eea7f9841b606167f73edadf474d5bca2a1faa573230"
+    },
+    {
+      "path": "/professions/releases.json",
+      "status": 200,
+      "bytes": 13724,
+      "sha256": "de7641a5e1cddb852781c3854a6fe25705b82242915bf06fd1104b89147122a5"
+    },
+    {
+      "path": "/downloads/MyForeverProfessions-0.4.5-Trial.zip",
+      "status": 200,
+      "bytes": 56401,
+      "sha256": "c6861f5b6ad9051a55c97dd83c7d92fb0012623b6bd6d79885dc5921f0ffa81c"
+    },
+    {
+      "path": "/downloads/MyForeverProfessions-0.4.5-Trial.zip.sha256",
+      "status": 200,
+      "bytes": 103,
+      "sha256": "39b0a01be9b18cb75f5d1a41b3c794e4434b1baffd2492813307b5cb974e63ea"
+    },
+    {
+      "path": "/latest.json",
+      "status": 200,
+      "bytes": 2124,
+      "sha256": "8dd350d747cf026fce8ee3e49eb928416bb87f48e073f108f292152b4b71e7fa"
+    },
+    {
+      "path": "/manager/latest.json",
+      "status": 200,
+      "bytes": 2979,
+      "sha256": "3b81eca5bd5ae776382ef0ea0a6d229a8ccfbc38c7559eb3f2304d9d00ca0f30"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "recorded_at": "2026-11-13T16:57:13.517939+08:00",
+  "evidence_basis": "Root supplied the freshly verified upstream release/tag/main and public issue evidence; references are pinned below. This record distinguishes author statements from local implementation and live results.",
+  "latest_release": {
+    "project": "NodeSight",
+    "version": "3.0.0",
+    "url": "https://github.com/Krelock/NodeSight/releases/tag/v3.0.0",
+    "published_at": "2026-11-13T08:29:57Z",
+    "release_tag_main_commit": "bebe59e9aebb39a1a95df8d95b071b981358106a",
+    "author_statement": "New client resource names are secret; scanning and related sound were removed and the public resource API returns empty.",
+    "local_live_confirmation_of_secret_behavior": true,
+    "not_claimed": "Local dev22 confirms actual restricted-text in build70938, not every upstream API claim or every client. No build-number hard disable or preflight oracle is inferred."
+  },
+  "independent_reference_points": [
+    {
+      "version": "2.0.7",
+      "commit": "82585ea7eed2bd528bf2dba5ce0653a4a4bbf524",
+      "url": "https://github.com/Krelock/NodeSight/blob/82585ea7eed2bd528bf2dba5ce0653a4a4bbf524/NodeSight.lua",
+      "scope": "Pixel-grid/circle-mask ideas and owned unclamp/wheel protection; implemented independently against public APIs. Available common-mask-circle is verified before use, with validated fallback."
+    },
+    {
+      "kind": "public server-time tint measurement",
+      "url": "https://github.com/Krelock/NodeSight/issues/21#issuecomment-6839265765",
+      "comment_id": 6839265765,
+      "scope": "Approximate tint interpolation using server GetGameTime; not native GPU lighting or a live color-match guarantee."
+    },
+    {
+      "kind": "author adoption statement",
+      "url": "https://github.com/Krelock/NodeSight/issues/21#issuecomment-6840564913",
+      "comment_id": 6840564913,
+      "scope": "Earlier author promise; v3.0.0 subsequently removed scanning. Do not label the measured tint or our scan compatibility as a v3.0.0 shipped scan fix."
+    }
+  ],
+  "local_dev21_contract": [
+    "Latch minimap-name restriction only after observing actual secret container/name data; immediately clear old/pending names and return owned native state.",
+    "Ordinary Reset and source switching do not clear the session latch; reload reconstructs capability state. First detection can occur during an initial scan; no preflight guarantee.",
+    "Preserve fresh A-blank-A standing detection for clients that still expose public names, with owned unclamp and wheel restoration. Do not infer restriction solely from build number or empty public data.",
+    "Explain restricted minimap reading once through HUD while preserving fresh near-range feed/sound/sparkles under existing settings; near-range does not establish full minimap coverage.",
+    "Independently align stand-in pixels and validated round masks; apply server-time approximate terrain tint without changing native terrain, arrow or button colors."
+  ],
+  "unverified": [
+    "Fresh dev22 nearby name/popup and sound",
+    "Dawn and local GPU tint appearance",
+    "Continuous native yellow-blip visibility",
+    "Actual audio and physical right mouse for dev22",
+    "Sustained flicker elimination",
+    "Full peripheral resource coverage (blocked by restricted minimap names)"
+  ],
+  "releaseAllowed": false,
+  "public_package_or_website_changes": false,
+  "current_local_candidate": "0.4.7-dev.22",
+  "local_live_observation": {
+    "candidate": "0.4.7-dev.22",
+    "client_build": "70938",
+    "state": "restricted",
+    "reason": "restricted-text",
+    "reads": 10,
+    "invalid": 1,
+    "accepted_names": [],
+    "evidence": "runtime-dev22.json",
+    "scope": "Real restricted data observed after alpha repair; native map restored. Not full-map resource-name success."
+  }
+}

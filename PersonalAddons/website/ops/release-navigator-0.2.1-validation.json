@@ -1,0 +1,78 @@
+{
+  "version": "0.2.1",
+  "channel": "trial",
+  "date": "2026-11-08",
+  "status": "published-and-verified",
+  "package": {
+    "filename": "MyForeverNavigator-0.2.1-Trial.zip",
+    "bytes": 52254,
+    "sha256": "3487f3087aca631142ef9d5795ee7901f3ada6ec33a5c7c2895a779f5bda8f72",
+    "allowlisted_files": 11
+  },
+  "simulation": {
+    "lua51_files": 7,
+    "groups": 7,
+    "navigation_assertions": 175,
+    "ui_assertions": 274,
+    "passed": true
+  },
+  "manager": {
+    "version": "0.2.0",
+    "isolated_checks_passed": 64,
+    "live_checks": 68
+  },
+  "game": {
+    "client": "Forever 1.60.1.70862",
+    "ui_loaded": true,
+    "interaction": "local /run calls to actual controls Click handlers; not physical mouse testing",
+    "observed": [
+      "three workspaces",
+      "NPC purpose and Timbermaw filter: 3 results",
+      "expand filters",
+      "personal place form",
+      "empty and active navigation pages",
+      "89m distance and native supertracking enabled",
+      "stop and restore pre-test native waypoint/tracking state"
+    ],
+    "not_verified": [
+      "physical mouse clicks and dragging",
+      "arrow orientation",
+      "walking and arrival",
+      "map zoom",
+      "cross-zone journeys",
+      "all NPC positions and interaction conditions"
+    ],
+    "raw_screenshots_published": false
+  },
+  "website": {
+    "local_check": "passed",
+    "mobile_width": 390,
+    "horizontal_overflow": false,
+    "freeze": "PersonalAddons/work/navigator-0.2.1-site",
+    "live": "passed",
+    "verified_resources": 82,
+    "browser_download_sha256": "3487f3087aca631142ef9d5795ee7901f3ada6ec33a5c7c2895a779f5bda8f72",
+    "existing_services": {
+      "www": {
+        "status": 301,
+        "location": "https://afabiaoge.xyz/"
+      },
+      "chat": {
+        "status": 200
+      },
+      "studio": {
+        "status": 200,
+        "final_url": "https://studio.afabiaoge.xyz/login",
+        "login_required": true
+      },
+      "community": {
+        "status": 200,
+        "returned_items": 0,
+        "has_more": false,
+        "write_test_performed": false
+      }
+    }
+  },
+  "prior_public_packages_preserved": 21,
+  "release": "20261108T052448Z"
+}

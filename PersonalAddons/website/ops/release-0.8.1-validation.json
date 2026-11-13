@@ -1,0 +1,15 @@
+{
+  "version": "0.8.1",
+  "lua_syntax_files": 17,
+  "chat_simulated_checks": 1276,
+  "all_simulated_checks": 1437,
+  "game_login_performed": false,
+  "game_validation": "Not performed, per user instruction",
+  "package_members": 34,
+  "package_bytes": 99453,
+  "sha256": "4e7ab39620006ab62d3f56c25ef0c3c20a41bdae829acf0a80cab188d7430b05",
+  "site_release": "20261106T090857Z",
+  "live_verification": "passed",
+  "license_live_exact_match": true,
+  "bigfoot_submission": "submitted_to_official_general_contact_for_forwarding"
+}

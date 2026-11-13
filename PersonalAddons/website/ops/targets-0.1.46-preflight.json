@@ -1,0 +1,24 @@
+{
+  "phase": "prepublish",
+  "version": "0.1.46",
+  "package": "MyForeverTargets-0.1.46-Trial.zip",
+  "sha256": "5c5865a8dc8f850bde6b359f5729a7195c48eb49b4ea42c0812002ec521634bf",
+  "lua_syntax_files": 23,
+  "simulation_checks": 9820,
+  "simulation_suites": 19,
+  "release_transition_tests": 10,
+  "independent_review": "passed",
+  "site_check": "passed",
+  "manager_local_checks": 68,
+  "old_archives_preserved": 33,
+  "other_versions": {
+    "chat": "0.9.3",
+    "professions": "0.4.6",
+    "navigator": "0.3.3",
+    "manager": "0.2.1"
+  },
+  "private_service_same_sha": true,
+  "local_game_probe_candidate_preserved": "0.1.45",
+  "public_release_baseline": "0.1.44",
+  "published": false
+}

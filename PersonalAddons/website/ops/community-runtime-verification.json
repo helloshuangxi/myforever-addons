@@ -1,0 +1,9 @@
+{
+  "release": "20261106T060625Z",
+  "running": true,
+  "persistent_private_volume": "myforeverchat-community-data",
+  "code_read_only": true,
+  "rootfs_read_only": true,
+  "host_port_exposed": false,
+  "trusted_proxy_matches": true
+}

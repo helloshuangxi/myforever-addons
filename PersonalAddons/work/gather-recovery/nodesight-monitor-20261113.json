@@ -1,0 +1,147 @@
+{
+  "automation_id": "nodesight",
+  "triggeredAt": "2026-11-13T01:57:22.064Z",
+  "checkedAt": "2026-11-13T02:00:23Z",
+  "localDate": "2026-11-13",
+  "timezone": "Asia/Shanghai",
+  "comparedWith": {
+    "record": "nodesight-monitor-20261112.json",
+    "githubVersion": "2.0.6",
+    "githubCommit": "c02fa28c78c0cd37ba70d2e9af35f01cf3109a5d",
+    "curseforgeVersion": "2.0.6",
+    "curseforgeFile": 9566486
+  },
+  "github": {
+    "version": "2.0.7",
+    "mainTagTocAgree": true,
+    "commit": "82585ea7eed2bd528bf2dba5ce0653a4a4bbf524",
+    "publishedAt": "2026-11-12T18:23:38Z",
+    "publishedAtLocal": "2026-11-13 02:23:38 Asia/Shanghai",
+    "tocInterface": 16001,
+    "releaseUrl": "https://github.com/Krelock/NodeSight/releases/tag/v2.0.7",
+    "cacheCaution": "web /releases/latest route returned stale1.9.0; pinned2.0.7 release and uncached API/raw sources were checked instead"
+  },
+  "curseforge": {
+    "version": "2.0.7",
+    "fileId": 9578800,
+    "type": "Release",
+    "siteDisplayDate": "2026-11-12",
+    "client": "WoW Forever1.60.1",
+    "url": "https://www.curseforge.com/wow/addons/node-sight/files/9578800",
+    "zipDownloadedOrAudited": false,
+    "commentsRead": false,
+    "commentsLimit": "Visible comments route still requires sign-in; gated comments not inspected"
+  },
+  "releasedChanges": [
+    {
+      "kind": "stand-in pixel alignment",
+      "detail": "Snap native viewport edges to physical screen pixels; apply snapped center displacement and width/height ratio to terrain layout",
+      "source": "https://github.com/Krelock/NodeSight/blob/82585ea7eed2bd528bf2dba5ce0653a4a4bbf524/NodeSight.lua#L2758-L2764"
+    },
+    {
+      "kind": "round mask",
+      "detail": "Use 256-wide common-mask-circle to avoid darkened stand-in edges",
+      "source": "https://github.com/Krelock/NodeSight/blob/82585ea7eed2bd528bf2dba5ce0653a4a4bbf524/NodeSight.lua#L2737-L2741"
+    },
+    {
+      "kind": "earlier internal node rendering",
+      "detail": "early.found/gone draw or remove node symbols during a scan, but do not provide early GetSymbols results or public API callbacks"
+    },
+    {
+      "kind": "other release notes",
+      "detail": "Optional scan on gather start (default off), EllesmereUI scroll-to-zoom camera-wheel fix, route Line preservation, mined-node stale symbol fix",
+      "source": "https://www.curseforge.com/wow/addons/node-sight/files/9578800"
+    }
+  ],
+  "authorConfirmedPending": {
+    "issue": "https://github.com/Krelock/NodeSight/issues/21",
+    "comment": "https://github.com/Krelock/NodeSight/issues/21#issuecomment-6840564913",
+    "author": "Krelock",
+    "association": "OWNER",
+    "createdAt": "2026-11-13T00:58:54Z",
+    "createdAtLocal": "2026-11-13 08:58:54 Asia/Shanghai",
+    "status": "author_reports_adopted_in_game_but_promises_next_update_not_in_current_pinned_release",
+    "changes": [
+      "Server-time day/evening/night tint curve, blending by hour, instead of fixed MINIMAP_TINT",
+      "Copy Texture vertex offsets to preserve bent area-mark shapes; route Lines already fixed in2.0.7"
+    ],
+    "measurementCorrection": {
+      "source": "https://github.com/Krelock/NodeSight/issues/21#issuecomment-6839265765",
+      "updatedAt": "2026-11-13T01:03:33Z",
+      "detail": "Reporter corrected initial zone-dependent claim: tint follows server time; retracted moved Hillsbrad pair. GetGameTime-based key interpolation supplied.",
+      "limits": [
+        "Reporter tested NodeSight2.0.6, Forever1.60.1 build70888",
+        "Dawn05-07 blend not measured; day value from one afternoon measurement",
+        "Reporter/author evidence is not our local gameplay acceptance"
+      ]
+    },
+    "notYetReleasedProof": "Rechecked main82585ea/TOC2.0.7 still uses MINIMAP_TINT(.87,.84,.80); author explicitly says both changes will be in the next update"
+  },
+  "methodAssessment": {
+    "stillMovesAndHidesRealMinimap": true,
+    "oldSoftCursorReaderRestored": false,
+    "independentResourceFeedFound": false,
+    "publicApi": "GetSymbols copies markers including held; callbacks occur only in FinishScan; early internal artwork is not early API notification",
+    "apiSource": "https://github.com/Krelock/NodeSight/blob/82585ea7eed2bd528bf2dba5ce0653a4a4bbf524/NodeSight.lua#L4221-L4229",
+    "readerSource": "https://github.com/Krelock/NodeSight/blob/82585ea7eed2bd528bf2dba5ce0653a4a4bbf524/NodeSight.lua#L2862-L2868"
+  },
+  "excludedAlternative": {
+    "pullRequest": 22,
+    "url": "https://github.com/Krelock/NodeSight/pull/22",
+    "state": "open_unmerged",
+    "detail": "Faint historic spots are not evidence of a currently present resource and cannot be used as fresh alerts"
+  },
+  "localApplicability": {
+    "status": "reference_only_not_integrated",
+    "potential": "Pixel alignment/mask changes and pending time tint are relevant to stand-in mismatch, but are not a confirmed fix for MyForeverProfessions",
+    "preserve": "Fresh name popup and sound; no navigation; retain stationary scanning, current alert/sound/sparkle settings and release hold"
+  },
+  "verification": {
+    "kind": "Primary release notes and pinned GitHub static source plus uncached official comment API reads",
+    "authorCommentApiVerified": true,
+    "thirdPartyInstalled": false,
+    "thirdPartyExecuted": false,
+    "gameOperated": false,
+    "addonModified": false,
+    "settingsModified": false,
+    "publicZipCreated": false,
+    "websiteChanged": false,
+    "deployed": false,
+    "liveTestPerformed": false
+  },
+  "notificationDecision": "NOTIFY",
+  "notificationReason": "Released pixel/edge display fixes plus author-confirmed next-update server-time tint directly address current stand-in mismatch; source/API limitations preserved",
+  "automationUpdate": {
+    "id": "nodesight",
+    "status": "ACTIVE",
+    "preserveSchedule": true,
+    "preservePublicationHold": true,
+    "verified": true,
+    "checks": {
+      "schedule": true,
+      "thread": true,
+      "heartbeat": true,
+      "active": true,
+      "baseline": true,
+      "pending_author_comment": true,
+      "publication_hold": true,
+      "read_only": true
+    }
+  },
+  "completedAt": "2026-11-13T02:04:44.583160+00:00",
+  "later_user_authorized_development_followup": {
+    "recordedAt": "2026-11-13T17:31:38.763473+08:00",
+    "scope": "Later user-authorized local upgrade and runtime test, separate from the morning read-only heartbeat",
+    "latest_upstream_release": "3.0.0",
+    "commit": "bebe59e9aebb39a1a95df8d95b071b981358106a",
+    "releaseUrl": "https://github.com/Krelock/NodeSight/releases/tag/v3.0.0",
+    "upstreamEvidence": "../professions-upstream-20261113/UPSTREAM.json",
+    "candidate": "0.4.7-dev.22",
+    "runtimeEvidence": "../professions-upstream-20261113/runtime-dev22.json",
+    "liveClient": "Forever1.60.1 build70938 interface16001",
+    "actualFinding": "After alpha quantization repair, cursor source sampled 10 points and latched restricted/restricted-text; no fresh minimap names accepted; native map restored at scale1 with stand-in hidden.",
+    "fresh_nearby_and_sound_acceptance": "Not transferred from dev21; dev22 awaits a new real resource. Not a minimap-wide pass.",
+    "published": false,
+    "releaseHoldPreserved": true
+  }
+}

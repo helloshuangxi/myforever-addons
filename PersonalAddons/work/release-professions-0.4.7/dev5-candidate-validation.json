@@ -1,0 +1,45 @@
+{
+  "version": "0.4.7-dev.5",
+  "state": "private diagnostic candidate loaded; automatic mineral notice not passed",
+  "source_sha256": {
+    "API.lua": "477b6a1c5d6660ff8661bf09779c2da1157f299da4a6445fe2577c81656a0200",
+    "Core.lua": "d4276f32c505f9cab2dceea160701e19cbe49e0b643633bd85b0e51c614a928f",
+    "GatherAlerts.lua": "084402e6eedce7417fa6e1b60bb04d34bacbf2a6c9699dbfc4b328117139e7fb",
+    "GatherResources.lua": "a3f660faf0a0196f28c352f7d0d84887cfbfd84c14a58274270dd2716e91a11b",
+    "GatherScan.lua": "961bb6dfb2248da33b93d9793dbdb96258260ecf87f6ca84de695c4cdcefd7f0",
+    "GatherSparkles.lua": "12be44acd612a9668c92dc822387c4c8b94f5fadcebfa55efef77aa73ff11899",
+    "ItemLinks.lua": "4f80ae78bd5c82e6b9bcda8af711729b052279838055da94a61956a6173f476c",
+    "Main.lua": "18b107dc41c589a8dac02868905f8d851a6e5976bf3a62358c1aaacf060220f8",
+    "TrainerPins.lua": "4e47f9d79858bc9a3dee869e2df69cfd32a2b7e58752537bdcf42efd10208bbf",
+    "Trainers.lua": "49fd00450a90b6cfe960fc6555bb166faa3c45ed9f02f276407bc6393fe0aa3c",
+    "UI.lua": "398b96b68c0d9853804bac13dde404328b934c504e337f2c1f886906162b5a54"
+  },
+  "toc_sha256": "925573e90804830b706e93a5c77f86078f87d5356aa225acc24a071d78080969",
+  "simulated_checks": 1388,
+  "lua_sources": 11,
+  "independent_review": "pass; no extra native calls or change to scan/filters",
+  "runtime": "0.4.7-dev.5 loaded through reload; three notice settings unchanged",
+  "last_actual_flags": {
+    "gatherAlerts": true,
+    "gatherSound": true,
+    "gatherSparkles": true
+  },
+  "last_actual_test": "dev4 scan completed71 passes / accepted0; no automatic notice, manual preview accepted1 client sound call",
+  "user_updates": [
+    "Previous nearby mineral had been gathered by someone else; zero accepted result is not independent proof of failure.",
+    "User then reported a current nearby mineral still produced no notice. Await exact resource name and stationary control for diagnostic comparison."
+  ],
+  "publication_gate": "User requires personal testing and explicit confirmation; no ZIP/public release or website deployment.",
+  "checked_at": "2026-11-08T20:55:05.087363+08:00",
+  "last_actual_diagnostics": {
+    "state": "scanning",
+    "reason": "sampling",
+    "sampleCount": 1257,
+    "rawKnownNames": [],
+    "acceptedNames": [],
+    "rejectedKnownNames": [],
+    "directRawTooltipLinesOutsideBatch": 0,
+    "limitations": "Exact live mineral name still requires real hover; rawKnownNames does not include unknown names or other tooltip text. A single direct post-batch empty read is not a count across the complete pass."
+  },
+  "native_mouse_tool": "one coordinate click attempt returned noWindowsAvailable; no pointer movement confirmed"
+}

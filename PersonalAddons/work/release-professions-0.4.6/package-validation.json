@@ -1,0 +1,43 @@
+{
+  "version": "0.4.6",
+  "channel": "trial",
+  "sourceCodeFiles": 11,
+  "archiveFiles": 15,
+  "bytes": 57254,
+  "sha256": "6d1e93b4d9865216d46d532770813b38572692134a8dd16333f87d864cf62bb6",
+  "crcPassed": true,
+  "packageBytesMatchSource": true,
+  "privateDataIncluded": false,
+  "simulatedChecks": 1254,
+  "nearbyChecks": 209,
+  "independentReview": "passed",
+  "independentAssertions": 27,
+  "gameTest": {
+    "client": "1.60.1.70862",
+    "automaticNearbyHUDObserved": true,
+    "copperSparklesObserved": true,
+    "cleanupAfterNodeDisappearanceObserved": true,
+    "soundSuccessfulCalls": 3,
+    "actualAudibilityConfirmed": false,
+    "automaticDirectionRecovered": false,
+    "softOnlyPathIsolatedInGame": false
+  },
+  "acceptance": "User accepted visible overhead notification as sufficient for this release",
+  "files": {
+    "Core.lua": "ad1dc7c5bda26d47efd3a77c8ed4ae0b2af09ba28d1204c842422479e40464d9",
+    "API.lua": "477b6a1c5d6660ff8661bf09779c2da1157f299da4a6445fe2577c81656a0200",
+    "ItemLinks.lua": "4f80ae78bd5c82e6b9bcda8af711729b052279838055da94a61956a6173f476c",
+    "Trainers.lua": "49fd00450a90b6cfe960fc6555bb166faa3c45ed9f02f276407bc6393fe0aa3c",
+    "TrainerPins.lua": "4e47f9d79858bc9a3dee869e2df69cfd32a2b7e58752537bdcf42efd10208bbf",
+    "GatherResources.lua": "870bb3dfca0a78cbc16a4b6d5d234b9ce3937bf7cf81a05c8c29d837dd14ad45",
+    "GatherSparkles.lua": "12be44acd612a9668c92dc822387c4c8b94f5fadcebfa55efef77aa73ff11899",
+    "GatherScan.lua": "9424ce812ee4839ba6df1e21742eb81565c2396c595253c190b45c77402fcddc",
+    "GatherAlerts.lua": "d1632b6f774eae8a180bf631bece6d6b7cd030335cfcddd492044da8b535046f",
+    "UI.lua": "398b96b68c0d9853804bac13dde404328b934c504e337f2c1f886906162b5a54",
+    "Main.lua": "18b107dc41c589a8dac02868905f8d851a6e5976bf3a62358c1aaacf060220f8",
+    "MyForeverProfessions.toc": "e63467e168783681a161dfa52878df81e804969e8e25e986fbde02e65cd3e6e9",
+    "LICENSE.txt": "9919c208f8f2f554730d6ab0dfa0574eec47b3b331a5cdf368d9c0d68939f4e5",
+    "商业技能助手使用说明.md": "f55a121675f7aa19320d6397d0f75ca5256d26c45b1a0f0051bb5d7b95b98f2c",
+    "PROFESSIONS-VALIDATION.md": "f37f43155d7f229041a3bc6be37e5aa0f3cb51e223bc077c7bc3b68458943d05"
+  }
+}

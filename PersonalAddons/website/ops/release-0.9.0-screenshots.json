@@ -1,0 +1,16 @@
+[
+  {
+    "source": "_forever_/Screenshots/WoWScrnShot_110626_192304.jpg",
+    "public": "assets/chat-groups-0.9.jpg",
+    "bytes": 87878,
+    "sha256": "8002e6ab1d8b0979781e19044445040573d2f91835a45b3b24615033c9b86b51",
+    "redaction": "Live client opaque masks before native Screenshot(): group title, sidebar names/summary, entire history, background hidden. No chat storage edits. No raster editing."
+  },
+  {
+    "source": "_forever_/Screenshots/WoWScrnShot_110626_192401.jpg",
+    "public": "assets/chat-channels-0.9.jpg",
+    "bytes": 97806,
+    "sha256": "c4372a9e1dd550baa6a6b995dee15c838e31bf7074b63b0de9ce3c1fc90acb58",
+    "redaction": "Live client opaque masks before native Screenshot(): group title, sidebar names/summary, entire history, background hidden. No chat storage edits. No raster editing."
+  }
+]

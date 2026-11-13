@@ -1,0 +1,48 @@
+{
+  "version": "0.9.2",
+  "date": "2026-11-08",
+  "lua_5_1_syntax_files": 14,
+  "chat_simulation_suites": 15,
+  "chat_simulation_checks": 1900,
+  "ui_checks": 431,
+  "added_ui_checks": 64,
+  "independent_simulation_checks": 12,
+  "layout": {
+    "previous_default_height": 154,
+    "default_height": 114,
+    "max_font_height": 130,
+    "gap": 8,
+    "width": 320,
+    "preview_width": 294,
+    "preview_max_lines": 2
+  },
+  "game_validation": "Not performed: game not running. Native pixels and maximum-font rendering still require actual client verification.",
+  "private_data_in_package": false,
+  "historical_package_hashes_checked": 23,
+  "publication": "completed",
+  "package_sha256": "33aa708f9cab1166bd63d18a2f68e33a2ba0f5bd9a951ae2e552d6e886c5e7e4",
+  "deployment_release": "20261108T134457Z",
+  "live_verification": {
+    "checked_at": "2026-11-08T13:48:56.951279+00:00",
+    "status": "passed",
+    "www": {
+      "status": 301,
+      "location": "https://afabiaoge.xyz/"
+    },
+    "chat_health": {
+      "status": 200
+    },
+    "studio_protected": {
+      "status": 200,
+      "final_url": "https://studio.afabiaoge.xyz/login",
+      "login_required": true
+    },
+    "community": {
+      "status": 200,
+      "returned_items": 0,
+      "has_more": false,
+      "write_test_performed": false
+    }
+  },
+  "public_file_checks": 0
+}

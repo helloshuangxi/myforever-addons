@@ -1,0 +1,47 @@
+{
+  "version": "0.9.0",
+  "checked_date": "2026-11-06",
+  "syntax_files": 19,
+  "chat_checks": 1788,
+  "all_checks": 1949,
+  "counts": {
+    "chat_about_test": 42,
+    "chat_actions_test": 8,
+    "chat_appearance_test": 59,
+    "chat_communities_test": 266,
+    "chat_core_test": 614,
+    "chat_emotes_test": 11,
+    "chat_history_test": 43,
+    "chat_item_links_test": 14,
+    "chat_keybindings_test": 14,
+    "chat_main_events_test": 11,
+    "chat_native_clicks_test": 25,
+    "chat_notifications_test": 76,
+    "chat_profiles_test": 234,
+    "chat_ui_test": 347,
+    "fieldkit_test": 36,
+    "MyForeverMacros": 64,
+    "priest_test": 61,
+    "chat_community_storage_test": 24
+  },
+  "independent_review": "passed",
+  "in_game": "passed_scoped_mac_forever_1.60.1.70790",
+  "public_release": "published_verified",
+  "limitations": [
+    "Windows untested",
+    "Leave/mute/permission failure branches simulated only",
+    "No ordinary-friend offline whispers"
+  ],
+  "package": {
+    "filename": "MyForeverChat-0.9.0-Trial.zip",
+    "size_bytes": 119961,
+    "files": 36,
+    "sha256": "60081bc023fb0ef9cd0fdec97a7961da346686794093d213415d47a31599543b",
+    "crc": "passed",
+    "source_equality": "passed",
+    "privacy_paths": "passed"
+  },
+  "screenshots_review": "Two new live-client screenshots visually reviewed independently; no private content visible",
+  "deployment": "20261106T112815Z",
+  "public_verified_at": "2026-11-06T11:29:22.637453+00:00"
+}

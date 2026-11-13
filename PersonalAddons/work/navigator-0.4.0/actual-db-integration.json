@@ -1,0 +1,96 @@
+{
+  "status": "passed",
+  "scope": "actual installed DB + Navigator Lua, modeled client maps; not in-game validation",
+  "source": {
+    "questie_db_version": "1.1.0",
+    "commit": "90ab55bdddd6ef6507fe51610b9c26948bbeb637",
+    "lua_files_loaded": 50
+  },
+  "persona": {
+    "locale": "zhCN",
+    "faction": "Alliance"
+  },
+  "build_frames": 390,
+  "elapsed_ms": 842.6,
+  "curated_points": 427,
+  "total_points": 9902,
+  "unique_npcs": 9006,
+  "maps": 50,
+  "categories": {
+    "trainers": 236,
+    "reputation": 70,
+    "materials": 128,
+    "special": 30,
+    "services": 1422,
+    "npcs": 8016
+  },
+  "samples": [
+    {
+      "npcID": 240,
+      "name": "治安官杜汉",
+      "english": "Marshal Dughan",
+      "category": "npcs",
+      "service": "任务 NPC",
+      "mapID": 1429,
+      "x": 0.4211,
+      "y": 0.6593000000000001
+    },
+    {
+      "npcID": 295,
+      "name": "旅店老板法雷",
+      "english": "Innkeeper Farley",
+      "category": "services",
+      "service": "旅店老板",
+      "mapID": 1429,
+      "x": 0.43770000000000003,
+      "y": 0.6579999999999999
+    },
+    {
+      "npcID": 332,
+      "name": "马迪亚斯·肖尔",
+      "english": "Master Mathias Shaw",
+      "category": "npcs",
+      "service": "军情七处领袖",
+      "mapID": 1453,
+      "x": 0.7831,
+      "y": 0.7073999999999999
+    },
+    {
+      "npcID": 1411,
+      "name": "伊安·斯托姆",
+      "english": "Ian Strom",
+      "category": "trainers",
+      "service": "潜行者训练师",
+      "mapID": 1434,
+      "x": 0.2682,
+      "y": 0.7715000000000001
+    }
+  ],
+  "search_timings_modeled_apis": {
+    "all": {
+      "milliseconds": 78.91,
+      "returned_points": 9901
+    },
+    "治安官杜汉": {
+      "milliseconds": 11.51,
+      "returned_points": 1
+    },
+    "旅店老板": {
+      "milliseconds": 8.71,
+      "returned_points": 62
+    },
+    "马迪亚斯": {
+      "milliseconds": 8.02,
+      "returned_points": 1
+    },
+    "332": {
+      "milliseconds": 7.83,
+      "returned_points": 23
+    }
+  },
+  "limitations": [
+    "C_Map was modeled from support mappings, not native client results",
+    "Character Questie policy and live Phasing not loaded; phased-only points excluded from returned results",
+    "Reference coordinates, not current NPC tracking"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "GatherResources.lua": "a3f660faf0a0196f28c352f7d0d84887cfbfd84c14a58274270dd2716e91a11b",
+  "TrainerPins.lua": "4e47f9d79858bc9a3dee869e2df69cfd32a2b7e58752537bdcf42efd10208bbf",
+  "ItemLinks.lua": "4f80ae78bd5c82e6b9bcda8af711729b052279838055da94a61956a6173f476c",
+  "Main.lua": "cec37fd134f17c7f8b0b45289a2a2643da657016e0ef0206bf9649e406863a41",
+  "GatherScan.lua": "17dad376447cbad1cfbe3ed9ca06d36c669657e5cf99dee9d9ac83f4d493db09",
+  "GatherSparkles.lua": "12be44acd612a9668c92dc822387c4c8b94f5fadcebfa55efef77aa73ff11899",
+  "Trainers.lua": "49fd00450a90b6cfe960fc6555bb166faa3c45ed9f02f276407bc6393fe0aa3c",
+  "GatherAlerts.lua": "084402e6eedce7417fa6e1b60bb04d34bacbf2a6c9699dbfc4b328117139e7fb",
+  "API.lua": "477b6a1c5d6660ff8661bf09779c2da1157f299da4a6445fe2577c81656a0200",
+  "UI.lua": "a3e0a346a7584b5bcc86683aa030d6faaa0cf6884e557063235cb23dbe4afa5b",
+  "Core.lua": "abb64fa194e0e7881e1e2f4094a0bac22977ff6290988acc1243dcff892ea5a8",
+  "MyForeverProfessions.toc": "da3cda9db491b8464e32dfedaeb271b71b8f8805068be3e852c49c74da13b07d"
+}

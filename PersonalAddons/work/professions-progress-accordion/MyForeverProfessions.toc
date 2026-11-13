@@ -1,0 +1,11 @@
+## Interface: 16001
+## Title: 我的无限 · |cffe8be75商业技能助手|r
+## Notes: 自动识别本角色商业技能，橙黄绿训练推荐、材料缺口与常驻进度。/myprof
+## Author: Hyder
+## Version: 0.1.1
+## SavedVariablesPerCharacter: MyForeverProfessionsDB
+
+Core.lua
+API.lua
+UI.lua
+Main.lua

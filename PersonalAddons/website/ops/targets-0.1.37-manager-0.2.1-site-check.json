@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "version": "0.9.3",
+  "links": 34,
+  "screenshots": 6,
+  "profession_screenshots": 3,
+  "package_bytes": 121419,
+  "sha256": "5f5a84f578f8a76be0c43e5c885ebbbbfcda224795475cf87461e0e9b90838c9",
+  "addons": {
+    "MyForeverChat": {
+      "version": "0.9.3",
+      "package_bytes": 121419,
+      "sha256": "5f5a84f578f8a76be0c43e5c885ebbbbfcda224795475cf87461e0e9b90838c9"
+    },
+    "MyForeverProfessions": {
+      "version": "0.4.6",
+      "package_bytes": 57254,
+      "sha256": "6d1e93b4d9865216d46d532770813b38572692134a8dd16333f87d864cf62bb6"
+    },
+    "MyForeverNavigator": {
+      "version": "0.3.3",
+      "package_bytes": 570598,
+      "sha256": "cef60b3f44b495baa13a8351525ab3ea2d3ad1ac277df4e68a50eda953a24ca9"
+    },
+    "MyForeverTargets": {
+      "version": "0.1.37",
+      "package_bytes": 162136,
+      "sha256": "6955d72563c0510304798d444ed5cde56b5688a7fa2c18111d38d4c02d4c2366"
+    }
+  },
+  "manager_version": "0.2.1"
+}

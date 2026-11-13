@@ -1,0 +1,31 @@
+## Interface: 16001
+## Title: 我的无限 · |cff80c9ef目标选择|r
+## Notes: 友方团队、小队与附近玩家；敌方玩家与怪物。两侧独立关闭，左侧“目”字图标控制面板。脱战普通技能悬停；左键选中、右键焦点、Ctrl+右键标记。/mytargets
+## Author: Personal Addons
+## Version: 0.1.45
+## SavedVariablesPerCharacter: MyForeverTargetsDB, MyForeverTargetsLogDB
+
+Libs/LibStub/LibStub.lua
+Libs/LibRangeCheck-3.0/LibRangeCheck-3.0.lua
+Core.lua
+Diagnostics.lua
+Distance.lua
+Detection.lua
+Quest.lua
+Units.lua
+Mouseover.lua
+NearbyCast.lua
+CombatCast.lua
+GUIDProbeLog.lua
+GUIDProbe.lua
+EnemyNativeHover.lua
+EnemyNativeTrial.lua
+Hover.lua
+Auras.lua
+EnemyTargetHover.lua
+FocusCycle.lua
+UI.lua
+Launcher.lua
+FocusAPIProbe.lua
+NativeScaleProbe.lua
+Main.lua

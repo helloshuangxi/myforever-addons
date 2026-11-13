@@ -1,0 +1,72 @@
+{
+  "name": "VuhDoRelease",
+  "version": "3.220",
+  "file_id": 9455799,
+  "official_file_page": "https://www.curseforge.com/wow/addons/vuhdo/files/9455799",
+  "url": "https://edge.forgecdn.net/files/9455/799/VuhDo-v3.220.zip",
+  "sha256": "37a10569bf6343af5731457132bad844594c4f95bf9110e06b80224ebd43263b",
+  "text_files": 339,
+  "supported_flavors": [
+    "Retail",
+    "Forever"
+  ],
+  "note": "Current official release; read only extraction, not installed/executed.",
+  "commit": "efce2d253b0c85ada1e93f4fdec432a0560db918",
+  "tag": "v3.220",
+  "files_verified": [
+    {
+      "path": "VuhDoRelease/VuhDo/VuhDoMacroFactory.lua",
+      "repository_path": "VuhDoMacroFactory.lua",
+      "commit": "efce2d253b0c85ada1e93f4fdec432a0560db918",
+      "url": "https://raw.githubusercontent.com/vuhdo-io/VuhDo/efce2d253b0c85ada1e93f4fdec432a0560db918/VuhDoMacroFactory.lua",
+      "sha256": "1f93ed684ce2e711a4d4d82d1c3708e5f7a4f19818c26bee0d563fb0e5300121",
+      "byte_identical_to_release": true,
+      "lines_identical_to_release": true
+    },
+    {
+      "path": "VuhDoRelease/VuhDo/VuhDoKeySetup.lua",
+      "repository_path": "VuhDoKeySetup.lua",
+      "commit": "efce2d253b0c85ada1e93f4fdec432a0560db918",
+      "url": "https://raw.githubusercontent.com/vuhdo-io/VuhDo/efce2d253b0c85ada1e93f4fdec432a0560db918/VuhDoKeySetup.lua",
+      "sha256": "56f4f38209af269aeee8a4469c81eccfdd844486a2f94ff383ef47e49c676fcd",
+      "byte_identical_to_release": true,
+      "lines_identical_to_release": true
+    },
+    {
+      "path": "VuhDoRelease/VuhDo/VuhDoBindingGenerator.lua",
+      "repository_path": "VuhDoBindingGenerator.lua",
+      "commit": "efce2d253b0c85ada1e93f4fdec432a0560db918",
+      "url": "https://raw.githubusercontent.com/vuhdo-io/VuhDo/efce2d253b0c85ada1e93f4fdec432a0560db918/VuhDoBindingGenerator.lua",
+      "sha256": "83e759089f8dde44bbe135babcf97d7e4301fe764f6ee6850a451439e7631370",
+      "byte_identical_to_release": false,
+      "lines_identical_to_release": true
+    },
+    {
+      "path": "VuhDoRelease/VuhDo/VuhDoToolboxUtil.lua",
+      "repository_path": "VuhDoToolboxUtil.lua",
+      "commit": "efce2d253b0c85ada1e93f4fdec432a0560db918",
+      "url": "https://raw.githubusercontent.com/vuhdo-io/VuhDo/efce2d253b0c85ada1e93f4fdec432a0560db918/VuhDoToolboxUtil.lua",
+      "sha256": "3d6fd1d52e635358e675a845d7d974b44c4074963a79820c95a9781597ff7955",
+      "byte_identical_to_release": false,
+      "lines_identical_to_release": true
+    },
+    {
+      "path": "VuhDoRelease/VuhDo/VuhDo.lua",
+      "repository_path": "VuhDo.lua",
+      "commit": "efce2d253b0c85ada1e93f4fdec432a0560db918",
+      "url": "https://raw.githubusercontent.com/vuhdo-io/VuhDo/efce2d253b0c85ada1e93f4fdec432a0560db918/VuhDo.lua",
+      "sha256": "706d614caaa56371877c60b10ae4c68533a904a620729837cb1f42064cda25fe",
+      "byte_identical_to_release": true,
+      "lines_identical_to_release": true
+    },
+    {
+      "path": "VuhDoRelease/VuhDo/VuhDoPanel.xml",
+      "repository_path": "VuhDoPanel.xml",
+      "commit": "efce2d253b0c85ada1e93f4fdec432a0560db918",
+      "url": "https://raw.githubusercontent.com/vuhdo-io/VuhDo/efce2d253b0c85ada1e93f4fdec432a0560db918/VuhDoPanel.xml",
+      "sha256": "af1f3187e8f55875e565b9d0412473b2246b309b48eb67bfc962399466bc36a9",
+      "byte_identical_to_release": true,
+      "lines_identical_to_release": true
+    }
+  ]
+}

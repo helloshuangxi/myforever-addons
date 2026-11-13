@@ -1,0 +1,319 @@
+{
+  "schema_version": 1,
+  "latest": "0.9.3",
+  "releases": [
+    {
+      "schema_version": 1,
+      "name": "MyForeverChat",
+      "display_name": "我的微信式聊天",
+      "homepage": "https://afabiaoge.xyz/",
+      "installation": "完整退出游戏，替换 _forever_/Interface/AddOns/MyForeverChat 文件夹，保留 WTF，然后重启游戏。",
+      "automatic_install": false,
+      "version": "0.9.3",
+      "channel": "trial",
+      "published_at": "2026-11-09",
+      "compatibility": {
+        "product": "国服魔兽世界：无限",
+        "client": "1.60.1",
+        "interface": 16001
+      },
+      "changes": [
+        "消息泡泡从 320 × 114 进一步缩至默认 260 × 74 个界面单位，宽度减少约 19%、高度再降约 35%，堆叠间隔缩至 6",
+        "正文保留两行并直接采用聊天设置的 12–22 号字体，头像缩为 18 并降低视觉比重，姓名与类别使用较小、较淡的文字同排显示",
+        "完整群名／频道、作者等级职业与操作说明移到悬停提示；Ctrl+X 回复、点击打开会话、滚轮翻页及右键关闭仍可用",
+        "大字号自动增加高度，22 档为 90；频道泡泡保留紧凑的「屏蔽」按钮，公共频道默认不弹窗及原有提醒时长保持不变"
+      ],
+      "validation": [
+        "14 个聊天插件 Lua 文件通过 Lua 5.1 语法检查；15 套聊天模拟测试共 1960 项通过，其中 UI 491 项。覆盖 12／14／22 三档字号、两行正文下方至少 8 个界面单位留白、顶部元信息分离、8 大小的状态徽标与 6 间隔的通知堆叠。",
+        "模拟检查验证悬停可查看完整频道／群名、作者等级职业与快捷操作，翻页复用同步更新；620 高视口的 4 → 3 → 4 条通知重排保留原计时和消息，原生群正文显示句柄不额外裁切。",
+        "独立代码复核及 12 项内存模拟通过：仅通知头像缩小徽标，聊天记录头像及其悬停内容保持原状，公共频道和私聊复用同一泡泡时来源、按钮及提示内容同步更新；顶部清除／翻页控件也收窄到 260 范围内。",
+        "修改时游戏未运行，新版尺寸、字体和悬停提示尚待实际客户端确认。页面继续保留标注版本的 v0.9.0／v0.8.0 脱敏实机图，明确旧图不展示本版新尺寸。"
+      ],
+      "package_note": "内附安装说明、表情包制作器与 MIT 许可证",
+      "download": {
+        "url": "https://afabiaoge.xyz/downloads/MyForeverChat-0.9.3-Trial.zip",
+        "filename": "MyForeverChat-0.9.3-Trial.zip",
+        "size_bytes": 121419,
+        "sha256": "5f5a84f578f8a76be0c43e5c885ebbbbfcda224795475cf87461e0e9b90838c9"
+      }
+    },
+    {
+      "schema_version": 1,
+      "name": "MyForeverChat",
+      "display_name": "我的微信式聊天",
+      "homepage": "https://afabiaoge.xyz/",
+      "installation": "完整退出游戏，替换 _forever_/Interface/AddOns/MyForeverChat 文件夹，保留 WTF，然后重启游戏。",
+      "automatic_install": false,
+      "version": "0.9.2",
+      "channel": "trial",
+      "published_at": "2026-11-08",
+      "compatibility": {
+        "product": "国服魔兽世界：无限",
+        "client": "1.60.1",
+        "interface": 16001
+      },
+      "changes": [
+        "消息通知泡泡默认高度由 154 缩至 114 个界面单位，减少约 26%，头像同步缩小并压紧顶部资料区，减少遮挡",
+        "正文改为通栏两行预览，继续显示消息来源、姓名、等级职业与快捷操作提示",
+        "大字号自动增加泡泡高度，22 档为 130；字号切换时同步调整现有泡泡、堆叠间距和分页容量",
+        "保留公共频道默认不弹窗、公会／小队／团队等原有提醒规则及 20／60 秒停留时间"
+      ],
+      "validation": [
+        "通过 14 个聊天插件 Lua 文件的 Lua 5.1 语法检查和 1900 项聊天插件模拟检查（UI 431 项）。覆盖默认／最大字号下两行正文与提示的间距、即时重排、屏幕内堆叠、翻页计时、公共频道总开关及原有收发逻辑。",
+        "独立代码复核及 12 项内存模拟通过：700 高视口中默认字号可见 3 条，大字号即时变为 2 条，再调小恢复；复用泡泡尺寸和位置同步，队列消息保留。",
+        "本次修改时游戏未运行，新尺寸与最大字号的实际显示尚待游戏内确认。页面继续使用标注版本的 v0.9.0／v0.8.0 脱敏实机图，不用旧图声称新布局已实测。"
+      ],
+      "package_note": "内附安装说明、表情包制作器与 MIT 许可证",
+      "download": {
+        "url": "https://afabiaoge.xyz/downloads/MyForeverChat-0.9.2-Trial.zip",
+        "filename": "MyForeverChat-0.9.2-Trial.zip",
+        "size_bytes": 121201,
+        "sha256": "33aa708f9cab1166bd63d18a2f68e33a2ba0f5bd9a951ae2e552d6e886c5e7e4"
+      }
+    },
+    {
+      "schema_version": 1,
+      "name": "MyForeverChat",
+      "display_name": "我的微信式聊天",
+      "homepage": "https://afabiaoge.xyz/",
+      "installation": "完整退出游戏，替换 _forever_/Interface/AddOns/MyForeverChat 文件夹，保留 WTF，然后重启游戏。",
+      "automatic_install": false,
+      "version": "0.9.1",
+      "channel": "trial",
+      "published_at": "2026-11-07",
+      "compatibility": {
+        "product": "国服魔兽世界：无限",
+        "client": "1.60.1",
+        "interface": 16001
+      },
+      "changes": [
+        "新增公共频道提醒总开关，首次安装和从旧版升级默认关闭综合、交易等公共频道及玩家自建频道弹窗，频道消息仍照常记录",
+        "左侧「频道提醒 · 关／开」显示当前状态，进入面板可统一开启或关闭；公会、小队、团队、角色社区群聊和私聊提醒不受影响",
+        "保留原有逐频道屏蔽与恢复选择，总开关关闭时也能继续调整；开启后继续按各频道原选择提醒",
+        "关闭时收起公共频道当前及排队泡泡，期间新消息不累加频道未读；之前未读暂时隐藏，开启后恢复显示，不补播旧泡泡"
+      ],
+      "validation": [
+        "通过 Lua 5.1 语法检查与 1836 项聊天插件模拟检查。验证了新装和升级默认关闭、收起可见及排队的频道泡泡、保留记录与逐频道设置，以及公会、小队、团队和私聊等提醒正常。",
+        "在 macOS 无限客户端实测：关闭公共频道提醒并收起聊天窗口后，抽查 5 条真实综合来信，均未弹窗，聊天记录正常保存。",
+        "客户端内模拟交易来信未弹窗，公会、小队、团队各弹出一条提醒。这四类的真实服务器来信仍待验证。频道设置实机图标注为 v0.9.0 界面。"
+      ],
+      "package_note": "内附安装说明、表情包制作器与 MIT 许可证",
+      "download": {
+        "url": "https://afabiaoge.xyz/downloads/MyForeverChat-0.9.1-Trial.zip",
+        "filename": "MyForeverChat-0.9.1-Trial.zip",
+        "size_bytes": 120882,
+        "sha256": "5a150350b076ea180375af4372452bb442007e6027a0555be9832e1e88e39d44"
+      }
+    },
+    {
+      "schema_version": 1,
+      "name": "MyForeverChat",
+      "display_name": "我的微信式聊天",
+      "homepage": "https://afabiaoge.xyz/",
+      "installation": "完整退出游戏，替换 _forever_/Interface/AddOns/MyForeverChat 文件夹，保留 WTF，然后重启游戏。",
+      "automatic_install": false,
+      "version": "0.9.0",
+      "channel": "trial",
+      "published_at": "2026-11-06",
+      "compatibility": {
+        "product": "国服魔兽世界：无限",
+        "client": "1.60.1",
+        "interface": 16001
+      },
+      "changes": [
+        "新增角色社区群聊页，按群与文字频道查看、读取近期历史并收发消息；朋友使用原生社区即可参与",
+        "提供创建、加入、邀请朋友与管理入口，显示成员数；邀请和发送前核对当前群及对应权限",
+        "群消息按服务器消息 ID 去重，重载后打开群自动重读受保护正文；正常显示气泡，提交后可找回本群上次发送且不覆盖新草稿",
+        "战网好友历史改为本机同一魔兽账号跨角色共享，每位保留最近 500 条；旧角色首次登录导入，角色私聊与频道保持独立",
+        "综合、交易、副本、寻求组队分别使用综、交、本、组，消息泡泡同步展示明确频道标识",
+        "移除正常在线时常驻的绿色提示条，保留离线、未知、发送中和失败提示；继续支持按具体频道屏蔽弹窗",
+        "原生角色社区不再混入普通频道重复提醒；旧镜像记录与草稿保留，打开原生窗口时自动收起插件"
+      ],
+      "validation": [
+        "通过 19 个 Lua 文件语法检查、聊天插件 1788 项及全部插件 1949 项模拟检查，并完成独立代码复核。",
+        "在 macOS 无限客户端 1.60.1.70790 实测角色社区创建、好友加入、插件群消息双向收发、正文显示与重载后自动读取历史。邀请朋友入口已实测：进入当前群后，亲点原生“邀请成员”可输入角色名或使用邀请链接。",
+        "已实测发送内容取回及新草稿保护、旧战网聊天记录恢复和重载保留、综合与交易独立屏蔽、正常在线提示条移除；新版群聊与频道管理截图已脱敏。",
+        "Windows、离群/禁言等异常流程尚未实机验证；模拟检查覆盖相应分支。本版没有普通角色好友离线私聊留言。"
+      ],
+      "package_note": "内附安装说明、表情包制作器与 MIT 许可证",
+      "download": {
+        "url": "https://afabiaoge.xyz/downloads/MyForeverChat-0.9.0-Trial.zip",
+        "filename": "MyForeverChat-0.9.0-Trial.zip",
+        "size_bytes": 119961,
+        "sha256": "60081bc023fb0ef9cd0fdec97a7961da346686794093d213415d47a31599543b"
+      }
+    },
+    {
+      "schema_version": 1,
+      "name": "MyForeverChat",
+      "display_name": "我的微信式聊天",
+      "homepage": "https://afabiaoge.xyz/",
+      "installation": "完整退出游戏，替换 _forever_/Interface/AddOns/MyForeverChat 文件夹，保留 WTF，然后重启游戏。",
+      "automatic_install": false,
+      "version": "0.8.2",
+      "channel": "trial",
+      "published_at": "2026-11-06",
+      "compatibility": {
+        "product": "国服魔兽世界：无限",
+        "client": "1.60.1",
+        "interface": 16001
+      },
+      "changes": [
+        "新增常驻频道提醒入口，综合、交易等频道按具体名称分别屏蔽或恢复弹窗",
+        "频道消息泡泡可直接屏蔽此频道，立即清除该频道当前和排队提醒，保留记录与会话内未读",
+        "明确区分列表折叠和频道免打扰，恢复提醒后不重播旧泡泡",
+        "标准公共频道按游戏提供的稳定身份关联，避免换地区或编号变化影响已确认频道的设置",
+        "保守迁移已认证旧频道记录并保留冲突草稿，修复迟到消息在频道编号重用时可能归错会话的问题"
+      ],
+      "validation": [
+        "v0.8.2 已通过 17 个 Lua 文件语法检查、聊天插件 1344 项及全部插件 1505 项模拟检查，并完成独立代码复核。受游戏窗口控制中断影响，本版新增界面尚未完成实机验收。",
+        "已模拟验证综合与交易独立屏蔽、地区与编号变化、自建频道身份隔离、旧记录及草稿迁移、迟到事件和泡泡清理。截图为 v0.8.0 脱敏实机截图；本版尚未接入角色社区群聊或普通好友离线留言，Windows 实际运行仍未验证。"
+      ],
+      "package_note": "内附安装说明、表情包制作器与 MIT 许可证",
+      "download": {
+        "url": "https://afabiaoge.xyz/downloads/MyForeverChat-0.8.2-Trial.zip",
+        "filename": "MyForeverChat-0.8.2-Trial.zip",
+        "size_bytes": 103447,
+        "sha256": "a22e37552422c87ed074e753aa4a4694bac237c62abc72ecaddbdd1eea028c7f"
+      }
+    },
+    {
+      "schema_version": 1,
+      "name": "MyForeverChat",
+      "display_name": "我的微信式聊天",
+      "homepage": "https://afabiaoge.xyz/",
+      "installation": "完整退出游戏，替换 _forever_/Interface/AddOns/MyForeverChat 文件夹，保留 WTF，然后重启游戏。",
+      "automatic_install": false,
+      "version": "0.8.1",
+      "channel": "trial",
+      "published_at": "2026-11-06",
+      "compatibility": {
+        "product": "国服魔兽世界：无限",
+        "client": "1.60.1",
+        "interface": 16001
+      },
+      "changes": [
+        "私聊打开即显示明显在线状态；已知离线时禁用发送并保留可编辑草稿",
+        "未知状态明确提醒，打开会话不代表对方在线",
+        "原生离线失败直接在插件内提示，按完整目标或通行证身份精确匹配",
+        "私聊未确认送达时阻止连续回车重复提交，显式允许重试后才可手动重发",
+        "新增关于作者入口及 /wx about，写明 Hyder 联系方式、角色资料、官网和 MIT 许可证"
+      ],
+      "validation": [
+        "v0.8.1 已通过 17 个 Lua 文件语法检查、聊天插件 1276 项及全部插件 1437 项模拟检查。按用户要求未登录游戏，本版新增界面与实际离线投递尚未实机验证。",
+        "已模拟验证离线禁发、未知状态、恢复在线、错误目标隔离、草稿保留、迟到回显及关于许可页。官网截图为 v0.8.0 脱敏实机截图；其他客户端版本与 Windows 实际运行尚未验证。"
+      ],
+      "package_note": "内附安装说明、表情包制作器与 MIT 许可证",
+      "download": {
+        "url": "https://afabiaoge.xyz/downloads/MyForeverChat-0.8.1-Trial.zip",
+        "filename": "MyForeverChat-0.8.1-Trial.zip",
+        "size_bytes": 99453,
+        "sha256": "4e7ab39620006ab62d3f56c25ef0c3c20a41bdae829acf0a80cab188d7430b05"
+      }
+    },
+    {
+      "schema_version": 1,
+      "name": "MyForeverChat",
+      "display_name": "我的微信式聊天",
+      "homepage": "https://afabiaoge.xyz/",
+      "installation": "完整退出游戏，替换 _forever_/Interface/AddOns/MyForeverChat 文件夹，保留 WTF，然后重启游戏。",
+      "automatic_install": false,
+      "version": "0.8.0",
+      "channel": "trial",
+      "published_at": "2026-11-06",
+      "compatibility": {
+        "product": "国服魔兽世界：无限",
+        "client": "1.60.1",
+        "interface": 16001
+      },
+      "changes": [
+        "公会、小队、团队独立并固定置顶",
+        "会话、消息与泡泡按类型配色",
+        "分类提醒20/60秒，并支持滚轮与前后组翻页",
+        "显示发言者姓名及游戏可读取的等级、职业",
+        "修复翻页补位后的悬停资料同步"
+      ],
+      "validation": [
+        "已在实际客户端验证加载、置顶会话、分类颜色、公会消息泡泡、Ctrl+X 回复及草稿保留。提醒计时和滚轮翻页已通过客户端本地预览验证。",
+        "自定义表情游戏内显示、背包物品链接、实际私聊投递、战斗中快捷键及前后翻组按钮，仍待进一步实测。其他客户端版本与 Windows 实际运行未完成验证。"
+      ],
+      "package_note": "内附安装说明与表情包制作器",
+      "download": {
+        "url": "https://afabiaoge.xyz/downloads/MyForeverChat-0.8.0-Trial.zip",
+        "filename": "MyForeverChat-0.8.0-Trial.zip",
+        "size_bytes": 89476,
+        "sha256": "e8e86fae88a66bef43d72dae56ad5f02dd76b4f38c0629406c982e061d72e346"
+      }
+    },
+    {
+      "version": "0.7.2",
+      "published_at": "2026-11-06",
+      "changes": [
+        "通知泡泡移到屏幕左侧中上方，从上向下排列；「清除泡泡」放在首条提醒上方。"
+      ]
+    },
+    {
+      "version": "0.7.1",
+      "published_at": "2026-11-06",
+      "changes": [
+        "新增 Ctrl+X 快捷回复与最小化，保留选中草稿。修复联系人页受限操作报错及输入区空白点击不聚焦；插件内头像和名字改为直接左键双击私聊。"
+      ]
+    },
+    {
+      "version": "0.7.0",
+      "published_at": "2026-11-06",
+      "changes": [
+        "加入自定义表情包制作器、加载和分页选择；支持 Shift 点击背包物品插入链接；文字与链接数据分别计算长度。"
+      ]
+    },
+    {
+      "version": "0.6.0",
+      "published_at": "2026-11-06",
+      "changes": [
+        "联系人与会话分离，加入「最近的人」与通行证私聊。支持原生框体和玩家链接 Ctrl 双击私聊，新增动作面板、搜索与动作快捷键。"
+      ]
+    },
+    {
+      "version": "0.5.1",
+      "published_at": "2026-11-06",
+      "changes": [
+        "完善物品、地图、专业和宠物等原生链接；改善品质颜色可读性与 Shift 点击插入；支持右键复制纯文字。"
+      ]
+    },
+    {
+      "version": "0.5.0",
+      "published_at": "2026-11-06",
+      "changes": [
+        "加入删除对话确认，区分在线、离线、未知状态及免打扰标记；新增逐条通知泡泡、排队、关闭与一键清除。"
+      ]
+    },
+    {
+      "version": "0.4.0",
+      "published_at": "2026-11-06",
+      "changes": [
+        "新增字号、背景透明度、主题与自定义颜色设置。即时应用，按角色保存；恢复默认仅重置外观。"
+      ]
+    },
+    {
+      "version": "0.3.0",
+      "published_at": null,
+      "changes": [
+        "加入人物资料与头像、添加好友、频道分组、12 个内置表情与最小化通知。"
+      ]
+    },
+    {
+      "version": "0.2.0",
+      "published_at": null,
+      "changes": [
+        "加入会话置顶、免打扰、独立草稿、目标私聊、会话独立发送状态，以及历史阅读位置保护。"
+      ]
+    },
+    {
+      "version": "0.1.0",
+      "published_at": null,
+      "changes": [
+        "初始会话列表、左右聊天气泡、未读与草稿。支持角色私聊、队伍、公会、附近和已加入频道。"
+      ]
+    }
+  ]
+}

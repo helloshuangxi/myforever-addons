@@ -1,0 +1,30 @@
+{
+  "version": "0.4.5",
+  "release": "20261108T031537Z",
+  "status": "published-and-verified",
+  "checkedAt": "2026-11-08T03:17:59.289955+00:00",
+  "fullHTTPSFiles": 64,
+  "focusedExternalChecks": 8,
+  "www": {
+    "status": 301,
+    "location": "https://afabiaoge.xyz/"
+  },
+  "chatHealth": {
+    "status": 200
+  },
+  "studioProtected": {
+    "status": 200,
+    "final_url": "https://studio.afabiaoge.xyz/login",
+    "login_required": true
+  },
+  "community": {
+    "status": 200,
+    "returned_items": 0,
+    "has_more": false,
+    "write_test_performed": false
+  },
+  "zipSHA256": "c6861f5b6ad9051a55c97dd83c7d92fb0012623b6bd6d79885dc5921f0ffa81c",
+  "installedFilesMatchPublishedPackage": true,
+  "simulatedChecks": 1167,
+  "actualNewIconDragTest": false
+}

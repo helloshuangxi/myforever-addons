@@ -1,0 +1,18 @@
+{
+  "status": "published",
+  "version": "0.4.6",
+  "deployment": "20261108T041158Z",
+  "publicURL": "https://afabiaoge.xyz/professions/",
+  "download": "https://afabiaoge.xyz/downloads/MyForeverProfessions-0.4.6-Trial.zip",
+  "sha256": "6d1e93b4d9865216d46d532770813b38572692134a8dd16333f87d864cf62bb6",
+  "bytes": 57254,
+  "fullPublicFilesChecked": 66,
+  "focusedPublicFilesChecked": 8,
+  "checkedAt": "2026-11-08T04:15:05.653877+00:00",
+  "old045Unchanged": true,
+  "chatVersion": "0.9.1",
+  "managerVersion": "0.1.0",
+  "actualAudibilityConfirmed": false,
+  "automaticDirectionRecovered": false,
+  "userAcceptedVisibleOverheadNotification": true
+}

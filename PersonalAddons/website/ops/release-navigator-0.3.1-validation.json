@@ -1,0 +1,29 @@
+{
+  "version": "0.3.1",
+  "date": "2026-11-09",
+  "status": "published-and-verified",
+  "release": "20261109T054700Z",
+  "package": {
+    "bytes": 569000,
+    "sha256": "64175bd964ab862cc73e6f963fda7c82d265cd482bdecec97d7e211e144d8436"
+  },
+  "simulation": {
+    "lua51_files": 10,
+    "groups": 10,
+    "quest_ui_assertions": 254,
+    "navigation_assertions": 249,
+    "main_ui_assertions": 409,
+    "quest_navigation_assertions": 7083,
+    "returned_points_checked": 831039
+  },
+  "manager_isolated_checks": 64,
+  "live_resources": 92,
+  "prior_packages_unchanged": 26,
+  "game": "not running at inspection; map button visual and physical click not verified",
+  "other_public_versions": {
+    "Chat": "0.9.3",
+    "Professions": "0.4.6",
+    "Manager": "0.2.0"
+  },
+  "followup": "HUD relative directions and hierarchy requested during upload; next version 0.3.2 in progress"
+}

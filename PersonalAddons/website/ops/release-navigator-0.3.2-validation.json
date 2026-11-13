@@ -1,0 +1,78 @@
+{
+  "version": "0.3.2",
+  "channel": "trial",
+  "date": "2026-11-09",
+  "status": "published-and-verified",
+  "package": {
+    "filename": "MyForeverNavigator-0.3.2-Trial.zip",
+    "bytes": 570444,
+    "sha256": "291afa405730ef3db8be628fdd0bbb6cbeaf21c64d5b58441bb014c1b948b716",
+    "allowlisted_files": 14
+  },
+  "simulation": {
+    "lua51_files": 10,
+    "groups": 10,
+    "main_ui_hud_assertions": 494,
+    "quest_ui_assertions": 254,
+    "navigation_assertions": 249,
+    "quest_navigation_assertions": 7083,
+    "returned_points_checked": 831039,
+    "passed": true
+  },
+  "independent_heading_review": {
+    "cardinal_facing_target_combinations": 16,
+    "eight_relative_directions": "passed",
+    "negative_and_wrapped_angles": "passed",
+    "invalid_angles": "passed",
+    "font_definition": "verified in fixed native 70862 source"
+  },
+  "preservation": {
+    "map_track_adjacent_navigation_button": "retained; QuestUI.lua byte-identical to 0.3.1",
+    "catalogue_and_task_reference": "unchanged",
+    "prior_public_packages": 27,
+    "other_public_versions": {
+      "Chat": "0.9.3",
+      "Professions": "0.4.6",
+      "Manager": "0.2.0"
+    },
+    "professions_candidate_published": false
+  },
+  "manager": {
+    "version": "0.2.0",
+    "isolated_checks_passed": 64,
+    "live_checks": 68
+  },
+  "game": {
+    "observed": "not running at inspection",
+    "visual_hierarchy_and_physical_buttons": "not verified",
+    "in_game_heading_correspondence": "not verified"
+  },
+  "website": {
+    "local_check": "passed",
+    "freeze": "PersonalAddons/work/navigator-0.3.2-site",
+    "live": "passed",
+    "verified_resources": 94,
+    "actual_download_sha256": "291afa405730ef3db8be628fdd0bbb6cbeaf21c64d5b58441bb014c1b948b716",
+    "existing_services": {
+      "www": {
+        "status": 301,
+        "location": "https://afabiaoge.xyz/"
+      },
+      "chat": {
+        "status": 200
+      },
+      "studio": {
+        "status": 200,
+        "final_url": "https://studio.afabiaoge.xyz/login",
+        "login_required": true
+      },
+      "community": {
+        "status": 200,
+        "returned_items": 0,
+        "has_more": false,
+        "write_test_performed": false
+      }
+    }
+  },
+  "release": "20261109T055424Z"
+}

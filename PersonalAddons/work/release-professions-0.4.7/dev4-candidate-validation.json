@@ -1,0 +1,38 @@
+{
+  "version": "0.4.7-dev.4",
+  "status": "local candidate; no publication",
+  "scope": "Original native soft cursor reader; confirmed resource names and sound only. Moving-minimap method removed from load list.",
+  "source_sha256": {
+    "API.lua": "477b6a1c5d6660ff8661bf09779c2da1157f299da4a6445fe2577c81656a0200",
+    "Core.lua": "d4276f32c505f9cab2dceea160701e19cbe49e0b643633bd85b0e51c614a928f",
+    "GatherAlerts.lua": "1846fe9e3649da1fd7a3cd0e3b445c6cf452aab50573c212c84990ffd53dbffa",
+    "GatherResources.lua": "a3f660faf0a0196f28c352f7d0d84887cfbfd84c14a58274270dd2716e91a11b",
+    "GatherScan.lua": "c5f579e5c96127b157e86d8d4991b68c5da787e4f5963e52b2486a0d9f245bc3",
+    "GatherSparkles.lua": "12be44acd612a9668c92dc822387c4c8b94f5fadcebfa55efef77aa73ff11899",
+    "ItemLinks.lua": "4f80ae78bd5c82e6b9bcda8af711729b052279838055da94a61956a6173f476c",
+    "Main.lua": "18b107dc41c589a8dac02868905f8d851a6e5976bf3a62358c1aaacf060220f8",
+    "TrainerPins.lua": "4e47f9d79858bc9a3dee869e2df69cfd32a2b7e58752537bdcf42efd10208bbf",
+    "Trainers.lua": "49fd00450a90b6cfe960fc6555bb166faa3c45ed9f02f276407bc6393fe0aa3c",
+    "UI.lua": "398b96b68c0d9853804bac13dde404328b934c504e337f2c1f886906162b5a54"
+  },
+  "toc_sha256": "bd06acb39274797975701036d38bc318fb882664898f497e302ff764da3de4b3",
+  "verification": {
+    "lua_syntax_files": 11,
+    "simulated_checks": 1335,
+    "independent_additional_hud_checks": 8,
+    "independent_review": "passed",
+    "actual_reload": "Observed version 0.4.7-dev.4 in game",
+    "actual_enable_and_mineral_notice": "Enabled; completed scan counts 0 -> 27 -> 71, valid resources stayed 0; no automatic HUD observed",
+    "actual_minimap_scan_stability": "Original minimap stayed visible at normal position across active scan observations; no black scan stand-in",
+    "actual_automatic_sound": "No automatic calls before preview (count0); manual gather test accepted1 client playback call, audibility unverified",
+    "actual_manual_preview": "附近有 铜矿（测试） / 小地图范围内, no direction arrow; preview expired and scan resumed",
+    "mineral_tracking": true,
+    "gather_alerts": true,
+    "gather_sound": true,
+    "right_button_binding": "TURNORACTION",
+    "resource_identity": "Visible yellow dots were not manually named in current scene; do not assume every dot is a mineral"
+  },
+  "retired_dev3_results": "Not applicable to current method. User accepted right mouse but rejected minimap flashing.",
+  "publication_gate": "User must test and explicitly approve before public packaging/website deployment.",
+  "checked_at": "2026-11-08T20:30:11.629978+08:00"
+}

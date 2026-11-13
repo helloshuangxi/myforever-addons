@@ -1,0 +1,9 @@
+{
+  "sha": "f922db7957bbc83dc7d0047057ab5c5bf3ba7085",
+  "commitDateUTC": "2026-11-07T07:37:13Z",
+  "htmlUrl": "https://github.com/Krelock/NodeSight/commit/f922db7957bbc83dc7d0047057ab5c5bf3ba7085",
+  "files": [
+    ".github/README.md"
+  ],
+  "summary": "Author reports game update disabled NodeSight minimap symbols across addon versions; sparkles still work; no replacement known."
+}

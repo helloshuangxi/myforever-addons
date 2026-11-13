@@ -1,0 +1,110 @@
+[
+  {
+    "path": "Blizzard_APIDocumentationGenerated/SkillInfoDocumentation.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_APIDocumentationGenerated/SkillInfoDocumentation.lua",
+    "bytes": 3129,
+    "sha256": "5d7853c927bdf555c2b2679c31b8cfa0ef7f016ec88e1b0253bc86231bff4f7f"
+  },
+  {
+    "path": "Blizzard_APIDocumentationGenerated/TradeSkillUIDocumentation.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_APIDocumentationGenerated/TradeSkillUIDocumentation.lua",
+    "bytes": 31711,
+    "sha256": "e3392e58403283ef5e307268ce51781ef25e7e0d955a199906b9b37278503fd2"
+  },
+  {
+    "path": "Blizzard_APIDocumentationGenerated/TradeSkillUITypesDocumentation.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_APIDocumentationGenerated/TradeSkillUITypesDocumentation.lua",
+    "bytes": 17329,
+    "sha256": "c1fcec130e314052873d0246311f1a554141b0cf5ace55ea849ad8c7275be29b"
+  },
+  {
+    "path": "Blizzard_FrameXMLUtil/ProfessionsUtil.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_FrameXMLUtil/ProfessionsUtil.lua",
+    "bytes": 6404,
+    "sha256": "0d4e658ff8537ce0742080f5ebbbde8fa4357483140be407554384e9c3ddc81f"
+  },
+  {
+    "path": "Blizzard_Professions/Blizzard_ProfessionsCrafting.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_Professions/Blizzard_ProfessionsCrafting.lua",
+    "bytes": 57675,
+    "sha256": "9e21c110e2455d8ef2f1c40eee0ba89945fbbe154ae5ba078abf1f85eba85925"
+  },
+  {
+    "path": "Blizzard_Professions/Blizzard_ProfessionsFrame.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_Professions/Blizzard_ProfessionsFrame.lua",
+    "bytes": 41437,
+    "sha256": "68ef87f3c3ba5bbf4f130236140bcb59e755a226165e832aa5058584166388bc"
+  },
+  {
+    "path": "Blizzard_Professions/Camelot/Blizzard_ProfessionsCrafting.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_Professions/Camelot/Blizzard_ProfessionsCrafting.lua",
+    "bytes": 1262,
+    "sha256": "5ebac412d142f767b20e4adcc44e79e2f4e4d317b79caa686fa552082987e8a9"
+  },
+  {
+    "path": "Blizzard_Professions/Camelot/Blizzard_ProfessionsCraftingOutputLog.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_Professions/Camelot/Blizzard_ProfessionsCraftingOutputLog.lua",
+    "bytes": 79,
+    "sha256": "a171b7c52e77b683fe5d4ec921de531a1d20559a6ffa3e2c8b22b5bd5c8397b0"
+  },
+  {
+    "path": "Blizzard_Professions/Camelot/Blizzard_ProfessionsFrame.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_Professions/Camelot/Blizzard_ProfessionsFrame.lua",
+    "bytes": 3986,
+    "sha256": "f6bf01281463e4465e3617ae6ca15679d563f8d29c6255a180ff24f48c41f7b3"
+  },
+  {
+    "path": "Blizzard_ProfessionsBook/Blizzard_ProfessionsBook.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ProfessionsBook/Blizzard_ProfessionsBook.lua",
+    "bytes": 17607,
+    "sha256": "3c837dce5783f6c8872c3cac8e68c8c4c2e5518b1800d65265999e2802fe9405"
+  },
+  {
+    "path": "Blizzard_ProfessionsBook/Camelot/Blizzard_ProfessionsBook.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ProfessionsBook/Camelot/Blizzard_ProfessionsBook.lua",
+    "bytes": 4720,
+    "sha256": "11904794dde1f92721a7722210707061b9c56bedb1dcd291ebc946379ec0a18e"
+  },
+  {
+    "path": "Blizzard_ProfessionsTemplates/Blizzard_Professions.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ProfessionsTemplates/Blizzard_Professions.lua",
+    "bytes": 59949,
+    "sha256": "6adda16ef89074f83ac033ebca705081bbfbc88eb98fc32faa14a747f4a5b1ca"
+  },
+  {
+    "path": "Blizzard_ProfessionsTemplates/Blizzard_ProfessionsRankBar.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ProfessionsTemplates/Blizzard_ProfessionsRankBar.lua",
+    "bytes": 7644,
+    "sha256": "a6d9745e85d2a713d3feead60591bf052b5f1815259d18e55ebe45894042b03b"
+  },
+  {
+    "path": "Blizzard_ProfessionsTemplates/Blizzard_ProfessionsRecipeList.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ProfessionsTemplates/Blizzard_ProfessionsRecipeList.lua",
+    "bytes": 12736,
+    "sha256": "158f662666a7fa2eb086c89a46fb33b0740b95c00e46f94a5b6c19c5775782e4"
+  },
+  {
+    "path": "Blizzard_ProfessionsTemplates/Blizzard_ProfessionsRecipeLoader.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ProfessionsTemplates/Blizzard_ProfessionsRecipeLoader.lua",
+    "bytes": 2071,
+    "sha256": "b5526f136271fb5a14bbee196fb333353177c48ed2788cbd9d940506c6edca5b"
+  },
+  {
+    "path": "Blizzard_ProfessionsTemplates/Camelot/Blizzard_Professions.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ProfessionsTemplates/Camelot/Blizzard_Professions.lua",
+    "bytes": 1179,
+    "sha256": "1085c6bff371853a0ebd5e65df63024892c9cab44218f3cb7a6e2b3f71895236"
+  },
+  {
+    "path": "Blizzard_ProfessionsTemplates/Camelot/Blizzard_ProfessionsRecipeSchematicFormOverride.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_ProfessionsTemplates/Camelot/Blizzard_ProfessionsRecipeSchematicFormOverride.lua",
+    "bytes": 667,
+    "sha256": "8fa1c05082960eec47739efde24712b860990aae7933b1cb556ac0994cf50710"
+  },
+  {
+    "path": "Blizzard_UIParent/UIParent.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_UIParent/UIParent.lua",
+    "bytes": 370,
+    "sha256": "7ee72baff31b5df22643508aaedcccc53f16420b8787adabe0f11b177eb5503b"
+  }
+]

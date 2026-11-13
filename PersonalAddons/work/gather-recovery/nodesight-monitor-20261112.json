@@ -1,0 +1,123 @@
+{
+  "automation_id": "nodesight",
+  "triggeredAt": "2026-11-12T01:56:37.114Z",
+  "checkedAt": "2026-11-12T02:01:45Z",
+  "localDate": "2026-11-12",
+  "timezone": "Asia/Shanghai",
+  "comparedWith": {
+    "file": "nodesight-monitor-20261110.json",
+    "github": "1.9.0 / 7d282780cd8e41c0ceef813b4a6e0bdac4b4f904",
+    "curseforge": "2.0.1 / 9533303",
+    "additionalChatBaseline": "2.0.3 Beta / 9550390 already reviewed on Nov11; not reported again as new"
+  },
+  "github": {
+    "version": "2.0.6",
+    "commit": "c02fa28c78c0cd37ba70d2e9af35f01cf3109a5d",
+    "commitAt": "2026-11-11T23:18:11Z",
+    "releaseAt": "2026-11-11T23:50:39Z",
+    "releaseAtLocal": "2026-11-12 07:50:39 Asia/Shanghai",
+    "tocInterface": 16001,
+    "mainTagTocAgree": true,
+    "url": "https://github.com/Krelock/NodeSight/releases/tag/v2.0.6"
+  },
+  "curseforge": {
+    "version": "2.0.6",
+    "fileId": 9566486,
+    "releaseType": "Release",
+    "displayUploadDate": "2026-11-11 (site display)",
+    "client": "WoW Forever 1.60.1",
+    "url": "https://www.curseforge.com/wow/addons/node-sight/files/9566486",
+    "githubNowCaughtUp": true
+  },
+  "meaningfulNewChanges": [
+    {
+      "version": "2.0.4",
+      "changes": [
+        "Wait after combat before timed/distance scan for looting",
+        "Off-minimap symbols removed after five seconds",
+        "Small pointer motion tolerance and symbol alignment fixes",
+        "Settings restoration on reload/logout"
+      ],
+      "source": "https://github.com/Krelock/NodeSight/releases/tag/v2.0.4"
+    },
+    {
+      "version": "2.0.5",
+      "changes": [
+        "EllesmereUI/screen-edge scans no longer read empty or place symbols beside nodes",
+        "Temporarily unclamp the native minimap during scanning; reclamp on completion/pause",
+        "Preserve UI clock/zone text in stand-in"
+      ],
+      "source": "https://github.com/Krelock/NodeSight/releases/tag/v2.0.5",
+      "commit": "8801b8d1e57067c8a70bd29d5899b877349bb7ca"
+    },
+    {
+      "version": "2.0.6",
+      "changes": [
+        "Setup window for scan interference presets",
+        "Less intrusive preset: 40 yards walked, cursor still, stop on mouse motion, wait five seconds after combat; no combat scans",
+        "Herb/ore tooltips include required skill"
+      ],
+      "source": "https://www.curseforge.com/wow/addons/node-sight/files/9566486"
+    }
+  ],
+  "methodAssessment": {
+    "stillMovesAndHidesRealMinimap": true,
+    "oldSoftCursorReaderRestored": false,
+    "independentResourceFeedFound": false,
+    "api": "GetSymbols copies scan markers, including held entries; no independent resource data",
+    "apiSource": "https://github.com/Krelock/NodeSight/blob/c02fa28c78c0cd37ba70d2e9af35f01cf3109a5d/NodeSight.lua#L4020-L4028",
+    "readerSource": "https://github.com/Krelock/NodeSight/blob/c02fa28c78c0cd37ba70d2e9af35f01cf3109a5d/NodeSight.lua#L2748-L2755",
+    "unclampSource": "https://github.com/Krelock/NodeSight/blob/c02fa28c78c0cd37ba70d2e9af35f01cf3109a5d/NodeSight.lua#L2800-L2827",
+    "newColorMatchingFixFound": false,
+    "knownNotNew": "Optional .3-second proxy fade, stand-in level native+1/decor+2 already known in2.0.3; scanFade still defaults false"
+  },
+  "localApplicability": {
+    "status": "reference_only_not_integrated",
+    "potential": "Unclamp/reclamp is a plausible compatibility experiment for edge-of-screen missed samples; does not prove our client has that cause",
+    "readOnlyLocalObservation": "Current GatherCursorScan has sample-alignment guard and no SetClampedToScreen handling",
+    "standingRequirement": "Do not blindly adopt author movement-only preset: local requirement includes stationary scans",
+    "clientLimit": "Release metadata supports Forever1.60.1/Interface16001; prior local tests were70862. Open issue18 reports70888; neither proves our compatibility",
+    "issue": "https://github.com/Krelock/NodeSight/issues/18"
+  },
+  "verification": {
+    "kind": "official release notes plus pinned GitHub source static review",
+    "thirdPartyCodeExecuted": false,
+    "thirdPartyInstalled": false,
+    "gameOperated": false,
+    "addonModified": false,
+    "settingsModified": false,
+    "publicZipCreated": false,
+    "websiteChanged": false,
+    "deployed": false,
+    "limits": [
+      "No live gameplay or audibility test",
+      "CF2.0.6 ZIP itself not downloaded or audited; pinned GitHub2.0.6 source was reviewed",
+      "CF comments page exposed sign-in prompt; gated comments were not inspected",
+      "Absence of a new API or color fix is based on reviewed source and visible announcements, not proof against unpublished work"
+    ]
+  },
+  "myForeverProfessions": {
+    "currentOnDiskVersion": "0.4.7-dev.20",
+    "runtimeEvidence": "../gather-standin-20261111/runtime-dev20.json",
+    "userFeedback": "Grouped affirmative to reload/less color alternation/copper popup/right-mouse; these are inferred user reports, not independent loaded-version verification",
+    "actualAudibilityConfirmed": false,
+    "fullFlickerEliminationConfirmed": false,
+    "continuousYellowBlipsConfirmed": false,
+    "peripheralRangeConfirmed": false,
+    "releaseAllowed": false,
+    "publicationHold": true
+  },
+  "notificationDecision": "NOTIFY",
+  "notificationReason": "New2.0.4-2.0.6 since chat2.0.3; edge-clamping compatibility fix is relevant to missed mineral detection",
+  "automationUpdate": {
+    "id": "nodesight",
+    "preserveSchedule": true,
+    "preservePublicationHold": true,
+    "status": "ACTIVE",
+    "verified": true,
+    "schedulePreserved": "daily10:00Asia/Shanghai; unchanged saved rrule",
+    "targetThreadPreserved": true,
+    "newBaseline": "GitHub2.0.6/c02fa28c; CF2.0.6/file9566486",
+    "publicationHoldPreserved": true
+  }
+}

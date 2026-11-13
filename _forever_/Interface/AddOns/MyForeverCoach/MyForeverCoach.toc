@@ -1,0 +1,13 @@
+## Interface: 16001
+## Title: 我的无限 · 玩家行为采集
+## Notes: 公开游戏行为的本机日累计；/mybehavior 打开。本机统计由我的无限软件展示。
+## Author: Hyder
+## Version: 0.2.0
+## SavedVariablesPerCharacter: MyForeverCoachDB
+
+Core.lua
+Behavior.lua
+Capture.lua
+Export.lua
+UI.lua
+Main.lua

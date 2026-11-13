@@ -1,0 +1,23 @@
+{
+  "installedClient": "1.60.1.70888",
+  "addonVersion": "0.1.44",
+  "runtimeBuildRecorded": false,
+  "codeChanged": false,
+  "published": false,
+  "sourceHashes": {
+    "Core.lua": "237c77753af877196624fc43faddc5392a07a9dc5298edc0a499442964d948a1",
+    "UI.lua": "b94ef204d60697f4e01c0097d56252cfd8ff4dd75f32e2088bbeef7d62bc0a2e",
+    "FocusCycle.lua": "ce4ebfd1d40ee938a7a9f5aba0e809eb54c03a8cb29df8461db3e4df9f4aa6d5",
+    "Diagnostics.lua": "ab3602ba38704e367c7961888d7b398a8d165b9ee9b107e1e983dcb4b5a41dff",
+    "MyForeverTargets.toc": "2c7925c5310bc1d82c7ed3e824919d433156b61a8a609bacc1d1566beca2d634"
+  },
+  "latestObservedCombatEvidence": {
+    "sequenceRange": [
+      16742,
+      17130
+    ],
+    "combatNameplateFocusRefusals": 7,
+    "newFocusCycleFlows": 0
+  },
+  "scope": "Research and proposed manual confirmation interaction; not a working combat GUID automation."
+}

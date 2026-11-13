@@ -1,0 +1,18 @@
+{
+  "status": "published_and_verified",
+  "release": "20261111T095854Z",
+  "targets_version": "0.1.37",
+  "targets_sha256": "6955d72563c0510304798d444ed5cde56b5688a7fa2c18111d38d4c02d4c2366",
+  "manager_public_version": "0.2.1",
+  "local_manager_version": "0.3.1",
+  "server_https_resources": 108,
+  "local_https_resources_or_ranges": 11,
+  "browser_actual_target_download": "passed",
+  "manager_live_checks": 74,
+  "historical_zip_preserved": 29,
+  "other_addon_metadata_preserved": 6,
+  "installed_local_app": "/Applications/MyForeverManager.app",
+  "local_settings_unchanged": true,
+  "native_windows_intel_tested": false,
+  "target_game_validation": "See releases/targets-0.1.37-VALIDATION.md; enemy and enemy-target casting not verified successful"
+}

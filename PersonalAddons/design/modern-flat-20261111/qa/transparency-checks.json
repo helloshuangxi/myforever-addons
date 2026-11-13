@@ -1,0 +1,190 @@
+[
+  {
+    "p": "professions",
+    "bg": "terrain",
+    "background": "rgba(34, 35, 38, 0.84)",
+    "frameOpacity": "1",
+    "textOpacity": "1",
+    "overflow": false
+  },
+  {
+    "p": "professions",
+    "bg": "dark",
+    "background": "rgba(34, 35, 38, 0.84)",
+    "frameOpacity": "1",
+    "textOpacity": "1",
+    "overflow": false
+  },
+  {
+    "p": "professions",
+    "bg": "light",
+    "background": "rgba(34, 35, 38, 0.84)",
+    "frameOpacity": "1",
+    "textOpacity": "1",
+    "overflow": false
+  },
+  {
+    "p": "chat",
+    "bg": "terrain",
+    "background": "rgba(34, 35, 38, 0.84)",
+    "frameOpacity": "1",
+    "textOpacity": "1",
+    "overflow": false
+  },
+  {
+    "p": "chat",
+    "bg": "dark",
+    "background": "rgba(34, 35, 38, 0.84)",
+    "frameOpacity": "1",
+    "textOpacity": "1",
+    "overflow": false
+  },
+  {
+    "p": "chat",
+    "bg": "light",
+    "background": "rgba(34, 35, 38, 0.84)",
+    "frameOpacity": "1",
+    "textOpacity": "1",
+    "overflow": false
+  },
+  {
+    "p": "navigator",
+    "bg": "terrain",
+    "background": "rgba(34, 35, 38, 0.84)",
+    "frameOpacity": "1",
+    "textOpacity": "1",
+    "overflow": false
+  },
+  {
+    "p": "navigator",
+    "bg": "dark",
+    "background": "rgba(34, 35, 38, 0.84)",
+    "frameOpacity": "1",
+    "textOpacity": "1",
+    "overflow": false
+  },
+  {
+    "p": "navigator",
+    "bg": "light",
+    "background": "rgba(34, 35, 38, 0.84)",
+    "frameOpacity": "1",
+    "textOpacity": "1",
+    "overflow": false
+  },
+  {
+    "p": "targets",
+    "bg": "terrain",
+    "background": "rgba(34, 35, 38, 0.84)",
+    "frameOpacity": "1",
+    "textOpacity": "1",
+    "overflow": false
+  },
+  {
+    "p": "targets",
+    "bg": "dark",
+    "background": "rgba(34, 35, 38, 0.84)",
+    "frameOpacity": "1",
+    "textOpacity": "1",
+    "overflow": false
+  },
+  {
+    "p": "targets",
+    "bg": "light",
+    "background": "rgba(34, 35, 38, 0.84)",
+    "frameOpacity": "1",
+    "textOpacity": "1",
+    "overflow": false
+  },
+  {
+    "p": "macros",
+    "bg": "terrain",
+    "background": "rgba(34, 35, 38, 0.84)",
+    "frameOpacity": "1",
+    "textOpacity": "1",
+    "overflow": false
+  },
+  {
+    "p": "macros",
+    "bg": "dark",
+    "background": "rgba(34, 35, 38, 0.84)",
+    "frameOpacity": "1",
+    "textOpacity": "1",
+    "overflow": false
+  },
+  {
+    "p": "macros",
+    "bg": "light",
+    "background": "rgba(34, 35, 38, 0.84)",
+    "frameOpacity": "1",
+    "textOpacity": "1",
+    "overflow": false
+  },
+  {
+    "p": "fieldkit",
+    "bg": "terrain",
+    "background": "rgba(34, 35, 38, 0.84)",
+    "frameOpacity": "1",
+    "textOpacity": "1",
+    "overflow": false
+  },
+  {
+    "p": "fieldkit",
+    "bg": "dark",
+    "background": "rgba(34, 35, 38, 0.84)",
+    "frameOpacity": "1",
+    "textOpacity": "1",
+    "overflow": false
+  },
+  {
+    "p": "fieldkit",
+    "bg": "light",
+    "background": "rgba(34, 35, 38, 0.84)",
+    "frameOpacity": "1",
+    "textOpacity": "1",
+    "overflow": false
+  },
+  {
+    "p": "coach",
+    "bg": "terrain",
+    "background": "rgba(34, 35, 38, 0.84)",
+    "frameOpacity": "1",
+    "textOpacity": "1",
+    "overflow": false
+  },
+  {
+    "p": "coach",
+    "bg": "dark",
+    "background": "rgba(34, 35, 38, 0.84)",
+    "frameOpacity": "1",
+    "textOpacity": "1",
+    "overflow": false
+  },
+  {
+    "p": "coach",
+    "bg": "light",
+    "background": "rgba(34, 35, 38, 0.84)",
+    "frameOpacity": "1",
+    "textOpacity": "1",
+    "overflow": false
+  },
+  {
+    "check": "slider-min",
+    "value": "rgba(34, 35, 38, 0.72)"
+  },
+  {
+    "check": "slider-max",
+    "value": "rgba(34, 35, 38, 0.94)"
+  },
+  {
+    "check": "popover-alpha",
+    "value": "rgba(34, 35, 38, 0.9)"
+  },
+  {
+    "check": "alert-alpha",
+    "value": "rgba(34, 35, 38, 0.8)"
+  },
+  {
+    "check": "390-overflow",
+    "value": false
+  }
+]

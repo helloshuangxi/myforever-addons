@@ -1,0 +1,12 @@
+.navigator-hero{display:grid;grid-template-columns:1.15fr 1fr;max-width:1800px;margin:auto}
+.navigator-intro{padding:70px var(--gutter) 80px;display:flex;align-items:flex-start;flex-direction:column;justify-content:center}
+.eyebrow{font-size:var(--small);letter-spacing:.05em;margin-bottom:24px}
+.navigator-intro .lead{max-width:30em;margin:26px 0 30px}
+.navigator-intro>.text-link{margin-top:22px;line-height:1.7}
+.navigator-overview{background:var(--stage);color:var(--stage-ink);padding:64px clamp(30px,5vw,80px);display:flex;align-items:flex-start;justify-content:center;flex-direction:column}
+.navigator-glyph{display:grid;place-items:center;width:86px;height:86px;background:#6bd194;color:#0f291a;border:3px solid #315d40;font:500 42px/1 var(--font-body,sans-serif)}
+.overview-label{margin-top:18px;font-size:18px}.navigator-counts{display:flex;gap:44px;margin:36px 0 24px}.navigator-counts dt{font-size:44px;line-height:1.25}.navigator-counts dd{font-size:15px;margin-top:5px}.navigator-overview>p{line-height:1.9}.navigator-overview .overview-note{font-size:14px;max-width:28em;margin-top:28px;opacity:.85}
+.navigator-features{background:var(--paper)}.feature-columns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(24px,4vw,70px)}.feature-columns h3{margin-bottom:18px}.feature-columns p{font-size:16px}.feature-columns p+p{margin-top:16px}
+.navigator-install-options{display:grid;grid-template-columns:1fr 1fr;gap:50px}.navigator-install-options h3{margin-bottom:20px}.navigator-install-options ol{padding-left:1.5em;line-height:1.9}.navigator-install-options li+li{margin-top:12px}.navigator-install-options p{font-size:15px;color:var(--muted);margin-top:22px}.navigator-install-options code{overflow-wrap:anywhere}
+@media(max-width:1000px){.navigator-intro{padding-block:45px}.navigator-overview{padding:40px 28px}.feature-columns{gap:28px}.navigator-install-options{gap:30px}}
+@media(max-width:720px){.navigator-hero{display:block}.navigator-intro{padding:35px var(--gutter) 45px}.navigator-intro h1{font-size:40px}.navigator-intro .lead{font-size:17px;margin:20px 0 24px}.navigator-intro .button{width:100%;font-size:16px;gap:16px}.navigator-overview{padding:32px var(--gutter)}.navigator-glyph{width:64px;height:64px;font-size:32px}.navigator-counts{gap:36px;margin-top:24px}.feature-columns,.navigator-install-options{display:block}.feature-columns article+article,.navigator-install-options article+article{margin-top:35px}.eyebrow{font-size:13px;margin-bottom:20px}.site-header nav{justify-content:flex-start;gap:4px 20px}}

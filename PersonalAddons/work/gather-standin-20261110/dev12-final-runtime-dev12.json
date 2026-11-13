@@ -1,0 +1,71 @@
+{
+  "version": "0.4.7-dev.12",
+  "recorded_at": "2026-11-10T12:44:20.963429+08:00",
+  "client": "macOS WoW Forever 1.60.1 / Interface 16001",
+  "loaded_version_read_back": true,
+  "automatic_minimap_popup": {
+    "observed": true,
+    "resource": "铜矿",
+    "title": "附近有 铜矿",
+    "subtitle": "小地图范围内",
+    "manual_gather_test_used": false
+  },
+  "diagnostics": {
+    "reads": 4083,
+    "nil": 83,
+    "empty": 3768,
+    "nonempty": 232,
+    "known": 72,
+    "unknown": 160,
+    "invalid": 0,
+    "rawKnownNames": [
+      "铜矿"
+    ],
+    "acceptedNames": [
+      "铜矿"
+    ],
+    "rejectedKnownNames": []
+  },
+  "hud_receipt_consumptions_observed": 97,
+  "automatic_sound_successful_calls": 1,
+  "audibility_verified": false,
+  "picture_observation": {
+    "standin_shown_frames": 3453,
+    "standin_hidden_frames": 0,
+    "shown_with_native_click_enabled_frames": 783,
+    "interpretation": "Short stationary live-client observation only; image stays shown across gaps while native input lease is released. Does not establish all input/terrain/flicker cases."
+  },
+  "source_switch_cleanup": {
+    "original_mode_observed": true,
+    "standin_shown_in_original": false,
+    "native_click_enabled": true,
+    "native_wheel_enabled": true,
+    "native_motion_enabled": true,
+    "native_map_normal_picture_observed": true,
+    "returned_to_cursor": true
+  },
+  "live_settings": {
+    "gatherMethod": "cursor",
+    "gatherAlerts": true,
+    "gatherSound": true,
+    "gatherSparkles": true,
+    "BUTTON2": "TURNORACTION"
+  },
+  "temporary_observers": {
+    "own_frames_only": true,
+    "OnUpdate_removed": true,
+    "MFPW_nil": true,
+    "MFPBase_nil": true,
+    "MFPTrackTest_nil": true
+  },
+  "limits": [
+    "Physical right-mouse look and minimap clicks not verified: CUA noWindowsAvailable",
+    "Successful PlaySound call is not proof of human audibility",
+    "Only one copper scene field-tested; no universal no-miss guarantee",
+    "No controlled resource removal test",
+    "Herbalism, fish, rotating minimap, other terrain and operating systems not field-tested"
+  ],
+  "raw_screenshots_saved": false,
+  "private_identity_chat_or_character_coordinates_recorded": false,
+  "publication_allowed": false
+}

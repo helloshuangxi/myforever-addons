@@ -1,0 +1,79 @@
+{
+  "version": "0.2.2",
+  "channel": "trial",
+  "date": "2026-11-08",
+  "status": "published-and-verified",
+  "package": {
+    "filename": "MyForeverNavigator-0.2.2-Trial.zip",
+    "bytes": 63807,
+    "sha256": "0b3dbc687c00e3cedc35d094e635c6f5bb43d3334bdf947b9d32c0b164bf51c4",
+    "allowlisted_files": 11
+  },
+  "catalogue": {
+    "total_npcs": 427,
+    "total_points": 427,
+    "total_maps": 45,
+    "added_class_trainers": 195,
+    "trainer_maps": 19,
+    "old_records_unchanged": 232,
+    "class_counts": {
+      "warrior": 32,
+      "paladin": 11,
+      "hunter": 29,
+      "rogue": 24,
+      "priest": 28,
+      "shaman": 11,
+      "mage": 24,
+      "warlock": 21,
+      "druid": 15
+    },
+    "candidate_rejections": 40
+  },
+  "simulation": {
+    "lua51_files": 7,
+    "groups": 7,
+    "navigation_assertions": 175,
+    "ui_assertions": 409,
+    "passed": true
+  },
+  "manager": {
+    "version": "0.2.0",
+    "isolated_checks_passed": 64,
+    "live_checks": 68
+  },
+  "game": {
+    "observed": "client at startup age notice; no confirmation or login performed",
+    "new_trainer_ui_in_character": "not verified",
+    "npc_positions_and_training_conditions": "not verified"
+  },
+  "website": {
+    "local_check": "passed",
+    "release_sync_tests": 7,
+    "freeze": "PersonalAddons/work/navigator-0.2.2-site",
+    "live": "passed",
+    "verified_resources": 84,
+    "actual_download_sha256": "0b3dbc687c00e3cedc35d094e635c6f5bb43d3334bdf947b9d32c0b164bf51c4",
+    "existing_services": {
+      "www": {
+        "status": 301,
+        "location": "https://afabiaoge.xyz/"
+      },
+      "chat": {
+        "status": 200
+      },
+      "studio": {
+        "status": 200,
+        "final_url": "https://studio.afabiaoge.xyz/login",
+        "login_required": true
+      },
+      "community": {
+        "status": 200,
+        "returned_items": 0,
+        "has_more": false,
+        "write_test_performed": false
+      }
+    }
+  },
+  "prior_public_packages_preserved": 22,
+  "release": "20261108T055300Z"
+}

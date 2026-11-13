@@ -1,0 +1,41 @@
+{
+  "version": "0.4.7-dev.9",
+  "scope": "Local stand-in minimap experiment; publication held",
+  "luaSources": 13,
+  "simulatedChecks": 3778,
+  "independentReview": "passed static and simulated; renderer compatibility repair pending",
+  "sourceHashes": {
+    "GatherResources.lua": "a3f660faf0a0196f28c352f7d0d84887cfbfd84c14a58274270dd2716e91a11b",
+    "TrainerPins.lua": "4e47f9d79858bc9a3dee869e2df69cfd32a2b7e58752537bdcf42efd10208bbf",
+    "ItemLinks.lua": "4f80ae78bd5c82e6b9bcda8af711729b052279838055da94a61956a6173f476c",
+    "Main.lua": "cec37fd134f17c7f8b0b45289a2a2643da657016e0ef0206bf9649e406863a41",
+    "GatherCursorScan.lua": "206e61a2aa19019e6671f626f7014b2aa7e961957d358c093da86c342de37b40",
+    "GatherScan.lua": "e426448a11814baa789e8837c32eb572cffbb1922d4aac3280433223feb10de2",
+    "GatherSparkles.lua": "12be44acd612a9668c92dc822387c4c8b94f5fadcebfa55efef77aa73ff11899",
+    "GatherStandIn.lua": "865c4c428ee907791aae33b177b422f61c5679821c83ca56ea4dbcdf7a5930fc",
+    "Trainers.lua": "49fd00450a90b6cfe960fc6555bb166faa3c45ed9f02f276407bc6393fe0aa3c",
+    "GatherAlerts.lua": "014b2690cfdaa6f3e95e8514fd757fdfc0208c60c57f2d8af6b12c51069b2c6f",
+    "API.lua": "477b6a1c5d6660ff8661bf09779c2da1157f299da4a6445fe2577c81656a0200",
+    "UI.lua": "a3e0a346a7584b5bcc86683aa030d6faaa0cf6884e557063235cb23dbe4afa5b",
+    "Core.lua": "fa5a3bdb628b3c38f35a894e372dfe0e23032854bb0bf9fb1b2bdc4052b54874"
+  },
+  "runtime": {
+    "verified": [
+      "dev.8 loaded; existing notice and sound flags true",
+      "current character learned Mining 67/75",
+      "Find Minerals initially inactive; temporary test toggle",
+      "custom EmptyMask accepted as local file ID -469; missing-file control nil",
+      "dev.9 loaded and progressed past asset gate",
+      "legacy round-mask path has no FileID; native round mask atlas FileID 8187590 verified"
+    ],
+    "unverified": [
+      "replacement visible in real game",
+      "fresh automatic minimap ore popup",
+      "automatic sound and actual audibility",
+      "right-mouse operation during scanning",
+      "final test tracking cleanup"
+    ]
+  },
+  "releaseAllowed": false,
+  "notes": "Interim evidence only. No raw player/chat screenshots saved or published. Actual resource discovery has not passed."
+}

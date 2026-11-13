@@ -1,0 +1,10 @@
+{
+  "name": "VuhDoForever",
+  "repo": "vuhdo-io/VuhDo",
+  "branch": "forever",
+  "commit": "14990880c642fee9530698969ee54f13948eaa54",
+  "zip_url": "https://codeload.github.com/vuhdo-io/VuhDo/zip/14990880c642fee9530698969ee54f13948eaa54",
+  "zip_sha256": "d71fafe42575efde51c1cf8fe844b9bc2485dd4a3f8a833727c7aeb9cad3af5d",
+  "text_files": 251,
+  "note": "Official Forever branch; text-only read, not installed/executed."
+}

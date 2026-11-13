@@ -1,0 +1,42 @@
+{
+  "version": "0.8.2",
+  "checked_date": "2026-11-06",
+  "syntax_files": 17,
+  "chat_checks": 1344,
+  "all_checks": 1505,
+  "counts": {
+    "chat_about_test": 42,
+    "chat_actions_test": 8,
+    "chat_appearance_test": 59,
+    "chat_core_test": 582,
+    "chat_emotes_test": 11,
+    "chat_item_links_test": 14,
+    "chat_keybindings_test": 14,
+    "chat_main_events_test": 11,
+    "chat_native_clicks_test": 25,
+    "chat_notifications_test": 76,
+    "chat_profiles_test": 234,
+    "chat_ui_test": 268,
+    "fieldkit_test": 36,
+    "MyForeverMacros": 64,
+    "priest_test": 61
+  },
+  "independent_review": "passed",
+  "in_game_new_ui": "not_completed_computer_control_unavailable",
+  "package": "MyForeverChat-0.8.2-Trial.zip",
+  "bytes": 103447,
+  "sha256": "a22e37552422c87ed074e753aa4a4694bac237c62abc72ecaddbdd1eea028c7f",
+  "file_count": 34,
+  "crc": "passed",
+  "member_byte_comparison": "passed",
+  "source_changes_from_0_8_1": [
+    "MyForeverChat/About.lua",
+    "MyForeverChat/Core.lua",
+    "MyForeverChat/MyForeverChat.toc",
+    "MyForeverChat/UI.lua",
+    "安装使用说明.txt"
+  ],
+  "published_release": "20261106T095615Z",
+  "public_verification": "passed",
+  "public_package_sha256": "a22e37552422c87ed074e753aa4a4694bac237c62abc72ecaddbdd1eea028c7f"
+}

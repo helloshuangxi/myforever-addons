@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "frozen_site": "PersonalAddons/work/targets-0.1.37-manager-0.2.1-site",
+  "historical_zip_count": 29,
+  "preserved_metadata_files": 6,
+  "site_unchanged_since_freeze": true,
+  "targets_version": "0.1.37",
+  "manager_public_version": "0.2.1",
+  "local_app_version": "0.3.1",
+  "release_regressions": 36,
+  "manager_release_regressions": 14,
+  "upload_regressions": 9,
+  "browser_widths": [
+    1440,
+    390,
+    320
+  ],
+  "targets_small_screen_grid_overflow": "fixed and checked",
+  "public_download_verification": "pending deployment"
+}

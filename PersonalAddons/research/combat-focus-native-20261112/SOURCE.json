@@ -1,0 +1,32 @@
+{
+  "commit": "4cd0ab752a77164f654ccbca9d0c1fe8dafceebe",
+  "build": "1.60.1 (70888)",
+  "installedClientVersion": "1.60.1.70888",
+  "scope": "Read-only source audit; third-party code was not loaded or executed; no native game test",
+  "files": [
+    {
+      "path": "Interface/AddOns/Blizzard_UnitPopupShared/UnitPopupSharedButtonMixins.lua",
+      "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/4cd0ab752a77164f654ccbca9d0c1fe8dafceebe/Interface/AddOns/Blizzard_UnitPopupShared/UnitPopupSharedButtonMixins.lua",
+      "sha256": "3a8bc4d0ebba4403cda40b2221cd2723e8ab893cc180c28403aa5fa0ff6a02d4",
+      "bytes": 112765
+    },
+    {
+      "path": "Interface/AddOns/Blizzard_UnitPopupShared/UnitPopupSharedUtils.lua",
+      "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/4cd0ab752a77164f654ccbca9d0c1fe8dafceebe/Interface/AddOns/Blizzard_UnitPopupShared/UnitPopupSharedUtils.lua",
+      "sha256": "77aa7df4926e7d4821d375b205d67e5422749609e658680d94dbd934bb534604",
+      "bytes": 6635
+    },
+    {
+      "path": "Interface/AddOns/Blizzard_APIDocumentationGenerated/UIMacrosDocumentation.lua",
+      "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/4cd0ab752a77164f654ccbca9d0c1fe8dafceebe/Interface/AddOns/Blizzard_APIDocumentationGenerated/UIMacrosDocumentation.lua",
+      "sha256": "820b53bce826959781b61bb130659876c13e03280b187da0175847e12390c043",
+      "bytes": 1592
+    },
+    {
+      "path": "Interface/AddOns/Blizzard_ChatFrameBase/Shared/MacroExecutionManager.lua",
+      "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/4cd0ab752a77164f654ccbca9d0c1fe8dafceebe/Interface/AddOns/Blizzard_ChatFrameBase/Shared/MacroExecutionManager.lua",
+      "sha256": "1bcebbf1a586c61e43bc3d1ae890a0910c7a22bbb69ceb0ef481eef653de6410",
+      "bytes": 976
+    }
+  ]
+}

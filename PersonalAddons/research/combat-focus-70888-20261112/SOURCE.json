@@ -1,0 +1,46 @@
+{
+  "build": "1.60.1 (70888)",
+  "commit": "4cd0ab752a77164f654ccbca9d0c1fe8dafceebe",
+  "parentBuild": "1.60.1 (70862)",
+  "parentCommit": "9dc84f0d3bbae1768ac3405b3716000bd93eda06",
+  "verification": "Independently fetched and compared by combat_focus_sources; all six files byte-identical to parent; C++ behavior not established by this comparison.",
+  "files": [
+    {
+      "path": "Interface/AddOns/Blizzard_RestrictedAddOnEnvironment/RestrictedEnvironment.lua",
+      "sha256": "5e42ec4807156002470d957a140d107619b068c941e182af4c4a4b62e1fcd895",
+      "unchangedFromParent": true,
+      "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/4cd0ab752a77164f654ccbca9d0c1fe8dafceebe/Interface/AddOns/Blizzard_RestrictedAddOnEnvironment/RestrictedEnvironment.lua"
+    },
+    {
+      "path": "Interface/AddOns/Blizzard_RestrictedAddOnEnvironment/RestrictedFrames.lua",
+      "sha256": "d934a9ff9bcad70b754047498eb0a130a210ac7d4eacec67f321f04dcdfd7bb3",
+      "unchangedFromParent": true,
+      "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/4cd0ab752a77164f654ccbca9d0c1fe8dafceebe/Interface/AddOns/Blizzard_RestrictedAddOnEnvironment/RestrictedFrames.lua"
+    },
+    {
+      "path": "Interface/AddOns/Blizzard_RestrictedAddOnEnvironment/SecureHandlers.lua",
+      "sha256": "d8b691f2c7e0bee2673c06fe57e854b1d205814e305eae53b72be69d7f549548",
+      "unchangedFromParent": true,
+      "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/4cd0ab752a77164f654ccbca9d0c1fe8dafceebe/Interface/AddOns/Blizzard_RestrictedAddOnEnvironment/SecureHandlers.lua"
+    },
+    {
+      "path": "Interface/AddOns/Blizzard_FrameXML/SecureTemplates.lua",
+      "sha256": "b6e91f1d54f269a8bd66312b368e6fd7706028d366eee0167161ace9004cae23",
+      "unchangedFromParent": true,
+      "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/4cd0ab752a77164f654ccbca9d0c1fe8dafceebe/Interface/AddOns/Blizzard_FrameXML/SecureTemplates.lua"
+    },
+    {
+      "path": "Interface/AddOns/Blizzard_APIDocumentationGenerated/TargetScriptDocumentation.lua",
+      "sha256": "cc815dc5449118e5f2ebc9f23bee4a80a269907759c3e21e9da878e2d0682ae1",
+      "unchangedFromParent": true,
+      "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/4cd0ab752a77164f654ccbca9d0c1fe8dafceebe/Interface/AddOns/Blizzard_APIDocumentationGenerated/TargetScriptDocumentation.lua"
+    },
+    {
+      "path": "Interface/AddOns/Blizzard_APIDocumentationGenerated/UnitDocumentation.lua",
+      "sha256": "93004ac1b260127741471b7861360cdf7536afcb18d4c1db73b7259faa43e61c",
+      "unchangedFromParent": true,
+      "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/4cd0ab752a77164f654ccbca9d0c1fe8dafceebe/Interface/AddOns/Blizzard_APIDocumentationGenerated/UnitDocumentation.lua"
+    }
+  ],
+  "nativeClientTestPerformed": false
+}

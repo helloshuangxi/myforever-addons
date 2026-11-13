@@ -1,0 +1,23 @@
+## Interface: 16001
+## Title: 我的微信式聊天 |cff70d6aaMyForever Chat|r
+## Notes: 会话、角色社区群聊、战网历史、自定义表情包与物品链接。/wx 打开。
+## Author: Hyder
+## Version: 0.9.3
+## X-License: MIT
+## SavedVariablesPerCharacter: MyForeverChatDB
+## SavedVariables: MyForeverChatAccountDB
+
+Core.lua
+History.lua
+Communities.lua
+Profiles.lua
+Emotes.lua
+Actions.lua
+NativeClicks.lua
+ItemLinks.lua
+Notifications.lua
+Keybindings.lua
+UI.lua
+AppearanceUI.lua
+About.lua
+Main.lua

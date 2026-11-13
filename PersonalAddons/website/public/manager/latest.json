@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "name": "MyForeverManager",
+  "display_name": "我的无限 · 插件管理器",
+  "homepage": "https://afabiaoge.xyz/manager/",
+  "version": "0.2.1",
+  "channel": "trial",
+  "published_at": "2026-11-11",
+  "changes": [
+    "新增目标选择下载与更新，四个插件可分别勾选管理，读取各自独立的版本接口。",
+    "目标选择沿用下载大小、SHA-256、TOC版本核验及更新前备份、恢复流程；只处理选中的插件目录，保留WTF与其他插件。",
+    "保留旧游戏目录、自动更新设置和已有插件勾选；升级后可自行勾选目标选择，游戏运行时继续暂缓安装。",
+    "四个插件卡片在常用窗口以两列排列，宽窗口可并列显示。旧版管理器需下载0.2.1替换程序；管理器自身暂不自动升级。"
+  ],
+  "validation": [
+    "Apple芯片Mac的68项隔离核心检查通过，使用真实目标选择0.1.37 ZIP验证首次安装、旧版更新、备份恢复、WTF与其他插件保留、旧设置迁移和游戏运行保护。",
+    "Windows x64、Apple芯片Mac和Intel Mac自包含构建完成；三平台包通过ZIP CRC、平台架构、版本身份、SHA-256与私人文件检查。两个Mac应用通过本地签名结构核验。",
+    "已在Apple芯片Mac打开公开版应用，确认四个插件卡片。安装、更新和恢复使用隔离目录，未向正在运行的真实游戏执行安装。",
+    "Windows与Intel Mac尚未做对应真机运行验证；完整30分钟定时检查、退出游戏后60秒重试仍未做完整等待实测。Windows未做Authenticode签名；Mac使用本地签名，未做Developer ID签名及公证。"
+  ],
+  "requirements": {
+    "win-x64": "Windows 10 / 11 64 位",
+    "osx-arm64": "macOS 14 或更新版本 · Apple silicon",
+    "osx-x64": "macOS 14 或更新版本 · Intel"
+  },
+  "downloads": [
+    {
+      "platform": "win-x64",
+      "filename": "MyForeverManager-0.2.1-Trial-win-x64.zip",
+      "url": "https://afabiaoge.xyz/manager/downloads/MyForeverManager-0.2.1-Trial-win-x64.zip",
+      "size_bytes": 41644589,
+      "sha256": "932c808e346fe307b0ff213b496840e88e4d3988d0950e99c0a8315e125b6bcb"
+    },
+    {
+      "platform": "osx-arm64",
+      "filename": "MyForeverManager-0.2.1-Trial-osx-arm64.zip",
+      "url": "https://afabiaoge.xyz/manager/downloads/MyForeverManager-0.2.1-Trial-osx-arm64.zip",
+      "size_bytes": 41196799,
+      "sha256": "be4c91aa7d777d3dfc24de0004f1ae542b7eededc825d0673ab6d7453bd29bec"
+    },
+    {
+      "platform": "osx-x64",
+      "filename": "MyForeverManager-0.2.1-Trial-osx-x64.zip",
+      "url": "https://afabiaoge.xyz/manager/downloads/MyForeverManager-0.2.1-Trial-osx-x64.zip",
+      "size_bytes": 43682311,
+      "sha256": "f41788d362a0afe9cdfb343f0c26b26d605a1b4ffd80463ce16398186ea8087f"
+    }
+  ]
+}

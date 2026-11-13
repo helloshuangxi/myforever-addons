@@ -1,0 +1,4 @@
+# Lua 5.1 runtime used by all addon simulation runners.
+lupa==2.6
+# Asset-generation tools (not required by the game client).
+Pillow>=10,<13

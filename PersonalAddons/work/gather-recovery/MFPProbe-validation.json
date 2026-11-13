@@ -1,0 +1,48 @@
+{
+  "status": "candidate_only_not_run_in_game",
+  "checks": 99,
+  "runtime": "Lua 5.1 via lupa.lua51",
+  "files_sha256": {
+    "MFPProbe.lua": "b6404baffb90eb26cc830c2a1b4df57c7abc1c4c5ae5be4e870675b735a080b9",
+    "MFPProbe_mock_test.lua": "e93f5fed22c064cebe7d885032cd00bd2b300187069abe8675d39b87d8d02556"
+  },
+  "samples_normalized_radii": [
+    [
+      -0.32,
+      0.1
+    ],
+    [
+      0.3,
+      0.65
+    ],
+    [
+      -0.6,
+      -0.5
+    ]
+  ],
+  "deadline_seconds": 2,
+  "commands": [
+    {
+      "action": "start",
+      "command": "/run if MFPProbe then MFPProbe:Start() end",
+      "characters": 42,
+      "utf8_bytes": 42
+    },
+    {
+      "action": "cleanup",
+      "command": "/run if MFPProbe then MFPProbe:Cleanup(\"manual\") end",
+      "characters": 52,
+      "utf8_bytes": 52
+    }
+  ],
+  "limits": [
+    "Known-name and readable-line counters only; no tooltip text or player identity retained.",
+    "Unknown/error/protected/mouse/window cases cancel; changed external anchors/alpha are preserved and restored=false reported.",
+    "Actual native hover timing, alpha-zero hit-testing and resource detection remain unverified in game."
+  ],
+  "additional_cases": [
+    "native layout failure before mutation",
+    "native layout failure after mutation",
+    "foreign anchor changes during a failed layout call remain untouched"
+  ]
+}

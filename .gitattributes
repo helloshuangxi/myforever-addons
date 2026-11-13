@@ -1,0 +1,25 @@
+* text=auto
+*.lua text eol=lf
+*.toc text eol=lf
+*.xml text eol=lf
+*.py text eol=lf
+*.sh text eol=lf
+*.md text eol=lf
+*.cs text eol=lf
+*.csproj text eol=lf
+*.json text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.tga binary
+*.blp binary
+*.png binary
+*.jpg binary
+*.ico binary
+*.icns binary
+*.pdf binary
+# Preserve historical patch bytes and meaningful diff-context whitespace.
+*.patch -text -whitespace
+# Preserve imported third-party notices and the dated research note verbatim.
+PersonalAddons/Manager/packaging/THIRD-PARTY-NOTICES.txt whitespace=-blank-at-eol
+PersonalAddons/research/focus-api-70862-20261111/SECURE_CYCLE_GUID_RESEARCH.md whitespace=-blank-at-eof

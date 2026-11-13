@@ -1,0 +1,80 @@
+{
+  "version": "0.3.0",
+  "channel": "trial",
+  "date": "2026-11-08",
+  "status": "published-and-verified",
+  "package": {
+    "filename": "MyForeverNavigator-0.3.0-Trial.zip",
+    "bytes": 566990,
+    "sha256": "62dc08d48a6c82049b206707c578bc9b4cb6b5e365596196ac4497fc2469fa83",
+    "allowlisted_files": 14
+  },
+  "catalogue": {
+    "npc_points": 427,
+    "npc_maps": 45,
+    "npc_data_matches_0_2_2_zip": true,
+    "quests_with_some_reference": 3817,
+    "quests_with_turnin": 3762,
+    "quests_with_some_objective": 1365,
+    "entity_samples": 57775,
+    "area_points": 36,
+    "quest_maps": 46
+  },
+  "simulation": {
+    "lua51_files": 10,
+    "groups": 10,
+    "navigation_assertions": 249,
+    "main_ui_assertions": 409,
+    "quest_navigation_assertions": 7083,
+    "quest_ui_assertions": 188,
+    "returned_data_points_checked": 831039,
+    "passed": true
+  },
+  "manager": {
+    "version": "0.2.0",
+    "isolated_checks_passed": 64,
+    "live_checks": 68
+  },
+  "game": {
+    "observed": "game not running during inspection",
+    "physical_doubleclick": "not verified",
+    "actual_quest_progress_and_journeys": "not verified",
+    "raw_screenshots_published": false
+  },
+  "website": {
+    "local_check": "passed",
+    "release_sync_tests": 7,
+    "freeze": "PersonalAddons/work/navigator-0.3.0-site",
+    "live": "passed",
+    "other_public_versions_preserved": {
+      "Chat": "0.9.2",
+      "Professions": "0.4.6",
+      "Manager": "0.2.0"
+    },
+    "professions_candidate_published": false,
+    "verified_resources": 88,
+    "actual_download_sha256": "62dc08d48a6c82049b206707c578bc9b4cb6b5e365596196ac4497fc2469fa83",
+    "existing_services": {
+      "www": {
+        "status": 301,
+        "location": "https://afabiaoge.xyz/"
+      },
+      "chat": {
+        "status": 200
+      },
+      "studio": {
+        "status": 200,
+        "final_url": "https://studio.afabiaoge.xyz/login",
+        "login_required": true
+      },
+      "community": {
+        "status": 200,
+        "returned_items": 0,
+        "has_more": false,
+        "write_test_performed": false
+      }
+    }
+  },
+  "prior_public_packages_preserved": 24,
+  "release": "20261108T152846Z"
+}

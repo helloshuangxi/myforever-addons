@@ -1,0 +1,51 @@
+{
+  "checkedAt": "2026-11-08T10:55:39.261235+08:00",
+  "purpose": "Inspect announced NodeSight method before updating MyForeverProfessions",
+  "baselineCommit": "f922db7957bbc83dc7d0047057ab5c5bf3ba7085",
+  "headCommit": "4184c70c7f53ef311352909fb37c3e13de6cbfbc",
+  "headCommitTimeUTC": "2026-11-07T23:42:18Z",
+  "changedFiles": [
+    ".github/README.md"
+  ],
+  "announcement": "Found a new method to get minimap symbols back, working on it.",
+  "newImplementationPublished": false,
+  "beta": {
+    "sha": "4772716899e4f86016e0cbe99e98569d3e2aae87",
+    "aheadOfMain": 0,
+    "behindMain": 25
+  },
+  "latestRelease": "v1.7.0",
+  "client": "Forever 1.60.1",
+  "scanSource": {
+    "path": "NodeSight.lua",
+    "baselineAndHeadSHA256": "2c669fcc79ba1c03f967932bf130ebc36573392f8e1b2e766a5b01aa79c5bbab",
+    "method": [
+      "Minimap:UpdateMouseoverAtPoint",
+      "C_TooltipInfo.GetMinimapMouseover"
+    ],
+    "unchanged": true
+  },
+  "localVersion": "0.4.5-dev.5",
+  "addonCodeChanged": false,
+  "thirdPartyInstalled": false,
+  "gameTestPerformedThisReview": false,
+  "websiteDeployed": false,
+  "releaseGate": "Real game automatic resource alert, correct direction and audible sound must all be verified before publishing.",
+  "sources": [
+    "https://github.com/Krelock/NodeSight/commit/4184c70c7f53ef311352909fb37c3e13de6cbfbc",
+    "https://api.github.com/repos/Krelock/NodeSight/compare/f922db7957bbc83dc7d0047057ab5c5bf3ba7085...main",
+    "https://api.github.com/repos/Krelock/NodeSight/compare/main...beta",
+    "https://github.com/Krelock/NodeSight/releases/tag/v1.7.0",
+    "https://www.curseforge.com/wow/addons/node-sight"
+  ],
+  "publicDiscussion": {
+    "issue": "https://github.com/Krelock/NodeSight/issues/15",
+    "reportedClient": "Forever 1.60.1.70862",
+    "reportedPlatform": "Linux/Proton",
+    "symptom": "Probe returns current physical mouse location regardless of UpdateMouseoverAtPoint arguments",
+    "commentsDiscloseNewMethod": false,
+    "commentsPredateAnnouncement": true,
+    "relevantPublicPatchFound": false,
+    "discussionsReadable": false
+  }
+}

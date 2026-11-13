@@ -1,0 +1,72 @@
+{
+  "date": "2026-11-08",
+  "gameClock": "13:26-13:29",
+  "runtimeVersion": "0.4.6",
+  "userReport": "Minimap mineral notification disappeared again",
+  "nativeTracking": {
+    "spellID": 2580,
+    "name": "寻找矿物",
+    "active": true
+  },
+  "runtimeSettings": {
+    "gatherAlerts": true,
+    "gatherSparkles": true,
+    "SoftTargetInteract": "3",
+    "SoftTargetInteractRange": "30"
+  },
+  "live": {
+    "minimapYellowBlipVisible": true,
+    "overheadHUDVisible": false,
+    "softInteractIsGameObject": false,
+    "nameplateCount": 0,
+    "mapQueryOffsetsInWidths": [
+      -0.3,
+      0.3,
+      3
+    ],
+    "queryLineCounts": [
+      0,
+      0,
+      0
+    ]
+  },
+  "probeLimits": [
+    "The three points compare current native behavior but do not identify the actual yellow-dot position.",
+    "Native mouse click failed with noWindowsAvailable before dispatch; dot name not independently hovered this turn.",
+    "No new close-range approach or sound test performed."
+  ],
+  "cleanup": {
+    "softCursorDisabled": true,
+    "realCursorRestored": true,
+    "temporaryMFPQCleared": true,
+    "characterMoved": false,
+    "reloadPerformed": false,
+    "settingsChanged": false
+  },
+  "upstreamHEAD": "4184c70c7f53ef311352909fb37c3e13de6cbfbc",
+  "upstreamNewImplementationAvailable": false,
+  "sourceCodeSHA256": "12be44acd612a9668c92dc822387c4c8b94f5fadcebfa55efef77aa73ff11899",
+  "publicPackage046SHA256": "6d1e93b4d9865216d46d532770813b38572692134a8dd16333f87d864cf62bb6",
+  "websiteChanged": false,
+  "diagnosis": "Minimap scanning remains unrecovered; no evidence of alert toggle or tracking failure. Current scene has no native near-resource target, so the independently tested nearby branch is not active.",
+  "recoveryStatus": "not fixed",
+  "alternativeAPIAudit": {
+    "clientUIMirrorCommit": "9dc84f0d3bbae1768ac3405b3716000bd93eda06",
+    "clientUIMirrorVersion": "1.60.1 (70862)",
+    "reviewed": [
+      "C_Minimap",
+      "MinimapFrameAPI",
+      "C_VignetteInfo",
+      "C_Map"
+    ],
+    "usablePublicGatherBlipEnumeratorFound": false,
+    "limits": "Generated documentation and UI source do not establish that all undocumented client APIs are absent. Vignette enumeration has no evidence of ordinary mineral coverage.",
+    "source": "https://github.com/Gethe/wow-ui-source/commit/9dc84f0d3bbae1768ac3405b3716000bd93eda06"
+  },
+  "vignetteLiveProbe": {
+    "gameClock": "13:33",
+    "count": 0,
+    "readOnly": true,
+    "limit": "At this later capture the earlier yellow blip was no longer visible, so this is not a simultaneous mineral-visibility comparison and does not prove ordinary mineral coverage either way."
+  }
+}

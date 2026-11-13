@@ -1,0 +1,11 @@
+{
+  "name": "VuhDo",
+  "repo": "vuhdo-io/VuhDo",
+  "branch": "midnight",
+  "commit": "084781fcbfb5909fc150e21f61ac30f823d30424",
+  "commit_time": "2026-11-12T04:32:51Z",
+  "zip_url": "https://codeload.github.com/vuhdo-io/VuhDo/zip/084781fcbfb5909fc150e21f61ac30f823d30424",
+  "zip_sha256": "b7a87eba0ab07660bba5bb54a01da72d6be75fd5311210c6853b2754d80c5dce",
+  "text_files": 251,
+  "note": "Source downloaded and read only; third-party code not executed or installed."
+}

@@ -1,0 +1,114 @@
+[
+  {
+    "amount": 1,
+    "qr_detected": true,
+    "payload_decoded": true,
+    "bounds": [
+      [
+        [
+          336.0,
+          647.0
+        ],
+        [
+          869.0,
+          647.0
+        ],
+        [
+          869.0,
+          1180.0
+        ],
+        [
+          336.0,
+          1180.0
+        ]
+      ]
+    ],
+    "payload_sha256": "6ef4677876a7441f4d9a38fe5e4d5d292ceb865ab590eb483779906fefe8aed8",
+    "scheme": "https",
+    "host": "qr.alipay.com"
+  },
+  {
+    "amount": 5,
+    "qr_detected": true,
+    "payload_decoded": true,
+    "bounds": [
+      [
+        [
+          336.0,
+          647.0
+        ],
+        [
+          869.0,
+          647.0
+        ],
+        [
+          869.0,
+          1180.0
+        ],
+        [
+          336.0,
+          1180.0
+        ]
+      ]
+    ],
+    "payload_sha256": "d44d98d0fa1afb4930413d354126ca86e8f139819c75834975a088a9f9add78f",
+    "scheme": "https",
+    "host": "qr.alipay.com"
+  },
+  {
+    "amount": 20,
+    "qr_detected": true,
+    "payload_decoded": true,
+    "bounds": [
+      [
+        [
+          336.0,
+          647.0
+        ],
+        [
+          869.0,
+          647.0
+        ],
+        [
+          869.0,
+          1180.0
+        ],
+        [
+          336.0,
+          1180.0
+        ]
+      ]
+    ],
+    "payload_sha256": "98d5cc9c5309159f55095659ce3f67929ab21aa7db6516b14d464ce819fd60f6",
+    "scheme": "https",
+    "host": "qr.alipay.com"
+  },
+  {
+    "amount": 100,
+    "qr_detected": true,
+    "payload_decoded": true,
+    "bounds": [
+      [
+        [
+          336.0,
+          647.0
+        ],
+        [
+          869.0,
+          647.0
+        ],
+        [
+          869.0,
+          1180.0
+        ],
+        [
+          336.0,
+          1180.0
+        ]
+      ]
+    ],
+    "payload_sha256": "13b2f821e4558d1fc7abbcdce92af6d16773bb18f407b4433a20c965ec7e9f7f",
+    "scheme": "https",
+    "host": "qr.alipay.com"
+  }
+]

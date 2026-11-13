@@ -1,0 +1,11 @@
+<Bindings>
+    <Binding name="MYFOREVERCHAT_TOGGLE" header="MYFOREVERCHAT">MyForeverChat_Toggle();</Binding>
+    <Binding name="MYFOREVERCHAT_REPLY">MyForeverChat_Reply();</Binding>
+    <Binding name="MYFOREVERCHAT_QUICKREPLY">MyForeverChat_QuickReply();</Binding>
+    <Binding name="MYFOREVERCHAT_TARGET">MyForeverChat_Target();</Binding>
+    <Binding name="MYFOREVERCHAT_ACTIONS">MyForeverChat_Actions();</Binding>
+    <Binding name="MYFOREVERCHAT_DANCE">MyForeverChat_Action("DANCE");</Binding>
+    <Binding name="MYFOREVERCHAT_WAVE">MyForeverChat_Action("WAVE");</Binding>
+    <Binding name="MYFOREVERCHAT_BOW">MyForeverChat_Action("BOW");</Binding>
+    <Binding name="MYFOREVERCHAT_CHEER">MyForeverChat_Action("CHEER");</Binding>
+</Bindings>

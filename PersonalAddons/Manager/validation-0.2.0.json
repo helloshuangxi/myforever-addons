@@ -1,0 +1,88 @@
+{
+  "version": "0.2.0",
+  "date": "2026-11-08",
+  "build_sdk": "10.0.403",
+  "core_tests": {
+    "macos_arm64": {
+      "passed": 68,
+      "failed": 0,
+      "navigator_archive": "0.1.2",
+      "scope": "isolated fixture only",
+      "offline_checks": 64,
+      "live_https_checks": 4
+    }
+  },
+  "build": {
+    "platforms": [
+      "osx-arm64",
+      "win-x64",
+      "osx-x64"
+    ],
+    "mac_ad_hoc_signature_verified": true
+  },
+  "packages": [
+    {
+      "platform": "osx-arm64",
+      "filename": "MyForeverManager-0.2.0-Trial-osx-arm64.zip",
+      "size_bytes": 41196273,
+      "sha256": "f37c29feec5255b23f062807239988b5bd5f4ab80e8ec8a765f683aaebd9e417"
+    },
+    {
+      "platform": "win-x64",
+      "filename": "MyForeverManager-0.2.0-Trial-win-x64.zip",
+      "size_bytes": 41644471,
+      "sha256": "c7c5efae6ad97662811c88d43144b87460dba199df14717aaad204688656b327"
+    },
+    {
+      "platform": "osx-x64",
+      "filename": "MyForeverManager-0.2.0-Trial-osx-x64.zip",
+      "size_bytes": 43681938,
+      "sha256": "01e4fba4f1dcc6913bbc5b76afc12f9caab6a50fc0b68783e8d14832e567e16c"
+    }
+  ],
+  "native_ui": {
+    "platform": "macOS arm64",
+    "status": "passed",
+    "source": "parent observed",
+    "passed": [
+      "v0.2.0 candidate launched",
+      "three addon cards visible",
+      "existing real settings read",
+      "closed cleanly"
+    ],
+    "scope": "UI startup only; installation/update tests remain isolated fixtures"
+  },
+  "publication": {
+    "status": "passed",
+    "release": "20261108T043129Z",
+    "url": "https://afabiaoge.xyz/manager/",
+    "manager_version": "0.2.0",
+    "navigator_url": "https://afabiaoge.xyz/navigator/"
+  },
+  "unverified": [
+    "Windows native runtime",
+    "Intel Mac native runtime",
+    "full 30 minute timer wait",
+    "full 60 second post-game-exit retry wait",
+    "Gatekeeper flow after browser quarantine"
+  ],
+  "local_application": {
+    "version": "0.2.0",
+    "previous_version_backed_up": true,
+    "signature_verified": true,
+    "settings_preserved": true,
+    "real_game_installation_performed": false
+  },
+  "live_https": {
+    "status": "passed",
+    "navigator_version": "0.1.2",
+    "checks": [
+      "Chat official manifest and ZIP fresh install",
+      "Professions official manifest and ZIP fresh install",
+      "Navigator official manifest and ZIP fresh install",
+      "Navigator update from fixture 0.0.1, backup, restore, WTF sentinel preservation"
+    ],
+    "fixture_only": true,
+    "log": "artifacts/build-evidence-0.2.0/tests-live.log"
+  }
+}

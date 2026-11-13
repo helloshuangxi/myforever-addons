@@ -1,0 +1,200 @@
+{
+  "checks": [
+    {
+      "width": 1440,
+      "id": "professions",
+      "bodyOverflow": false,
+      "panelWidth": 372,
+      "errors": 0
+    },
+    {
+      "width": 1440,
+      "id": "chat",
+      "bodyOverflow": false,
+      "panelWidth": 690,
+      "errors": 0
+    },
+    {
+      "width": 1440,
+      "id": "navigator",
+      "bodyOverflow": false,
+      "panelWidth": 690,
+      "errors": 0
+    },
+    {
+      "width": 1440,
+      "id": "targets",
+      "bodyOverflow": false,
+      "panelWidth": 338,
+      "errors": 0
+    },
+    {
+      "width": 1440,
+      "id": "macros",
+      "bodyOverflow": false,
+      "panelWidth": 690,
+      "errors": 0
+    },
+    {
+      "width": 1440,
+      "id": "fieldkit",
+      "bodyOverflow": false,
+      "panelWidth": 312,
+      "errors": 0
+    },
+    {
+      "width": 1440,
+      "id": "coach",
+      "bodyOverflow": false,
+      "panelWidth": 690,
+      "errors": 0
+    },
+    {
+      "width": 768,
+      "id": "professions",
+      "bodyOverflow": false,
+      "panelWidth": 372,
+      "errors": 0
+    },
+    {
+      "width": 768,
+      "id": "chat",
+      "bodyOverflow": false,
+      "panelWidth": 672,
+      "errors": 0
+    },
+    {
+      "width": 768,
+      "id": "navigator",
+      "bodyOverflow": false,
+      "panelWidth": 672,
+      "errors": 0
+    },
+    {
+      "width": 768,
+      "id": "targets",
+      "bodyOverflow": false,
+      "panelWidth": 338,
+      "errors": 0
+    },
+    {
+      "width": 768,
+      "id": "macros",
+      "bodyOverflow": false,
+      "panelWidth": 672,
+      "errors": 0
+    },
+    {
+      "width": 768,
+      "id": "fieldkit",
+      "bodyOverflow": false,
+      "panelWidth": 312,
+      "errors": 0
+    },
+    {
+      "width": 768,
+      "id": "coach",
+      "bodyOverflow": false,
+      "panelWidth": 672,
+      "errors": 0
+    },
+    {
+      "width": 390,
+      "id": "professions",
+      "bodyOverflow": false,
+      "panelWidth": 366,
+      "errors": 0
+    },
+    {
+      "width": 390,
+      "id": "chat",
+      "bodyOverflow": false,
+      "panelWidth": 366,
+      "errors": 0
+    },
+    {
+      "width": 390,
+      "id": "navigator",
+      "bodyOverflow": false,
+      "panelWidth": 366,
+      "errors": 0
+    },
+    {
+      "width": 390,
+      "id": "targets",
+      "bodyOverflow": false,
+      "panelWidth": 338,
+      "errors": 0
+    },
+    {
+      "width": 390,
+      "id": "macros",
+      "bodyOverflow": false,
+      "panelWidth": 366,
+      "errors": 0
+    },
+    {
+      "width": 390,
+      "id": "fieldkit",
+      "bodyOverflow": false,
+      "panelWidth": 312,
+      "errors": 0
+    },
+    {
+      "width": 390,
+      "id": "coach",
+      "bodyOverflow": false,
+      "panelWidth": 366,
+      "errors": 0
+    },
+    {
+      "check": "anchored-settings-open",
+      "pass": true
+    },
+    {
+      "check": "density-via-popover",
+      "pass": true
+    },
+    {
+      "check": "escape-closes-settings-only",
+      "pass": true
+    },
+    {
+      "check": "draft-retained",
+      "pass": true
+    },
+    {
+      "check": "failed-send-disabled",
+      "pass": true
+    },
+    {
+      "check": "macro-retained",
+      "pass": true
+    },
+    {
+      "check": "ctrl-right-keeps-focus",
+      "pass": true
+    },
+    {
+      "check": "target-tile-56",
+      "pass": true
+    },
+    {
+      "check": "hud-300x84",
+      "pass": true
+    },
+    {
+      "check": "combat-export-disabled",
+      "pass": true
+    },
+    {
+      "check": "controls-mobile-overflow",
+      "pass": true
+    },
+    {
+      "check": "decisions-mobile-overflow",
+      "pass": true
+    }
+  ],
+  "errors": []
+}

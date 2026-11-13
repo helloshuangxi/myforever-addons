@@ -1,0 +1,68 @@
+[
+  {
+    "path": "Blizzard_MacroUI/Blizzard_MacroUI.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_MacroUI/Blizzard_MacroUI.lua",
+    "sha256": "04d24daa258aa4544be4952f9cbdcee92994bba4532a43ba27a23683028c9264",
+    "bytes": 11085
+  },
+  {
+    "path": "Blizzard_MacroUI/Blizzard_MacroUI.xml",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_MacroUI/Blizzard_MacroUI.xml",
+    "sha256": "7ddc419e1a79531a017a66960fc4af210f87bb72183a3352939d307a96252d62",
+    "bytes": 9062
+  },
+  {
+    "path": "Blizzard_MacroUI/Blizzard_MacroIconSelector.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_MacroUI/Blizzard_MacroIconSelector.lua",
+    "sha256": "effd523d7e0d5714e23a477013556cac0803166bf277f59f830f40d9aa7f1be2",
+    "bytes": 4703
+  },
+  {
+    "path": "Blizzard_MacroUI/Blizzard_MacroIconSelector.xml",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_MacroUI/Blizzard_MacroIconSelector.xml",
+    "sha256": "8a7c778034fa4c5b9d46e282cce0a375b2d7e3e85ee0016de5df940bc5aebbb5",
+    "bytes": 601
+  },
+  {
+    "path": "Blizzard_MacroUI/Mainline/Blizzard_MacroDefine.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_MacroUI/Mainline/Blizzard_MacroDefine.lua",
+    "sha256": "cf7f8ce9c3b6a6d6eee6304b54022d8e549e40f303eb9ca2ba9d529f27355261",
+    "bytes": 126
+  },
+  {
+    "path": "Blizzard_MacroUI/Mainline/Blizzard_MacroScrollFrame.xml",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_MacroUI/Mainline/Blizzard_MacroScrollFrame.xml",
+    "sha256": "42ee5897e2418fe0cffbfa9766d2228ab57447de6f0a53513bd5d58ac5ca110b",
+    "bytes": 511
+  },
+  {
+    "path": "Blizzard_APIDocumentationGenerated/MacroConstantsDocumentation.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_APIDocumentationGenerated/MacroConstantsDocumentation.lua",
+    "sha256": "1f2db5bb01c53390be8a1fc113bd7e62ae0fb05dcefc9cc4506a225003b82d3f",
+    "bytes": 338
+  },
+  {
+    "path": "Blizzard_APIDocumentationGenerated/SpellBookDocumentation.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_APIDocumentationGenerated/SpellBookDocumentation.lua",
+    "sha256": "509fabe6d33de10f7166dc71bfb853dc969803d86536acac0833d30b1d0f9179",
+    "bytes": 33776
+  },
+  {
+    "path": "Blizzard_APIDocumentationGenerated/SpellDocumentation.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_APIDocumentationGenerated/SpellDocumentation.lua",
+    "sha256": "a7cbbfeef002efacac1a4dcc01b7d781fbfe305123a6ad97431ff010ef4de19a",
+    "bytes": 32883
+  },
+  {
+    "path": "Blizzard_FrameXML/SecureTemplates.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_FrameXML/SecureTemplates.lua",
+    "sha256": "b6e91f1d54f269a8bd66312b368e6fd7706028d366eee0167161ace9004cae23",
+    "bytes": 32119
+  },
+  {
+    "path": "Blizzard_APIDocumentationGenerated/SpellBookConstantsDocumentation.lua",
+    "source": "https://raw.githubusercontent.com/Gethe/wow-ui-source/forever/Interface/AddOns/Blizzard_APIDocumentationGenerated/SpellBookConstantsDocumentation.lua",
+    "sha256": "6a8d429313fd84fa10b45f3c5d7f7328b5d73ee7441be05ae8045d983ef31fde",
+    "bytes": 1342
+  }
+]

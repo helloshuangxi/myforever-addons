@@ -1,0 +1,309 @@
+{
+  "checked_at_utc": "2026-11-12T07:32:24.323858+00:00",
+  "scope": "Three official addon focus action paths. Source-only review; no addon executed/installed; no game or our addon settings/code changed.",
+  "addons": [
+    {
+      "name": "Healbot",
+      "repo": "davidmarshall15/Healbot",
+      "branch": "master",
+      "commit": "bcaf2db7c678b1841dab8c69bc5e566bb1bc3533",
+      "commit_time": "2026-11-08T15:13:45Z",
+      "zip_url": "https://codeload.github.com/davidmarshall15/Healbot/zip/bcaf2db7c678b1841dab8c69bc5e566bb1bc3533",
+      "zip_sha256": "e8d99ec3796a54d457b7fe701d25b47489aef753ba2cc44378af2c30b5ae92d2",
+      "text_files": 108,
+      "note": "Source downloaded and read only; third-party code not executed or installed.",
+      "version": "26.11.06",
+      "forever_interface": "16001",
+      "findings": [
+        {
+          "path": "Healbot/HealBot/HealBot_Action.lua",
+          "line_start": 5931,
+          "line_end": 5935,
+          "purpose": "Focus binding sets native action type=focus; no GUID predicate in this branch.",
+          "sha256": "1f25fa8fc1dc67369240481ad3f62763900326d7f8ca7b9c717579438915f009"
+        },
+        {
+          "path": "Healbot/HealBot/HealBot_Action.lua",
+          "line_start": 6589,
+          "line_end": 6593,
+          "purpose": "Final secure unit attribute is supplied unit token.",
+          "sha256": "1f25fa8fc1dc67369240481ad3f62763900326d7f8ca7b9c717579438915f009"
+        },
+        {
+          "path": "Healbot/HealBot/HealBot_Action.lua",
+          "line_start": 6968,
+          "line_end": 6973,
+          "purpose": "Dedicated focus helper is unit=target with native focus action.",
+          "sha256": "1f25fa8fc1dc67369240481ad3f62763900326d7f8ca7b9c717579438915f009"
+        },
+        {
+          "path": "Healbot/HealBot/HealBot_Action.lua",
+          "line_start": 7891,
+          "line_end": 7909,
+          "purpose": "Ordinary PreClick SmartCast only while UILOCK is false and does not provide live GUID focus condition.",
+          "sha256": "1f25fa8fc1dc67369240481ad3f62763900326d7f8ca7b9c717579438915f009"
+        },
+        {
+          "path": "Healbot/HealBot/HealBot.lua",
+          "line_start": 1994,
+          "line_end": 2023,
+          "purpose": "GUID lookup iterates existing button maps and returns known unit token; does not create a GUID-addressable unit.",
+          "sha256": "6f3f4e2e560767eec833dc6cd69914a55b5d05e423145ddec21b80d4aa52ecf0"
+        },
+        {
+          "path": "Healbot/HealBot/HealBot_Panel.lua",
+          "line_start": 2772,
+          "line_end": 2837,
+          "purpose": "Enemy bars derive from player or party/raid member target tokens.",
+          "sha256": "ea9750aa07b63b91e2cc9e02efe2be65df0548cab9e9e35d8872f2a12f24f448"
+        },
+        {
+          "path": "Healbot/HealBot/HealBot_Panel.lua",
+          "line_start": 2845,
+          "line_end": 2902,
+          "purpose": "Additional enemies are existing focus, arena and boss tokens.",
+          "sha256": "ea9750aa07b63b91e2cc9e02efe2be65df0548cab9e9e35d8872f2a12f24f448"
+        },
+        {
+          "path": "Healbot/HealBot/HealBot.toc",
+          "line_start": 1,
+          "line_end": 20,
+          "purpose": "Official repository TOC includes interface16001; version26.11.06.",
+          "sha256": "4d16b5cfb9aa09881eb7331924e9f8da515ac1c034bb80ade83e4a8738c8586d"
+        }
+      ]
+    },
+    {
+      "name": "VuhDoRelease",
+      "version": "3.220",
+      "file_id": 9455799,
+      "official_file_page": "https://www.curseforge.com/wow/addons/vuhdo/files/9455799",
+      "url": "https://edge.forgecdn.net/files/9455/799/VuhDo-v3.220.zip",
+      "sha256": "37a10569bf6343af5731457132bad844594c4f95bf9110e06b80224ebd43263b",
+      "text_files": 339,
+      "supported_flavors": [
+        "Retail",
+        "Forever"
+      ],
+      "note": "Current official release; read only extraction, not installed/executed.",
+      "commit": "efce2d253b0c85ada1e93f4fdec432a0560db918",
+      "tag": "v3.220",
+      "files_verified": [
+        {
+          "path": "VuhDoRelease/VuhDo/VuhDoMacroFactory.lua",
+          "repository_path": "VuhDoMacroFactory.lua",
+          "commit": "efce2d253b0c85ada1e93f4fdec432a0560db918",
+          "url": "https://raw.githubusercontent.com/vuhdo-io/VuhDo/efce2d253b0c85ada1e93f4fdec432a0560db918/VuhDoMacroFactory.lua",
+          "sha256": "1f93ed684ce2e711a4d4d82d1c3708e5f7a4f19818c26bee0d563fb0e5300121",
+          "byte_identical_to_release": true,
+          "lines_identical_to_release": true
+        },
+        {
+          "path": "VuhDoRelease/VuhDo/VuhDoKeySetup.lua",
+          "repository_path": "VuhDoKeySetup.lua",
+          "commit": "efce2d253b0c85ada1e93f4fdec432a0560db918",
+          "url": "https://raw.githubusercontent.com/vuhdo-io/VuhDo/efce2d253b0c85ada1e93f4fdec432a0560db918/VuhDoKeySetup.lua",
+          "sha256": "56f4f38209af269aeee8a4469c81eccfdd844486a2f94ff383ef47e49c676fcd",
+          "byte_identical_to_release": true,
+          "lines_identical_to_release": true
+        },
+        {
+          "path": "VuhDoRelease/VuhDo/VuhDoBindingGenerator.lua",
+          "repository_path": "VuhDoBindingGenerator.lua",
+          "commit": "efce2d253b0c85ada1e93f4fdec432a0560db918",
+          "url": "https://raw.githubusercontent.com/vuhdo-io/VuhDo/efce2d253b0c85ada1e93f4fdec432a0560db918/VuhDoBindingGenerator.lua",
+          "sha256": "83e759089f8dde44bbe135babcf97d7e4301fe764f6ee6850a451439e7631370",
+          "byte_identical_to_release": false,
+          "lines_identical_to_release": true
+        },
+        {
+          "path": "VuhDoRelease/VuhDo/VuhDoToolboxUtil.lua",
+          "repository_path": "VuhDoToolboxUtil.lua",
+          "commit": "efce2d253b0c85ada1e93f4fdec432a0560db918",
+          "url": "https://raw.githubusercontent.com/vuhdo-io/VuhDo/efce2d253b0c85ada1e93f4fdec432a0560db918/VuhDoToolboxUtil.lua",
+          "sha256": "3d6fd1d52e635358e675a845d7d974b44c4074963a79820c95a9781597ff7955",
+          "byte_identical_to_release": false,
+          "lines_identical_to_release": true
+        },
+        {
+          "path": "VuhDoRelease/VuhDo/VuhDo.lua",
+          "repository_path": "VuhDo.lua",
+          "commit": "efce2d253b0c85ada1e93f4fdec432a0560db918",
+          "url": "https://raw.githubusercontent.com/vuhdo-io/VuhDo/efce2d253b0c85ada1e93f4fdec432a0560db918/VuhDo.lua",
+          "sha256": "706d614caaa56371877c60b10ae4c68533a904a620729837cb1f42064cda25fe",
+          "byte_identical_to_release": true,
+          "lines_identical_to_release": true
+        },
+        {
+          "path": "VuhDoRelease/VuhDo/VuhDoPanel.xml",
+          "repository_path": "VuhDoPanel.xml",
+          "commit": "efce2d253b0c85ada1e93f4fdec432a0560db918",
+          "url": "https://raw.githubusercontent.com/vuhdo-io/VuhDo/efce2d253b0c85ada1e93f4fdec432a0560db918/VuhDoPanel.xml",
+          "sha256": "af1f3187e8f55875e565b9d0412473b2246b309b48eb67bfc962399466bc36a9",
+          "byte_identical_to_release": true,
+          "lines_identical_to_release": true
+        }
+      ],
+      "findings": [
+        {
+          "path": "VuhDoRelease/VuhDo/VuhDo_Camelot.toc",
+          "line_start": 1,
+          "line_end": 7,
+          "purpose": "Official3.220 package has Camelot/Forever TOC interface16001.",
+          "sha256": "8e82e98a7b580904317a410dd25bcf02849efa1f6387c66743764409b9e7a9ad"
+        },
+        {
+          "path": "VuhDoRelease/VuhDo/VuhDoKeySetup.lua",
+          "line_start": 269,
+          "line_end": 285,
+          "purpose": "Click focus creates macrotext from raidid unit token.",
+          "sha256": "56f4f38209af269aeee8a4469c81eccfdd844486a2f94ff383ef47e49c676fcd"
+        },
+        {
+          "path": "VuhDoRelease/VuhDo/VuhDoKeySetup.lua",
+          "line_start": 357,
+          "line_end": 376,
+          "purpose": "Secure binding generator selects focus macro template, not a GUID predicate.",
+          "sha256": "56f4f38209af269aeee8a4469c81eccfdd844486a2f94ff383ef47e49c676fcd"
+        },
+        {
+          "path": "VuhDoRelease/VuhDo/VuhDoMacroFactory.lua",
+          "line_start": 393,
+          "line_end": 400,
+          "purpose": "Concrete focus macro is /focus[@unit] with optional pet fallback.",
+          "sha256": "1f93ed684ce2e711a4d4d82d1c3708e5f7a4f19818c26bee0d563fb0e5300121"
+        },
+        {
+          "path": "VuhDoRelease/VuhDo/VuhDoMacroFactory.lua",
+          "line_start": 648,
+          "line_end": 656,
+          "purpose": "Secure focus template substitutes SECURE_UNIT/SECURE_PET tokens.",
+          "sha256": "1f93ed684ce2e711a4d4d82d1c3708e5f7a4f19818c26bee0d563fb0e5300121"
+        },
+        {
+          "path": "VuhDoRelease/VuhDo/VuhDoBindingGenerator.lua",
+          "line_start": 125,
+          "line_end": 128,
+          "purpose": "Restricted setup reads button unit attribute.",
+          "sha256": "83e759089f8dde44bbe135babcf97d7e4301fe764f6ee6850a451439e7631370"
+        },
+        {
+          "path": "VuhDoRelease/VuhDo/VuhDoToolboxUtil.lua",
+          "line_start": 1332,
+          "line_end": 1344,
+          "purpose": "Ordinary safeSetAttribute refuses protected-frame writes during combat.",
+          "sha256": "3d6fd1d52e635358e675a845d7d974b44c4074963a79820c95a9781597ff7955"
+        },
+        {
+          "path": "VuhDoRelease/VuhDo/VuhDo.lua",
+          "line_start": 1269,
+          "line_end": 1277,
+          "purpose": "GUID map indexes existing raid units.",
+          "sha256": "706d614caaa56371877c60b10ae4c68533a904a620729837cb1f42064cda25fe"
+        },
+        {
+          "path": "VuhDoRelease/VuhDo/VuhDo.lua",
+          "line_start": 1073,
+          "line_end": 1086,
+          "purpose": "Private target lookup resolves GUID through existing RAID_GUIDS; fallback is target token.",
+          "sha256": "706d614caaa56371877c60b10ae4c68533a904a620729837cb1f42064cda25fe"
+        },
+        {
+          "path": "VuhDoRelease/VuhDo/VuhDo.lua",
+          "line_start": 66,
+          "line_end": 73,
+          "purpose": "NPC boss list is fixed boss1..bossN.",
+          "sha256": "706d614caaa56371877c60b10ae4c68533a904a620729837cb1f42064cda25fe"
+        },
+        {
+          "path": "VuhDoRelease/VuhDo/VuhDoPanel.xml",
+          "line_start": 31,
+          "line_end": 35,
+          "purpose": "Secure header installs binding scripts; not a dynamic NPC-GUID roster header.",
+          "sha256": "af1f3187e8f55875e565b9d0412473b2246b309b48eb67bfc962399466bc36a9"
+        }
+      ],
+      "repo": "vuhdo-io/VuhDo"
+    },
+    {
+      "name": "Clique",
+      "version": "v5.1.5-release",
+      "file_id": 9512275,
+      "author": "jnwhiteh",
+      "official_file_page": "https://www.curseforge.com/wow/addons/clique/files/9512275",
+      "url": "https://edge.forgecdn.net/files/9512/275/Clique-v5.1.5-release.zip",
+      "sha256": "1e0190fa93110b257e964ad76e1681f697fb7948a130f19d435e0b1394d12a7b",
+      "text_files": 58,
+      "note": "Read only extraction; no third party code executed or installed",
+      "findings": [
+        {
+          "path": "Clique/Clique.toc",
+          "line_start": 1,
+          "line_end": 5,
+          "purpose": "Official5.1.5 release includes interface16001.",
+          "sha256": "77f56d76b9bc824cc63190c487df5a93a7bcbfcade2e4dc4611dfe4c7cd6b2e5"
+        },
+        {
+          "path": "Clique/core/proxy_frames.lua",
+          "line_start": 40,
+          "line_end": 60,
+          "purpose": "Creates SecureActionButton proxy inheriting parent unit and unitsuffix.",
+          "sha256": "cace168180cf99c009381900d386e04e303039a6ecee13723b912b923c5eea48"
+        },
+        {
+          "path": "Clique/core/attributes.lua",
+          "line_start": 92,
+          "line_end": 150,
+          "purpose": "Supported action compilation; custom macrotext copied as literal text; no dedicated GUID focus action.",
+          "sha256": "20c3bd92c6affa8a2df13baa7bc8f283d01d891e4112bfe320893b5cf68ad61d"
+        },
+        {
+          "path": "Clique/core/frame_registry.lua",
+          "line_start": 8,
+          "line_end": 28,
+          "purpose": "New frame registration and proxy routing are queued during combat.",
+          "sha256": "edea75d901309cd96415596fabafa4b013e3503fb5e1543ba3a795c098ae53e6"
+        },
+        {
+          "path": "Clique/modules/blizzard.lua",
+          "line_start": 297,
+          "line_end": 312,
+          "purpose": "Blizzard frame auto-registration excludes names matching NamePlate.",
+          "sha256": "bc5bbf31cf8ac4263275d09ac0e7f5b7c481e358b667adfdcfc5bc019b5628b3"
+        },
+        {
+          "path": "Clique/core/core.lua",
+          "line_start": 155,
+          "line_end": 177,
+          "purpose": "Binding secure header maintains frame/proxy and binding tables, not NPC identities.",
+          "sha256": "2615b7986ef9661d188ba0a5524ef10c921216f753b426b5ec58dfa6b50d204c"
+        }
+      ]
+    }
+  ],
+  "supplemental_not_release_basis": [
+    {
+      "name": "VuhDo",
+      "repo": "vuhdo-io/VuhDo",
+      "branch": "midnight",
+      "commit": "084781fcbfb5909fc150e21f61ac30f823d30424",
+      "commit_time": "2026-11-12T04:32:51Z",
+      "zip_url": "https://codeload.github.com/vuhdo-io/VuhDo/zip/084781fcbfb5909fc150e21f61ac30f823d30424",
+      "zip_sha256": "b7a87eba0ab07660bba5bb54a01da72d6be75fd5311210c6853b2754d80c5dce",
+      "text_files": 251,
+      "note": "Source downloaded and read only; third-party code not executed or installed."
+    },
+    {
+      "name": "VuhDoForever",
+      "repo": "vuhdo-io/VuhDo",
+      "branch": "forever",
+      "commit": "14990880c642fee9530698969ee54f13948eaa54",
+      "zip_url": "https://codeload.github.com/vuhdo-io/VuhDo/zip/14990880c642fee9530698969ee54f13948eaa54",
+      "zip_sha256": "d71fafe42575efde51c1cf8fe844b9bc2485dd4a3f8a833727c7aeb9cad3af5d",
+      "text_files": 251,
+      "note": "Official Forever branch; text-only read, not installed/executed."
+    }
+  ],
+  "conclusion": "No reviewed focus path implements arbitrary same-name NPC GUID matching as a live protected combat-action gate. They operate existing native unit tokens; GUID maps do not create new native unit references.",
+  "header_check": "No arbitrary NPC GUID-to-secure-unit header was found in reviewed focus/roster paths; VuhDo/Clique secure headers install bindings, not arbitrary NPC unit identities."
+}

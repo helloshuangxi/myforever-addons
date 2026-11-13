@@ -1,0 +1,49 @@
+{
+  "recorded_at": "2026-11-10T14:05:41.495212+08:00",
+  "user_report": "After reload, no ore popup; minimap no yellow dots",
+  "live_before_fix": {
+    "loaded_version": "0.4.7-dev.12",
+    "method": "cursor",
+    "gatherAlerts": true,
+    "gatherSound": true,
+    "gatherSparkles": true,
+    "state": "idle",
+    "reason": "reset",
+    "sampleCount": 0,
+    "FindMinerals": {
+      "index": 2,
+      "spellID": 2580,
+      "active": false
+    }
+  },
+  "tracking_test": {
+    "SetTracking_requested": true,
+    "immediate_active": false,
+    "later_native_mining_buff_visible": true,
+    "later_scanning_state": "scanning/stand-in-ready",
+    "reads": 154,
+    "knownResourceNames": [],
+    "current_mineral_identity_confirmed": false
+  },
+  "configuration_cause": "Inactive Find Minerals blocked HUD ScanNames. This accounts for current zero-read session; it does not establish every historical failure cause.",
+  "separate_defects": [
+    "Opaque retained stand-in shows only world-map art and player arrow, so native resource blips below it are hidden; no visible point is not proof no resource exists.",
+    "Mock with per-frame cached focus reproduced scanner progress starvation on same-frame native restoration; scanner correction is only for that exact restored frame after strict geometry/input checks."
+  ],
+  "native_tracking_source_audit": "Read-only search of installed MyForever addon sources found no SetTracking or CastSpell calls to disable/switch tracking; no WTF inspected.",
+  "candidate_version": "0.4.7-dev.13",
+  "simulatedChecks": 8714,
+  "candidate_fixes": [
+    "Same-frame restored-map cached-focus handling with narrow input/anchor gate",
+    "One-time disabled-native-tracking instruction; diagnostics repeat reason without discovery or sound"
+  ],
+  "unresolved": [
+    "New candidate not yet field-verified",
+    "Resource blips still absent from opaque stand-in; original map available on hover/source original",
+    "Need a still-present known ore for controlled comparison",
+    "Physical right mouse and actual audio audibility remain unverified"
+  ],
+  "current_handoff": "Temporarily original mode to inspect real yellow blips; user asked to park at a known mine. Notice/sound/sparkles still enabled.",
+  "releaseAllowed": false,
+  "rawScreenshotsSaved": false
+}

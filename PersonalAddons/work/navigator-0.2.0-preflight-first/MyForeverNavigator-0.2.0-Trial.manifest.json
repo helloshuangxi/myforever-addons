@@ -1,0 +1,18 @@
+{
+  "version": "0.2.0",
+  "status": "trial-local",
+  "sha256": "c63308f7621841ab5428c4f6748e4592e35c0120bb14dd37426eff46d8abfc86",
+  "files": {
+    "MyForeverNavigator.toc": "313a4cf65352f6c3ac31b8ef3b138561a1b694b5339f17e2e608474648a4fc6b",
+    "Core.lua": "83fbb4bb1286e0b0cca777be7c9dfe18df41a90969361f2115e58d68fe44fd6b",
+    "Data.lua": "ae00cb91f00c3d0aae442ee5cfbed1d9be41b3c57cf87ad84031476daa295dab",
+    "Provider.lua": "2146c49e9e693090cbcd1b618ca8155a336d4a20e2a1ecadaaebc5d8c0be59f9",
+    "Navigation.lua": "2eb692e33e657c2b27233031642d9a2d779ed6c89df662c3f0c187498bd536d0",
+    "UI.lua": "b45f46423fce58cac7a8607b8f16f90eb2970749cee4083f8df807a8f8e438e7",
+    "Main.lua": "3cc256227424166220469f3258c3a20a027eba97bc4370d56891751235d0d7cc",
+    "README.md": "6b2fcf85be6735b6bf214b3bfc21e51660b7c9c7fed1dd88d3edad2fb85a2ad8",
+    "SOURCES.md": "11d7ea48502bb764010f0cb307fcb7a89023280add385ac60de3d9628236d137",
+    "VALIDATION.md": "5eed8499a016174d39629c700c1fe239b249407f546027dcd65dfaa3217f8189"
+  },
+  "validation": "Lua 5.1 simulations only; in-game validation pending"
+}

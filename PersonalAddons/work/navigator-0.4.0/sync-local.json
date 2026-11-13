@@ -1,0 +1,15 @@
+{
+  "status": "synced",
+  "name": "MyForeverNavigator",
+  "version": "0.4.0",
+  "changed_files": [
+    "navigator/index.html",
+    "navigator/latest.json",
+    "navigator/releases.json",
+    "downloads/MyForeverNavigator-0.4.0-Trial.zip",
+    "downloads/MyForeverNavigator-0.4.0-Trial.zip.sha256",
+    "index.html",
+    "sitemap.xml"
+  ],
+  "sha256": "d7f849601b9a2da73873c48e8960e0e95fdac47bf3ad68e132421b055d993b67"
+}

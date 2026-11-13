@@ -1,0 +1,706 @@
+{
+  "recorded_at": "2026-11-13T17:32:49.626345+08:00",
+  "version": "0.4.7-dev.22",
+  "state": "local_candidate_live_restricted_text_native_restored",
+  "changes": [
+    "Quantize only the addon stand-in frame opacity to the nearest 1/255 before native write, then verify the actual readback; alpha endpoints 0 and 1 remain exact.",
+    "Do not relax full-opaque-frame gate, original native-map ownership/recovery or secret-session lock. Preserve dev21 restricted-name compatibility and existing notice settings.",
+    "From dev21 only GatherStandIn.lua, TOC and cursor/stand-in tests changed; pin each candidate to its own hash manifest."
+  ],
+  "checks": {
+    "lua51_files": 14,
+    "simulated_checks": 35194,
+    "cursor_checks": 26210,
+    "legacy_scan_checks": 1250,
+    "router_checks": 63,
+    "standin_checks": 6181,
+    "hud_checks": 129,
+    "full_suite_exit_code": 0,
+    "full_suite_runs_reported_by_root": 1,
+    "log": "../professions-upstream-20261113/dev22-test-output.txt",
+    "log_sha256": "46936a0288fb9804e92702c359013430508f699b3795775c47326eef037f32cb",
+    "log_count_recomputed": true,
+    "scope": "Mechanical checks only; live observations are recorded separately.",
+    "independent_review": {
+      "reviewer": "default audit",
+      "result": "No concrete blocking issue found in this alpha production hunk",
+      "cursor_targeted_caller_checks": 26210,
+      "renderer_focused_checks": 6181,
+      "scope": "Cursor caller tests use a stub and are not a real-renderer test; renderer-focused checks are a separate item. This is not live visual acceptance."
+    }
+  },
+  "model_limits": [
+    "Actual build70938 minimap names are restricted in this observed session; no whole-minimap ore-name success is claimed.",
+    "The original resource was gone; no fresh dev22 nearby-name, popup or sound result is available. Dev21 nearby HUD/sound evidence remains historical.",
+    "Dev22 notice flags were not reread. Last known dev21 flags were all true and code settings were unchanged; do not relabel them as live dev22 reads.",
+    "Visible yellow dots and restored map snapshots do not establish continuous blips, sustained flicker elimination, local GPU tint, actual sound or physical right-mouse behavior.",
+    "User handled the bear encounter. Agent stopped input and did not fight, move the character or gather."
+  ],
+  "runtime": {
+    "evidence": "../professions-upstream-20261113/runtime-dev22.json",
+    "candidate_version": "0.4.7-dev.22",
+    "status": "live_restricted_text_native_restored",
+    "loaded_version_confirmed": true,
+    "version_verification": "GetAddOnMetadata returned 0.4.7-dev.22 after reload",
+    "GetBuildInfo": {
+      "version": "1.60.1",
+      "build": "70938",
+      "build_date": "Nov 12 2026",
+      "interface": 16001
+    },
+    "client_started": true,
+    "logged_in": true,
+    "entered_world": true,
+    "restriction_explanation_observed": true,
+    "restriction_explanation_count_observed": 1,
+    "minimap_debug": {
+      "state": "restricted",
+      "reason": "restricted-text",
+      "reads": 10,
+      "tooltipNil": 1,
+      "tooltipEmpty": 8,
+      "tooltipNonempty": 0,
+      "tooltipKnown": 0,
+      "tooltipUnknown": 0,
+      "tooltipInvalid": 1,
+      "raw_known_names": [],
+      "accepted_names": []
+    },
+    "finding": "Opacity fix reached real minimap sampling; tooltip text triggered restricted-text and this session stopped minimap reading with no accepted names. The protected value cannot be identified as a specific resource, and this observation does not establish every API or ore point is unreadable.",
+    "secret_behavior_verified": true,
+    "automatic_minimap_popup_verified": false,
+    "fresh_nearby_feed_verified_for_dev22": false,
+    "fresh_nearby_test_limit": "The earlier copper resource was harvested by another player. No new dev22 ore/name/sound test; dev21 nearby results are not transferred.",
+    "sound_successful_calls_for_dev22": null,
+    "actualAudibility": false,
+    "physical_right_mouse_verified": false,
+    "continuous_flicker_elimination_verified": false,
+    "native_snapshot": {
+      "Minimap_GetScale": 1,
+      "stand_in_shown": false,
+      "native_map_unobstructed_observed": true,
+      "yellow_blips_observed": true,
+      "continuous_blip_visibility_verified": false
+    },
+    "notice_flags": {
+      "read_in_dev22": false,
+      "last_read_version": "0.4.7-dev.21",
+      "last_read_values": {
+        "gatherAlerts": true,
+        "gatherSound": true,
+        "gatherSparkles": true,
+        "method": "cursor"
+      },
+      "settings_code_unchanged": true
+    },
+    "interaction_handoff": {
+      "bear_attacked_during_scene": true,
+      "agent_stopped_input": true,
+      "combat_handled_by_user": true,
+      "agent_fought_moved_or_gathered": false
+    },
+    "final_noninteractive_observation": {
+      "bear_down": true,
+      "character_alive": true,
+      "combat_red_border_gone": true,
+      "native_map_normal_size": true,
+      "yellow_blips_visible": true,
+      "read_only": true,
+      "map_recovery_observed": true
+    },
+    "prior_installation_metadata": "1.60.1.70888 was earlier file metadata, not current live GetBuildInfo"
+  },
+  "research": {
+    "versions": [
+      "2.0.2",
+      "2.0.3 beta"
+    ],
+    "client": "WoW Forever1.60.1 Interface16001",
+    "source_access": "Read official ZIPs in memory only; did not install or run them",
+    "independent_resource_API_found": false,
+    "references": [
+      "https://www.curseforge.com/wow/addons/node-sight/files/9538307",
+      "https://www.curseforge.com/wow/addons/node-sight/files/9550390"
+    ]
+  },
+  "hashes": {
+    "GatherResources.lua": "a3f660faf0a0196f28c352f7d0d84887cfbfd84c14a58274270dd2716e91a11b",
+    "TrainerPins.lua": "4e47f9d79858bc9a3dee869e2df69cfd32a2b7e58752537bdcf42efd10208bbf",
+    "ItemLinks.lua": "4f80ae78bd5c82e6b9bcda8af711729b052279838055da94a61956a6173f476c",
+    "Main.lua": "cec37fd134f17c7f8b0b45289a2a2643da657016e0ef0206bf9649e406863a41",
+    "GatherCursorScan.lua": "ef5db37fbae696cfb0261ca521f0cc4d105c0c87eea42f38183772ffac881c84",
+    "GatherScan.lua": "64ac94edf6c3595124ffefee6eb6645ea3cbf915a63c4a47d31268d55d1387c1",
+    "GatherSparkles.lua": "12be44acd612a9668c92dc822387c4c8b94f5fadcebfa55efef77aa73ff11899",
+    "GatherStandIn.lua": "5260901d59eef190dd230f14b5c1af654d3dc769f58ddd355d576a70867ac995",
+    "Trainers.lua": "49fd00450a90b6cfe960fc6555bb166faa3c45ed9f02f276407bc6393fe0aa3c",
+    "GatherAlerts.lua": "1e522c34af92153c55256c3d9cbd43d141e14d8477977c9023b9a8c741a384a5",
+    "GatherTerrainTiles.lua": "6041b9f706d578fdb0d7c2e98464e86034d2acb4db15c81b6731d7f709cf6793",
+    "API.lua": "477b6a1c5d6660ff8661bf09779c2da1157f299da4a6445fe2577c81656a0200",
+    "UI.lua": "a3e0a346a7584b5bcc86683aa030d6faaa0cf6884e557063235cb23dbe4afa5b",
+    "Core.lua": "fa5a3bdb628b3c38f35a894e372dfe0e23032854bb0bf9fb1b2bdc4052b54874",
+    "MyForeverProfessions.toc": "398718173d9d1cafb7e80ed0c92164d1ffda467f3154b60f41508001ac618011",
+    "Textures/EmptyMask.tga": "aa421722ebe50ebcec654c3f5d9e07b84aa0ad5debb2177f5fd461488ad7b6e3",
+    "PersonalAddons/tests/professions_gather_sparkles_test.lua": "38f7844fbf2e21aba0e11262175c02e00abaaf3d08f5c643d67b3ce8b15857cc",
+    "PersonalAddons/tests/professions_main_test.lua": "018df6f94c387d5294cbc0e04dc0066ae8aa54938240c77320270f711e809647",
+    "PersonalAddons/tests/professions_api_test.lua": "82c5820c951d1daff315de1a0c5f0de5510709bc3d47f6b5b732c94ae3034645",
+    "PersonalAddons/tests/professions_cursor_scan_test.lua": "f3dd1569357f213e75c05dffb362e2a069060452807585ea05ba22456b684c9f",
+    "PersonalAddons/tests/professions_standin_test.lua": "b4439f913b2bab4bcc55bf7299d0a38c380ac6c91e9a2272ba1ba823d7d0f9a1",
+    "PersonalAddons/tests/professions_ui_test.lua": "fd39448bada1255369d9fde1f238beb684787c7391207fd44fb347ed8f54a56f",
+    "PersonalAddons/tests/professions_scan_router_test.lua": "a1d005a9a2f628c72e690d59657499d8e38cd36d643160f1cf390a75db9957db",
+    "PersonalAddons/tests/professions_gather_scan_test.lua": "010174efed79442cd1937232dff7281b8f9b415d9764b9aa87e539ab4f581ee7",
+    "PersonalAddons/tests/professions_item_links_test.lua": "35e7a3772e81dcba377163ee06bc1697bb1c5e4e2cb64b3ad1001cad96e83bd0",
+    "PersonalAddons/tests/professions_trainers_test.lua": "5650a0fcbcc9e71b3ffce5e16aaed5c670dfe33d1fc0418624b737d8aeccfac2",
+    "PersonalAddons/tests/professions_core_test.lua": "edb10cb92613811f043a2733f133cb6567766b5f0149ce6d99f1c86e1cf75a44",
+    "PersonalAddons/tests/professions_gather_alerts_test.lua": "06d788cafd81047b5ea94b59764087cddd66bfe01856773844099ba35495205e",
+    "PersonalAddons/tests/professions_trainer_pins_test.lua": "a0e209ae3f017a3d7096e2f816adb17e54b0792680cb09a9539c046bcbb174ac",
+    "PersonalAddons/tests/professions_display_test.lua": "ef77e4ed3c511f1313838fa07162aa86ebc8a1d14bcadf65e217eca0749b7198"
+  },
+  "release_allowed": false,
+  "public_zip_created": false,
+  "website_changed": false,
+  "deployed": false,
+  "history": [
+    {
+      "recorded_at": "2026-11-11T10:16:09.748350+08:00",
+      "version": "0.4.7-dev.14",
+      "state": "local_candidate_code_checked_awaiting_user_login_for_runtime",
+      "changes": [
+        "Hide stand-in immediately after all native properties are restored; minimum .85 second native-map interval.",
+        "Start after .18 second pointer rest; stop immediately on >.5 physical pixel pointer motion.",
+        "Allow only one initial recheck per short scan and require unvisited-grid progress before another recheck.",
+        "Keep fresh A-blank-A name confirmation and existing popup/sound handling."
+      ],
+      "checks": {
+        "lua51_files": 13,
+        "simulated_checks": 18059,
+        "cursor_checks": 15838,
+        "log": "test-output.txt",
+        "independent_review": "Found and corrected two-known-node discovery starvation. Separate 25fps three-node regression fails when fairness is removed."
+      },
+      "runtime": {
+        "game_opened": true,
+        "state": "age_rating_notice",
+        "mouse_tool": "noWindowsAvailable",
+        "keyboard_notice_dismissal": "Return and Tab/Space left same notice",
+        "user_handoff_requested": true,
+        "dev14_loaded_in_world_verified": false,
+        "automatic_ore_popup_verified": false,
+        "actual_audio_verified": false,
+        "minimap_and_dots_verified": false,
+        "physical_mouse_verified": false,
+        "live_settings_modified": false
+      },
+      "hashes": {
+        "GatherCursorScan.lua": "d3745b990c3c9e48886d1e0db7769cb8ebb85e6ae3bfab317d5dcfbea6754a37",
+        "MyForeverProfessions.toc": "9e883315846dde6836621f5659e85600325b0edd23d601a7c1e568c87b85bea5",
+        "UI.lua": "a3e0a346a7584b5bcc86683aa030d6faaa0cf6884e557063235cb23dbe4afa5b",
+        "Main.lua": "cec37fd134f17c7f8b0b45289a2a2643da657016e0ef0206bf9649e406863a41",
+        "GatherStandIn.lua": "51ffd226b9e5d720e6c12797cd3ea991e33519da85258a0f7c4ecc9e219a8ce6",
+        "GatherAlerts.lua": "db03bb78c99fafffcc301a39f0e8d57becb5887c5c2d70c7adbafc567ae3bbbb",
+        "GatherSparkles.lua": "12be44acd612a9668c92dc822387c4c8b94f5fadcebfa55efef77aa73ff11899",
+        "PersonalAddons/tests/professions_cursor_scan_test.lua": "412fe9db04a675f51a7ca35047f95af74e13445c9b1b701c204cf1821b82ee86"
+      }
+    },
+    {
+      "recorded_at": "2026-11-11T11:26:36.054664+08:00",
+      "version": "0.4.7-dev.15",
+      "state": "local_candidate_user_retest_failed_visual_and_range",
+      "changes": [
+        "Hide stand-in immediately after all native properties are restored; minimum .85 second native-map interval.",
+        "Start after .18 second pointer rest; stop immediately on >.5 physical pixel pointer motion.",
+        "Allow only one initial recheck per short scan and require unvisited-grid progress before another recheck.",
+        "Keep fresh A-blank-A name confirmation and existing popup/sound handling.",
+        "Private native icon-scale lease changed from .05 to 0; restore retains the witnessed pre-lease value.",
+        "Observed external zero or invalid icon scales remain explicit unavailable baselines; later retries do not overwrite them via Blizzard settings."
+      ],
+      "checks": {
+        "lua51_files": 13,
+        "simulated_checks": 18258,
+        "cursor_checks": 16037,
+        "log": "dev15-test-output.txt",
+        "log_count_recomputed": true,
+        "coverage": "Private zero scale; before/after zero setter errors; restore retry; external zero ownership across later polls; prior fairness, fresh-name and native-map-gap checks retained.",
+        "independent_review": "Found and corrected two-known-node discovery starvation. Separate 25fps three-node regression fails when fairness is removed.",
+        "review_scope_note": "The retained review refers to dev14 fairness. Dev15 whole-suite log is verified separately; no additional independent live verification is claimed."
+      },
+      "runtime": {
+        "evidence": "runtime-dev15.json",
+        "prior_runtime": "runtime-dev14.json",
+        "loaded_version": "0.4.7-dev.15",
+        "automatic_copper_minimap_popup_verified": true,
+        "successfulAutomaticSoundCalls": 2,
+        "actualAudibility": true,
+        "audio_evidence": "user-confirmed",
+        "map_visual": "FAIL",
+        "peripheral_range": "FAIL",
+        "physical_right_mouse": "pending",
+        "continuous_native_yellow_blips": "pending",
+        "overall": "not accepted",
+        "final_readback": {
+          "loaded_version": "0.4.7-dev.15",
+          "method": "cursor",
+          "alerts": true,
+          "sound": true,
+          "sparkles": true,
+          "FindMinerals": {
+            "session_index": 2,
+            "active": true
+          },
+          "QuestPOIs": {
+            "session_index": 24,
+            "filterID": 65536,
+            "active": false
+          }
+        },
+        "user_acceptance": {
+          "quote": "可以听到，但是小地图闪烁太厉害替代画面也和原画面不一致；矿要离的比较近才发出声音",
+          "actualAudibility": true,
+          "audio_evidence": "user-confirmed",
+          "map_visual": "FAIL",
+          "visual_reasons": [
+            "excessive flicker",
+            "stand-in art differs from native map"
+          ],
+          "peripheral_range": "FAIL",
+          "range_evidence": "User reports sound only when relatively close to ore; distance and detector source were not separately measured.",
+          "physical_right_mouse": "pending",
+          "continuous_native_yellow_blips": "pending",
+          "overall": "not accepted"
+        },
+        "quest_setting_change": {
+          "setting": "QuestPOIs",
+          "filterID": 65536,
+          "session_tracking_index": 24,
+          "before": true,
+          "after": false,
+          "native_call": "C_Minimap.SetTracking(24,false)",
+          "blue_quest_boundary_disappeared": true,
+          "automatic_addon_hiding_logic_implemented": false,
+          "active_scan_captured_after_change": false,
+          "grey_arc_root_cause_or_resolution_verified": false
+        },
+        "temporary_markers_cleared_and_verified": true
+      },
+      "hashes": {
+        "GatherCursorScan.lua": "0747bf656ab1512d64c7de87c95b1f398b645cf62ac4d0fd14517313539ac2e4",
+        "MyForeverProfessions.toc": "c59961aa1f58c68d5f830cdf56dd7ace5344d441096934f4bf9b8b98736d9bff",
+        "UI.lua": "a3e0a346a7584b5bcc86683aa030d6faaa0cf6884e557063235cb23dbe4afa5b",
+        "Main.lua": "cec37fd134f17c7f8b0b45289a2a2643da657016e0ef0206bf9649e406863a41",
+        "GatherStandIn.lua": "51ffd226b9e5d720e6c12797cd3ea991e33519da85258a0f7c4ecc9e219a8ce6",
+        "GatherAlerts.lua": "db03bb78c99fafffcc301a39f0e8d57becb5887c5c2d70c7adbafc567ae3bbbb",
+        "GatherSparkles.lua": "12be44acd612a9668c92dc822387c4c8b94f5fadcebfa55efef77aa73ff11899",
+        "PersonalAddons/tests/professions_cursor_scan_test.lua": "922caca12886de4fbdaaba4c919fc983a556ae08c9c0b5deb10165f8e93e93c1"
+      },
+      "model_limits": [
+        "Historical dev14 synthetic three-node first peripheral discovery: 29.63 seconds at 60fps and 74.64 seconds at 25fps. These are simulated timings, not live range measurements.",
+        "Stand-in draws terrain and player arrow only, not native ore dots during active slices.",
+        "Code returns to native map for at least .85 seconds between slices; this does not constitute acceptable-flicker validation.",
+        "Low-FPS peripheral discovery delay remains a limitation; no measured live detection radius.",
+        "After disabling QuestPOIs, no active-scan capture establishes whether the grey arc or native tooltip changed.",
+        "Actual native tooltip hitbox versus the 12px grid remains unverified."
+      ]
+    },
+    {
+      "version": "0.4.7-dev.16",
+      "checks": {
+        "luaSyntaxFiles": 14,
+        "simulatedChecks": 26293,
+        "passed": true
+      },
+      "runtime": {
+        "loadedVersionConfirmed": true,
+        "initialNativeScale": 1,
+        "nativeParentEffectiveScale": 0.63999998569489,
+        "nativeWidth": 198.00006103516,
+        "minimapViewRadius": 233.33332824707,
+        "terrainModuleLoaded": true,
+        "freshNames": [],
+        "tooltipReadCount": 540,
+        "tooltipNil": 26,
+        "tooltipEmpty": 514,
+        "tooltipNonempty": 0,
+        "automaticPopupVerified": false,
+        "actualAudibilityVerifiedForThisCandidate": false,
+        "failure": "native float32 scale readback did not exactly equal requested Lua double; numeric property recovery mistook it for external state and left scale compressed",
+        "leftoverScale": 0.50504970550537,
+        "standInHiddenAfterOriginalCommand": true,
+        "recovery": {
+          "source": "original",
+          "nativeScale": 1,
+          "conditionalRecoveryOnlyAtObservedExperimentalScale": true,
+          "fullNativeMapVisiblyRestored": true
+        }
+      },
+      "acceptance": {
+        "overall": "FAIL",
+        "mapVisual": "FAIL scale restoration",
+        "peripheralDetection": "not verified",
+        "releaseAuthorized": false
+      },
+      "evidence": "runtime-dev16.json"
+    },
+    {
+      "version": "0.4.7-dev.17",
+      "checks": {
+        "luaSyntaxFiles": 14,
+        "simulatedChecks": 29414,
+        "passed": true
+      },
+      "runtime": {
+        "loadedVersionConfirmed": true,
+        "methodDuringAutomaticPositive": "cursor",
+        "freshRawKnownNames": [
+          "铜矿"
+        ],
+        "freshAcceptedNames": [
+          "铜矿"
+        ],
+        "automaticPopupObserved": "附近有 铜矿 / 小地图范围内",
+        "soundSuccessfulCalls": 1,
+        "actualAudibilityConfirmedForThisCandidate": false,
+        "tooltipReads": 313,
+        "tooltipNil": 12,
+        "tooltipEmpty": 291,
+        "tooltipNonempty": 10,
+        "tooltipKnown": 10,
+        "tooltipUnknown": 0,
+        "tooltipInvalid": 0,
+        "floatRecovery": {
+          "restoredNativeScale": 1,
+          "manualScaleRecoveryNeeded": false
+        },
+        "activeStandInObserved": true,
+        "activeStandInFailure": "duplicated rings and sprite sheet fragments from native decorations; native terrain present but visual acceptance failed",
+        "atlasProbe": {
+          "ownHiddenTextureOnly": true,
+          "rotationZeroPreservesEightUV": true,
+          "atlasLocalUV": [
+            0,
+            0,
+            0,
+            1,
+            1,
+            0,
+            1,
+            1
+          ],
+          "atlasMetadataRect": [
+            0.6357421875,
+            0.6669921875,
+            0.435546875,
+            0.466796875
+          ],
+          "finding": "GetTexCoord is local to the atlas; copying the whole FileDataID with these UVs exposes the whole sprite sheet; preserve SetAtlas identity"
+        },
+        "cleanup": {
+          "source": "original",
+          "nativeScale": 1,
+          "standInRemoved": true,
+          "ownWatchersAndProbeReferencesCleared": true
+        }
+      },
+      "acceptance": {
+        "automaticNamePopup": "observed",
+        "mapVisual": "FAIL atlas decorations",
+        "peripheralRange": "not quantified or accepted",
+        "physicalRightMouse": "pending",
+        "overall": "NOT_ACCEPTED",
+        "releaseAuthorized": false
+      },
+      "evidence": "runtime-dev17.json"
+    },
+    {
+      "recorded_at": "2026-11-11T12:21:53.675244+08:00",
+      "version": "0.4.7-dev.18",
+      "state": "local_candidate_user_retest_failed_flicker_restored_original",
+      "changes": [
+        "Native outdoor minimap terrain replaces world-map illustration fallback; missing terrain fails closed.",
+        "Decoration clones preserve SetAtlas identity and local UVs, avoiding whole-sheet copying.",
+        "Private map is bounded to 64 physical pixels without SetSize or zoom changes; view radius must remain exactly equal.",
+        "Native float32 property readback is tolerated for ownership, while a witnessed original value is restored exactly; explicit external setters retain ownership.",
+        "Next-frame physical sample alignment must be within .05 pixels before reading.",
+        "Grid samples spread across the map, retain A-blank-A freshness, and preserve new-grid progress between known-node rechecks.",
+        "Fresh aggregate results give unannounced eligible names a turn; announcement expiry is pruned before renewing a returning name.",
+        "Slices use .65-second budget/.9-second deadline with a minimum 1.5-second native-map interval."
+      ],
+      "checks": {
+        "lua51_files": 14,
+        "simulated_checks": 29451,
+        "cursor_checks": 22472,
+        "standin_checks": 5010,
+        "hud_checks": 110,
+        "log": "dev18-test-output.txt",
+        "log_count_recomputed": true,
+        "log_sha256": "7e67a940ba741fbdc5a25af838303816ad75e4d727b303e590066c0fc6e207d8",
+        "coverage": "Native float32 restoration and external setter ownership; exact original scale restoration; next-frame physical sample alignment; aggregate-name eligibility and sound deduplication; native terrain and retained Atlas identity.",
+        "scope": "Mechanical simulations only, not user or live-game visual acceptance."
+      },
+      "runtime": {
+        "evidence": "runtime-dev18.json",
+        "loaded_version": "0.4.7-dev.18",
+        "automatic_copper_minimap_popup_verified": true,
+        "automatic_popup_source": "cursor before final recovery",
+        "successfulAutomaticSoundCalls": 1,
+        "actualAudibility": false,
+        "audio_status": "pending for dev18",
+        "map_visual": "FAIL",
+        "visual_reason": "User reports severe flicker",
+        "extra_rings": "resolved_user_confirmed",
+        "peripheral_range": "pending",
+        "physical_right_mouse": "pending",
+        "continuous_native_yellow_blips": "pending",
+        "overall": "NOT_ACCEPTED",
+        "acceptance": {
+          "quote": "没有多余的圆环，但是小地图闪烁太严重了",
+          "extra_rings": "resolved_user_confirmed",
+          "map_visual": "FAIL",
+          "visual_reasons": [
+            "severe flicker"
+          ],
+          "actualAudibility": false,
+          "audio_status": "pending for dev18; dev15 confirmation is historical only",
+          "peripheral_range": "pending",
+          "physical_right_mouse": "pending",
+          "continuous_native_yellow_blips": "pending",
+          "overall": "NOT_ACCEPTED",
+          "releaseAuthorized": false
+        },
+        "settings_before_final_recovery": {
+          "loaded_version": "0.4.7-dev.18",
+          "method": "cursor",
+          "alerts": true,
+          "sound": true,
+          "sparkles": true,
+          "FindMinerals": {
+            "session_index": 2,
+            "active": true
+          },
+          "QuestPOIs": {
+            "session_index": 24,
+            "filterID": 65536,
+            "active": false
+          },
+          "tracking_note": "Last read before final source recovery. QuestPOIs was manually disabled earlier at user request; no automatic addon hiding logic."
+        },
+        "final_recovery": {
+          "method": "original",
+          "nativeScale": 1,
+          "standInShown": false,
+          "normalNativeMapObserved": true,
+          "sourceSwitchCommand": "/myprof gather original",
+          "threeNoticeFlagsChanged": false,
+          "noticeFlagsPreserved": {
+            "alerts": true,
+            "sound": true,
+            "sparkles": true
+          },
+          "current_original_full_range_verified": false
+        },
+        "temporary_markers_cleared_and_verified": true
+      },
+      "hashes": {
+        "API.lua": "477b6a1c5d6660ff8661bf09779c2da1157f299da4a6445fe2577c81656a0200",
+        "Core.lua": "fa5a3bdb628b3c38f35a894e372dfe0e23032854bb0bf9fb1b2bdc4052b54874",
+        "GatherAlerts.lua": "ec0bd622f2c72ac95111b3701272214efd53e51b2fc5441b3fcf3335675ee8e5",
+        "GatherCursorScan.lua": "f33e1cd192ebe8c29708b5fef2eb2a8c44a9c7999f6a1e0921d64085b0f9dd7b",
+        "GatherResources.lua": "a3f660faf0a0196f28c352f7d0d84887cfbfd84c14a58274270dd2716e91a11b",
+        "GatherScan.lua": "e426448a11814baa789e8837c32eb572cffbb1922d4aac3280433223feb10de2",
+        "GatherSparkles.lua": "12be44acd612a9668c92dc822387c4c8b94f5fadcebfa55efef77aa73ff11899",
+        "GatherStandIn.lua": "5977c6f70491296a8d24a97b088eb5b5ed736dcde25189203681659a03b74b07",
+        "GatherTerrainTiles.lua": "6041b9f706d578fdb0d7c2e98464e86034d2acb4db15c81b6731d7f709cf6793",
+        "ItemLinks.lua": "4f80ae78bd5c82e6b9bcda8af711729b052279838055da94a61956a6173f476c",
+        "Main.lua": "cec37fd134f17c7f8b0b45289a2a2643da657016e0ef0206bf9649e406863a41",
+        "TrainerPins.lua": "4e47f9d79858bc9a3dee869e2df69cfd32a2b7e58752537bdcf42efd10208bbf",
+        "Trainers.lua": "49fd00450a90b6cfe960fc6555bb166faa3c45ed9f02f276407bc6393fe0aa3c",
+        "UI.lua": "a3e0a346a7584b5bcc86683aa030d6faaa0cf6884e557063235cb23dbe4afa5b",
+        "MyForeverProfessions.toc": "34528423a3ed49890e9883fc53a9152b4cf3467cb4e195f8c780dc07374e2f59",
+        "Textures/EmptyMask.tga": "aa421722ebe50ebcec654c3f5d9e07b84aa0ad5debb2177f5fd461488ad7b6e3",
+        "PersonalAddons/tests/professions_cursor_scan_test.lua": "3a5d1d3a36a2f7c4ea6f5ad627b3ffb735035e59737d8ff7d7773da9d77ee512",
+        "PersonalAddons/tests/professions_standin_test.lua": "d311121494f395a73f90d98954cca2ce292a93498c3128d3736b853f158b27b7",
+        "PersonalAddons/tests/professions_gather_alerts_test.lua": "41b397d845963fc6fab333b5cdaa49a725e13dad9814763642fa3bba5c1630ba"
+      },
+      "model_limits": [
+        "Only the observed copper scene confirms the cursor-source automatic popup; full peripheral range is not accepted.",
+        "Stand-in does not draw native resource blips during active sampling.",
+        "A .65-second slice/.9-second deadline and at least 1.5-second native-map interval do not establish acceptable flicker.",
+        "The fixed physical tooltip hit-radius assumption and synthetic scan timings do not establish a live detection radius.",
+        "Current original-source full-map automatic detection remains unverified; do not transfer cursor-source success to it."
+      ],
+      "evidence": "runtime-dev18.json"
+    },
+    {
+      "version": "0.4.7-dev.19",
+      "evidence": "runtime-dev19.json",
+      "automatic_name_popup": "user-confirmed copper HUD",
+      "successful_sound_calls": 1,
+      "actualAudibility": false,
+      "user_quote": "附近有铜矿，显示也正常就是小地图闪烁问题",
+      "visual_detail_quote": "原图与替身明暗或颜色反复跳变",
+      "map_visual": "FAIL",
+      "overall": "NOT_ACCEPTED",
+      "last_method": "cursor"
+    },
+    {
+      "version": "0.4.7-dev.20",
+      "evidence": "runtime-dev20.json",
+      "reply": "是的",
+      "scope": "Grouped affirmative, inferred improvement only; loaded version not independently verified.",
+      "overall": "NOT_ACCEPTED",
+      "releaseAuthorized": false
+    },
+    {
+      "version": "0.4.7-dev.21",
+      "evidence": "../professions-upstream-20261113/runtime-dev21.json",
+      "loaded_version_confirmed": true,
+      "nearby_feed": "Copper HUD/sparkles observed; sound calls2 without audible acceptance",
+      "minimap": "FAIL stand-in-opacity, reads0",
+      "overall": "NOT_ACCEPTED"
+    }
+  ],
+  "publication_state": "blocked_pending_user_acceptance",
+  "hashes_source": "Root frozen candidate-hashes.json, verified by completed default audit; manifest reference is canonical.",
+  "hashes_match_files_at_document_check": true,
+  "accepted_ui_main_unchanged": true,
+  "published_0_4_6_zip_readonly_hash_check": {
+    "checked_once_this_task": true,
+    "sha256_by_local_path": {
+      "PersonalAddons/dist/MyForeverProfessions-0.4.6-Trial.zip": "6d1e93b4d9865216d46d532770813b38572692134a8dd16333f87d864cf62bb6",
+      "PersonalAddons/website/public/downloads/MyForeverProfessions-0.4.6-Trial.zip": "6d1e93b4d9865216d46d532770813b38572692134a8dd16333f87d864cf62bb6"
+    },
+    "unchanged": true,
+    "packages_modified": false,
+    "website_files_modified": false
+  },
+  "last_completed_runtime": {
+    "version": "0.4.7-dev.21",
+    "evidence": "../professions-upstream-20261113/runtime-dev21.json",
+    "loaded_version_confirmed": true,
+    "nearby_feed": "Copper HUD/sparkles observed; sound calls2 without audible acceptance",
+    "minimap": "FAIL stand-in-opacity, reads0",
+    "overall": "NOT_ACCEPTED"
+  },
+  "acceptance": {
+    "loaded_version_independently_verified": true,
+    "secret_restriction_behavior": "Observed actual restricted-text after 10 reads; one explanation and native-map recovery observed",
+    "automatic_name_popup": "No new dev22 fresh resource test",
+    "minimap_name_popup": "BLOCKED by actual restricted-text; not full-minimap success",
+    "nearby_feed": "not freshly tested for dev22",
+    "map_visual": "Native map unobstructed/scale 1 with stand-in hidden in observed snapshots; sustained fade/flicker untested",
+    "actualAudibility": false,
+    "audio_status": "not tested for dev22",
+    "physical_right_mouse": "not tested",
+    "continuous_native_yellow_blips": "not verified",
+    "dawn_gpu_tint": "not tested",
+    "peripheral_range": "not passed; current minimap source restricted",
+    "overall": "NOT_ACCEPTED",
+    "userApproval": "pending",
+    "releaseAuthorized": false
+  },
+  "checkpoint_history": [
+    {
+      "recorded_at": "2026-11-11T12:41:01.129029+08:00",
+      "version": "0.4.7-dev.19",
+      "state": "local_candidate_static_passed_runtime_pending_exclusive_control",
+      "runtime": {
+        "evidence": "runtime-dev19.json",
+        "status": "not_yet_pending_exclusive_control",
+        "candidate_version": "0.4.7-dev.19",
+        "loaded_version_confirmed": false,
+        "runtime_test_attempted": false,
+        "candidate_reload_or_scan_input_sent": false,
+        "last_observed_loaded_version": "0.4.7-dev.18",
+        "last_observed_method": "original",
+        "last_completed_runtime_evidence": "runtime-dev18.json",
+        "last_completed_native_scale": 1,
+        "last_completed_stand_in_shown": false,
+        "automatic_copper_minimap_popup_verified": false,
+        "actualAudibility": false,
+        "map_visual": "not tested for dev19",
+        "peripheral_range": "pending",
+        "physical_right_mouse": "pending",
+        "overall": "NOT_ACCEPTED",
+        "exclusive_control": "Pending. Root observed other test activity in a read-only screenshot and requested a pause before attempting dev19 reload.",
+        "previous_success_not_transferred": true,
+        "acceptance": {
+          "automatic_name_popup": "pending for dev19",
+          "map_visual": "pending for dev19; prior dev18 severe flicker remains unresolved by live evidence",
+          "actualAudibility": false,
+          "audio_status": "not tested for dev19",
+          "peripheral_range": "pending",
+          "physical_right_mouse": "pending",
+          "continuous_native_yellow_blips": "pending",
+          "overall": "NOT_ACCEPTED",
+          "userAcceptance": "pending",
+          "releaseAuthorized": false
+        }
+      }
+    }
+  ],
+  "next_action": "Retain local-only candidate. Current real restricted-text blocks full-minimap names; future nearby/audio/input/visual testing needs fresh observations and cannot use old ore or synthetic previews as acceptance.",
+  "previous_candidate_runtime": {
+    "evidence": "runtime-dev18.json",
+    "loaded_version": "0.4.7-dev.18",
+    "automatic_copper_minimap_popup_verified": true,
+    "automatic_popup_source": "cursor before final recovery",
+    "successfulAutomaticSoundCalls": 1,
+    "actualAudibility": false,
+    "audio_status": "pending for dev18",
+    "map_visual": "FAIL",
+    "visual_reason": "User reports severe flicker",
+    "extra_rings": "resolved_user_confirmed",
+    "peripheral_range": "pending",
+    "physical_right_mouse": "pending",
+    "continuous_native_yellow_blips": "pending",
+    "overall": "NOT_ACCEPTED",
+    "acceptance": {
+      "quote": "没有多余的圆环，但是小地图闪烁太严重了",
+      "extra_rings": "resolved_user_confirmed",
+      "map_visual": "FAIL",
+      "visual_reasons": [
+        "severe flicker"
+      ],
+      "actualAudibility": false,
+      "audio_status": "pending for dev18; dev15 confirmation is historical only",
+      "peripheral_range": "pending",
+      "physical_right_mouse": "pending",
+      "continuous_native_yellow_blips": "pending",
+      "overall": "NOT_ACCEPTED",
+      "releaseAuthorized": false
+    },
+    "settings_before_final_recovery": {
+      "loaded_version": "0.4.7-dev.18",
+      "method": "cursor",
+      "alerts": true,
+      "sound": true,
+      "sparkles": true,
+      "FindMinerals": {
+        "session_index": 2,
+        "active": true
+      },
+      "QuestPOIs": {
+        "session_index": 24,
+        "filterID": 65536,
+        "active": false
+      },
+      "tracking_note": "Last read before final source recovery. QuestPOIs was manually disabled earlier at user request; no automatic addon hiding logic."
+    },
+    "final_recovery": {
+      "method": "original",
+      "nativeScale": 1,
+      "standInShown": false,
+      "normalNativeMapObserved": true,
+      "sourceSwitchCommand": "/myprof gather original",
+      "threeNoticeFlagsChanged": false,
+      "noticeFlagsPreserved": {
+        "alerts": true,
+        "sound": true,
+        "sparkles": true
+      },
+      "current_original_full_range_verified": false
+    },
+    "temporary_markers_cleared_and_verified": true
+  },
+  "latest_runtime_record": "../professions-upstream-20261113/runtime-dev22.json",
+  "upstream_record": "../professions-upstream-20261113/UPSTREAM.json",
+  "hash_manifest": "../professions-upstream-20261113/dev22-candidate-hashes.json"
+}

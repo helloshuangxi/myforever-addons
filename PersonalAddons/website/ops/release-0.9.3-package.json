@@ -1,0 +1,14 @@
+{
+  "version": "0.9.3",
+  "file": "/Users/mashuangxi/World of Warcraft/PersonalAddons/dist/MyForeverChat-0.9.3-Trial.zip",
+  "size": 121419,
+  "files": 36,
+  "sha256": "5f5a84f578f8a76be0c43e5c885ebbbbfcda224795475cf87461e0e9b90838c9",
+  "addon_changed_files": [
+    "MyForeverChat.toc",
+    "UI.lua"
+  ],
+  "privacy": "0.9.2 member allowlist; no WTF, SavedVariables or chat data",
+  "source_matches": true,
+  "crc_passed": true
+}

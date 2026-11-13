@@ -1,0 +1,49 @@
+{
+  "phase": "published",
+  "version": "0.1.46",
+  "package": "MyForeverTargets-0.1.46-Trial.zip",
+  "sha256": "5c5865a8dc8f850bde6b359f5729a7195c48eb49b4ea42c0812002ec521634bf",
+  "lua_syntax_files": 23,
+  "simulation_checks": 9820,
+  "simulation_suites": 19,
+  "release_transition_tests": 10,
+  "independent_review": "passed",
+  "site_check": "passed",
+  "manager_local_checks": 68,
+  "old_archives_preserved": 33,
+  "other_versions": {
+    "chat": "0.9.3",
+    "professions": "0.4.6",
+    "navigator": "0.3.3",
+    "manager": "0.2.1"
+  },
+  "private_service_same_sha": true,
+  "local_game_probe_candidate_preserved": "0.1.45",
+  "public_release_baseline": "0.1.44",
+  "published": true,
+  "release": "20261112T093034Z",
+  "completed_at": "2026-11-12T09:37:44.768757+00:00",
+  "https_resource_checks": 110,
+  "manager_https_checks": 74,
+  "public_page": "https://afabiaoge.xyz/targets/",
+  "public_download": "https://afabiaoge.xyz/downloads/MyForeverTargets-0.1.46-Trial.zip",
+  "public_latest": "https://afabiaoge.xyz/targets/latest.json",
+  "www": {
+    "status": 301,
+    "location": "https://afabiaoge.xyz/"
+  },
+  "chat_health": {
+    "status": 200
+  },
+  "studio_protected": {
+    "status": 200,
+    "final_url": "https://studio.afabiaoge.xyz/login",
+    "login_required": true
+  },
+  "community_read": {
+    "status": 200,
+    "returned_items": 0,
+    "has_more": false,
+    "write_test_performed": false
+  }
+}

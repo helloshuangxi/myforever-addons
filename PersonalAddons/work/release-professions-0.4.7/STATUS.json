@@ -1,0 +1,556 @@
+{
+  "state": "local_candidate_live_restricted_text_native_restored",
+  "version": "0.4.7-dev.22",
+  "updated_at": "2026-11-13T17:32:49.626345+08:00",
+  "simulatedChecks": 35194,
+  "luaSources": 14,
+  "independent_review": "Default audit found no concrete blocking issue in the dev22 alpha production hunk. Cursor targeted caller checks: 26210 (stub, not real renderer); renderer-focused checks: 6181 separately. No live visual acceptance inferred.",
+  "runtime": "Dev22 loaded via live addon metadata, build70938. After alpha repair, minimap reads10 reached actual restricted-text; one explanation and native scale1/stand-in hidden observed. User handled bear encounter; final read-only view showed character alive and normal unobstructed native map with dots.",
+  "scope": "Local native-terrain stand-in pure-name mining/herbalism experiment; no resource direction/navigation. Accepted panel resize/top book UI/Main hashes unchanged.",
+  "gather_modules_changed": true,
+  "actual_auto_scan": "Minimap full-range names blocked by real restricted-text. Fresh dev22 nearby popup/sound not retested because original ore was gone.",
+  "ui_acceptance": {
+    "panel_resize_and_top_skill_book": "passed by user personal operation",
+    "source_unchanged": true,
+    "evidence": "../professions-panel-resize-20261109/runtime-ui-check-20261109.json"
+  },
+  "release_allowed": false,
+  "publication_gate": "Real restricted-text is a full-minimap-name blocker. Fresh nearby/audio/input/visual acceptance and release authorization remain absent.",
+  "validation": "../gather-standin-20261111/validation.json",
+  "runtime_evidence": "../professions-upstream-20261113/runtime-dev22.json",
+  "local_test": "LOCAL-TEST.md",
+  "previous_status": "../gather-standin-20261110/status-before-dev13.json",
+  "physical_right_mouse_verified": false,
+  "sound_audibility_verified": false,
+  "all_notice_flags_last_read": true,
+  "last_observed_loaded_version": "0.4.7-dev.22",
+  "candidate_loaded_verified": true,
+  "unresolved_visual_defect": "Native map restored in observed snapshots; sustained flicker, fade/tint and right-mouse behavior remain untested for dev22.",
+  "current_gather_method": null,
+  "latest_native_tracking_check": {
+    "evidence": "../gather-standin-20261111/runtime-dev19.json",
+    "FindMinerals_after": true,
+    "FindMinerals_session_index": 2,
+    "all_three_notice_flags_after": true,
+    "notice_flag_fields": [
+      "gatherAlerts",
+      "gatherSound",
+      "gatherSparkles"
+    ],
+    "QuestPOIs_not_reread_in_dev19": true,
+    "QuestPOIs_last_prior_observation": {
+      "version": "0.4.7-dev.18",
+      "active": false,
+      "session_index": 24,
+      "change": "earlier manual native choice requested by user"
+    }
+  },
+  "latest_candidate_runtime": {
+    "evidence": "../professions-upstream-20261113/runtime-dev22.json",
+    "candidate_version": "0.4.7-dev.22",
+    "status": "live_restricted_text_native_restored",
+    "loaded_version_confirmed": true,
+    "version_verification": "GetAddOnMetadata returned 0.4.7-dev.22 after reload",
+    "GetBuildInfo": {
+      "version": "1.60.1",
+      "build": "70938",
+      "build_date": "Nov 12 2026",
+      "interface": 16001
+    },
+    "client_started": true,
+    "logged_in": true,
+    "entered_world": true,
+    "restriction_explanation_observed": true,
+    "restriction_explanation_count_observed": 1,
+    "minimap_debug": {
+      "state": "restricted",
+      "reason": "restricted-text",
+      "reads": 10,
+      "tooltipNil": 1,
+      "tooltipEmpty": 8,
+      "tooltipNonempty": 0,
+      "tooltipKnown": 0,
+      "tooltipUnknown": 0,
+      "tooltipInvalid": 1,
+      "raw_known_names": [],
+      "accepted_names": []
+    },
+    "finding": "Opacity fix reached real minimap sampling; tooltip text triggered restricted-text and this session stopped minimap reading with no accepted names. The protected value cannot be identified as a specific resource, and this observation does not establish every API or ore point is unreadable.",
+    "secret_behavior_verified": true,
+    "automatic_minimap_popup_verified": false,
+    "fresh_nearby_feed_verified_for_dev22": false,
+    "fresh_nearby_test_limit": "The earlier copper resource was harvested by another player. No new dev22 ore/name/sound test; dev21 nearby results are not transferred.",
+    "sound_successful_calls_for_dev22": null,
+    "actualAudibility": false,
+    "physical_right_mouse_verified": false,
+    "continuous_flicker_elimination_verified": false,
+    "native_snapshot": {
+      "Minimap_GetScale": 1,
+      "stand_in_shown": false,
+      "native_map_unobstructed_observed": true,
+      "yellow_blips_observed": true,
+      "continuous_blip_visibility_verified": false
+    },
+    "notice_flags": {
+      "read_in_dev22": false,
+      "last_read_version": "0.4.7-dev.21",
+      "last_read_values": {
+        "gatherAlerts": true,
+        "gatherSound": true,
+        "gatherSparkles": true,
+        "method": "cursor"
+      },
+      "settings_code_unchanged": true
+    },
+    "interaction_handoff": {
+      "bear_attacked_during_scene": true,
+      "agent_stopped_input": true,
+      "combat_handled_by_user": true,
+      "agent_fought_moved_or_gathered": false
+    },
+    "final_noninteractive_observation": {
+      "bear_down": true,
+      "character_alive": true,
+      "combat_red_border_gone": true,
+      "native_map_normal_size": true,
+      "yellow_blips_visible": true,
+      "read_only": true,
+      "map_recovery_observed": true
+    },
+    "prior_installation_metadata": "1.60.1.70888 was earlier file metadata, not current live GetBuildInfo"
+  },
+  "prior_candidate_checkpoint": {
+    "state": "local_candidate_user_retest_failed_visual_and_range",
+    "version": "0.4.7-dev.15",
+    "updated_at": "2026-11-11T11:26:36.054664+08:00",
+    "simulatedChecks": 18258,
+    "runtime": "Dev14 and dev15 automatically displayed the copper minimap-source popup. Dev15 raw/accepted copper and 2 successful sound calls recorded. User now confirms audible sound but rejects excessive map flicker/art mismatch and reports sound only near ore. Not accepted.",
+    "actual_auto_scan": "Single copper minimap-source popup verified. Peripheral-range acceptance failed by user report; measured live radius and root cause remain unverified.",
+    "candidate_loaded_verified": true,
+    "latest_candidate_runtime": {
+      "evidence": "runtime-dev15.json",
+      "prior_runtime": "runtime-dev14.json",
+      "loaded_version": "0.4.7-dev.15",
+      "automatic_copper_minimap_popup_verified": true,
+      "successfulAutomaticSoundCalls": 2,
+      "actualAudibility": true,
+      "audio_evidence": "user-confirmed",
+      "map_visual": "FAIL",
+      "peripheral_range": "FAIL",
+      "physical_right_mouse": "pending",
+      "continuous_native_yellow_blips": "pending",
+      "overall": "not accepted",
+      "final_readback": {
+        "loaded_version": "0.4.7-dev.15",
+        "method": "cursor",
+        "alerts": true,
+        "sound": true,
+        "sparkles": true,
+        "FindMinerals": {
+          "session_index": 2,
+          "active": true
+        },
+        "QuestPOIs": {
+          "session_index": 24,
+          "filterID": 65536,
+          "active": false
+        }
+      },
+      "user_acceptance": {
+        "quote": "可以听到，但是小地图闪烁太厉害替代画面也和原画面不一致；矿要离的比较近才发出声音",
+        "actualAudibility": true,
+        "audio_evidence": "user-confirmed",
+        "map_visual": "FAIL",
+        "visual_reasons": [
+          "excessive flicker",
+          "stand-in art differs from native map"
+        ],
+        "peripheral_range": "FAIL",
+        "range_evidence": "User reports sound only when relatively close to ore; distance and detector source were not separately measured.",
+        "physical_right_mouse": "pending",
+        "continuous_native_yellow_blips": "pending",
+        "overall": "not accepted"
+      },
+      "quest_setting_change": {
+        "setting": "QuestPOIs",
+        "filterID": 65536,
+        "session_tracking_index": 24,
+        "before": true,
+        "after": false,
+        "native_call": "C_Minimap.SetTracking(24,false)",
+        "blue_quest_boundary_disappeared": true,
+        "automatic_addon_hiding_logic_implemented": false,
+        "active_scan_captured_after_change": false,
+        "grey_arc_root_cause_or_resolution_verified": false
+      },
+      "temporary_markers_cleared_and_verified": true
+    },
+    "acceptance": {
+      "quote": "可以听到，但是小地图闪烁太厉害替代画面也和原画面不一致；矿要离的比较近才发出声音",
+      "actualAudibility": true,
+      "audio_evidence": "user-confirmed",
+      "map_visual": "FAIL",
+      "visual_reasons": [
+        "excessive flicker",
+        "stand-in art differs from native map"
+      ],
+      "peripheral_range": "FAIL",
+      "range_evidence": "User reports sound only when relatively close to ore; distance and detector source were not separately measured.",
+      "physical_right_mouse": "pending",
+      "continuous_native_yellow_blips": "pending",
+      "overall": "not accepted"
+    }
+  },
+  "historical_native_tracking_check": {
+    "evidence": "../gather-standin-20261110/runtime-tracking-recovery.json",
+    "found_inactive": true,
+    "FindMinerals_after": true,
+    "nativeYellowBlipObserved_after": true,
+    "disable_reason": "unknown",
+    "all_three_notice_flags_after": true,
+    "gatherMethod_after": "original"
+  },
+  "runtime_history": [
+    "../gather-standin-20261111/runtime-dev15.json",
+    "../gather-standin-20261111/runtime-dev16.json",
+    "../gather-standin-20261111/runtime-dev17.json",
+    "../gather-standin-20261111/runtime-dev18.json",
+    "../gather-standin-20261111/runtime-dev19.json",
+    "../gather-standin-20261111/runtime-dev20.json",
+    "../professions-upstream-20261113/runtime-dev21.json"
+  ],
+  "physical_right_mouse_status": "not tested for dev22",
+  "sound_audibility_evidence": "No dev22 fresh sound test. Dev21 2 successful calls do not establish dev22 audibility.",
+  "acceptance": {
+    "loaded_version_independently_verified": true,
+    "secret_restriction_behavior": "Observed actual restricted-text after 10 reads; one explanation and native-map recovery observed",
+    "automatic_name_popup": "No new dev22 fresh resource test",
+    "minimap_name_popup": "BLOCKED by actual restricted-text; not full-minimap success",
+    "nearby_feed": "not freshly tested for dev22",
+    "map_visual": "Native map unobstructed/scale 1 with stand-in hidden in observed snapshots; sustained fade/flicker untested",
+    "actualAudibility": false,
+    "audio_status": "not tested for dev22",
+    "physical_right_mouse": "not tested",
+    "continuous_native_yellow_blips": "not verified",
+    "dawn_gpu_tint": "not tested",
+    "peripheral_range": "not passed; current minimap source restricted",
+    "overall": "NOT_ACCEPTED",
+    "userApproval": "pending",
+    "releaseAuthorized": false
+  },
+  "publication_state": "blocked_pending_user_acceptance",
+  "next_action": "Retain local-only candidate. Current real restricted-text blocks full-minimap names; future nearby/audio/input/visual testing needs fresh observations and cannot use old ore or synthetic previews as acceptance.",
+  "test_log": "../professions-upstream-20261113/dev22-test-output.txt",
+  "historical_sound_audibility": {
+    "version": "0.4.7-dev.15",
+    "verified": true,
+    "evidence": "../gather-standin-20261111/runtime-dev15.json"
+  },
+  "checkpoint_history": [
+    {
+      "state": "local_candidate_code_checked_awaiting_user_login_for_runtime",
+      "version": "0.4.7-dev.14",
+      "updated_at": "2026-11-11T10:16:09.748350+08:00",
+      "simulatedChecks": 18059,
+      "runtime": "dev14 source saved and checked. Client opened but blocked at age-rating notice; user asked to dismiss via actual click because mouse tool reports noWindowsAvailable. No in-world dev14 verification yet. Prior dev13 observations remain historical.",
+      "actual_auto_scan": "dev14 runtime pending. Automatic minimap ore popup, sound and full map visibility not yet accepted.",
+      "candidate_loaded_verified": false,
+      "latest_candidate_runtime": {
+        "game_opened": true,
+        "state": "age_rating_notice",
+        "mouse_tool": "noWindowsAvailable",
+        "keyboard_notice_dismissal": "Return and Tab/Space left same notice",
+        "user_handoff_requested": true,
+        "dev14_loaded_in_world_verified": false,
+        "automatic_ore_popup_verified": false,
+        "actual_audio_verified": false,
+        "minimap_and_dots_verified": false,
+        "physical_mouse_verified": false,
+        "live_settings_modified": false
+      }
+    },
+    {
+      "state": "local_candidate_user_retest_failed_flicker_restored_original",
+      "version": "0.4.7-dev.18",
+      "updated_at": "2026-11-11T12:21:53.675244+08:00",
+      "simulatedChecks": 29451,
+      "runtime": "Dev18 cursor source repeatedly displayed fresh copper and returned native scale to 1 automatically. User confirms extra rings disappeared but reports severe flicker. Returned to original; native scale 1, stand-in hidden, normal map observed. Overall not accepted.",
+      "actual_auto_scan": "Single copper scene verified for cursor before recovery; current original-source full-range automatic detection remains unverified.",
+      "candidate_loaded_verified": true,
+      "latest_candidate_runtime": {
+        "evidence": "runtime-dev18.json",
+        "loaded_version": "0.4.7-dev.18",
+        "automatic_copper_minimap_popup_verified": true,
+        "automatic_popup_source": "cursor before final recovery",
+        "successfulAutomaticSoundCalls": 1,
+        "actualAudibility": false,
+        "audio_status": "pending for dev18",
+        "map_visual": "FAIL",
+        "visual_reason": "User reports severe flicker",
+        "extra_rings": "resolved_user_confirmed",
+        "peripheral_range": "pending",
+        "physical_right_mouse": "pending",
+        "continuous_native_yellow_blips": "pending",
+        "overall": "NOT_ACCEPTED",
+        "acceptance": {
+          "quote": "没有多余的圆环，但是小地图闪烁太严重了",
+          "extra_rings": "resolved_user_confirmed",
+          "map_visual": "FAIL",
+          "visual_reasons": [
+            "severe flicker"
+          ],
+          "actualAudibility": false,
+          "audio_status": "pending for dev18; dev15 confirmation is historical only",
+          "peripheral_range": "pending",
+          "physical_right_mouse": "pending",
+          "continuous_native_yellow_blips": "pending",
+          "overall": "NOT_ACCEPTED",
+          "releaseAuthorized": false
+        },
+        "settings_before_final_recovery": {
+          "loaded_version": "0.4.7-dev.18",
+          "method": "cursor",
+          "alerts": true,
+          "sound": true,
+          "sparkles": true,
+          "FindMinerals": {
+            "session_index": 2,
+            "active": true
+          },
+          "QuestPOIs": {
+            "session_index": 24,
+            "filterID": 65536,
+            "active": false
+          },
+          "tracking_note": "Last read before final source recovery. QuestPOIs was manually disabled earlier at user request; no automatic addon hiding logic."
+        },
+        "final_recovery": {
+          "method": "original",
+          "nativeScale": 1,
+          "standInShown": false,
+          "normalNativeMapObserved": true,
+          "sourceSwitchCommand": "/myprof gather original",
+          "threeNoticeFlagsChanged": false,
+          "noticeFlagsPreserved": {
+            "alerts": true,
+            "sound": true,
+            "sparkles": true
+          },
+          "current_original_full_range_verified": false
+        },
+        "temporary_markers_cleared_and_verified": true
+      },
+      "acceptance": {
+        "quote": "没有多余的圆环，但是小地图闪烁太严重了",
+        "extra_rings": "resolved_user_confirmed",
+        "map_visual": "FAIL",
+        "visual_reasons": [
+          "severe flicker"
+        ],
+        "actualAudibility": false,
+        "audio_status": "pending for dev18; dev15 confirmation is historical only",
+        "peripheral_range": "pending",
+        "physical_right_mouse": "pending",
+        "continuous_native_yellow_blips": "pending",
+        "overall": "NOT_ACCEPTED",
+        "releaseAuthorized": false
+      }
+    },
+    {
+      "state": "local_candidate_static_passed_runtime_pending_exclusive_control",
+      "version": "0.4.7-dev.19",
+      "updated_at": "2026-11-11T12:41:01.129029+08:00",
+      "simulatedChecks": 31992,
+      "runtime": "Dev19 has not been reloaded or tested in-game; awaiting exclusive game control. Latest loaded client remains dev18 original after user-rejected severe flicker; native scale 1, stand-in hidden. Dev18 extra-rings fix was user-confirmed, but its copper/sound evidence is not transferred to dev19.",
+      "actual_auto_scan": "Dev19 not tested. Dev18 cursor copper success remains historical; current original-source full-range automatic detection remains unverified.",
+      "candidate_loaded_verified": false,
+      "latest_candidate_runtime": {
+        "evidence": "runtime-dev19.json",
+        "status": "not_yet_pending_exclusive_control",
+        "candidate_version": "0.4.7-dev.19",
+        "loaded_version_confirmed": false,
+        "runtime_test_attempted": false,
+        "candidate_reload_or_scan_input_sent": false,
+        "last_observed_loaded_version": "0.4.7-dev.18",
+        "last_observed_method": "original",
+        "last_completed_runtime_evidence": "runtime-dev18.json",
+        "last_completed_native_scale": 1,
+        "last_completed_stand_in_shown": false,
+        "automatic_copper_minimap_popup_verified": false,
+        "actualAudibility": false,
+        "map_visual": "not tested for dev19",
+        "peripheral_range": "pending",
+        "physical_right_mouse": "pending",
+        "overall": "NOT_ACCEPTED",
+        "exclusive_control": "Pending. Root observed other test activity in a read-only screenshot and requested a pause before attempting dev19 reload.",
+        "previous_success_not_transferred": true,
+        "acceptance": {
+          "automatic_name_popup": "pending for dev19",
+          "map_visual": "pending for dev19; prior dev18 severe flicker remains unresolved by live evidence",
+          "actualAudibility": false,
+          "audio_status": "not tested for dev19",
+          "peripheral_range": "pending",
+          "physical_right_mouse": "pending",
+          "continuous_native_yellow_blips": "pending",
+          "overall": "NOT_ACCEPTED",
+          "userAcceptance": "pending",
+          "releaseAuthorized": false
+        }
+      },
+      "acceptance": {
+        "automatic_name_popup": "pending for dev19",
+        "map_visual": "pending for dev19; prior dev18 severe flicker remains unresolved by live evidence",
+        "actualAudibility": false,
+        "audio_status": "not tested for dev19",
+        "peripheral_range": "pending",
+        "physical_right_mouse": "pending",
+        "continuous_native_yellow_blips": "pending",
+        "overall": "NOT_ACCEPTED",
+        "userAcceptance": "pending",
+        "releaseAuthorized": false
+      }
+    }
+  ],
+  "historical_candidate_failures": {
+    "dev15": {
+      "audio": "user-confirmed",
+      "visual": "FAIL severe flicker/art mismatch",
+      "range": "FAIL user reports near-only sound",
+      "evidence": "runtime-dev15.json"
+    },
+    "dev16": {
+      "overall": "FAIL native float32 restoration",
+      "automatic_name": "not verified",
+      "evidence": "runtime-dev16.json"
+    },
+    "dev17": {
+      "automatic_name": "fresh copper observed",
+      "scale_restore": "automatic original scale 1 observed",
+      "visual": "FAIL Atlas sheet decorations",
+      "evidence": "runtime-dev17.json"
+    },
+    "dev18": {
+      "extra_rings": "resolved_user_confirmed",
+      "visual": "FAIL severe flicker",
+      "evidence": "runtime-dev18.json",
+      "recovery": "original; native scale 1; stand-in hidden"
+    },
+    "dev19": {
+      "automatic_name_popup": "user-confirmed",
+      "visual": "FAIL flicker persists",
+      "evidence": "runtime-dev19.json",
+      "actual_audio": "pending",
+      "physical_right_mouse": "pending"
+    }
+  },
+  "last_completed_runtime": {
+    "version": "0.4.7-dev.21",
+    "evidence": "../professions-upstream-20261113/runtime-dev21.json",
+    "loaded_version_confirmed": true,
+    "nearby_feed": "Copper HUD/sparkles observed; sound calls2 without audible acceptance",
+    "minimap": "FAIL stand-in-opacity, reads0",
+    "overall": "NOT_ACCEPTED"
+  },
+  "last_completed_runtime_evidence": "../professions-upstream-20261113/runtime-dev21.json",
+  "hashes": {
+    "GatherResources.lua": "a3f660faf0a0196f28c352f7d0d84887cfbfd84c14a58274270dd2716e91a11b",
+    "TrainerPins.lua": "4e47f9d79858bc9a3dee869e2df69cfd32a2b7e58752537bdcf42efd10208bbf",
+    "ItemLinks.lua": "4f80ae78bd5c82e6b9bcda8af711729b052279838055da94a61956a6173f476c",
+    "Main.lua": "cec37fd134f17c7f8b0b45289a2a2643da657016e0ef0206bf9649e406863a41",
+    "GatherCursorScan.lua": "ef5db37fbae696cfb0261ca521f0cc4d105c0c87eea42f38183772ffac881c84",
+    "GatherScan.lua": "64ac94edf6c3595124ffefee6eb6645ea3cbf915a63c4a47d31268d55d1387c1",
+    "GatherSparkles.lua": "12be44acd612a9668c92dc822387c4c8b94f5fadcebfa55efef77aa73ff11899",
+    "GatherStandIn.lua": "5260901d59eef190dd230f14b5c1af654d3dc769f58ddd355d576a70867ac995",
+    "Trainers.lua": "49fd00450a90b6cfe960fc6555bb166faa3c45ed9f02f276407bc6393fe0aa3c",
+    "GatherAlerts.lua": "1e522c34af92153c55256c3d9cbd43d141e14d8477977c9023b9a8c741a384a5",
+    "GatherTerrainTiles.lua": "6041b9f706d578fdb0d7c2e98464e86034d2acb4db15c81b6731d7f709cf6793",
+    "API.lua": "477b6a1c5d6660ff8661bf09779c2da1157f299da4a6445fe2577c81656a0200",
+    "UI.lua": "a3e0a346a7584b5bcc86683aa030d6faaa0cf6884e557063235cb23dbe4afa5b",
+    "Core.lua": "fa5a3bdb628b3c38f35a894e372dfe0e23032854bb0bf9fb1b2bdc4052b54874",
+    "MyForeverProfessions.toc": "398718173d9d1cafb7e80ed0c92164d1ffda467f3154b60f41508001ac618011",
+    "Textures/EmptyMask.tga": "aa421722ebe50ebcec654c3f5d9e07b84aa0ad5debb2177f5fd461488ad7b6e3",
+    "PersonalAddons/tests/professions_gather_sparkles_test.lua": "38f7844fbf2e21aba0e11262175c02e00abaaf3d08f5c643d67b3ce8b15857cc",
+    "PersonalAddons/tests/professions_main_test.lua": "018df6f94c387d5294cbc0e04dc0066ae8aa54938240c77320270f711e809647",
+    "PersonalAddons/tests/professions_api_test.lua": "82c5820c951d1daff315de1a0c5f0de5510709bc3d47f6b5b732c94ae3034645",
+    "PersonalAddons/tests/professions_cursor_scan_test.lua": "f3dd1569357f213e75c05dffb362e2a069060452807585ea05ba22456b684c9f",
+    "PersonalAddons/tests/professions_standin_test.lua": "b4439f913b2bab4bcc55bf7299d0a38c380ac6c91e9a2272ba1ba823d7d0f9a1",
+    "PersonalAddons/tests/professions_ui_test.lua": "fd39448bada1255369d9fde1f238beb684787c7391207fd44fb347ed8f54a56f",
+    "PersonalAddons/tests/professions_scan_router_test.lua": "a1d005a9a2f628c72e690d59657499d8e38cd36d643160f1cf390a75db9957db",
+    "PersonalAddons/tests/professions_gather_scan_test.lua": "010174efed79442cd1937232dff7281b8f9b415d9764b9aa87e539ab4f581ee7",
+    "PersonalAddons/tests/professions_item_links_test.lua": "35e7a3772e81dcba377163ee06bc1697bb1c5e4e2cb64b3ad1001cad96e83bd0",
+    "PersonalAddons/tests/professions_trainers_test.lua": "5650a0fcbcc9e71b3ffce5e16aaed5c670dfe33d1fc0418624b737d8aeccfac2",
+    "PersonalAddons/tests/professions_core_test.lua": "edb10cb92613811f043a2733f133cb6567766b5f0149ce6d99f1c86e1cf75a44",
+    "PersonalAddons/tests/professions_gather_alerts_test.lua": "06d788cafd81047b5ea94b59764087cddd66bfe01856773844099ba35495205e",
+    "PersonalAddons/tests/professions_trainer_pins_test.lua": "a0e209ae3f017a3d7096e2f816adb17e54b0792680cb09a9539c046bcbb174ac",
+    "PersonalAddons/tests/professions_display_test.lua": "ef77e4ed3c511f1313838fa07162aa86ebc8a1d14bcadf65e217eca0749b7198"
+  },
+  "previous_candidate_runtime": {
+    "evidence": "runtime-dev18.json",
+    "loaded_version": "0.4.7-dev.18",
+    "automatic_copper_minimap_popup_verified": true,
+    "automatic_popup_source": "cursor before final recovery",
+    "successfulAutomaticSoundCalls": 1,
+    "actualAudibility": false,
+    "audio_status": "pending for dev18",
+    "map_visual": "FAIL",
+    "visual_reason": "User reports severe flicker",
+    "extra_rings": "resolved_user_confirmed",
+    "peripheral_range": "pending",
+    "physical_right_mouse": "pending",
+    "continuous_native_yellow_blips": "pending",
+    "overall": "NOT_ACCEPTED",
+    "acceptance": {
+      "quote": "没有多余的圆环，但是小地图闪烁太严重了",
+      "extra_rings": "resolved_user_confirmed",
+      "map_visual": "FAIL",
+      "visual_reasons": [
+        "severe flicker"
+      ],
+      "actualAudibility": false,
+      "audio_status": "pending for dev18; dev15 confirmation is historical only",
+      "peripheral_range": "pending",
+      "physical_right_mouse": "pending",
+      "continuous_native_yellow_blips": "pending",
+      "overall": "NOT_ACCEPTED",
+      "releaseAuthorized": false
+    },
+    "settings_before_final_recovery": {
+      "loaded_version": "0.4.7-dev.18",
+      "method": "cursor",
+      "alerts": true,
+      "sound": true,
+      "sparkles": true,
+      "FindMinerals": {
+        "session_index": 2,
+        "active": true
+      },
+      "QuestPOIs": {
+        "session_index": 24,
+        "filterID": 65536,
+        "active": false
+      },
+      "tracking_note": "Last read before final source recovery. QuestPOIs was manually disabled earlier at user request; no automatic addon hiding logic."
+    },
+    "final_recovery": {
+      "method": "original",
+      "nativeScale": 1,
+      "standInShown": false,
+      "normalNativeMapObserved": true,
+      "sourceSwitchCommand": "/myprof gather original",
+      "threeNoticeFlagsChanged": false,
+      "noticeFlagsPreserved": {
+        "alerts": true,
+        "sound": true,
+        "sparkles": true
+      },
+      "current_original_full_range_verified": false
+    },
+    "temporary_markers_cleared_and_verified": true
+  },
+  "hash_manifest": "../professions-upstream-20261113/dev22-candidate-hashes.json",
+  "upstream_record": "../professions-upstream-20261113/UPSTREAM.json",
+  "last_observed_gather_method": "cursor (dev21 read; not reread in dev22)",
+  "last_observed_client_ui_version": "1.60.1 (70938) arm64",
+  "notice_flags_live21_verified": false,
+  "notice_flags_live22_verified": false
+}

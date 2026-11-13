@@ -1,0 +1,4860 @@
+{
+  "title": "模拟布局，非游戏截图",
+  "source_sha256": "a3e0a346a7584b5bcc86683aa030d6faaa0cf6884e557063235cb23dbe4afa5b",
+  "core_sha256": "abb64fa194e0e7881e1e2f4094a0bac22977ff6290988acc1243dcff892ea5a8",
+  "dependencies": {
+    "python": "/Users/mashuangxi/World of Warcraft/PersonalAddons/.venv/bin/python",
+    "lua": "lupa.lua51",
+    "pillow": "/Users/mashuangxi/.codex/skills/sprite-gen/.venv/lib/python3.12/site-packages/PIL",
+    "font": "/System/Library/Fonts/Hiragino Sans GB.ttc"
+  },
+  "limitations": [
+    "真实 Core.lua 与 UI.lua 在 Lupa Lua 5.1 中执行；虚构专业与物品样本，不读取角色数据。",
+    "使用系统中文替代字体，WoW 字体、字距及 GetStringHeight 可能不同；需游戏内确认。",
+    "仅记录 frame API 与锚点。背景为实参近似色块，图标与状态条纹理为占位，不仿造游戏截图。",
+    "窗口为340×260、372×474、700×800，均使用scale=1；不验证真实鼠标拖动、屏幕钳制、Esc与游戏像素。"
+  ],
+  "checks": [
+    {
+      "scene": "crafting",
+      "scale": 1,
+      "window": [
+        340,
+        260
+      ],
+      "scroll_position": "top",
+      "panel_in_viewport": true,
+      "actual_panel_dimensions": [
+        340,
+        260
+      ],
+      "scroll_viewport_dimensions": [
+        298,
+        164
+      ],
+      "fully_visible_content_text_lines": 8,
+      "long_material_lines": null,
+      "long_material_row_alias": null,
+      "book_button_label_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "panel_control_rects": {
+        "panel.controls.refresh": [
+          249,
+          79,
+          288,
+          102
+        ],
+        "panel.controls.lock": [
+          289,
+          79,
+          328,
+          102
+        ],
+        "panel.controls.collapse": [
+          334,
+          79,
+          360,
+          102
+        ],
+        "panel.controls.gather": [
+          208,
+          79,
+          247,
+          102
+        ],
+        "panel.controls.open": [
+          46,
+          105,
+          150,
+          128
+        ],
+        "panel.controls.minus": [
+          288,
+          305,
+          312,
+          328
+        ],
+        "panel.controls.plus": [
+          316,
+          305,
+          340,
+          328
+        ],
+        "panel.controls.resize": [
+          349,
+          309,
+          369,
+          329
+        ]
+      },
+      "font_sizes": {
+        "panel.title": 14,
+        "panel.controls.refresh.label": 12,
+        "panel.controls.lock.label": 12,
+        "panel.controls.collapse.label": 12,
+        "panel.controls.gather.label": 12,
+        "panel.controls.open.label": 12,
+        "panel.summary": 12,
+        "panel.footer": 12,
+        "panel.controls.minus.label": 12,
+        "panel.controls.plus.label": 12,
+        "panel.cards.1.header.label": 12,
+        "panel.cards.1.header.rank": 12,
+        "panel.cards.1.header.toggle": 12,
+        "panel.cards.1.trainer.label": 12,
+        "panel.cards.1.choices.1.label": 14,
+        "panel.cards.1.choices.1.role": 12,
+        "panel.cards.1.choices.1.stock": 12,
+        "panel.cards.1.choices.2.label": 12,
+        "panel.cards.1.choices.2.stock": 12,
+        "panel.cards.1.choices.3.label": 12,
+        "panel.cards.1.choices.3.stock": 12,
+        "panel.cards.1.otherTitle": 12,
+        "panel.cards.2.header.label": 12,
+        "panel.cards.2.header.rank": 12,
+        "panel.cards.2.header.toggle": 12,
+        "panel.cards.3.header.label": 12,
+        "panel.cards.3.header.rank": 12,
+        "panel.cards.3.header.toggle": 12,
+        "panel.cards.4.header.label": 12,
+        "panel.cards.4.header.rank": 12,
+        "panel.cards.4.header.toggle": 12,
+        "panel.cards.1.materialRows.1.label": 12,
+        "panel.cards.1.materialRows.1.counts": 13,
+        "panel.cards.1.materialRows.2.label": 12,
+        "panel.cards.1.materialRows.2.counts": 13,
+        "panel.cards.1.materialRows.3.label": 12,
+        "panel.cards.1.materialRows.3.counts": 13
+      },
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.title",
+          "panel.controls.gather.label",
+          [
+            208.0,
+            85,
+            221,
+            96.5
+          ]
+        ],
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            236,
+            155.0,
+            238,
+            167.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            236,
+            605.0,
+            238,
+            617.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            236,
+            653.0,
+            238,
+            665.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            236,
+            701.0,
+            238,
+            713.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 5,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "crafting",
+      "scale": 1,
+      "window": [
+        340,
+        260
+      ],
+      "scroll_position": "bottom",
+      "panel_in_viewport": true,
+      "actual_panel_dimensions": [
+        340,
+        260
+      ],
+      "scroll_viewport_dimensions": [
+        298,
+        164
+      ],
+      "fully_visible_content_text_lines": 9,
+      "long_material_lines": null,
+      "long_material_row_alias": null,
+      "book_button_label_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "panel_control_rects": {
+        "panel.controls.refresh": [
+          249,
+          79,
+          288,
+          102
+        ],
+        "panel.controls.lock": [
+          289,
+          79,
+          328,
+          102
+        ],
+        "panel.controls.collapse": [
+          334,
+          79,
+          360,
+          102
+        ],
+        "panel.controls.gather": [
+          208,
+          79,
+          247,
+          102
+        ],
+        "panel.controls.open": [
+          46,
+          105,
+          150,
+          128
+        ],
+        "panel.controls.minus": [
+          288,
+          305,
+          312,
+          328
+        ],
+        "panel.controls.plus": [
+          316,
+          305,
+          340,
+          328
+        ],
+        "panel.controls.resize": [
+          349,
+          309,
+          369,
+          329
+        ]
+      },
+      "font_sizes": {
+        "panel.title": 14,
+        "panel.controls.refresh.label": 12,
+        "panel.controls.lock.label": 12,
+        "panel.controls.collapse.label": 12,
+        "panel.controls.gather.label": 12,
+        "panel.controls.open.label": 12,
+        "panel.summary": 12,
+        "panel.footer": 12,
+        "panel.controls.minus.label": 12,
+        "panel.controls.plus.label": 12,
+        "panel.cards.1.header.label": 12,
+        "panel.cards.1.header.rank": 12,
+        "panel.cards.1.header.toggle": 12,
+        "panel.cards.1.trainer.label": 12,
+        "panel.cards.1.choices.1.label": 14,
+        "panel.cards.1.choices.1.role": 12,
+        "panel.cards.1.choices.1.stock": 12,
+        "panel.cards.1.choices.2.label": 12,
+        "panel.cards.1.choices.2.stock": 12,
+        "panel.cards.1.choices.3.label": 12,
+        "panel.cards.1.choices.3.stock": 12,
+        "panel.cards.1.otherTitle": 12,
+        "panel.cards.2.header.label": 12,
+        "panel.cards.2.header.rank": 12,
+        "panel.cards.2.header.toggle": 12,
+        "panel.cards.3.header.label": 12,
+        "panel.cards.3.header.rank": 12,
+        "panel.cards.3.header.toggle": 12,
+        "panel.cards.4.header.label": 12,
+        "panel.cards.4.header.rank": 12,
+        "panel.cards.4.header.toggle": 12,
+        "panel.cards.1.materialRows.1.label": 12,
+        "panel.cards.1.materialRows.1.counts": 13,
+        "panel.cards.1.materialRows.2.label": 12,
+        "panel.cards.1.materialRows.2.counts": 13,
+        "panel.cards.1.materialRows.3.label": 12,
+        "panel.cards.1.materialRows.3.counts": 13
+      },
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.title",
+          "panel.controls.gather.label",
+          [
+            208.0,
+            85,
+            221,
+            96.5
+          ]
+        ],
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            236,
+            -275.0,
+            238,
+            -263.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            236,
+            175.0,
+            238,
+            187.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            236,
+            223.0,
+            238,
+            235.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            236,
+            271.0,
+            238,
+            283.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 5,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "crafting",
+      "scale": 1,
+      "window": [
+        372,
+        474
+      ],
+      "scroll_position": "top",
+      "panel_in_viewport": true,
+      "actual_panel_dimensions": [
+        372,
+        474
+      ],
+      "scroll_viewport_dimensions": [
+        330,
+        378
+      ],
+      "fully_visible_content_text_lines": 18,
+      "long_material_lines": null,
+      "long_material_row_alias": null,
+      "book_button_label_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "panel_control_rects": {
+        "panel.controls.refresh": [
+          281,
+          79,
+          320,
+          102
+        ],
+        "panel.controls.lock": [
+          321,
+          79,
+          360,
+          102
+        ],
+        "panel.controls.collapse": [
+          366,
+          79,
+          392,
+          102
+        ],
+        "panel.controls.gather": [
+          240,
+          79,
+          279,
+          102
+        ],
+        "panel.controls.open": [
+          46,
+          105,
+          150,
+          128
+        ],
+        "panel.controls.minus": [
+          320,
+          519,
+          344,
+          542
+        ],
+        "panel.controls.plus": [
+          348,
+          519,
+          372,
+          542
+        ],
+        "panel.controls.resize": [
+          381,
+          523,
+          401,
+          543
+        ]
+      },
+      "font_sizes": {
+        "panel.title": 14,
+        "panel.controls.refresh.label": 12,
+        "panel.controls.lock.label": 12,
+        "panel.controls.collapse.label": 12,
+        "panel.controls.gather.label": 12,
+        "panel.controls.open.label": 12,
+        "panel.summary": 12,
+        "panel.footer": 12,
+        "panel.controls.minus.label": 12,
+        "panel.controls.plus.label": 12,
+        "panel.cards.1.header.label": 12,
+        "panel.cards.1.header.rank": 12,
+        "panel.cards.1.header.toggle": 12,
+        "panel.cards.1.trainer.label": 12,
+        "panel.cards.1.choices.1.label": 14,
+        "panel.cards.1.choices.1.role": 12,
+        "panel.cards.1.choices.1.stock": 12,
+        "panel.cards.1.choices.2.label": 12,
+        "panel.cards.1.choices.2.stock": 12,
+        "panel.cards.1.choices.3.label": 12,
+        "panel.cards.1.choices.3.stock": 12,
+        "panel.cards.1.otherTitle": 12,
+        "panel.cards.2.header.label": 12,
+        "panel.cards.2.header.rank": 12,
+        "panel.cards.2.header.toggle": 12,
+        "panel.cards.3.header.label": 12,
+        "panel.cards.3.header.rank": 12,
+        "panel.cards.3.header.toggle": 12,
+        "panel.cards.4.header.label": 12,
+        "panel.cards.4.header.rank": 12,
+        "panel.cards.4.header.toggle": 12,
+        "panel.cards.1.materialRows.1.label": 12,
+        "panel.cards.1.materialRows.1.counts": 13,
+        "panel.cards.1.materialRows.2.label": 12,
+        "panel.cards.1.materialRows.2.counts": 13,
+        "panel.cards.1.materialRows.3.label": 12,
+        "panel.cards.1.materialRows.3.counts": 13
+      },
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            268,
+            155.0,
+            270,
+            167.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            268,
+            605.0,
+            270,
+            617.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            268,
+            653.0,
+            270,
+            665.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            268,
+            701.0,
+            270,
+            713.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "crafting",
+      "scale": 1,
+      "window": [
+        372,
+        474
+      ],
+      "scroll_position": "bottom",
+      "panel_in_viewport": true,
+      "actual_panel_dimensions": [
+        372,
+        474
+      ],
+      "scroll_viewport_dimensions": [
+        330,
+        378
+      ],
+      "fully_visible_content_text_lines": 18,
+      "long_material_lines": null,
+      "long_material_row_alias": null,
+      "book_button_label_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "panel_control_rects": {
+        "panel.controls.refresh": [
+          281,
+          79,
+          320,
+          102
+        ],
+        "panel.controls.lock": [
+          321,
+          79,
+          360,
+          102
+        ],
+        "panel.controls.collapse": [
+          366,
+          79,
+          392,
+          102
+        ],
+        "panel.controls.gather": [
+          240,
+          79,
+          279,
+          102
+        ],
+        "panel.controls.open": [
+          46,
+          105,
+          150,
+          128
+        ],
+        "panel.controls.minus": [
+          320,
+          519,
+          344,
+          542
+        ],
+        "panel.controls.plus": [
+          348,
+          519,
+          372,
+          542
+        ],
+        "panel.controls.resize": [
+          381,
+          523,
+          401,
+          543
+        ]
+      },
+      "font_sizes": {
+        "panel.title": 14,
+        "panel.controls.refresh.label": 12,
+        "panel.controls.lock.label": 12,
+        "panel.controls.collapse.label": 12,
+        "panel.controls.gather.label": 12,
+        "panel.controls.open.label": 12,
+        "panel.summary": 12,
+        "panel.footer": 12,
+        "panel.controls.minus.label": 12,
+        "panel.controls.plus.label": 12,
+        "panel.cards.1.header.label": 12,
+        "panel.cards.1.header.rank": 12,
+        "panel.cards.1.header.toggle": 12,
+        "panel.cards.1.trainer.label": 12,
+        "panel.cards.1.choices.1.label": 14,
+        "panel.cards.1.choices.1.role": 12,
+        "panel.cards.1.choices.1.stock": 12,
+        "panel.cards.1.choices.2.label": 12,
+        "panel.cards.1.choices.2.stock": 12,
+        "panel.cards.1.choices.3.label": 12,
+        "panel.cards.1.choices.3.stock": 12,
+        "panel.cards.1.otherTitle": 12,
+        "panel.cards.2.header.label": 12,
+        "panel.cards.2.header.rank": 12,
+        "panel.cards.2.header.toggle": 12,
+        "panel.cards.3.header.label": 12,
+        "panel.cards.3.header.rank": 12,
+        "panel.cards.3.header.toggle": 12,
+        "panel.cards.4.header.label": 12,
+        "panel.cards.4.header.rank": 12,
+        "panel.cards.4.header.toggle": 12,
+        "panel.cards.1.materialRows.1.label": 12,
+        "panel.cards.1.materialRows.1.counts": 13,
+        "panel.cards.1.materialRows.2.label": 12,
+        "panel.cards.1.materialRows.2.counts": 13,
+        "panel.cards.1.materialRows.3.label": 12,
+        "panel.cards.1.materialRows.3.counts": 13
+      },
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            268,
+            -61.0,
+            270,
+            -49.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            268,
+            389.0,
+            270,
+            401.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            268,
+            437.0,
+            270,
+            449.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            268,
+            485.0,
+            270,
+            497.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "crafting",
+      "scale": 1,
+      "window": [
+        700,
+        800
+      ],
+      "scroll_position": "top",
+      "panel_in_viewport": true,
+      "actual_panel_dimensions": [
+        700,
+        800
+      ],
+      "scroll_viewport_dimensions": [
+        658,
+        704
+      ],
+      "fully_visible_content_text_lines": 28,
+      "long_material_lines": null,
+      "long_material_row_alias": null,
+      "book_button_label_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "panel_control_rects": {
+        "panel.controls.refresh": [
+          609,
+          79,
+          648,
+          102
+        ],
+        "panel.controls.lock": [
+          649,
+          79,
+          688,
+          102
+        ],
+        "panel.controls.collapse": [
+          694,
+          79,
+          720,
+          102
+        ],
+        "panel.controls.gather": [
+          568,
+          79,
+          607,
+          102
+        ],
+        "panel.controls.open": [
+          46,
+          105,
+          150,
+          128
+        ],
+        "panel.controls.minus": [
+          648,
+          845,
+          672,
+          868
+        ],
+        "panel.controls.plus": [
+          676,
+          845,
+          700,
+          868
+        ],
+        "panel.controls.resize": [
+          709,
+          849,
+          729,
+          869
+        ]
+      },
+      "font_sizes": {
+        "panel.title": 14,
+        "panel.controls.refresh.label": 12,
+        "panel.controls.lock.label": 12,
+        "panel.controls.collapse.label": 12,
+        "panel.controls.gather.label": 12,
+        "panel.controls.open.label": 12,
+        "panel.summary": 12,
+        "panel.footer": 12,
+        "panel.controls.minus.label": 12,
+        "panel.controls.plus.label": 12,
+        "panel.cards.1.header.label": 12,
+        "panel.cards.1.header.rank": 12,
+        "panel.cards.1.header.toggle": 12,
+        "panel.cards.1.trainer.label": 12,
+        "panel.cards.1.choices.1.label": 14,
+        "panel.cards.1.choices.1.role": 12,
+        "panel.cards.1.choices.1.stock": 12,
+        "panel.cards.1.choices.2.label": 12,
+        "panel.cards.1.choices.2.stock": 12,
+        "panel.cards.1.choices.3.label": 12,
+        "panel.cards.1.choices.3.stock": 12,
+        "panel.cards.1.otherTitle": 12,
+        "panel.cards.2.header.label": 12,
+        "panel.cards.2.header.rank": 12,
+        "panel.cards.2.header.toggle": 12,
+        "panel.cards.3.header.label": 12,
+        "panel.cards.3.header.rank": 12,
+        "panel.cards.3.header.toggle": 12,
+        "panel.cards.4.header.label": 12,
+        "panel.cards.4.header.rank": 12,
+        "panel.cards.4.header.toggle": 12,
+        "panel.cards.1.materialRows.1.label": 12,
+        "panel.cards.1.materialRows.1.counts": 13,
+        "panel.cards.1.materialRows.2.label": 12,
+        "panel.cards.1.materialRows.2.counts": 13,
+        "panel.cards.1.materialRows.3.label": 12,
+        "panel.cards.1.materialRows.3.counts": 13
+      },
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            596,
+            155.0,
+            598,
+            167.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            596,
+            590.0,
+            598,
+            602.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            596,
+            638.0,
+            598,
+            650.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            596,
+            686.0,
+            598,
+            698.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "crafting",
+      "scale": 1,
+      "window": [
+        700,
+        800
+      ],
+      "scroll_position": "bottom",
+      "panel_in_viewport": true,
+      "actual_panel_dimensions": [
+        700,
+        800
+      ],
+      "scroll_viewport_dimensions": [
+        658,
+        704
+      ],
+      "fully_visible_content_text_lines": 28,
+      "long_material_lines": null,
+      "long_material_row_alias": null,
+      "book_button_label_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "panel_control_rects": {
+        "panel.controls.refresh": [
+          609,
+          79,
+          648,
+          102
+        ],
+        "panel.controls.lock": [
+          649,
+          79,
+          688,
+          102
+        ],
+        "panel.controls.collapse": [
+          694,
+          79,
+          720,
+          102
+        ],
+        "panel.controls.gather": [
+          568,
+          79,
+          607,
+          102
+        ],
+        "panel.controls.open": [
+          46,
+          105,
+          150,
+          128
+        ],
+        "panel.controls.minus": [
+          648,
+          845,
+          672,
+          868
+        ],
+        "panel.controls.plus": [
+          676,
+          845,
+          700,
+          868
+        ],
+        "panel.controls.resize": [
+          709,
+          849,
+          729,
+          869
+        ]
+      },
+      "font_sizes": {
+        "panel.title": 14,
+        "panel.controls.refresh.label": 12,
+        "panel.controls.lock.label": 12,
+        "panel.controls.collapse.label": 12,
+        "panel.controls.gather.label": 12,
+        "panel.controls.open.label": 12,
+        "panel.summary": 12,
+        "panel.footer": 12,
+        "panel.controls.minus.label": 12,
+        "panel.controls.plus.label": 12,
+        "panel.cards.1.header.label": 12,
+        "panel.cards.1.header.rank": 12,
+        "panel.cards.1.header.toggle": 12,
+        "panel.cards.1.trainer.label": 12,
+        "panel.cards.1.choices.1.label": 14,
+        "panel.cards.1.choices.1.role": 12,
+        "panel.cards.1.choices.1.stock": 12,
+        "panel.cards.1.choices.2.label": 12,
+        "panel.cards.1.choices.2.stock": 12,
+        "panel.cards.1.choices.3.label": 12,
+        "panel.cards.1.choices.3.stock": 12,
+        "panel.cards.1.otherTitle": 12,
+        "panel.cards.2.header.label": 12,
+        "panel.cards.2.header.rank": 12,
+        "panel.cards.2.header.toggle": 12,
+        "panel.cards.3.header.label": 12,
+        "panel.cards.3.header.rank": 12,
+        "panel.cards.3.header.toggle": 12,
+        "panel.cards.4.header.label": 12,
+        "panel.cards.4.header.rank": 12,
+        "panel.cards.4.header.toggle": 12,
+        "panel.cards.1.materialRows.1.label": 12,
+        "panel.cards.1.materialRows.1.counts": 13,
+        "panel.cards.1.materialRows.2.label": 12,
+        "panel.cards.1.materialRows.2.counts": 13,
+        "panel.cards.1.materialRows.3.label": 12,
+        "panel.cards.1.materialRows.3.counts": 13
+      },
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            596,
+            155.0,
+            598,
+            167.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            596,
+            590.0,
+            598,
+            602.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            596,
+            638.0,
+            598,
+            650.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            596,
+            686.0,
+            598,
+            698.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "long-alternative",
+      "scale": 1,
+      "window": [
+        340,
+        260
+      ],
+      "scroll_position": "top",
+      "panel_in_viewport": true,
+      "actual_panel_dimensions": [
+        340,
+        260
+      ],
+      "scroll_viewport_dimensions": [
+        298,
+        164
+      ],
+      "fully_visible_content_text_lines": 8,
+      "long_material_lines": 2,
+      "long_material_row_alias": "panel.cards.1.materialRows.1.label",
+      "book_button_label_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "panel_control_rects": {
+        "panel.controls.refresh": [
+          249,
+          79,
+          288,
+          102
+        ],
+        "panel.controls.lock": [
+          289,
+          79,
+          328,
+          102
+        ],
+        "panel.controls.collapse": [
+          334,
+          79,
+          360,
+          102
+        ],
+        "panel.controls.gather": [
+          208,
+          79,
+          247,
+          102
+        ],
+        "panel.controls.open": [
+          46,
+          105,
+          150,
+          128
+        ],
+        "panel.controls.minus": [
+          288,
+          305,
+          312,
+          328
+        ],
+        "panel.controls.plus": [
+          316,
+          305,
+          340,
+          328
+        ],
+        "panel.controls.resize": [
+          349,
+          309,
+          369,
+          329
+        ]
+      },
+      "font_sizes": {
+        "panel.title": 14,
+        "panel.controls.refresh.label": 12,
+        "panel.controls.lock.label": 12,
+        "panel.controls.collapse.label": 12,
+        "panel.controls.gather.label": 12,
+        "panel.controls.open.label": 12,
+        "panel.summary": 12,
+        "panel.footer": 12,
+        "panel.controls.minus.label": 12,
+        "panel.controls.plus.label": 12,
+        "panel.cards.1.header.label": 12,
+        "panel.cards.1.header.rank": 12,
+        "panel.cards.1.header.toggle": 12,
+        "panel.cards.1.trainer.label": 12,
+        "panel.cards.1.choices.1.label": 12,
+        "panel.cards.1.choices.1.stock": 12,
+        "panel.cards.1.choices.2.label": 14,
+        "panel.cards.1.choices.2.role": 12,
+        "panel.cards.1.choices.2.stock": 12,
+        "panel.cards.1.choices.3.label": 12,
+        "panel.cards.1.choices.3.stock": 12,
+        "panel.cards.1.otherTitle": 12,
+        "panel.cards.2.header.label": 12,
+        "panel.cards.2.header.rank": 12,
+        "panel.cards.2.header.toggle": 12,
+        "panel.cards.3.header.label": 12,
+        "panel.cards.3.header.rank": 12,
+        "panel.cards.3.header.toggle": 12,
+        "panel.cards.4.header.label": 12,
+        "panel.cards.4.header.rank": 12,
+        "panel.cards.4.header.toggle": 12,
+        "panel.cards.1.materialRows.1.label": 12,
+        "panel.cards.1.materialRows.1.counts": 13,
+        "panel.cards.1.materialRows.2.label": 12,
+        "panel.cards.1.materialRows.2.counts": 13
+      },
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.title",
+          "panel.controls.gather.label",
+          [
+            208.0,
+            85,
+            221,
+            96.5
+          ]
+        ],
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            236,
+            155.0,
+            238,
+            167.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            236,
+            582.0,
+            238,
+            594.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            236,
+            630.0,
+            238,
+            642.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            236,
+            678.0,
+            238,
+            690.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 5,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "long-alternative",
+      "scale": 1,
+      "window": [
+        340,
+        260
+      ],
+      "scroll_position": "bottom",
+      "panel_in_viewport": true,
+      "actual_panel_dimensions": [
+        340,
+        260
+      ],
+      "scroll_viewport_dimensions": [
+        298,
+        164
+      ],
+      "fully_visible_content_text_lines": 9,
+      "long_material_lines": 2,
+      "long_material_row_alias": "panel.cards.1.materialRows.1.label",
+      "book_button_label_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "panel_control_rects": {
+        "panel.controls.refresh": [
+          249,
+          79,
+          288,
+          102
+        ],
+        "panel.controls.lock": [
+          289,
+          79,
+          328,
+          102
+        ],
+        "panel.controls.collapse": [
+          334,
+          79,
+          360,
+          102
+        ],
+        "panel.controls.gather": [
+          208,
+          79,
+          247,
+          102
+        ],
+        "panel.controls.open": [
+          46,
+          105,
+          150,
+          128
+        ],
+        "panel.controls.minus": [
+          288,
+          305,
+          312,
+          328
+        ],
+        "panel.controls.plus": [
+          316,
+          305,
+          340,
+          328
+        ],
+        "panel.controls.resize": [
+          349,
+          309,
+          369,
+          329
+        ]
+      },
+      "font_sizes": {
+        "panel.title": 14,
+        "panel.controls.refresh.label": 12,
+        "panel.controls.lock.label": 12,
+        "panel.controls.collapse.label": 12,
+        "panel.controls.gather.label": 12,
+        "panel.controls.open.label": 12,
+        "panel.summary": 12,
+        "panel.footer": 12,
+        "panel.controls.minus.label": 12,
+        "panel.controls.plus.label": 12,
+        "panel.cards.1.header.label": 12,
+        "panel.cards.1.header.rank": 12,
+        "panel.cards.1.header.toggle": 12,
+        "panel.cards.1.trainer.label": 12,
+        "panel.cards.1.choices.1.label": 12,
+        "panel.cards.1.choices.1.stock": 12,
+        "panel.cards.1.choices.2.label": 14,
+        "panel.cards.1.choices.2.role": 12,
+        "panel.cards.1.choices.2.stock": 12,
+        "panel.cards.1.choices.3.label": 12,
+        "panel.cards.1.choices.3.stock": 12,
+        "panel.cards.1.otherTitle": 12,
+        "panel.cards.2.header.label": 12,
+        "panel.cards.2.header.rank": 12,
+        "panel.cards.2.header.toggle": 12,
+        "panel.cards.3.header.label": 12,
+        "panel.cards.3.header.rank": 12,
+        "panel.cards.3.header.toggle": 12,
+        "panel.cards.4.header.label": 12,
+        "panel.cards.4.header.rank": 12,
+        "panel.cards.4.header.toggle": 12,
+        "panel.cards.1.materialRows.1.label": 12,
+        "panel.cards.1.materialRows.1.counts": 13,
+        "panel.cards.1.materialRows.2.label": 12,
+        "panel.cards.1.materialRows.2.counts": 13
+      },
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.title",
+          "panel.controls.gather.label",
+          [
+            208.0,
+            85,
+            221,
+            96.5
+          ]
+        ],
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            236,
+            -252.0,
+            238,
+            -240.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            236,
+            175.0,
+            238,
+            187.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            236,
+            223.0,
+            238,
+            235.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            236,
+            271.0,
+            238,
+            283.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 5,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "long-alternative",
+      "scale": 1,
+      "window": [
+        372,
+        474
+      ],
+      "scroll_position": "top",
+      "panel_in_viewport": true,
+      "actual_panel_dimensions": [
+        372,
+        474
+      ],
+      "scroll_viewport_dimensions": [
+        330,
+        378
+      ],
+      "fully_visible_content_text_lines": 17,
+      "long_material_lines": 2,
+      "long_material_row_alias": "panel.cards.1.materialRows.1.label",
+      "book_button_label_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "panel_control_rects": {
+        "panel.controls.refresh": [
+          281,
+          79,
+          320,
+          102
+        ],
+        "panel.controls.lock": [
+          321,
+          79,
+          360,
+          102
+        ],
+        "panel.controls.collapse": [
+          366,
+          79,
+          392,
+          102
+        ],
+        "panel.controls.gather": [
+          240,
+          79,
+          279,
+          102
+        ],
+        "panel.controls.open": [
+          46,
+          105,
+          150,
+          128
+        ],
+        "panel.controls.minus": [
+          320,
+          519,
+          344,
+          542
+        ],
+        "panel.controls.plus": [
+          348,
+          519,
+          372,
+          542
+        ],
+        "panel.controls.resize": [
+          381,
+          523,
+          401,
+          543
+        ]
+      },
+      "font_sizes": {
+        "panel.title": 14,
+        "panel.controls.refresh.label": 12,
+        "panel.controls.lock.label": 12,
+        "panel.controls.collapse.label": 12,
+        "panel.controls.gather.label": 12,
+        "panel.controls.open.label": 12,
+        "panel.summary": 12,
+        "panel.footer": 12,
+        "panel.controls.minus.label": 12,
+        "panel.controls.plus.label": 12,
+        "panel.cards.1.header.label": 12,
+        "panel.cards.1.header.rank": 12,
+        "panel.cards.1.header.toggle": 12,
+        "panel.cards.1.trainer.label": 12,
+        "panel.cards.1.choices.1.label": 12,
+        "panel.cards.1.choices.1.stock": 12,
+        "panel.cards.1.choices.2.label": 14,
+        "panel.cards.1.choices.2.role": 12,
+        "panel.cards.1.choices.2.stock": 12,
+        "panel.cards.1.choices.3.label": 12,
+        "panel.cards.1.choices.3.stock": 12,
+        "panel.cards.1.otherTitle": 12,
+        "panel.cards.2.header.label": 12,
+        "panel.cards.2.header.rank": 12,
+        "panel.cards.2.header.toggle": 12,
+        "panel.cards.3.header.label": 12,
+        "panel.cards.3.header.rank": 12,
+        "panel.cards.3.header.toggle": 12,
+        "panel.cards.4.header.label": 12,
+        "panel.cards.4.header.rank": 12,
+        "panel.cards.4.header.toggle": 12,
+        "panel.cards.1.materialRows.1.label": 12,
+        "panel.cards.1.materialRows.1.counts": 13,
+        "panel.cards.1.materialRows.2.label": 12,
+        "panel.cards.1.materialRows.2.counts": 13
+      },
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            268,
+            155.0,
+            270,
+            167.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            268,
+            582.0,
+            270,
+            594.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            268,
+            630.0,
+            270,
+            642.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            268,
+            678.0,
+            270,
+            690.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "long-alternative",
+      "scale": 1,
+      "window": [
+        372,
+        474
+      ],
+      "scroll_position": "bottom",
+      "panel_in_viewport": true,
+      "actual_panel_dimensions": [
+        372,
+        474
+      ],
+      "scroll_viewport_dimensions": [
+        330,
+        378
+      ],
+      "fully_visible_content_text_lines": 18,
+      "long_material_lines": 2,
+      "long_material_row_alias": "panel.cards.1.materialRows.1.label",
+      "book_button_label_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "panel_control_rects": {
+        "panel.controls.refresh": [
+          281,
+          79,
+          320,
+          102
+        ],
+        "panel.controls.lock": [
+          321,
+          79,
+          360,
+          102
+        ],
+        "panel.controls.collapse": [
+          366,
+          79,
+          392,
+          102
+        ],
+        "panel.controls.gather": [
+          240,
+          79,
+          279,
+          102
+        ],
+        "panel.controls.open": [
+          46,
+          105,
+          150,
+          128
+        ],
+        "panel.controls.minus": [
+          320,
+          519,
+          344,
+          542
+        ],
+        "panel.controls.plus": [
+          348,
+          519,
+          372,
+          542
+        ],
+        "panel.controls.resize": [
+          381,
+          523,
+          401,
+          543
+        ]
+      },
+      "font_sizes": {
+        "panel.title": 14,
+        "panel.controls.refresh.label": 12,
+        "panel.controls.lock.label": 12,
+        "panel.controls.collapse.label": 12,
+        "panel.controls.gather.label": 12,
+        "panel.controls.open.label": 12,
+        "panel.summary": 12,
+        "panel.footer": 12,
+        "panel.controls.minus.label": 12,
+        "panel.controls.plus.label": 12,
+        "panel.cards.1.header.label": 12,
+        "panel.cards.1.header.rank": 12,
+        "panel.cards.1.header.toggle": 12,
+        "panel.cards.1.trainer.label": 12,
+        "panel.cards.1.choices.1.label": 12,
+        "panel.cards.1.choices.1.stock": 12,
+        "panel.cards.1.choices.2.label": 14,
+        "panel.cards.1.choices.2.role": 12,
+        "panel.cards.1.choices.2.stock": 12,
+        "panel.cards.1.choices.3.label": 12,
+        "panel.cards.1.choices.3.stock": 12,
+        "panel.cards.1.otherTitle": 12,
+        "panel.cards.2.header.label": 12,
+        "panel.cards.2.header.rank": 12,
+        "panel.cards.2.header.toggle": 12,
+        "panel.cards.3.header.label": 12,
+        "panel.cards.3.header.rank": 12,
+        "panel.cards.3.header.toggle": 12,
+        "panel.cards.4.header.label": 12,
+        "panel.cards.4.header.rank": 12,
+        "panel.cards.4.header.toggle": 12,
+        "panel.cards.1.materialRows.1.label": 12,
+        "panel.cards.1.materialRows.1.counts": 13,
+        "panel.cards.1.materialRows.2.label": 12,
+        "panel.cards.1.materialRows.2.counts": 13
+      },
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            268,
+            -38.0,
+            270,
+            -26.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            268,
+            389.0,
+            270,
+            401.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            268,
+            437.0,
+            270,
+            449.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            268,
+            485.0,
+            270,
+            497.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "long-alternative",
+      "scale": 1,
+      "window": [
+        700,
+        800
+      ],
+      "scroll_position": "top",
+      "panel_in_viewport": true,
+      "actual_panel_dimensions": [
+        700,
+        800
+      ],
+      "scroll_viewport_dimensions": [
+        658,
+        704
+      ],
+      "fully_visible_content_text_lines": 26,
+      "long_material_lines": 1,
+      "long_material_row_alias": "panel.cards.1.materialRows.1.label",
+      "book_button_label_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "panel_control_rects": {
+        "panel.controls.refresh": [
+          609,
+          79,
+          648,
+          102
+        ],
+        "panel.controls.lock": [
+          649,
+          79,
+          688,
+          102
+        ],
+        "panel.controls.collapse": [
+          694,
+          79,
+          720,
+          102
+        ],
+        "panel.controls.gather": [
+          568,
+          79,
+          607,
+          102
+        ],
+        "panel.controls.open": [
+          46,
+          105,
+          150,
+          128
+        ],
+        "panel.controls.minus": [
+          648,
+          845,
+          672,
+          868
+        ],
+        "panel.controls.plus": [
+          676,
+          845,
+          700,
+          868
+        ],
+        "panel.controls.resize": [
+          709,
+          849,
+          729,
+          869
+        ]
+      },
+      "font_sizes": {
+        "panel.title": 14,
+        "panel.controls.refresh.label": 12,
+        "panel.controls.lock.label": 12,
+        "panel.controls.collapse.label": 12,
+        "panel.controls.gather.label": 12,
+        "panel.controls.open.label": 12,
+        "panel.summary": 12,
+        "panel.footer": 12,
+        "panel.controls.minus.label": 12,
+        "panel.controls.plus.label": 12,
+        "panel.cards.1.header.label": 12,
+        "panel.cards.1.header.rank": 12,
+        "panel.cards.1.header.toggle": 12,
+        "panel.cards.1.trainer.label": 12,
+        "panel.cards.1.choices.1.label": 12,
+        "panel.cards.1.choices.1.stock": 12,
+        "panel.cards.1.choices.2.label": 14,
+        "panel.cards.1.choices.2.role": 12,
+        "panel.cards.1.choices.2.stock": 12,
+        "panel.cards.1.choices.3.label": 12,
+        "panel.cards.1.choices.3.stock": 12,
+        "panel.cards.1.otherTitle": 12,
+        "panel.cards.2.header.label": 12,
+        "panel.cards.2.header.rank": 12,
+        "panel.cards.2.header.toggle": 12,
+        "panel.cards.3.header.label": 12,
+        "panel.cards.3.header.rank": 12,
+        "panel.cards.3.header.toggle": 12,
+        "panel.cards.4.header.label": 12,
+        "panel.cards.4.header.rank": 12,
+        "panel.cards.4.header.toggle": 12,
+        "panel.cards.1.materialRows.1.label": 12,
+        "panel.cards.1.materialRows.1.counts": 13,
+        "panel.cards.1.materialRows.2.label": 12,
+        "panel.cards.1.materialRows.2.counts": 13
+      },
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            596,
+            155.0,
+            598,
+            167.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            596,
+            550.0,
+            598,
+            562.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            596,
+            598.0,
+            598,
+            610.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            596,
+            646.0,
+            598,
+            658.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "long-alternative",
+      "scale": 1,
+      "window": [
+        700,
+        800
+      ],
+      "scroll_position": "bottom",
+      "panel_in_viewport": true,
+      "actual_panel_dimensions": [
+        700,
+        800
+      ],
+      "scroll_viewport_dimensions": [
+        658,
+        704
+      ],
+      "fully_visible_content_text_lines": 26,
+      "long_material_lines": 1,
+      "long_material_row_alias": "panel.cards.1.materialRows.1.label",
+      "book_button_label_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "panel_control_rects": {
+        "panel.controls.refresh": [
+          609,
+          79,
+          648,
+          102
+        ],
+        "panel.controls.lock": [
+          649,
+          79,
+          688,
+          102
+        ],
+        "panel.controls.collapse": [
+          694,
+          79,
+          720,
+          102
+        ],
+        "panel.controls.gather": [
+          568,
+          79,
+          607,
+          102
+        ],
+        "panel.controls.open": [
+          46,
+          105,
+          150,
+          128
+        ],
+        "panel.controls.minus": [
+          648,
+          845,
+          672,
+          868
+        ],
+        "panel.controls.plus": [
+          676,
+          845,
+          700,
+          868
+        ],
+        "panel.controls.resize": [
+          709,
+          849,
+          729,
+          869
+        ]
+      },
+      "font_sizes": {
+        "panel.title": 14,
+        "panel.controls.refresh.label": 12,
+        "panel.controls.lock.label": 12,
+        "panel.controls.collapse.label": 12,
+        "panel.controls.gather.label": 12,
+        "panel.controls.open.label": 12,
+        "panel.summary": 12,
+        "panel.footer": 12,
+        "panel.controls.minus.label": 12,
+        "panel.controls.plus.label": 12,
+        "panel.cards.1.header.label": 12,
+        "panel.cards.1.header.rank": 12,
+        "panel.cards.1.header.toggle": 12,
+        "panel.cards.1.trainer.label": 12,
+        "panel.cards.1.choices.1.label": 12,
+        "panel.cards.1.choices.1.stock": 12,
+        "panel.cards.1.choices.2.label": 14,
+        "panel.cards.1.choices.2.role": 12,
+        "panel.cards.1.choices.2.stock": 12,
+        "panel.cards.1.choices.3.label": 12,
+        "panel.cards.1.choices.3.stock": 12,
+        "panel.cards.1.otherTitle": 12,
+        "panel.cards.2.header.label": 12,
+        "panel.cards.2.header.rank": 12,
+        "panel.cards.2.header.toggle": 12,
+        "panel.cards.3.header.label": 12,
+        "panel.cards.3.header.rank": 12,
+        "panel.cards.3.header.toggle": 12,
+        "panel.cards.4.header.label": 12,
+        "panel.cards.4.header.rank": 12,
+        "panel.cards.4.header.toggle": 12,
+        "panel.cards.1.materialRows.1.label": 12,
+        "panel.cards.1.materialRows.1.counts": 13,
+        "panel.cards.1.materialRows.2.label": 12,
+        "panel.cards.1.materialRows.2.counts": 13
+      },
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            596,
+            155.0,
+            598,
+            167.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            596,
+            550.0,
+            598,
+            562.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            596,
+            598.0,
+            598,
+            610.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            596,
+            646.0,
+            598,
+            658.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "gathering",
+      "scale": 1,
+      "window": [
+        340,
+        260
+      ],
+      "scroll_position": "top",
+      "panel_in_viewport": true,
+      "actual_panel_dimensions": [
+        340,
+        260
+      ],
+      "scroll_viewport_dimensions": [
+        298,
+        164
+      ],
+      "fully_visible_content_text_lines": 8,
+      "long_material_lines": null,
+      "long_material_row_alias": null,
+      "book_button_label_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "panel_control_rects": {
+        "panel.controls.refresh": [
+          249,
+          79,
+          288,
+          102
+        ],
+        "panel.controls.lock": [
+          289,
+          79,
+          328,
+          102
+        ],
+        "panel.controls.collapse": [
+          334,
+          79,
+          360,
+          102
+        ],
+        "panel.controls.gather": [
+          208,
+          79,
+          247,
+          102
+        ],
+        "panel.controls.open": [
+          46,
+          105,
+          150,
+          128
+        ],
+        "panel.controls.minus": [
+          288,
+          305,
+          312,
+          328
+        ],
+        "panel.controls.plus": [
+          316,
+          305,
+          340,
+          328
+        ],
+        "panel.controls.resize": [
+          349,
+          309,
+          369,
+          329
+        ]
+      },
+      "font_sizes": {
+        "panel.title": 14,
+        "panel.controls.refresh.label": 12,
+        "panel.controls.lock.label": 12,
+        "panel.controls.collapse.label": 12,
+        "panel.controls.gather.label": 12,
+        "panel.controls.open.label": 12,
+        "panel.summary": 12,
+        "panel.footer": 12,
+        "panel.controls.minus.label": 12,
+        "panel.controls.plus.label": 12,
+        "panel.cards.1.header.label": 12,
+        "panel.cards.1.header.rank": 12,
+        "panel.cards.1.header.toggle": 12,
+        "panel.cards.2.header.label": 12,
+        "panel.cards.2.header.rank": 12,
+        "panel.cards.2.header.toggle": 12,
+        "panel.cards.2.trainer.label": 12,
+        "panel.cards.2.choices.1.label": 14,
+        "panel.cards.2.choices.1.role": 12,
+        "panel.cards.2.choices.2.label": 12,
+        "panel.cards.2.choices.3.label": 12,
+        "panel.cards.2.materials": 12,
+        "panel.cards.2.otherTitle": 12,
+        "panel.cards.3.header.label": 12,
+        "panel.cards.3.header.rank": 12,
+        "panel.cards.3.header.toggle": 12,
+        "panel.cards.4.header.label": 12,
+        "panel.cards.4.header.rank": 12,
+        "panel.cards.4.header.toggle": 12
+      },
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.title",
+          "panel.controls.gather.label",
+          [
+            208.0,
+            85,
+            221,
+            96.5
+          ]
+        ],
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            236,
+            155.0,
+            238,
+            167.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            236,
+            203.0,
+            238,
+            215.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            236,
+            493.0,
+            238,
+            505.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            236,
+            541.0,
+            238,
+            553.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 5,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "gathering",
+      "scale": 1,
+      "window": [
+        340,
+        260
+      ],
+      "scroll_position": "bottom",
+      "panel_in_viewport": true,
+      "actual_panel_dimensions": [
+        340,
+        260
+      ],
+      "scroll_viewport_dimensions": [
+        298,
+        164
+      ],
+      "fully_visible_content_text_lines": 8,
+      "long_material_lines": null,
+      "long_material_row_alias": null,
+      "book_button_label_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "panel_control_rects": {
+        "panel.controls.refresh": [
+          249,
+          79,
+          288,
+          102
+        ],
+        "panel.controls.lock": [
+          289,
+          79,
+          328,
+          102
+        ],
+        "panel.controls.collapse": [
+          334,
+          79,
+          360,
+          102
+        ],
+        "panel.controls.gather": [
+          208,
+          79,
+          247,
+          102
+        ],
+        "panel.controls.open": [
+          46,
+          105,
+          150,
+          128
+        ],
+        "panel.controls.minus": [
+          288,
+          305,
+          312,
+          328
+        ],
+        "panel.controls.plus": [
+          316,
+          305,
+          340,
+          328
+        ],
+        "panel.controls.resize": [
+          349,
+          309,
+          369,
+          329
+        ]
+      },
+      "font_sizes": {
+        "panel.title": 14,
+        "panel.controls.refresh.label": 12,
+        "panel.controls.lock.label": 12,
+        "panel.controls.collapse.label": 12,
+        "panel.controls.gather.label": 12,
+        "panel.controls.open.label": 12,
+        "panel.summary": 12,
+        "panel.footer": 12,
+        "panel.controls.minus.label": 12,
+        "panel.controls.plus.label": 12,
+        "panel.cards.1.header.label": 12,
+        "panel.cards.1.header.rank": 12,
+        "panel.cards.1.header.toggle": 12,
+        "panel.cards.2.header.label": 12,
+        "panel.cards.2.header.rank": 12,
+        "panel.cards.2.header.toggle": 12,
+        "panel.cards.2.trainer.label": 12,
+        "panel.cards.2.choices.1.label": 14,
+        "panel.cards.2.choices.1.role": 12,
+        "panel.cards.2.choices.2.label": 12,
+        "panel.cards.2.choices.3.label": 12,
+        "panel.cards.2.materials": 12,
+        "panel.cards.2.otherTitle": 12,
+        "panel.cards.3.header.label": 12,
+        "panel.cards.3.header.rank": 12,
+        "panel.cards.3.header.toggle": 12,
+        "panel.cards.4.header.label": 12,
+        "panel.cards.4.header.rank": 12,
+        "panel.cards.4.header.toggle": 12
+      },
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.title",
+          "panel.controls.gather.label",
+          [
+            208.0,
+            85,
+            221,
+            96.5
+          ]
+        ],
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            236,
+            -115.0,
+            238,
+            -103.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            236,
+            -67.0,
+            238,
+            -55.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            236,
+            223.0,
+            238,
+            235.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            236,
+            271.0,
+            238,
+            283.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 5,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "gathering",
+      "scale": 1,
+      "window": [
+        372,
+        474
+      ],
+      "scroll_position": "top",
+      "panel_in_viewport": true,
+      "actual_panel_dimensions": [
+        372,
+        474
+      ],
+      "scroll_viewport_dimensions": [
+        330,
+        378
+      ],
+      "fully_visible_content_text_lines": 17,
+      "long_material_lines": null,
+      "long_material_row_alias": null,
+      "book_button_label_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "panel_control_rects": {
+        "panel.controls.refresh": [
+          281,
+          79,
+          320,
+          102
+        ],
+        "panel.controls.lock": [
+          321,
+          79,
+          360,
+          102
+        ],
+        "panel.controls.collapse": [
+          366,
+          79,
+          392,
+          102
+        ],
+        "panel.controls.gather": [
+          240,
+          79,
+          279,
+          102
+        ],
+        "panel.controls.open": [
+          46,
+          105,
+          150,
+          128
+        ],
+        "panel.controls.minus": [
+          320,
+          519,
+          344,
+          542
+        ],
+        "panel.controls.plus": [
+          348,
+          519,
+          372,
+          542
+        ],
+        "panel.controls.resize": [
+          381,
+          523,
+          401,
+          543
+        ]
+      },
+      "font_sizes": {
+        "panel.title": 14,
+        "panel.controls.refresh.label": 12,
+        "panel.controls.lock.label": 12,
+        "panel.controls.collapse.label": 12,
+        "panel.controls.gather.label": 12,
+        "panel.controls.open.label": 12,
+        "panel.summary": 12,
+        "panel.footer": 12,
+        "panel.controls.minus.label": 12,
+        "panel.controls.plus.label": 12,
+        "panel.cards.1.header.label": 12,
+        "panel.cards.1.header.rank": 12,
+        "panel.cards.1.header.toggle": 12,
+        "panel.cards.2.header.label": 12,
+        "panel.cards.2.header.rank": 12,
+        "panel.cards.2.header.toggle": 12,
+        "panel.cards.2.trainer.label": 12,
+        "panel.cards.2.choices.1.label": 14,
+        "panel.cards.2.choices.1.role": 12,
+        "panel.cards.2.choices.2.label": 12,
+        "panel.cards.2.choices.3.label": 12,
+        "panel.cards.2.materials": 12,
+        "panel.cards.2.otherTitle": 12,
+        "panel.cards.3.header.label": 12,
+        "panel.cards.3.header.rank": 12,
+        "panel.cards.3.header.toggle": 12,
+        "panel.cards.4.header.label": 12,
+        "panel.cards.4.header.rank": 12,
+        "panel.cards.4.header.toggle": 12
+      },
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            268,
+            155.0,
+            270,
+            167.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            268,
+            203.0,
+            270,
+            215.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            268,
+            493.0,
+            270,
+            505.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            268,
+            541.0,
+            270,
+            553.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "gathering",
+      "scale": 1,
+      "window": [
+        372,
+        474
+      ],
+      "scroll_position": "bottom",
+      "panel_in_viewport": true,
+      "actual_panel_dimensions": [
+        372,
+        474
+      ],
+      "scroll_viewport_dimensions": [
+        330,
+        378
+      ],
+      "fully_visible_content_text_lines": 17,
+      "long_material_lines": null,
+      "long_material_row_alias": null,
+      "book_button_label_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "panel_control_rects": {
+        "panel.controls.refresh": [
+          281,
+          79,
+          320,
+          102
+        ],
+        "panel.controls.lock": [
+          321,
+          79,
+          360,
+          102
+        ],
+        "panel.controls.collapse": [
+          366,
+          79,
+          392,
+          102
+        ],
+        "panel.controls.gather": [
+          240,
+          79,
+          279,
+          102
+        ],
+        "panel.controls.open": [
+          46,
+          105,
+          150,
+          128
+        ],
+        "panel.controls.minus": [
+          320,
+          519,
+          344,
+          542
+        ],
+        "panel.controls.plus": [
+          348,
+          519,
+          372,
+          542
+        ],
+        "panel.controls.resize": [
+          381,
+          523,
+          401,
+          543
+        ]
+      },
+      "font_sizes": {
+        "panel.title": 14,
+        "panel.controls.refresh.label": 12,
+        "panel.controls.lock.label": 12,
+        "panel.controls.collapse.label": 12,
+        "panel.controls.gather.label": 12,
+        "panel.controls.open.label": 12,
+        "panel.summary": 12,
+        "panel.footer": 12,
+        "panel.controls.minus.label": 12,
+        "panel.controls.plus.label": 12,
+        "panel.cards.1.header.label": 12,
+        "panel.cards.1.header.rank": 12,
+        "panel.cards.1.header.toggle": 12,
+        "panel.cards.2.header.label": 12,
+        "panel.cards.2.header.rank": 12,
+        "panel.cards.2.header.toggle": 12,
+        "panel.cards.2.trainer.label": 12,
+        "panel.cards.2.choices.1.label": 14,
+        "panel.cards.2.choices.1.role": 12,
+        "panel.cards.2.choices.2.label": 12,
+        "panel.cards.2.choices.3.label": 12,
+        "panel.cards.2.materials": 12,
+        "panel.cards.2.otherTitle": 12,
+        "panel.cards.3.header.label": 12,
+        "panel.cards.3.header.rank": 12,
+        "panel.cards.3.header.toggle": 12,
+        "panel.cards.4.header.label": 12,
+        "panel.cards.4.header.rank": 12,
+        "panel.cards.4.header.toggle": 12
+      },
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            268,
+            99.0,
+            270,
+            111.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            268,
+            147.0,
+            270,
+            159.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            268,
+            437.0,
+            270,
+            449.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            268,
+            485.0,
+            270,
+            497.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "gathering",
+      "scale": 1,
+      "window": [
+        700,
+        800
+      ],
+      "scroll_position": "top",
+      "panel_in_viewport": true,
+      "actual_panel_dimensions": [
+        700,
+        800
+      ],
+      "scroll_viewport_dimensions": [
+        658,
+        704
+      ],
+      "fully_visible_content_text_lines": 20,
+      "long_material_lines": null,
+      "long_material_row_alias": null,
+      "book_button_label_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "panel_control_rects": {
+        "panel.controls.refresh": [
+          609,
+          79,
+          648,
+          102
+        ],
+        "panel.controls.lock": [
+          649,
+          79,
+          688,
+          102
+        ],
+        "panel.controls.collapse": [
+          694,
+          79,
+          720,
+          102
+        ],
+        "panel.controls.gather": [
+          568,
+          79,
+          607,
+          102
+        ],
+        "panel.controls.open": [
+          46,
+          105,
+          150,
+          128
+        ],
+        "panel.controls.minus": [
+          648,
+          845,
+          672,
+          868
+        ],
+        "panel.controls.plus": [
+          676,
+          845,
+          700,
+          868
+        ],
+        "panel.controls.resize": [
+          709,
+          849,
+          729,
+          869
+        ]
+      },
+      "font_sizes": {
+        "panel.title": 14,
+        "panel.controls.refresh.label": 12,
+        "panel.controls.lock.label": 12,
+        "panel.controls.collapse.label": 12,
+        "panel.controls.gather.label": 12,
+        "panel.controls.open.label": 12,
+        "panel.summary": 12,
+        "panel.footer": 12,
+        "panel.controls.minus.label": 12,
+        "panel.controls.plus.label": 12,
+        "panel.cards.1.header.label": 12,
+        "panel.cards.1.header.rank": 12,
+        "panel.cards.1.header.toggle": 12,
+        "panel.cards.2.header.label": 12,
+        "panel.cards.2.header.rank": 12,
+        "panel.cards.2.header.toggle": 12,
+        "panel.cards.2.trainer.label": 12,
+        "panel.cards.2.choices.1.label": 14,
+        "panel.cards.2.choices.1.role": 12,
+        "panel.cards.2.choices.2.label": 12,
+        "panel.cards.2.choices.3.label": 12,
+        "panel.cards.2.materials": 12,
+        "panel.cards.2.otherTitle": 12,
+        "panel.cards.3.header.label": 12,
+        "panel.cards.3.header.rank": 12,
+        "panel.cards.3.header.toggle": 12,
+        "panel.cards.4.header.label": 12,
+        "panel.cards.4.header.rank": 12,
+        "panel.cards.4.header.toggle": 12
+      },
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            596,
+            155.0,
+            598,
+            167.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            596,
+            203.0,
+            598,
+            215.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            596,
+            493.0,
+            598,
+            505.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            596,
+            541.0,
+            598,
+            553.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "gathering",
+      "scale": 1,
+      "window": [
+        700,
+        800
+      ],
+      "scroll_position": "bottom",
+      "panel_in_viewport": true,
+      "actual_panel_dimensions": [
+        700,
+        800
+      ],
+      "scroll_viewport_dimensions": [
+        658,
+        704
+      ],
+      "fully_visible_content_text_lines": 20,
+      "long_material_lines": null,
+      "long_material_row_alias": null,
+      "book_button_label_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "panel_control_rects": {
+        "panel.controls.refresh": [
+          609,
+          79,
+          648,
+          102
+        ],
+        "panel.controls.lock": [
+          649,
+          79,
+          688,
+          102
+        ],
+        "panel.controls.collapse": [
+          694,
+          79,
+          720,
+          102
+        ],
+        "panel.controls.gather": [
+          568,
+          79,
+          607,
+          102
+        ],
+        "panel.controls.open": [
+          46,
+          105,
+          150,
+          128
+        ],
+        "panel.controls.minus": [
+          648,
+          845,
+          672,
+          868
+        ],
+        "panel.controls.plus": [
+          676,
+          845,
+          700,
+          868
+        ],
+        "panel.controls.resize": [
+          709,
+          849,
+          729,
+          869
+        ]
+      },
+      "font_sizes": {
+        "panel.title": 14,
+        "panel.controls.refresh.label": 12,
+        "panel.controls.lock.label": 12,
+        "panel.controls.collapse.label": 12,
+        "panel.controls.gather.label": 12,
+        "panel.controls.open.label": 12,
+        "panel.summary": 12,
+        "panel.footer": 12,
+        "panel.controls.minus.label": 12,
+        "panel.controls.plus.label": 12,
+        "panel.cards.1.header.label": 12,
+        "panel.cards.1.header.rank": 12,
+        "panel.cards.1.header.toggle": 12,
+        "panel.cards.2.header.label": 12,
+        "panel.cards.2.header.rank": 12,
+        "panel.cards.2.header.toggle": 12,
+        "panel.cards.2.trainer.label": 12,
+        "panel.cards.2.choices.1.label": 14,
+        "panel.cards.2.choices.1.role": 12,
+        "panel.cards.2.choices.2.label": 12,
+        "panel.cards.2.choices.3.label": 12,
+        "panel.cards.2.materials": 12,
+        "panel.cards.2.otherTitle": 12,
+        "panel.cards.3.header.label": 12,
+        "panel.cards.3.header.rank": 12,
+        "panel.cards.3.header.toggle": 12,
+        "panel.cards.4.header.label": 12,
+        "panel.cards.4.header.rank": 12,
+        "panel.cards.4.header.toggle": 12
+      },
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            596,
+            155.0,
+            598,
+            167.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            596,
+            203.0,
+            598,
+            215.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            596,
+            493.0,
+            598,
+            505.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            596,
+            541.0,
+            598,
+            553.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "unlearned",
+      "scale": 1,
+      "window": [
+        340,
+        260
+      ],
+      "scroll_position": "top",
+      "panel_in_viewport": true,
+      "actual_panel_dimensions": [
+        340,
+        260
+      ],
+      "scroll_viewport_dimensions": [
+        298,
+        164
+      ],
+      "fully_visible_content_text_lines": 10,
+      "long_material_lines": null,
+      "long_material_row_alias": null,
+      "book_button_label_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "panel_control_rects": {
+        "panel.controls.refresh": [
+          249,
+          79,
+          288,
+          102
+        ],
+        "panel.controls.lock": [
+          289,
+          79,
+          328,
+          102
+        ],
+        "panel.controls.collapse": [
+          334,
+          79,
+          360,
+          102
+        ],
+        "panel.controls.gather": [
+          208,
+          79,
+          247,
+          102
+        ],
+        "panel.controls.open": [
+          46,
+          105,
+          150,
+          128
+        ],
+        "panel.controls.minus": [
+          288,
+          305,
+          312,
+          328
+        ],
+        "panel.controls.plus": [
+          316,
+          305,
+          340,
+          328
+        ],
+        "panel.controls.resize": [
+          349,
+          309,
+          369,
+          329
+        ]
+      },
+      "font_sizes": {
+        "panel.title": 14,
+        "panel.controls.refresh.label": 12,
+        "panel.controls.lock.label": 12,
+        "panel.controls.collapse.label": 12,
+        "panel.controls.gather.label": 12,
+        "panel.controls.open.label": 12,
+        "panel.summary": 12,
+        "panel.footer": 12,
+        "panel.controls.minus.label": 12,
+        "panel.controls.plus.label": 12,
+        "panel.cards.1.header.label": 12,
+        "panel.cards.1.header.rank": 12,
+        "panel.cards.1.header.toggle": 12,
+        "panel.cards.2.header.label": 12,
+        "panel.cards.2.header.rank": 12,
+        "panel.cards.2.header.toggle": 12,
+        "panel.cards.3.header.label": 12,
+        "panel.cards.3.header.rank": 12,
+        "panel.cards.3.header.toggle": 12,
+        "panel.cards.3.trainer.label": 12,
+        "panel.cards.3.note": 12,
+        "panel.cards.4.header.label": 12,
+        "panel.cards.4.header.rank": 12,
+        "panel.cards.4.header.toggle": 12
+      },
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.title",
+          "panel.controls.gather.label",
+          [
+            208.0,
+            85,
+            221,
+            96.5
+          ]
+        ],
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            236,
+            155.0,
+            238,
+            167.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            236,
+            203.0,
+            238,
+            215.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            236,
+            251.0,
+            238,
+            263.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            236,
+            405.0,
+            238,
+            417.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 5,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "unlearned",
+      "scale": 1,
+      "window": [
+        340,
+        260
+      ],
+      "scroll_position": "bottom",
+      "panel_in_viewport": true,
+      "actual_panel_dimensions": [
+        340,
+        260
+      ],
+      "scroll_viewport_dimensions": [
+        298,
+        164
+      ],
+      "fully_visible_content_text_lines": 7,
+      "long_material_lines": null,
+      "long_material_row_alias": null,
+      "book_button_label_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "panel_control_rects": {
+        "panel.controls.refresh": [
+          249,
+          79,
+          288,
+          102
+        ],
+        "panel.controls.lock": [
+          289,
+          79,
+          328,
+          102
+        ],
+        "panel.controls.collapse": [
+          334,
+          79,
+          360,
+          102
+        ],
+        "panel.controls.gather": [
+          208,
+          79,
+          247,
+          102
+        ],
+        "panel.controls.open": [
+          46,
+          105,
+          150,
+          128
+        ],
+        "panel.controls.minus": [
+          288,
+          305,
+          312,
+          328
+        ],
+        "panel.controls.plus": [
+          316,
+          305,
+          340,
+          328
+        ],
+        "panel.controls.resize": [
+          349,
+          309,
+          369,
+          329
+        ]
+      },
+      "font_sizes": {
+        "panel.title": 14,
+        "panel.controls.refresh.label": 12,
+        "panel.controls.lock.label": 12,
+        "panel.controls.collapse.label": 12,
+        "panel.controls.gather.label": 12,
+        "panel.controls.open.label": 12,
+        "panel.summary": 12,
+        "panel.footer": 12,
+        "panel.controls.minus.label": 12,
+        "panel.controls.plus.label": 12,
+        "panel.cards.1.header.label": 12,
+        "panel.cards.1.header.rank": 12,
+        "panel.cards.1.header.toggle": 12,
+        "panel.cards.2.header.label": 12,
+        "panel.cards.2.header.rank": 12,
+        "panel.cards.2.header.toggle": 12,
+        "panel.cards.3.header.label": 12,
+        "panel.cards.3.header.rank": 12,
+        "panel.cards.3.header.toggle": 12,
+        "panel.cards.3.trainer.label": 12,
+        "panel.cards.3.note": 12,
+        "panel.cards.4.header.label": 12,
+        "panel.cards.4.header.rank": 12,
+        "panel.cards.4.header.toggle": 12
+      },
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.title",
+          "panel.controls.gather.label",
+          [
+            208.0,
+            85,
+            221,
+            96.5
+          ]
+        ],
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            236,
+            21.0,
+            238,
+            33.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            236,
+            69.0,
+            238,
+            81.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            236,
+            117.0,
+            238,
+            129.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            236,
+            271.0,
+            238,
+            283.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 5,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "unlearned",
+      "scale": 1,
+      "window": [
+        372,
+        474
+      ],
+      "scroll_position": "top",
+      "panel_in_viewport": true,
+      "actual_panel_dimensions": [
+        372,
+        474
+      ],
+      "scroll_viewport_dimensions": [
+        330,
+        378
+      ],
+      "fully_visible_content_text_lines": 16,
+      "long_material_lines": null,
+      "long_material_row_alias": null,
+      "book_button_label_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "panel_control_rects": {
+        "panel.controls.refresh": [
+          281,
+          79,
+          320,
+          102
+        ],
+        "panel.controls.lock": [
+          321,
+          79,
+          360,
+          102
+        ],
+        "panel.controls.collapse": [
+          366,
+          79,
+          392,
+          102
+        ],
+        "panel.controls.gather": [
+          240,
+          79,
+          279,
+          102
+        ],
+        "panel.controls.open": [
+          46,
+          105,
+          150,
+          128
+        ],
+        "panel.controls.minus": [
+          320,
+          519,
+          344,
+          542
+        ],
+        "panel.controls.plus": [
+          348,
+          519,
+          372,
+          542
+        ],
+        "panel.controls.resize": [
+          381,
+          523,
+          401,
+          543
+        ]
+      },
+      "font_sizes": {
+        "panel.title": 14,
+        "panel.controls.refresh.label": 12,
+        "panel.controls.lock.label": 12,
+        "panel.controls.collapse.label": 12,
+        "panel.controls.gather.label": 12,
+        "panel.controls.open.label": 12,
+        "panel.summary": 12,
+        "panel.footer": 12,
+        "panel.controls.minus.label": 12,
+        "panel.controls.plus.label": 12,
+        "panel.cards.1.header.label": 12,
+        "panel.cards.1.header.rank": 12,
+        "panel.cards.1.header.toggle": 12,
+        "panel.cards.2.header.label": 12,
+        "panel.cards.2.header.rank": 12,
+        "panel.cards.2.header.toggle": 12,
+        "panel.cards.3.header.label": 12,
+        "panel.cards.3.header.rank": 12,
+        "panel.cards.3.header.toggle": 12,
+        "panel.cards.3.trainer.label": 12,
+        "panel.cards.3.note": 12,
+        "panel.cards.4.header.label": 12,
+        "panel.cards.4.header.rank": 12,
+        "panel.cards.4.header.toggle": 12
+      },
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            268,
+            155.0,
+            270,
+            167.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            268,
+            203.0,
+            270,
+            215.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            268,
+            251.0,
+            270,
+            263.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            268,
+            405.0,
+            270,
+            417.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "unlearned",
+      "scale": 1,
+      "window": [
+        372,
+        474
+      ],
+      "scroll_position": "bottom",
+      "panel_in_viewport": true,
+      "actual_panel_dimensions": [
+        372,
+        474
+      ],
+      "scroll_viewport_dimensions": [
+        330,
+        378
+      ],
+      "fully_visible_content_text_lines": 16,
+      "long_material_lines": null,
+      "long_material_row_alias": null,
+      "book_button_label_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "panel_control_rects": {
+        "panel.controls.refresh": [
+          281,
+          79,
+          320,
+          102
+        ],
+        "panel.controls.lock": [
+          321,
+          79,
+          360,
+          102
+        ],
+        "panel.controls.collapse": [
+          366,
+          79,
+          392,
+          102
+        ],
+        "panel.controls.gather": [
+          240,
+          79,
+          279,
+          102
+        ],
+        "panel.controls.open": [
+          46,
+          105,
+          150,
+          128
+        ],
+        "panel.controls.minus": [
+          320,
+          519,
+          344,
+          542
+        ],
+        "panel.controls.plus": [
+          348,
+          519,
+          372,
+          542
+        ],
+        "panel.controls.resize": [
+          381,
+          523,
+          401,
+          543
+        ]
+      },
+      "font_sizes": {
+        "panel.title": 14,
+        "panel.controls.refresh.label": 12,
+        "panel.controls.lock.label": 12,
+        "panel.controls.collapse.label": 12,
+        "panel.controls.gather.label": 12,
+        "panel.controls.open.label": 12,
+        "panel.summary": 12,
+        "panel.footer": 12,
+        "panel.controls.minus.label": 12,
+        "panel.controls.plus.label": 12,
+        "panel.cards.1.header.label": 12,
+        "panel.cards.1.header.rank": 12,
+        "panel.cards.1.header.toggle": 12,
+        "panel.cards.2.header.label": 12,
+        "panel.cards.2.header.rank": 12,
+        "panel.cards.2.header.toggle": 12,
+        "panel.cards.3.header.label": 12,
+        "panel.cards.3.header.rank": 12,
+        "panel.cards.3.header.toggle": 12,
+        "panel.cards.3.trainer.label": 12,
+        "panel.cards.3.note": 12,
+        "panel.cards.4.header.label": 12,
+        "panel.cards.4.header.rank": 12,
+        "panel.cards.4.header.toggle": 12
+      },
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            268,
+            155.0,
+            270,
+            167.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            268,
+            203.0,
+            270,
+            215.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            268,
+            251.0,
+            270,
+            263.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            268,
+            405.0,
+            270,
+            417.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "unlearned",
+      "scale": 1,
+      "window": [
+        700,
+        800
+      ],
+      "scroll_position": "top",
+      "panel_in_viewport": true,
+      "actual_panel_dimensions": [
+        700,
+        800
+      ],
+      "scroll_viewport_dimensions": [
+        658,
+        704
+      ],
+      "fully_visible_content_text_lines": 15,
+      "long_material_lines": null,
+      "long_material_row_alias": null,
+      "book_button_label_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "panel_control_rects": {
+        "panel.controls.refresh": [
+          609,
+          79,
+          648,
+          102
+        ],
+        "panel.controls.lock": [
+          649,
+          79,
+          688,
+          102
+        ],
+        "panel.controls.collapse": [
+          694,
+          79,
+          720,
+          102
+        ],
+        "panel.controls.gather": [
+          568,
+          79,
+          607,
+          102
+        ],
+        "panel.controls.open": [
+          46,
+          105,
+          150,
+          128
+        ],
+        "panel.controls.minus": [
+          648,
+          845,
+          672,
+          868
+        ],
+        "panel.controls.plus": [
+          676,
+          845,
+          700,
+          868
+        ],
+        "panel.controls.resize": [
+          709,
+          849,
+          729,
+          869
+        ]
+      },
+      "font_sizes": {
+        "panel.title": 14,
+        "panel.controls.refresh.label": 12,
+        "panel.controls.lock.label": 12,
+        "panel.controls.collapse.label": 12,
+        "panel.controls.gather.label": 12,
+        "panel.controls.open.label": 12,
+        "panel.summary": 12,
+        "panel.footer": 12,
+        "panel.controls.minus.label": 12,
+        "panel.controls.plus.label": 12,
+        "panel.cards.1.header.label": 12,
+        "panel.cards.1.header.rank": 12,
+        "panel.cards.1.header.toggle": 12,
+        "panel.cards.2.header.label": 12,
+        "panel.cards.2.header.rank": 12,
+        "panel.cards.2.header.toggle": 12,
+        "panel.cards.3.header.label": 12,
+        "panel.cards.3.header.rank": 12,
+        "panel.cards.3.header.toggle": 12,
+        "panel.cards.3.trainer.label": 12,
+        "panel.cards.3.note": 12,
+        "panel.cards.4.header.label": 12,
+        "panel.cards.4.header.rank": 12,
+        "panel.cards.4.header.toggle": 12
+      },
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            596,
+            155.0,
+            598,
+            167.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            596,
+            203.0,
+            598,
+            215.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            596,
+            251.0,
+            598,
+            263.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            596,
+            390.0,
+            598,
+            402.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "unlearned",
+      "scale": 1,
+      "window": [
+        700,
+        800
+      ],
+      "scroll_position": "bottom",
+      "panel_in_viewport": true,
+      "actual_panel_dimensions": [
+        700,
+        800
+      ],
+      "scroll_viewport_dimensions": [
+        658,
+        704
+      ],
+      "fully_visible_content_text_lines": 15,
+      "long_material_lines": null,
+      "long_material_row_alias": null,
+      "book_button_label_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "panel_control_rects": {
+        "panel.controls.refresh": [
+          609,
+          79,
+          648,
+          102
+        ],
+        "panel.controls.lock": [
+          649,
+          79,
+          688,
+          102
+        ],
+        "panel.controls.collapse": [
+          694,
+          79,
+          720,
+          102
+        ],
+        "panel.controls.gather": [
+          568,
+          79,
+          607,
+          102
+        ],
+        "panel.controls.open": [
+          46,
+          105,
+          150,
+          128
+        ],
+        "panel.controls.minus": [
+          648,
+          845,
+          672,
+          868
+        ],
+        "panel.controls.plus": [
+          676,
+          845,
+          700,
+          868
+        ],
+        "panel.controls.resize": [
+          709,
+          849,
+          729,
+          869
+        ]
+      },
+      "font_sizes": {
+        "panel.title": 14,
+        "panel.controls.refresh.label": 12,
+        "panel.controls.lock.label": 12,
+        "panel.controls.collapse.label": 12,
+        "panel.controls.gather.label": 12,
+        "panel.controls.open.label": 12,
+        "panel.summary": 12,
+        "panel.footer": 12,
+        "panel.controls.minus.label": 12,
+        "panel.controls.plus.label": 12,
+        "panel.cards.1.header.label": 12,
+        "panel.cards.1.header.rank": 12,
+        "panel.cards.1.header.toggle": 12,
+        "panel.cards.2.header.label": 12,
+        "panel.cards.2.header.rank": 12,
+        "panel.cards.2.header.toggle": 12,
+        "panel.cards.3.header.label": 12,
+        "panel.cards.3.header.rank": 12,
+        "panel.cards.3.header.toggle": 12,
+        "panel.cards.3.trainer.label": 12,
+        "panel.cards.3.note": 12,
+        "panel.cards.4.header.label": 12,
+        "panel.cards.4.header.rank": 12,
+        "panel.cards.4.header.toggle": 12
+      },
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            596,
+            155.0,
+            598,
+            167.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            596,
+            203.0,
+            598,
+            215.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            596,
+            251.0,
+            598,
+            263.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            596,
+            390.0,
+            598,
+            402.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "no-recipes",
+      "scale": 1,
+      "window": [
+        340,
+        260
+      ],
+      "scroll_position": "top",
+      "panel_in_viewport": true,
+      "actual_panel_dimensions": [
+        340,
+        260
+      ],
+      "scroll_viewport_dimensions": [
+        298,
+        164
+      ],
+      "fully_visible_content_text_lines": 9,
+      "long_material_lines": null,
+      "long_material_row_alias": null,
+      "book_button_label_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "panel_control_rects": {
+        "panel.controls.refresh": [
+          249,
+          79,
+          288,
+          102
+        ],
+        "panel.controls.lock": [
+          289,
+          79,
+          328,
+          102
+        ],
+        "panel.controls.collapse": [
+          334,
+          79,
+          360,
+          102
+        ],
+        "panel.controls.gather": [
+          208,
+          79,
+          247,
+          102
+        ],
+        "panel.controls.open": [
+          46,
+          105,
+          150,
+          128
+        ],
+        "panel.controls.minus": [
+          288,
+          305,
+          312,
+          328
+        ],
+        "panel.controls.plus": [
+          316,
+          305,
+          340,
+          328
+        ],
+        "panel.controls.resize": [
+          349,
+          309,
+          369,
+          329
+        ]
+      },
+      "font_sizes": {
+        "panel.title": 14,
+        "panel.controls.refresh.label": 12,
+        "panel.controls.lock.label": 12,
+        "panel.controls.collapse.label": 12,
+        "panel.controls.gather.label": 12,
+        "panel.controls.open.label": 12,
+        "panel.summary": 12,
+        "panel.footer": 12,
+        "panel.controls.minus.label": 12,
+        "panel.controls.plus.label": 12,
+        "panel.cards.1.header.label": 12,
+        "panel.cards.1.header.rank": 12,
+        "panel.cards.1.header.toggle": 12,
+        "panel.cards.2.header.label": 12,
+        "panel.cards.2.header.rank": 12,
+        "panel.cards.2.header.toggle": 12,
+        "panel.cards.3.header.label": 12,
+        "panel.cards.3.header.rank": 12,
+        "panel.cards.3.header.toggle": 12,
+        "panel.cards.4.header.label": 12,
+        "panel.cards.4.header.rank": 12,
+        "panel.cards.4.header.toggle": 12,
+        "panel.cards.4.trainer.label": 12,
+        "panel.cards.4.note": 12
+      },
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.title",
+          "panel.controls.gather.label",
+          [
+            208.0,
+            85,
+            221,
+            96.5
+          ]
+        ],
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            236,
+            155.0,
+            238,
+            167.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            236,
+            203.0,
+            238,
+            215.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            236,
+            251.0,
+            238,
+            263.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            236,
+            299.0,
+            238,
+            311.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 5,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "no-recipes",
+      "scale": 1,
+      "window": [
+        340,
+        260
+      ],
+      "scroll_position": "bottom",
+      "panel_in_viewport": true,
+      "actual_panel_dimensions": [
+        340,
+        260
+      ],
+      "scroll_viewport_dimensions": [
+        298,
+        164
+      ],
+      "fully_visible_content_text_lines": 7,
+      "long_material_lines": null,
+      "long_material_row_alias": null,
+      "book_button_label_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "panel_control_rects": {
+        "panel.controls.refresh": [
+          249,
+          79,
+          288,
+          102
+        ],
+        "panel.controls.lock": [
+          289,
+          79,
+          328,
+          102
+        ],
+        "panel.controls.collapse": [
+          334,
+          79,
+          360,
+          102
+        ],
+        "panel.controls.gather": [
+          208,
+          79,
+          247,
+          102
+        ],
+        "panel.controls.open": [
+          46,
+          105,
+          150,
+          128
+        ],
+        "panel.controls.minus": [
+          288,
+          305,
+          312,
+          328
+        ],
+        "panel.controls.plus": [
+          316,
+          305,
+          340,
+          328
+        ],
+        "panel.controls.resize": [
+          349,
+          309,
+          369,
+          329
+        ]
+      },
+      "font_sizes": {
+        "panel.title": 14,
+        "panel.controls.refresh.label": 12,
+        "panel.controls.lock.label": 12,
+        "panel.controls.collapse.label": 12,
+        "panel.controls.gather.label": 12,
+        "panel.controls.open.label": 12,
+        "panel.summary": 12,
+        "panel.footer": 12,
+        "panel.controls.minus.label": 12,
+        "panel.controls.plus.label": 12,
+        "panel.cards.1.header.label": 12,
+        "panel.cards.1.header.rank": 12,
+        "panel.cards.1.header.toggle": 12,
+        "panel.cards.2.header.label": 12,
+        "panel.cards.2.header.rank": 12,
+        "panel.cards.2.header.toggle": 12,
+        "panel.cards.3.header.label": 12,
+        "panel.cards.3.header.rank": 12,
+        "panel.cards.3.header.toggle": 12,
+        "panel.cards.4.header.label": 12,
+        "panel.cards.4.header.rank": 12,
+        "panel.cards.4.header.toggle": 12,
+        "panel.cards.4.trainer.label": 12,
+        "panel.cards.4.note": 12
+      },
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.title",
+          "panel.controls.gather.label",
+          [
+            208.0,
+            85,
+            221,
+            96.5
+          ]
+        ],
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            236,
+            21.0,
+            238,
+            33.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            236,
+            69.0,
+            238,
+            81.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            236,
+            117.0,
+            238,
+            129.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            236,
+            165.0,
+            238,
+            177.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 5,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "no-recipes",
+      "scale": 1,
+      "window": [
+        372,
+        474
+      ],
+      "scroll_position": "top",
+      "panel_in_viewport": true,
+      "actual_panel_dimensions": [
+        372,
+        474
+      ],
+      "scroll_viewport_dimensions": [
+        330,
+        378
+      ],
+      "fully_visible_content_text_lines": 16,
+      "long_material_lines": null,
+      "long_material_row_alias": null,
+      "book_button_label_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "panel_control_rects": {
+        "panel.controls.refresh": [
+          281,
+          79,
+          320,
+          102
+        ],
+        "panel.controls.lock": [
+          321,
+          79,
+          360,
+          102
+        ],
+        "panel.controls.collapse": [
+          366,
+          79,
+          392,
+          102
+        ],
+        "panel.controls.gather": [
+          240,
+          79,
+          279,
+          102
+        ],
+        "panel.controls.open": [
+          46,
+          105,
+          150,
+          128
+        ],
+        "panel.controls.minus": [
+          320,
+          519,
+          344,
+          542
+        ],
+        "panel.controls.plus": [
+          348,
+          519,
+          372,
+          542
+        ],
+        "panel.controls.resize": [
+          381,
+          523,
+          401,
+          543
+        ]
+      },
+      "font_sizes": {
+        "panel.title": 14,
+        "panel.controls.refresh.label": 12,
+        "panel.controls.lock.label": 12,
+        "panel.controls.collapse.label": 12,
+        "panel.controls.gather.label": 12,
+        "panel.controls.open.label": 12,
+        "panel.summary": 12,
+        "panel.footer": 12,
+        "panel.controls.minus.label": 12,
+        "panel.controls.plus.label": 12,
+        "panel.cards.1.header.label": 12,
+        "panel.cards.1.header.rank": 12,
+        "panel.cards.1.header.toggle": 12,
+        "panel.cards.2.header.label": 12,
+        "panel.cards.2.header.rank": 12,
+        "panel.cards.2.header.toggle": 12,
+        "panel.cards.3.header.label": 12,
+        "panel.cards.3.header.rank": 12,
+        "panel.cards.3.header.toggle": 12,
+        "panel.cards.4.header.label": 12,
+        "panel.cards.4.header.rank": 12,
+        "panel.cards.4.header.toggle": 12,
+        "panel.cards.4.trainer.label": 12,
+        "panel.cards.4.note": 12
+      },
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            268,
+            155.0,
+            270,
+            167.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            268,
+            203.0,
+            270,
+            215.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            268,
+            251.0,
+            270,
+            263.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            268,
+            299.0,
+            270,
+            311.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "no-recipes",
+      "scale": 1,
+      "window": [
+        372,
+        474
+      ],
+      "scroll_position": "bottom",
+      "panel_in_viewport": true,
+      "actual_panel_dimensions": [
+        372,
+        474
+      ],
+      "scroll_viewport_dimensions": [
+        330,
+        378
+      ],
+      "fully_visible_content_text_lines": 16,
+      "long_material_lines": null,
+      "long_material_row_alias": null,
+      "book_button_label_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "panel_control_rects": {
+        "panel.controls.refresh": [
+          281,
+          79,
+          320,
+          102
+        ],
+        "panel.controls.lock": [
+          321,
+          79,
+          360,
+          102
+        ],
+        "panel.controls.collapse": [
+          366,
+          79,
+          392,
+          102
+        ],
+        "panel.controls.gather": [
+          240,
+          79,
+          279,
+          102
+        ],
+        "panel.controls.open": [
+          46,
+          105,
+          150,
+          128
+        ],
+        "panel.controls.minus": [
+          320,
+          519,
+          344,
+          542
+        ],
+        "panel.controls.plus": [
+          348,
+          519,
+          372,
+          542
+        ],
+        "panel.controls.resize": [
+          381,
+          523,
+          401,
+          543
+        ]
+      },
+      "font_sizes": {
+        "panel.title": 14,
+        "panel.controls.refresh.label": 12,
+        "panel.controls.lock.label": 12,
+        "panel.controls.collapse.label": 12,
+        "panel.controls.gather.label": 12,
+        "panel.controls.open.label": 12,
+        "panel.summary": 12,
+        "panel.footer": 12,
+        "panel.controls.minus.label": 12,
+        "panel.controls.plus.label": 12,
+        "panel.cards.1.header.label": 12,
+        "panel.cards.1.header.rank": 12,
+        "panel.cards.1.header.toggle": 12,
+        "panel.cards.2.header.label": 12,
+        "panel.cards.2.header.rank": 12,
+        "panel.cards.2.header.toggle": 12,
+        "panel.cards.3.header.label": 12,
+        "panel.cards.3.header.rank": 12,
+        "panel.cards.3.header.toggle": 12,
+        "panel.cards.4.header.label": 12,
+        "panel.cards.4.header.rank": 12,
+        "panel.cards.4.header.toggle": 12,
+        "panel.cards.4.trainer.label": 12,
+        "panel.cards.4.note": 12
+      },
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            268,
+            155.0,
+            270,
+            167.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            268,
+            203.0,
+            270,
+            215.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            268,
+            251.0,
+            270,
+            263.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            268,
+            299.0,
+            270,
+            311.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "no-recipes",
+      "scale": 1,
+      "window": [
+        700,
+        800
+      ],
+      "scroll_position": "top",
+      "panel_in_viewport": true,
+      "actual_panel_dimensions": [
+        700,
+        800
+      ],
+      "scroll_viewport_dimensions": [
+        658,
+        704
+      ],
+      "fully_visible_content_text_lines": 15,
+      "long_material_lines": null,
+      "long_material_row_alias": null,
+      "book_button_label_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "panel_control_rects": {
+        "panel.controls.refresh": [
+          609,
+          79,
+          648,
+          102
+        ],
+        "panel.controls.lock": [
+          649,
+          79,
+          688,
+          102
+        ],
+        "panel.controls.collapse": [
+          694,
+          79,
+          720,
+          102
+        ],
+        "panel.controls.gather": [
+          568,
+          79,
+          607,
+          102
+        ],
+        "panel.controls.open": [
+          46,
+          105,
+          150,
+          128
+        ],
+        "panel.controls.minus": [
+          648,
+          845,
+          672,
+          868
+        ],
+        "panel.controls.plus": [
+          676,
+          845,
+          700,
+          868
+        ],
+        "panel.controls.resize": [
+          709,
+          849,
+          729,
+          869
+        ]
+      },
+      "font_sizes": {
+        "panel.title": 14,
+        "panel.controls.refresh.label": 12,
+        "panel.controls.lock.label": 12,
+        "panel.controls.collapse.label": 12,
+        "panel.controls.gather.label": 12,
+        "panel.controls.open.label": 12,
+        "panel.summary": 12,
+        "panel.footer": 12,
+        "panel.controls.minus.label": 12,
+        "panel.controls.plus.label": 12,
+        "panel.cards.1.header.label": 12,
+        "panel.cards.1.header.rank": 12,
+        "panel.cards.1.header.toggle": 12,
+        "panel.cards.2.header.label": 12,
+        "panel.cards.2.header.rank": 12,
+        "panel.cards.2.header.toggle": 12,
+        "panel.cards.3.header.label": 12,
+        "panel.cards.3.header.rank": 12,
+        "panel.cards.3.header.toggle": 12,
+        "panel.cards.4.header.label": 12,
+        "panel.cards.4.header.rank": 12,
+        "panel.cards.4.header.toggle": 12,
+        "panel.cards.4.trainer.label": 12,
+        "panel.cards.4.note": 12
+      },
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            596,
+            155.0,
+            598,
+            167.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            596,
+            203.0,
+            598,
+            215.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            596,
+            251.0,
+            598,
+            263.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            596,
+            299.0,
+            598,
+            311.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    },
+    {
+      "scene": "no-recipes",
+      "scale": 1,
+      "window": [
+        700,
+        800
+      ],
+      "scroll_position": "bottom",
+      "panel_in_viewport": true,
+      "actual_panel_dimensions": [
+        700,
+        800
+      ],
+      "scroll_viewport_dimensions": [
+        658,
+        704
+      ],
+      "fully_visible_content_text_lines": 15,
+      "long_material_lines": null,
+      "long_material_row_alias": null,
+      "book_button_label_rect": [
+        46.0,
+        110.5,
+        150.0,
+        122.5
+      ],
+      "panel_control_rects": {
+        "panel.controls.refresh": [
+          609,
+          79,
+          648,
+          102
+        ],
+        "panel.controls.lock": [
+          649,
+          79,
+          688,
+          102
+        ],
+        "panel.controls.collapse": [
+          694,
+          79,
+          720,
+          102
+        ],
+        "panel.controls.gather": [
+          568,
+          79,
+          607,
+          102
+        ],
+        "panel.controls.open": [
+          46,
+          105,
+          150,
+          128
+        ],
+        "panel.controls.minus": [
+          648,
+          845,
+          672,
+          868
+        ],
+        "panel.controls.plus": [
+          676,
+          845,
+          700,
+          868
+        ],
+        "panel.controls.resize": [
+          709,
+          849,
+          729,
+          869
+        ]
+      },
+      "font_sizes": {
+        "panel.title": 14,
+        "panel.controls.refresh.label": 12,
+        "panel.controls.lock.label": 12,
+        "panel.controls.collapse.label": 12,
+        "panel.controls.gather.label": 12,
+        "panel.controls.open.label": 12,
+        "panel.summary": 12,
+        "panel.footer": 12,
+        "panel.controls.minus.label": 12,
+        "panel.controls.plus.label": 12,
+        "panel.cards.1.header.label": 12,
+        "panel.cards.1.header.rank": 12,
+        "panel.cards.1.header.toggle": 12,
+        "panel.cards.2.header.label": 12,
+        "panel.cards.2.header.rank": 12,
+        "panel.cards.2.header.toggle": 12,
+        "panel.cards.3.header.label": 12,
+        "panel.cards.3.header.rank": 12,
+        "panel.cards.3.header.toggle": 12,
+        "panel.cards.4.header.label": 12,
+        "panel.cards.4.header.rank": 12,
+        "panel.cards.4.header.toggle": 12,
+        "panel.cards.4.trainer.label": 12,
+        "panel.cards.4.note": 12
+      },
+      "text_ink_overlaps": [],
+      "text_ink_overlap_count": 0,
+      "allocated_label_box_overlaps": [
+        [
+          "panel.cards.1.header.label",
+          "panel.cards.1.header.rank",
+          [
+            596,
+            155.0,
+            598,
+            167.0
+          ]
+        ],
+        [
+          "panel.cards.2.header.label",
+          "panel.cards.2.header.rank",
+          [
+            596,
+            203.0,
+            598,
+            215.0
+          ]
+        ],
+        [
+          "panel.cards.3.header.label",
+          "panel.cards.3.header.rank",
+          [
+            596,
+            251.0,
+            598,
+            263.0
+          ]
+        ],
+        [
+          "panel.cards.4.header.label",
+          "panel.cards.4.header.rank",
+          [
+            596,
+            299.0,
+            598,
+            311.0
+          ]
+        ]
+      ],
+      "allocated_label_box_overlap_count": 4,
+      "scope": "Mock frame/text geometry only; does not prove WoW font metrics or gameplay behavior."
+    }
+  ],
+  "comparisons": [
+    {
+      "scene": "crafting",
+      "scale_always_1": true,
+      "same_font_sizes_across_windows": true,
+      "book_button_fixed_while_scrolling": true,
+      "panel_controls_fixed_while_scrolling": true,
+      "large_window_shows_more_text_lines": true,
+      "wide_window_reduces_long_material_lines": null,
+      "visible_lines_by_window": {
+        "[340, 260]": 8,
+        "[372, 474]": 18,
+        "[700, 800]": 28
+      },
+      "long_material_lines_by_window": {
+        "[340, 260]": null,
+        "[372, 474]": null,
+        "[700, 800]": null
+      }
+    },
+    {
+      "scene": "long-alternative",
+      "scale_always_1": true,
+      "same_font_sizes_across_windows": true,
+      "book_button_fixed_while_scrolling": true,
+      "panel_controls_fixed_while_scrolling": true,
+      "large_window_shows_more_text_lines": true,
+      "wide_window_reduces_long_material_lines": true,
+      "visible_lines_by_window": {
+        "[340, 260]": 8,
+        "[372, 474]": 17,
+        "[700, 800]": 26
+      },
+      "long_material_lines_by_window": {
+        "[340, 260]": 2,
+        "[372, 474]": 2,
+        "[700, 800]": 1
+      }
+    },
+    {
+      "scene": "gathering",
+      "scale_always_1": true,
+      "same_font_sizes_across_windows": true,
+      "book_button_fixed_while_scrolling": true,
+      "panel_controls_fixed_while_scrolling": true,
+      "large_window_shows_more_text_lines": true,
+      "wide_window_reduces_long_material_lines": null,
+      "visible_lines_by_window": {
+        "[340, 260]": 8,
+        "[372, 474]": 17,
+        "[700, 800]": 20
+      },
+      "long_material_lines_by_window": {
+        "[340, 260]": null,
+        "[372, 474]": null,
+        "[700, 800]": null
+      }
+    },
+    {
+      "scene": "unlearned",
+      "scale_always_1": true,
+      "same_font_sizes_across_windows": true,
+      "book_button_fixed_while_scrolling": true,
+      "panel_controls_fixed_while_scrolling": true,
+      "large_window_shows_more_text_lines": true,
+      "wide_window_reduces_long_material_lines": null,
+      "visible_lines_by_window": {
+        "[340, 260]": 10,
+        "[372, 474]": 16,
+        "[700, 800]": 15
+      },
+      "long_material_lines_by_window": {
+        "[340, 260]": null,
+        "[372, 474]": null,
+        "[700, 800]": null
+      }
+    },
+    {
+      "scene": "no-recipes",
+      "scale_always_1": true,
+      "same_font_sizes_across_windows": true,
+      "book_button_fixed_while_scrolling": true,
+      "panel_controls_fixed_while_scrolling": true,
+      "large_window_shows_more_text_lines": true,
+      "wide_window_reduces_long_material_lines": null,
+      "visible_lines_by_window": {
+        "[340, 260]": 9,
+        "[372, 474]": 16,
+        "[700, 800]": 15
+      },
+      "long_material_lines_by_window": {
+        "[340, 260]": null,
+        "[372, 474]": null,
+        "[700, 800]": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+MyForeverProfessions Lua 5.1 syntax: 13 files passed
+MyForeverProfessions API/events: 188 simulated checks passed
+MyForeverProfessions core: 124 simulated checks passed
+professions cursor scan: 1415 simulated checks passed (not in-game verification)
+professions_display_test: 13 checks passed
+Gather alert integration: 82 checks passed
+professions_gather_scan_test: 469 checks passed
+Gather sparkles: 209 simulated checks passed
+professions_item_links_test: 82 checks passed
+professions_main_test: 189 checks passed
+Gather scan source router: 29 checks passed
+MyForeverProfessions stand-in map checks: 230 passed
+MyForeverProfessions trainer pins: 162 simulated checks passed
+MyForeverProfessions trainers: 69 simulated checks passed
+professions_ui_test: 325 checks passed
+Simulated checks passed. See PROFESSIONS-VALIDATION.md for actual in-game coverage.

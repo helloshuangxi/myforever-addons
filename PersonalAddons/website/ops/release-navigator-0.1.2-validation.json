@@ -1,0 +1,34 @@
+{
+  "published_at": "2026-11-08",
+  "release": "20261108T043129Z",
+  "status": "passed",
+  "navigator_version": "0.1.2",
+  "manager_version": "0.2.0",
+  "navigator_sha256": "650f657742b92d3a922cfff3a5aee6731ba03f7a92603fb5cf7a9e5334afbde5",
+  "public_resources_verified": 78,
+  "browser_download_sha256_verified": true,
+  "previous_packages_preserved": 16,
+  "manager_https_tests": {
+    "passed": 68,
+    "failed": 0,
+    "real_game_install_performed": false
+  },
+  "local_manager_upgraded": "0.2.0",
+  "native_manager_verified": [
+    "Three add-on cards",
+    "Navigator local and HTTPS latest version 0.1.2",
+    "Release notes fetched from website"
+  ],
+  "settings_preserved": true,
+  "preview_viewports": [
+    2060,
+    390
+  ],
+  "gameplay_validation": "Only startup button display and scripted reposition observed; navigation gameplay checks remain pending",
+  "windows_intel_hardware_validation": false,
+  "evidence": [
+    "live-verification.json",
+    "navigator-0.1.2-manager-0.2.0-publish.log",
+    "../Manager/artifacts/build-evidence-0.2.0/tests-live.log"
+  ]
+}

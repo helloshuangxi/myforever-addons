@@ -1,0 +1,94 @@
+[
+  {
+    "amount": "avatar",
+    "source": "/var/folders/bw/4z3ppcbx3l751t_8rq17_0cc0000gn/T/codex-clipboard-f02c395b-f811-483b-a073-91078f0736ea.jpg",
+    "public": "public/assets/hyder-avatar.jpg",
+    "size": [
+      864,
+      1296
+    ],
+    "exif_keys": [],
+    "bytes": 219296,
+    "sha256": "510ad2efba65df4128eb19510abd93be9108db9243eafb7f6247027ecf38f805",
+    "published_bytes": 219296,
+    "published_sha256": "510ad2efba65df4128eb19510abd93be9108db9243eafb7f6247027ecf38f805",
+    "pixel_sha256": "a7bb31dc9e94b5725ac967aa02271c116974e3ee9d9f45634af25b9e0b7d2561",
+    "pixels_match_source": true
+  },
+  {
+    "amount": "1",
+    "source": "/var/folders/bw/4z3ppcbx3l751t_8rq17_0cc0000gn/T/codex-clipboard-ae5f7851-6b33-4a9a-8a65-10e0aae58d98.jpg",
+    "public": "public/assets/donation-1.jpg",
+    "size": [
+      1206,
+      2622
+    ],
+    "exif_keys": [],
+    "bytes": 208821,
+    "sha256": "aa94b67497e5a45ea4e60c7f27b9406321aa0a54667d5a184d1adf25d0c4c921",
+    "published_bytes": 208821,
+    "published_sha256": "aa94b67497e5a45ea4e60c7f27b9406321aa0a54667d5a184d1adf25d0c4c921",
+    "pixel_sha256": "893c6a2cce5a41aff028e466054da96a0e6a6afa973f284d4b354f09e0857f96",
+    "pixels_match_source": true
+  },
+  {
+    "amount": "5",
+    "source": "/var/folders/bw/4z3ppcbx3l751t_8rq17_0cc0000gn/T/codex-clipboard-a9c9d816-d673-4dac-9505-8b14b4b1f4e0.jpg",
+    "public": "public/assets/donation-5.jpg",
+    "size": [
+      1206,
+      2622
+    ],
+    "exif_keys": [],
+    "bytes": 208967,
+    "sha256": "223eea1918a62e0b633e0083d82ba536abbaa9d06b15e815311f2a5aaa883fa9",
+    "published_bytes": 208967,
+    "published_sha256": "223eea1918a62e0b633e0083d82ba536abbaa9d06b15e815311f2a5aaa883fa9",
+    "pixel_sha256": "dc0f986ed1cc73487371bba7ca753fa4f107ce11ce9034faa94c5f8f61f7a433",
+    "pixels_match_source": true
+  },
+  {
+    "amount": "20",
+    "source": "/var/folders/bw/4z3ppcbx3l751t_8rq17_0cc0000gn/T/codex-clipboard-1b3b8436-71b5-4281-a301-b7b885864278.png",
+    "public": "public/assets/donation-20.png",
+    "size": [
+      1206,
+      2622
+    ],
+    "exif_keys": [
+      296,
+      34665,
+      274,
+      306,
+      282,
+      283
+    ],
+    "bytes": 1602028,
+    "sha256": "353a23d3ec72fe6620176903c0a19fd3e666955417fe2734644ea9b5323175d3",
+    "published_bytes": 1601077,
+    "published_sha256": "a71983e65fc4be1eaa2cb33ab64c9c7bef9e3dadd9a40bf83f433061e1ad05c2",
+    "metadata_only_removed": [
+      "eXIf",
+      "iTXt"
+    ],
+    "pixels_unchanged": true,
+    "pixel_sha256": "73d0c022a976581cadb672abbd1a7a6f30b458e0cdb02fcafb9ad0f445f6d32c",
+    "pixels_match_source": true
+  },
+  {
+    "amount": "100",
+    "source": "/var/folders/bw/4z3ppcbx3l751t_8rq17_0cc0000gn/T/codex-clipboard-40632a75-3c66-49d4-a9fb-c17a945a298c.jpg",
+    "public": "public/assets/donation-100.jpg",
+    "size": [
+      1206,
+      2622
+    ],
+    "exif_keys": [],
+    "bytes": 210809,
+    "sha256": "2c28b03a1be656a3fc96353e93f11d2b095ae697676bedfe2668ad5260b216ed",
+    "published_bytes": 210809,
+    "published_sha256": "2c28b03a1be656a3fc96353e93f11d2b095ae697676bedfe2668ad5260b216ed",
+    "pixel_sha256": "f3369ef00f98390ec0d780d96ad523cc9d8778564919f62bea71987901e6c3a9",
+    "pixels_match_source": true
+  }
+]

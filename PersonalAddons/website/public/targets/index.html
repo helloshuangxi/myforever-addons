@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#173b2e">
+<title>目标选择 MyForeverTargets — 魔兽世界无限友方与敌方目标面板</title>
+<meta name="description" content="把团队、小队、附近玩家与可见敌人放进紧凑血量格子，查看资源、相关增益减益和敌人的目标。支持目标与焦点操作、独立面板开关；普通技能悬停兼容仅限脱战，详见试用版验证范围。">
+<link rel="canonical" href="https://afabiaoge.xyz/targets/">
+<meta property="og:title" content="MyForeverTargets · 目标选择">
+<meta property="og:description" content="友方与敌方各有一块紧凑面板，血量、资源与相关效果集中显示。试用版公开下载，附已验证操作与当前限制。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://afabiaoge.xyz/targets/">
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/targets/style.css">
+<script src="/script.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">跳到正文</a>
+<header class="site-header">
+  <a class="brand" href="/">我的无限<span>Hyder 的魔兽插件</span></a>
+  <nav aria-label="主导航"><a href="/">插件首页</a><a href="/targets/" aria-current="page">目标选择</a><a href="/manager/">插件管理器</a><a href="#install">安装</a><a href="#updates">更新</a><a href="/#community">建议楼</a></nav>
+</header>
+<main id="main">
+<section class="targets-hero" aria-labelledby="hero-title">
+  <div class="targets-intro">
+    <p class="eyebrow">MyForeverTargets · 目标选择</p>
+    <h1 id="hero-title">身边的目标，<br>一眼看清。</h1>
+    <p class="lead">友方和敌方分开排列。每个格子就是血条，名字用职业颜色区分，资源和与你相关的效果放在格子里；敌人正在看谁，留给下方的小条。</p>
+    <!-- release:hero-download:start --><a class="button" href="/downloads/MyForeverTargets-0.1.46-Trial.zip" download>下载 v0.1.46 试用版 <span aria-hidden="true">↗</span></a><p class="download-meta">2026-11-12 发布 · 175.5 KiB<br>适配 1.60.1 / Interface 16001（Apple 芯片 Mac 已有游戏实测；本机客户端 build 70888，Windows 游戏客户端待独立验证） / Interface 16001</p><!-- release:hero-download:end -->
+    <a class="text-link" href="/manager/">通过最新版插件管理器安装与更新 <span aria-hidden="true">↗</span></a>
+    <a class="scope-link" href="#compatibility">普通技能悬停仅限脱战，先看兼容范围 <span aria-hidden="true">↓</span></a>
+  </div>
+  <figure class="targets-preview" aria-labelledby="preview-caption">
+    <div class="preview-heading"><span class="targets-glyph" aria-hidden="true">目</span><div><p>一枚「目」字，开关两侧面板</p><span>初始位于屏幕左侧，可拖动保存位置</span></div></div>
+    <div class="mock-panel" aria-label="友方面板局部示意">
+      <div class="mock-toolbar"><strong>友方</strong><span class="mock-tab">附近</span><span>5 · 10 · 20</span><span class="mock-close" aria-hidden="true">×</span></div>
+      <div class="mock-grid">
+        <div class="mock-unit mock-target health-full"><span class="class-priest">角色甲</span><small>100%</small><div class="mock-effects" aria-hidden="true"><i></i><i></i></div><b class="mock-resource mana" aria-hidden="true"></b></div>
+        <div class="mock-unit mock-focus health-three-quarter"><span class="class-paladin">角色乙</span><small>76%</small><div class="mock-effects" aria-hidden="true"><i></i></div><b class="mock-resource mana" aria-hidden="true"></b></div>
+        <div class="mock-unit health-half"><span class="class-rogue">角色丙</span><small>54%</small><div class="mock-effects" aria-hidden="true"><i class="effect-harm"></i><i class="effect-dispel"></i></div><b class="mock-resource energy" aria-hidden="true"></b></div>
+        <div class="mock-unit health-full"><span class="class-warrior">角色丁</span><small>100%</small><b class="mock-resource rage" aria-hidden="true"></b></div>
+        <div class="mock-unit health-three-quarter"><span class="class-mage">角色戊</span><small>76%</small><b class="mock-resource mana" aria-hidden="true"></b></div>
+      </div>
+    </div>
+    <div class="mock-panel" aria-label="敌方面板局部示意">
+      <div class="mock-toolbar"><strong>敌方</strong><span>5 · 10 · 20</span><span class="mock-close" aria-hidden="true">×</span></div>
+      <div class="mock-grid mock-enemies">
+        <div><div class="mock-unit health-three-quarter"><span>怪物甲</span><small>76%</small><div class="mock-effects" aria-hidden="true"><i class="effect-harm"></i></div></div><div class="mock-subtarget"><span class="class-priest">→ 角色甲</span><b aria-hidden="true"></b></div></div>
+        <div><div class="mock-unit health-half"><span>怪物乙</span><small>54%</small></div><div class="mock-subtarget"><span class="class-paladin">→ 角色乙</span><b aria-hidden="true"></b></div></div>
+        <div><div class="mock-unit health-full"><span>怪物丙</span><small>100%</small></div><div class="mock-subtarget"><span class="class-rogue">→ 角色丙</span><b aria-hidden="true"></b></div></div>
+        <div class="mock-empty" aria-hidden="true"></div><div class="mock-empty" aria-hidden="true"></div>
+      </div>
+    </div>
+    <div class="preview-legend"><span><i class="target-key" aria-hidden="true"></i>红框：当前目标</span><span><i class="focus-key" aria-hidden="true"></i>黄框：当前焦点</span></div>
+    <figcaption id="preview-caption">界面示意，非游戏截图。名称与数值均为示例；只展示一行格子。</figcaption>
+  </figure>
+</section>
+<section class="compatibility-note" id="compatibility" aria-labelledby="compatibility-title">
+  <h2 id="compatibility-title">普通技能悬停：仅限脱战</h2>
+  <div><p>启用“施法”后，悬停格子并按普通技能键，插件会<strong>临时选中该单位、施法，再恢复原目标</strong>。附近友方治疗／增益及原目标恢复已有用户实测；<strong>敌方与敌人的目标条施法尚未验证成功</strong>。</p><p>这不是原生 <code>@mouseover</code> 的完整修复，也不提供战斗中的悬停施法保证。同名怪物不能仅凭名称精确区分；发现歧义或无法确认唯一时，不准备名称选择施法。已有宏保持原样。</p></div>
+</section>
+<section class="page-section targets-features" id="features" aria-labelledby="features-title">
+  <div class="section-intro"><h2 id="features-title">名单分开，<br>信息放进格子。</h2><p>主格保持紧凑的 76 × 58，间距只有 1 像素。敌人的目标另用 76 × 26 小条，只显示姓名、职业和血量。</p></div>
+  <div class="roster-table-wrap"><table class="roster-table"><caption>各名单支持的对象与容量</caption><thead><tr><th scope="col">面板</th><th scope="col">名单</th><th scope="col">展示对象</th><th scope="col">格子数量</th></tr></thead><tbody><tr><th scope="row">友方</th><td>团队</td><td>团队玩家</td><td>20</td></tr><tr><th scope="row">友方</th><td>小队</td><td>小队玩家，含自己</td><td>5</td></tr><tr><th scope="row">友方</th><td>附近</td><td>可识别的附近玩家</td><td>5 / 10 / 20</td></tr><tr><th scope="row">敌方</th><td>单一名单</td><td>敌方玩家与怪物</td><td>5 / 10 / 20</td></tr></tbody></table></div>
+  <p class="table-note">附近名单受客户端可见姓名板与单位识别范围限制。已知距离由近到远排列，未知距离放后面；悬停时暂缓所在名单重排，战斗中冻结布局。</p>
+  <div class="feature-columns">
+    <article><h3>血量与资源，放在一处</h3><p>整格显示血量，底部细条显示法力、能量或怒气。玩家名字使用职业颜色；当前目标加红框，当前焦点加黄框，同时成立时两种框均保留。</p></article>
+    <article><h3>只留下相关效果</h3><p>显示自己（含本人宠物、载具）施加的限时增益和减益；友方还显示自己能驱散的减益，以黄色角点提示。常驻光环和采集追踪隐藏。</p><p>增益、减益各一排小图标，每排可见 6 枚，更多效果用滚轮查看。敌人的目标小条不放效果图标。</p></article>
+    <article><h3>需要哪边，就开哪边</h3><p>两侧各有关闭按钮。左侧玉绿色“目”字图标始终保留，左键打开开关菜单，右键快速显示／隐藏两边；图标和面板都能拖动保存位置。</p><p>战斗中的面板开关和布局调整等待脱战后应用；拖动在脱战时进行。</p></article>
+  </div>
+</section>
+<section class="install page-section" id="install" aria-labelledby="install-title">
+  <div class="section-intro"><h2 id="install-title">安装后，<br>从左侧「目」字打开。</h2><p>适配国服《魔兽世界：无限》1.60.1 / Interface 16001。首次安装请完整退出并重新启动游戏。</p></div>
+  <div class="targets-install-options">
+    <article><h3>使用插件管理器</h3><ol><li>从<a href="/manager/">管理器下载页</a>取得支持目标选择的最新版。旧管理器需先替换程序。</li><li>选择无限客户端目录，在列表勾选“目标选择”。</li><li>退出游戏后安装或更新，再启动游戏；管理器只处理选中的插件。</li></ol><p>管理器会校验下载包，并保留 WTF 与其他插件。</p></article>
+    <article><h3>手动安装 ZIP</h3><ol><li>从本页下载目标选择试用版，完整退出游戏后解压。</li><li>将 <code>MyForeverTargets</code> 文件夹放进 <code>_forever_/Interface/AddOns/</code>。</li><li>确认 <code>MyForeverTargets.toc</code> 直接位于该文件夹内，避免多套一层目录，然后重新启动游戏。</li></ol><p>更新时保留原有 WTF 与 SavedVariables；安装包已包含所需距离库。</p></article>
+  </div>
+</section>
+<section class="usage page-section" id="usage" aria-labelledby="usage-title">
+  <div class="section-intro"><h2 id="usage-title">点击管理目标，<br>拖到顺手的位置。</h2><p>友方、敌方与敌人的目标条采用同一套点击操作。常用说明放在游戏内浮层，面板只留必要按钮。</p></div>
+  <div class="usage-layout"><div class="usage-notes">
+    <article><h3>左键目标，右键焦点</h3><p>左键选为当前目标，右键设为焦点，Ctrl + 右键打开标记菜单。再次点击同一格不会取消目标或焦点；操作结果以游戏实际选中状态为准。</p><p>附近单位的名称兼容焦点操作需要脱战。同名怪物可按提示多次右键：每次推进一个目标，插件按 GUID 核验，找到后设置焦点，再恢复原目标；请等到流程提示完成。战斗中的自动匹配焦点尚未实现。标记还取决于单位识别和当前队伍权限。</p></article>
+    <article><h3>关闭后，也能随时找回</h3><p>面板“×”只关闭对应一侧；从“目”字菜单分别打开友方、敌方，或全部打开。脱战拖动标题栏与独立图标，位置及关闭状态会保存，重载后继续保留。新安装的友方面板位于屏幕左侧偏上；更新保留已手动保存的位置。</p></article>
+    <article><h3>脱战普通技能兼容开关</h3><p>两侧“施法”按钮控制同一个开关。只接入普通治疗／增益或伤害技能，不接入已有宏、物品、鼠标按键技能及其他插件占用的键。技能仍受距离、视线、朝向与游戏规则限制。</p><p>临时选中会改变 <code>lasttarget</code> 历史。移开、隐藏、单位失效或进入战斗后交还原按键；不创建或改写玩家宏。敌方与子目标路径请按上方兼容范围看待。</p></article>
+  </div><div class="command-list"><h3>常用命令</h3><p>点击复制，粘贴到游戏聊天框执行。</p><dl>
+    <div><dt><button class="copy-command" data-copy="/mytargets show" type="button"><code>/mytargets show</code><span>复制</span></button></dt><dd>显示两侧面板</dd></div>
+    <div><dt><button class="copy-command" data-copy="/mytargets hide" type="button"><code>/mytargets hide</code><span>复制</span></button></dt><dd>隐藏两侧面板，保留独立图标</dd></div>
+    <div><dt><button class="copy-command" data-copy="/mytargets reset" type="button"><code>/mytargets reset</code><span>复制</span></button></dt><dd>恢复面板与图标位置，并打开两侧</dd></div>
+    <div><dt><button class="copy-command" data-copy="/mytargets legacycast on" type="button"><code>/mytargets legacycast on</code><span>复制</span></button></dt><dd>开启脱战普通技能悬停兼容</dd></div>
+    <div><dt><button class="copy-command" data-copy="/mytargets legacycast off" type="button"><code>/mytargets legacycast off</code><span>复制</span></button></dt><dd>关闭普通技能悬停兼容</dd></div>
+  </dl><p class="copy-status" role="status" aria-live="polite"></p></div></div>
+</section>
+<section class="updates page-section" id="updates" aria-labelledby="updates-title">
+  <div class="section-intro"><h2 id="updates-title">下载与验证记录</h2><p>目标选择独立维护版本、安装包和更新记录。试用版会明确区分游戏实测、模拟检查与仍待验证的功能。</p></div>
+  <div class="release-layout">
+    <!-- release:latest:start --><article class="latest-release"><h3>v0.1.46 · 试用版</h3><p class="release-date">2026-11-12</p><ul><li>发布当前已验证功能基线：脱战悬停友方格子，按普通治疗／增益技能键，临时选中施法后恢复原目标。新装默认启用，原有关闭设置继续保留；已有宏保持原按键与内容。</li><li>完善脱战焦点流程：同名敌方怪物可按提示多次右键，插件逐次按 GUID 匹配，确认后设为焦点并恢复原目标；合并设焦点和首步恢复，减少一次点击。</li><li>左键选择目标，右键设焦点，Ctrl＋右键打开标记菜单；目标红框、焦点黄框保留。脱战附近名称焦点增加身份核验。</li><li>调整新安装友方面板的初始位置，避开已实测视口中的动作条；升级保留手动位置。继续使用紧凑血量／资源格、相关 buff／debuff、敌人目标小条和独立开关。</li><li>本次不包含未验证的原生姓名板缩放探针。战斗中任意怪物按 GUID 自动设焦点仍未解决；敌方及敌人的目标条普通技能悬停尚未验证成功。</li></ul><a class="button" href="/downloads/MyForeverTargets-0.1.46-Trial.zip" download>下载 v0.1.46 试用版 <span aria-hidden="true">↗</span></a><p class="package-meta">ZIP · 179,731 字节 · 包内仅含插件代码、第三方库及许可、使用说明和验证范围；不含 WTF、SavedVariables、个人配置或日志。日志默认关闭，主动启动焦点流程时会在本机记录诊断。</p></article><!-- release:latest:end -->
+    <div class="release-detail"><h3>下载校验</h3><p>安装包包含插件源码、所需库、说明与许可；不包含 WTF、SavedVariables 或游戏日志。</p>
+      <!-- release:checksum:start --><div class="checksum"><span>SHA-256</span><code>5c5865a8dc8f850bde6b359f5729a7195c48eb49b4ea42c0812002ec521634bf</code></div><!-- release:checksum:end -->
+      <a class="text-link" href="/targets/latest.json">查看版本信息 JSON</a>
+      <h3 class="validation-heading" id="validation">当前验证范围</h3>
+      <!-- release:validation:start --><p>本包以已实测的 0.1.44 功能代码为基线，仅更新版本与公开说明；0.1.45 未验证的缩放探针及接入代码未纳入。23 个 Lua 文件语法及 19 套 9820 项模拟检查通过，模拟不等同游戏实测。</p><p>用户已验证附近友方脱战悬停后按普通治疗／增益技能施放成功，并恢复原目标。不是任意格子的原生 @mouseover 修复；临时选中会改变 lasttarget 历史。进入战斗后交还原技能键。</p><p>同名敌人脱战 GUID 匹配：0.1.43 合并流程非空原目标 A→焦点 B→恢复 A，六轮中五轮完成、一次中止；五次完成均为两次右键。0.1.42 分步流程的空原目标四轮完成；空原目标合并流程与更多步恢复仍待独立实测。</p><p>0.1.44 日常游戏日志中两次脱战名称焦点成功、三次重复右键保留已有焦点。七次战斗内名称焦点尝试被脱战限制拒绝，未将其标为修复。</p><p>用户确认友方面板新位置正常；1920×1080、两侧各 5 格的七份布局观测均位于视口内且未与六个可见原生动作条相交。其他分辨率、20 格布局及第三方动作条需继续验证。</p><p>已有游戏验证覆盖附近玩家左键、焦点黄框、拖动保存、血量／资源及常驻光环隐藏。可驱散减益、大量效果滚动、全部子目标与战斗场景尚未完整实测；Windows 游戏客户端尚未独立验证。</p><!-- release:validation:end -->
+    </div>
+  </div>
+  <div class="history"><h3>版本记录</h3><!-- release:history:start --><details><summary><span>v0.1.37</span><span>2026-11-11</span></summary><p>首次公开发布目标选择：友方分团队 20 格、小队 5 格、附近 5／10／20 格；敌方玩家和怪物共用 5／10／20 格面板，按可用距离信息排列。</p><p>紧凑长方形格子显示姓名、职业颜色、整格血量与资源条；保留与自己相关的 buff／debuff、友方可驱散提示，隐藏常驻光环；敌人的目标使用独立小条。</p><p>左键选择目标，右键设为焦点，Ctrl＋右键打开标记菜单；当前目标和焦点分别显示边框。</p><p>友方与敌方面板各有关闭按钮，屏幕左侧统一“目”字图标可重新打开；保存拖动位置与开关状态，战斗期间布局和开关变更延后应用。</p><p>脱战普通技能兼容采用短暂选择悬停单位并恢复原目标的方案。敌方及敌人的目标条施法尚未验证成功，原生 @mouseover 识别不作为已实现能力。</p></details><!-- release:history:end --></div>
+</section>
+</main>
+<footer class="site-footer"><a class="brand" href="/">我的无限<span>Hyder 的魔兽插件</span></a><p>为国服《魔兽世界：无限》制作的独立插件。<br>本网站与暴雪娱乐无隶属关系。</p><a href="/#community">建议与反馈</a></footer>
+</body>
+</html>

@@ -1,0 +1,46 @@
+{
+  "status": "passed",
+  "checked_at": "2026-11-13T10:34:23.688782+00:00",
+  "manager_version": "0.2.1",
+  "navigator_version": "0.4.0",
+  "passed": 71,
+  "failed": 0,
+  "process_exit_code": 0,
+  "scope": "manager isolated fixture checks plus live HTTPS official package install/update/backup/restore; no real game installation",
+  "real_game_directory_tested": false,
+  "log": "PersonalAddons/work/navigator-0.4.0/manager-public-0.2.1-live.log",
+  "site_root": "PersonalAddons/work/navigator-0.4.0-site/public",
+  "package": {
+    "filename": "MyForeverNavigator-0.4.0-Trial.zip",
+    "sha256": "d7f849601b9a2da73873c48e8960e0e95fdac47bf3ad68e132421b055d993b67",
+    "bytes": 580740
+  },
+  "live_checks": [
+    "live HTTPS check and install official MyForeverChat into isolated fixture",
+    "live HTTPS check and install official MyForeverProfessions into isolated fixture",
+    "live HTTPS check and install official MyForeverNavigator into isolated fixture",
+    "live HTTPS check and install official MyForeverTargets into isolated fixture",
+    "live HTTPS MyForeverNavigator update, backup and restore in isolated fixture",
+    "live HTTPS MyForeverTargets update, backup and restore in isolated fixture"
+  ],
+  "previous_workspace_run": {
+    "passed": 71,
+    "failed": 0,
+    "log": "PersonalAddons/work/navigator-0.4.0/manager-live.log",
+    "scope": "Current workspace source test run; Desktop source is 0.3.1 and Core.Models.cs differs from public frozen 0.2.1; not used as evidence for the public manager version."
+  },
+  "source_root": "PersonalAddons/Manager/artifacts/source/targets-0.2.1/Manager",
+  "source_provenance": "Public 0.2.1 frozen source; rebuilt test project in Release configuration before running.",
+  "frozen_source_sha256": {
+    "global.json": "1b33cc591138f2d00721e6779af509d66e1c4a21048c75d080c0c200b11cfca3",
+    "Core/UpdateService.cs": "eed2800161c6438f8945c87915667edbb1e7f8731ee05d76daaf174744ed98cc",
+    "Core/Models.cs": "1712def3342b4bc2acd8ea6b51e30e7dd872c2f225867317c630323cd8d127ef",
+    "Core/MyForeverManager.Core.csproj": "9b8458580be4e786dd73ed606f80627ab81a4545fbe8834e205dc430a56e7544",
+    "Core/GamePaths.cs": "649b65d2a15571466bd714e9d93f48fb4e4c70ea5ee3352e359e52cb54ee1d93",
+    "Tests/MyForeverManager.Tests.csproj": "d05567d63c5c3827d912d5d535ce20c8ae4f2c7e6a529ea7d69946c8d2492cd6",
+    "Tests/Program.cs": "386a0893349ba65e2aef96ea16848750364ca5f34b67f14f397e93b3e9247478",
+    "Desktop/MainWindow.cs": "aafa6549bcf84d9bc332f0087eeb25484324f827f79f1c3522f281d4dae5e04d",
+    "Desktop/MyForeverManager.Desktop.csproj": "40882a935ea637612149abd64096c357f19350c5f2138b4feedb9fd642aaae04",
+    "Desktop/Program.cs": "d29b9b2ce53469364e412f0e3ad0abc53dbb26d46725c7f533e1f68242bbb856"
+  }
+}

@@ -1,0 +1,12 @@
+## Interface: 16001
+## Title: MyForever |cff70d6cc个人宏工坊|r
+## Notes: 从本角色法术本生成可预览的个人宏。/mypriest 牧师页，/mymacro 通用入口，/myseal 圣印提醒。
+## Author: mashuangxi & Codex
+## Version: 0.2.2
+## SavedVariablesPerCharacter: MyForeverSealDB
+
+Templates.lua
+Core.lua
+Priest.lua
+Main.lua
+PaladinSeal.lua

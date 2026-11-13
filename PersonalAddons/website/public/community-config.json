@@ -1,0 +1,32 @@
+{
+  "author": {
+    "name": "Hyder",
+    "email": "267500@qq.com",
+    "avatar_url": "assets/hyder-avatar-illustration.jpg",
+    "server": "PVE普通",
+    "faction": "联盟",
+    "guild": "炉边余客",
+    "character": "苏氏集团苏晚晴"
+  },
+  "donation": {
+    "enabled": true,
+    "qr_url": "",
+    "qr_presentation": "alipay-screenshot",
+    "provider": "支付宝",
+    "recipient": "老石水饺（**喜）",
+    "amounts": {
+      "1": {
+        "qr_url": "assets/donation-1.jpg"
+      },
+      "5": {
+        "qr_url": "assets/donation-5.jpg"
+      },
+      "20": {
+        "qr_url": "assets/donation-20.png"
+      },
+      "100": {
+        "qr_url": "assets/donation-100.jpg"
+      }
+    }
+  }
+}

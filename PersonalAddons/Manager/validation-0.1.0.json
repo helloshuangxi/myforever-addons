@@ -1,0 +1,66 @@
+{
+  "version": "0.1.0",
+  "date": "2026-11-07",
+  "build_sdk": "10.0.403",
+  "core_tests": {
+    "macos_arm64": {
+      "passed": 61,
+      "failed": 0
+    },
+    "linux_x64": {
+      "passed": 60,
+      "failed": 0
+    }
+  },
+  "website_tests": {
+    "passed": 47,
+    "failed": 0
+  },
+  "native_ui": {
+    "platform": "macOS arm64",
+    "isolated_fixture": true,
+    "passed": [
+      "first-run directory persistence",
+      "invalid directory rejection",
+      "native folder picker",
+      "manual MyForeverChat 0.8.2 -> 0.9.1",
+      "automatic MyForeverProfessions 0.4.2 -> 0.4.3",
+      "restore MyForeverChat 0.9.1 -> 0.8.2",
+      "auto update disabled on restore",
+      "WTF sentinel preserved",
+      "cancel directory change refresh",
+      "exit"
+    ]
+  },
+  "unverified": [
+    "Windows native runtime",
+    "Intel Mac native runtime",
+    "full 30 minute timer wait",
+    "full 60 second post-game-exit retry wait",
+    "Gatekeeper flow after browser quarantine"
+  ],
+  "packages": [
+    {
+      "filename": "MyForeverManager-0.1.0-Trial-osx-arm64.zip",
+      "size_bytes": 41195262,
+      "sha256": "d179648ea4e81ddbbd9d3faf65a6768ad7549b4f8f1da61894380d591ff5e8b5"
+    },
+    {
+      "filename": "MyForeverManager-0.1.0-Trial-osx-x64.zip",
+      "size_bytes": 43681565,
+      "sha256": "54b96c0b734c831a7e901f9c2d8e767ecc9d895a26e9ee4bd5439ceaa4a5d6f8"
+    },
+    {
+      "filename": "MyForeverManager-0.1.0-Trial-win-x64.zip",
+      "size_bytes": 41644299,
+      "sha256": "493fc5cd8573620fb64d77771068e4e9021c57f52e176f2152abba9cd10aa6d7"
+    }
+  ],
+  "publication": {
+    "status": "passed",
+    "release": "20261107T045154Z",
+    "url": "https://afabiaoge.xyz/manager/",
+    "public_https_files_checked": 60,
+    "external_checks": 9
+  }
+}

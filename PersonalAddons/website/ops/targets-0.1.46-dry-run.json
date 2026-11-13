@@ -1,0 +1,15 @@
+{
+  "status": "dry-run",
+  "name": "MyForeverTargets",
+  "version": "0.1.46",
+  "changed_files": [
+    "targets/index.html",
+    "targets/latest.json",
+    "targets/releases.json",
+    "downloads/MyForeverTargets-0.1.46-Trial.zip",
+    "downloads/MyForeverTargets-0.1.46-Trial.zip.sha256",
+    "index.html",
+    "sitemap.xml"
+  ],
+  "sha256": "5c5865a8dc8f850bde6b359f5729a7195c48eb49b4ea42c0812002ec521634bf"
+}

@@ -1,0 +1,122 @@
+{
+  "version": "0.4.7-dev.7",
+  "checkedAt": "2026-11-09T17:27:29.339745+08:00",
+  "state": "local_ui_acceptance_passed_publication_held",
+  "scope": "Resize changes window width/height and available content without changing font scale; open skill book fixed in the top toolbar.",
+  "sourceHashes": {
+    "_forever_/Interface/AddOns/MyForeverProfessions/API.lua": "477b6a1c5d6660ff8661bf09779c2da1157f299da4a6445fe2577c81656a0200",
+    "_forever_/Interface/AddOns/MyForeverProfessions/Core.lua": "abb64fa194e0e7881e1e2f4094a0bac22977ff6290988acc1243dcff892ea5a8",
+    "_forever_/Interface/AddOns/MyForeverProfessions/GatherAlerts.lua": "084402e6eedce7417fa6e1b60bb04d34bacbf2a6c9699dbfc4b328117139e7fb",
+    "_forever_/Interface/AddOns/MyForeverProfessions/GatherResources.lua": "a3f660faf0a0196f28c352f7d0d84887cfbfd84c14a58274270dd2716e91a11b",
+    "_forever_/Interface/AddOns/MyForeverProfessions/GatherScan.lua": "17dad376447cbad1cfbe3ed9ca06d36c669657e5cf99dee9d9ac83f4d493db09",
+    "_forever_/Interface/AddOns/MyForeverProfessions/GatherSparkles.lua": "12be44acd612a9668c92dc822387c4c8b94f5fadcebfa55efef77aa73ff11899",
+    "_forever_/Interface/AddOns/MyForeverProfessions/ItemLinks.lua": "4f80ae78bd5c82e6b9bcda8af711729b052279838055da94a61956a6173f476c",
+    "_forever_/Interface/AddOns/MyForeverProfessions/Main.lua": "cec37fd134f17c7f8b0b45289a2a2643da657016e0ef0206bf9649e406863a41",
+    "_forever_/Interface/AddOns/MyForeverProfessions/TrainerPins.lua": "4e47f9d79858bc9a3dee869e2df69cfd32a2b7e58752537bdcf42efd10208bbf",
+    "_forever_/Interface/AddOns/MyForeverProfessions/Trainers.lua": "49fd00450a90b6cfe960fc6555bb166faa3c45ed9f02f276407bc6393fe0aa3c",
+    "_forever_/Interface/AddOns/MyForeverProfessions/UI.lua": "a3e0a346a7584b5bcc86683aa030d6faaa0cf6884e557063235cb23dbe4afa5b",
+    "_forever_/Interface/AddOns/MyForeverProfessions/MyForeverProfessions.toc": "da3cda9db491b8464e32dfedaeb271b71b8f8805068be3e852c49c74da13b07d",
+    "PersonalAddons/tests/professions_core_test.lua": "1f7c6f7a8521274eca4d64c712b48a648f79dbcd2e83413e44f5f3f002010716",
+    "PersonalAddons/tests/professions_ui_test.lua": "fd39448bada1255369d9fde1f238beb684787c7391207fd44fb347ed8f54a56f",
+    "PersonalAddons/tests/professions_main_test.lua": "018df6f94c387d5294cbc0e04dc0066ae8aa54938240c77320270f711e809647"
+  },
+  "checks": {
+    "luaSyntaxFiles": 11,
+    "simulated": 1903,
+    "bySuite": {
+      "api": 188,
+      "core": 120,
+      "display": 13,
+      "gatherAlerts": 77,
+      "gatherScan": 469,
+      "gatherSparkles": 209,
+      "itemLinks": 82,
+      "main": 189,
+      "trainerPins": 162,
+      "trainers": 69,
+      "ui": 325
+    },
+    "output": "full-test-output.txt",
+    "command": "PersonalAddons/.venv/bin/python PersonalAddons/run_professions_tests.py"
+  },
+  "independentReview": {
+    "result": "passed",
+    "scope": "Core/Main persistence and reset; responsive cached-frame widths, immutable drag font scale, fixed toolbar targeting, Esc/hide reentrancy, active-handle reset and late release after reset.",
+    "limitations": "Static and simulated only; no game input or runtime visual verification."
+  },
+  "preview": {
+    "report": "preview/report.json",
+    "comparison": "preview/size-comparison.png",
+    "views": 30,
+    "limitations": [
+      "真实 Core.lua 与 UI.lua 在 Lupa Lua 5.1 中执行；虚构专业与物品样本，不读取角色数据。",
+      "使用系统中文替代字体，WoW 字体、字距及 GetStringHeight 可能不同；需游戏内确认。",
+      "仅记录 frame API 与锚点。背景为实参近似色块，图标与状态条纹理为占位，不仿造游戏截图。",
+      "窗口为340×260、372×474、700×800，均使用scale=1；不验证真实鼠标拖动、屏幕钳制、Esc与游戏像素。"
+    ],
+    "rootViewed": [
+      "size-comparison.png",
+      "long-alternative-340x260-bottom.png",
+      "unlearned-372x474-top.png",
+      "long-alternative-700x800-top.png"
+    ],
+    "rootFinding": "No observed text collision in the viewed mock images; equal font size and increased content area clearly visible; toolbar stayed above scrolling content."
+  },
+  "settings": {
+    "savedDimensions": [
+      "windowWidth",
+      "windowHeight"
+    ],
+    "default": [
+      372,
+      474
+    ],
+    "normalMin": [
+      340,
+      260
+    ],
+    "normalMax": [
+      900,
+      900
+    ],
+    "screenBound": true,
+    "fontScaleChangedByResize": false,
+    "legacyExplicitScaleCommandPreserved": true,
+    "alertSoundSparklePreferencesChanged": false
+  },
+  "game": {
+    "operated": true,
+    "started": false,
+    "reloaded": false,
+    "newInteractionVerified": true,
+    "gatherModulesChanged": false,
+    "automaticMinimapDiscoveryVerified": false,
+    "newInteractionVerificationBasis": "Real-client callback/render observations plus explicit user-performed drag and click confirmation"
+  },
+  "publication": {
+    "allowed": false,
+    "publicZipCreated": false,
+    "websiteModified": false,
+    "deployed": false,
+    "reason": "User explicitly still requires no publication; UI test confirmation alone does not authorize release.",
+    "existing046ZipSha256": "6d1e93b4d9865216d46d532770813b38572692134a8dd16333f87d864cf62bb6"
+  },
+  "runtimeValidation": {
+    "receipt": "runtime-ui-check-20261109.json",
+    "result": "passed_for_window_resize_and_fixed_book_entry",
+    "automatedEvidence": "Real-client button callbacks and visible mining/cooking pages; size and font readings recorded.",
+    "manualEvidence": {
+      "confirmedAt": "2026-11-09T21:35:15.532064+08:00",
+      "performedBy": "user",
+      "userReply": "拉伸和按钮都正常",
+      "criteria": [
+        "Directly drag the bottom-right grip wider and taller",
+        "Font size remains unchanged while more content becomes visible",
+        "Click the fixed top skill-book button to open the selected learned profession"
+      ],
+      "agentPerformedPhysicalMouseGesture": false,
+      "basis": "Explicit user response to the pending manual test question. No additional game input after the user response."
+    },
+    "gatheringAcceptanceChanged": false
+  }
+}

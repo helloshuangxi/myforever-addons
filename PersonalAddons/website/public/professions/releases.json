@@ -1,0 +1,267 @@
+{
+  "schema_version": 1,
+  "name": "MyForeverProfessions",
+  "latest": "0.4.6",
+  "releases": [
+    {
+      "schema_version": 1,
+      "name": "MyForeverProfessions",
+      "display_name": "我的无限 · 商业技能助手",
+      "homepage": "https://afabiaoge.xyz/professions/",
+      "installation": "完整退出游戏，将 MyForeverProfessions 文件夹放入 _forever_/Interface/AddOns/，保留 WTF，然后重新启动游戏。",
+      "automatic_install": false,
+      "version": "0.4.6",
+      "channel": "trial",
+      "published_at": "2026-11-08",
+      "compatibility": {
+        "product": "国服魔兽世界：无限",
+        "client": "1.60.1",
+        "interface": 16001
+      },
+      "changes": [
+        "补充原生交互目标识别：客户端未生成资源姓名板时，已确认且技能足够的矿草仍可触发近距离文字和声音；闪光继续跟随真实姓名板。",
+        "改进交互目标与姓名板切换时的声音去重，避免同一目标重复提醒，或误将不同可识别矿点的声音一起抑制。",
+        "状态命令分别显示闪光数量、近距离资源种类和声音调用次数，便于确认当前识别情况。",
+        "已在真实铜矿旁确认自动“铜矿／就在附近”提示和描边闪光。本次按头顶提示出现验收；小地图方向仍未恢复，实际声音听感待确认。"
+      ],
+      "validation": [
+        "11 个 Lua 文件语法检查、1254 项模拟检查通过（近距离专项 209 项）；独立复核另有 27 项断言通过，覆盖无姓名板识别、来源顺序、失败重试与声音去重。",
+        "macOS 无限 1.60.1（build 70862）中，加载相同功能源码的 0.4.6-dev.1 后，靠近并面向真实铜矿时自动出现“铜矿／就在附近”和金色描边闪光；矿点消失后提示与特效清除。客户端记录近距离声音调用成功 3 次，用户未留意实际声音，并明确以头顶提示出现作为本次验收标准。",
+        "无姓名板回退在模拟中通过，现场触发时可见姓名板闪光，尚未隔离实测该回退路径。可靠方向、实际声音听感、草药、更多地形及其他操作系统仍待验证；本版不代表完整小地图找矿恢复。"
+      ],
+      "package_note": "插件源码、MIT 许可、使用说明和脱敏验证摘要；不含角色配置或聊天数据",
+      "download": {
+        "url": "https://afabiaoge.xyz/downloads/MyForeverProfessions-0.4.6-Trial.zip",
+        "filename": "MyForeverProfessions-0.4.6-Trial.zip",
+        "size_bytes": 57254,
+        "sha256": "6d1e93b4d9865216d46d532770813b38572692134a8dd16333f87d864cf62bb6"
+      }
+    },
+    {
+      "schema_version": 1,
+      "name": "MyForeverProfessions",
+      "display_name": "我的无限 · 商业技能助手",
+      "homepage": "https://afabiaoge.xyz/professions/",
+      "installation": "完整退出游戏，将 MyForeverProfessions 文件夹放入 _forever_/Interface/AddOns/，保留 WTF，然后重新启动游戏。",
+      "automatic_install": false,
+      "version": "0.4.5",
+      "channel": "trial",
+      "published_at": "2026-11-08",
+      "compatibility": {
+        "product": "国服魔兽世界：无限",
+        "client": "1.60.1",
+        "interface": 16001
+      },
+      "changes": [
+        "新增近距离矿草提示：原生接口确认可采资源时显示矿名和“就在附近”，并提供带深色描边的大闪光。",
+        "保留无法定位的矿名线索，明确标注“位置待确认 · 暂无方向”；此状态不播放发现声音，也不表示附近一定有矿。",
+        "加入近距离提示音、重复提醒间隔及有效位置恢复后的自动导航切换。方向当前仍未恢复，自动声音待矿旁实测；本次先开放附近提示试用。",
+        "修复主面板锁定时“商”图标无法拖动的问题；图标可直接左键拖动，松开不误展开，位置自动保存。"
+      ],
+      "validation": [
+        "11 个 Lua 文件通过语法检查，1167 项模拟检查通过（其中 UI 138 项）。覆盖提示来源切换、异常定位过滤、声音去重，以及图标在主面板锁定时拖动、释放兜底和点击展开。",
+        "macOS 无限 1.60.1（build 70862）已分别实测铜矿描边闪光、大小和开关、重载保存，以及矿名线索弹框、提醒开关和手动方向预览。采集功能沿用该开发版源码；本次图标拖动修复尚未完成游戏内鼠标实测。",
+        "当前近距离“就在附近”分支与自动声音尚未完成矿旁验收，未确认实际听到提示音；可靠矿点方向仍未恢复。草药、更多地形及其他操作系统未实测。用户已授权先发布此范围的试用版。"
+      ],
+      "package_note": "插件源码、MIT 许可、使用说明和脱敏验证摘要；不含角色配置或聊天数据",
+      "download": {
+        "url": "https://afabiaoge.xyz/downloads/MyForeverProfessions-0.4.5-Trial.zip",
+        "filename": "MyForeverProfessions-0.4.5-Trial.zip",
+        "size_bytes": 56401,
+        "sha256": "c6861f5b6ad9051a55c97dd83c7d92fb0012623b6bd6d79885dc5921f0ffa81c"
+      }
+    },
+    {
+      "schema_version": 1,
+      "name": "MyForeverProfessions",
+      "display_name": "我的无限 · 商业技能助手",
+      "homepage": "https://afabiaoge.xyz/professions/",
+      "installation": "完整退出游戏，将 MyForeverProfessions 文件夹放入 _forever_/Interface/AddOns/，保留 WTF，然后重新启动游戏。",
+      "automatic_install": false,
+      "version": "0.4.4",
+      "channel": "trial",
+      "published_at": "2026-11-07",
+      "compatibility": {
+        "product": "国服魔兽世界：无限",
+        "client": "1.60.1",
+        "interface": 16001
+      },
+      "changes": [
+        "修复拖动或缩放提示框后可能一直暂停矿点扫描的问题，鼠标松开后自动恢复。",
+        "采集预览期间继续扫描资源，发现真实矿点后显示资源名称和方向。"
+      ],
+      "validation": [
+        "10 个 Lua 文件通过语法检查，939 项模拟检查通过。新增检查覆盖丢失拖动结束事件后的扫描恢复与预览中的真实资源提示。",
+        "macOS 无限 1.60.1（build 70862）附近矿点实测仍未恢复：追踪与提醒开启时扫描无结果；悬停后接口在不同查询位置重复返回旧内容，隐藏提示框与停用其他插件隔离后仍复现。当前采集提醒和方向未通过实机验证，原因尚未定位。"
+      ],
+      "package_note": "包含插件代码、MIT 许可、使用说明和验证记录",
+      "download": {
+        "url": "https://afabiaoge.xyz/downloads/MyForeverProfessions-0.4.4-Trial.zip",
+        "filename": "MyForeverProfessions-0.4.4-Trial.zip",
+        "size_bytes": 53269,
+        "sha256": "cad46e8c6077d6f108e3a7cc3eb8c679a4bbe55782a761a82d70dac9066a0574"
+      }
+    },
+    {
+      "schema_version": 1,
+      "name": "MyForeverProfessions",
+      "display_name": "我的无限 · 商业技能助手",
+      "homepage": "https://afabiaoge.xyz/professions/",
+      "installation": "完整退出游戏，将 MyForeverProfessions 文件夹放入 _forever_/Interface/AddOns/，保留 WTF，然后重新启动游戏。",
+      "automatic_install": false,
+      "version": "0.4.3",
+      "channel": "trial",
+      "published_at": "2026-11-07",
+      "compatibility": {
+        "product": "国服魔兽世界：无限",
+        "client": "1.60.1",
+        "interface": 16001
+      },
+      "changes": [
+        "采集提示可直接用左键拖动框身移动，拖右下角的手柄在 70%–130% 之间缩放。松开鼠标即保存。",
+        "点主面板的「采集」可随时打开预览，用同样方式调整位置和大小。"
+      ],
+      "validation": [
+        "10 个 Lua 文件通过语法检查，928 项模拟检查通过，覆盖资源提示的拖动与缩放、缩放边界和保存。",
+        "已在 macOS 无限客户端加载新版。用户在预览框上实际拖动框身与右下角手柄，确认移动和缩放均正常。"
+      ],
+      "package_note": "包含插件代码、MIT 许可、使用说明和验证记录",
+      "download": {
+        "url": "https://afabiaoge.xyz/downloads/MyForeverProfessions-0.4.3-Trial.zip",
+        "filename": "MyForeverProfessions-0.4.3-Trial.zip",
+        "size_bytes": 52717,
+        "sha256": "9ce05cfca6ec8f7aded0609779db9433f40d3ec75846b8fdb02d7ee3528a5f89"
+      }
+    },
+    {
+      "schema_version": 1,
+      "name": "MyForeverProfessions",
+      "display_name": "我的无限 · 商业技能助手",
+      "homepage": "https://afabiaoge.xyz/professions/",
+      "installation": "完整退出游戏，将 MyForeverProfessions 文件夹放入 _forever_/Interface/AddOns/，保留 WTF，然后重新启动游戏。",
+      "automatic_install": false,
+      "version": "0.4.2",
+      "channel": "trial",
+      "published_at": "2026-11-07",
+      "compatibility": {
+        "product": "国服魔兽世界：无限",
+        "client": "1.60.1",
+        "interface": 16001
+      },
+      "changes": [
+        "再次点击同一个训练师入口可隐藏助手的训练师图标，地图保持打开。再点可恢复显示，自动刷新期间保持隐藏。",
+        "折叠按钮改为与聊天插件同尺寸同样式的绿色「商」字按钮，大小独立于主面板缩放。"
+      ],
+      "validation": [
+        "10 个 Lua 文件通过语法检查，926 项模拟检查通过，覆盖图标隐藏与恢复、切换专业和折叠按钮定位。",
+        "已在游戏中确认 v0.4.1 旧书本图标可见。新版外观和训练师点击流程待实机验证。"
+      ],
+      "package_note": "包含插件代码、MIT 许可、使用说明和验证记录",
+      "download": {
+        "url": "https://afabiaoge.xyz/downloads/MyForeverProfessions-0.4.2-Trial.zip",
+        "filename": "MyForeverProfessions-0.4.2-Trial.zip",
+        "size_bytes": 51976,
+        "sha256": "fe6591ee0b329592f89edf401c41be6e4f5890b3dad71a88e4343f3416daba84"
+      }
+    },
+    {
+      "schema_version": 1,
+      "name": "MyForeverProfessions",
+      "display_name": "我的无限 · 商业技能助手",
+      "homepage": "https://afabiaoge.xyz/professions/",
+      "installation": "完整退出游戏，将 MyForeverProfessions 文件夹放入 _forever_/Interface/AddOns/，保留 WTF，然后重新启动游戏。",
+      "automatic_install": false,
+      "version": "0.4.1",
+      "channel": "trial",
+      "published_at": "2026-11-07",
+      "compatibility": {
+        "product": "国服魔兽世界：无限",
+        "client": "1.60.1",
+        "interface": 16001
+      },
+      "changes": [
+        "主面板新增「采集」按钮，可拖动预览框并用 Ctrl 滚轮在 70%–130% 之间缩放，点「完成」保存。位置和大小按角色记录。",
+        "点击主面板右上角减号收成单个书本图标。点图标可恢复面板，未锁定时可拖动图标调整位置。"
+      ],
+      "validation": [
+        "10 个 Lua 文件通过语法检查，910 项模拟检查通过，新增检查覆盖位置和缩放保存、鼠标穿透、折叠、展开和拖动锁定。",
+        "已在 v0.4.0 的实机界面观察到铜矿方向提醒。v0.4.1 新增交互和声音待游戏内验证。"
+      ],
+      "package_note": "包含插件代码、MIT 许可、使用说明和验证记录",
+      "download": {
+        "url": "https://afabiaoge.xyz/downloads/MyForeverProfessions-0.4.1-Trial.zip",
+        "filename": "MyForeverProfessions-0.4.1-Trial.zip",
+        "size_bytes": 51236,
+        "sha256": "3b11250d2c92176ae14b2841f8752803d6c4111ddbf34ab14b12b46acbad1f24"
+      }
+    },
+    {
+      "schema_version": 1,
+      "name": "MyForeverProfessions",
+      "display_name": "我的无限 · 商业技能助手",
+      "homepage": "https://afabiaoge.xyz/professions/",
+      "installation": "完整退出游戏，将 MyForeverProfessions 文件夹放入 _forever_/Interface/AddOns/，保留 WTF，然后重新启动游戏。",
+      "automatic_install": false,
+      "version": "0.4.0",
+      "channel": "trial",
+      "published_at": "2026-11-07",
+      "compatibility": {
+        "product": "国服魔兽世界：无限",
+        "client": "1.60.1",
+        "interface": 16001
+      },
+      "changes": [
+        "采集提醒读取游戏当前的小地图追踪，筛选技能足够的已知矿脉、草药及已学钓鱼角色可追踪的鱼群。",
+        "屏幕上方显示最近资源的名称和相对角色朝向的箭头，并播放提示音；持续出现的同名目标只响一次。",
+        "提醒默认开启。新增 /myprof gather test 预览，提醒开关和静音设置按角色保存。升级后需要完整重启游戏。"
+      ],
+      "validation": [
+        "10 个 Lua 文件通过 Lua 5.1 语法检查，873 项模拟检查通过。新增检查覆盖扫描、技能过滤、方向、去重、静音和异常恢复。",
+        "已核对无限服小地图原生接口。新版需要重启客户端后加载，真实矿点触发、游戏画面和声音仍待本机实测。"
+      ],
+      "package_note": "包含插件代码、MIT 许可、使用说明和验证记录",
+      "download": {
+        "url": "https://afabiaoge.xyz/downloads/MyForeverProfessions-0.4.0-Trial.zip",
+        "filename": "MyForeverProfessions-0.4.0-Trial.zip",
+        "size_bytes": 49453,
+        "sha256": "a356e5367ce90711598cf0359a9433bcd2900d6e0bf1ec12ea5e1ff8aba6b645"
+      }
+    },
+    {
+      "schema_version": 1,
+      "name": "MyForeverProfessions",
+      "display_name": "我的无限 · 商业技能助手",
+      "homepage": "https://afabiaoge.xyz/professions/",
+      "installation": "完整退出游戏，将 MyForeverProfessions 文件夹放入 _forever_/Interface/AddOns/，保留 WTF，然后重新启动游戏；已安装时可使用 /reload 加载更新。",
+      "automatic_install": false,
+      "version": "0.3.1",
+      "channel": "trial",
+      "published_at": "2026-11-07",
+      "compatibility": {
+        "product": "国服魔兽世界：无限",
+        "client": "1.60.1",
+        "interface": 16001
+      },
+      "changes": [
+        "自动识别角色已学商业技能，常驻显示技能点与上限，按橙、黄、绿顺序推荐可涨点的已学项目。",
+        "制造项目列出单次所需材料、背包数量和缺口；Shift 点击材料向当前搜索框填入名称，聊天框则插入物品链接。",
+        "精简重复说明和旧颜色标签，支持单项展开、拖动、缩放及角色独立保存。",
+        "显示附近训练师姓名、区域和坐标；不同专业使用各自图标，邻近图标分开排列，选中图标缓慢闪烁，不叠加定位点或金框。",
+        "训练师资料读取已安装的 Questie 与 QuestieDB 无限服数据，地图分类图标复用 HereBeDragons 图标库；不附带第三方数据库。"
+      ],
+      "validation": [
+        "7 个 Lua 文件通过 Lua 5.1 语法检查，810 项模拟检查通过；其中地图图标专项检查 159 项。",
+        "在 macOS 无限客户端 1.60.1 中观察到采矿 3/75、烹饪 2/75，急救与钓鱼未学习；采矿推荐和铜矿石材料数量与原生专业窗口一致。用户确认拖动和缩放正常。",
+        "已在真实客户端重载并观察四种专业图标、邻近分列和定位点／金框移除；地图入口通过真实按钮回调验证。原生专业搜索框与聊天框的材料插入函数已实测，没有发送测试聊天消息。",
+        "完整闪烁周期、最终地图图标的物理鼠标点击、实际拍卖行 Shift 点击尚未独立游戏验收；其余专业、其他角色与 Windows 尚未实机覆盖。模拟检查不等同于游戏实测。"
+      ],
+      "package_note": "仅含本插件源码、MIT 许可、使用说明和验证记录；不含角色配置、WTF 或 SavedVariables",
+      "download": {
+        "url": "https://afabiaoge.xyz/downloads/MyForeverProfessions-0.3.1-Trial.zip",
+        "filename": "MyForeverProfessions-0.3.1-Trial.zip",
+        "size_bytes": 39672,
+        "sha256": "1c432f96bfcd20b79804b642e2446718eb4fee7cd484ec17f1f856d49c094fea"
+      }
+    }
+  ]
+}

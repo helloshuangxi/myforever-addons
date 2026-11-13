@@ -1,0 +1,72 @@
+{
+  "version": "0.4.7-dev.12",
+  "updated_at": "2026-11-10T12:44:20.963429+08:00",
+  "state": "local_auto_copper_observed_user_acceptance_pending_publication_held",
+  "luaSources": 13,
+  "simulatedChecks": 5863,
+  "testLog": "dev12-test-output.txt",
+  "independentReview": {
+    "result": "passed static and simulated",
+    "scannerChecks": 3654,
+    "scope": "gap retention, input/hover/anchor/geometry guards, heartbeat, reset/source changes, failed restore, fresh receipt semantics"
+  },
+  "runtimeEvidence": [
+    "runtime-dev11.json",
+    "runtime-dev12.json"
+  ],
+  "sourceHashes": {
+    "API.lua": "477b6a1c5d6660ff8661bf09779c2da1157f299da4a6445fe2577c81656a0200",
+    "Core.lua": "fa5a3bdb628b3c38f35a894e372dfe0e23032854bb0bf9fb1b2bdc4052b54874",
+    "GatherAlerts.lua": "5327bdbd77cf7175fb58a4731e215a15abe64f46dfe27304667c2436709dc748",
+    "GatherCursorScan.lua": "dbe557503de7b2c62912f4465ecf42c5ce37bb4c76a896f25427f7227c179fe4",
+    "GatherResources.lua": "a3f660faf0a0196f28c352f7d0d84887cfbfd84c14a58274270dd2716e91a11b",
+    "GatherScan.lua": "e426448a11814baa789e8837c32eb572cffbb1922d4aac3280433223feb10de2",
+    "GatherSparkles.lua": "12be44acd612a9668c92dc822387c4c8b94f5fadcebfa55efef77aa73ff11899",
+    "GatherStandIn.lua": "51ffd226b9e5d720e6c12797cd3ea991e33519da85258a0f7c4ecc9e219a8ce6",
+    "ItemLinks.lua": "4f80ae78bd5c82e6b9bcda8af711729b052279838055da94a61956a6173f476c",
+    "Main.lua": "cec37fd134f17c7f8b0b45289a2a2643da657016e0ef0206bf9649e406863a41",
+    "TrainerPins.lua": "4e47f9d79858bc9a3dee869e2df69cfd32a2b7e58752537bdcf42efd10208bbf",
+    "Trainers.lua": "49fd00450a90b6cfe960fc6555bb166faa3c45ed9f02f276407bc6393fe0aa3c",
+    "UI.lua": "a3e0a346a7584b5bcc86683aa030d6faaa0cf6884e557063235cb23dbe4afa5b",
+    "MyForeverProfessions.toc": "4819177dc6181931faff98fecc973dd31b23864c02b47bfb8e52993a3cb3e128",
+    "Textures/EmptyMask.tga": "aa421722ebe50ebcec654c3f5d9e07b84aa0ad5debb2177f5fd461488ad7b6e3"
+  },
+  "testHashes": {
+    "professions_api_test.lua": "82c5820c951d1daff315de1a0c5f0de5510709bc3d47f6b5b732c94ae3034645",
+    "professions_core_test.lua": "edb10cb92613811f043a2733f133cb6567766b5f0149ce6d99f1c86e1cf75a44",
+    "professions_cursor_scan_test.lua": "ea6f0737bf944b74f5aca9b2dbeed8ffbd642782dd2dcbd0acfbc75c2448e13e",
+    "professions_display_test.lua": "ef77e4ed3c511f1313838fa07162aa86ebc8a1d14bcadf65e217eca0749b7198",
+    "professions_gather_alerts_test.lua": "1e1167ba98b46550befc27b3f09ca994f0f2607fdb705d76ec082dc0df735571",
+    "professions_gather_scan_test.lua": "65a5e1a7c46b44c38af0ca0d5d39fed1bac17915a52b50f2f99c0dbe28a3d0da",
+    "professions_gather_sparkles_test.lua": "38f7844fbf2e21aba0e11262175c02e00abaaf3d08f5c643d67b3ce8b15857cc",
+    "professions_item_links_test.lua": "35e7a3772e81dcba377163ee06bc1697bb1c5e4e2cb64b3ad1001cad96e83bd0",
+    "professions_main_test.lua": "018df6f94c387d5294cbc0e04dc0066ae8aa54938240c77320270f711e809647",
+    "professions_scan_router_test.lua": "b21a858867ddef6a69afc02cf8783875fc0943e41647dc418d0b32ebf39f9b29",
+    "professions_standin_test.lua": "0c2fbcf5366378ab515bcdbce514892ba517b4d40815eec64ffb540a2c9c0f45",
+    "professions_trainer_pins_test.lua": "a0e209ae3f017a3d7096e2f816adb17e54b0792680cb09a9539c046bcbb174ac",
+    "professions_trainers_test.lua": "5650a0fcbcc9e71b3ffce5e16aaed5c670dfe33d1fc0418624b737d8aeccfac2",
+    "professions_ui_test.lua": "fd39448bada1255369d9fde1f238beb684787c7391207fd44fb347ed8f54a56f"
+  },
+  "preservedUiHashes": {
+    "UI.lua": "a3e0a346a7584b5bcc86683aa030d6faaa0cf6884e557063235cb23dbe4afa5b",
+    "Main.lua": "cec37fd134f17c7f8b0b45289a2a2643da657016e0ef0206bf9649e406863a41",
+    "GatherSparkles.lua": "12be44acd612a9668c92dc822387c4c8b94f5fadcebfa55efef77aa73ff11899"
+  },
+  "userAcceptedUi": "User personally confirmed panel resize and fixed top skill-book button in dev7; no new UI source change",
+  "releaseAllowed": false,
+  "publicZipCreated": false,
+  "websiteModifiedByThisTask": false,
+  "deployedByThisTask": false,
+  "existingPublicZip": {
+    "path": "../../dist/MyForeverProfessions-0.4.6-Trial.zip",
+    "sha256": "6d1e93b4d9865216d46d532770813b38572692134a8dd16333f87d864cf62bb6"
+  },
+  "actualVerificationLimits": [
+    "Physical right-mouse look and minimap clicks not verified: CUA noWindowsAvailable",
+    "Successful PlaySound call is not proof of human audibility",
+    "Only one copper scene field-tested; no universal no-miss guarantee",
+    "No controlled resource removal test",
+    "Herbalism, fish, rotating minimap, other terrain and operating systems not field-tested"
+  ],
+  "nextUserCheck": "Physical right-mouse look, actual sound, visible minimap behavior; keep publication paused"
+}

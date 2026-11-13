@@ -1,0 +1,136 @@
+{
+  "reviewedAt": "2026-11-12T15:28:35.077914+08:00",
+  "scope": "Static source review only; no third-party Lua loaded or executed, no game addon/settings changes",
+  "targetClient": "Forever 1.60.1 build 70888",
+  "projects": [
+    {
+      "name": "EnemyFrames",
+      "version": "1.3.0",
+      "publisherFileID": 9335612,
+      "publishedDate": "2026-10-26",
+      "publisherURL": "https://www.curseforge.com/wow/addons/enemyframes/files/9335612",
+      "archiveURL": "https://edge.forgecdn.net/files/9335/612/EnemyFrames-1.3.0.zip",
+      "archiveSHA256": "c5667f2183385558315f5224b99e2cfccae595e063467a7a7a44087cd8977249",
+      "license": "All Rights Reserved (publisher page)",
+      "build70888NativeVerification": false
+    },
+    {
+      "name": "EnemyGrid",
+      "version": "v9.1.5.055 (publisher)",
+      "commit": "aed42946c1307b11df1c537a41bf84788e58e6fb",
+      "commitDate": "2022-01-15T18:44:14Z",
+      "repository": "https://github.com/Tercioo/EnemyGrid",
+      "publisherURL": "https://www.curseforge.com/wow/addons/enemy-grid",
+      "license": "All Rights Reserved (publisher page)",
+      "build70888NativeVerification": false
+    },
+    {
+      "name": "AKForeverTargeter",
+      "version": "v0.3.0",
+      "commit": "3ff16128fd87f7072c4addb59c4e3697d5244a27",
+      "commitDate": "2026-11-08T07:42:10Z",
+      "releasePublishedAt": "2026-11-08T08:20:35Z",
+      "repository": "https://github.com/ajkatz/AKForeverTargeter",
+      "releaseURL": "https://github.com/ajkatz/AKForeverTargeter/releases/tag/v0.3.0",
+      "license": "MIT; exact upstream LICENSE copied",
+      "build70888NativeVerification": false
+    }
+  ],
+  "files": [
+    {
+      "path": "EnemyFrames/Clicking.lua",
+      "project": "EnemyFrames",
+      "upstreamPath": "EnemyFrames/Clicking.lua",
+      "sourceURL": "https://edge.forgecdn.net/files/9335/612/EnemyFrames-1.3.0.zip",
+      "sha256": "b36e7469e0aba0a88e3d98a292a8bed72b8a39cdd504057a11e316590c11ff7b",
+      "bytes": 14663,
+      "lineNumbersPreserved": true,
+      "archiveMember": "EnemyFrames/Clicking.lua"
+    },
+    {
+      "path": "EnemyFrames/Frames.lua",
+      "project": "EnemyFrames",
+      "upstreamPath": "EnemyFrames/Frames.lua",
+      "sourceURL": "https://edge.forgecdn.net/files/9335/612/EnemyFrames-1.3.0.zip",
+      "sha256": "994acf49e4be8681ac85ab51dfed5ef5f1db3c01ac13795fb5f0de019db07f51",
+      "bytes": 45645,
+      "lineNumbersPreserved": true,
+      "archiveMember": "EnemyFrames/Frames.lua"
+    },
+    {
+      "path": "EnemyFrames/Core.lua",
+      "project": "EnemyFrames",
+      "upstreamPath": "EnemyFrames/Core.lua",
+      "sourceURL": "https://edge.forgecdn.net/files/9335/612/EnemyFrames-1.3.0.zip",
+      "sha256": "b89230146518dcb4daedbb7d55ec3dafe1daa78afdcf313fdd87200f1812fa39",
+      "bytes": 14307,
+      "lineNumbersPreserved": true,
+      "archiveMember": "EnemyFrames/Core.lua"
+    },
+    {
+      "path": "EnemyFrames/EnemyFrames.lua",
+      "project": "EnemyFrames",
+      "upstreamPath": "EnemyFrames/EnemyFrames.lua",
+      "sourceURL": "https://edge.forgecdn.net/files/9335/612/EnemyFrames-1.3.0.zip",
+      "sha256": "6a2f712a50bafdf51e5431ec5837846664f055e9d3facf0791f11ef565eac384",
+      "bytes": 12503,
+      "lineNumbersPreserved": true,
+      "archiveMember": "EnemyFrames/EnemyFrames.lua"
+    },
+    {
+      "path": "EnemyFrames/EnemyFrames.toc",
+      "project": "EnemyFrames",
+      "upstreamPath": "EnemyFrames/EnemyFrames.toc",
+      "sourceURL": "https://edge.forgecdn.net/files/9335/612/EnemyFrames-1.3.0.zip",
+      "sha256": "de5afeb2e2ac4c0603d0a1df7c3657ea38bab9dc61d85e43154d3172442554c2",
+      "bytes": 430,
+      "lineNumbersPreserved": true,
+      "archiveMember": "EnemyFrames/EnemyFrames.toc"
+    },
+    {
+      "path": "EnemyGrid/EnemyGrid.lua",
+      "project": "EnemyGrid",
+      "upstreamPath": "EnemyGrid.lua",
+      "sourceURL": "https://raw.githubusercontent.com/Tercioo/EnemyGrid/aed42946c1307b11df1c537a41bf84788e58e6fb/EnemyGrid.lua",
+      "sha256": "42b929c0515b4d738e863ade87b82a3dfa47c44479fbaf8a4720d20250c72dc8",
+      "bytes": 131378,
+      "lineNumbersPreserved": true
+    },
+    {
+      "path": "EnemyGrid/EnemyGrid.toc",
+      "project": "EnemyGrid",
+      "upstreamPath": "EnemyGrid.toc",
+      "sourceURL": "https://raw.githubusercontent.com/Tercioo/EnemyGrid/aed42946c1307b11df1c537a41bf84788e58e6fb/EnemyGrid.toc",
+      "sha256": "16fd50d8aa81115dbe6aa4bfb7af26fbfe8ca346a9e67ce3382f2a57e671950f",
+      "bytes": 418,
+      "lineNumbersPreserved": true
+    },
+    {
+      "path": "AKForeverTargeter/Panel.lua",
+      "project": "AKForeverTargeter",
+      "upstreamPath": "Panel.lua",
+      "sourceURL": "https://raw.githubusercontent.com/ajkatz/AKForeverTargeter/3ff16128fd87f7072c4addb59c4e3697d5244a27/Panel.lua",
+      "sha256": "7cfcabc26584a66a0fa00a1ce8a1221961c813878d561aabbff4597b7a082b73",
+      "bytes": 52584,
+      "lineNumbersPreserved": true
+    },
+    {
+      "path": "AKForeverTargeter/AKForeverTargeter.toc",
+      "project": "AKForeverTargeter",
+      "upstreamPath": "AKForeverTargeter.toc",
+      "sourceURL": "https://raw.githubusercontent.com/ajkatz/AKForeverTargeter/3ff16128fd87f7072c4addb59c4e3697d5244a27/AKForeverTargeter.toc",
+      "sha256": "afa441b828a03fa062da04d7b0d61cce9d0a1ee11d6d971181fe1ee0a7c17317",
+      "bytes": 749,
+      "lineNumbersPreserved": true
+    },
+    {
+      "path": "AKForeverTargeter/LICENSE",
+      "project": "AKForeverTargeter",
+      "upstreamPath": "LICENSE",
+      "sourceURL": "https://raw.githubusercontent.com/ajkatz/AKForeverTargeter/3ff16128fd87f7072c4addb59c4e3697d5244a27/LICENSE",
+      "sha256": "e752a5fe8213e31c2793650d8053ab96d60da17816faca1f3ffe3fa886f341ce",
+      "bytes": 1064,
+      "lineNumbersPreserved": true
+    }
+  ]
+}

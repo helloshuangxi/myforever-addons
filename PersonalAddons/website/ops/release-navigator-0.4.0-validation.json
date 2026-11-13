@@ -1,0 +1,189 @@
+{
+  "version": "0.4.0",
+  "channel": "trial",
+  "date": "2026-11-13",
+  "status": "published-and-verified",
+  "package": {
+    "filename": "MyForeverNavigator-0.4.0-Trial.zip",
+    "bytes": 580740,
+    "sha256": "d7f849601b9a2da73873c48e8960e0e95fdac47bf3ad68e132421b055d993b67",
+    "allowlisted_files": 15
+  },
+  "simulation": {
+    "lua51_files": 11,
+    "groups": 12,
+    "catalog_checks": 328,
+    "integration_checks": 44,
+    "ui_hud_checks": 540,
+    "navigation_checks": 249,
+    "quest_navigation_checks": 7083,
+    "quest_ui_checks": 254,
+    "returned_points": 831039,
+    "passed": true
+  },
+  "actual_db": {
+    "status": "passed",
+    "scope": "actual installed DB + Navigator Lua, modeled client maps; not in-game validation",
+    "source": {
+      "questie_db_version": "1.1.0",
+      "commit": "90ab55bdddd6ef6507fe51610b9c26948bbeb637",
+      "lua_files_loaded": 50
+    },
+    "persona": {
+      "locale": "zhCN",
+      "faction": "Alliance"
+    },
+    "build_frames": 390,
+    "elapsed_ms": 842.6,
+    "curated_points": 427,
+    "total_points": 9902,
+    "unique_npcs": 9006,
+    "maps": 50,
+    "categories": {
+      "trainers": 236,
+      "reputation": 70,
+      "materials": 128,
+      "special": 30,
+      "services": 1422,
+      "npcs": 8016
+    },
+    "samples": [
+      {
+        "npcID": 240,
+        "name": "治安官杜汉",
+        "english": "Marshal Dughan",
+        "category": "npcs",
+        "service": "任务 NPC",
+        "mapID": 1429,
+        "x": 0.4211,
+        "y": 0.6593000000000001
+      },
+      {
+        "npcID": 295,
+        "name": "旅店老板法雷",
+        "english": "Innkeeper Farley",
+        "category": "services",
+        "service": "旅店老板",
+        "mapID": 1429,
+        "x": 0.43770000000000003,
+        "y": 0.6579999999999999
+      },
+      {
+        "npcID": 332,
+        "name": "马迪亚斯·肖尔",
+        "english": "Master Mathias Shaw",
+        "category": "npcs",
+        "service": "军情七处领袖",
+        "mapID": 1453,
+        "x": 0.7831,
+        "y": 0.7073999999999999
+      },
+      {
+        "npcID": 1411,
+        "name": "伊安·斯托姆",
+        "english": "Ian Strom",
+        "category": "trainers",
+        "service": "潜行者训练师",
+        "mapID": 1434,
+        "x": 0.2682,
+        "y": 0.7715000000000001
+      }
+    ],
+    "search_timings_modeled_apis": {
+      "all": {
+        "milliseconds": 78.91,
+        "returned_points": 9901
+      },
+      "治安官杜汉": {
+        "milliseconds": 11.51,
+        "returned_points": 1
+      },
+      "旅店老板": {
+        "milliseconds": 8.71,
+        "returned_points": 62
+      },
+      "马迪亚斯": {
+        "milliseconds": 8.02,
+        "returned_points": 1
+      },
+      "332": {
+        "milliseconds": 7.83,
+        "returned_points": 23
+      }
+    },
+    "limitations": [
+      "C_Map was modeled from support mappings, not native client results",
+      "Character Questie policy and live Phasing not loaded; phased-only points excluded from returned results",
+      "Reference coordinates, not current NPC tracking"
+    ]
+  },
+  "game": {
+    "state": "character-creation",
+    "logged_in_or_reloaded": false,
+    "new_features_game_verified": false,
+    "screenshots_published": false
+  },
+  "preservation": {
+    "prior_packages": 34,
+    "other_versions": {
+      "MyForeverChat": "0.9.3",
+      "MyForeverManager": "0.2.1",
+      "MyForeverProfessions": "0.4.6",
+      "MyForeverTargets": "0.1.46"
+    },
+    "professions_candidate_published": false,
+    "hud_dimensions": [
+      300,
+      84
+    ],
+    "hud_background_alpha": 0.56,
+    "prior_packages_verified_unchanged": 34
+  },
+  "website": {
+    "freeze": "PersonalAddons/work/navigator-0.4.0-site",
+    "release_sync_tests": 7,
+    "live": "passed",
+    "verified_resources": 112,
+    "checked_at": "2026-11-13T10:35:05.333520+00:00",
+    "download_sha256": "d7f849601b9a2da73873c48e8960e0e95fdac47bf3ad68e132421b055d993b67",
+    "existing_services": {
+      "www": {
+        "status": 301,
+        "location": "https://afabiaoge.xyz/"
+      },
+      "chat_health": {
+        "status": 200
+      },
+      "studio_protected": {
+        "status": 200,
+        "final_url": "https://studio.afabiaoge.xyz/login",
+        "login_required": true
+      },
+      "community": {
+        "status": 200,
+        "returned_items": 0,
+        "has_more": false,
+        "write_test_performed": false
+      }
+    }
+  },
+  "manager": {
+    "public_version": "0.2.1",
+    "public_frozen_source_root": "PersonalAddons/Manager/artifacts/source/targets-0.2.1/Manager",
+    "live_checks_passed": 71,
+    "failed": 0,
+    "test_scope": "public frozen source compiled, real HTTPS, isolated game fixture; not desktop binary UI or live-game install",
+    "source_evidence": "PersonalAddons/work/navigator-0.4.0/manager-live-summary.json",
+    "workspace_additional_checks": {
+      "local": 65,
+      "live": 71,
+      "scope": "current workspace Core, supplemental only"
+    }
+  },
+  "review": {
+    "independent": "passed",
+    "phase_tracking_ownership": "passed",
+    "freeze_integrity": "passed"
+  },
+  "release": "20261113T102916Z"
+}

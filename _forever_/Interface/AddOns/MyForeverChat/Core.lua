@@ -76,11 +76,13 @@ local function Changed()
 end
 
 local appearanceDefaults = {
-    fontSize = 14, opacity = 0.98, theme = "jade",
-    background = { 0.055, 0.067, 0.072 },
-    accent = { 0.42, 0.82, 0.58 },
+    -- New installs start on the suite's "midnight" look. A saved theme,
+    -- including an existing "jade", is the player's and is never migrated.
+    fontSize = 14, opacity = 0.98, theme = "midnight",
+    background = { 0.051, 0.067, 0.118 },
+    accent = { 0.486, 0.576, 1.0 },
 }
-local appearanceThemes = { jade = true, ocean = true, violet = true, amber = true, custom = true }
+local appearanceThemes = { midnight = true, jade = true, ocean = true, violet = true, amber = true, custom = true }
 
 function NS.NormalizeAppearance(value)
     local source = Public(value) and type(value) == "table" and value or {}

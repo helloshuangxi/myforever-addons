@@ -20,8 +20,17 @@ local function button(parent, text, x, y, width, callback, kind)
 end
 -- A choice in a list or tab row. The chosen one is marked, not greyed out:
 -- it is disabled only so a second click does nothing.
-local function choice(parent, text, x, y, width, callback)
+local function choice(parent, text, x, y, width, callback, row)
     local b = button(parent, text, x, y, width, callback, "quiet")
+    if row then
+        -- List rows read left to right; tabs stay centred.
+        b.label:ClearAllPoints()
+        b.label:SetPoint("LEFT", b, "LEFT", 10, 0)
+        b.label:SetPoint("RIGHT", b, "RIGHT", -8, 0)
+        b.label:SetJustifyH("LEFT")
+    else
+        b.styleRadius = 12
+    end
     b:SetScript("OnDisable", nil)
     b:SetScript("OnEnable", nil)
     return b
@@ -61,7 +70,8 @@ local function refresh()
     for i, b in ipairs(frame.templates) do
         local entry = templates()[i]
         b:SetShown(entry ~= nil)
-        b:SetText(entry and entry.label or "")
+        -- The tab already says which family; the row shows only what differs.
+        b:SetText(entry and (family == "priest" and entry.label:gsub("^牧师%s*·%s*", "") or entry.label) or "")
         mark(b, i == selected)
     end
     if NS.InCombat() then status("战斗中暂停法术本读取和宏创建；脱战后可继续。")
@@ -130,10 +140,10 @@ local function showPicker(destination)
             picker.next:SetEnabled(picker.page < pages)
         end
         for i = 1, 8 do
-            local row = button(picker, "", 12, -74 - (i - 1) * 26, 276, function(self)
+            local row = choice(picker, "", 12, -74 - (i - 1) * 26, 276, function(self)
                 if NS.InCombat() then picker:Hide() return end
                 if self.spell then picker.destination:SetText(self.spell.name); picker.destination:ClearFocus(); picker:Hide(); refresh() end
-            end, "quiet")
+            end, true)
             picker.rows[i] = row
         end
         picker.previous = button(picker, "上一页", 12, -290, 80, function() picker.page = picker.page - 1; update() end)
@@ -173,22 +183,22 @@ local function createUI()
         if picker then picker:Hide() end
     end)
     -- Left column: what kind of macro. Right column: fill in, preview, create.
-    local side = CreateFrame("Frame", nil, frame, "BackdropTemplate")
-    side:SetPoint("TOPLEFT", 1, -30)
-    side:SetPoint("BOTTOMLEFT", 1, 1)
-    side:SetWidth(168)
-    Style.Surface(side, "side", 1, "side")
-    frame.generalTab = choice(frame, "通用", 10, -40, 72, function() selectFamily("general") end)
-    frame.priestTab = choice(frame, "牧师", 86, -40, 72, function() selectFamily("priest") end)
+    local side = CreateFrame("Frame", nil, frame)
+    side:SetPoint("TOPLEFT", 8, -36)
+    side:SetPoint("BOTTOMLEFT", 8, 8)
+    side:SetWidth(160)
+    Style.Round(side, "side", 1, 10)
+    frame.generalTab = choice(frame, "通用", 16, -44, 68, function() selectFamily("general") end)
+    frame.priestTab = choice(frame, "牧师", 88, -44, 68, function() selectFamily("priest") end)
     frame.templates = {}
     for i = 1, math.max(#NS.templates, #NS.priestTemplates) do
         local templateIndex = i
-        frame.templates[i] = choice(frame, "", 10, -72 - (i - 1) * 26, 148, function()
+        frame.templates[i] = choice(frame, "", 14, -78 - (i - 1) * 26, 148, function()
             selectTemplate(templateIndex)
-        end)
+        end, true)
     end
     -- Owned by the column frame: text on the window itself would sit under this child frame.
-    local help = label(side, "/mymacro 打开宏工坊\n/mypriest 打开牧师页\n宏在 /macro 中管理", 11, -368, 148, "caption")
+    local help = label(side, "/mymacro 打开宏工坊\n/mypriest 打开牧师页\n宏在 /macro 中管理", 10, -356, 140, "caption")
     help:SetSpacing(3)
     label(frame, "技能一（与游戏内名称一致）", 182, -42, 300, "caption")
     frame.first = edit(frame, 182, -58, 300)
@@ -204,10 +214,10 @@ local function createUI()
     frame.hint:SetHeight(50)
     frame.hint:SetJustifyV("TOP")
     frame.length = label(frame, "预览", 182, -250, 404, "caption")
-    local well = CreateFrame("Frame", nil, frame, "BackdropTemplate")
+    local well = CreateFrame("Frame", nil, frame)
     well:SetPoint("TOPLEFT", 182, -266)
     well:SetSize(404, 104)
-    Style.Surface(well, "side")
+    Style.Round(well, "side", 1, 8)
     local scroll = CreateFrame("ScrollFrame", nil, well, "UIPanelScrollFrameTemplate")
     scroll:SetPoint("TOPLEFT", 8, -8)
     scroll:SetPoint("BOTTOMRIGHT", -28, 8)

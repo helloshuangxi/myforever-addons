@@ -158,7 +158,7 @@ function NS.RenderUI()
     local s = NS.session
     local enabled = NS.db.settings.enabled
     panel.status:SetText(NS.safetyStopped and Style.Paint("danger", "● 接口拦截 · 已安全停采")
-        or enabled and (Style.Paint("accent", "●") .. " 正在采集公开游戏行为") or Style.Paint("warning", "● 已暂停采集"))
+        or enabled and (Style.Paint("success", "●") .. " 正在采集公开游戏行为") or Style.Paint("warning", "● 已暂停采集"))
     local client = s.client or {}
     local day, dateKey
     if NS.GetBehaviorToday then day, dateKey = NS.GetBehaviorToday() else day, dateKey = {time={}, counts={}, quality={}}, "本日" end

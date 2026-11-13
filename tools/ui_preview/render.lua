@@ -160,7 +160,14 @@ function M.html(W, options)
                     if gr then
                         local style
                         local white = g.file and tostring(g.file):upper():find("WHITE8X8")
-                        if g.color then style = "background:" .. rgba(g.color, ga) .. ";"
+                        local circle = g.file and tostring(g.file):find("TempPortraitAlphaMask", 1, true)
+                        if circle then
+                            -- Quarter (or whole) circle cut from the round portrait mask.
+                            local tc = g.texCoord or { 0, 1, 0, 1 }
+                            local corner = (tc[2] - tc[1] >= 0.99) and "border-radius:50%;"
+                                or string.format("border-%s-%s-radius:100%%;", tc[3] < 0.25 and "top" or "bottom", tc[1] < 0.25 and "left" or "right")
+                            style = "background:" .. rgba(g.vertex, ga) .. ";" .. corner
+                        elseif g.color then style = "background:" .. rgba(g.color, ga) .. ";"
                         elseif g.isBarFill then style = "background:" .. rgba(f.barColor or g.vertex, ga) .. ";"
                         elseif white or (g.isThumb and not g.file) then style = "background:" .. rgba(g.vertex, ga) .. ";"
                         elseif g.file then

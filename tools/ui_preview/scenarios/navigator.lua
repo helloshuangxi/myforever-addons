@@ -6,6 +6,8 @@ local NS = {}
 local root = ADDONS .. "MyForeverNavigator/"
 for _, file in ipairs({ "Core.lua", "Data.lua", "Classification.lua" }) do assert(loadfile(root .. file))("MyForeverNavigator", NS) end
 NS.Initialize(nil)
+NS.DB.panel = { point = "CENTER", relativePoint = "CENTER", x = -300, y = 0 }
+NS.DB.hud = { point = "CENTER", relativePoint = "CENTER", x = 320, y = 160 }
 NS.GetPlayerPosition = function() return 1455, .3, .4 end
 NS.GetLocationContext = function() return { mapID = 1455, x = .3, y = .4 } end
 NS.MeasurePoint = function(p)

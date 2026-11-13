@@ -1,6 +1,8 @@
 local _, NS = ...
 local frame, context, syncing, ownedPickerToken
 local presets = {
+    -- Suite default since 2026-11-14 (UX-001 direction B).
+    { id="midnight", label="午夜", background={0.051,0.067,0.118}, accent={0.486,0.576,1.0} },
     { id="jade", label="青玉", background={0.055,0.067,0.072}, accent={0.42,0.82,0.58} },
     { id="ocean", label="海蓝", background={0.04,0.065,0.10}, accent={0.32,0.65,0.95} },
     { id="violet", label="紫晶", background={0.065,0.05,0.095}, accent={0.70,0.52,0.94} },

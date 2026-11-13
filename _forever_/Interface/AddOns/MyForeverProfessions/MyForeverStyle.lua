@@ -8,15 +8,15 @@
 -- `python3 tools/sync_style.py` after editing; tools/check_addons.py fails when
 -- an embedded copy differs.
 --
--- The palette is the published chat addon's default "jade" look (graphite
--- surface, green accent), so the suite matches the website and the launcher
--- icons players already know. Game-meaning colors (item quality, class,
+-- Palette "Midnight" (direction B, chosen 2026-11-14): deep blue-black
+-- translucent surfaces, electric-blue accent, borderless rounded panels,
+-- tonal fills instead of outlines. Game-meaning colors (item quality, class,
 -- recipe difficulty, target red, focus gold, chat channels) are NOT part of
 -- this file and must stay with the code that owns that meaning.
 --
 -- Every widget call is guarded: a missing method is skipped instead of raising,
 -- because a styling helper must never break an addon in a client variant.
-local VERSION = 1
+local VERSION = 2
 local existing = rawget(_G, "MyForeverStyle")
 if type(existing) == "table" and (tonumber(existing.version) or 0) >= VERSION then return end
 
@@ -28,26 +28,28 @@ S.WHITE = WHITE
 
 -- Surfaces go from the window itself (outer) up to raised/hover/selected.
 S.colors = {
-    outer = { 0.055, 0.067, 0.072 },      -- window body
-    side = { 0.085, 0.101, 0.108 },       -- secondary column, title strip
-    surface = { 0.12, 0.14, 0.15 },       -- controls, cards, inputs
-    hover = { 0.16, 0.20, 0.20 },
-    selected = { 0.16, 0.27, 0.24 },      -- chosen row or tab
-    line = { 0.24, 0.29, 0.30 },          -- hairline borders and rules
-    accent = { 0.42, 0.82, 0.58 },        -- brand green: primary action, active state
-    onAccent = { 0.06, 0.16, 0.10 },      -- text on an accent fill
-    text = { 0.91, 0.94, 0.93 },          -- primary content
-    secondary = { 0.74, 0.79, 0.79 },     -- labels next to content
-    muted = { 0.57, 0.65, 0.65 },         -- hints, captions, units
-    disabled = { 0.40, 0.45, 0.46 },
-    warning = { 0.95, 0.77, 0.43 },
-    danger = { 0.95, 0.55, 0.51 },
-    info = { 0.55, 0.75, 0.95 },
+    outer = { 0.051, 0.067, 0.118 },      -- window body
+    side = { 0.075, 0.094, 0.160 },       -- secondary column, wells
+    surface = { 0.110, 0.133, 0.224 },    -- controls, cards, inputs (tonal fill)
+    hover = { 0.141, 0.169, 0.282 },
+    selected = { 0.161, 0.204, 0.373 },   -- chosen row
+    line = { 0.200, 0.239, 0.380 },       -- rare hairlines and rules
+    accent = { 0.486, 0.576, 1.000 },     -- #7C93FF primary action, active state
+    accentSoft = { 0.141, 0.169, 0.337 }, -- selected pill fill
+    onAccent = { 0.043, 0.063, 0.188 },   -- text on an accent fill
+    text = { 0.933, 0.945, 1.000 },       -- primary content
+    secondary = { 0.639, 0.671, 0.796 },  -- labels next to content
+    muted = { 0.451, 0.486, 0.620 },      -- hints, captions, units
+    disabled = { 0.330, 0.360, 0.470 },
+    success = { 0.310, 0.827, 0.604 },
+    warning = { 0.949, 0.702, 0.361 },
+    danger = { 1.000, 0.392, 0.392 },
+    info = { 0.486, 0.576, 1.000 },
 }
 
 -- Background opacity by role. Only the backdrop is translucent; text and
 -- icons stay opaque (never SetAlpha on the parent frame for this).
-S.alpha = { window = 0.94, hud = 0.72, toast = 0.82, popup = 0.97 }
+S.alpha = { window = 0.92, hud = 0.80, toast = 0.88, popup = 0.97 }
 
 -- Type scale in UI units. "value" is for the one number a panel is about.
 S.type = {
@@ -56,7 +58,7 @@ S.type = {
     button = { 12, "text" },
 }
 
-S.metrics = { pad = 12, gap = 8, row = 24, button = 24, title = 30, icon = 42 }
+S.metrics = { pad = 14, gap = 8, row = 26, button = 26, title = 36, icon = 42, radius = 12, control = 7 }
 
 local function has(object, method)
     if type(object) ~= "table" and type(object) ~= "userdata" then return nil end
@@ -87,20 +89,72 @@ function S.Prefix(addonLabel)
     return S.Paint("accent", "我的无限") .. (addonLabel and (" " .. S.Paint("muted", "·") .. " " .. addonLabel) or "")
 end
 
--- Flat surface with a hairline edge. role: window | hud | toast | popup, or
--- pass fill/edge color names for inner surfaces.
-function S.Surface(frame, fill, alpha, edge, edgeAlpha)
-    if not has(frame, "SetBackdrop") then return frame end
-    call(frame, "SetBackdrop", { bgFile = WHITE, edgeFile = WHITE, edgeSize = 1 })
+-- Rounded flat surface built from seven textures (a centre column, two side
+-- strips and four quarter circles cut from Blizzard's round portrait mask), so
+-- no texture overlaps another and a translucent fill stays even. Replaces any
+-- backdrop on the frame. Re-calling only recolours.
+local CIRCLE = "Interface\\CHARACTERFRAME\\TempPortraitAlphaMask"
+S.CIRCLE = CIRCLE
+local CORNERS = {
+    { "TOPLEFT", 0, 0.5, 0, 0.5 }, { "TOPRIGHT", 0.5, 1, 0, 0.5 },
+    { "BOTTOMLEFT", 0, 0.5, 0.5, 1 }, { "BOTTOMRIGHT", 0.5, 1, 0.5, 1 },
+}
+function S.Round(frame, fill, alpha, radius, layer)
+    if not frame then return frame end
     local r, g, b = S.Color(fill or "surface")
-    call(frame, "SetBackdropColor", r, g, b, alpha or 1)
-    r, g, b = S.Color(edge or "line")
-    call(frame, "SetBackdropBorderColor", r, g, b, edgeAlpha or 1)
+    alpha = alpha or 1
+    -- Some mocks answer every missing key with a function; only a table counts.
+    local parts = frame.roundParts
+    if type(parts) ~= "table" then
+        if has(frame, "SetBackdrop") then call(frame, "SetBackdrop", nil) end
+        radius = math.max(2, radius or S.metrics.control)
+        parts = { radius = radius }
+        local function tex() return call(frame, "CreateTexture", nil, layer or "BACKGROUND", nil, -7) end
+        parts.center, parts.left, parts.right = tex(), tex(), tex()
+        if not parts.center then return frame end
+        call(parts.center, "SetPoint", "TOPLEFT", frame, "TOPLEFT", radius, 0)
+        call(parts.center, "SetPoint", "BOTTOMRIGHT", frame, "BOTTOMRIGHT", -radius, 0)
+        call(parts.left, "SetPoint", "TOPLEFT", frame, "TOPLEFT", 0, -radius)
+        call(parts.left, "SetPoint", "BOTTOMRIGHT", frame, "BOTTOMLEFT", radius, radius)
+        call(parts.right, "SetPoint", "TOPLEFT", frame, "TOPRIGHT", -radius, -radius)
+        call(parts.right, "SetPoint", "BOTTOMRIGHT", frame, "BOTTOMRIGHT", 0, radius)
+        for i, spec in ipairs(CORNERS) do
+            local t = tex()
+            call(t, "SetTexture", CIRCLE)
+            call(t, "SetTexCoord", spec[2], spec[3], spec[4], spec[5])
+            call(t, "SetSize", radius, radius)
+            call(t, "SetPoint", spec[1], frame, spec[1], 0, 0)
+            parts[i] = t
+        end
+        frame.roundParts = parts
+    end
+    for _, key in ipairs({ "center", "left", "right" }) do call(parts[key], "SetColorTexture", r, g, b, alpha) end
+    for i = 1, 4 do call(parts[i], "SetVertexColor", r, g, b, alpha) end
+    local visible = alpha > 0
+    for _, t in ipairs({ parts.center, parts.left, parts.right, parts[1], parts[2], parts[3], parts[4] }) do
+        call(t, visible and "Show" or "Hide")
+    end
     return frame
 end
+
+-- Square tonal surface for frames that also need a backdrop border later
+-- (selection outlines, game-meaning colors). edge=false for no outline.
+function S.Surface(frame, fill, alpha, edge, edgeAlpha)
+    if not has(frame, "SetBackdrop") then return frame end
+    local withEdge = edge ~= false
+    call(frame, "SetBackdrop", { bgFile = WHITE, edgeFile = withEdge and WHITE or nil, edgeSize = withEdge and 1 or nil })
+    local r, g, b = S.Color(fill or "surface")
+    call(frame, "SetBackdropColor", r, g, b, alpha or 1)
+    if withEdge then
+        r, g, b = S.Color(edge or "line")
+        call(frame, "SetBackdropBorderColor", r, g, b, edgeAlpha or 0.6)
+    end
+    return frame
+end
+-- Window, HUD, toast or popup: rounded, borderless, translucent.
 function S.Panel(frame, role)
     local alpha = S.alpha[role or "window"] or S.alpha.window
-    return S.Surface(frame, "outer", alpha, "line", role == "hud" and 0.35 or 0.9)
+    return S.Round(frame, "outer", alpha, role == "hud" and 10 or S.metrics.radius)
 end
 
 function S.SetType(fontString, level, colorName)
@@ -130,31 +184,36 @@ function S.Rule(parent, colorName, alpha)
 end
 
 local KINDS = {
-    primary = { fill = "accent", text = "onAccent", edge = "accent" },
-    default = { fill = "surface", text = "text", edge = "line" },
-    quiet = { fill = nil, text = "secondary", edge = nil },
-    selected = { fill = "selected", text = "accent", edge = "accent" },
-    danger = { fill = "surface", text = "danger", edge = "line" },
+    primary = { fill = "accent", text = "onAccent", hover = "accent" },
+    default = { fill = "surface", text = "text", hover = "hover" },
+    quiet = { fill = nil, text = "secondary", hover = "surface" },
+    selected = { fill = "accentSoft", text = "accent", hover = "accentSoft" },
+    danger = { fill = "surface", text = "danger", hover = "hover" },
 }
 -- Restyle a button in place. kind: primary (one per view), default, quiet
--- (toolbar/text actions), selected (active tab), danger.
+-- (toolbar/text actions), selected (active tab or pill), danger.
 function S.SetButtonKind(button, kind)
     local spec = KINDS[kind or "default"] or KINDS.default
     button.styleKind = kind or "default"
-    if has(button, "SetBackdrop") then
-        if spec.fill then
-            call(button, "SetBackdrop", { bgFile = WHITE, edgeFile = WHITE, edgeSize = 1 })
-            call(button, "SetBackdropColor", S.Color(spec.fill))
-            call(button, "SetBackdropBorderColor", S.Color(spec.edge or "line"))
-        else
-            call(button, "SetBackdrop", nil)
-        end
-    end
+    local height = call(button, "GetHeight")
+    local radius = type(button.styleRadius) == "number" and button.styleRadius
+        or (type(height) == "number" and height > 0 and math.min(S.metrics.control, height / 2)) or S.metrics.control
+    S.Round(button, spec.fill or "surface", spec.fill and 1 or 0, radius, "BACKGROUND")
     if button.label then call(button.label, "SetTextColor", S.Color(spec.text)) end
     return button
 end
+local function hoverIn(self)
+    local spec = KINDS[self.styleKind or "default"] or KINDS.default
+    if self.IsEnabled and not self:IsEnabled() then return end
+    if spec.hover then S.Round(self, spec.hover, spec.fill == "accent" and 0.85 or 1) end
+end
+local function hoverOut(self)
+    local spec = KINDS[self.styleKind or "default"] or KINDS.default
+    S.Round(self, spec.fill or "surface", spec.fill and 1 or 0)
+end
+S.HoverIn, S.HoverOut = hoverIn, hoverOut
 function S.Button(parent, caption, width, height, onClick, kind)
-    local b = CreateFrame("Button", nil, parent, "BackdropTemplate")
+    local b = CreateFrame("Button", nil, parent)
     call(b, "SetSize", width, height or S.metrics.button)
     b.label = S.Text(b, "button")
     if b.label then
@@ -163,15 +222,21 @@ function S.Button(parent, caption, width, height, onClick, kind)
         call(b.label, "SetText", caption or "")
     end
     S.SetButtonKind(b, kind)
-    call(b, "SetHighlightTexture", WHITE)
-    local highlight = call(b, "GetHighlightTexture")
-    if highlight then call(highlight, "SetVertexColor", 1, 1, 1, 0.07) end
     if onClick then call(b, "SetScript", "OnClick", onClick) end
+    call(b, "SetScript", "OnEnter", hoverIn)
+    call(b, "SetScript", "OnLeave", hoverOut)
     call(b, "SetScript", "OnDisable", function(self) call(self, "SetAlpha", 0.42) end)
     call(b, "SetScript", "OnEnable", function(self) call(self, "SetAlpha", 1) end)
     -- Blizzard buttons expose SetText/GetText; keep that contract for callers.
     b.SetText = function(self, value) if self.label then call(self.label, "SetText", value) end end
     b.GetText = function(self) return self.label and call(self.label, "GetText") or nil end
+    return b
+end
+-- Rounded selectable chip. Use S.SetButtonKind(chip, chosen and "selected" or "quiet").
+function S.Pill(parent, caption, width, onClick)
+    local b = S.Button(parent, caption, width, 24, onClick, "quiet")
+    b.styleRadius = 12
+    S.SetButtonKind(b, "quiet")
     return b
 end
 function S.CloseButton(parent, onClick)
@@ -181,7 +246,8 @@ function S.CloseButton(parent, onClick)
 end
 
 -- Title strip: name on the left, close on the right, the strip is the drag
--- handle. Returns the bar; bar.title, bar.close and bar.handle are exposed.
+-- handle. No rule under it: spacing separates it from the content.
+-- Returns the bar; bar.title, bar.close and bar.handle are exposed.
 function S.TitleBar(frame, title, onClose)
     local m = S.metrics
     local bar = CreateFrame("Frame", nil, frame)
@@ -189,36 +255,51 @@ function S.TitleBar(frame, title, onClose)
     call(bar, "SetPoint", "TOPRIGHT", frame, "TOPRIGHT", 0, 0)
     call(bar, "SetHeight", m.title)
     bar.title = S.Text(bar, "title", nil, title)
-    if bar.title then call(bar.title, "SetPoint", "LEFT", bar, "LEFT", m.pad, 0) end
+    if bar.title then call(bar.title, "SetPoint", "LEFT", bar, "LEFT", m.pad, -1) end
     bar.close = S.CloseButton(bar, onClose or function() call(frame, "Hide") end)
-    call(bar.close, "SetPoint", "RIGHT", bar, "RIGHT", -5, 0)
-    bar.rule = S.Rule(bar)
-    if bar.rule then
-        call(bar.rule, "SetPoint", "BOTTOMLEFT", bar, "BOTTOMLEFT", 1, 0)
-        call(bar.rule, "SetPoint", "BOTTOMRIGHT", bar, "BOTTOMRIGHT", -1, 0)
-    end
+    call(bar.close, "SetPoint", "RIGHT", bar, "RIGHT", -8, -1)
     bar.handle = CreateFrame("Frame", nil, bar)
     call(bar.handle, "SetPoint", "TOPLEFT", bar, "TOPLEFT", 0, 0)
-    call(bar.handle, "SetPoint", "BOTTOMRIGHT", bar, "BOTTOMRIGHT", -30, 0)
+    call(bar.handle, "SetPoint", "BOTTOMRIGHT", bar, "BOTTOMRIGHT", -34, 0)
     return bar
 end
 
--- Dark input surface behind a plain EditBox.
+-- Rounded tonal input behind a plain EditBox.
 function S.Input(parent, width, height)
-    local holder = CreateFrame("Frame", nil, parent, "BackdropTemplate")
-    call(holder, "SetSize", width, height or 26)
-    S.Surface(holder, "surface")
+    local holder = CreateFrame("Frame", nil, parent)
+    call(holder, "SetSize", width, height or 28)
+    S.Round(holder, "surface", 1, S.metrics.control)
     local box = CreateFrame("EditBox", nil, holder)
-    call(box, "SetPoint", "TOPLEFT", holder, "TOPLEFT", 8, 0)
-    call(box, "SetPoint", "BOTTOMRIGHT", holder, "BOTTOMRIGHT", -8, 0)
+    call(box, "SetPoint", "TOPLEFT", holder, "TOPLEFT", 10, 0)
+    call(box, "SetPoint", "BOTTOMRIGHT", holder, "BOTTOMRIGHT", -10, 0)
     call(box, "SetFontObject", "GameFontHighlightSmall")
     local face = call(box, "GetFont")
     if type(face) == "string" and face ~= "" then call(box, "SetFont", face, S.type.body[1], "") end
     call(box, "SetTextColor", S.Color("text"))
     call(box, "SetAutoFocus", false)
     call(box, "SetScript", "OnEscapePressed", function(self) call(self, "ClearFocus") end)
-    call(box, "SetScript", "OnEditFocusGained", function() call(holder, "SetBackdropBorderColor", S.Color("accent")) end)
-    call(box, "SetScript", "OnEditFocusLost", function() call(holder, "SetBackdropBorderColor", S.Color("line")) end)
+    call(box, "SetScript", "OnEditFocusGained", function() S.Round(holder, "hover", 1) end)
+    call(box, "SetScript", "OnEditFocusLost", function() S.Round(holder, "surface", 1) end)
     box.holder = holder
     return box, holder
+end
+
+-- Thin rounded progress track. Returns the track; track:SetProgress(0..1, colorName).
+function S.Progress(parent, width, height)
+    local track = CreateFrame("Frame", nil, parent)
+    height = height or 4
+    call(track, "SetSize", width, height)
+    S.Round(track, "surface", 1, height / 2)
+    local fill = CreateFrame("Frame", nil, track)
+    call(fill, "SetPoint", "TOPLEFT", track, "TOPLEFT", 0, 0)
+    call(fill, "SetSize", 1, height)
+    S.Round(fill, "accent", 1, height / 2)
+    track.fill = fill
+    function track:SetProgress(fraction, colorName)
+        fraction = math.max(0, math.min(1, tonumber(fraction) or 0))
+        call(fill, "SetShown", fraction > 0)
+        call(fill, "SetWidth", math.max(height, width * fraction))
+        S.Round(fill, colorName or "accent", 1)
+    end
+    return track
 end

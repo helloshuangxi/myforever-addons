@@ -61,7 +61,7 @@ NS.GetAppearanceContext=function()
         check(opaque==true,"settings surface remains opaque"); registered=registered+1
     end}
 end
-local defaults={fontSize=14,opacity=0.98,theme="jade",background={0.055,0.067,0.072},accent={0.42,0.82,0.58}}
+local defaults={fontSize=14,opacity=0.98,theme="midnight",background={0.051,0.067,0.118},accent={0.486,0.576,1.0}}
 local function copy(value)
     local result={}
     for k,v in pairs(value) do
@@ -164,7 +164,7 @@ ui.reset.scripts.OnClick()
 equal(resets,1,"reset uses appearance-only API")
 equal(NS.db.appearance.fontSize,14,"reset font")
 equal(NS.db.appearance.opacity,0.98,"reset alpha")
-equal(NS.db.appearance.theme,"jade","reset palette")
+equal(NS.db.appearance.theme,"midnight","reset palette")
 equal(NS.db.draft,"原来的草稿","reset keeps draft")
 equal(NS.db.messages[1],"历史","reset keeps history")
 equal(ui.fontSlider.value,14,"reset synchronizes controls")

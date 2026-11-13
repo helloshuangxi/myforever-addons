@@ -155,27 +155,38 @@ eq(NS.HUD.helpTarget.mouse,true,"HUD title remains interactive")
 eq(#UISpecialFrames,1,"Escape registered once")
 NS.ToggleUI(true);NS.ToggleUI(true)
 eq(NS.Panel:IsShown(),true,"force show does not toggle closed")
-eq(NS.Panel.width,900,"organized directory width")
-eq(NS.Panel.height,600,"organized directory height")
+eq(NS.Panel.width,440,"compact single-column directory width")
+eq(NS.Panel.height,690,"compact directory height")
+eq(NS.Panel.width*NS.Panel.height<900*600*0.6,true,"directory occupies well under the former 900x600 area")
 eq(#ui.npcCategories,#NS.Categories+1,"NPC sidebar adapts to all registered purposes")
 eq(ui.npcCategories[2].category,"trainers","class trainers immediately follow all NPCs")
 eq(ui.npcCategories[3].category,"profession-trainers","profession trainers have their own purpose after class trainers")
 for _,b in ipairs(ui.npcCategories)do eq(b.category~="favorites"and b.category~="custom",true,"personal places excluded from NPC purposes")end
 local function top(control)return -control.point[3]end
-local previousBottom=0
-for _,b in ipairs(ui.npcCategories)do
-    eq(top(b)>=previousBottom,true,"purpose buttons do not overlap")
-    eq(b.height>=24,true,"purpose buttons retain readable click targets")
-    previousBottom=top(b)+b.height
+local function left(control)return control.point[2]end
+local function overlaps(a,b)
+    return left(a)<left(b)+b.width and left(b)<left(a)+a.width and top(a)<top(b)+b.height and top(b)<top(a)+a.height
 end
-eq(top(ui.subTitle)>=previousBottom+8,true,"subcategory heading below all purposes")
-previousBottom=top(ui.subTitle)+ui.subTitle.height
-for _,b in ipairs(ui.subcategories)do
-    eq(top(b)>=previousBottom+4,true,"subcategory rows do not overlap heading or each other")
-    previousBottom=top(b)+b.height
+-- Pills flow left to right and wrap; checks are two-dimensional.
+local purposeBottom=0
+for i,b in ipairs(ui.npcCategories)do
+    eq(b.height>=24,true,"purpose pills retain readable click targets")
+    eq(left(b)>=0 and left(b)+b.width<=ui.npcPage.width,true,"purpose pill stays inside the page width")
+    for j=i+1,#ui.npcCategories do eq(overlaps(b,ui.npcCategories[j]),false,"purpose pills do not overlap") end
+    purposeBottom=math.max(purposeBottom,top(b)+b.height)
 end
-eq(top(ui.subNext)>=previousBottom+8,true,"subcategory pager clears the final row")
-eq(top(ui.subNext)+ui.subNext.height<=ui.npcPage.height-ui.sidebarHint.height-4,true,"pager clears bottom Escape hint")
+eq(top(ui.subTitle)>=purposeBottom+8,true,"subcategory heading below all purposes")
+local subBottom=top(ui.subTitle)+ui.subTitle.height
+local shownSubs={}
+for _,b in ipairs(ui.subcategories)do if b:IsShown() then shownSubs[#shownSubs+1]=b end end
+for i,b in ipairs(shownSubs)do
+    eq(top(b)>=subBottom+2,true,"subcategory pills sit below their heading")
+    eq(left(b)+b.width<=ui.npcPage.width,true,"subcategory pill stays inside the page width")
+    for j=i+1,#shownSubs do eq(overlaps(b,shownSubs[j]),false,"subcategory pills do not overlap") end
+end
+eq(top(ui.subNext)<top(ui.subTitle)+ui.subTitle.height,true,"subcategory pager shares the heading line")
+eq(left(ui.subNext)+ui.subNext.width<=ui.npcPage.width,true,"subcategory pager inside the page")
+eq(ui.sidebarHint,nil,"no instructional text on the panel; Escape still closes it")
 NS.RefreshUI()
 eq(lastOptions.includeCustom,false,"NPC search excludes custom coordinates")
 eq(lastOptions.sort,"distance","NPC search defaults to nearest")
@@ -280,7 +291,12 @@ eq(ui.npcPage:IsVisible(),false,"NPC sidebar not visible on places page")
 ui.placeTabs.custom:Click();eq(lastOptions.category,"custom","custom places subtab")
 eq(ui.placeBrowser.rows[1].point.id,custom.id,"custom list displayed separately")
 ui.createToggle:Click();eq(ui.form:IsShown(),true,"form appears only after New place")
-eq(ui.placeBrowser.visibleRows,4,"expanded form reduces rows to fit")
+do
+    -- The taller compact page now fits the form and all six rows; what matters is that it fits.
+    local b=ui.placeBrowser
+    eq(b.visibleRows>=3 and b.visibleRows<=6,true,"expanded form keeps a usable list")
+    eq(b.listTop+b.visibleRows*38+28+92<=b.height,true,"expanded form: list, pager and card fit in the page")
+end
 ui.mapInput:SetText("1455");ui.xInput:SetText("12.4");ui.yInput:SetText("34.6");ui.nameInput:SetText("自建地点")
 ui.save:Click()
 eq(ui.form:IsShown(),false,"successful save folds form")
@@ -458,6 +474,14 @@ eq(shownResults(ui.npcBrowser),6,"six NPC rows shown")
 for _,browser in ipairs({ui.npcBrowser,ui.placeBrowser})do
     local y=-browser.next.point[3]
     eq(y+browser.next.height<=browser.height,true,"pager within browser height")
+    -- The card grows upward when expanded; its extra text must stay inside it.
+    local wasOpen=browser.state.more
+    -- The places page may be hidden here; invoke the handler directly.
+    if not wasOpen then browser.details.more.scripts.OnClick(browser.details.more) end
+    eq(browser.details.extra:IsShown(),browser.state.selectedID~=nil,"details expand on demand when something is selected")
     eq(-browser.details.extra.point[3]+browser.details.extra.height<=browser.details.height,true,"expanded details within card")
+    eq(-browser.details.point[3]+browser.details.height<=browser.height,true,"expanded card stays inside the page")
+    if not wasOpen then browser.details.more.scripts.OnClick(browser.details.more) end
+    eq(browser.details.height,92,"collapsed card returns to its compact height")
 end
 print("Navigator UI: "..checks.." behavior checks passed (simulated)")

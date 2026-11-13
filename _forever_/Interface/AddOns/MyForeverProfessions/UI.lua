@@ -326,18 +326,24 @@ local function getCard(index)
     local header = card.header
     header:SetPoint("TOPLEFT", 0, 0)
     header:SetHeight(42)
+    -- Rounded tonal card; progress is a slim line along its bottom edge.
+    Style.Round(header, "surface", 1, 8)
     header.bg = header:CreateTexture(nil, "BACKGROUND", nil, 0)
     header.bg:SetAllPoints()
-    header.bg:SetColorTexture(C("surface", 0.96))
-    header.fill = header:CreateTexture(nil, "BACKGROUND", nil, 1)
-    header.fill:SetPoint("TOPLEFT", 1, -1)
-    header.fill:SetHeight(40)
-    header.fill:SetTexture("Interface\\TargetingFrame\\UI-StatusBar")
-    header.fill:SetVertexColor(C("accent", 0.30))
+    header.bg:SetColorTexture(0, 0, 0, 0)
+    header.track = header:CreateTexture(nil, "ARTWORK", nil, 0)
+    header.track:SetPoint("BOTTOMLEFT", 1, 4)
+    header.track:SetSize(CONTENT_WIDTH - 2, 3)
+    header.track:SetColorTexture(C("hover", 1))
+    header.fill = header:CreateTexture(nil, "ARTWORK", nil, 1)
+    header.fill:SetPoint("BOTTOMLEFT", 1, 4)
+    header.fill:SetHeight(3)
+    header.fill:SetTexture("Interface\\Buttons\\WHITE8X8")
+    header.fill:SetVertexColor(C("accent", 1))
     header.rule = header:CreateTexture(nil, "ARTWORK")
     header.rule:SetPoint("BOTTOMLEFT", 0, 0)
     header.rule:SetSize(CONTENT_WIDTH, 1)
-    header.rule:SetColorTexture(C("line", 0.8))
+    header.rule:SetColorTexture(0, 0, 0, 0)
     header.icon = header:CreateTexture(nil, "ARTWORK")
     header.icon:SetSize(24, 24)
     header.icon:SetPoint("LEFT", 9, 0)
@@ -438,9 +444,9 @@ local function getCard(index)
         row.stock:SetTextColor(C("secondary"))
         row.bg = row:CreateTexture(nil, "BACKGROUND")
         row.bg:SetAllPoints()
-        row.bg:SetColorTexture(C("selected", 0.8))
+        row.bg:SetColorTexture(0, 0, 0, 0)
         row.marker = row:CreateTexture(nil, "ARTWORK")
-        row.marker:SetPoint("TOPLEFT", 0, -3)
+        row.marker:SetPoint("TOPLEFT", 6, -3)
         row.marker:SetWidth(3)
         row.marker:SetColorTexture(C("accent"))
         row:SetScript("OnEnter", function(self)
@@ -505,7 +511,7 @@ end
 
 local function materialCount(required, owned, missing)
     if not number(missing) and number(required) and number(owned) then missing = math.max(0, required - owned) end
-    local color = "|cff" .. Style.Hex(number(missing) and missing > 0 and "warning" or "accent")
+    local color = "|cff" .. Style.Hex(number(missing) and missing > 0 and "warning" or "success")
     return color .. "缺 " .. amount(missing) .. "|r   |cff" .. Style.Hex("muted") .. "需 " .. amount(required) .. " / 有 " .. amount(owned) .. "|r"
 end
 
@@ -546,6 +552,8 @@ end
 local function renderChoice(row, recipe, isCurrent, role, y)
     local color = palette[recipe.difficulty] or palette.unknown
     row.bg:SetShown(isCurrent)
+    -- Rounded tonal card plus the accent marker: selection is never shown by colour alone.
+    Style.Round(row, "selected", isCurrent and 0.75 or 0, 8)
     row.marker:SetShown(isCurrent)
     row.role:SetShown(isCurrent)
     row.role:SetText(role)
@@ -585,7 +593,7 @@ local function renderCard(card, profession)
     header.fill:SetShown(fraction > 0)
     header.fill:SetWidth(math.max(1, (CONTENT_WIDTH - 2) * fraction))
     -- A full bar turns to the warning hue: the profession is capped until the next training.
-    header.fill:SetVertexColor(C(valid and rank >= maximum and "warning" or "accent", 0.30))
+    header.fill:SetVertexColor(C(valid and rank >= maximum and "warning" or "accent", 1))
     header.rank:SetText(card.unlearned and "未学习" or (valid and amount(rank) .. " / " .. amount(maximum) or "读取中"))
     header.label:SetTextColor(C(card.unlearned and "muted" or "text"))
     local expanded = expandedID == profession.id
@@ -757,7 +765,8 @@ function ns.RenderUI()
     open.professionID = active and not active.unlearned and active.id or nil
     open.professionName = active and active.name
     open:SetEnabled(open.professionID ~= nil)
-    open.label:SetTextColor(C(open.professionID and "secondary" or "disabled"))
+    Style.SetButtonKind(open, open.professionID and "primary" or "default")
+    if not open.professionID then open.label:SetTextColor(C("disabled")) end
     open.explanation = not active and "先点击一个专业标题，再打开该专业的原生技能页。"
         or (active.unlearned and "尚未学习该专业，请先向训练师学习。" or "打开所选专业的原生技能页，更新已学项目与材料。")
     summary:SetText(ns.combatPaused and "战斗中 · 数据暂停"
@@ -885,13 +894,12 @@ function ns.CreateUI()
     panel:EnableMouseWheel(true)
     panel:SetScript("OnMouseWheel", wheel)
     panel:SetFrameStrata("MEDIUM")
-    panel:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8X8", edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 1 })
-    panel:SetBackdropColor(C("outer", Style.alpha.window))
-    panel:SetBackdropBorderColor(C("line", 0.9))
+    Style.Panel(panel, "window")
     panel.title = text(panel, 176, "GameFontNormal")
     panel.title:SetPoint("TOPLEFT", 13, -13)
     panel.title:SetText("商业技能助手")
     panel.title:SetTextColor(C("text"))
+    Style.SetType(panel.title, "title", "text")
     local drag = CreateFrame("Frame", nil, panel)
     panel.drag = drag
     drag:SetPoint("TOPLEFT", 4, -4)
@@ -945,9 +953,9 @@ function ns.CreateUI()
     local open = button(panel, "打开技能书", 104, function(self)
         if self.professionID and ns.OpenProfession then ns.OpenProfession(self.professionID) end
     end)
-    open:SetPoint("TOPLEFT", 14, -33)
+    open:SetPoint("TOPLEFT", 14, -38)
+    open:SetHeight(24)
     open:SetScript("OnEnter", function(self)
-        if self.professionID then self.label:SetTextColor(C("text")) end
         if not GameTooltip then return end
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
         GameTooltip:SetText(self.professionName and "打开技能书：" .. self.professionName or "打开技能书")
@@ -955,14 +963,15 @@ function ns.CreateUI()
         GameTooltip:Show()
     end)
     open:SetScript("OnLeave", function(self)
-        self.label:SetTextColor(C(self.professionID and "secondary" or "disabled"))
+        Style.SetButtonKind(self, self.professionID and "primary" or "default")
+        if not self.professionID then self.label:SetTextColor(C("disabled")) end
         hideOwnedTooltip(self)
     end)
     open:SetScript("OnHide", hideOwnedTooltip)
     panel.controls.open = open
     summary = text(panel, WIDTH - 28)
     panel.summary = summary
-    summary:SetPoint("TOPLEFT", 127, -39)
+    summary:SetPoint("TOPLEFT", 127, -43)
     summary:SetTextColor(C("muted"))
     scroll = CreateFrame("ScrollFrame", nil, panel)
     scroll:SetPoint("TOPLEFT", 15, -68)

@@ -27,8 +27,8 @@ local function cellHeight(side)
 end
 local WIDTH = PAD * 2 + TILE_WIDTH * COLUMNS + GAP * (COLUMNS - 1)
 local WHITE = "Interface\\Buttons\\WHITE8X8"
-local BACKDROP = {bgFile=WHITE, edgeFile="Interface\\Tooltips\\UI-Tooltip-Border", edgeSize=10,
-    insets={left=3,right=3,top=3,bottom=3}}
+-- Flat 1px edge (suite style); the 3px target/focus outlines are separate textures.
+local BACKDROP = {bgFile=WHITE, edgeFile=WHITE, edgeSize=1, insets={left=0,right=0,top=0,bottom=0}}
 local MODES = {{"raid","团队"},{"party","小队"},{"nearby","附近"}}
 local MARK_NAMES = {"星星","圆圈","菱形","三角","月亮","方块","十字","骷髅"}
 
@@ -607,7 +607,7 @@ local function button(parent, label, width, action)
     local b = CreateFrame("Button", nil, parent, "BackdropTemplate")
     b:SetFrameLevel(parent:GetFrameLevel()+3)
     b:SetSize(width or 46, 20)
-    background(b, {0.08,0.10,0.13,1}, {0.23,0.28,0.34,1})
+    background(b, {C("surface")}, {C("surface")})
     b.label = text(b, 11)
     b.label:SetPoint("CENTER")
     b.label:SetText(label)
@@ -620,7 +620,7 @@ local function button(parent, label, width, action)
         end
     end)
     b:SetScript("OnLeave", function(self)
-        self:SetBackdropBorderColor(C(self.active and "accent" or "line"))
+        self:SetBackdropBorderColor(C(self.active and "accent" or "surface"))
         hideTooltip()
     end)
     return b
@@ -1084,12 +1084,12 @@ local function createTile(panel,side,index,menu)
     row:SetAttribute("*type1","target")
     row.nativeHandlerWasPresent=row:GetScript("OnClick")==SecureActionButton_OnClick
     NS.SetupClickActions(row,menu)
-    background(row,{0.035,0.045,0.06,1},{0.24,0.29,0.35,1})
+    background(row,{C("side")},{C("line")})
     row.health=CreateFrame("StatusBar",nil,row)
     row.health:EnableMouse(false)
     row.health:SetPoint("TOPLEFT",3,-3)
     row.health:SetPoint("BOTTOMRIGHT",-3,3)
-    row.health:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
+    row.health:SetStatusBarTexture(WHITE)
     row.health:SetOrientation("HORIZONTAL")
     row.health:SetMinMaxValues(0,1)
     row.health:SetValue(0)
@@ -1331,8 +1331,8 @@ local function makePanel(side,menu)
     p:SetSize(WIDTH,GRID_TOP+cellHeight(side)*4+GAP*3+PAD)
     p:SetClampedToScreen(true)
     p:SetMovable(true)
-    background(p)
-    p.title=text(p,11,{0.93,0.85,0.65,1})
+    Style.Round(p,"outer",Style.alpha.window,10)
+    p.title=text(p,11,{C("text")})
     p.title:SetPoint("TOPLEFT",PAD+2,-7)
     p.title:SetText(side == "friendly" and "友方" or "敌方")
     local section={side=side,frame=p,tiles={},tabs={},limits={}}
@@ -1534,8 +1534,8 @@ end
 local function active(b,value)
     b.active=value
     -- Active toggles use the suite accent; gold stays reserved for the focus outline.
-    b:SetBackdropColor(C(value and "selected" or "surface"))
-    b:SetBackdropBorderColor(C(value and "accent" or "line"))
+    b:SetBackdropColor(C(value and "accentSoft" or "surface"))
+    b:SetBackdropBorderColor(C(value and "accentSoft" or "surface"))
     b.label:SetTextColor(C(value and "accent" or "secondary"))
 end
 
@@ -1667,8 +1667,8 @@ function NS.RefreshTiles()
                 row.classText:SetTextColor(r,g,b,1)
                 row.topline:SetVertexColor(r,g,b,1)
                 if data.dead or data.offline then row.health:SetStatusBarColor(.18,.21,.24,1)
-                elseif side=="friendly" then row.health:SetStatusBarColor(.10,.60,.27,1)
-                else row.health:SetStatusBarColor(.66,.20,.15,1) end
+                elseif side=="friendly" then row.health:SetStatusBarColor(.16,.52,.36,1)
+                else row.health:SetStatusBarColor(.60,.19,.22,1) end
                 local healthCurrent=data.healthCurrent
                 if data.dead then healthCurrent=0 end
                 nativeAmount(row.health,healthCurrent,data.healthMax,data.healthAvailable)

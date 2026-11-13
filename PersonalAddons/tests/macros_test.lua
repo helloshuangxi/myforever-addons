@@ -132,7 +132,7 @@ function methods:SetFocus() self.focus = true end
 function methods:ClearFocus() self.focus = false end
 local noops = { "SetPoint", "SetSize", "SetWidth", "SetHeight", "SetJustifyH", "SetJustifyV", "SetAutoFocus",
     "SetMaxLetters", "SetFrameStrata", "SetClampedToScreen", "SetMovable", "EnableMouse", "RegisterForDrag",
-    "StartMoving", "StopMovingOrSizing", "SetMultiLine", "SetFontObject", "SetScrollChild", "HighlightText", "SetSpacing" }
+    "StartMoving", "StopMovingOrSizing", "SetMultiLine", "SetFontObject", "SetScrollChild", "HighlightText", "SetSpacing", "ClearAllPoints" }
 for _, method in ipairs(noops) do methods[method] = function() end end
 local function widget(kind, name, parent)
     local w = setmetatable({kind = kind, name = name, parent = parent, shown = true, enabled = true, scripts = {}, events = {}}, {__index = methods})

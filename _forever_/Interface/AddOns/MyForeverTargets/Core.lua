@@ -12,6 +12,11 @@ NS.LegacyNameBridge = true
 -- Legacy combat/GUID controllers stay disabled. The separately authorized
 -- out-of-combat bridge restores the pre-cast target after a temporary switch.
 NS.PreserveCastTarget = true
+-- 2026-11-14 user authorization: the name bridge continues into combat for
+-- units whose name was confirmed unique before combat. Keys are armed out of
+-- combat; in combat the frozen name is used (/targetexact, cast, restore).
+-- Ordinary spells only; user macros and items keep their original behavior.
+NS.CombatNameBridge = true
 NS.Nameplates = {}
 
 function NS.Public(value)

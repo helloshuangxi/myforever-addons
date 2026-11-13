@@ -6,6 +6,9 @@ NS.NearbyCast = Cast
 local legacyNameOnly=NS.Public(NS.NativeMacroOnly) and NS.NativeMacroOnly==true
     and NS.Public(NS.LegacyNameBridge) and NS.LegacyNameBridge==true
 Cast.legacyName=legacyNameOnly
+-- In-combat continuation of the name bridge (CombatCast). Startup policy.
+local combatName=legacyNameOnly and NS.Public(NS.CombatNameBridge) and NS.CombatNameBridge==true
+Cast.combatName=combatName
 
 -- This startup policy requires a UI reload. Native mouseover macros keep their
 -- original action slots and keys; no bridge frame, event, or action is installed.
@@ -630,7 +633,16 @@ Cast.ReadRow=readRow
 local function usableRow(row) return readRow(row,true) end
 
 function Cast.SnapshotRow(row)
-    if legacyNameOnly then return nil,false end
+    if legacyNameOnly then
+        -- Out-of-combat snapshot for CombatCast. Unlike the hover check, the
+        -- current target gets no exemption: it may change once combat starts,
+        -- so an NPC must be independently unique among the known units.
+        if not combatName or not idle() then return nil,false end
+        local data=readRow(row,false)
+        if not data then return nil,false end
+        if data.player then return data,true end
+        return data,Cast.KnownUniqueNPC(data,row)
+    end
     if not idle() then return nil end
     local data=readRow(row,false,true)
     if not data then return nil end

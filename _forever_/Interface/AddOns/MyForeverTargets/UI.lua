@@ -282,7 +282,21 @@ local function combatCastStatus(row)
         if not NS.DB.legacyNameBridgeEnabled or reason=="disabled" then
             state.nativeText="普通技能悬停兼容已关闭，可点上方“施法”开启。"
         elseif NS.InCombat() or reason=="out_of_combat_only" then
-            state.nativeText="临时选目标施法仅支持脱战；战斗中交还原技能键。"
+            -- In combat the keys belong to CombatCast, armed before combat began.
+            local combat=row.side=="enemy" and not row.bridgeTarget and NS.CombatCast and NS.CombatCast.legacy
+                and NS.Read(NS.CombatCast.Status,row)
+            if type(combat)=="table" and combat.prepared==true and NS.Number(combat.count) and combat.count>0
+                and NS.Text(combat.guid)==NS.Text(row.expectedGUID) then
+                state.prepared,state.count,state.combat=true,combat.count,true
+                state.nativeText="战斗中：已准备 "..combat.count.." 个普通技能键；按战前确认的名字临时选中、施法，再恢复原目标。"
+            elseif type(combat)=="table" and combat.reason=="not_unique" then
+                state.reason="not_unique"
+                state.nativeText="战前有同名单位，未准备战斗中施法。"
+            elseif type(combat)=="table" then
+                state.nativeText="此单位没有在脱战时准备好，战斗中不能临时建立；按原技能键作用于当前目标。"
+            else
+                state.nativeText="临时选目标施法仅支持脱战；战斗中交还原技能键。"
+            end
         elseif state.prepared then
             state.nativeText="已准备 "..count.." 个普通技能键；按键时短暂选中此单位，施法后恢复原目标。"
         elseif reason=="not_unique" then
@@ -1050,9 +1064,9 @@ local function refreshCastDot(row)
     if not legacyBridge(row.side) then dot:Hide() return end
     local state=combatCastStatus(row)
     local reason=type(state)=="table" and state.reason or nil
-    if type(state)=="table" and state.prepared and NS.DB.legacyNameBridgeEnabled and not NS.InCombat() then
+    if type(state)=="table" and state.prepared and NS.DB.legacyNameBridgeEnabled then
         dot:SetVertexColor(C("accent"));dot:Show()
-    elseif reason=="not_unique" and NS.DB.legacyNameBridgeEnabled and not NS.InCombat() then
+    elseif reason=="not_unique" and NS.DB.legacyNameBridgeEnabled then
         dot:SetVertexColor(C("warning"));dot:Show()
     else dot:Hide() end
 end
@@ -1479,6 +1493,8 @@ local function makePanel(side,menu)
                 "临时选中悬停单位、施法，再恢复原目标；原来无目标则恢复为空。",
                 "友方接治疗／增益、敌方接伤害；已有宏、物品及其他插件占用的键保持原行为。",
                 "移开、隐藏或入战会交还原键。同名怪物无法确认唯一时不准备名称施法。",
+                "敌方战斗中：脱战时已确认名字唯一的怪物继续可用，沿用战前名字；战斗中新出现的和同名的不接管。友方战斗中保持原样。",
+                "格子右下角绿点＝此单位现在可悬停施法；黄点＝有同名单位，未准备。",
                 NS.DB.legacyNameBridgeEnabled and "点击关闭普通技能悬停兼容。" or "点击开启普通技能悬停兼容。"}
         end
         if NS.NativeMacroOnly then
@@ -1615,7 +1631,8 @@ function NS.BindTiles(side,tokens,limit)
         shown(row,i <= limit)
         if side=="enemy" and NS.EnemyTargetHover then NS.EnemyTargetHover.Bind(row) end
         if i > limit or not NS.IsPanelShown(side) then row.shield:Hide() end
-        if not NS.NativeMacroOnly and NS.CombatCast and type(NS.CombatCast.ArmRow)=="function" then NS.CombatCast.ArmRow(row) end
+        if (not NS.NativeMacroOnly or NS.CombatCast and NS.CombatCast.legacy) and NS.CombatCast
+            and type(NS.CombatCast.ArmRow)=="function" then NS.CombatCast.ArmRow(row) end
     end
     section.hasBound=true
     restoreFocusedTile(section)

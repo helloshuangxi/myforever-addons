@@ -6,7 +6,9 @@ NS.CombatCast=Combat
 
 -- Evaluated once at startup; changing this policy requires a UI reload.
 -- Native mouseover macros never need a generated action or key override.
-if not NS.Public(NS.NativeMacroOnly) or NS.NativeMacroOnly~=false then
+local legacy=NS.NearbyCast and NS.NearbyCast.combatName==true
+Combat.legacy=legacy
+if not legacy and (not NS.Public(NS.NativeMacroOnly) or NS.NativeMacroOnly~=false) then
     local function disabled() return false,0 end
     Combat.native=true
     Combat.Snippets={}
@@ -33,6 +35,8 @@ local function plain(value)
 end
 
 local function preserveTarget()
+    -- The name-bridge continuation never uses the unverified GUID route.
+    if legacy then return false end
     local value=NS.PreserveCastTarget
     return not NS.Public(value) or value~=false
 end
@@ -273,6 +277,10 @@ end
 
 function Combat.Install(row)
     if Combat.installed[row] then return true end
+    -- Name continuation: enemy tiles only. Friendly tiles and enemy-target bars
+    -- are never installed here, so NearbyCast keeps its own original leave/hide
+    -- wrappers for them and their out-of-combat behavior is unchanged.
+    if legacy and (row.side~="enemy" or row.bridgeTarget==true) then return false end
     local frame=owner()
     if not frame then return false end
     local index=#Combat.rows+1
@@ -303,7 +311,11 @@ function Combat.ArmRow(row,actions)
     if not idle() then return false end
     if not Combat.Install(row) then return false end
     local state=Combat.states[row]
-    if not NS.DB or not NS.DB.mouseoverRequested then disarm(row,state,"disabled");return false end
+    local enabled=NS.DB and (legacy and NS.DB.legacyNameBridgeEnabled or not legacy and NS.DB.mouseoverRequested)
+    if not enabled then disarm(row,state,"disabled");return false end
+    -- An enemy's target bar follows that enemy's live target, which changes
+    -- during combat; a name frozen before combat would no longer describe it.
+    if legacy and row.bridgeTarget==true then disarm(row,state,"out_of_combat_only");return false end
     if row.side=="friendly" and type(row.unit)=="string" and not row.unit:match("^nameplate%d+$") then
         disarm(row,state,"native_unit");return false
     end
@@ -386,6 +398,23 @@ end
 
 function Combat.Reconcile()
     if not idle() or Combat.reconciling then return false end
+    if legacy then
+        -- Track only this module's own hover index. The out-of-combat bridge
+        -- (NearbyCast) reconciles itself; it is not cleared or re-entered here.
+        Combat.reconciling=true
+        if Combat.owner then ClearOverrideBindings(Combat.owner) end
+        local foci,index=NS.Read(GetMouseFoci),nil
+        if type(foci)=="table" then
+            for _,focus in ipairs(foci) do
+                if NS.Public(focus) and Combat.installed[focus] and NS.Read(focus.IsVisible,focus)==true then
+                    index=Combat.installed[focus];break
+                end
+            end
+        end
+        if Combat.owner then Combat.owner:SetAttribute("combat-hover-index",index) end
+        Combat.reconciling=false
+        return index~=nil
+    end
     Combat.reconciling=true
     if Combat.owner then ClearOverrideBindings(Combat.owner) end
     local foci=NS.Read(GetMouseFoci)

@@ -754,4 +754,37 @@ issecretvalue, ns.Print, ns.GatherScan.ScanNames = oldSecret,savedPrint,savedNam
 check(facingReads==0 and positionScans==0 and not arrow.shown and not arrow.forbiddenShows,
     "restriction fallback does not introduce navigation or resource position reads")
 
+
+-- Secret-name passthrough: a confirmed hit whose name is secret is displayed by
+-- handing the value to the title font string; the HUD never reads or formats it.
+do
+    local savedNames, savedSupported = ns.GatherScan.ScanNames, supported
+    ns.gatherMinimapAccessRestricted, ns.gatherSoundWorldPaused = nil, nil
+    ns.db.gatherAlerts, ns.db.gatherSound, ns.db.gatherOpaque = true, true, true
+    supported, tracking = true, true
+    ticker.scripts.OnEvent(ticker, "MINIMAP_UPDATE_TRACKING")
+    ns.GatherScan.ScanNames = function() return {} end
+    tick(30)
+    check(not hud.shown, "passthrough case starts from an empty completed scan")
+    local before = soundCount
+    ns.GatherScan.ScanNames = function()
+        return {{name = ns.GATHER_OPAQUE_NAME, kind = "opaque", opaque = true, text = "SECRET", seenAt = now}}
+    end
+    tick(5)
+    check(hud.shown and title.text == "SECRET", "the secret text is passed to the title unchanged")
+    check(detail.text == "小地图范围内 · 名称由游戏显示", "the detail line says the game supplies the name")
+    check(soundCount == before + 1, "a fresh passthrough hit sounds once")
+    check(not arrow.shown and facingReads == 0 and positionScans == 0, "passthrough adds no direction or position")
+    check(type(ns.gatherAlertLabel) == "string" and not ns.gatherAlertLabel:find("SECRET", 1, true),
+        "the plain status label never contains the secret")
+    tick()
+    check(soundCount == before + 1, "the same passthrough hit does not repeat its sound")
+    -- Without an active learned gathering tracking mode the hit is not shown.
+    ns.db.gatherOpaque = false
+    tick(5)
+    check(not hud.shown, "turning passthrough off hides an unclassifiable hit")
+    ns.db.gatherOpaque = nil
+    ns.GatherScan.ScanNames, supported = savedNames, savedSupported
+end
+
 print("Gather alert integration: " .. checks .. " checks passed")

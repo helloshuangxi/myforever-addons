@@ -41,6 +41,8 @@
 
 **仍待验收：** dev.22 新矿近处弹窗和提示音、实际听感、右键转视角、持续消闪、黄点连续性、提醒/声音/闪光开关保持。旧矿当时已被其他人采走，没有用旧缓存补通过。记录状态为 `NOT_ACCEPTED / userApproval=pending / release=false`。
 
+**2026-11-14 候选方向（未实测）：** 不再要求读出矿名，改为把受保护的名称直接交给字体串显示。官方接口文档（70888）标注 `FontString:SetText` 接受受保护参数。实现、取舍与两分钟实机确认步骤见 [加密矿名直显](docs/MFP-001-SECRET-NAME-PASSTHROUGH.md)。本问题保持 open。
+
 **代码入口：** `MyForeverProfessions/GatherCursorScan.lua`、`GatherScan.lua`、`GatherStandIn.lua`、`GatherAlerts.lua`、`Main.lua`；模拟见 `professions_cursor_scan_test.lua`、`professions_standin_test.lua`、`professions_scan_router_test.lua`。
 
 **下一步与通过条件：** 先证明当前 build 存在公开且新鲜的名称来源；没有来源就保持明确降级，不反复搬图重试。矿点、点击、战斗/死亡/地图变化/异常中的原地图和输入恢复必须真实测试。替身要有真实可绘制地形和玩家箭头，无可用画面不得以黑框启动。只提醒资源名称与声音，不做资源方位或导航。保留已验收的窗口拉伸、顶部技能书及原设置。通过后仍需用户明确授权上线。

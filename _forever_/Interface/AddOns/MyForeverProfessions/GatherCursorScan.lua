@@ -630,7 +630,9 @@ finish=function(reason,result)
     cleaning=false
 end
 
+local opaqueText
 local function observeNames()
+    opaqueText=nil
     local d=C_TooltipInfo.GetMinimapMouseover()
     readable(d,"restricted-tooltip")
     if d==nil then return {},"Nil" end -- Public nil is a legitimate no-hit sample.
@@ -650,6 +652,13 @@ local function observeNames()
         need(plain(line,"table"),"malformed-lines")
         for _,field in ipairs({"leftText","rightText"}) do
             local text=line[field]
+            if text~=nil and not public(text) and ns.GatherOpaqueAllowed and ns.GatherOpaqueAllowed() then
+                -- Keep the value only to hand it back to a font string. It is never
+                -- compared, measured, concatenated, used as a key or written to disk.
+                opaqueText=opaqueText or text
+                found[ns.GATHER_OPAQUE_NAME]="opaque"
+                text=nil
+            end
             readable(text,"restricted-text")
             need(text==nil or (plain(text,"string") and #text<=8192),"malformed-text")
             if text then
@@ -849,7 +858,12 @@ local function step(s)
     elseif s.phase=="confirm" then
         local result={}
         for name,kind in pairs(s.candidate) do
-            if found[name]==kind then result[#result+1]={name=name,kind=kind,seenAt=now} end
+            if found[name]==kind then
+                local item={name=name,kind=kind,seenAt=now}
+                -- The text read by this confirming sample, for display only.
+                if kind=="opaque" then item.opaque,item.text=true,opaqueText end
+                result[#result+1]=item
+            end
         end
         if #result==0 then return finish("unconfirmed") end
         table.sort(result,function(a,b) return a.name<b.name end)

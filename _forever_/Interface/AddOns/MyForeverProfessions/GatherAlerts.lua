@@ -179,8 +179,21 @@ local function clearTarget()
     ns.gatherAlertLabel = nil
 end
 
+-- A secret-name hit cannot be matched against the resource catalogue. It is accepted
+-- only while a gathering tracking mode the character has learned is active, and takes
+-- that mode's kind for colour. Its skill requirement is unknown and is not claimed.
+local function opaqueKind(ranks)
+    if not activeTracking then return end
+    for _, kind in ipairs({"mining", "herbalism", "fishing"}) do
+        if activeTracking[kind] and ranks[skills[kind]] then return kind end
+    end
+end
+
 local function eligibleResource(name, ranks, requireTracking)
     if not plain(name, "string") then return end
+    if name == ns.GATHER_OPAQUE_NAME then
+        return ns.GatherOpaqueAllowed and ns.GatherOpaqueAllowed() and opaqueKind(ranks) or nil
+    end
     local kind, required = ns.GatherResource(name)
     local rank = kind and ranks[skills[kind]]
     if number(rank) and number(required) and rank >= required
@@ -219,7 +232,7 @@ local function minimapTarget(resources, ranks, now)
             local seen=announcements[key]
             if not chosen or (chosenSeen and not seen)
                 or ((not chosenSeen)==(not seen) and resource.name<chosen.name) then
-                chosen = {name = resource.name, kind = kind, minimap = true}
+                chosen = {name = resource.name, kind = kind, minimap = true, text = resource.text}
             end
         end
     end
@@ -236,12 +249,20 @@ local function render(current)
     title:ClearAllPoints()
     title:SetPoint("TOPLEFT", hud, "TOPLEFT", 12, -10)
     title:SetWidth(HUD_WIDTH - 24)
-    title:SetText(current.layoutOnly and current.name or "附近有 " .. current.name)
+    local opaque = current.name == ns.GATHER_OPAQUE_NAME
+    if opaque then
+        -- Hand the game's own text straight back to the font string. Nothing here reads it.
+        title:SetText(current.text)
+    else
+        title:SetText(current.layoutOnly and current.name or "附近有 " .. current.name)
+    end
     title:SetTextColor(unpack(colors[current.kind]))
     arrow:Hide()
-    detail:SetText(current.layoutOnly and "" or current.nearby and "就在附近" or "小地图范围内")
+    detail:SetText(current.layoutOnly and "" or current.nearby and "就在附近"
+        or opaque and "小地图范围内 · 名称由游戏显示" or "小地图范围内")
     hud:Show()
-    ns.gatherAlertLabel = current.layoutOnly and nil or "附近有 " .. current.name
+    ns.gatherAlertLabel = current.layoutOnly and nil or opaque and "小地图范围内有追踪标记（名称由游戏显示）"
+        or "附近有 " .. current.name
 end
 
 local function restorePlacement()
@@ -456,7 +477,8 @@ function ns.CreateGatherAlerts()
                 local resources = {}
                 for _, item in ipairs(names) do
                     if plain(item, "table") and plain(item.name, "string") then
-                        resources[#resources + 1] = {name = item.name, seenAt = now}
+                        -- item.text may be a secret; it is carried, never examined.
+                        resources[#resources + 1] = {name = item.name, seenAt = now, text = item.text}
                     end
                 end
                 target = minimapTarget(resources, ranks, now)
@@ -537,9 +559,14 @@ function ns.GatherCommand(action)
         setAdjusting(false)
     elseif action == "mute" or action == "unmute" then
         ns.db.gatherSound = action == "unmute"
+    elseif action == "passthrough on" or action == "passthrough off" then
+        -- Off restores the earlier rule: a secret name pauses minimap reading for the session.
+        ns.db.gatherOpaque = action == "passthrough on"
+        scanner.Reset()
     end
     ns.Print("采集提醒" .. (ns.db.gatherAlerts and "已开启" or "已关闭") .. "，声音" .. (ns.db.gatherSound and "开启" or "静音") .. "。")
     ns.Print("读取方式：" .. (ns.db.gatherMethod == "cursor" and "替身地图实验（仅本机）" or "原方式") .. "。")
+    ns.Print("加密名称直显：" .. (ns.db.gatherOpaque == true and "开启" or "关闭") .. "（/myprof gather passthrough on / off）。")
     local hint = capabilityHint()
     if hint then
         ns.Print(hint)

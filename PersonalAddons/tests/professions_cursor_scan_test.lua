@@ -1781,4 +1781,52 @@ do
     eq(s.result()[1].name,"铜矿","later valid opaque handshake recovers without unlocking a data restriction")
     restored(s,"opaque endpoint recovery")
 end
+-- Secret-name passthrough (explicit setting). The hostile shell throws if the
+-- implementation indexes, compares or stringifies the secret; the scanner may
+-- only carry it to the caller for display.
+do
+    local s,scan=client()
+    s.ns.db=s.ns.db or {}
+    s.ns.db.gatherOpaque=true
+    local accesses=0
+    local value=setmetatable({secret=true},{__index=function() accesses=accesses+1;error("secret indexed") end,
+        __tostring=function() accesses=accesses+1;error("secret stringified") end,
+        __eq=function() accesses=accesses+1;error("secret compared") end,
+        __len=function() accesses=accesses+1;error("secret measured") end,
+        __concat=function() accesses=accesses+1;error("secret concatenated") end})
+    s.override=function(state)
+        local scale=state.env.Minimap:GetEffectiveScale()
+        local x,y=state.cx/scale-state.env.Minimap:GetLeft(),state.cy/scale-state.env.Minimap:GetBottom()
+        if state.hit(x,y,state.env.Minimap.width/2,state.env.Minimap.height/2) then return {lines={{leftText=value}}} end
+    end
+    local r=s.result()
+    eq(#r,1,"passthrough publishes one confirmed hit")
+    eq(r[1].name,s.ns.GATHER_OPAQUE_NAME,"passthrough hit uses the placeholder key, not a readable name")
+    eq(r[1].kind,"opaque","passthrough hit is not given a catalogue kind")
+    eq(r[1].opaque,true,"passthrough hit is flagged")
+    yes(rawequal(r[1].text,value),"the secret itself is carried for display")
+    eq(r[1].dx,nil,"passthrough gives no coordinates"); eq(r[1].bearing,nil,"passthrough gives no direction")
+    eq(accesses,0,"the secret was never indexed, compared, measured, concatenated or stringified")
+    eq(s.ns.gatherMinimapAccessRestricted,nil,"a secret name no longer latches the session when passthrough is on")
+    eq(scan.IsSupported(),true,"scanner stays available")
+    restored(s,"passthrough positive")
+    eq(scan.ScanNames(),nil,"passthrough receipt is consumed once")
+    -- Other secret containers still latch: only the text field has a display path.
+    s.moving()
+    s.override=function() return {lines=value} end
+    s.tick(nil,false)
+    eq(s.ns.gatherMinimapAccessRestricted,true,"secret line container still latches with passthrough on")
+    eq(accesses,0,"latching did not touch the secret")
+end
+-- With the setting off the earlier contract holds (covered by the latch cases above).
+do
+    local s,scan=client()
+    s.ns.db=s.ns.db or {}
+    s.ns.db.gatherOpaque=false
+    eq(s.result()[1].name,"铜矿","off case starts from a public receipt")
+    s.moving()
+    s.override=function() return {lines={{leftText={secret=true}}}} end
+    s.tick(nil,false)
+    eq(s.ns.gatherMinimapAccessRestricted,true,"passthrough off: secret name pauses minimap reading")
+end
 print("professions cursor scan: "..checks.." simulated checks passed (not in-game verification)")

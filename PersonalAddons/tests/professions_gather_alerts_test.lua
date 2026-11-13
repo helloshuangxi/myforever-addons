@@ -779,6 +779,34 @@ do
         "the plain status label never contains the secret")
     tick()
     check(soundCount == before + 1, "the same passthrough hit does not repeat its sound")
+    -- Fallback: this client refuses a secret in an addon font string. The stored
+    -- tooltip record is drawn by Blizzard's tooltip instead.
+    local record = {lines = {{leftText = "SECRET"}}}
+    local fakeTip = {shown = false}
+    function fakeTip:SetOwner(owner) self.owner = owner end
+    function fakeTip:ClearAllPoints() end
+    function fakeTip:SetPoint(...) self.point = {...} end
+    function fakeTip:ProcessInfo(info) self.info = info; self.shown = true end
+    function fakeTip:Hide() self.shown = false end
+    local savedCreate, savedSetText = CreateFrame, title.SetText
+    CreateFrame = function(kind, ...) if kind == "GameTooltip" then return fakeTip end return savedCreate(kind, ...) end
+    title.SetText = function(self, value) if value == "SECRET" then error("secret refused") end return savedSetText(self, value) end
+    ns.GatherScan.ScanNames = function() return {} end
+    tick(30)
+    local beforeFallback = soundCount
+    ns.GatherScan.ScanNames = function()
+        return {{name = ns.GATHER_OPAQUE_NAME, kind = "opaque", opaque = true, text = "SECRET", data = record, seenAt = now}}
+    end
+    tick(5)
+    check(hud.shown and title.text == "小地图有追踪资源", "refused secret falls back to a plain title")
+    check(fakeTip.shown and fakeTip.info and rawequal(fakeTip.info.tooltipData, record), "Blizzard tooltip draws the stored record")
+    check(fakeTip.owner == hud, "fallback tooltip is anchored to the alert")
+    check(detail.text == "名称见下方提示", "detail points to the tooltip")
+    check(soundCount == beforeFallback + 1, "fallback still sounds once")
+    ns.GatherScan.ScanNames = function() return {} end
+    tick(30)
+    check(not hud.shown and not fakeTip.shown, "clearing the alert hides the fallback tooltip")
+    CreateFrame, title.SetText = savedCreate, savedSetText
     -- Without an active learned gathering tracking mode the hit is not shown.
     ns.db.gatherOpaque = false
     tick(5)

@@ -1809,8 +1809,37 @@ do
     eq(accesses,0,"the secret was never indexed, compared, measured, concatenated or stringified")
     eq(s.ns.gatherMinimapAccessRestricted,nil,"a secret name no longer latches the session when passthrough is on")
     eq(scan.IsSupported(),true,"scanner stays available")
+    yes(type(r[1].data)=="table" and rawequal(r[1].data.lines[1].leftText,value),"the whole tooltip record is carried for the fallback")
     restored(s,"passthrough positive")
     eq(scan.ScanNames(),nil,"passthrough receipt is consumed once")
+    -- People and creature blips are dropped by their public type or GUID, not by text.
+    for _,shape in ipairs({{guid="Player-1234-00000001"},{guid="Creature-0-1-2-3-4-5"},{lineType=2},{lineType=16}}) do
+        s.moving()
+        s.override=function(state)
+            local scale=state.env.Minimap:GetEffectiveScale()
+            local x,y=state.cx/scale-state.env.Minimap:GetLeft(),state.cy/scale-state.env.Minimap:GetBottom()
+            if state.hit(x,y,state.env.Minimap.width/2,state.env.Minimap.height/2) then
+                return {guid=shape.guid,lines={{leftText=value,type=shape.lineType}}}
+            end
+        end
+        local published=false
+        for _=1,1500 do
+            local res=s.tick()
+            for _,item in ipairs(res or {}) do if item.name==s.ns.GATHER_OPAQUE_NAME then published=true end end
+        end
+        eq(published,false,"unit blip is not published: "..tostring(shape.guid or shape.lineType))
+        eq(s.ns.gatherMinimapAccessRestricted,nil,"unit blip does not latch the session")
+        scan.Reset("next-shape")
+    end
+    -- A gathering node GUID is not filtered.
+    s.override=function(state)
+        local scale=state.env.Minimap:GetEffectiveScale()
+        local x,y=state.cx/scale-state.env.Minimap:GetLeft(),state.cy/scale-state.env.Minimap:GetBottom()
+        if state.hit(x,y,state.env.Minimap.width/2,state.env.Minimap.height/2) then
+            return {guid="GameObject-0-1-2-3-4-5",lines={{leftText=value,type=0}}}
+        end
+    end
+    eq(s.result()[1].name,s.ns.GATHER_OPAQUE_NAME,"a GameObject blip is still published")
     -- Other secret containers still latch: only the text field has a display path.
     s.moving()
     s.override=function() return {lines=value} end

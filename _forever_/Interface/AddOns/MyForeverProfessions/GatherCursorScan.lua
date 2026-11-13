@@ -630,13 +630,30 @@ finish=function(reason,result)
     cleaning=false
 end
 
-local opaqueText
+local opaqueText,opaqueData
+-- Minimap blips of people and creatures, not gathering nodes. Only public
+-- fields are inspected; an unreadable field is simply not used as a filter.
+local UNIT_GUID={Player=true,Creature=true,Pet=true,Vehicle=true}
+local function unitBlip(d)
+    local guid=d.guid
+    if public(guid) and type(guid)=="string" then
+        local prefix=guid:match("^(%a+)%-")
+        if prefix and UNIT_GUID[prefix] then return true end
+    end
+end
+-- Enum.TooltipDataLineType.UnitName / UnitOwner (2 / 16 in the 1.60.1 API docs).
+local function unitLine(line)
+    local kind,enum=line.type,Enum and Enum.TooltipDataLineType or {}
+    if not number(kind) then return false end
+    return kind==(enum.UnitName or 2) or kind==(enum.UnitOwner or 16)
+end
 local function observeNames()
-    opaqueText=nil
+    opaqueText,opaqueData=nil,nil
     local d=C_TooltipInfo.GetMinimapMouseover()
     readable(d,"restricted-tooltip")
     if d==nil then return {},"Nil" end -- Public nil is a legitimate no-hit sample.
     need(plain(d,"table"),"malformed-tooltip")
+    local skipUnits=unitBlip(d)
     local lines=readable(d.lines,"restricted-lines")
     need(plain(lines,"table"),"malformed-tooltip")
     local count=0
@@ -653,10 +670,13 @@ local function observeNames()
         for _,field in ipairs({"leftText","rightText"}) do
             local text=line[field]
             if text~=nil and not public(text) and ns.GatherOpaqueAllowed and ns.GatherOpaqueAllowed() then
-                -- Keep the value only to hand it back to a font string. It is never
+                -- Keep the value only to hand it back for display. It is never
                 -- compared, measured, concatenated, used as a key or written to disk.
-                opaqueText=opaqueText or text
-                found[ns.GATHER_OPAQUE_NAME]="opaque"
+                -- A people/creature blip is dropped by its public type, not its text.
+                if not skipUnits and not unitLine(line) then
+                    opaqueText,opaqueData=opaqueText or text,d
+                    found[ns.GATHER_OPAQUE_NAME]="opaque"
+                end
                 text=nil
             end
             readable(text,"restricted-text")
@@ -861,7 +881,9 @@ local function step(s)
             if found[name]==kind then
                 local item={name=name,kind=kind,seenAt=now}
                 -- The text read by this confirming sample, for display only.
-                if kind=="opaque" then item.opaque,item.text=true,opaqueText end
+                -- data: the whole tooltip record, for Blizzard's own tooltip to draw
+                -- if this client refuses a secret in an addon font string.
+                if kind=="opaque" then item.opaque,item.text,item.data=true,opaqueText,opaqueData end
                 result[#result+1]=item
             end
         end

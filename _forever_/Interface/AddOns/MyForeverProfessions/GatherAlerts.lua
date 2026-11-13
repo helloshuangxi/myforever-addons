@@ -173,8 +173,30 @@ function ns.PlayGatherNotice(name, source, preview)
     return true, "played"
 end
 
+-- Fallback display for a secret name: Blizzard's tooltip renders the stored
+-- tooltip record through its own secure path. Created on first use.
+local nameTip
+local function hideNameTip() if nameTip then pcall(nameTip.Hide, nameTip) end end
+local function showNameTip(data)
+    if not plain(data, "table") then return false end
+    if not nameTip then
+        local ok, tip = pcall(CreateFrame, "GameTooltip", "MyForeverProfessionsGatherNameTip", UIParent, "GameTooltipTemplate")
+        if not ok or not tip then return false end
+        nameTip = tip
+    end
+    local ok = pcall(function()
+        nameTip:SetOwner(hud, "ANCHOR_NONE")
+        nameTip:ClearAllPoints()
+        nameTip:SetPoint("TOPLEFT", hud, "BOTTOMLEFT", 0, -2)
+        nameTip:ProcessInfo({ tooltipData = data })
+    end)
+    if not ok then hideNameTip() end
+    return ok
+end
+
 local function clearTarget()
     target, targetUntil = nil, nil
+    hideNameTip()
     hud:Hide()
     ns.gatherAlertLabel = nil
 end
@@ -232,7 +254,7 @@ local function minimapTarget(resources, ranks, now)
             local seen=announcements[key]
             if not chosen or (chosenSeen and not seen)
                 or ((not chosenSeen)==(not seen) and resource.name<chosen.name) then
-                chosen = {name = resource.name, kind = kind, minimap = true, text = resource.text}
+                chosen = {name = resource.name, kind = kind, minimap = true, text = resource.text, data = resource.data}
             end
         end
     end
@@ -250,16 +272,22 @@ local function render(current)
     title:SetPoint("TOPLEFT", hud, "TOPLEFT", 12, -10)
     title:SetWidth(HUD_WIDTH - 24)
     local opaque = current.name == ns.GATHER_OPAQUE_NAME
+    local viaTip
     if opaque then
         -- Hand the game's own text straight back to the font string. Nothing here reads it.
-        title:SetText(current.text)
+        -- If this client refuses that, let Blizzard's tooltip draw the stored record.
+        if not pcall(title.SetText, title, current.text) then
+            title:SetText("小地图有追踪资源")
+            viaTip = showNameTip(current.data)
+        else hideNameTip() end
     else
+        hideNameTip()
         title:SetText(current.layoutOnly and current.name or "附近有 " .. current.name)
     end
     title:SetTextColor(unpack(colors[current.kind]))
     arrow:Hide()
     detail:SetText(current.layoutOnly and "" or current.nearby and "就在附近"
-        or opaque and "小地图范围内 · 名称由游戏显示" or "小地图范围内")
+        or viaTip and "名称见下方提示" or opaque and "小地图范围内 · 名称由游戏显示" or "小地图范围内")
     hud:Show()
     ns.gatherAlertLabel = current.layoutOnly and nil or opaque and "小地图范围内有追踪标记（名称由游戏显示）"
         or "附近有 " .. current.name
@@ -478,7 +506,7 @@ function ns.CreateGatherAlerts()
                 for _, item in ipairs(names) do
                     if plain(item, "table") and plain(item.name, "string") then
                         -- item.text may be a secret; it is carried, never examined.
-                        resources[#resources + 1] = {name = item.name, seenAt = now, text = item.text}
+                        resources[#resources + 1] = {name = item.name, seenAt = now, text = item.text, data = item.data}
                     end
                 end
                 target = minimapTarget(resources, ranks, now)

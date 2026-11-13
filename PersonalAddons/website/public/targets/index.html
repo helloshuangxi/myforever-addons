@@ -19,10 +19,11 @@
 <body>
 <a class="skip-link" href="#main">跳到正文</a>
 <header class="site-header">
-  <a class="brand" href="/">我的无限<span>Hyder 的魔兽插件</span></a>
-  <nav aria-label="主导航"><a href="/">插件首页</a><a href="/targets/" aria-current="page">目标选择</a><a href="/manager/">插件管理器</a><a href="#install">安装</a><a href="#updates">更新</a><a href="/#community">建议楼</a></nav>
+<a class="brand" href="/" aria-label="我的无限插件首页">我的无限<span>Hyder 的魔兽插件</span></a>
+<nav aria-label="主导航"><a href="/">首页</a><a href="/chat/">聊天</a><a href="/professions/">商业技能</a><a href="/navigator/">世界向导</a><a href="/targets/" aria-current="page">目标选择</a><a href="/manager/">管理器</a><a href="/#community">建议楼</a></nav>
 </header>
 <main id="main">
+<nav class="page-tabs" aria-label="本页内容"><a href="#features">功能</a><a href="#compatibility">适用范围</a><a href="#install">安装</a><a href="#usage">使用</a><a href="#updates">更新记录</a></nav>
 <section class="targets-hero" aria-labelledby="hero-title">
   <div class="targets-intro">
     <p class="eyebrow">MyForeverTargets · 目标选择</p>
@@ -57,10 +58,6 @@
     <figcaption id="preview-caption">界面示意，非游戏截图。名称与数值均为示例；只展示一行格子。</figcaption>
   </figure>
 </section>
-<section class="compatibility-note" id="compatibility" aria-labelledby="compatibility-title">
-  <h2 id="compatibility-title">普通技能悬停：仅限脱战</h2>
-  <div><p>启用“施法”后，悬停格子并按普通技能键，插件会<strong>临时选中该单位、施法，再恢复原目标</strong>。附近友方治疗／增益及原目标恢复已有用户实测；<strong>敌方与敌人的目标条施法尚未验证成功</strong>。</p><p>这不是原生 <code>@mouseover</code> 的完整修复，也不提供战斗中的悬停施法保证。同名怪物不能仅凭名称精确区分；发现歧义或无法确认唯一时，不准备名称选择施法。已有宏保持原样。</p></div>
-</section>
 <section class="page-section targets-features" id="features" aria-labelledby="features-title">
   <div class="section-intro"><h2 id="features-title">名单分开，<br>信息放进格子。</h2><p>主格保持紧凑的 76 × 58，间距只有 1 像素。敌人的目标另用 76 × 26 小条，只显示姓名、职业和血量。</p></div>
   <div class="roster-table-wrap"><table class="roster-table"><caption>各名单支持的对象与容量</caption><thead><tr><th scope="col">面板</th><th scope="col">名单</th><th scope="col">展示对象</th><th scope="col">格子数量</th></tr></thead><tbody><tr><th scope="row">友方</th><td>团队</td><td>团队玩家</td><td>20</td></tr><tr><th scope="row">友方</th><td>小队</td><td>小队玩家，含自己</td><td>5</td></tr><tr><th scope="row">友方</th><td>附近</td><td>可识别的附近玩家</td><td>5 / 10 / 20</td></tr><tr><th scope="row">敌方</th><td>单一名单</td><td>敌方玩家与怪物</td><td>5 / 10 / 20</td></tr></tbody></table></div>
@@ -70,6 +67,10 @@
     <article><h3>只留下相关效果</h3><p>显示自己（含本人宠物、载具）施加的限时增益和减益；友方还显示自己能驱散的减益，以黄色角点提示。常驻光环和采集追踪隐藏。</p><p>增益、减益各一排小图标，每排可见 6 枚，更多效果用滚轮查看。敌人的目标小条不放效果图标。</p></article>
     <article><h3>需要哪边，就开哪边</h3><p>两侧各有关闭按钮。左侧玉绿色“目”字图标始终保留，左键打开开关菜单，右键快速显示／隐藏两边；图标和面板都能拖动保存位置。</p><p>战斗中的面板开关和布局调整等待脱战后应用；拖动在脱战时进行。</p></article>
   </div>
+</section>
+<section class="compatibility-note" id="compatibility" aria-labelledby="compatibility-title">
+  <h2 id="compatibility-title">普通技能悬停：仅限脱战</h2>
+  <div><p>启用“施法”后，悬停格子并按普通技能键，插件会<strong>临时选中该单位、施法，再恢复原目标</strong>。附近友方治疗／增益及原目标恢复已有用户实测；<strong>敌方与敌人的目标条施法尚未验证成功</strong>。</p><p>这不是原生 <code>@mouseover</code> 的完整修复，也不提供战斗中的悬停施法保证。同名怪物不能仅凭名称精确区分；发现歧义或无法确认唯一时，不准备名称选择施法。已有宏保持原样。</p></div>
 </section>
 <section class="install page-section" id="install" aria-labelledby="install-title">
   <div class="section-intro"><h2 id="install-title">安装后，<br>从左侧「目」字打开。</h2><p>适配国服《魔兽世界：无限》1.60.1 / Interface 16001。首次安装请完整退出并重新启动游戏。</p></div>
@@ -106,6 +107,6 @@
   <div class="history"><h3>版本记录</h3><!-- release:history:start --><details><summary><span>v0.1.37</span><span>2026-11-11</span></summary><p>首次公开发布目标选择：友方分团队 20 格、小队 5 格、附近 5／10／20 格；敌方玩家和怪物共用 5／10／20 格面板，按可用距离信息排列。</p><p>紧凑长方形格子显示姓名、职业颜色、整格血量与资源条；保留与自己相关的 buff／debuff、友方可驱散提示，隐藏常驻光环；敌人的目标使用独立小条。</p><p>左键选择目标，右键设为焦点，Ctrl＋右键打开标记菜单；当前目标和焦点分别显示边框。</p><p>友方与敌方面板各有关闭按钮，屏幕左侧统一“目”字图标可重新打开；保存拖动位置与开关状态，战斗期间布局和开关变更延后应用。</p><p>脱战普通技能兼容采用短暂选择悬停单位并恢复原目标的方案。敌方及敌人的目标条施法尚未验证成功，原生 @mouseover 识别不作为已实现能力。</p></details><!-- release:history:end --></div>
 </section>
 </main>
-<footer class="site-footer"><a class="brand" href="/">我的无限<span>Hyder 的魔兽插件</span></a><p>为国服《魔兽世界：无限》制作的独立插件。<br>本网站与暴雪娱乐无隶属关系。</p><a href="/#community">建议与反馈</a></footer>
+<footer class="site-footer"><a class="brand" href="/">我的无限<span>Hyder 的魔兽插件</span></a><p>为国服《魔兽世界：无限》制作的独立插件。<br>本网站与暴雪娱乐无隶属关系。</p><nav class="footer-links" aria-label="站点链接"><a href="/chat/">聊天</a><a href="/professions/">商业技能</a><a href="/navigator/">世界向导</a><a href="/targets/">目标选择</a><a href="/manager/">管理器</a><a href="/#community">建议楼</a><a href="/LICENSE.txt">MIT 许可证</a></nav></footer>
 </body>
 </html>

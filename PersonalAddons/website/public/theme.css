@@ -221,7 +221,32 @@ kbd,.key-feature kbd{background:var(--surface-solid);border:1px solid var(--line
 .manager-download-card h3{color:var(--ink)}
 .form-status.is-error{color:var(--danger)}
 
+/* ---------- Shared page structure (2026-11-14) ---------- */
+/* In-page section bar on detail pages, under the global header. */
+.page-tabs{
+  position:sticky;top:76px;z-index:25;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;
+  max-width:1320px;width:calc(100% - 24px);margin:10px auto 0;padding:6px;
+  background:rgba(13,18,34,.66);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border:1px solid var(--line);border-radius:14px;
+}
+.page-tabs::-webkit-scrollbar{display:none}
+.page-tabs a{flex:none;font-size:14px;padding:6px 14px;border-radius:10px;color:var(--muted);text-decoration:none;white-space:nowrap}
+.page-tabs a:hover{background:var(--surface);color:var(--ink)}
+html{scroll-padding-top:140px}
+/* One footer on every page. */
+.site-footer{grid-template-columns:auto 1fr;row-gap:18px}
+.footer-links{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px 20px;padding-top:16px;border-top:1px solid var(--line)}
+.footer-links a{font-size:14px;color:var(--muted);text-decoration:none}
+.footer-links a:hover{color:var(--ink)}
+.site-footer>a[href="#updates"]{grid-column:1/-1;font-size:13px;color:var(--faint)}
+/* The chat page's author card now sits before the suggestion board. */
+.page-author{padding-top:56px;padding-bottom:0;border-top:0}
+.page-author .author-section{max-width:1320px;margin:0 auto;padding:22px 24px}
+
 @media(max-width:720px){
+  .page-tabs{top:116px}
+  html{scroll-padding-top:180px}
+  .site-footer{display:grid;grid-template-columns:1fr}
   .site-header{border-radius:20px;top:8px;padding:10px 12px}
   .site-header nav{margin-top:8px}
   .site-header nav a{padding:6px 10px;font-size:14px}

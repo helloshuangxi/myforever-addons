@@ -142,7 +142,7 @@ function NS.ApplySetting(key,value)
             NS.PendingSettings.friendlyShown,NS.PendingSettings.enemyShown=value,value
         else NS.PendingSettings[key]=value end
         if NS.RefreshLauncher then NS.RefreshLauncher() end
-        NS.Print("已记住设置，脱战后应用；战斗中名单与位置保持固定。")
+        NS.Notify("已记住设置，脱战后应用；战斗中名单与位置保持固定。","已记住，脱战后应用","pending")
         return false
     end
     if not releaseNativeHit() then
@@ -377,7 +377,7 @@ function NS.HandleCommand(message)
         if argument=="on" or argument=="off" then NS.SetDetectionEnabled(argument=="on")
         else local _,status=NS.DetectionStatus();NS.Print(status.."；/mytargets plates on 或 off。") end
     elseif command=="reset" then
-        if NS.InCombat() then NS.PendingReset=true;NS.Print("脱战后重置位置。")
+        if NS.InCombat() then NS.PendingReset=true;NS.Notify("脱战后重置位置。",nil,"pending")
         elseif not releaseNativeHit() then NS.PendingReset=true;NS.Print("原生命中区恢复后再重置位置。")
         else resetPositions();NS.SetShown(true) end
     elseif command=="" then NS.SetShown()
@@ -494,6 +494,7 @@ function NS.HandleEvent(event,unit)
                 if NS.CloseMarkMenu then NS.CloseMarkMenu() end
                 leaveHiddenCast(settings)
                 applyVisualSettings()
+                if NS.Notify then NS.Notify("战斗中记住的设置已应用。","设置已应用","success") end
             end
             if NS.PendingReset and canApplyLayout then
                 NS.PendingReset=nil;resetPositions();saveSettings({shown=true});applyVisualSettings()

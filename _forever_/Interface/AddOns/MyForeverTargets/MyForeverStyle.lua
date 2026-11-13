@@ -16,7 +16,7 @@
 --
 -- Every widget call is guarded: a missing method is skipped instead of raising,
 -- because a styling helper must never break an addon in a client variant.
-local VERSION = 2
+local VERSION = 3
 local existing = rawget(_G, "MyForeverStyle")
 if type(existing) == "table" and (tonumber(existing.version) or 0) >= VERSION then return end
 
@@ -302,4 +302,51 @@ function S.Progress(parent, width, height)
         S.Round(fill, colorName or "accent", 1)
     end
     return track
+end
+
+-- Toast: short feedback shown where the player is already looking (next to
+-- the panel they just used) instead of only in the chat log. Used for
+-- "remembered, applies after combat" and the matching "applied" moment.
+-- kind: "info" (accent), "pending" (warning), "success", "danger".
+-- The colour stripe is a second cue; the text alone must carry the meaning.
+-- Plain non-secure frame on UIParent, so it is safe to show in combat.
+local TOAST_HOLD, TOAST_FADE = 2.6, 0.4
+local toastStripe = { info = "accent", pending = "warning", success = "success", danger = "danger" }
+function S.Toast(anchor, message, kind, seconds)
+    if type(message) ~= "string" or message == "" or not CreateFrame then return nil end
+    local t = S.toastFrame
+    if not t then
+        t = CreateFrame("Frame", nil, UIParent)
+        if not t then return nil end
+        S.toastFrame = t
+        call(t, "SetFrameStrata", "DIALOG")
+        call(t, "SetHeight", 30)
+        S.Round(t, "outer", S.alpha.toast, 9)
+        t.stripe = call(t, "CreateTexture", nil, "ARTWORK")
+        call(t.stripe, "SetTexture", WHITE)
+        call(t.stripe, "SetPoint", "TOPLEFT", t, "TOPLEFT", 6, -8)
+        call(t.stripe, "SetPoint", "BOTTOMLEFT", t, "BOTTOMLEFT", 6, 8)
+        call(t.stripe, "SetWidth", 3)
+        t.text = S.Text(t, "secondary", nil, "")
+        call(t.text, "SetPoint", "LEFT", t, "LEFT", 16, 0)
+        call(t, "SetScript", "OnUpdate", function(self, elapsed)
+            self.age = (self.age or 0) + (tonumber(elapsed) or 0)
+            local hold = self.hold or TOAST_HOLD
+            if self.age >= hold + TOAST_FADE then call(self, "Hide")
+            elseif self.age > hold then call(self, "SetAlpha", 1 - (self.age - hold) / TOAST_FADE) end
+        end)
+    end
+    call(t.text, "SetText", message)
+    S.SetType(t.text, "secondary", "text")
+    local width = tonumber(call(t.text, "GetStringWidth")) or (#message * 6)
+    call(t, "SetWidth", math.min(420, math.max(120, width + 30)))
+    call(t.stripe, "SetVertexColor", S.Color(toastStripe[kind] or "accent"))
+    call(t, "ClearAllPoints")
+    local visible = anchor and call(anchor, "IsVisible")
+    if visible then call(t, "SetPoint", "BOTTOM", anchor, "TOP", 0, 8)
+    else call(t, "SetPoint", "TOP", UIParent, "TOP", 0, -140) end
+    t.age, t.hold = 0, tonumber(seconds) or TOAST_HOLD
+    call(t, "SetAlpha", 1)
+    call(t, "Show")
+    return t
 end

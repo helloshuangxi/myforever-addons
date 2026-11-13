@@ -139,6 +139,21 @@ function NS.Print(message)
     end
 end
 
+-- Feedback next to the panel the player just used (the chat line stays as the
+-- record). Prefers a shown enemy panel, then friendly, then the launcher.
+function NS.Notify(message, short, kind)
+    NS.Print(message)
+    local S = rawget(_G, "MyForeverStyle")
+    if type(S) ~= "table" or type(S.Toast) ~= "function" then return end
+    local anchor
+    for _, side in ipairs({ "enemy", "friendly" }) do
+        local section = NS.UI and NS.UI[side]
+        local frame = section and section.frame
+        if not anchor and frame and frame.IsVisible and frame:IsVisible() then anchor = frame end
+    end
+    pcall(S.Toast, anchor or NS.Launcher, short or message, kind)
+end
+
 function NS.ValidToken(unit)
     if not NS.Public(unit) or type(unit) ~= "string" then return false end
     if unit == "player" or unit == "target" or unit == "focus"

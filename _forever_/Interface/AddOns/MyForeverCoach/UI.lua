@@ -17,6 +17,12 @@ local function button(parent, x, width, caption, handler, kind)
     b:SetPoint("BOTTOMLEFT", x, 12)
     return b
 end
+-- Refusals also appear beside the panel, where the click happened.
+local function notify(message)
+    NS.Print(message)
+    if Style and Style.Toast and panel then pcall(Style.Toast, panel, message, "pending") end
+end
+
 local function combat()
     local _, value = NS.Try(InCombatLockdown)
     return NS.Bool(value) == true
@@ -38,7 +44,7 @@ local function duration(value)
 end
 
 function NS.ShowExport(report)
-    if combat() then NS.Print("请脱战后导出，采集仍会继续。") return end
+    if combat() then notify("请脱战后导出，采集仍会继续。") return end
     if not exportPanel then
         exportPanel = CreateFrame("Frame", "MyForeverCoachExportPanel", UIParent, "BackdropTemplate")
         exportPanel:SetSize(560, 400)
@@ -142,7 +148,7 @@ function NS.CreateUI()
         NS.SetBehaviorView(not diagnostics); NS.RenderUI()
     end)
     button(panel, 192, 72, "新会话", function()
-        if combat() then NS.Print("请脱战后开始新会话。") return end
+        if combat() then notify("请脱战后开始新会话。") return end
         NS.StopSession("manual"); NS.StartSession(); NS.RegisterCaptureEvents(NS.frame); NS.RefreshCapabilities(); NS.RenderUI()
     end)
     button(panel, 296, 72, "导出 JSON", function() NS.ShowExport(false) end, "quiet")

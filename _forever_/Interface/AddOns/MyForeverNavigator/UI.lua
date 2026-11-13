@@ -2,7 +2,7 @@ local _, NS = ...
 
 local panel, hud
 local workspace, ready = "npc", false
-local WIDTH, HEIGHT, MAX_ROWS = 900, 600, 6
+local WIDTH, HEIGHT, MAX_ROWS, SUBCATEGORY_ROWS = 900, 600, 6, 6
 local npcState = {query="",category="all",subcategory="all",sort="distance",faction="own",currentZone=false,page=1,subPage=1,filters=false,more=false}
 local placeState = {query="",category="favorites",sort="distance",page=1,more=false}
 local npcPage, placePage, navigationPage, npcBrowser, placeBrowser
@@ -208,10 +208,10 @@ local function updateSubcategories()
     local found = false
     for _, c in ipairs(list) do if c.id == npcState.subcategory then found=true;break end end
     if not found then npcState.subcategory="all" end
-    local maximum = math.max(1,math.ceil(#list/6))
+    local maximum = math.max(1,math.ceil(#list/SUBCATEGORY_ROWS))
     npcState.subPage=math.max(1,math.min(maximum,npcState.subPage))
     for i,b in ipairs(subcategories) do
-        local item=list[(npcState.subPage-1)*6+i]
+        local item=list[(npcState.subPage-1)*SUBCATEGORY_ROWS+i]
         b.entry=item
         b:SetShown(item~=nil)
         if item then
@@ -517,20 +517,23 @@ function NS.CreateUI()
     local purposes=categoryList()
     local purposeHeight,purposeStep=28,32
     if #purposes > 6 then purposeHeight,purposeStep=24,27 end
-    local purposeBottom=26+(#purposes-1)*purposeStep+purposeHeight
-    local subTitleTop=purposeBottom+12
-    local subStart=subTitleTop+26
+    local compactSidebar = #purposes > 7
+    local purposeTop = compactSidebar and 24 or 26
+    if compactSidebar then purposeStep=26 end
+    local purposeBottom=purposeTop+(#purposes-1)*purposeStep+purposeHeight
+    local subTitleTop=purposeBottom+(compactSidebar and 8 or 12)
+    local subStart=subTitleTop+(compactSidebar and 22 or 26)
     local subStep=28
-    local subPagerTop=subStart+6*subStep+10
+    local subPagerTop=subStart+(SUBCATEGORY_ROWS-1)*subStep+24+(compactSidebar and 8 or 14)
     for i,c in ipairs(purposes)do
         local id=c.id
         local b=button(npcPage,c.label,152,purposeHeight,function()
             npcState.category=id;npcState.subcategory="all";npcState.subPage=1;npcState.page=1;npcState.selectedID=nil;npcState.more=false;NS.RefreshUI()
         end)
-        b:SetPoint("TOPLEFT",0,-26-(i-1)*purposeStep);b.category=id;categories[#categories+1]=b
+        b:SetPoint("TOPLEFT",0,-purposeTop-(i-1)*purposeStep);b.category=id;categories[#categories+1]=b
     end
     subTitle=label(npcPage,152,18,"GameFontHighlightSmall",colors.muted);subTitle:SetPoint("TOPLEFT",0,-subTitleTop)
-    for i=1,6 do
+    for i=1,SUBCATEGORY_ROWS do
         local b=button(npcPage,"",152,24,function(self)
             if self.entry then npcState.subcategory=self.entry.id;npcState.page=1;npcState.selectedID=nil;npcState.more=false;NS.RefreshUI()end
         end)

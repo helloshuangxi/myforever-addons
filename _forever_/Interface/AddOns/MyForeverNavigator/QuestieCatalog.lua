@@ -132,6 +132,7 @@ local function collectNPC(job, npcID)
     local template = job.templates[npcID]
     local role = NS.Call(NS.ClassifyQuestieNPC, raw, template)
     if type(role) ~= "table" then role = {category="npcs", service=subName ~= "" and subName or "其他 NPC", tags=""} end
+    if role.professionKey then job.professionRoles[npcID] = role.professionKey end
     local areas = {}
     for areaID in pairs(spawns) do if NS.Number(areaID) and areaID > 0 then areas[#areas+1] = areaID end end
     table.sort(areas)
@@ -164,6 +165,7 @@ local function collectNPC(job, npcID)
                 id="questie-npc-" .. npcID .. "-" .. mapID, npcID=npcID, name=name, english=english,
                 category=NS.CleanText(role.category, 40), service=NS.CleanText(role.service, 180),
                 catalogSubcategory=role.catalogSubcategory,
+                professionKey=role.professionKey,
                 tags=NS.CleanText((role.tags or "") .. " " .. subName, 360),
                 faction=raw.friendly=="A" and "Alliance" or raw.friendly=="H" and "Horde"
                     or raw.friendly=="AH" and "Neutral" or "Hostile",
@@ -186,6 +188,7 @@ end
 
 local function finish(job)
     published, byID = job.points, job.index
+    NS.QuestieProfessionRoles = job.professionRoles
     provider, zoneProvider = job.db, job.zones
     state.count, state.npcs, state.maps = #job.points-job.curatedCount, count(job.npcs), count(job.maps)
     state.processed, state.progress, state.error = state.total, 1, nil
@@ -210,7 +213,7 @@ local function begin(db, zones)
         end
     end
     work = {db=db, zones=zones, ids=ids, cursor=1, points=points, index={}, curated=curated,
-        curatedCount=#points, templates=templates, seenIDs={}, areaMaps={}, npcs={}, maps={}}
+        curatedCount=#points, templates=templates, seenIDs={}, areaMaps={}, npcs={}, maps={}, professionRoles={}}
     state.processed, state.total, state.progress, state.error = 0, #ids, 0, nil
     phaseLoader, phaseProvider = nil, nil
     phaseModule()

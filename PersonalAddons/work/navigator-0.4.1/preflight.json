@@ -1,0 +1,781 @@
+{
+  "status": "passed",
+  "checked_at": "2026-11-13T10:46:01.147030+00:00",
+  "read_only": true,
+  "production_changed": false,
+  "production_release": "20261113T102916Z",
+  "production_current": "/var/www/myforeverchat/releases/20261113T102916Z",
+  "production_current_unchanged_during_audit": true,
+  "local_public_unchanged_during_audit": true,
+  "latest_versions": {
+    "MyForeverChat": {
+      "version": "0.9.3",
+      "path": "latest.json",
+      "sha256": "921cd7d9288417aea6c2c5bf497aec584dbad3db020227892ab579bad7d5812a"
+    },
+    "MyForeverProfessions": {
+      "version": "0.4.6",
+      "path": "professions/latest.json",
+      "sha256": "0d86e709408a7e82ece13a8f456526405bd2f83c4c609ac8417d00f9cdea8550"
+    },
+    "MyForeverNavigator": {
+      "version": "0.4.0",
+      "path": "navigator/latest.json",
+      "sha256": "75d26317c16d9d31bfeeeeae89c5cfc4258635bda8b736d66693c59189b56095"
+    },
+    "MyForeverTargets": {
+      "version": "0.1.46",
+      "path": "targets/latest.json",
+      "sha256": "e1b91c802666f3742af828f285317926ec212329b799ed118bd8e86e1fb9c6bd"
+    },
+    "MyForeverManager": {
+      "version": "0.2.1",
+      "path": "manager/latest.json",
+      "sha256": "ac184b9ca143cc282f616ab82d16db6d36cb5ed704252e9be4476571c96cd733"
+    }
+  },
+  "public_files": {
+    "count": 114,
+    "remote_count": 114,
+    "all_hashes_match": true,
+    "missing_remote": [],
+    "missing_local": [],
+    "hash_mismatches": [],
+    "sha256": {
+      "community.css": "86b98d8b3ae11902a8776748b3b9e64dfb9a6f641bbd59fbd58c815e67c1656a",
+      "latest.json": "921cd7d9288417aea6c2c5bf497aec584dbad3db020227892ab579bad7d5812a",
+      "index.html": "0e08eb461ab66c6568cf30dc39a64c2f37634fff3346e459bf23a7cb0b99383b",
+      "portal.js": "93b32122e4c4698252e7dc93bdd544efd9dc07a9152d842d6625ef9b93cee3ab",
+      "community-config.json": "794fea8d0cb291bc602b65a8972a40bb6e61beef43202bc208a65c3b140ac025",
+      "script.js": "882da80ba28e0d729410b4f5cfa0505423f8ce0ea89a6ca25ab555bde73cc8a0",
+      "style.css": "37eb702df8d1e9f1ae2c71cf339332f6652bdda0320ce41d4742f9ead81fece5",
+      "releases.json": "cac85b092a4e9176a1d0e05aeb0e004a7759b76c591f01ce93d08545acd95d95",
+      "sitemap.xml": "09e28fe1719482caf5740225cedd618e782643edf966a9db85f2a0da62d2ae76",
+      "community.js": "8895119142652b1b03685b783bd196afb8b0bb9145f39e7f10f7092709dbc39e",
+      "robots.txt": "9006338f610be6aeebfdaddd3495ce36cc07d06bc22ff6802e2d66f8bb87db7e",
+      "LICENSE.txt": "9919c208f8f2f554730d6ab0dfa0574eec47b3b331a5cdf368d9c0d68939f4e5",
+      "portal.css": "7cb969922e362fc221324dfa6b2d486db1dcaa2a570d4876dfb96a4d054e169a",
+      "chat/index.html": "e0e30f99e28a6c851918e470825955fb079b7c25fa2a8c418219f156b11bd2bb",
+      "targets/latest.json": "e1b91c802666f3742af828f285317926ec212329b799ed118bd8e86e1fb9c6bd",
+      "targets/index.html": "9c8e4ceec941341817e20ffe09688db5b64f1da84ef0c8303c04578dedc6e781",
+      "targets/style.css": "0104f34b369a327f81b4b5c3305349d5db4c18687fcd6b6ce784e4d2d4fb0680",
+      "targets/releases.json": "6fdcf527970141221763980b955f853b4743982b329323c85afff2ef81fe2206",
+      "manager/latest.json": "ac184b9ca143cc282f616ab82d16db6d36cb5ed704252e9be4476571c96cd733",
+      "manager/index.html": "5632d540eaba2176a32ad1d8429cc982f2b9a6cd57d33117247792c3d65f0ad8",
+      "manager/style.css": "208388e981994fb6a3800c42a8e40725f105aaef49ce0bc7947ed84d2a0c00fb",
+      "manager/releases.json": "fdebee57f77cbcf1a139e570bdcda560f78576cac634290bf4eb065521d99ccb",
+      "navigator/latest.json": "75d26317c16d9d31bfeeeeae89c5cfc4258635bda8b736d66693c59189b56095",
+      "navigator/index.html": "a8c4d6bec645f5edd6a05c68991063e8825d6ced8b305515780b33b6e3947ff9",
+      "navigator/style.css": "564b8432ba96d57e8086fe7e9a82fbe287c658c3e3785271b6a47903f707c473",
+      "navigator/releases.json": "aa885635e918f0c5ff22d33f9aa834e3d5769c44fb4c5356553f03727c28d5f0",
+      "assets/donation-5.jpg": "223eea1918a62e0b633e0083d82ba536abbaa9d06b15e815311f2a5aaa883fa9",
+      "assets/chat-actions.jpg": "c521d8c56db08dae2157ebe53fc452475c2b5c40ff8db7b12ead96bd29fde195",
+      "assets/hyder-avatar-illustration.jpg": "b3c8929705b3b0d1378ae293a4da5cc379a8d15c2ca484c4eefbbd272e8bd889",
+      "assets/chat-groups-0.9.jpg": "8002e6ab1d8b0979781e19044445040573d2f91835a45b3b24615033c9b86b51",
+      "assets/donation-1.jpg": "aa94b67497e5a45ea4e60c7f27b9406321aa0a54667d5a184d1adf25d0c4c921",
+      "assets/professions-materials.jpg": "0ba11981994bfedb86ec985bda02e9496927132eadea5403ca07166f2b008277",
+      "assets/donation-100.jpg": "2c28b03a1be656a3fc96353e93f11d2b095ae697676bedfe2668ad5260b216ed",
+      "assets/professions-overview.jpg": "75418c7a69a3c78e5b4fc9458a11d65181d25d90b9f4bef8b2ede4f55ffff45f",
+      "assets/chat-emotes.jpg": "c88e93598fe9fec6dcee6f6d03fe554fac651c2bf7368a88feb7f723e1dab0ce",
+      "assets/donation-20.png": "a71983e65fc4be1eaa2cb33ab64c9c7bef9e3dadd9a40bf83f433061e1ad05c2",
+      "assets/professions-trainers.jpg": "23b492ad844c9cb367c4c47cf46dc3afd86636e9c56d52cf972f07e4465f7506",
+      "assets/chat-overview.jpg": "d453a7400e4a55e98c3220c8ac59d8249f33ac92f9b2ce6af7879847d36e29b4",
+      "assets/chat-channels-0.9.jpg": "c4372a9e1dd550baa6a6b995dee15c838e31bf7074b63b0de9ce3c1fc90acb58",
+      "assets/chat-settings.jpg": "063857d391034af5a558f1e6027bd05f082fdd8ecfb178d2839456813d6de56c",
+      "downloads/MyForeverNavigator-0.2.0-Trial.zip.sha256": "fadaba03edc4c805b7c08b59d1d13c3a0190dc31541d9114480f2ffc49c0d99d",
+      "downloads/MyForeverNavigator-0.3.0-Trial.zip": "62dc08d48a6c82049b206707c578bc9b4cb6b5e365596196ac4497fc2469fa83",
+      "downloads/MyForeverProfessions-0.4.2-Trial.zip.sha256": "987d5cb858bab95be4074dc126a9cced1971703442c9d3f057714ba28c45fda3",
+      "downloads/MyForeverProfessions-0.4.5-Trial.zip": "c6861f5b6ad9051a55c97dd83c7d92fb0012623b6bd6d79885dc5921f0ffa81c",
+      "downloads/MyForeverChat-0.8.0-Trial.zip.sha256": "d557f3c3d0ceeb93ee74d125ebcd7a7d3e939e84c7dfa1e18ba80ef6ccda494b",
+      "downloads/MyForeverTargets-0.1.37-Trial.zip": "6955d72563c0510304798d444ed5cde56b5688a7fa2c18111d38d4c02d4c2366",
+      "downloads/MyForeverChat-0.9.1-Trial.zip": "5a150350b076ea180375af4372452bb442007e6027a0555be9832e1e88e39d44",
+      "downloads/MyForeverChat-0.9.3-Trial.zip.sha256": "0701f71622db4d10590474053a8049456533e4eadcfc77fccfe072110af0cdaa",
+      "downloads/MyForeverTargets-0.1.46-Trial.zip": "5c5865a8dc8f850bde6b359f5729a7195c48eb49b4ea42c0812002ec521634bf",
+      "downloads/MyForeverProfessions-0.4.6-Trial.zip.sha256": "8643acb1164cd2f1b69461791e09cb1ba330847e502ea83788d9e656b13aa6a1",
+      "downloads/MyForeverNavigator-0.2.2-Trial.zip": "0b3dbc687c00e3cedc35d094e635c6f5bb43d3334bdf947b9d32c0b164bf51c4",
+      "downloads/MyForeverProfessions-0.4.3-Trial.zip": "9ce05cfca6ec8f7aded0609779db9433f40d3ec75846b8fdb02d7ee3528a5f89",
+      "downloads/MyForeverNavigator-0.3.3-Trial.zip.sha256": "9e4391ca7ccc7de37a4366ab1f981eb24527221d540eebb1bd4772dc0a10191b",
+      "downloads/MyForeverProfessions-0.3.1-Trial.zip": "1c432f96bfcd20b79804b642e2446718eb4fee7cd484ec17f1f856d49c094fea",
+      "downloads/MyForeverNavigator-0.3.1-Trial.zip": "64175bd964ab862cc73e6f963fda7c82d265cd482bdecec97d7e211e144d8436",
+      "downloads/MyForeverProfessions-0.4.3-Trial.zip.sha256": "a8e36c361520b41791ca0686870ab5706437577b9e69760d2b13d9e1646abdaf",
+      "downloads/MyForeverProfessions-0.3.1-Trial.zip.sha256": "436aa87255a0bcc2a8ccd305c3750bdc2f589633cfe4b07b0a48487095c18c5d",
+      "downloads/MyForeverNavigator-0.1.2-Trial.zip": "650f657742b92d3a922cfff3a5aee6731ba03f7a92603fb5cf7a9e5334afbde5",
+      "downloads/MyForeverNavigator-0.2.1-Trial.zip.sha256": "e518b44e9a03352dde0f593752941ec1ca8f79bb98c1b0206304cdd08273e4fe",
+      "downloads/MyForeverChat-0.8.2-Trial.zip": "a22e37552422c87ed074e753aa4a4694bac237c62abc72ecaddbdd1eea028c7f",
+      "downloads/MyForeverProfessions-0.4.4-Trial.zip": "cad46e8c6077d6f108e3a7cc3eb8c679a4bbe55782a761a82d70dac9066a0574",
+      "downloads/MyForeverChat-0.8.1-Trial.zip.sha256": "20d7c093562b4618f43c7cb770470824401384ed9d0a536b6fbfc2f1cd912d3d",
+      "downloads/MyForeverChat-0.9.0-Trial.zip": "60081bc023fb0ef9cd0fdec97a7961da346686794093d213415d47a31599543b",
+      "downloads/MyForeverChat-0.9.2-Trial.zip.sha256": "4872cd7f9ec5c36bd9e9be1e51942a8c41607aab9cd1c01eec2bf25edf11f78c",
+      "downloads/MyForeverTargets-0.1.46-Trial.zip.sha256": "28349372053ef50aeee0fc0bc56c08f50dae56bbe9d4a2fd9fc331025195e406",
+      "downloads/MyForeverTargets-0.1.37-Trial.zip.sha256": "9254560916f0bb0b505050fc9321bc96da70e3cc7e25b3d2109c0c5e966f88ed",
+      "downloads/MyForeverNavigator-0.3.2-Trial.zip.sha256": "2ab97061d4278f62870f8b58d32ff0a0079c15c1fbb1003e42f4f696ec8c8992",
+      "downloads/MyForeverNavigator-0.4.0-Trial.zip.sha256": "0d6a7e7e582143a1c6240cf8064b7376fa615022cf7bc3d3df1617539356e9ce",
+      "downloads/MyForeverProfessions-0.4.2-Trial.zip": "fe6591ee0b329592f89edf401c41be6e4f5890b3dad71a88e4343f3416daba84",
+      "downloads/MyForeverNavigator-0.3.2-Trial.zip": "291afa405730ef3db8be628fdd0bbb6cbeaf21c64d5b58441bb014c1b948b716",
+      "downloads/MyForeverChat-0.8.2-Trial.zip.sha256": "d920ed37c6294145f07367b85f024f03439693a15009b12e3188094267bbf2b9",
+      "downloads/MyForeverProfessions-0.4.0-Trial.zip.sha256": "8507fefc78a01bc3fef654c42a95d6fe77de61729d784a3e113b7c002566a9a7",
+      "downloads/MyForeverNavigator-0.2.2-Trial.zip.sha256": "d323b34a1b865e58994a854287a4594ee32cd37cf5318b06ca00fb7a1ebd16c2",
+      "downloads/MyForeverChat-0.8.1-Trial.zip": "4e7ab39620006ab62d3f56c25ef0c3c20a41bdae829acf0a80cab188d7430b05",
+      "downloads/MyForeverNavigator-0.3.1-Trial.zip.sha256": "660f213ca1af473154df78ceca477ca7bfc69b6b67ac9c3ad10ed34766dbd82c",
+      "downloads/MyForeverNavigator-0.1.2-Trial.zip.sha256": "cf9f4fd75e204ea60bd2b1b7eb56b7ca8136f86ce66851d806ee8c1c8b4ad72d",
+      "downloads/MyForeverChat-0.9.3-Trial.zip": "5f5a84f578f8a76be0c43e5c885ebbbbfcda224795475cf87461e0e9b90838c9",
+      "downloads/MyForeverProfessions-0.4.4-Trial.zip.sha256": "6da9270a7210312294a976dca81b8fe6a17b9d94e4e4a0df7aa2486cbcb6a24f",
+      "downloads/MyForeverProfessions-0.4.1-Trial.zip": "3b11250d2c92176ae14b2841f8752803d6c4111ddbf34ab14b12b46acbad1f24",
+      "downloads/MyForeverChat-0.9.1-Trial.zip.sha256": "ebc3bcd6ca3ad1d946d79483a63816bed875e4e69fc9e4cadb039ba102f3d93a",
+      "downloads/MyForeverNavigator-0.2.0-Trial.zip": "8dd8a2ba352a0edda815b140fe82372750cfc2b7761ea4057db5bf913a02c2e8",
+      "downloads/MyForeverNavigator-0.3.3-Trial.zip": "cef60b3f44b495baa13a8351525ab3ea2d3ad1ac277df4e68a50eda953a24ca9",
+      "downloads/MyForeverChat-0.8.0-Trial.zip": "e8e86fae88a66bef43d72dae56ad5f02dd76b4f38c0629406c982e061d72e346",
+      "downloads/MyForeverProfessions-0.4.1-Trial.zip.sha256": "f6d78d8c2be68fae0566fb10857877cfdc7e0b3e2831f0d8d5871df8f97e60ef",
+      "downloads/MyForeverProfessions-0.4.6-Trial.zip": "6d1e93b4d9865216d46d532770813b38572692134a8dd16333f87d864cf62bb6",
+      "downloads/MyForeverProfessions-0.4.5-Trial.zip.sha256": "39b0a01be9b18cb75f5d1a41b3c794e4434b1baffd2492813307b5cb974e63ea",
+      "downloads/MyForeverChat-0.9.2-Trial.zip": "33aa708f9cab1166bd63d18a2f68e33a2ba0f5bd9a951ae2e552d6e886c5e7e4",
+      "downloads/MyForeverNavigator-0.3.0-Trial.zip.sha256": "4989d6d4e5f3dbee27602401e5afb319ad73c03a1b51a3a2eb53c8efa85d737f",
+      "downloads/MyForeverProfessions-0.4.0-Trial.zip": "a356e5367ce90711598cf0359a9433bcd2900d6e0bf1ec12ea5e1ff8aba6b645",
+      "downloads/MyForeverNavigator-0.4.0-Trial.zip": "d7f849601b9a2da73873c48e8960e0e95fdac47bf3ad68e132421b055d993b67",
+      "downloads/MyForeverNavigator-0.2.1-Trial.zip": "3487f3087aca631142ef9d5795ee7901f3ada6ec33a5c7c2895a779f5bda8f72",
+      "downloads/MyForeverChat-0.9.0-Trial.zip.sha256": "529f5b1f8ec9d221c6b1175bd415ae3ebf62ac8607148458eed3cab1bc0a0e23",
+      "professions/latest.json": "0d86e709408a7e82ece13a8f456526405bd2f83c4c609ac8417d00f9cdea8550",
+      "professions/index.html": "3862f868c272e6018bb94bd447c071e570c5cade7cc06e2137e7ac33a47b00a1",
+      "professions/style.css": "15e16ebf6d36b6e4a5c5a76e88b52da08fd1c47b660522be5e43e212ebe1dcb9",
+      "professions/releases.json": "aadfcc4fdc67cde78663268169bd686596c3a8650587594a4795d80a1d274501",
+      "manager/downloads/MyForeverManager-0.2.0-Trial-win-x64.zip.sha256": "aad997026e242f28a13e469d49c5de19ede9509e451333f33e4e011515e39be7",
+      "manager/downloads/MyForeverManager-0.2.1-Trial-osx-x64.zip.sha256": "87c8677cf186be13177dd6784a722ba327c68a86387355bc59377133f9e925e7",
+      "manager/downloads/MyForeverManager-0.1.0-Trial-win-x64.zip": "493fc5cd8573620fb64d77771068e4e9021c57f52e176f2152abba9cd10aa6d7",
+      "manager/downloads/MyForeverManager-0.2.0-Trial-win-x64.zip": "c7c5efae6ad97662811c88d43144b87460dba199df14717aaad204688656b327",
+      "manager/downloads/MyForeverManager-0.1.0-Trial-osx-arm64.zip": "d179648ea4e81ddbbd9d3faf65a6768ad7549b4f8f1da61894380d591ff5e8b5",
+      "manager/downloads/MyForeverManager-0.2.0-Trial-osx-x64.zip.sha256": "91329b52197be1dda075f3abb29a15c61df909dff4548f0b647dc38c20fb3c11",
+      "manager/downloads/MyForeverManager-0.2.1-Trial-win-x64.zip.sha256": "9720f03f557485c320f91c9bf88a70abb81362a73cb32834392d302f0226b90f",
+      "manager/downloads/MyForeverManager-0.2.1-Trial-win-x64.zip": "932c808e346fe307b0ff213b496840e88e4d3988d0950e99c0a8315e125b6bcb",
+      "manager/downloads/MyForeverManager-0.2.1-Trial-osx-arm64.zip.sha256": "5750dce85cf8ff8ab881379dbf6a99a56ffa3abc1b7bb93aa19bcd1694d45578",
+      "manager/downloads/MyForeverManager-0.1.0-Trial-win-x64.zip.sha256": "ca6a657a5486a53d2f076faf325badaf8b3cf76fdc0e4c41481e6d3f903ab6d9",
+      "manager/downloads/MyForeverManager-0.2.0-Trial-osx-arm64.zip.sha256": "d783f643c6663bf7ac12153850f66f70b1ac9a07aa1af9635c8a97b9d4cf0ee7",
+      "manager/downloads/MyForeverManager-0.2.1-Trial-osx-arm64.zip": "be4c91aa7d777d3dfc24de0004f1ae542b7eededc825d0673ab6d7453bd29bec",
+      "manager/downloads/MyForeverManager-0.2.1-Trial-osx-x64.zip": "f41788d362a0afe9cdfb343f0c26b26d605a1b4ffd80463ce16398186ea8087f",
+      "manager/downloads/MyForeverManager-0.2.0-Trial-osx-arm64.zip": "f37c29feec5255b23f062807239988b5bd5f4ab80e8ec8a765f683aaebd9e417",
+      "manager/downloads/MyForeverManager-0.1.0-Trial-osx-x64.zip.sha256": "258803f0b9369c087add96950ce3c26bcbbb6c6187b58e61282d283eb222b2b9",
+      "manager/downloads/MyForeverManager-0.1.0-Trial-osx-x64.zip": "54b96c0b734c831a7e901f9c2d8e767ecc9d895a26e9ee4bd5439ceaa4a5d6f8",
+      "manager/downloads/MyForeverManager-0.2.0-Trial-osx-x64.zip": "01e4fba4f1dcc6913bbc5b76afc12f9caab6a50fc0b68783e8d14832e567e16c",
+      "manager/downloads/MyForeverManager-0.1.0-Trial-osx-arm64.zip.sha256": "9e00ec97dc332e421e5202ff4f9091572a66ed66e0c6cc5eb4d9046df07a3a7a"
+    }
+  },
+  "https": {
+    "non_zip_files_checked": 79,
+    "all_passed": true,
+    "files": [
+      {
+        "path": "LICENSE.txt",
+        "status": 200,
+        "bytes": 1062,
+        "sha256": "9919c208f8f2f554730d6ab0dfa0574eec47b3b331a5cdf368d9c0d68939f4e5",
+        "matches_local": true
+      },
+      {
+        "path": "assets/chat-actions.jpg",
+        "status": 200,
+        "bytes": 183037,
+        "sha256": "c521d8c56db08dae2157ebe53fc452475c2b5c40ff8db7b12ead96bd29fde195",
+        "matches_local": true
+      },
+      {
+        "path": "assets/chat-channels-0.9.jpg",
+        "status": 200,
+        "bytes": 97806,
+        "sha256": "c4372a9e1dd550baa6a6b995dee15c838e31bf7074b63b0de9ce3c1fc90acb58",
+        "matches_local": true
+      },
+      {
+        "path": "assets/chat-emotes.jpg",
+        "status": 200,
+        "bytes": 195081,
+        "sha256": "c88e93598fe9fec6dcee6f6d03fe554fac651c2bf7368a88feb7f723e1dab0ce",
+        "matches_local": true
+      },
+      {
+        "path": "assets/chat-groups-0.9.jpg",
+        "status": 200,
+        "bytes": 87878,
+        "sha256": "8002e6ab1d8b0979781e19044445040573d2f91835a45b3b24615033c9b86b51",
+        "matches_local": true
+      },
+      {
+        "path": "assets/chat-overview.jpg",
+        "status": 200,
+        "bytes": 165936,
+        "sha256": "d453a7400e4a55e98c3220c8ac59d8249f33ac92f9b2ce6af7879847d36e29b4",
+        "matches_local": true
+      },
+      {
+        "path": "assets/chat-settings.jpg",
+        "status": 200,
+        "bytes": 190903,
+        "sha256": "063857d391034af5a558f1e6027bd05f082fdd8ecfb178d2839456813d6de56c",
+        "matches_local": true
+      },
+      {
+        "path": "assets/donation-1.jpg",
+        "status": 200,
+        "bytes": 208821,
+        "sha256": "aa94b67497e5a45ea4e60c7f27b9406321aa0a54667d5a184d1adf25d0c4c921",
+        "matches_local": true
+      },
+      {
+        "path": "assets/donation-100.jpg",
+        "status": 200,
+        "bytes": 210809,
+        "sha256": "2c28b03a1be656a3fc96353e93f11d2b095ae697676bedfe2668ad5260b216ed",
+        "matches_local": true
+      },
+      {
+        "path": "assets/donation-20.png",
+        "status": 200,
+        "bytes": 1601077,
+        "sha256": "a71983e65fc4be1eaa2cb33ab64c9c7bef9e3dadd9a40bf83f433061e1ad05c2",
+        "matches_local": true
+      },
+      {
+        "path": "assets/donation-5.jpg",
+        "status": 200,
+        "bytes": 208967,
+        "sha256": "223eea1918a62e0b633e0083d82ba536abbaa9d06b15e815311f2a5aaa883fa9",
+        "matches_local": true
+      },
+      {
+        "path": "assets/hyder-avatar-illustration.jpg",
+        "status": 200,
+        "bytes": 77201,
+        "sha256": "b3c8929705b3b0d1378ae293a4da5cc379a8d15c2ca484c4eefbbd272e8bd889",
+        "matches_local": true
+      },
+      {
+        "path": "assets/professions-materials.jpg",
+        "status": 200,
+        "bytes": 32525,
+        "sha256": "0ba11981994bfedb86ec985bda02e9496927132eadea5403ca07166f2b008277",
+        "matches_local": true
+      },
+      {
+        "path": "assets/professions-overview.jpg",
+        "status": 200,
+        "bytes": 27618,
+        "sha256": "75418c7a69a3c78e5b4fc9458a11d65181d25d90b9f4bef8b2ede4f55ffff45f",
+        "matches_local": true
+      },
+      {
+        "path": "assets/professions-trainers.jpg",
+        "status": 200,
+        "bytes": 141844,
+        "sha256": "23b492ad844c9cb367c4c47cf46dc3afd86636e9c56d52cf972f07e4465f7506",
+        "matches_local": true
+      },
+      {
+        "path": "chat/index.html",
+        "status": 200,
+        "bytes": 34108,
+        "sha256": "e0e30f99e28a6c851918e470825955fb079b7c25fa2a8c418219f156b11bd2bb",
+        "matches_local": true
+      },
+      {
+        "path": "community-config.json",
+        "status": 200,
+        "bytes": 714,
+        "sha256": "794fea8d0cb291bc602b65a8972a40bb6e61beef43202bc208a65c3b140ac025",
+        "matches_local": true
+      },
+      {
+        "path": "community.css",
+        "status": 200,
+        "bytes": 6858,
+        "sha256": "86b98d8b3ae11902a8776748b3b9e64dfb9a6f641bbd59fbd58c815e67c1656a",
+        "matches_local": true
+      },
+      {
+        "path": "community.js",
+        "status": 200,
+        "bytes": 18204,
+        "sha256": "8895119142652b1b03685b783bd196afb8b0bb9145f39e7f10f7092709dbc39e",
+        "matches_local": true
+      },
+      {
+        "path": "downloads/MyForeverChat-0.8.0-Trial.zip.sha256",
+        "status": 200,
+        "bytes": 96,
+        "sha256": "d557f3c3d0ceeb93ee74d125ebcd7a7d3e939e84c7dfa1e18ba80ef6ccda494b",
+        "matches_local": true
+      },
+      {
+        "path": "downloads/MyForeverChat-0.8.1-Trial.zip.sha256",
+        "status": 200,
+        "bytes": 96,
+        "sha256": "20d7c093562b4618f43c7cb770470824401384ed9d0a536b6fbfc2f1cd912d3d",
+        "matches_local": true
+      },
+      {
+        "path": "downloads/MyForeverChat-0.8.2-Trial.zip.sha256",
+        "status": 200,
+        "bytes": 96,
+        "sha256": "d920ed37c6294145f07367b85f024f03439693a15009b12e3188094267bbf2b9",
+        "matches_local": true
+      },
+      {
+        "path": "downloads/MyForeverChat-0.9.0-Trial.zip.sha256",
+        "status": 200,
+        "bytes": 96,
+        "sha256": "529f5b1f8ec9d221c6b1175bd415ae3ebf62ac8607148458eed3cab1bc0a0e23",
+        "matches_local": true
+      },
+      {
+        "path": "downloads/MyForeverChat-0.9.1-Trial.zip.sha256",
+        "status": 200,
+        "bytes": 96,
+        "sha256": "ebc3bcd6ca3ad1d946d79483a63816bed875e4e69fc9e4cadb039ba102f3d93a",
+        "matches_local": true
+      },
+      {
+        "path": "downloads/MyForeverChat-0.9.2-Trial.zip.sha256",
+        "status": 200,
+        "bytes": 96,
+        "sha256": "4872cd7f9ec5c36bd9e9be1e51942a8c41607aab9cd1c01eec2bf25edf11f78c",
+        "matches_local": true
+      },
+      {
+        "path": "downloads/MyForeverChat-0.9.3-Trial.zip.sha256",
+        "status": 200,
+        "bytes": 96,
+        "sha256": "0701f71622db4d10590474053a8049456533e4eadcfc77fccfe072110af0cdaa",
+        "matches_local": true
+      },
+      {
+        "path": "downloads/MyForeverNavigator-0.1.2-Trial.zip.sha256",
+        "status": 200,
+        "bytes": 101,
+        "sha256": "cf9f4fd75e204ea60bd2b1b7eb56b7ca8136f86ce66851d806ee8c1c8b4ad72d",
+        "matches_local": true
+      },
+      {
+        "path": "downloads/MyForeverNavigator-0.2.0-Trial.zip.sha256",
+        "status": 200,
+        "bytes": 101,
+        "sha256": "fadaba03edc4c805b7c08b59d1d13c3a0190dc31541d9114480f2ffc49c0d99d",
+        "matches_local": true
+      },
+      {
+        "path": "downloads/MyForeverNavigator-0.2.1-Trial.zip.sha256",
+        "status": 200,
+        "bytes": 101,
+        "sha256": "e518b44e9a03352dde0f593752941ec1ca8f79bb98c1b0206304cdd08273e4fe",
+        "matches_local": true
+      },
+      {
+        "path": "downloads/MyForeverNavigator-0.2.2-Trial.zip.sha256",
+        "status": 200,
+        "bytes": 101,
+        "sha256": "d323b34a1b865e58994a854287a4594ee32cd37cf5318b06ca00fb7a1ebd16c2",
+        "matches_local": true
+      },
+      {
+        "path": "downloads/MyForeverNavigator-0.3.0-Trial.zip.sha256",
+        "status": 200,
+        "bytes": 101,
+        "sha256": "4989d6d4e5f3dbee27602401e5afb319ad73c03a1b51a3a2eb53c8efa85d737f",
+        "matches_local": true
+      },
+      {
+        "path": "downloads/MyForeverNavigator-0.3.1-Trial.zip.sha256",
+        "status": 200,
+        "bytes": 101,
+        "sha256": "660f213ca1af473154df78ceca477ca7bfc69b6b67ac9c3ad10ed34766dbd82c",
+        "matches_local": true
+      },
+      {
+        "path": "downloads/MyForeverNavigator-0.3.2-Trial.zip.sha256",
+        "status": 200,
+        "bytes": 101,
+        "sha256": "2ab97061d4278f62870f8b58d32ff0a0079c15c1fbb1003e42f4f696ec8c8992",
+        "matches_local": true
+      },
+      {
+        "path": "downloads/MyForeverNavigator-0.3.3-Trial.zip.sha256",
+        "status": 200,
+        "bytes": 101,
+        "sha256": "9e4391ca7ccc7de37a4366ab1f981eb24527221d540eebb1bd4772dc0a10191b",
+        "matches_local": true
+      },
+      {
+        "path": "downloads/MyForeverNavigator-0.4.0-Trial.zip.sha256",
+        "status": 200,
+        "bytes": 101,
+        "sha256": "0d6a7e7e582143a1c6240cf8064b7376fa615022cf7bc3d3df1617539356e9ce",
+        "matches_local": true
+      },
+      {
+        "path": "downloads/MyForeverProfessions-0.3.1-Trial.zip.sha256",
+        "status": 200,
+        "bytes": 103,
+        "sha256": "436aa87255a0bcc2a8ccd305c3750bdc2f589633cfe4b07b0a48487095c18c5d",
+        "matches_local": true
+      },
+      {
+        "path": "downloads/MyForeverProfessions-0.4.0-Trial.zip.sha256",
+        "status": 200,
+        "bytes": 103,
+        "sha256": "8507fefc78a01bc3fef654c42a95d6fe77de61729d784a3e113b7c002566a9a7",
+        "matches_local": true
+      },
+      {
+        "path": "downloads/MyForeverProfessions-0.4.1-Trial.zip.sha256",
+        "status": 200,
+        "bytes": 103,
+        "sha256": "f6d78d8c2be68fae0566fb10857877cfdc7e0b3e2831f0d8d5871df8f97e60ef",
+        "matches_local": true
+      },
+      {
+        "path": "downloads/MyForeverProfessions-0.4.2-Trial.zip.sha256",
+        "status": 200,
+        "bytes": 103,
+        "sha256": "987d5cb858bab95be4074dc126a9cced1971703442c9d3f057714ba28c45fda3",
+        "matches_local": true
+      },
+      {
+        "path": "downloads/MyForeverProfessions-0.4.3-Trial.zip.sha256",
+        "status": 200,
+        "bytes": 103,
+        "sha256": "a8e36c361520b41791ca0686870ab5706437577b9e69760d2b13d9e1646abdaf",
+        "matches_local": true
+      },
+      {
+        "path": "downloads/MyForeverProfessions-0.4.4-Trial.zip.sha256",
+        "status": 200,
+        "bytes": 103,
+        "sha256": "6da9270a7210312294a976dca81b8fe6a17b9d94e4e4a0df7aa2486cbcb6a24f",
+        "matches_local": true
+      },
+      {
+        "path": "downloads/MyForeverProfessions-0.4.5-Trial.zip.sha256",
+        "status": 200,
+        "bytes": 103,
+        "sha256": "39b0a01be9b18cb75f5d1a41b3c794e4434b1baffd2492813307b5cb974e63ea",
+        "matches_local": true
+      },
+      {
+        "path": "downloads/MyForeverProfessions-0.4.6-Trial.zip.sha256",
+        "status": 200,
+        "bytes": 103,
+        "sha256": "8643acb1164cd2f1b69461791e09cb1ba330847e502ea83788d9e656b13aa6a1",
+        "matches_local": true
+      },
+      {
+        "path": "downloads/MyForeverTargets-0.1.37-Trial.zip.sha256",
+        "status": 200,
+        "bytes": 100,
+        "sha256": "9254560916f0bb0b505050fc9321bc96da70e3cc7e25b3d2109c0c5e966f88ed",
+        "matches_local": true
+      },
+      {
+        "path": "downloads/MyForeverTargets-0.1.46-Trial.zip.sha256",
+        "status": 200,
+        "bytes": 100,
+        "sha256": "28349372053ef50aeee0fc0bc56c08f50dae56bbe9d4a2fd9fc331025195e406",
+        "matches_local": true
+      },
+      {
+        "path": "index.html",
+        "status": 200,
+        "bytes": 10578,
+        "sha256": "0e08eb461ab66c6568cf30dc39a64c2f37634fff3346e459bf23a7cb0b99383b",
+        "matches_local": true
+      },
+      {
+        "path": "latest.json",
+        "status": 200,
+        "bytes": 2543,
+        "sha256": "921cd7d9288417aea6c2c5bf497aec584dbad3db020227892ab579bad7d5812a",
+        "matches_local": true
+      },
+      {
+        "path": "manager/downloads/MyForeverManager-0.1.0-Trial-osx-arm64.zip.sha256",
+        "status": 200,
+        "bytes": 109,
+        "sha256": "9e00ec97dc332e421e5202ff4f9091572a66ed66e0c6cc5eb4d9046df07a3a7a",
+        "matches_local": true
+      },
+      {
+        "path": "manager/downloads/MyForeverManager-0.1.0-Trial-osx-x64.zip.sha256",
+        "status": 200,
+        "bytes": 107,
+        "sha256": "258803f0b9369c087add96950ce3c26bcbbb6c6187b58e61282d283eb222b2b9",
+        "matches_local": true
+      },
+      {
+        "path": "manager/downloads/MyForeverManager-0.1.0-Trial-win-x64.zip.sha256",
+        "status": 200,
+        "bytes": 107,
+        "sha256": "ca6a657a5486a53d2f076faf325badaf8b3cf76fdc0e4c41481e6d3f903ab6d9",
+        "matches_local": true
+      },
+      {
+        "path": "manager/downloads/MyForeverManager-0.2.0-Trial-osx-arm64.zip.sha256",
+        "status": 200,
+        "bytes": 109,
+        "sha256": "d783f643c6663bf7ac12153850f66f70b1ac9a07aa1af9635c8a97b9d4cf0ee7",
+        "matches_local": true
+      },
+      {
+        "path": "manager/downloads/MyForeverManager-0.2.0-Trial-osx-x64.zip.sha256",
+        "status": 200,
+        "bytes": 107,
+        "sha256": "91329b52197be1dda075f3abb29a15c61df909dff4548f0b647dc38c20fb3c11",
+        "matches_local": true
+      },
+      {
+        "path": "manager/downloads/MyForeverManager-0.2.0-Trial-win-x64.zip.sha256",
+        "status": 200,
+        "bytes": 107,
+        "sha256": "aad997026e242f28a13e469d49c5de19ede9509e451333f33e4e011515e39be7",
+        "matches_local": true
+      },
+      {
+        "path": "manager/downloads/MyForeverManager-0.2.1-Trial-osx-arm64.zip.sha256",
+        "status": 200,
+        "bytes": 109,
+        "sha256": "5750dce85cf8ff8ab881379dbf6a99a56ffa3abc1b7bb93aa19bcd1694d45578",
+        "matches_local": true
+      },
+      {
+        "path": "manager/downloads/MyForeverManager-0.2.1-Trial-osx-x64.zip.sha256",
+        "status": 200,
+        "bytes": 107,
+        "sha256": "87c8677cf186be13177dd6784a722ba327c68a86387355bc59377133f9e925e7",
+        "matches_local": true
+      },
+      {
+        "path": "manager/downloads/MyForeverManager-0.2.1-Trial-win-x64.zip.sha256",
+        "status": 200,
+        "bytes": 107,
+        "sha256": "9720f03f557485c320f91c9bf88a70abb81362a73cb32834392d302f0226b90f",
+        "matches_local": true
+      },
+      {
+        "path": "manager/index.html",
+        "status": 200,
+        "bytes": 12971,
+        "sha256": "5632d540eaba2176a32ad1d8429cc982f2b9a6cd57d33117247792c3d65f0ad8",
+        "matches_local": true
+      },
+      {
+        "path": "manager/latest.json",
+        "status": 200,
+        "bytes": 2846,
+        "sha256": "ac184b9ca143cc282f616ab82d16db6d36cb5ed704252e9be4476571c96cd733",
+        "matches_local": true
+      },
+      {
+        "path": "manager/releases.json",
+        "status": 200,
+        "bytes": 9501,
+        "sha256": "fdebee57f77cbcf1a139e570bdcda560f78576cac634290bf4eb065521d99ccb",
+        "matches_local": true
+      },
+      {
+        "path": "manager/style.css",
+        "status": 200,
+        "bytes": 5723,
+        "sha256": "208388e981994fb6a3800c42a8e40725f105aaef49ce0bc7947ed84d2a0c00fb",
+        "matches_local": true
+      },
+      {
+        "path": "navigator/index.html",
+        "status": 200,
+        "bytes": 25808,
+        "sha256": "a8c4d6bec645f5edd6a05c68991063e8825d6ced8b305515780b33b6e3947ff9",
+        "matches_local": true
+      },
+      {
+        "path": "navigator/latest.json",
+        "status": 200,
+        "bytes": 2878,
+        "sha256": "75d26317c16d9d31bfeeeeae89c5cfc4258635bda8b736d66693c59189b56095",
+        "matches_local": true
+      },
+      {
+        "path": "navigator/releases.json",
+        "status": 200,
+        "bytes": 23814,
+        "sha256": "aa885635e918f0c5ff22d33f9aa834e3d5769c44fb4c5356553f03727c28d5f0",
+        "matches_local": true
+      },
+      {
+        "path": "navigator/style.css",
+        "status": 200,
+        "bytes": 2563,
+        "sha256": "564b8432ba96d57e8086fe7e9a82fbe287c658c3e3785271b6a47903f707c473",
+        "matches_local": true
+      },
+      {
+        "path": "portal.css",
+        "status": 200,
+        "bytes": 3029,
+        "sha256": "7cb969922e362fc221324dfa6b2d486db1dcaa2a570d4876dfb96a4d054e169a",
+        "matches_local": true
+      },
+      {
+        "path": "portal.js",
+        "status": 200,
+        "bytes": 455,
+        "sha256": "93b32122e4c4698252e7dc93bdd544efd9dc07a9152d842d6625ef9b93cee3ab",
+        "matches_local": true
+      },
+      {
+        "path": "professions/index.html",
+        "status": 200,
+        "bytes": 21615,
+        "sha256": "3862f868c272e6018bb94bd447c071e570c5cade7cc06e2137e7ac33a47b00a1",
+        "matches_local": true
+      },
+      {
+        "path": "professions/latest.json",
+        "status": 200,
+        "bytes": 2462,
+        "sha256": "0d86e709408a7e82ece13a8f456526405bd2f83c4c609ac8417d00f9cdea8550",
+        "matches_local": true
+      },
+      {
+        "path": "professions/releases.json",
+        "status": 200,
+        "bytes": 16323,
+        "sha256": "aadfcc4fdc67cde78663268169bd686596c3a8650587594a4795d80a1d274501",
+        "matches_local": true
+      },
+      {
+        "path": "professions/style.css",
+        "status": 200,
+        "bytes": 1773,
+        "sha256": "15e16ebf6d36b6e4a5c5a76e88b52da08fd1c47b660522be5e43e212ebe1dcb9",
+        "matches_local": true
+      },
+      {
+        "path": "releases.json",
+        "status": 200,
+        "bytes": 18256,
+        "sha256": "cac85b092a4e9176a1d0e05aeb0e004a7759b76c591f01ce93d08545acd95d95",
+        "matches_local": true
+      },
+      {
+        "path": "robots.txt",
+        "status": 200,
+        "bytes": 66,
+        "sha256": "9006338f610be6aeebfdaddd3495ce36cc07d06bc22ff6802e2d66f8bb87db7e",
+        "matches_local": true
+      },
+      {
+        "path": "script.js",
+        "status": 200,
+        "bytes": 5746,
+        "sha256": "882da80ba28e0d729410b4f5cfa0505423f8ce0ea89a6ca25ab555bde73cc8a0",
+        "matches_local": true
+      },
+      {
+        "path": "sitemap.xml",
+        "status": 200,
+        "bytes": 590,
+        "sha256": "09e28fe1719482caf5740225cedd618e782643edf966a9db85f2a0da62d2ae76",
+        "matches_local": true
+      },
+      {
+        "path": "style.css",
+        "status": 200,
+        "bytes": 15596,
+        "sha256": "37eb702df8d1e9f1ae2c71cf339332f6652bdda0320ce41d4742f9ead81fece5",
+        "matches_local": true
+      },
+      {
+        "path": "targets/index.html",
+        "status": 200,
+        "bytes": 18541,
+        "sha256": "9c8e4ceec941341817e20ffe09688db5b64f1da84ef0c8303c04578dedc6e781",
+        "matches_local": true
+      },
+      {
+        "path": "targets/latest.json",
+        "status": 200,
+        "bytes": 3655,
+        "sha256": "e1b91c802666f3742af828f285317926ec212329b799ed118bd8e86e1fb9c6bd",
+        "matches_local": true
+      },
+      {
+        "path": "targets/releases.json",
+        "status": 200,
+        "bytes": 7564,
+        "sha256": "6fdcf527970141221763980b955f853b4743982b329323c85afff2ef81fe2206",
+        "matches_local": true
+      },
+      {
+        "path": "targets/style.css",
+        "status": 200,
+        "bytes": 7737,
+        "sha256": "0104f34b369a327f81b4b5c3305349d5db4c18687fcd6b6ce784e4d2d4fb0680",
+        "matches_local": true
+      }
+    ],
+    "zip_scope": "All ZIP file SHA-256 checked against active production filesystem; HTTPS checksum sidecars checked byte-for-byte. ZIP payloads not re-downloaded in preflight."
+  },
+  "prior_public_package_sha256": {
+    "downloads/MyForeverNavigator-0.3.0-Trial.zip": "62dc08d48a6c82049b206707c578bc9b4cb6b5e365596196ac4497fc2469fa83",
+    "downloads/MyForeverProfessions-0.4.5-Trial.zip": "c6861f5b6ad9051a55c97dd83c7d92fb0012623b6bd6d79885dc5921f0ffa81c",
+    "downloads/MyForeverTargets-0.1.37-Trial.zip": "6955d72563c0510304798d444ed5cde56b5688a7fa2c18111d38d4c02d4c2366",
+    "downloads/MyForeverChat-0.9.1-Trial.zip": "5a150350b076ea180375af4372452bb442007e6027a0555be9832e1e88e39d44",
+    "downloads/MyForeverTargets-0.1.46-Trial.zip": "5c5865a8dc8f850bde6b359f5729a7195c48eb49b4ea42c0812002ec521634bf",
+    "downloads/MyForeverNavigator-0.2.2-Trial.zip": "0b3dbc687c00e3cedc35d094e635c6f5bb43d3334bdf947b9d32c0b164bf51c4",
+    "downloads/MyForeverProfessions-0.4.3-Trial.zip": "9ce05cfca6ec8f7aded0609779db9433f40d3ec75846b8fdb02d7ee3528a5f89",
+    "downloads/MyForeverProfessions-0.3.1-Trial.zip": "1c432f96bfcd20b79804b642e2446718eb4fee7cd484ec17f1f856d49c094fea",
+    "downloads/MyForeverNavigator-0.3.1-Trial.zip": "64175bd964ab862cc73e6f963fda7c82d265cd482bdecec97d7e211e144d8436",
+    "downloads/MyForeverNavigator-0.1.2-Trial.zip": "650f657742b92d3a922cfff3a5aee6731ba03f7a92603fb5cf7a9e5334afbde5",
+    "downloads/MyForeverChat-0.8.2-Trial.zip": "a22e37552422c87ed074e753aa4a4694bac237c62abc72ecaddbdd1eea028c7f",
+    "downloads/MyForeverProfessions-0.4.4-Trial.zip": "cad46e8c6077d6f108e3a7cc3eb8c679a4bbe55782a761a82d70dac9066a0574",
+    "downloads/MyForeverChat-0.9.0-Trial.zip": "60081bc023fb0ef9cd0fdec97a7961da346686794093d213415d47a31599543b",
+    "downloads/MyForeverProfessions-0.4.2-Trial.zip": "fe6591ee0b329592f89edf401c41be6e4f5890b3dad71a88e4343f3416daba84",
+    "downloads/MyForeverNavigator-0.3.2-Trial.zip": "291afa405730ef3db8be628fdd0bbb6cbeaf21c64d5b58441bb014c1b948b716",
+    "downloads/MyForeverChat-0.8.1-Trial.zip": "4e7ab39620006ab62d3f56c25ef0c3c20a41bdae829acf0a80cab188d7430b05",
+    "downloads/MyForeverChat-0.9.3-Trial.zip": "5f5a84f578f8a76be0c43e5c885ebbbbfcda224795475cf87461e0e9b90838c9",
+    "downloads/MyForeverProfessions-0.4.1-Trial.zip": "3b11250d2c92176ae14b2841f8752803d6c4111ddbf34ab14b12b46acbad1f24",
+    "downloads/MyForeverNavigator-0.2.0-Trial.zip": "8dd8a2ba352a0edda815b140fe82372750cfc2b7761ea4057db5bf913a02c2e8",
+    "downloads/MyForeverNavigator-0.3.3-Trial.zip": "cef60b3f44b495baa13a8351525ab3ea2d3ad1ac277df4e68a50eda953a24ca9",
+    "downloads/MyForeverChat-0.8.0-Trial.zip": "e8e86fae88a66bef43d72dae56ad5f02dd76b4f38c0629406c982e061d72e346",
+    "downloads/MyForeverProfessions-0.4.6-Trial.zip": "6d1e93b4d9865216d46d532770813b38572692134a8dd16333f87d864cf62bb6",
+    "downloads/MyForeverChat-0.9.2-Trial.zip": "33aa708f9cab1166bd63d18a2f68e33a2ba0f5bd9a951ae2e552d6e886c5e7e4",
+    "downloads/MyForeverProfessions-0.4.0-Trial.zip": "a356e5367ce90711598cf0359a9433bcd2900d6e0bf1ec12ea5e1ff8aba6b645",
+    "downloads/MyForeverNavigator-0.4.0-Trial.zip": "d7f849601b9a2da73873c48e8960e0e95fdac47bf3ad68e132421b055d993b67",
+    "downloads/MyForeverNavigator-0.2.1-Trial.zip": "3487f3087aca631142ef9d5795ee7901f3ada6ec33a5c7c2895a779f5bda8f72",
+    "manager/downloads/MyForeverManager-0.1.0-Trial-win-x64.zip": "493fc5cd8573620fb64d77771068e4e9021c57f52e176f2152abba9cd10aa6d7",
+    "manager/downloads/MyForeverManager-0.2.0-Trial-win-x64.zip": "c7c5efae6ad97662811c88d43144b87460dba199df14717aaad204688656b327",
+    "manager/downloads/MyForeverManager-0.1.0-Trial-osx-arm64.zip": "d179648ea4e81ddbbd9d3faf65a6768ad7549b4f8f1da61894380d591ff5e8b5",
+    "manager/downloads/MyForeverManager-0.2.1-Trial-win-x64.zip": "932c808e346fe307b0ff213b496840e88e4d3988d0950e99c0a8315e125b6bcb",
+    "manager/downloads/MyForeverManager-0.2.1-Trial-osx-arm64.zip": "be4c91aa7d777d3dfc24de0004f1ae542b7eededc825d0673ab6d7453bd29bec",
+    "manager/downloads/MyForeverManager-0.2.1-Trial-osx-x64.zip": "f41788d362a0afe9cdfb343f0c26b26d605a1b4ffd80463ce16398186ea8087f",
+    "manager/downloads/MyForeverManager-0.2.0-Trial-osx-arm64.zip": "f37c29feec5255b23f062807239988b5bd5f4ab80e8ec8a765f683aaebd9e417",
+    "manager/downloads/MyForeverManager-0.1.0-Trial-osx-x64.zip": "54b96c0b734c831a7e901f9c2d8e767ecc9d895a26e9ee4bd5439ceaa4a5d6f8",
+    "manager/downloads/MyForeverManager-0.2.0-Trial-osx-x64.zip": "01e4fba4f1dcc6913bbc5b76afc12f9caab6a50fc0b68783e8d14832e567e16c"
+  },
+  "community": {
+    "release": "20261113T102916Z",
+    "local_source_sha256": {
+      "server.py": "4d30d9986c64bd7fb528f1073c73c5446e6a390b9680bcd7fd95c30235d20769",
+      "admin.py": "7e73f649a53f89578911162159230e68a1e60572e82fad2aeede5d7ac1a31d17"
+    },
+    "production_source_sha256": {
+      "server.py": "4d30d9986c64bd7fb528f1073c73c5446e6a390b9680bcd7fd95c30235d20769",
+      "admin.py": "7e73f649a53f89578911162159230e68a1e60572e82fad2aeede5d7ac1a31d17"
+    },
+    "sources_match": true
+  },
+  "parallel_release_processes": {
+    "local": [],
+    "production": []
+  },
+  "evidence_commands": [
+    "read-only SSH Python scan of active current public and community hashes",
+    "HTTPS GET every public non-ZIP including checksum sidecars",
+    "readlink -f current before/after audit",
+    "local/remote process classification"
+  ],
+  "next_step": "Freeze matching public, ops and private community sources; recheck production current and non-Navigator latest versions immediately before activation."
+}

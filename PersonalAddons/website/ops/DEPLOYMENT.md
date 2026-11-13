@@ -262,3 +262,14 @@ Path('ops/live-verification-server.json').write_text(
 部署 `20261113T102916Z`，冻结 `PersonalAddons/work/navigator-0.4.0-site`。包580740字节、15白名单文件，SHA-256 `d7f849601b9a2da73873c48e8960e0e95fdac47bf3ad68e132421b055d993b67`。公开0.2.1管理器冻结源码重新构建后，真实HTTPS与隔离安装／更新／备份恢复71项通过；当前工作区另有65本地／71公网检查，仅为附带证据，没有对真实游戏安装。
 
 公网112资源逐字节／哈希通过，34旧ZIP不变；保留Chat0.9.3、Professions0.4.6、Targets0.1.46、Manager0.2.1，未发布专业实验候选或本机管理器候选。www、chat健康、studio登录保护及建议只读接口正常。证据为 `navigator-0.4.0-publish.log`、`navigator-0.4.0-live-verification.json`、`release-navigator-0.4.0-validation.json` 与work目录的DB／管理器验收记录。
+
+
+## 世界向导 0.4.1 普通专业训练师（2026-11-13）
+
+新增独立专业训练师用途，含采矿、草药学、剥皮、炼金、锻造、制皮、裁缝、工程学、附魔、急救、烹饪、钓鱼12细类。用Questie TRAINER标记与完整中英文头衔共同识别，兼容初中高级／大师／专精、Junior与NBSP，不将材料或技能书商人误作训练师。原精选6位保留ID、特殊主分类与旧细分，以副成员索引加入专业分类；目录与索引原子发布，不修改数据库。侧栏8用途排布通过，HUD构建及刷新段与0.4.0包一致。
+
+11 Lua文件语法、13组模拟通过：专业训练师319、UI602、Questie目录328、端到端44、导航249、任务导航7083、任务UI254，任务参考831039返回点。真实DB中文/英文全库身份识别均311；模型地图专业305记录为299主分类+6精选副成员，12专业样例的搜索别名、收藏、开始导航、目标读取及源值不变通过；这些不是原生地图或站位承诺。当前角色在游戏中，仅只读截图观察，未重载或做新入口/物理点击/站位/可教技能验收。
+
+部署 `20261113T105612Z`，冻结 `PersonalAddons/work/navigator-0.4.1-site`。包585107字节、15白名单文件，SHA-256 `6ad246ffc2d9505d4a72b8a8e0b72089860f19a6cc0b662e4085e1a23ce82414`。公开管理器0.2.1冻结源码重新构建后，公网HTTPS／fake目录安装、更新、备份恢复71项通过，未安装至真实游戏。
+
+公网114资源逐字节／哈希通过，35旧ZIP不变；Chat0.9.3、Professions0.4.6、Targets0.1.46、Manager0.2.1与私有社区源码保留，未发布专业实验候选或本机管理器候选。www、chat健康、studio登录保护及建议只读接口正常。证据：`navigator-0.4.1-publish.log`、`navigator-0.4.1-live-verification.json`、`release-navigator-0.4.1-validation.json`及work中的专业/管理器检查记录。

@@ -1,0 +1,1676 @@
+{
+  "status": "passed",
+  "scope": "actual installed QuestieDB API audit; modeled map references, not in-game proof",
+  "source": {
+    "version": "1.1.0",
+    "commit": "90ab55bdddd6ef6507fe51610b9c26948bbeb637",
+    "toc_sha256": "ee26f80cc567a9331732a505c542e6c57063c5bd2d8d6883c273794e73b7da59",
+    "lua_files_loaded": 50
+  },
+  "trainer_flag_npcs": 600,
+  "profession_trainer_npcs": 311,
+  "world_reference_npcs": 305,
+  "currently_other_trainer_npcs": 305,
+  "recommended_title_sets": {
+    "mining": {
+      "label": "采矿",
+      "zhCN": [
+        "采矿训练师",
+        "矿工"
+      ],
+      "enUS": [
+        "Mining Trainer",
+        "Junior Mining Trainer",
+        "Miner"
+      ]
+    },
+    "herbalism": {
+      "label": "草药学",
+      "zhCN": [
+        "草药学训练师",
+        "采药人",
+        "见习采药师",
+        "高级采药师"
+      ],
+      "enUS": [
+        "Herbalism Trainer",
+        "Junior Herbalism Trainer",
+        "Herbalist",
+        "Apprentice Herbalist",
+        "Superior Herbalist"
+      ]
+    },
+    "skinning": {
+      "label": "剥皮",
+      "zhCN": [
+        "剥皮师",
+        "剥皮训练师",
+        "高级屠夫"
+      ],
+      "enUS": [
+        "Skinning Trainer",
+        "Junior Skinning Trainer",
+        "Skinner",
+        "Superior Butcher"
+      ]
+    },
+    "alchemy": {
+      "label": "炼金",
+      "zhCN": [
+        "初级炼金师",
+        "中级炼金师",
+        "高级炼金师",
+        "大师级炼金师",
+        "初级炼金术训练师",
+        "炼金术训练师"
+      ],
+      "enUS": [
+        "Alchemy Trainer",
+        "Alchemist",
+        "Journeyman Alchemist",
+        "Journeyman Alchemist Trainer",
+        "Expert Alchemist",
+        "Artisan Alchemist",
+        "Master Alchemist"
+      ]
+    },
+    "blacksmithing": {
+      "label": "锻造",
+      "zhCN": [
+        "初级铁匠",
+        "中级铁匠",
+        "高级铁匠",
+        "大师级铁匠",
+        "护甲锻造师",
+        "武器铸造师",
+        "武器锻造师",
+        "铸甲师",
+        "特殊武器商"
+      ],
+      "enUS": [
+        "Blacksmith",
+        "Journeyman Blacksmith",
+        "Expert Blacksmith",
+        "Artisan Blacksmith",
+        "Master Blacksmith",
+        "Armorsmith",
+        "Armor Crafter",
+        "Weaponsmith",
+        "Weapon Crafter",
+        "Special Weapon Crafter"
+      ]
+    },
+    "leatherworking": {
+      "label": "制皮",
+      "zhCN": [
+        "初级制皮师",
+        "中级制皮师",
+        "高级制皮师",
+        "大师级制皮者",
+        "大师级制皮训练师",
+        "部族制皮训练师",
+        "大师级部族制皮师",
+        "大师级龙鳞制皮师",
+        "大师级元素制皮师",
+        "制皮训练师"
+      ],
+      "enUS": [
+        "Leatherworker",
+        "Journeyman Leatherworker",
+        "Expert Leathercrafter",
+        "Expert Leatherworker",
+        "Artisan Leatherworker",
+        "Master Leatherworker",
+        "Leatherworking Trainer",
+        "Master Leatherworking Trainer",
+        "Tribal Leatherworking Trainer",
+        "Master Tribal Leatherworker",
+        "Master Dragonscale Leatherworker",
+        "Master Elemental Leatherworker"
+      ]
+    },
+    "tailoring": {
+      "label": "裁缝",
+      "zhCN": [
+        "初级裁缝",
+        "中级裁缝",
+        "高级裁缝",
+        "大师级裁缝",
+        "大师级暗纹裁缝",
+        "裁缝训练师"
+      ],
+      "enUS": [
+        "Tailor",
+        "Journeyman Tailor",
+        "Expert Tailor",
+        "Artisan Tailor",
+        "Master Tailor",
+        "Master Shadoweave Tailor",
+        "Tailoring Trainer"
+      ]
+    },
+    "engineering": {
+      "label": "工程学",
+      "zhCN": [
+        "初级技师",
+        "中级技师",
+        "高级技师",
+        "大师级技师",
+        "大师级地精技师",
+        "大师级侏儒技师",
+        "工程学供应商"
+      ],
+      "enUS": [
+        "Engineering Trainer",
+        "Journeyman Engineer",
+        "Expert Engineer",
+        "Artisan Engineer",
+        "Master Engineer",
+        "Master Goblin Engineer",
+        "Master Gnome Engineer"
+      ]
+    },
+    "enchanting": {
+      "label": "附魔",
+      "zhCN": [
+        "初级附魔师",
+        "中级附魔师",
+        "高级附魔师",
+        "大师级附魔师",
+        "附魔训练师"
+      ],
+      "enUS": [
+        "Enchanter",
+        "Journeyman Enchanter",
+        "Expert Enchanter",
+        "Artisan Enchanter",
+        "Master Enchanter",
+        "Enchanting Trainer"
+      ]
+    },
+    "first-aid": {
+      "label": "急救",
+      "zhCN": [
+        "急救训练师",
+        "外科医疗队",
+        "医师"
+      ],
+      "enUS": [
+        "First Aid Trainer",
+        "Trauma Surgeon",
+        "Physician",
+        "Medic"
+      ]
+    },
+    "cooking": {
+      "label": "烹饪",
+      "zhCN": [
+        "烹饪训练师",
+        "厨师",
+        "高级厨师"
+      ],
+      "enUS": [
+        "Cooking Trainer",
+        "Cook",
+        "Superior Cook"
+      ]
+    },
+    "fishing": {
+      "label": "钓鱼",
+      "zhCN": [
+        "钓鱼训练师",
+        "渔夫",
+        "渔具供应商",
+        "高级渔夫",
+        "钓鱼训练师和供应商"
+      ],
+      "enUS": [
+        "Fishing Trainer",
+        "Fishing Trainer & Supplies",
+        "Fisher",
+        "Fisherman",
+        "Superior Fisherman"
+      ]
+    }
+  },
+  "normalization": "Replace UTF-8 U+00A0 with ASCII space, trim; require TRAINER bit and exact full title match. No substring inference from profession or supplier words.",
+  "professions": {
+    "mining": {
+      "trainer_npcs_all": 22,
+      "world_reference_npcs": 22,
+      "currently_other_trainer_npcs": 22,
+      "curated_overlap_npcs": 0,
+      "title_counts": {
+        "Junior Mining Trainer": 6,
+        "Miner": 2,
+        "Mining Trainer": 1,
+        "矿工": 3,
+        "采矿训练师": 10
+      },
+      "samples": [
+        {
+          "npcID": 1681,
+          "name": "布洛克·寻石者",
+          "title": "采矿训练师",
+          "english_name": "Brock Stoneseeker",
+          "flags": 19,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 38,
+              "mapID": 1432,
+              "x": 37.02,
+              "y": 47.81
+            }
+          ]
+        },
+        {
+          "npcID": 1701,
+          "name": "丹克·利刃",
+          "title": "采矿训练师",
+          "english_name": "Dank Drizzlecut",
+          "flags": 19,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 1,
+              "mapID": 1426,
+              "x": 69.32,
+              "y": 55.46
+            }
+          ]
+        },
+        {
+          "npcID": 3001,
+          "name": "布瑞克·石蹄",
+          "title": "采矿训练师",
+          "english_name": "Brek Stonehoof",
+          "flags": 19,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 1638,
+              "mapID": 1456,
+              "x": 34.37,
+              "y": 57.9
+            }
+          ]
+        }
+      ]
+    },
+    "herbalism": {
+      "trainer_npcs_all": 30,
+      "world_reference_npcs": 30,
+      "currently_other_trainer_npcs": 30,
+      "curated_overlap_npcs": 0,
+      "title_counts": {
+        "Herbalist": 3,
+        "Junior Herbalism Trainer": 6,
+        "草药学训练师": 11,
+        "见习采药师": 1,
+        "采药人": 7,
+        "高级采药师": 2
+      },
+      "samples": [
+        {
+          "npcID": 812,
+          "name": "奥玛·詹洛斯",
+          "title": "草药学训练师",
+          "english_name": "Alma Jainrose",
+          "flags": 16,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 44,
+              "mapID": 1433,
+              "x": 16.6,
+              "y": 45.77
+            }
+          ]
+        },
+        {
+          "npcID": 908,
+          "name": "弗洛拉·希沃温德",
+          "title": "高级采药师",
+          "english_name": "Flora Silverwind",
+          "flags": 16,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 33,
+              "mapID": 1434,
+              "x": 27.72,
+              "y": 77.86
+            }
+          ]
+        },
+        {
+          "npcID": 1218,
+          "name": "草药师博米洛伊",
+          "title": "草药学训练师",
+          "english_name": "Herbalist Pomeroy",
+          "flags": 16,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 12,
+              "mapID": 1429,
+              "x": 39.96,
+              "y": 48.41
+            }
+          ]
+        }
+      ]
+    },
+    "skinning": {
+      "trainer_npcs_all": 24,
+      "world_reference_npcs": 24,
+      "currently_other_trainer_npcs": 24,
+      "curated_overlap_npcs": 0,
+      "title_counts": {
+        "Junior Skinning Trainer": 6,
+        "Skinner": 2,
+        "Skinning Trainer": 1,
+        "剥皮师": 6,
+        "剥皮训练师": 8,
+        "高级屠夫": 1
+      },
+      "samples": [
+        {
+          "npcID": 1292,
+          "name": "马瑞斯·格兰治",
+          "title": "剥皮训练师",
+          "english_name": "Maris Granger",
+          "flags": 17,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 1519,
+              "mapID": 1453,
+              "x": 72.14,
+              "y": 62.21
+            }
+          ]
+        },
+        {
+          "npcID": 2818,
+          "name": "斯拉格",
+          "title": "高级屠夫",
+          "english_name": "Slagg",
+          "flags": 19,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 45,
+              "mapID": 1417,
+              "x": 74.08,
+              "y": 33.82
+            }
+          ]
+        },
+        {
+          "npcID": 6287,
+          "name": "拉德纳尔·织发",
+          "title": "剥皮师",
+          "english_name": "Radnaal Maneweaver",
+          "flags": 19,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 141,
+              "mapID": 1438,
+              "x": 42.09,
+              "y": 49.96
+            }
+          ]
+        }
+      ]
+    },
+    "alchemy": {
+      "trainer_npcs_all": 31,
+      "world_reference_npcs": 30,
+      "currently_other_trainer_npcs": 31,
+      "curated_overlap_npcs": 0,
+      "title_counts": {
+        "Alchemist": 5,
+        "中级炼金师": 10,
+        "初级炼金师": 10,
+        "初级炼金术训练师": 1,
+        "大师级炼金师": 2,
+        "炼金术训练师": 1,
+        "高级炼金师": 2
+      },
+      "samples": [
+        {
+          "npcID": 1215,
+          "name": "炼金师玛洛瑞",
+          "title": "初级炼金师",
+          "english_name": "Alchemist Mallory",
+          "flags": 19,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 12,
+              "mapID": 1429,
+              "x": 39.84,
+              "y": 48.23
+            }
+          ]
+        },
+        {
+          "npcID": 1246,
+          "name": "沃萨·布拉克塞尔",
+          "title": "初级炼金师",
+          "english_name": "Vosur Brakthel",
+          "flags": 17,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 1537,
+              "mapID": 1455,
+              "x": 66.33,
+              "y": 55.69
+            }
+          ]
+        },
+        {
+          "npcID": 1386,
+          "name": "罗格瓦尔",
+          "title": "大师级炼金师",
+          "english_name": "Rogvar",
+          "flags": 17,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 8,
+              "mapID": 1435,
+              "x": 48.53,
+              "y": 55.85
+            }
+          ]
+        }
+      ]
+    },
+    "blacksmithing": {
+      "trainer_npcs_all": 33,
+      "world_reference_npcs": 33,
+      "currently_other_trainer_npcs": 32,
+      "curated_overlap_npcs": 1,
+      "title_counts": {
+        "Blacksmith": 4,
+        "Journeyman Blacksmith": 2,
+        "中级铁匠": 7,
+        "初级铁匠": 10,
+        "大师级铁匠": 1,
+        "护甲锻造师": 1,
+        "武器铸造师": 2,
+        "武器锻造师": 1,
+        "特殊武器商": 1,
+        "铸甲师": 2,
+        "高级铁匠": 2
+      },
+      "samples": [
+        {
+          "npcID": 514,
+          "name": "铁匠阿古斯",
+          "title": "初级铁匠",
+          "english_name": "Smith Argus",
+          "flags": 19,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 12,
+              "mapID": 1429,
+              "x": 41.71,
+              "y": 65.54
+            }
+          ]
+        },
+        {
+          "npcID": 957,
+          "name": "丹恩·林德雷",
+          "title": "初级铁匠",
+          "english_name": "Dane Lindgren",
+          "flags": 17,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 1519,
+              "mapID": 1453,
+              "x": 64.12,
+              "y": 37.02
+            }
+          ]
+        },
+        {
+          "npcID": 1241,
+          "name": "托格努斯·燧火",
+          "title": "初级铁匠",
+          "english_name": "Tognus Flintfire",
+          "flags": 19,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 1,
+              "mapID": 1426,
+              "x": 45.34,
+              "y": 51.94
+            }
+          ]
+        }
+      ]
+    },
+    "leatherworking": {
+      "trainer_npcs_all": 34,
+      "world_reference_npcs": 33,
+      "currently_other_trainer_npcs": 34,
+      "curated_overlap_npcs": 0,
+      "title_counts": {
+        "Leatherworker": 2,
+        "中级制皮师": 10,
+        "初级制皮师": 11,
+        "制皮训练师": 1,
+        "大师级元素制皮师": 2,
+        "大师级制皮者": 1,
+        "大师级制皮训练师": 1,
+        "大师级部族制皮师": 1,
+        "大师级龙鳞制皮师": 2,
+        "部族制皮训练师": 1,
+        "高级制皮师": 2
+      },
+      "samples": [
+        {
+          "npcID": 223,
+          "name": "丹·戈萨斯",
+          "title": "初级制皮师",
+          "english_name": "Dan Golthas",
+          "flags": 19,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 1497,
+              "mapID": 1458,
+              "x": 70.93,
+              "y": 58.41
+            }
+          ]
+        },
+        {
+          "npcID": 1385,
+          "name": "布劳恩",
+          "title": "中级制皮师",
+          "english_name": "Brawn",
+          "flags": 17,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 33,
+              "mapID": 1434,
+              "x": 31.74,
+              "y": 28.9
+            }
+          ]
+        },
+        {
+          "npcID": 1466,
+          "name": "格雷塔",
+          "title": "初级制皮师",
+          "english_name": "Gretta Finespindle",
+          "flags": 19,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 1537,
+              "mapID": 1455,
+              "x": 38.81,
+              "y": 32.88
+            }
+          ]
+        }
+      ]
+    },
+    "tailoring": {
+      "trainer_npcs_all": 28,
+      "world_reference_npcs": 27,
+      "currently_other_trainer_npcs": 28,
+      "curated_overlap_npcs": 0,
+      "title_counts": {
+        "Expert Tailor": 1,
+        "Tailor": 2,
+        "中级裁缝": 8,
+        "初级裁缝": 10,
+        "大师级暗纹裁缝": 2,
+        "大师级裁缝": 2,
+        "裁缝训练师": 1,
+        "高级裁缝": 2
+      },
+      "samples": [
+        {
+          "npcID": 1103,
+          "name": "艾尔丁",
+          "title": "初级裁缝",
+          "english_name": "Eldrin",
+          "flags": 17,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 12,
+              "mapID": 1429,
+              "x": 79.22,
+              "y": 69.03
+            }
+          ]
+        },
+        {
+          "npcID": 1300,
+          "name": "劳伦斯·瑟尼德",
+          "title": "初级裁缝",
+          "english_name": "Lawrence Schneider",
+          "flags": 17,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 1519,
+              "mapID": 1453,
+              "x": 53.48,
+              "y": 81.47
+            }
+          ]
+        },
+        {
+          "npcID": 1346,
+          "name": "乔吉奥·波利罗",
+          "title": "高级裁缝",
+          "english_name": "Georgio Bolero",
+          "flags": 17,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 1519,
+              "mapID": 1453,
+              "x": 53.08,
+              "y": 81.35
+            }
+          ]
+        }
+      ]
+    },
+    "engineering": {
+      "trainer_npcs_all": 24,
+      "world_reference_npcs": 23,
+      "currently_other_trainer_npcs": 22,
+      "curated_overlap_npcs": 2,
+      "title_counts": {
+        "Master Goblin Engineer": 1,
+        "中级技师": 5,
+        "初级技师": 10,
+        "大师级侏儒技师": 2,
+        "大师级地精技师": 2,
+        "大师级技师": 1,
+        "工程学供应商": 1,
+        "高级技师": 2
+      },
+      "samples": [
+        {
+          "npcID": 1676,
+          "name": "芬布斯",
+          "title": "中级技师",
+          "english_name": "Finbus Geargrind",
+          "flags": 17,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 10,
+              "mapID": 1431,
+              "x": 77.38,
+              "y": 48.82
+            }
+          ]
+        },
+        {
+          "npcID": 1702,
+          "name": "布隆克",
+          "title": "初级技师",
+          "english_name": "Bronk Guzzlegear",
+          "flags": 19,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 1,
+              "mapID": 1426,
+              "x": 50.18,
+              "y": 50.38
+            }
+          ]
+        },
+        {
+          "npcID": 2857,
+          "name": "桑德",
+          "title": "初级技师",
+          "english_name": "Thund",
+          "flags": 19,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 1637,
+              "mapID": 1454,
+              "x": 75.96,
+              "y": 24.15
+            }
+          ]
+        }
+      ]
+    },
+    "enchanting": {
+      "trainer_npcs_all": 23,
+      "world_reference_npcs": 21,
+      "currently_other_trainer_npcs": 23,
+      "curated_overlap_npcs": 0,
+      "title_counts": {
+        "Enchanter": 2,
+        "Enchanting Trainer": 1,
+        "Journeyman Enchanter": 1,
+        "中级附魔师": 7,
+        "初级附魔师": 8,
+        "大师级附魔师": 1,
+        "附魔训练师": 1,
+        "高级附魔师": 2
+      },
+      "samples": [
+        {
+          "npcID": 1317,
+          "name": "鲁坎·考迪尔",
+          "title": "中级附魔师",
+          "english_name": "Lucan Cordell",
+          "flags": 17,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 1519,
+              "mapID": 1453,
+              "x": 52.9,
+              "y": 74.46
+            }
+          ]
+        },
+        {
+          "npcID": 3011,
+          "name": "泰戈·黎明行者",
+          "title": "中级附魔师",
+          "english_name": "Teg Dawnstrider",
+          "flags": 17,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 1638,
+              "mapID": 1456,
+              "x": 44.91,
+              "y": 37.49
+            }
+          ]
+        },
+        {
+          "npcID": 3345,
+          "name": "古丹",
+          "title": "中级附魔师",
+          "english_name": "Godan",
+          "flags": 17,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 1637,
+              "mapID": 1454,
+              "x": 53.9,
+              "y": 38.67
+            }
+          ]
+        }
+      ]
+    },
+    "first-aid": {
+      "trainer_npcs_all": 18,
+      "world_reference_npcs": 18,
+      "currently_other_trainer_npcs": 15,
+      "curated_overlap_npcs": 3,
+      "title_counts": {
+        "First Aid Trainer": 1,
+        "Medic": 2,
+        "医师": 2,
+        "外科医疗队": 2,
+        "急救训练师": 11
+      },
+      "samples": [
+        {
+          "npcID": 2326,
+          "name": "萨姆诺·普尔",
+          "title": "医师",
+          "english_name": "Thamner Pol",
+          "flags": 19,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 1,
+              "mapID": 1426,
+              "x": 47.18,
+              "y": 52.61
+            }
+          ]
+        },
+        {
+          "npcID": 2327,
+          "name": "珊娜·弗勒",
+          "title": "急救训练师",
+          "english_name": "Shaina Fuller",
+          "flags": 17,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 1519,
+              "mapID": 1453,
+              "x": 53,
+              "y": 44.68
+            }
+          ]
+        },
+        {
+          "npcID": 2329,
+          "name": "米歇尔·贝利",
+          "title": "医师",
+          "english_name": "Michelle Belle",
+          "flags": 17,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 12,
+              "mapID": 1429,
+              "x": 43.39,
+              "y": 65.55
+            }
+          ]
+        }
+      ]
+    },
+    "cooking": {
+      "trainer_npcs_all": 19,
+      "world_reference_npcs": 19,
+      "currently_other_trainer_npcs": 19,
+      "curated_overlap_npcs": 0,
+      "title_counts": {
+        "Cook": 3,
+        "Cooking Trainer": 2,
+        "厨师": 4,
+        "烹饪训练师": 9,
+        "高级厨师": 1
+      },
+      "samples": [
+        {
+          "npcID": 1355,
+          "name": "厨师格瑞姆",
+          "title": "烹饪训练师",
+          "english_name": "Cook Ghilm",
+          "flags": 19,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 1,
+              "mapID": 1426,
+              "x": 68.38,
+              "y": 54.49
+            }
+          ]
+        },
+        {
+          "npcID": 1382,
+          "name": "玛杜克",
+          "title": "高级厨师",
+          "english_name": "Mudduk",
+          "flags": 17,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 33,
+              "mapID": 1434,
+              "x": 31.34,
+              "y": 27.97
+            }
+          ]
+        },
+        {
+          "npcID": 1430,
+          "name": "厨师托马斯",
+          "title": "厨师",
+          "english_name": "Tomas",
+          "flags": 17,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 12,
+              "mapID": 1429,
+              "x": 44.37,
+              "y": 65.99
+            }
+          ]
+        }
+      ]
+    },
+    "fishing": {
+      "trainer_npcs_all": 25,
+      "world_reference_npcs": 25,
+      "currently_other_trainer_npcs": 25,
+      "curated_overlap_npcs": 0,
+      "title_counts": {
+        "Fisher": 1,
+        "Fisherman": 2,
+        "Superior Fisherman": 1,
+        "渔具供应商": 6,
+        "渔夫": 11,
+        "钓鱼训练师": 2,
+        "钓鱼训练师和供应商": 1,
+        "高级渔夫": 1
+      },
+      "samples": [
+        {
+          "npcID": 1651,
+          "name": "李·布朗",
+          "title": "渔夫",
+          "english_name": "Lee Brown",
+          "flags": 17,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 12,
+              "mapID": 1429,
+              "x": 47.61,
+              "y": 62.32
+            }
+          ]
+        },
+        {
+          "npcID": 1680,
+          "name": "马修·胡柏",
+          "title": "渔具供应商",
+          "english_name": "Matthew Hooper",
+          "flags": 17,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 44,
+              "mapID": 1433,
+              "x": 21.9,
+              "y": 51.13
+            }
+          ]
+        },
+        {
+          "npcID": 1683,
+          "name": "瓦格·深水",
+          "title": "渔夫",
+          "english_name": "Warg Deepwater",
+          "flags": 19,
+          "current_classification": "services:trainer",
+          "references": [
+            {
+              "areaID": 38,
+              "mapID": 1432,
+              "x": 40.55,
+              "y": 39.7
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "curated_profession_trainer_overlaps": [
+    {
+      "npcID": 3181,
+      "name": "弗雷玛尔",
+      "title": "急救训练师",
+      "english_name": "Fremal Doohickey",
+      "flags": 19,
+      "current_classification": "special",
+      "references": [
+        {
+          "areaID": 11,
+          "mapID": 1437,
+          "x": 10.83,
+          "y": 61.4
+        }
+      ],
+      "profession": "first-aid",
+      "curated_id": "npc-3181-1437",
+      "curated_category": "special",
+      "curated_service": "急救训练与任务",
+      "curated_tags": "急救 部落",
+      "curated_mapID": 1437
+    },
+    {
+      "npcID": 5164,
+      "name": "格鲁努斯·削钢",
+      "title": "铸甲师",
+      "english_name": "Grumnus Steelshaper",
+      "flags": 19,
+      "current_classification": "special",
+      "references": [
+        {
+          "areaID": 1537,
+          "mapID": 1455,
+          "x": 49.96,
+          "y": 42.81
+        }
+      ],
+      "profession": "blacksmithing",
+      "curated_id": "npc-5164-1455",
+      "curated_category": "special",
+      "curated_service": "护甲锻造训练与任务",
+      "curated_tags": "锻造 护甲 专精",
+      "curated_mapID": 1455
+    },
+    {
+      "npcID": 7406,
+      "name": "奥格索普·奥布诺提斯",
+      "title": "大师级侏儒技师",
+      "english_name": "Oglethorpe Obnoticus",
+      "flags": 19,
+      "current_classification": "special",
+      "references": [
+        {
+          "areaID": 33,
+          "mapID": 1434,
+          "x": 28.36,
+          "y": 76.35
+        }
+      ],
+      "profession": "engineering",
+      "curated_id": "npc-7406-1434",
+      "curated_category": "special",
+      "curated_service": "侏儒工程任务",
+      "curated_tags": "侏儒工程 专精",
+      "curated_mapID": 1434
+    },
+    {
+      "npcID": 8736,
+      "name": "巴兹克·布拉斯温",
+      "title": "大师级技师",
+      "english_name": "Buzzek Bracketswing",
+      "flags": 19,
+      "current_classification": "special",
+      "references": [
+        {
+          "areaID": 440,
+          "mapID": 1446,
+          "x": 52.34,
+          "y": 27.72
+        }
+      ],
+      "profession": "engineering",
+      "curated_id": "npc-8736-1446",
+      "curated_category": "special",
+      "curated_service": "工程训练",
+      "curated_tags": "工程 加基森",
+      "curated_mapID": 1446
+    },
+    {
+      "npcID": 12920,
+      "name": "格里高利·维克托医生",
+      "title": "外科医疗队",
+      "english_name": "Doctor Gregory Victor",
+      "flags": 19,
+      "current_classification": "special",
+      "references": [
+        {
+          "areaID": 45,
+          "mapID": 1417,
+          "x": 73.41,
+          "y": 36.89
+        }
+      ],
+      "profession": "first-aid",
+      "curated_id": "npc-12920-1417",
+      "curated_category": "special",
+      "curated_service": "急救进阶训练与任务",
+      "curated_tags": "急救 部落",
+      "curated_mapID": 1417
+    },
+    {
+      "npcID": 12939,
+      "name": "古斯塔夫·范沃森医生",
+      "title": "外科医疗队",
+      "english_name": "Doctor Gustaf VanHowzen",
+      "flags": 19,
+      "current_classification": "special",
+      "references": [
+        {
+          "areaID": 15,
+          "mapID": 1445,
+          "x": 67.76,
+          "y": 48.97
+        }
+      ],
+      "profession": "first-aid",
+      "curated_id": "npc-12939-1445",
+      "curated_category": "special",
+      "curated_service": "急救进阶训练与任务",
+      "curated_tags": "急救 联盟",
+      "curated_mapID": 1445
+    }
+  ],
+  "nontrainer_false_positive_examples": [
+    {
+      "npcID": 54,
+      "name": "科瑞娜·斯蒂利",
+      "title": "武器锻造师",
+      "flags": 16388,
+      "would_match": "blacksmithing"
+    },
+    {
+      "npcID": 78,
+      "name": "亚努斯·哈默纳克",
+      "title": "武器锻造师",
+      "flags": 16388,
+      "would_match": "blacksmithing"
+    },
+    {
+      "npcID": 225,
+      "name": "加文·纳尔特里",
+      "title": "武器锻造师",
+      "flags": 16388,
+      "would_match": "blacksmithing"
+    },
+    {
+      "npcID": 945,
+      "name": "雷布莱德·寒椅",
+      "title": "武器锻造师",
+      "flags": 16388,
+      "would_match": "blacksmithing"
+    },
+    {
+      "npcID": 1273,
+      "name": "格劳恩·索姆温",
+      "title": "武器锻造师",
+      "flags": 16388,
+      "would_match": "blacksmithing"
+    },
+    {
+      "npcID": 1296,
+      "name": "菲德尔·斯托弗",
+      "title": "武器锻造师",
+      "flags": 16388,
+      "would_match": "blacksmithing"
+    },
+    {
+      "npcID": 1441,
+      "name": "布拉克·唐纳德",
+      "title": "武器锻造师",
+      "flags": 16388,
+      "would_match": "blacksmithing"
+    },
+    {
+      "npcID": 1684,
+      "name": "卡拉·深水",
+      "title": "渔具供应商",
+      "flags": 6,
+      "would_match": "fishing"
+    },
+    {
+      "npcID": 1694,
+      "name": "罗斯洛·鲁治",
+      "title": "工程学供应商",
+      "flags": 7,
+      "would_match": "engineering"
+    },
+    {
+      "npcID": 2222,
+      "name": "Undead Mining Trainer",
+      "title": "Mining Trainer",
+      "flags": 0,
+      "would_match": "mining"
+    },
+    {
+      "npcID": 2325,
+      "name": "Undead First Aid Trainer",
+      "title": "First Aid Trainer",
+      "flags": 0,
+      "would_match": "first-aid"
+    },
+    {
+      "npcID": 2397,
+      "name": "德拉克·奈特弗",
+      "title": "厨师",
+      "flags": 5,
+      "would_match": "cooking"
+    },
+    {
+      "npcID": 2626,
+      "name": "老人海明威",
+      "title": "渔夫",
+      "flags": 4,
+      "would_match": "fishing"
+    },
+    {
+      "npcID": 2664,
+      "name": "凯尔希·杨斯",
+      "title": "厨师",
+      "flags": 4,
+      "would_match": "cooking"
+    },
+    {
+      "npcID": 2682,
+      "name": "弗拉德",
+      "title": "工程学供应商",
+      "flags": 6,
+      "would_match": "engineering"
+    },
+    {
+      "npcID": 2683,
+      "name": "纳姆杜",
+      "title": "工程学供应商",
+      "flags": 6,
+      "would_match": "engineering"
+    },
+    {
+      "npcID": 2684,
+      "name": "里兹·飞矢",
+      "title": "工程学供应商",
+      "flags": 6,
+      "would_match": "engineering"
+    },
+    {
+      "npcID": 2685,
+      "name": "玛兹克·斯奈普沙特",
+      "title": "工程学供应商",
+      "flags": 4,
+      "would_match": "engineering"
+    },
+    {
+      "npcID": 2687,
+      "name": "格纳兹·枪焰",
+      "title": "工程学供应商",
+      "flags": 4,
+      "would_match": "engineering"
+    },
+    {
+      "npcID": 2688,
+      "name": "鲁普·火油",
+      "title": "工程学供应商",
+      "flags": 6,
+      "would_match": "engineering"
+    },
+    {
+      "npcID": 2842,
+      "name": "维格希克",
+      "title": "高级渔夫",
+      "flags": 4,
+      "would_match": "fishing"
+    },
+    {
+      "npcID": 3029,
+      "name": "苏瓦·迷雾行者",
+      "title": "渔具供应商",
+      "flags": 6,
+      "would_match": "fishing"
+    },
+    {
+      "npcID": 3073,
+      "name": "马沙克·利刃",
+      "title": "武器锻造师",
+      "flags": 16388,
+      "would_match": "blacksmithing"
+    },
+    {
+      "npcID": 3077,
+      "name": "玛诺特·深痕",
+      "title": "武器锻造师",
+      "flags": 16388,
+      "would_match": "blacksmithing"
+    },
+    {
+      "npcID": 3159,
+      "name": "克赞·荆条",
+      "title": "武器锻造师",
+      "flags": 16388,
+      "would_match": "blacksmithing"
+    },
+    {
+      "npcID": 3163,
+      "name": "尤加尔",
+      "title": "武器锻造师",
+      "flags": 16388,
+      "would_match": "blacksmithing"
+    },
+    {
+      "npcID": 3178,
+      "name": "斯图亚特·弗雷明",
+      "title": "渔夫",
+      "flags": 4,
+      "would_match": "fishing"
+    },
+    {
+      "npcID": 3333,
+      "name": "山吉斯",
+      "title": "渔具供应商",
+      "flags": 6,
+      "would_match": "fishing"
+    },
+    {
+      "npcID": 3413,
+      "name": "索维克",
+      "title": "工程学供应商",
+      "flags": 7,
+      "would_match": "engineering"
+    },
+    {
+      "npcID": 3479,
+      "name": "纳加尔·死眼",
+      "title": "武器锻造师",
+      "flags": 16388,
+      "would_match": "blacksmithing"
+    },
+    {
+      "npcID": 3491,
+      "name": "艾隆萨尔",
+      "title": "武器锻造师",
+      "flags": 16388,
+      "would_match": "blacksmithing"
+    },
+    {
+      "npcID": 3495,
+      "name": "加格斯普吉特",
+      "title": "工程学供应商",
+      "flags": 6,
+      "would_match": "engineering"
+    },
+    {
+      "npcID": 3497,
+      "name": "基尔克斯",
+      "title": "渔夫",
+      "flags": 4,
+      "would_match": "fishing"
+    },
+    {
+      "npcID": 3534,
+      "name": "盲眼瓦拉斯",
+      "title": "武器锻造师",
+      "flags": 16388,
+      "would_match": "blacksmithing"
+    },
+    {
+      "npcID": 3539,
+      "name": "奥特",
+      "title": "武器锻造师",
+      "flags": 16388,
+      "would_match": "blacksmithing"
+    },
+    {
+      "npcID": 3550,
+      "name": "马丁·塔布雷",
+      "title": "渔具供应商",
+      "flags": 4,
+      "would_match": "fishing"
+    },
+    {
+      "npcID": 3572,
+      "name": "吉塞克",
+      "title": "渔夫",
+      "flags": 4,
+      "would_match": "fishing"
+    },
+    {
+      "npcID": 3588,
+      "name": "卡尔丹·傲刃",
+      "title": "武器锻造师",
+      "flags": 16388,
+      "would_match": "blacksmithing"
+    },
+    {
+      "npcID": 3609,
+      "name": "沙洛蒙",
+      "title": "武器锻造师",
+      "flags": 16388,
+      "would_match": "blacksmithing"
+    },
+    {
+      "npcID": 3966,
+      "name": "Kaleem",
+      "title": "Cook",
+      "flags": 0,
+      "would_match": "cooking"
+    }
+  ],
+  "trainer_titles_zhCN": {
+    "<nil>": 11,
+    "Alchemist": 5,
+    "Blacksmith": 4,
+    "Cook": 3,
+    "Cooking Trainer": 2,
+    "Druid Trainer": 5,
+    "Emerald Circle": 1,
+    "Enchanter": 2,
+    "Enchanting Trainer": 1,
+    "Expert Tailor": 1,
+    "First Aid Trainer": 1,
+    "Fisher": 1,
+    "Fisherman": 2,
+    "Herbalist": 3,
+    "Hunter Trainer": 6,
+    "Journeyman Blacksmith": 2,
+    "Journeyman Enchanter": 1,
+    "Junior Herbalism Trainer": 6,
+    "Junior Mining Trainer": 6,
+    "Junior Skinning Trainer": 6,
+    "Leatherworker": 2,
+    "Mage Trainer": 4,
+    "Master Goblin Engineer": 1,
+    "Medic": 2,
+    "Miner": 2,
+    "Mining Trainer": 1,
+    "Paladin Trainer": 5,
+    "Priest Trainer": 1,
+    "Rogue Trainer": 3,
+    "Rogue Trainer?": 1,
+    "Shaman Trainer": 8,
+    "Skinner": 2,
+    "Skinning Trainer": 1,
+    "Stablemaster and Riding Trainer": 1,
+    "Superior Fisherman": 1,
+    "Tailor": 2,
+    "Warrior Trainer": 4,
+    "中级制皮师": 10,
+    "中级技师": 5,
+    "中级炼金师": 10,
+    "中级裁缝": 8,
+    "中级铁匠": 7,
+    "中级附魔师": 7,
+    "亡灵马骑术训练师": 1,
+    "传送门训练师": 6,
+    "初级制皮师": 11,
+    "初级技师": 10,
+    "初级炼金师": 10,
+    "初级炼金术训练师": 1,
+    "初级裁缝": 10,
+    "初级铁匠": 10,
+    "初级附魔师": 8,
+    "制皮训练师": 1,
+    "剥皮师": 6,
+    "剥皮训练师": 8,
+    "医师": 2,
+    "厨师": 4,
+    "圣骑士训练师": 11,
+    "外科医疗队": 2,
+    "夜刃豹骑术训练师": 1,
+    "大师级侏儒技师": 2,
+    "大师级元素制皮师": 2,
+    "大师级制皮者": 1,
+    "大师级制皮训练师": 1,
+    "大师级地精技师": 2,
+    "大师级技师": 1,
+    "大师级暗纹裁缝": 2,
+    "大师级炼金师": 2,
+    "大师级裁缝": 2,
+    "大师级部族制皮师": 1,
+    "大师级铁匠": 1,
+    "大师级附魔师": 1,
+    "大师级龙鳞制皮师": 2,
+    "宠物训练师": 15,
+    "山羊骑术训练师": 1,
+    "工程学供应商": 1,
+    "德鲁伊训练师": 16,
+    "急救训练师": 11,
+    "战士训练师": 32,
+    "护甲锻造师": 1,
+    "术士训练师": 21,
+    "机械陆行鸟驾驶员": 1,
+    "武器大师": 8,
+    "武器铸造师": 2,
+    "武器锻造师": 1,
+    "法师训练师": 24,
+    "渔具供应商": 6,
+    "渔夫": 11,
+    "潜行者训练师": 25,
+    "炼金术训练师": 1,
+    "烹饪训练师": 9,
+    "牧师训练师": 30,
+    "特殊武器商": 1,
+    "狼骑术训练师": 1,
+    "猎人训练师": 29,
+    "矿工": 3,
+    "祖师级潜行者": 1,
+    "科多兽骑术训练师": 1,
+    "草药学训练师": 11,
+    "萨满祭司训练师": 11,
+    "裁缝训练师": 1,
+    "见习采药师": 1,
+    "迅猛龙骑术训练师": 1,
+    "部族制皮训练师": 1,
+    "采矿训练师": 10,
+    "采药人": 7,
+    "钓鱼训练师": 2,
+    "钓鱼训练师和供应商": 1,
+    "铸甲师": 2,
+    "附魔训练师": 1,
+    "马骑术训练师": 1,
+    "高级制皮师": 2,
+    "高级厨师": 1,
+    "高级屠夫": 1,
+    "高级技师": 2,
+    "高级渔夫": 1,
+    "高级炼金师": 2,
+    "高级裁缝": 2,
+    "高级采药师": 2,
+    "高级铁匠": 2,
+    "高级附魔师": 2,
+    "高阶法师": 1,
+    "高阶祭司": 1
+  },
+  "trainer_titles_enUS": {
+    "<nil>": 11,
+    "Alchemist": 5,
+    "Alchemy Trainer": 1,
+    "Apprentice Herbalist": 1,
+    "Armor Crafter": 2,
+    "Armorsmith": 1,
+    "Artisan Alchemist": 2,
+    "Artisan Blacksmith": 2,
+    "Artisan Enchanter": 2,
+    "Artisan Engineer": 2,
+    "Artisan Leatherworker": 2,
+    "Artisan Tailor": 2,
+    "Blacksmith": 4,
+    "Church of the Holy Light": 1,
+    "Cook": 7,
+    "Cooking Trainer": 11,
+    "Druid Trainer": 21,
+    "Emerald Circle": 1,
+    "Enchanter": 2,
+    "Enchanting Trainer": 2,
+    "Engineering Trainer": 1,
+    "Expert Alchemist": 10,
+    "Expert Blacksmith": 7,
+    "Expert Enchanter": 7,
+    "Expert Engineer": 5,
+    "Expert Leathercrafter": 1,
+    "Expert Leatherworker": 9,
+    "Expert Tailor": 9,
+    "First Aid Trainer": 12,
+    "Fisher": 1,
+    "Fisherman": 13,
+    "Fishing Trainer": 8,
+    "Fishing Trainer & Supplies": 1,
+    "Grand Master Rogue": 1,
+    "Herbalism Trainer": 11,
+    "Herbalist": 10,
+    "High Priest": 1,
+    "Horse Riding Instructor": 1,
+    "Hunter Trainer": 35,
+    "Journeyman Alchemist": 10,
+    "Journeyman Alchemist Trainer": 1,
+    "Journeyman Blacksmith": 12,
+    "Journeyman Enchanter": 9,
+    "Journeyman Engineer": 10,
+    "Journeyman Leatherworker": 11,
+    "Journeyman Tailor": 10,
+    "Junior Herbalism Trainer": 6,
+    "Junior Mining Trainer": 6,
+    "Junior Skinning Trainer": 6,
+    "Kodo Riding Instructor": 1,
+    "Leatherworker": 2,
+    "Leatherworking Trainer": 1,
+    "Mage Trainer": 28,
+    "Master Alchemist": 2,
+    "Master Blacksmith": 1,
+    "Master Dragonscale Leatherworker": 2,
+    "Master Elemental Leatherworker": 2,
+    "Master Enchanter": 1,
+    "Master Engineer": 1,
+    "Master Gnome Engineer": 2,
+    "Master Goblin Engineer": 3,
+    "Master Leatherworker": 1,
+    "Master Leatherworking Trainer": 1,
+    "Master Mage": 1,
+    "Master Shadoweave Tailor": 2,
+    "Master Tailor": 2,
+    "Master Tribal Leatherworker": 1,
+    "Mechanostrider Pilot": 1,
+    "Medic": 2,
+    "Miner": 5,
+    "Mining Trainer": 11,
+    "Nightsaber Riding Instructor": 1,
+    "Paladin Trainer": 15,
+    "Pet Trainer": 15,
+    "Physician": 2,
+    "Portal Trainer": 6,
+    "Priest Trainer": 31,
+    "Ram Riding Instructor": 1,
+    "Raptor Riding Trainer": 1,
+    "Rogue Trainer": 28,
+    "Rogue Trainer?": 1,
+    "Shaman Trainer": 19,
+    "Skinner": 8,
+    "Skinning Trainer": 9,
+    "Special Weapon Crafter": 1,
+    "Stablemaster and Riding Trainer": 1,
+    "Superior Butcher": 1,
+    "Superior Cook": 1,
+    "Superior Fisherman": 2,
+    "Superior Herbalist": 2,
+    "Tailor": 2,
+    "Tailoring Trainer": 1,
+    "Trauma Surgeon": 2,
+    "Tribal Leatherworking Trainer": 1,
+    "Undead Horse Riding Instructor": 1,
+    "Warlock Trainer": 21,
+    "Warrior Trainer": 36,
+    "Weapon Crafter": 2,
+    "Weapon Master": 8,
+    "Weaponsmith": 1,
+    "Wolf Riding Instructor": 1
+  },
+  "currently_other_trainer_world_reference_npcs": 299,
+  "normalization_samples": [
+    {
+      "raw": "Skinning Trainer",
+      "normalized": "Skinning Trainer",
+      "reason": "Questie zhCN table contains NBSP between English words"
+    }
+  ],
+  "curated_secondary_membership_recommendation": "Keep existing ID, primary category/service/tags and old special subgroups. Attach professionTrainer key for only the six listed NPCs after validating TRAINER bit and exact profession title; include it as a secondary membership in profession-trainers search/counts. Do not infer membership from existing profession tags alone (e.g. Old Man Heming 2626 has no TRAINER flag)."
+}

@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "checked_at": "2026-11-13T10:59:40.430740+00:00",
+  "exit_code": 0,
+  "checks_passed": 71,
+  "checks_failed": 0,
+  "manager_version": "0.2.1",
+  "source_root": "/Users/mashuangxi/World of Warcraft/PersonalAddons/Manager/artifacts/source/targets-0.2.1/Manager",
+  "source_provenance": "frozen source used for public0.2.1 release; compiled Release for this test, not workspace Desktop0.3.1 Core",
+  "source_sha256": {
+    "Core/UpdateService.cs": "eed2800161c6438f8945c87915667edbb1e7f8731ee05d76daaf174744ed98cc",
+    "Core/Models.cs": "1712def3342b4bc2acd8ea6b51e30e7dd872c2f225867317c630323cd8d127ef",
+    "Core/MyForeverManager.Core.csproj": "9b8458580be4e786dd73ed606f80627ab81a4545fbe8834e205dc430a56e7544",
+    "Core/GamePaths.cs": "649b65d2a15571466bd714e9d93f48fb4e4c70ea5ee3352e359e52cb54ee1d93",
+    "Tests/MyForeverManager.Tests.csproj": "d05567d63c5c3827d912d5d535ce20c8ae4f2c7e6a529ea7d69946c8d2492cd6",
+    "Tests/Program.cs": "386a0893349ba65e2aef96ea16848750364ca5f34b67f14f397e93b3e9247478",
+    "Desktop/MainWindow.cs": "aafa6549bcf84d9bc332f0087eeb25484324f827f79f1c3522f281d4dae5e04d",
+    "Desktop/MyForeverManager.Desktop.csproj": "40882a935ea637612149abd64096c357f19350c5f2138b4feedb9fd642aaae04",
+    "Desktop/Program.cs": "d29b9b2ce53469364e412f0e3ad0abc53dbb26d46725c7f533e1f68242bbb856"
+  },
+  "test_log": "/Users/mashuangxi/World of Warcraft/PersonalAddons/work/navigator-0.4.1/manager-public-0.2.1-live.log",
+  "test_scope": "actual official HTTPS and isolated fake game install/update/backup/restore; not desktop binary UI and not real game install",
+  "real_game_install_performed": false,
+  "package": {
+    "version": "0.4.1",
+    "filename": "MyForeverNavigator-0.4.1-Trial.zip",
+    "bytes": 585107,
+    "sha256": "6ad246ffc2d9505d4a72b8a8e0b72089860f19a6cc0b662e4085e1a23ce82414"
+  },
+  "manifest_url": "https://afabiaoge.xyz/navigator/latest.json",
+  "manifest_sha256": "54bf3b9bffaa3dd307318ecfbafa8239a43a5e89b8f0538ac17ac609b20f3375",
+  "wait_attempts": 7
+}

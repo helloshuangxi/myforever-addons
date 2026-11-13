@@ -117,7 +117,7 @@ assert(classify("猎人宠物训练师",16,"AH").category=="services","pet train
 assert(NS.GetPointSubcategory(classify("潜行者训练师",16,"AH"))=="trainers:rogue","Questie zhCN rogue synonym")
 assert(NS.GetPointSubcategory(classify("高级潜行者训练师",16,"AH"))=="trainers:rogue")
 assert(NS.GetPointSubcategory(classify("武器大师",16,"AH"))=="special:weapon-training")
-assert(classify("炼金术训练师",16,"AH").category=="services","profession trainer is not a class trainer")
+assert(classify("炼金术训练师",16,"AH").category=="profession-trainers","profession trainer has its own purpose, separate from class trainers")
 assert(NS.GetPointSubcategory(classify("Alchemy Supplies",4,"AH"))=="materials:alchemy")
 assert(NS.GetPointSubcategory(classify("武器锻造供应商",4,"AH"))=="services:vendor","generic supplies do not invent material specialities")
 assert(classify("军需官",4,"AH").category=="reputation")

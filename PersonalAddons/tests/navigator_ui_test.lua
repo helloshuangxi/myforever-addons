@@ -90,6 +90,17 @@ local root="_forever_/Interface/AddOns/MyForeverNavigator/"
 for _,file in ipairs({"Core.lua","Data.lua","Classification.lua"})do assert(loadfile(root..file))("MyForeverNavigator",NS)end
 local trainerGroups={"warrior","paladin","hunter","rogue","priest","shaman","mage","warlock","druid"}
 assert(NS.Categories[1].id=="trainers","class trainers must be present in real catalogue")
+local professionPoints={
+    {id="test-profession-mining",npcID=100001,name="采矿训练师测试",category="profession-trainers",catalogSubcategory="profession-trainers:mining",
+        service="采矿训练师",tags="采矿 专业训练师",mapID=1455,x=.2,y=.4,zone="铁炉堡",faction="Neutral"},
+    {id="test-profession-fishing",npcID=100002,name="钓鱼训练师测试",category="profession-trainers",catalogSubcategory="profession-trainers:fishing",
+        service="钓鱼训练师",tags="钓鱼 专业训练师",mapID=1455,x=.3,y=.4,zone="铁炉堡",faction="Neutral"},
+}
+local catalogue,professionByID={},{}
+for _,p in ipairs(NS.Points)do catalogue[#catalogue+1]=p end
+for _,p in ipairs(professionPoints)do catalogue[#catalogue+1]=p;professionByID[p.id]=p end
+NS.GetCatalogPoints=function()return catalogue end
+NS.GetQuestiePoint=function(id)return professionByID[id]end
 NS.Initialize(nil)
 NS.GetPlayerPosition=function()return 1455,.3,.4 end
 NS.GetLocationContext=function()return {mapID=1455,x=.3,y=.4}end
@@ -147,11 +158,13 @@ eq(NS.Panel.width,900,"organized directory width")
 eq(NS.Panel.height,600,"organized directory height")
 eq(#ui.npcCategories,#NS.Categories+1,"NPC sidebar adapts to all registered purposes")
 eq(ui.npcCategories[2].category,"trainers","class trainers immediately follow all NPCs")
+eq(ui.npcCategories[3].category,"profession-trainers","profession trainers have their own purpose after class trainers")
 for _,b in ipairs(ui.npcCategories)do eq(b.category~="favorites"and b.category~="custom",true,"personal places excluded from NPC purposes")end
 local function top(control)return -control.point[3]end
 local previousBottom=0
 for _,b in ipairs(ui.npcCategories)do
     eq(top(b)>=previousBottom,true,"purpose buttons do not overlap")
+    eq(b.height>=24,true,"purpose buttons retain readable click targets")
     previousBottom=top(b)+b.height
 end
 eq(top(ui.subTitle)>=previousBottom+8,true,"subcategory heading below all purposes")
@@ -182,6 +195,7 @@ ui.npcBrowser.search:SetText("训练")
 category("trainers"):Click()
 eq(lastOptions.category,"trainers","trainer purpose applied")
 eq(lastOptions.subcategory,"all","trainer purpose initially shows every class")
+for _,p in ipairs(ui.npcBrowser.results)do eq(p.category,"trainers","class trainer results exclude profession trainers")end
 local trainerVisited={}
 while true do
     for _,b in ipairs(ui.subcategories)do if b.entry then trainerVisited[b.entry.id]=true end end
@@ -194,6 +208,40 @@ for _,b in ipairs(ui.subcategories)do if b.entry and b.entry.id=="trainers:druid
 assert(druid);druid:Click()
 eq(lastOptions.subcategory,"trainers:druid","second-page class can be selected")
 eq(ui.npcBrowser.search:GetText(),"训练","class facet preserves independent query")
+-- Profession trainers have independent facets; late-page skills remain reachable.
+category("profession-trainers"):Click()
+eq(lastOptions.category,"profession-trainers","profession trainer purpose reaches search")
+eq(lastOptions.subcategory,"all","profession purpose does not inherit a class facet")
+eq(ui.npcBrowser.search:GetText(),"训练","profession purpose preserves independent search text")
+for _,p in ipairs(ui.npcBrowser.results)do eq(p.category,"profession-trainers","profession results exclude class trainers")end
+local mining
+for _,b in ipairs(ui.subcategories)do if b.entry and b.entry.id=="profession-trainers:mining"then mining=b end end
+assert(mining);mining:Click()
+eq(lastOptions.subcategory,"profession-trainers:mining","mining is selectable on the first page")
+eq(#ui.npcBrowser.results,1,"mining filter returns only the matching profession fixture")
+eq(ui.npcBrowser.results[1].id,professionPoints[1].id,"mining result uses the matching trainer")
+ui.npcBrowser.details.start:Click()
+eq(NS.DB.activeID,professionPoints[1].id,"profession trainer starts existing navigation action")
+NS.Stop()
+local professionVisited={}
+while true do
+    for _,b in ipairs(ui.subcategories)do if b.entry then professionVisited[b.entry.id]=true end end
+    if not ui.subNext.enabled then break end
+    ui.subNext:Click()
+end
+for _,token in ipairs({"mining","herbalism","skinning","alchemy","blacksmithing","leatherworking","tailoring","engineering","enchanting","first-aid","cooking","fishing"})do
+    eq(professionVisited["profession-trainers:"..token],true,"profession facet reachable: "..token)
+end
+local fishing
+for _,b in ipairs(ui.subcategories)do if b.entry and b.entry.id=="profession-trainers:fishing"then fishing=b end end
+assert(fishing);fishing:Click()
+eq(lastOptions.subcategory,"profession-trainers:fishing","late-page fishing facet is selectable")
+eq(#ui.npcBrowser.results,1,"fishing filter returns only the matching profession fixture")
+eq(ui.npcBrowser.results[1].id,professionPoints[2].id,"fishing result uses the matching trainer")
+ui.subPrevious:Click()
+eq(ui.subNext.enabled,true,"profession previous-page control returns to an earlier page")
+category("trainers"):Click()
+eq(lastOptions.subcategory,"all","returning to class trainers clears the profession facet")
 -- NPC categories use a real hierarchical taxonomy without changing the search query.
 ui.npcBrowser.search:SetText("声望")
 category("reputation"):Click()

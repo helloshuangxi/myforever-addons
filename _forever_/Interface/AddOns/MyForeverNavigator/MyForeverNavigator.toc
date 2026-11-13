@@ -1,8 +1,8 @@
 ## Interface: 16001
 ## Title: 我的无限 · |cffe8be75世界向导|r
-## Notes: 接入 Questie NPC 数据搜索导航；职业训练师、声望军需官、任务与地点导航。/mynav
+## Notes: 接入 Questie NPC 数据搜索导航；职业和专业训练师、声望军需官、任务与地点导航。/mynav
 ## Author: Personal Addons
-## Version: 0.4.0
+## Version: 0.4.1
 ## OptionalDeps: Questie, QuestieDB
 ## SavedVariablesPerCharacter: MyForeverNavigatorDB
 

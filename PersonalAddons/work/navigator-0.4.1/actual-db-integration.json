@@ -1,0 +1,290 @@
+{
+  "status": "passed",
+  "scope": "actual installed DB + Navigator Lua, modeled client maps; not in-game validation",
+  "source": {
+    "questie_db_version": "1.1.0",
+    "commit": "90ab55bdddd6ef6507fe51610b9c26948bbeb637",
+    "lua_files_loaded": 50
+  },
+  "persona": {
+    "locale": "zhCN",
+    "faction": "Alliance"
+  },
+  "build_frames": 390,
+  "elapsed_ms": 3131.2,
+  "curated_points": 427,
+  "total_points": 9902,
+  "unique_npcs": 9006,
+  "maps": 50,
+  "categories": {
+    "trainers": 236,
+    "reputation": 70,
+    "materials": 128,
+    "special": 30,
+    "services": 1123,
+    "npcs": 8016,
+    "profession-trainers": 299
+  },
+  "samples": [
+    {
+      "npcID": 240,
+      "name": "治安官杜汉",
+      "english": "Marshal Dughan",
+      "category": "npcs",
+      "service": "任务 NPC",
+      "mapID": 1429,
+      "x": 0.4211,
+      "y": 0.6593000000000001
+    },
+    {
+      "npcID": 295,
+      "name": "旅店老板法雷",
+      "english": "Innkeeper Farley",
+      "category": "services",
+      "service": "旅店老板",
+      "mapID": 1429,
+      "x": 0.43770000000000003,
+      "y": 0.6579999999999999
+    },
+    {
+      "npcID": 332,
+      "name": "马迪亚斯·肖尔",
+      "english": "Master Mathias Shaw",
+      "category": "npcs",
+      "service": "军情七处领袖",
+      "mapID": 1453,
+      "x": 0.7831,
+      "y": 0.7073999999999999
+    },
+    {
+      "npcID": 1411,
+      "name": "伊安·斯托姆",
+      "english": "Ian Strom",
+      "category": "trainers",
+      "service": "潜行者训练师",
+      "mapID": 1434,
+      "x": 0.2682,
+      "y": 0.7715000000000001
+    }
+  ],
+  "search_timings_modeled_apis": {
+    "all": {
+      "milliseconds": 171.02,
+      "returned_points": 9901
+    },
+    "治安官杜汉": {
+      "milliseconds": 34.72,
+      "returned_points": 1
+    },
+    "旅店老板": {
+      "milliseconds": 35.89,
+      "returned_points": 62
+    },
+    "马迪亚斯": {
+      "milliseconds": 34.5,
+      "returned_points": 1
+    },
+    "332": {
+      "milliseconds": 33.52,
+      "returned_points": 23
+    }
+  },
+  "profession_trainers": {
+    "returned_points": 305,
+    "unique_npcs": 305,
+    "points_by_profession": {
+      "blacksmithing": 33,
+      "first-aid": 18,
+      "cooking": 19,
+      "skinning": 24,
+      "leatherworking": 33,
+      "fishing": 25,
+      "herbalism": 30,
+      "alchemy": 30,
+      "enchanting": 21,
+      "mining": 22,
+      "tailoring": 27,
+      "engineering": 23
+    },
+    "npcs_by_profession": {
+      "blacksmithing": 33,
+      "first-aid": 18,
+      "cooking": 19,
+      "skinning": 24,
+      "leatherworking": 33,
+      "fishing": 25,
+      "herbalism": 30,
+      "alchemy": 30,
+      "enchanting": 21,
+      "mining": 22,
+      "tailoring": 27,
+      "engineering": 23
+    },
+    "verified_ordinary_samples": [
+      {
+        "profession": "mining",
+        "query": "采矿训练师",
+        "npcID": 1681,
+        "name": "布洛克·寻石者",
+        "title": "采矿训练师",
+        "mapID": 1432,
+        "id": "questie-npc-1681-1432"
+      },
+      {
+        "profession": "herbalism",
+        "query": "草药训练师",
+        "npcID": 812,
+        "name": "奥玛·詹洛斯",
+        "title": "草药学训练师",
+        "mapID": 1433,
+        "id": "questie-npc-812-1433"
+      },
+      {
+        "profession": "skinning",
+        "query": "剥皮训练师",
+        "npcID": 1292,
+        "name": "马瑞斯·格兰治",
+        "title": "剥皮训练师",
+        "mapID": 1453,
+        "id": "questie-npc-1292-1453"
+      },
+      {
+        "profession": "alchemy",
+        "query": "炼金术训练师",
+        "npcID": 1215,
+        "name": "炼金师玛洛瑞",
+        "title": "初级炼金师",
+        "mapID": 1429,
+        "id": "questie-npc-1215-1429"
+      },
+      {
+        "profession": "blacksmithing",
+        "query": "锻造训练师",
+        "npcID": 514,
+        "name": "铁匠阿古斯",
+        "title": "初级铁匠",
+        "mapID": 1429,
+        "id": "questie-npc-514-1429"
+      },
+      {
+        "profession": "leatherworking",
+        "query": "制皮训练师",
+        "npcID": 223,
+        "name": "丹·戈萨斯",
+        "title": "初级制皮师",
+        "mapID": 1458,
+        "id": "questie-npc-223-1458"
+      },
+      {
+        "profession": "tailoring",
+        "query": "裁缝训练师",
+        "npcID": 1103,
+        "name": "艾尔丁",
+        "title": "初级裁缝",
+        "mapID": 1429,
+        "id": "questie-npc-1103-1429"
+      },
+      {
+        "profession": "engineering",
+        "query": "工程训练师",
+        "npcID": 1676,
+        "name": "芬布斯",
+        "title": "中级技师",
+        "mapID": 1431,
+        "id": "questie-npc-1676-1431"
+      },
+      {
+        "profession": "enchanting",
+        "query": "附魔训练师",
+        "npcID": 1317,
+        "name": "鲁坎·考迪尔",
+        "title": "中级附魔师",
+        "mapID": 1453,
+        "id": "questie-npc-1317-1453"
+      },
+      {
+        "profession": "first-aid",
+        "query": "急救训练师",
+        "npcID": 2326,
+        "name": "萨姆诺·普尔",
+        "title": "医师",
+        "mapID": 1426,
+        "id": "questie-npc-2326-1426"
+      },
+      {
+        "profession": "cooking",
+        "query": "烹饪训练师",
+        "npcID": 1355,
+        "name": "厨师格瑞姆",
+        "title": "烹饪训练师",
+        "mapID": 1426,
+        "id": "questie-npc-1355-1426"
+      },
+      {
+        "profession": "fishing",
+        "query": "钓鱼训练师",
+        "npcID": 1651,
+        "name": "李·布朗",
+        "title": "渔夫",
+        "mapID": 1429,
+        "id": "questie-npc-1651-1429"
+      }
+    ],
+    "preserved_curated_secondary_samples": [
+      {
+        "npcID": 3181,
+        "profession": "first-aid",
+        "id": "npc-3181-1437",
+        "primary_category": "special",
+        "old_subcategory": "special:profession-advancement"
+      },
+      {
+        "npcID": 5164,
+        "profession": "blacksmithing",
+        "id": "npc-5164-1455",
+        "primary_category": "special",
+        "old_subcategory": "special:profession-advancement"
+      },
+      {
+        "npcID": 7406,
+        "profession": "engineering",
+        "id": "npc-7406-1434",
+        "primary_category": "special",
+        "old_subcategory": "special:profession-advancement"
+      },
+      {
+        "npcID": 8736,
+        "profession": "engineering",
+        "id": "npc-8736-1446",
+        "primary_category": "special",
+        "old_subcategory": "special:profession-advancement"
+      },
+      {
+        "npcID": 12920,
+        "profession": "first-aid",
+        "id": "npc-12920-1417",
+        "primary_category": "special",
+        "old_subcategory": "special:profession-advancement"
+      },
+      {
+        "npcID": 12939,
+        "profession": "first-aid",
+        "id": "npc-12939-1445",
+        "primary_category": "special",
+        "old_subcategory": "special:profession-advancement"
+      }
+    ],
+    "non_trainer_ids_rejected": [
+      2626,
+      1684,
+      54
+    ],
+    "source_values_unchanged": true,
+    "navigation_scope": "NS.Start/GetNavigation/GetPoint with modeled APIs; no physical clicks or in-game travel"
+  },
+  "limitations": [
+    "C_Map was modeled from support mappings, not native client results",
+    "Character Questie policy and live Phasing not loaded; phased-only points excluded from returned results",
+    "Reference coordinates, not current NPC tracking"
+  ]
+}

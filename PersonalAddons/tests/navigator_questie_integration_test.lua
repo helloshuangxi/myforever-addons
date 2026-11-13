@@ -101,7 +101,7 @@ local all=ns.Search("",{includeCustom=false})
 check(all[1].id==id,"default search sorts actual nearest reference first")
 check(find(ns,"夜行捕食者").faction=="Hostile", "hostile NPC title is searchable under default own-faction filter")
 check(find(ns,"职业导师",{category="trainers",subcategory="trainers:mage"}).id=="questie-npc-202-10", "localized class title and flag feed existing class-trainer category")
-check(#ns.Search("炼金导师",{category="trainers"})==0 and find(ns,"炼金导师",{category="services",subcategory="services:trainer"}), "profession trainers remain separate from class trainers")
+check(#ns.Search("炼金导师",{category="trainers"})==0 and find(ns,"炼金导师",{category="profession-trainers",subcategory="profession-trainers:alchemy"}), "profession trainers have a dedicated purpose separate from class trainers")
 check(#ns.Search("部落商人")==0 and find(ns,"部落商人",{faction="all"}), "own-faction filter excludes opposing friendly merchant without hiding hostile creatures")
 
 local selected=find(ns,"多点商人")

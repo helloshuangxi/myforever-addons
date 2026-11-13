@@ -1,5 +1,5 @@
 local _, NS = ...
-NS.VERSION = "0.4.0"
+NS.VERSION = "0.4.1"
 
 function NS.Number(value)
     return not (issecretvalue and issecretvalue(value)) and type(value) == "number"
@@ -179,6 +179,8 @@ local function matches(p, terms)
     haystack = table.concat(values, " "):gsub("[A-Z]", string.lower)
     searchText[p] = haystack
     end
+    local aliases = NS.Call(NS.GetPointSearchAliases, p)
+    if type(aliases) == "string" and aliases ~= "" then haystack = haystack .. " " .. aliases:gsub("[A-Z]", string.lower) end
     for _, word in ipairs(terms) do if not haystack:find(word, 1, true) then return false end end
     return true
 end
@@ -197,6 +199,7 @@ function NS.Search(query, options)
             local p = original
             if not p.questieSpawns and NS.ResolvePoint then p = NS.ResolvePoint(p) or p end
             local categoryOK = category == "all" or category == p.category or (category == "favorites" and favorites[p.id])
+                or (NS.PointMatchesCategory and NS.PointMatchesCategory(p, category) == true)
             local factionOK = options.faction == "all" or not faction or p.faction == "Neutral" or p.faction == "Hostile" or p.faction == faction
             local subcategoryOK = not options.subcategory or options.subcategory == "all"
                 or NS.Call(NS.PointMatchesSubcategory, p, options.subcategory) == true

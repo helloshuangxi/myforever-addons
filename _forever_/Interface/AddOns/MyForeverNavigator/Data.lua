@@ -6,6 +6,7 @@ local _, NS = ...
 -- Static reference points, not live NPC tracking. Forever gameplay verification pending.
 NS.Categories = {
     {id = "trainers", label = "职业训练师"},
+    {id = "profession-trainers", label = "专业训练师"},
     {id = "reputation", label = "声望与军需官"},
     {id = "materials", label = "材料商人"},
     {id = "special", label = "特殊 NPC"},

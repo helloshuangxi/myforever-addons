@@ -1,3 +1,4 @@
+dofile("_forever_/Interface/AddOns/MyForeverTargets/MyForeverStyle.lua")
 -- Launcher interaction simulation; actual hardware drag and clicks need WoW.
 local checks,now,combat=0,10,false
 local function eq(actual,expected,why)

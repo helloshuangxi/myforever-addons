@@ -5,6 +5,7 @@
 ## Version: 0.1.45
 ## SavedVariablesPerCharacter: MyForeverTargetsDB, MyForeverTargetsLogDB
 
+MyForeverStyle.lua
 Libs/LibStub/LibStub.lua
 Libs/LibRangeCheck-3.0/LibRangeCheck-3.0.lua
 Core.lua

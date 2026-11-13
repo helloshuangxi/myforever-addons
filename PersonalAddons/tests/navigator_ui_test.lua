@@ -131,6 +131,7 @@ NS.GetNavigation=function()
     if NS.DB.activeID then return {point=NS.GetPoint(NS.DB.activeID),mode=mode,angle=angle,distance=distance,status=statusText,detail=detailText,nativeTracking=nativeTracking,nativeReason=nativeReason}end
     return {mode="unavailable",status="没有目标"}
 end
+dofile("_forever_/Interface/AddOns/MyForeverNavigator/MyForeverStyle.lua")
 assert(loadfile(root.."UI.lua"))("MyForeverNavigator",NS)
 NS.CreateUI()
 local ui=NS.UI

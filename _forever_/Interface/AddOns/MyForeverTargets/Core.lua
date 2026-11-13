@@ -130,7 +130,7 @@ end
 
 function NS.Print(message)
     if DEFAULT_CHAT_FRAME then
-        DEFAULT_CHAT_FRAME:AddMessage("|cff80c9ef目标选择|r " .. tostring(message))
+        DEFAULT_CHAT_FRAME:AddMessage((MyForeverStyle and MyForeverStyle.Prefix("目标选择") or "目标选择") .. " " .. tostring(message))
     end
 end
 

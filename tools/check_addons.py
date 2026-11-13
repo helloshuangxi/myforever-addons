@@ -29,6 +29,11 @@ def main():
                 assert (addon / entry.replace("\\", "/")).is_file(), (toc, entry)
     print(f"Lua 5.1 syntax: {len(sources)} files; seven TOC manifests checked", flush=True)
     failed = []
+    # Every addon embeds the same suite style; a drifted copy would split the look again.
+    if subprocess.run([sys.executable, "tools/sync_style.py", "--check"], cwd=ROOT).returncode:
+        failed.append("tools/sync_style.py --check")
+    else:
+        print("Shared style: seven embedded copies match the source", flush=True)
     tests = sorted((ROOT / "PersonalAddons/tests").glob("*_test.lua"))
     for path in tests:
         if path.name == "details_truncation_test.lua":

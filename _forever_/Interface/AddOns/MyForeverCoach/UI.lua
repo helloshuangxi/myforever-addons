@@ -5,26 +5,16 @@ local colors = {
     readable = {0.44, 0.88, 0.69}, partial = {1, 0.78, 0.35}, restricted = {1, 0.65, 0.37},
     error = {1, 0.42, 0.42}, missing = {0.70, 0.74, 0.80}, observed = {0.57, 0.76, 1}, none = {0.52, 0.58, 0.65},
 }
-local function label(parent, font, x, y, width, message)
-    local v = parent:CreateFontString(nil, "OVERLAY", font or "GameFontHighlightSmall")
+local Style = MyForeverStyle
+local WIDTH, OVERVIEW_HEIGHT, DIAGNOSTICS_HEIGHT = 452, 338, 464
+local function label(parent, level, x, y, width, message)
+    local v = Style.Text(parent, level or "secondary", width, message)
     v:SetPoint("TOPLEFT", x, y)
-    v:SetWidth(width)
-    v:SetJustifyH("LEFT")
-    v:SetText(message or "")
     return v
 end
-local function backdrop(frame)
-    frame:SetBackdrop({bgFile = "Interface\\Buttons\\WHITE8X8", edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-        edgeSize = 12, insets = {left = 3, right = 3, top = 3, bottom = 3}})
-    frame:SetBackdropColor(0.035, 0.055, 0.08, 0.98)
-    frame:SetBackdropBorderColor(0.30, 0.39, 0.48, 1)
-end
-local function button(parent, x, y, width, caption, handler)
-    local b = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
-    b:SetSize(width, 26)
-    b:SetPoint("TOPLEFT", x, y)
-    b:SetText(caption)
-    b:SetScript("OnClick", handler)
+local function button(parent, x, width, caption, handler, kind)
+    local b = Style.Button(parent, caption, width, 24, handler, kind)
+    b:SetPoint("BOTTOMLEFT", x, 12)
     return b
 end
 local function combat()
@@ -38,6 +28,7 @@ function NS.SetBehaviorView(value)
         panel.overview:SetShown(not diagnostics)
         panel.diagnostics:SetShown(diagnostics)
         panel.view:SetText(diagnostics and "行为概览" or "能力检测")
+        panel:SetHeight(diagnostics and DIAGNOSTICS_HEIGHT or OVERVIEW_HEIGHT)
     end
 end
 
@@ -50,30 +41,35 @@ function NS.ShowExport(report)
     if combat() then NS.Print("请脱战后导出，采集仍会继续。") return end
     if not exportPanel then
         exportPanel = CreateFrame("Frame", "MyForeverCoachExportPanel", UIParent, "BackdropTemplate")
-        exportPanel:SetSize(690, 480)
+        exportPanel:SetSize(560, 400)
         exportPanel:SetPoint("CENTER", 0, 0)
         exportPanel:SetFrameStrata("DIALOG")
         exportPanel:SetClampedToScreen(true)
-        backdrop(exportPanel)
-        exportPanel.title = label(exportPanel, "GameFontNormalLarge", 18, -18, 630, "导出采集数据")
-        label(exportPanel, nil, 18, -48, 640, "点击文本后 Ctrl+C / ⌘C 复制。仅在本机展示，不会发送到任何服务。")
-        local close = CreateFrame("Button", nil, exportPanel, "UIPanelCloseButton")
-        close:SetPoint("TOPRIGHT", -4, -4)
-        local scroll = CreateFrame("ScrollFrame", nil, exportPanel, "UIPanelScrollFrameTemplate")
-        scroll:SetPoint("TOPLEFT", 20, -80)
-        scroll:SetPoint("BOTTOMRIGHT", -38, 54)
-        local box = CreateFrame("EditBox", nil, scroll)
+        Style.Panel(exportPanel, "popup")
+        local box
+        local function close() box:ClearFocus(); exportPanel:Hide() end
+        local bar = Style.TitleBar(exportPanel, "导出采集数据", close)
+        exportPanel.title = bar.title
+        label(exportPanel, "caption", 12, -40, 536, "点击文本后 Ctrl+C / ⌘C 复制。仅在本机展示，不会发送到任何服务。")
+        local well = CreateFrame("Frame", nil, exportPanel, "BackdropTemplate")
+        well:SetPoint("TOPLEFT", 12, -62)
+        well:SetPoint("BOTTOMRIGHT", -12, 48)
+        Style.Surface(well, "side")
+        local scroll = CreateFrame("ScrollFrame", nil, well, "UIPanelScrollFrameTemplate")
+        scroll:SetPoint("TOPLEFT", 8, -8)
+        scroll:SetPoint("BOTTOMRIGHT", -28, 8)
+        box = CreateFrame("EditBox", nil, scroll)
         box:SetMultiLine(true)
         box:SetAutoFocus(false)
         box:SetFontObject("GameFontHighlightSmall")
-        box:SetWidth(620)
-        box:SetHeight(330)
+        box:SetWidth(490)
+        box:SetHeight(280)
         box:SetMaxLetters(0)
-        box:SetScript("OnEscapePressed", function(self) self:ClearFocus(); exportPanel:Hide() end)
+        box:SetScript("OnEscapePressed", close)
         scroll:SetScrollChild(box)
         exportPanel.box, exportPanel.scroll = box, scroll
-        button(exportPanel, 18, -436, 110, "全选", function() box:SetFocus(); box:HighlightText() end)
-        button(exportPanel, 550, -436, 110, "关闭", function() box:ClearFocus(); exportPanel:Hide() end)
+        button(exportPanel, 12, 96, "全选", function() box:SetFocus(); box:HighlightText() end, "primary")
+        button(exportPanel, 116, 96, "关闭", close)
     end
     local data, err
     if report then data = NS.ExportReport() else data, err = NS.ExportSession() end
@@ -90,24 +86,18 @@ end
 function NS.CreateUI()
     if panel then return panel end
     panel = CreateFrame("Frame", "MyForeverCoachPanel", UIParent, "BackdropTemplate")
-    panel:SetSize(664, 518)
+    panel:SetSize(WIDTH, OVERVIEW_HEIGHT)
     panel:SetPoint("CENTER", 0, 10)
     panel:SetFrameStrata("DIALOG")
     panel:SetClampedToScreen(true)
     panel:SetMovable(true)
     panel:EnableMouse(true)
-    backdrop(panel)
-    label(panel, "GameFontNormalLarge", 18, -18, 590, "我的无限 · 玩家行为")
-    label(panel, nil, 18, -46, 620, "本机统计由我的无限软件展示 · 采集插件 " .. NS.VERSION .. " 本机候选")
-    panel.status = label(panel, "GameFontHighlight", 18, -74, 620)
-    panel.meta = label(panel, nil, 18, -98, 620)
-    local close = CreateFrame("Button", nil, panel, "UIPanelCloseButton")
-    close:SetPoint("TOPRIGHT", -4, -4)
-    close:SetScript("OnClick", function() NS.db.settings.shown = false; panel:Hide() end)
-    local drag = CreateFrame("Frame", nil, panel)
-    drag:SetPoint("TOPLEFT", 0, 0)
-    drag:SetPoint("TOPRIGHT", -32, 0)
-    drag:SetHeight(62)
+    Style.Panel(panel, "window")
+    local bar = Style.TitleBar(panel, "玩家行为", function() NS.db.settings.shown = false; panel:Hide() end)
+    -- What is happening now (status) reads first; when and how it is counted (meta) is a caption.
+    panel.status = label(panel, "body", 12, -40, 428)
+    panel.meta = label(panel, "caption", 12, -60, 428)
+    local drag = bar.handle
     drag:EnableMouse(true)
     drag:RegisterForDrag("LeftButton")
     drag:SetScript("OnDragStart", function() if not combat() then panel:StartMoving() end end)
@@ -115,49 +105,48 @@ function NS.CreateUI()
 
     panel.overview = CreateFrame("Frame", nil, panel)
     panel.overview:SetPoint("TOPLEFT", 0, 0)
-    panel.overview:SetSize(664, 430)
+    panel.overview:SetSize(WIDTH, 250)
     panel.metrics = {}
     local metrics = {{"observedSeconds", "采集时长"}, {"combatsEntered", "战斗次数"}, {"castsSucceeded", "施法成功"},
         {"xpGained", "获得经验"}, {"questsTurnedIn", "完成任务"}, {"deaths", "死亡"}}
     for index, item in ipairs(metrics) do
-        local x, y = 22 + ((index-1)%3)*213, -141 - math.floor((index-1)/3)*89
-        label(panel.overview, "GameFontNormal", x, y, 195, item[2])
-        panel.metrics[item[1]] = label(panel.overview, "GameFontNormalLarge", x, y-28, 195, "0")
+        -- The number is the content; its name is a caption above it.
+        local x, y = 12 + ((index-1)%3)*146, -86 - math.floor((index-1)/3)*56
+        label(panel.overview, "caption", x, y, 136, item[2])
+        panel.metrics[item[1]] = label(panel.overview, "value", x, y-15, 136, "0")
     end
-    panel.activity = label(panel.overview, "GameFontHighlight", 22, -332, 615)
-    panel.actions = label(panel.overview, nil, 22, -359, 615)
-    label(panel.overview, nil, 22, -390, 615, "在我的无限软件中打开“行为统计”，查看按日趋势、技能和地图分布。")
-    label(panel.overview, nil, 22, -414, 615, "数据在 /reload 或登出后由客户端写盘；暂停期间不累计游戏行为。")
+    panel.activity = label(panel.overview, "secondary", 12, -204, 428)
+    panel.actions = label(panel.overview, "caption", 12, -224, 428)
 
     panel.diagnostics = CreateFrame("Frame", nil, panel)
     panel.diagnostics:SetPoint("TOPLEFT", 0, 0)
-    panel.diagnostics:SetSize(664, 430)
-    label(panel.diagnostics, "GameFontNormal", 20, -136, 210, "采集项目")
+    panel.diagnostics:SetSize(WIDTH, 380)
+    label(panel.diagnostics, "caption", 12, -86, 150, "采集项目")
     for i, name in ipairs({"脱战", "战斗", "副本", "PvP"}) do
-        label(panel.diagnostics, "GameFontNormal", 236 + (i - 1) * 101, -136, 95, name)
+        label(panel.diagnostics, "caption", 168 + (i - 1) * 70, -86, 66, name)
     end
     panel.rows = {}
     for i, key in ipairs(NS.CapabilityKeys) do
-        local y = -162 - (i - 1) * 21
-        local row = {title = label(panel.diagnostics, nil, 20, y, 210, NS.CapabilityLabels[key]), cells = {}}
-        for j = 1, 4 do row.cells[j] = label(panel.diagnostics, nil, 236 + (j - 1) * 101, y, 95) end
+        local y = -106 - (i - 1) * 20
+        local row = {title = label(panel.diagnostics, "secondary", 12, y, 150, NS.CapabilityLabels[key]), cells = {}}
+        for j = 1, 4 do row.cells[j] = label(panel.diagnostics, "secondary", 168 + (j - 1) * 70, y, 66) end
         panel.rows[key] = row
     end
-    panel.note = label(panel, nil, 18, -443, 625,
-        "“已读到”仅说明采到部分公开字段；“待观察”需触发相应场景。")
-    panel.pause = button(panel, 18, -475, 96, "暂停采集", function()
+    panel.note = Style.Text(panel, "caption", 428)
+    panel.note:SetPoint("BOTTOMLEFT", 12, 46)
+    -- Everyday actions carry a surface; export and diagnostics are occasional, so they are quiet text actions.
+    panel.pause = button(panel, 12, 84, "暂停采集", function()
         NS.SetEnabled(not NS.db.settings.enabled); NS.RenderUI()
     end)
-    panel.view = button(panel, 122, -475, 96, "能力检测", function()
+    panel.view = button(panel, 102, 84, "能力检测", function()
         NS.SetBehaviorView(not diagnostics); NS.RenderUI()
     end)
-    button(panel, 226, -475, 96, "新会话", function()
+    button(panel, 192, 72, "新会话", function()
         if combat() then NS.Print("请脱战后开始新会话。") return end
         NS.StopSession("manual"); NS.StartSession(); NS.RegisterCaptureEvents(NS.frame); NS.RefreshCapabilities(); NS.RenderUI()
     end)
-    button(panel, 330, -475, 96, "导出 JSON", function() NS.ShowExport(false) end)
-    button(panel, 434, -475, 96, "诊断摘要", function() NS.ShowExport(true) end)
-    button(panel, 538, -475, 104, "隐藏", function() NS.db.settings.shown = false; panel:Hide() end)
+    button(panel, 296, 72, "导出 JSON", function() NS.ShowExport(false) end, "quiet")
+    button(panel, 368, 72, "诊断摘要", function() NS.ShowExport(true) end, "quiet")
     panel:Hide()
     NS.panel = panel
     NS.SetBehaviorView(false)
@@ -168,14 +157,15 @@ function NS.RenderUI()
     if not panel or not NS.db or not NS.session then return end
     local s = NS.session
     local enabled = NS.db.settings.enabled
-    panel.status:SetText(NS.safetyStopped and "|cffff9166接口拦截 · 已安全停采|r" or enabled and "|cff70e0b0正在采集公开游戏行为|r" or "|cffffc75c已暂停采集|r")
+    panel.status:SetText(NS.safetyStopped and Style.Paint("danger", "● 接口拦截 · 已安全停采")
+        or enabled and (Style.Paint("accent", "●") .. " 正在采集公开游戏行为") or Style.Paint("warning", "● 已暂停采集"))
     local client = s.client or {}
     local day, dateKey
     if NS.GetBehaviorToday then day, dateKey = NS.GetBehaviorToday() else day, dateKey = {time={}, counts={}, quality={}}, "本日" end
     panel.meta:SetText(diagnostics and ("客户端 " .. (NS.Text(client.version) or "未知") .. " / " ..
         (NS.Text(client.build) or (NS.Number(client.build) and tostring(client.build)) or "未知") ..
         "  ·  当前：" .. ({idle = "脱战", combat = "战斗", instance = "副本", pvp = "PvP"})[NS.GetContext()]) or
-        (dateKey .. " · UTC+08:00 日统计 · 保留最近 90 天"))
+        (dateKey .. " · UTC+08:00 日统计 · 保留 90 天 · 采集插件 " .. NS.VERSION))
     for key, view in pairs(panel.metrics) do
         view:SetText(key == "observedSeconds" and duration(day.time[key]) or tostring(math.floor(NS.Number(day.counts[key]) or 0)))
     end
@@ -193,7 +183,7 @@ function NS.RenderUI()
         if event == "PLAYER_REGEN_DISABLED" or event == "PLAYER_REGEN_ENABLED" then transitions = transitions + count end
     end
     panel.note:SetText(diagnostics and ("事件收件：施法 " .. casts .. " / 战斗 " .. transitions .. " · 本会话明细 " .. #s.records .. " 条") or
-        "仅统计实际读到的公开事件；失败事件不等于误操作，静止不等于挂机。")
+        "失败事件不等于误操作，静止不等于挂机。按日趋势与分布在我的无限软件“行为统计”查看；/reload 或登出后写盘。")
     for _, key in ipairs(NS.CapabilityKeys) do
         for j, context in ipairs({"idle", "combat", "instance", "pvp"}) do
             local caption, status = NS.CapabilitySummary(key, context)

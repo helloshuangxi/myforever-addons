@@ -1,4 +1,6 @@
 local _, ns = ...
+local Style = MyForeverStyle
+local function C(name, alpha) return Style.Color(name, alpha) end
 
 local size = ns.PanelSize
 local WIDTH, CONTENT_WIDTH = size.defaultWidth, size.defaultWidth - 42
@@ -41,13 +43,13 @@ local function button(parent, caption, width, action)
     local b = CreateFrame("Button", nil, parent)
     b:SetSize(width, 23)
     b:SetHighlightTexture("Interface\\Buttons\\WHITE8X8")
-    b:GetHighlightTexture():SetVertexColor(0.9, 0.77, 0.48, 0.12)
+    b:GetHighlightTexture():SetVertexColor(1, 1, 1, 0.07)
     b.label = text(b, width, "GameFontNormalSmall")
     b.label:SetPoint("CENTER")
     b.label:SetJustifyH("CENTER")
     b.label:SetJustifyV("MIDDLE")
     b.label:SetText(caption)
-    b.label:SetTextColor(0.72, 0.76, 0.79)
+    b.label:SetTextColor(C("secondary"))
     b:SetScript("OnClick", action)
     return b
 end
@@ -201,17 +203,19 @@ local function hideOwnedTooltip(self)
 end
 
 local function auxiliary(control, title, explanation)
-    control.label:SetTextColor(0.68, 0.73, 0.77)
+    control.label:SetTextColor(C(control.restColor or "secondary"))
     control:SetScript("OnEnter", function(self)
-        self.label:SetTextColor(0.96, 0.85, 0.63)
+        self.label:SetTextColor(C("text"))
         if not GameTooltip then return end
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
         GameTooltip:SetText(title)
+        -- A live state line comes first: what the feature is doing now matters more than how to configure it.
+        if self.stateLine then GameTooltip:AddLine(self.stateLine, self.stateR or 0.75, self.stateG or 0.79, self.stateB or 0.82, true) end
         if explanation then GameTooltip:AddLine(explanation, 0.75, 0.79, 0.82, true) end
         GameTooltip:Show()
     end)
     control:SetScript("OnLeave", function(self)
-        self.label:SetTextColor(0.68, 0.73, 0.77)
+        self.label:SetTextColor(C(self.restColor or "secondary"))
         hideOwnedTooltip(self)
     end)
     control:SetScript("OnHide", hideOwnedTooltip)
@@ -293,7 +297,7 @@ local function getMaterialRow(card, index)
     row.label:SetWidth(CONTENT_WIDTH - 32)
     row.counts = text(row, CONTENT_WIDTH - 32)
     fontSize(row.counts, 13)
-    row.counts:SetTextColor(0.91, 0.78, 0.63)
+    row.counts:SetTextColor(C("secondary"))
     row:SetScript("OnEnter", showMaterialTooltip)
     row:SetScript("OnLeave", hideTooltip)
     row:SetScript("OnHide", hideOwnedTooltip)
@@ -324,16 +328,16 @@ local function getCard(index)
     header:SetHeight(42)
     header.bg = header:CreateTexture(nil, "BACKGROUND", nil, 0)
     header.bg:SetAllPoints()
-    header.bg:SetColorTexture(0.075, 0.09, 0.11, 0.96)
+    header.bg:SetColorTexture(C("surface", 0.96))
     header.fill = header:CreateTexture(nil, "BACKGROUND", nil, 1)
     header.fill:SetPoint("TOPLEFT", 1, -1)
     header.fill:SetHeight(40)
     header.fill:SetTexture("Interface\\TargetingFrame\\UI-StatusBar")
-    header.fill:SetVertexColor(0.2, 0.48, 0.7, 0.56)
+    header.fill:SetVertexColor(C("accent", 0.30))
     header.rule = header:CreateTexture(nil, "ARTWORK")
     header.rule:SetPoint("BOTTOMLEFT", 0, 0)
     header.rule:SetSize(CONTENT_WIDTH, 1)
-    header.rule:SetColorTexture(0.55, 0.48, 0.33, 0.35)
+    header.rule:SetColorTexture(C("line", 0.8))
     header.icon = header:CreateTexture(nil, "ARTWORK")
     header.icon:SetSize(24, 24)
     header.icon:SetPoint("LEFT", 9, 0)
@@ -342,17 +346,17 @@ local function getCard(index)
     header.label:SetPoint("LEFT", 43, 0)
     header.label:SetWidth(CONTENT_WIDTH - 150)
     header.label:SetJustifyH("LEFT")
-    header.label:SetTextColor(0.93, 0.86, 0.7)
+    header.label:SetTextColor(C("text"))
     header.rank = text(header, 82)
     header.rank:SetPoint("RIGHT", -27, 0)
     header.rank:SetJustifyH("RIGHT")
     header.rank:SetJustifyV("MIDDLE")
-    header.rank:SetTextColor(0.81, 0.86, 0.9)
+    header.rank:SetTextColor(C("text"))
     header.toggle = text(header, 16)
     header.toggle:SetPoint("RIGHT", -7, 0)
     header.toggle:SetJustifyH("CENTER")
     header.toggle:SetJustifyV("MIDDLE")
-    header.toggle:SetTextColor(0.77, 0.68, 0.48)
+    header.toggle:SetTextColor(C("muted"))
     card.details = CreateFrame("Frame", nil, card)
     card.details:SetPoint("TOPLEFT", 6, -49)
     card.details:SetWidth(CONTENT_WIDTH - 12)
@@ -387,13 +391,13 @@ local function getCard(index)
     card.trainer.label:ClearAllPoints()
     card.trainer.label:SetPoint("TOPLEFT", 24, -2)
     card.trainer.label:SetWidth(CONTENT_WIDTH - 118)
-    card.trainer.label:SetTextColor(0.68, 0.73, 0.77)
+    card.trainer.label:SetTextColor(C("secondary"))
     card.trainer.icon = card.trainer:CreateTexture(nil, "ARTWORK")
     card.trainer.icon:SetSize(18, 18)
     card.trainer.icon:SetPoint("TOPLEFT", 0, -1)
     card.trainer.icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
     card.trainer:SetScript("OnEnter", function(self)
-        self.label:SetTextColor(0.96, 0.85, 0.63)
+        self.label:SetTextColor(C("text"))
         local record = self.record
         if not GameTooltip or not record then return end
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
@@ -410,12 +414,12 @@ local function getCard(index)
         GameTooltip:Show()
     end)
     card.trainer:SetScript("OnLeave", function(self)
-        self.label:SetTextColor(0.68, 0.73, 0.77)
+        self.label:SetTextColor(C("secondary"))
         hideOwnedTooltip(self)
     end)
     card.trainer:SetScript("OnHide", hideOwnedTooltip)
     card.note = text(card.details, CONTENT_WIDTH - 12)
-    card.note:SetTextColor(0.65, 0.69, 0.72)
+    card.note:SetTextColor(C("muted"))
     card.choices = {}
     for choice = 1, 3 do
         local row = button(card.details, "", CONTENT_WIDTH - 12, function(self)
@@ -429,16 +433,16 @@ local function getCard(index)
         row.label:SetWidth(CONTENT_WIDTH - 34)
         row.role = text(row, CONTENT_WIDTH - 34)
         row.role:SetPoint("TOPLEFT", 10, -6)
-        row.role:SetTextColor(0.72, 0.79, 0.84)
+        row.role:SetTextColor(C("muted"))
         row.stock = text(row, CONTENT_WIDTH - 34)
-        row.stock:SetTextColor(0.66, 0.72, 0.76)
+        row.stock:SetTextColor(C("secondary"))
         row.bg = row:CreateTexture(nil, "BACKGROUND")
         row.bg:SetAllPoints()
-        row.bg:SetColorTexture(0.13, 0.20, 0.25, 0.8)
+        row.bg:SetColorTexture(C("selected", 0.8))
         row.marker = row:CreateTexture(nil, "ARTWORK")
         row.marker:SetPoint("TOPLEFT", 0, -3)
         row.marker:SetWidth(3)
-        row.marker:SetColorTexture(0.76, 0.68, 0.44, 1)
+        row.marker:SetColorTexture(C("accent"))
         row:SetScript("OnEnter", function(self)
             if GameTooltip and self.recipeName then
                 GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
@@ -459,16 +463,16 @@ local function getCard(index)
         card.choices[choice] = row
     end
     card.materialTitle = text(card.details, CONTENT_WIDTH - 12)
-    card.materialTitle:SetTextColor(0.75, 0.79, 0.82)
+    card.materialTitle:SetTextColor(C("muted"))
     card.materials = text(card.details, CONTENT_WIDTH - 12)
-    card.materials:SetTextColor(0.7, 0.75, 0.78)
+    card.materials:SetTextColor(C("secondary"))
     card.materialRows = {}
     card.otherTitle = text(card.details, CONTENT_WIDTH - 12)
     card.otherTitle:SetText("其他可选")
-    card.otherTitle:SetTextColor(0.59, 0.66, 0.71)
+    card.otherTitle:SetTextColor(C("muted"))
     card.auxRule = card.details:CreateTexture(nil, "ARTWORK")
     card.auxRule:SetSize(CONTENT_WIDTH - 12, 1)
-    card.auxRule:SetColorTexture(0.4, 0.45, 0.49, 0.28)
+    card.auxRule:SetColorTexture(C("line", 0.6))
     cards[index] = card
     return card
 end
@@ -501,8 +505,8 @@ end
 
 local function materialCount(required, owned, missing)
     if not number(missing) and number(required) and number(owned) then missing = math.max(0, required - owned) end
-    local color = number(missing) and missing > 0 and "|cffffb080" or "|cffb9dfc1"
-    return color .. "缺 " .. amount(missing) .. "|r   |cff9da7af需 " .. amount(required) .. " / 有 " .. amount(owned) .. "|r"
+    local color = "|cff" .. Style.Hex(number(missing) and missing > 0 and "warning" or "accent")
+    return color .. "缺 " .. amount(missing) .. "|r   |cff" .. Style.Hex("muted") .. "需 " .. amount(required) .. " / 有 " .. amount(owned) .. "|r"
 end
 
 local function renderMaterials(card, recipe, y)
@@ -580,10 +584,10 @@ local function renderCard(card, profession)
     local fraction = valid and math.max(0, math.min(1, rank / maximum)) or 0
     header.fill:SetShown(fraction > 0)
     header.fill:SetWidth(math.max(1, (CONTENT_WIDTH - 2) * fraction))
-    header.fill:SetVertexColor(valid and rank >= maximum and 0.68 or 0.2,
-        valid and rank >= maximum and 0.52 or 0.48, valid and rank >= maximum and 0.2 or 0.7, 0.56)
+    -- A full bar turns to the warning hue: the profession is capped until the next training.
+    header.fill:SetVertexColor(C(valid and rank >= maximum and "warning" or "accent", 0.30))
     header.rank:SetText(card.unlearned and "未学习" or (valid and amount(rank) .. " / " .. amount(maximum) or "读取中"))
-    header.label:SetTextColor(card.unlearned and 0.63 or 0.93, card.unlearned and 0.66 or 0.86, card.unlearned and 0.69 or 0.7)
+    header.label:SetTextColor(C(card.unlearned and "muted" or "text"))
     local expanded = expandedID == profession.id
     header.toggle:SetText(expanded and "-" or "+")
     card.details:SetShown(expanded)
@@ -702,6 +706,27 @@ local function renderCard(card, profession)
     return 49 + y + 13
 end
 
+-- The gather control states the feature's real condition on the panel itself, so a client restriction
+-- reads as "unavailable here" instead of as a silent failure. Reads only flags the gather modules publish.
+local function renderGatherState()
+    local gather = panel and panel.controls and panel.controls.gather
+    if not gather then return end
+    local color, line
+    if ns.db.gatherAlerts == false then
+        color, line = "disabled", "采集提醒已关闭。"
+    elseif ns.gatherMinimapAccessRestricted == true then
+        color, line = "warning", "当前客户端限制了小地图矿草名称读取，自动找矿不可用；近处可确认的资源仍会提醒。"
+    elseif ns.gatherTrackingHint then
+        color, line = "warning", ns.gatherTrackingHint
+    else
+        color, line = "accent", "采集提醒已开启" .. (ns.db.gatherSound == false and "，声音静音。" or "。")
+    end
+    gather.restColor, gather.stateLine = color, line
+    gather.stateR, gather.stateG, gather.stateB = C(color)
+    gather.label:SetText(color == "warning" and "采集 !" or "采集")
+    gather.label:SetTextColor(C(color))
+end
+
 function ns.RenderUI()
     if not panel or rendering then return end
     rendering = true
@@ -714,6 +739,7 @@ function ns.RenderUI()
     panel:SetShown(visible and not collapsed)
     collapsedIcon:SetShown(visible and collapsed)
     lockButton.label:SetText(ns.db.locked and "解锁" or "锁定")
+    renderGatherState()
     ns.SetScale(ns.db.scale or 1)
     applyWindowSize(ns.db.windowWidth or size.defaultWidth, ns.db.windowHeight or size.defaultHeight)
     panel.drag:SetWidth(math.max(100, math.min(200, WIDTH - 172)))
@@ -731,7 +757,7 @@ function ns.RenderUI()
     open.professionID = active and not active.unlearned and active.id or nil
     open.professionName = active and active.name
     open:SetEnabled(open.professionID ~= nil)
-    open.label:SetTextColor(open.professionID and 0.68 or 0.48, open.professionID and 0.73 or 0.52, open.professionID and 0.77 or 0.56)
+    open.label:SetTextColor(C(open.professionID and "secondary" or "disabled"))
     open.explanation = not active and "先点击一个专业标题，再打开该专业的原生技能页。"
         or (active.unlearned and "尚未学习该专业，请先向训练师学习。" or "打开所选专业的原生技能页，更新已学项目与材料。")
     summary:SetText(ns.combatPaused and "战斗中 · 数据暂停"
@@ -859,13 +885,13 @@ function ns.CreateUI()
     panel:EnableMouseWheel(true)
     panel:SetScript("OnMouseWheel", wheel)
     panel:SetFrameStrata("MEDIUM")
-    panel:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8X8", edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border", edgeSize = 12, insets = { left = 3, right = 3, top = 3, bottom = 3 } })
-    panel:SetBackdropColor(0.035, 0.045, 0.055, 0.94)
-    panel:SetBackdropBorderColor(0.53, 0.44, 0.28, 0.8)
+    panel:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8X8", edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 1 })
+    panel:SetBackdropColor(C("outer", Style.alpha.window))
+    panel:SetBackdropBorderColor(C("line", 0.9))
     panel.title = text(panel, 176, "GameFontNormal")
     panel.title:SetPoint("TOPLEFT", 13, -13)
     panel.title:SetText("商业技能助手")
-    panel.title:SetTextColor(0.94, 0.82, 0.57)
+    panel.title:SetTextColor(C("text"))
     local drag = CreateFrame("Frame", nil, panel)
     panel.drag = drag
     drag:SetPoint("TOPLEFT", 4, -4)
@@ -913,7 +939,7 @@ function ns.CreateUI()
     if ns.GatherCommand then
         local gather = button(panel, "采集", 39, function() ns.GatherCommand("move") end)
         gather:SetPoint("TOPRIGHT", -125, -7)
-        auxiliary(gather, "调整采集提示的位置和大小", "近距离矿草闪光：/myprof sparkle\n开启 on · 关闭 off · 大小 scale 1.2")
+        auxiliary(gather, "采集提醒", "点击调整提示的位置和大小。\n开关：/myprof gather on · off\n近距离矿草闪光：/myprof sparkle on · off")
         panel.controls.gather = gather
     end
     local open = button(panel, "打开技能书", 104, function(self)
@@ -921,7 +947,7 @@ function ns.CreateUI()
     end)
     open:SetPoint("TOPLEFT", 14, -33)
     open:SetScript("OnEnter", function(self)
-        if self.professionID then self.label:SetTextColor(0.96, 0.85, 0.63) end
+        if self.professionID then self.label:SetTextColor(C("text")) end
         if not GameTooltip then return end
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
         GameTooltip:SetText(self.professionName and "打开技能书：" .. self.professionName or "打开技能书")
@@ -929,7 +955,7 @@ function ns.CreateUI()
         GameTooltip:Show()
     end)
     open:SetScript("OnLeave", function(self)
-        self.label:SetTextColor(self.professionID and 0.68 or 0.48, self.professionID and 0.73 or 0.52, self.professionID and 0.77 or 0.56)
+        self.label:SetTextColor(C(self.professionID and "secondary" or "disabled"))
         hideOwnedTooltip(self)
     end)
     open:SetScript("OnHide", hideOwnedTooltip)
@@ -937,7 +963,7 @@ function ns.CreateUI()
     summary = text(panel, WIDTH - 28)
     panel.summary = summary
     summary:SetPoint("TOPLEFT", 127, -39)
-    summary:SetTextColor(0.58, 0.63, 0.68)
+    summary:SetTextColor(C("muted"))
     scroll = CreateFrame("ScrollFrame", nil, panel)
     scroll:SetPoint("TOPLEFT", 15, -68)
     scroll:SetWidth(CONTENT_WIDTH)
@@ -957,12 +983,12 @@ function ns.CreateUI()
     bar:SetValueStep(1)
     bar:SetThumbTexture("Interface\\Buttons\\WHITE8X8")
     bar:GetThumbTexture():SetSize(7, 26)
-    bar:GetThumbTexture():SetVertexColor(0.61, 0.53, 0.36, 0.7)
+    bar:GetThumbTexture():SetVertexColor(C("line", 1))
     bar:SetScript("OnValueChanged", function(_, value) if not settingScroll then setScroll(value) end end)
     footer = text(panel, WIDTH - 100)
     panel.footer = footer
     footer:SetPoint("BOTTOMLEFT", 15, 10)
-    footer:SetTextColor(0.54, 0.6, 0.65)
+    footer:SetTextColor(C("muted"))
     local minus = button(panel, "-", 24, function()
         ns.SetWindowSize(ns.db.windowWidth - 32, ns.db.windowHeight - 32)
     end)

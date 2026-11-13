@@ -98,7 +98,7 @@ function NS.Initialize(value)
     return NS.DB
 end
 function NS.Print(message)
-    if DEFAULT_CHAT_FRAME then DEFAULT_CHAT_FRAME:AddMessage("|cffe8be75世界向导|r " .. tostring(message)) end
+    if DEFAULT_CHAT_FRAME then DEFAULT_CHAT_FRAME:AddMessage((MyForeverStyle and MyForeverStyle.Prefix("世界向导") or "世界向导") .. " " .. tostring(message)) end
 end
 function NS.ToggleFavorite(id)
     local point = NS.GetPoint(id)

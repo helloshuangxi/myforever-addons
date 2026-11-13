@@ -5,6 +5,7 @@
 ## Version: 0.2.0
 ## SavedVariablesPerCharacter: MyForeverCoachDB
 
+MyForeverStyle.lua
 Core.lua
 Behavior.lua
 Capture.lua

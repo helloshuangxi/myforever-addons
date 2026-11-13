@@ -50,6 +50,7 @@ C_Map = {
 }
 
 local Kit = {}
+dofile("_forever_/Interface/AddOns/MyForeverFieldKit/MyForeverStyle.lua")
 assert(loadfile("_forever_/Interface/AddOns/MyForeverFieldKit/Main.lua"))("MyForeverFieldKit", Kit)
 eq(Kit.ReadBagSpace(), 22, "exclude specialized bags and reagent slot")
 NUM_BAG_SLOTS = nil

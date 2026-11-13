@@ -6,6 +6,7 @@
 ## OptionalDeps: Questie, QuestieDB
 ## SavedVariablesPerCharacter: MyForeverProfessionsDB
 
+MyForeverStyle.lua
 Core.lua
 API.lua
 ItemLinks.lua

@@ -7,6 +7,7 @@
 ## SavedVariablesPerCharacter: MyForeverChatDB
 ## SavedVariables: MyForeverChatAccountDB
 
+MyForeverStyle.lua
 Core.lua
 History.lua
 Communities.lua

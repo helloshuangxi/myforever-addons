@@ -105,7 +105,7 @@ end
 
 function NS.Print(message)
     if DEFAULT_CHAT_FRAME and type(DEFAULT_CHAT_FRAME.AddMessage) == "function" then
-        DEFAULT_CHAT_FRAME:AddMessage("|cff7dd3c7我的无限 · 玩家行为|r " .. message)
+        DEFAULT_CHAT_FRAME:AddMessage((MyForeverStyle and MyForeverStyle.Prefix("玩家行为") or "玩家行为") .. " " .. message)
     end
 end
 

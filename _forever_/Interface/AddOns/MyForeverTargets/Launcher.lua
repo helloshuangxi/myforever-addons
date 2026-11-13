@@ -1,4 +1,6 @@
 local _, NS = ...
+local Style = MyForeverStyle
+local function C(name,alpha) return Style.Color(name,alpha) end
 
 local WHITE="Interface\\Buttons\\WHITE8X8"
 local BACKDROP={bgFile=WHITE,edgeFile="Interface\\Tooltips\\UI-Tooltip-Border",edgeSize=10,
@@ -15,7 +17,7 @@ end
 local function label(parent,size)
     local text=parent:CreateFontString(nil,"OVERLAY","GameFontNormalSmall")
     if text.SetFont and STANDARD_TEXT_FONT then text:SetFont(STANDARD_TEXT_FONT,size or 11,"") end
-    text:SetTextColor(.92,.88,.75)
+    text:SetTextColor(C("text"))
     return text
 end
 
@@ -58,12 +60,12 @@ local function menuButton(menu,key,y,action)
     button:SetSize(MENU_WIDTH-12,22)
     button:SetPoint("TOPLEFT",6,-y)
     button:SetBackdrop(BACKDROP)
-    button:SetBackdropColor(.08,.10,.13,1)
-    button:SetBackdropBorderColor(.23,.28,.34,1)
+    button:SetBackdropColor(C("surface"))
+    button:SetBackdropBorderColor(C("line"))
     button.label=label(button,11)
     button.label:SetPoint("CENTER")
-    button:SetScript("OnEnter",function(self) self:SetBackdropBorderColor(.85,.72,.38,1) end)
-    button:SetScript("OnLeave",function(self) self:SetBackdropBorderColor(.23,.28,.34,1) end)
+    button:SetScript("OnEnter",function(self) self:SetBackdropBorderColor(C("accent")) end)
+    button:SetScript("OnLeave",function(self) self:SetBackdropBorderColor(C("line")) end)
     button:SetScript("OnClick",function()
         action()
         NS.RefreshLauncher()
@@ -124,8 +126,8 @@ function NS.CreateLauncher()
     menu:SetClampedToScreen(true)
     menu:EnableMouse(true)
     menu:SetBackdrop(BACKDROP)
-    menu:SetBackdropColor(.035,.045,.065,.98)
-    menu:SetBackdropBorderColor(.65,.55,.31,1)
+    menu:SetBackdropColor(C("outer",.98))
+    menu:SetBackdropBorderColor(C("line"))
     menu.buttons={}
     menu.title=label(menu,11)
     menu.title:SetPoint("TOPLEFT",9,-8)

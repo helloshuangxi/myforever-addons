@@ -1,3 +1,4 @@
+dofile("_forever_/Interface/AddOns/MyForeverTargets/MyForeverStyle.lua")
 -- Native frame simulation. Restricted snippets and secure mouseover are NOT emulated.
 local checks, combat, secureModel = 0, false, false
 local function eq(actual, expected, why)

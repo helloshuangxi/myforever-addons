@@ -6,6 +6,7 @@
 ## OptionalDeps: Questie, QuestieDB
 ## SavedVariablesPerCharacter: MyForeverNavigatorDB
 
+MyForeverStyle.lua
 Core.lua
 Data.lua
 Classification.lua

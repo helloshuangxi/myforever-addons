@@ -99,8 +99,10 @@ function Kit.NormalizeDB(value)
     return value
 end
 
+local Style = MyForeverStyle
+
 local function Print(message)
-    if DEFAULT_CHAT_FRAME then DEFAULT_CHAT_FRAME:AddMessage("|cff73d9bd随身手册|r " .. message) end
+    if DEFAULT_CHAT_FRAME then DEFAULT_CHAT_FRAME:AddMessage(Style.Prefix("随身手册") .. " " .. message) end
 end
 
 local function InitializeDB()
@@ -118,11 +120,25 @@ function Kit.ResetSession()
     return true
 end
 
+-- Label in the muted caption color, value in the primary color: the value is
+-- what the player came to read.
+local function Line(caption, value)
+    return Style.Paint("muted", caption) .. "  " .. value
+end
+
+-- The status line appears only when it changes what the player can do
+-- (combat pause, locked position); otherwise the panel stays four lines tall.
+local function SetStatus(message)
+    panel.status:SetText(message or "")
+    panel.status:SetShown(message ~= nil)
+    panel:SetHeight(message and 148 or 128)
+end
+
 function Kit.Refresh()
     if not panel or not panel:IsShown() then return end
     if InCombat() then
-        panel.status:SetText("战斗中 · 数据暂停")
-        panel.body:SetText("脱离战斗后继续更新。\n\n旅途统计起点保留。")
+        SetStatus("战斗中 · 数据暂停")
+        panel.body:SetText(Style.Paint("muted", "脱离战斗后继续更新。\n旅途统计起点保留。"))
         return
     end
     if not IsNumber(startedAt) or not IsNumber(startedMoney) then Kit.ResetSession() end
@@ -132,50 +148,40 @@ function Kit.Refresh()
     local money, now = Call(GetMoney), Call(GetTime)
     local change = IsNumber(money) and IsNumber(startedMoney) and money - startedMoney or nil
     local duration = IsNumber(now) and IsNumber(startedAt) and now - startedAt or nil
-    panel.status:SetText(db.locked and "已锁定 · /myfield lock 解锁" or "拖动标题移动 · /myfield 隐藏")
-    panel.body:SetText(string.format("%s  ·  %s\n普通背包 %s 空格 · 耐久 %s\n本次净收支  %s\n本次旅途  %s", zone or DASH, coordinates or DASH,
-        free ~= nil and tostring(free) or DASH, durability ~= nil and tostring(durability) .. "%" or DASH,
-        Kit.FormatMoney(change), Kit.FormatDuration(duration)))
+    SetStatus(db.locked and "位置已锁定 · /myfield lock 解锁" or nil)
+    local low = durability ~= nil and durability <= 20
+    panel.body:SetText(table.concat({
+        Line("位置", (zone or DASH) .. "  " .. Style.Paint("secondary", coordinates or DASH)),
+        Line("背包", (free ~= nil and tostring(free) or DASH) .. " 空格") .. "    "
+            .. Line("耐久", low and Style.Paint("warning", tostring(durability) .. "%") or (durability ~= nil and tostring(durability) .. "%" or DASH)),
+        Line("收支", Kit.FormatMoney(change)),
+        Line("旅途", Kit.FormatDuration(duration)),
+    }, "\n"))
 end
 
 local function MakePanel()
     if panel then return end
     panel = CreateFrame("Frame", "MyForeverFieldKitPanel", UIParent, "BackdropTemplate")
-    panel:SetSize(304, 150)
+    panel:SetSize(248, 128)
     panel:SetPoint(db.point, UIParent, db.relativePoint, db.x, db.y)
     panel:SetClampedToScreen(true)
     panel:SetMovable(true)
     panel:EnableMouse(true)
     panel:SetFrameStrata("MEDIUM")
-    panel:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8X8", edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border", tile = false, edgeSize = 12, insets = { left = 3, right = 3, top = 3, bottom = 3 } })
-    panel:SetBackdropColor(0.035, 0.055, 0.065, 0.92)
-    panel:SetBackdropBorderColor(0.3, 0.5, 0.48, 0.8)
+    Style.Panel(panel, "hud")
 
-    local title = panel:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    title:SetPoint("TOPLEFT", 12, -12)
-    title:SetText("我的无限 · 随身手册")
+    local bar = Style.TitleBar(panel, "随身手册", function() db.shown = false; panel:Hide() end)
+    panel.bar = bar
 
-    panel.status = panel:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
-    panel.status:SetPoint("TOPLEFT", 12, -33)
-    panel.status:SetWidth(278)
-    panel.status:SetJustifyH("LEFT")
-
-    panel.body = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    panel.body:SetPoint("TOPLEFT", 12, -54)
-    panel.body:SetWidth(278)
-    panel.body:SetJustifyH("LEFT")
+    panel.body = Style.Text(panel, "body", 224)
+    panel.body:SetPoint("TOPLEFT", 12, -38)
     panel.body:SetWordWrap(false)
-    panel.body:SetSpacing(7)
+    panel.body:SetSpacing(6)
 
-    local close = CreateFrame("Button", nil, panel, "UIPanelCloseButton")
-    close:SetSize(24, 24)
-    close:SetPoint("TOPRIGHT", -3, -3)
-    close:SetScript("OnClick", function() db.shown = false; panel:Hide() end)
+    panel.status = Style.Text(panel, "caption", 224)
+    panel.status:SetPoint("BOTTOMLEFT", 12, 9)
 
-    local drag = CreateFrame("Frame", nil, panel)
-    drag:SetPoint("TOPLEFT", 0, 0)
-    drag:SetPoint("TOPRIGHT", -28, 0)
-    drag:SetHeight(31)
+    local drag = bar.handle
     drag:EnableMouse(true)
     drag:RegisterForDrag("LeftButton")
     drag:SetScript("OnDragStart", function()

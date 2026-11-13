@@ -5,6 +5,7 @@
 ## Version: 0.2.2
 ## SavedVariablesPerCharacter: MyForeverSealDB
 
+MyForeverStyle.lua
 Templates.lua
 Core.lua
 Priest.lua

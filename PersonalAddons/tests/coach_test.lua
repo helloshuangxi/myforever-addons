@@ -356,6 +356,7 @@ UIParent = mockFrame()
 SlashCmdList = {}
 MyForeverCoachDB = nil
 local boot = {}
+dofile(root .. "MyForeverStyle.lua")
 for _, source in ipairs({"Core.lua", "Capture.lua", "Export.lua", "UI.lua", "Main.lua"}) do
     assert(loadfile(root .. source))("MyForeverCoach", boot)
 end

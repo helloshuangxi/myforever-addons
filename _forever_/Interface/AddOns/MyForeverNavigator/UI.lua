@@ -10,10 +10,14 @@ local categories, subcategories, workspaceTabs, placeTabs = {}, {}, {}, {}
 local subPrevious, subNext, subPageLabel, subTitle
 local createToggle, placeForm, mapInput, xInput, yInput, nameInput, saveButton, currentButton, importButton
 local formShown = false
+local Style = MyForeverStyle
+local function token(name, alpha) local r, g, b = Style.Color(name); return {r, g, b, alpha} end
+-- Suite tokens. "gold" keeps its old name for the active/selected state, which is now the suite accent;
+-- "title" is primary text, so names and headings no longer compete with the active state.
 local colors = {
-    surface = {0.035, 0.046, 0.06, 0.98}, raised = {0.075, 0.092, 0.11, 1},
-    line = {0.29, 0.34, 0.38, 1}, gold = {0.94, 0.78, 0.48},
-    white = {0.92, 0.94, 0.95}, muted = {0.68, 0.74, 0.78}, teal = {0.42, 0.85, 0.77},
+    surface = token("outer", Style.alpha.window), raised = token("surface", 1),
+    line = token("line", 1), gold = token("accent"), title = token("text"),
+    white = token("text"), muted = token("muted"), teal = token("secondary"), accent = token("accent"),
 }
 local factionNames = {Alliance = "联盟", Horde = "部落", Neutral = "中立", Hostile = "怪物／双方敌对"}
 
@@ -63,8 +67,8 @@ local function button(parent, caption, width, height, action)
     b:SetSize(width, height or 28)
     backdrop(b)
     b:SetHighlightTexture("Interface\\Buttons\\WHITE8X8")
-    b:GetHighlightTexture():SetVertexColor(0.9, 0.8, 0.6, 0.12)
-    b.label = label(b, width - 8, (height or 28) - 4, "GameFontNormalSmall", colors.gold)
+    b:GetHighlightTexture():SetVertexColor(1, 1, 1, 0.07)
+    b.label = label(b, width - 8, (height or 28) - 4, "GameFontNormalSmall", colors.white)
     b.label:SetPoint("CENTER")
     b.label:SetJustifyH("CENTER")
     b.label:SetJustifyV("MIDDLE")
@@ -134,14 +138,15 @@ local function createHUD()
     hud = CreateFrame("Frame", "MyForeverNavigatorHUD", UIParent, "BackdropTemplate")
     hud:SetSize(300, 84)
     hud:SetFrameStrata("MEDIUM")
-    backdrop(hud, {0.035, 0.046, 0.06, 0.56}, {0.29, 0.34, 0.38, 0.12})
+    -- 0.56 / 0.12 are the opacities the user asked for on this HUD; only the hue follows the suite.
+    backdrop(hud, token("outer", 0.56), token("line", 0.12))
     restorePosition(hud, "hud", 0, 180)
     local handle = CreateFrame("Frame", nil, hud)
     handle:SetPoint("TOPLEFT", 72, 0)
     handle:SetPoint("TOPRIGHT", -64, 0)
     handle:SetHeight(36)
     drag(hud, handle, "hud")
-    hud.title = label(hud, 166, 22, "GameFontNormalLarge", colors.gold)
+    hud.title = label(hud, 166, 22, "GameFontNormalLarge", colors.title)
     hud.title:SetPoint("TOPLEFT", 72, -9)
     hud.title:SetWordWrap(false)
     hud.map = button(hud, "地图", 48, 28, function()
@@ -155,8 +160,8 @@ local function createHUD()
     hud.close = button(hud, "关闭", 48, 28, function() NS.Stop(); NS.RefreshHUD(); NS.RefreshUI() end)
     hud.close:SetPoint("TOPRIGHT", -8, -45)
     for _,control in ipairs({hud.map,hud.close}) do
-        control:SetBackdropColor(0.075, 0.092, 0.11, 0.16)
-        control:SetBackdropBorderColor(0.29, 0.34, 0.38, 0.18)
+        control:SetBackdropColor(colors.raised[1], colors.raised[2], colors.raised[3], 0.16)
+        control:SetBackdropBorderColor(colors.line[1], colors.line[2], colors.line[3], 0.18)
         control.label:SetTextColor(unpack(colors.muted))
         control.label:SetWordWrap(false)
     end
@@ -164,7 +169,7 @@ local function createHUD()
     hud.arrow:SetSize(50, 50)
     hud.arrow:SetPoint("TOPLEFT", 8, -4)
     hud.arrow:SetTexture("Interface\\Minimap\\MinimapArrow")
-    hud.arrow:SetVertexColor(unpack(colors.teal))
+    hud.arrow:SetVertexColor(unpack(colors.accent))
     hud.direction = label(hud, 64, 20, "GameFontNormal", colors.white)
     hud.direction:SetPoint("TOPLEFT", 4, -60)
     hud.direction:SetJustifyH("CENTER")
@@ -378,14 +383,14 @@ local function createBrowser(parent,state,kind,width,listWidth)
         end)
         browser.zone:SetPoint("TOPLEFT",226,0)
     end
-    browser.title=label(browser,220,20,"GameFontNormal",colors.gold)
+    browser.title=label(browser,220,20,"GameFontNormal",colors.muted)
     for i=1,MAX_ROWS do
         local row=CreateFrame("Button",nil,browser,"BackdropTemplate")
         row:SetSize(listWidth,44);backdrop(row)
         row:SetHighlightTexture("Interface\\Buttons\\WHITE8X8");row:GetHighlightTexture():SetVertexColor(.7,.9,.85,.1)
         row.name=label(row,listWidth-140,18,"GameFontNormalSmall",colors.white)
         row.name:SetPoint("TOPLEFT",9,-5);row.name:SetWordWrap(false)
-        row.zone=label(row,120,16,"GameFontHighlightSmall",colors.teal)
+        row.zone=label(row,120,16,"GameFontHighlightSmall",colors.muted)
         row.zone:SetPoint("TOPRIGHT",-8,-6);row.zone:SetJustifyH("RIGHT");row.zone:SetWordWrap(false)
         row.service=label(row,listWidth-118,16,"GameFontHighlightSmall",colors.muted)
         row.service:SetPoint("TOPLEFT",9,-25);row.service:SetWordWrap(false)
@@ -412,7 +417,7 @@ local function createBrowser(parent,state,kind,width,listWidth)
     local d=CreateFrame("Frame",nil,browser,"BackdropTemplate")
     browser.details=d;d:SetWidth(width-listWidth-16);backdrop(d)
     local inner=width-listWidth-40
-    d.name=label(d,inner,42,"GameFontNormalLarge",colors.gold);d.name:SetPoint("TOPLEFT",12,-12)
+    d.name=label(d,inner,42,"GameFontNormalLarge",colors.title);d.name:SetPoint("TOPLEFT",12,-12)
     d.service=label(d,inner,32,"GameFontHighlight",colors.white);d.service:SetPoint("TOPLEFT",12,-58)
     d.location=label(d,inner,42,"GameFontHighlightSmall",colors.teal);d.location:SetPoint("TOPLEFT",12,-96)
     local actionWidth=(inner-8)/2
@@ -421,6 +426,9 @@ local function createBrowser(parent,state,kind,width,listWidth)
         if point then local ok,reason=NS.Start(point);if not ok then showMessage(reason)end;NS.RefreshHUD();NS.RefreshUI()end
     end)
     d.start:SetPoint("TOPLEFT",12,-146)
+    -- The one primary action of this view: filled with the suite accent.
+    d.start:SetBackdropColor(unpack(colors.accent));d.start:SetBackdropBorderColor(unpack(colors.accent))
+    d.start.label:SetTextColor(Style.Color("onAccent"))
     d.map=button(d,"地图",actionWidth,28,function()
         local point=selectedPoint(browser)
         if point then local ok,reason=NS.ShowOnMap(point);if ok then panel:Hide()else showMessage(reason)end end
@@ -503,8 +511,8 @@ function NS.CreateUI()
     local scale=math.min(1,(UIParent:GetWidth()-30)/WIDTH,(UIParent:GetHeight()-30)/HEIGHT)
     panel:SetScale(math.max(.55,scale));restorePosition(panel,"panel",0,0)
     local header=CreateFrame("Frame",nil,panel);header:SetPoint("TOPLEFT");header:SetPoint("TOPRIGHT",-36,0);header:SetHeight(40);drag(panel,header,"panel")
-    local title=label(panel,700,26,"GameFontNormalLarge",colors.gold);title:SetPoint("TOPLEFT",18,-12);title:SetText("我的无限 · 世界向导")
-    local close=CreateFrame("Button",nil,panel,"UIPanelCloseButton");close:SetPoint("TOPRIGHT",-3,-3);close:SetScript("OnClick",function()panel:Hide()end)
+    local title=label(panel,700,26,"GameFontNormalLarge",colors.title);title:SetPoint("TOPLEFT",18,-12);title:SetText("世界向导")
+    local close=Style.CloseButton(panel,function()panel:Hide()end);close:SetPoint("TOPRIGHT",-8,-10)
     for i,item in ipairs({{"npc","找 NPC"},{"places","我的地点"},{"navigation","当前导航"}})do
         local id=item[1]
         local b=button(panel,item[2],150,32,function()setWorkspace(id)end);b:SetPoint("TOPLEFT",18+(i-1)*162,-54)
@@ -585,11 +593,11 @@ function NS.CreateUI()
     placeBrowser=createBrowser(placePage,placeState,"places",864,536)
     local nav={}
     nav.empty=CreateFrame("Frame",nil,navigationPage);nav.empty:SetAllPoints(navigationPage)
-    local emptyTitle=label(nav.empty,600,32,"GameFontNormalLarge",colors.gold);emptyTitle:SetPoint("TOPLEFT",24,-70);emptyTitle:SetText("还没有导航目的地")
+    local emptyTitle=label(nav.empty,600,32,"GameFontNormalLarge",colors.title);emptyTitle:SetPoint("TOPLEFT",24,-70);emptyTitle:SetText("还没有导航目的地")
     local emptyText=label(nav.empty,700,64,"GameFontHighlight",colors.muted);emptyText:SetPoint("TOPLEFT",24,-118);emptyText:SetText("先在「找 NPC」选择一个目的地，\n或到「我的地点」保存坐标、导入地图标记。")
     nav.find=button(nav.empty,"去找 NPC",180,32,function()setWorkspace("npc")end);nav.find:SetPoint("TOPLEFT",24,-206)
     nav.active=CreateFrame("Frame",nil,navigationPage,"BackdropTemplate");nav.active:SetAllPoints(navigationPage);backdrop(nav.active)
-    nav.target=label(nav.active,816,40,"GameFontNormalLarge",colors.gold);nav.target:SetPoint("TOPLEFT",24,-24)
+    nav.target=label(nav.active,816,40,"GameFontNormalLarge",colors.title);nav.target:SetPoint("TOPLEFT",24,-24)
     nav.location=label(nav.active,816,28,"GameFontHighlight",colors.teal);nav.location:SetPoint("TOPLEFT",24,-78)
     nav.distance=label(nav.active,816,40,"GameFontNormalLarge",colors.white);nav.distance:SetPoint("TOPLEFT",24,-120)
     nav.status=label(nav.active,816,160,"GameFontHighlight",colors.white);nav.status:SetPoint("TOPLEFT",24,-182)

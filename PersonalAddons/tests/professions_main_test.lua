@@ -158,6 +158,7 @@ MyForeverProfessionsDB = { shown = true, locked = true, collapsed = false, scale
     point = "TOPLEFT", relativePoint = "TOPLEFT", x = 27, y = -48, cache = {} }
 local ns = {}
 local base = "_forever_/Interface/AddOns/MyForeverProfessions/"
+dofile("_forever_/Interface/AddOns/MyForeverProfessions/MyForeverStyle.lua")
 for _, file in ipairs({ "Core.lua", "API.lua", "ItemLinks.lua", "Trainers.lua", "TrainerPins.lua", "UI.lua", "Main.lua" }) do assert(loadfile(base .. file))("MyForeverProfessions", ns) end
 local function event(name, argument) ns.events.scripts.OnEvent(ns.events, name, argument) end
 local function tick(elapsed) now = now + elapsed; ns.events.scripts.OnUpdate(ns.events, elapsed) end

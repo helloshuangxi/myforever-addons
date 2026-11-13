@@ -103,6 +103,7 @@ end
 local opened={}
 NS.OpenQuestNavigation=function(id)opened[#opened+1]=id end
 NS.Print=function(message)NS.message=message end
+dofile("_forever_/Interface/AddOns/MyForeverNavigator/MyForeverStyle.lua")
 assert(loadfile(root.."QuestUI.lua"))("MyForeverNavigator",NS)
 NS.InitializeQuestUI()
 eq(hookCount,0,"missing native modules are safe")

@@ -1,4 +1,6 @@
 local _, NS = ...
+local Style = MyForeverStyle
+local function C(name,alpha) return Style.Color(name,alpha) end
 
 -- Unit attributes and tooltips retain the real unit alias. Native mouseover
 -- identity is read back from the client rather than inferred from tile hover.
@@ -205,13 +207,13 @@ local function text(parent, size, color)
     local label = parent:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     local font = label:GetFont()
     if font then label:SetFont(font, size or 12, "OUTLINE") end
-    label:SetTextColor(unpack(color or {0.88,0.9,0.93,1}))
+    label:SetTextColor(unpack(color or {C("text")}))
     return label
 end
 local function background(frame, color, edge)
     frame:SetBackdrop(BACKDROP)
-    frame:SetBackdropColor(unpack(color or {0.045,0.055,0.075,0.97}))
-    frame:SetBackdropBorderColor(unpack(edge or {0.28,0.32,0.38,1}))
+    frame:SetBackdropColor(unpack(color or {C("outer",0.97)}))
+    frame:SetBackdropBorderColor(unpack(edge or {C("line")}))
 end
 local function icon(texture, index)
     if SetRaidTargetIconTexture then
@@ -597,14 +599,14 @@ local function button(parent, label, width, action)
     b.label:SetText(label)
     b:SetScript("OnClick", action)
     b:SetScript("OnEnter", function(self)
-        self:SetBackdropBorderColor(0.65,0.72,0.8,1)
+        self:SetBackdropBorderColor(C("secondary"))
         if self.tipTitle then
             local lines=type(self.tipLines)=="function" and self.tipLines() or self.tipLines
             tooltip(self,self.tipTitle,lines)
         end
     end)
     b:SetScript("OnLeave", function(self)
-        self:SetBackdropBorderColor(self.active and 0.78 or 0.23,self.active and 0.65 or 0.28,self.active and 0.35 or 0.34,1)
+        self:SetBackdropBorderColor(C(self.active and "accent" or "line"))
         hideTooltip()
     end)
     return b
@@ -1042,6 +1044,19 @@ function NS.StopDragging()
     end
 end
 
+local function refreshCastDot(row)
+    local dot=row.castDot
+    if not dot then return end
+    if not legacyBridge(row.side) then dot:Hide() return end
+    local state=combatCastStatus(row)
+    local reason=type(state)=="table" and state.reason or nil
+    if type(state)=="table" and state.prepared and NS.DB.legacyNameBridgeEnabled and not NS.InCombat() then
+        dot:SetVertexColor(C("accent"));dot:Show()
+    elseif reason=="not_unique" and NS.DB.legacyNameBridgeEnabled and not NS.InCombat() then
+        dot:SetVertexColor(C("warning"));dot:Show()
+    else dot:Hide() end
+end
+
 local function createTile(panel,side,index,menu)
     -- Leave the XML-installed native action handler untouched. TargetUnit in
     -- Forever requires this direct hardware-click path, without a Lua wrapper.
@@ -1098,7 +1113,7 @@ local function createTile(panel,side,index,menu)
     row.topline:SetPoint("TOPLEFT",4,-1)
     row.topline:SetPoint("TOPRIGHT",-4,-1)
     row.topline:SetHeight(1)
-    row.topline:SetVertexColor(0.24,0.29,0.35,1)
+    row.topline:SetVertexColor(C("line"))
     row.nameText=text(row.labels,10)
     row.nameText:SetPoint("TOPLEFT",10,-3)
     row.nameText:SetPoint("TOPRIGHT",-10,-3)
@@ -1166,6 +1181,15 @@ local function createTile(panel,side,index,menu)
     row.hover:SetPoint("BOTTOMRIGHT",-4,4)
     row.hover:SetVertexColor(1,0.9,0.5,0.13)
     row.hover:Hide()
+    -- Hover-cast readiness, visible on the tile itself instead of only inside the tooltip:
+    -- accent = an ordinary skill key is prepared for this unit now; warning = same-name unit, cannot be
+    -- prepared; hidden = not available (combat, switched off, still checking). A plain texture, so it can
+    -- be shown or hidden in combat without touching protected attributes.
+    row.castDot=row.labels:CreateTexture(nil,"OVERLAY")
+    row.castDot:SetTexture(WHITE)
+    row.castDot:SetSize(6,6)
+    row.castDot:SetPoint("BOTTOMRIGHT",-6,6)
+    row.castDot:Hide()
     row.shield=inputShield(row)
     local function showUnitTooltip(self,data)
         local distance="距离未知"
@@ -1493,9 +1517,10 @@ end
 
 local function active(b,value)
     b.active=value
-    b:SetBackdropColor(value and 0.22 or 0.08,value and 0.19 or 0.1,value and 0.12 or 0.13,1)
-    b:SetBackdropBorderColor(value and 0.78 or 0.23,value and 0.65 or 0.28,value and 0.35 or 0.34,1)
-    b.label:SetTextColor(value and 1 or 0.76,value and 0.88 or 0.8,value and 0.6 or 0.86,1)
+    -- Active toggles use the suite accent; gold stays reserved for the focus outline.
+    b:SetBackdropColor(C(value and "selected" or "surface"))
+    b:SetBackdropBorderColor(C(value and "accent" or "line"))
+    b.label:SetTextColor(C(value and "accent" or "secondary"))
 end
 
 function NS.RefreshControls()
@@ -1649,10 +1674,11 @@ function NS.RefreshTiles()
                 local status=data.offline and "离线" or data.dead and "死亡" or
                     (NS.Number(data.health) and (math.floor(data.health*100+.5) .. "%") or "")
                 row.statusText:SetText(focusCycleStatus(row) or status)
-                row:SetBackdropBorderColor(selected and 1 or .24,selected and .15 or .29,selected and .12 or .35,1)
+                if selected then row:SetBackdropBorderColor(1,.15,.12,1) else row:SetBackdropBorderColor(C("line")) end
                 shown(row.targetFill,selected)
                 shown(row.targetBadge,selected)
                 shown(row.questBadge,side == "enemy" and not data.player and data.questTarget == true)
+                refreshCastDot(row)
                 if data.raidMarker and data.raidMarker >= 1 and data.raidMarker <= 8 then
                     icon(row.marker,data.raidMarker);row.marker:Show()
                 else row.marker:Hide() end
@@ -1683,9 +1709,10 @@ function NS.RefreshTiles()
                 row.indexText:SetText(string.format("%02d",i))
                 nativeAmount(row.health,nil,nil,false)
                 nativeAmount(row.power,nil,nil,false);row.powerTrack:Hide()
-                row.topline:SetVertexColor(.24,.29,.35,1)
-                row:SetBackdropBorderColor(.24,.29,.35,1)
+                row.topline:SetVertexColor(C("line"))
+                row:SetBackdropBorderColor(C("line"))
                 row.marker:Hide()
+                row.castDot:Hide()
             end
             if side=="enemy" and NS.EnemyTargetHover then
                 NS.EnemyTargetHover.Refresh(row,valid and row.enemyTarget or nil)

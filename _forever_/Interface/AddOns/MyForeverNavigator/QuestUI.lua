@@ -8,8 +8,10 @@ local trackerHooks = setmetatable({}, {__mode="k"})
 local titleWrappers = setmetatable({}, {__mode="k"})
 local detailsHooks, detailsStates = {}, setmetatable({}, {__mode="k"})
 local refreshDetailsNavigation
-local colors = {surface={0.035,0.046,0.06,0.98}, raised={0.075,0.092,0.11,1},
-    border={0.29,0.34,0.38,1}, gold={0.94,0.78,0.48}, white={0.92,0.94,0.95}, muted={0.68,0.74,0.78}}
+local Style = MyForeverStyle
+local function token(name, alpha) local r, g, b = Style.Color(name); return {r, g, b, alpha} end
+local colors = {surface=token("outer",Style.alpha.window), raised=token("surface",1),
+    border=token("line",1), gold=token("text"), white=token("text"), muted=token("muted")}
 local kindNames = {npc="任务 NPC",item="物品来源",object="任务物件",location="任务地点",area="任务地点",
     turnin="交付地点",turnIn="交付地点",["turn-in"]="交付地点",finish="交付地点",giver="任务 NPC"}
 
@@ -284,7 +286,7 @@ local function createPopup()
         row:SetHighlightTexture("Interface\\Buttons\\WHITE8X8");row:GetHighlightTexture():SetVertexColor(.7,.9,.85,.1)
         if type(row.SetMotionScriptsWhileDisabled)=="function" then row:SetMotionScriptsWhileDisabled(true) end
         row.name=label(row,390,20,"GameFontNormal",colors.white);row.name:SetPoint("TOPLEFT",10,-6);row.name:SetWordWrap(false)
-        row.kind=label(row,100,18,"GameFontHighlightSmall",colors.gold);row.kind:SetPoint("TOPRIGHT",-10,-7);row.kind:SetJustifyH("RIGHT");row.kind:SetWordWrap(false)
+        row.kind=label(row,100,18,"GameFontHighlightSmall",colors.muted);row.kind:SetPoint("TOPRIGHT",-10,-7);row.kind:SetJustifyH("RIGHT");row.kind:SetWordWrap(false)
         row.summary=label(row,508,18,"GameFontHighlightSmall",colors.muted);row.summary:SetPoint("TOPLEFT",10,-29);row.summary:SetWordWrap(false)
         row:SetScript("OnClick",function(self)
             local target=self.target

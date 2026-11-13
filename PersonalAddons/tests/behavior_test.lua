@@ -1,3 +1,4 @@
+dofile("_forever_/Interface/AddOns/MyForeverCoach/MyForeverStyle.lua")
 -- Simulated public client values only. None of these fixtures are game data.
 local checks = 0
 local function eq(actual, expected, label)

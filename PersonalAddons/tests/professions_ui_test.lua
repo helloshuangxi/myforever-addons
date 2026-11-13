@@ -178,6 +178,7 @@ local core = {}
 assert(loadfile("_forever_/Interface/AddOns/MyForeverProfessions/Core.lua"))("MyForeverProfessions", core)
 ns.PanelSize = core.PanelSize
 assert(loadfile("_forever_/Interface/AddOns/MyForeverProfessions/ItemLinks.lua"))("MyForeverProfessions", ns)
+dofile("_forever_/Interface/AddOns/MyForeverProfessions/MyForeverStyle.lua")
 assert(loadfile("_forever_/Interface/AddOns/MyForeverProfessions/UI.lua"))("MyForeverProfessions", ns)
 local panel = ns.CreateUI()
 eq(ns.frame, panel, "expose root frame")

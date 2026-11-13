@@ -45,7 +45,7 @@ Gethe/wow-ui-source 提交 `4cd0ab752a77164f654ccbca9d0c1fe8dafceebe`（`version
 
 ## 验证
 
-- 模拟：`professions_cursor_scan_test.lua` 新增 16 项（受保护值用一碰就报错的替身：索引、比较、取长度、拼接、转字符串均会抛错），`professions_gather_alerts_test.lua` 新增 8 项。全部 68 组通过。开关关闭时原有锁定断言一条未改。
+- 模拟：`professions_cursor_scan_test.lua` 新增 64 项检查（受保护值用一碰就报错的替身：索引、比较、取长度、拼接、转字符串均会抛错），`professions_gather_alerts_test.lua` 新增 8 项。全部 68 组通过。开关关闭时原有锁定断言一条未改。
 - 未运行：游戏。
 
 ## 实机先做这一步（两分钟）

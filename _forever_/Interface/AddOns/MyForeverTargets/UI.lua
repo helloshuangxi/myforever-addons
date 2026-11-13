@@ -1,4 +1,13 @@
 local _, NS = ...
+-- Shared layout hooks (grid while dragging, snap on release, /myui tags).
+local function mfLayout(name, ...)
+    local S = rawget(_G, "MyForeverStyle")
+    local fn = type(S) == "table" and rawget(S, name)
+    if type(fn) == "function" then
+        local ok, result = pcall(fn, ...)
+        return ok and result or nil
+    end
+end
 local Style = MyForeverStyle
 local function C(name,alpha) return Style.Color(name,alpha) end
 
@@ -1349,6 +1358,7 @@ local function makePanel(side,menu)
     proxy.caption:SetText("释放鼠标以移动")
     proxy:Hide()
     p.dragProxy=proxy
+    mfLayout("RegisterLayout",p,side=="friendly" and "目标选择 · 友方" or "目标选择 · 敌方")
     p:SetScript("OnHide",function()
         if p.dragging then proxy:StopMovingOrSizing() end
         proxy:Hide()
@@ -1375,10 +1385,12 @@ local function makePanel(side,menu)
         p.dragging=true
         proxy:Show()
         proxy:StartMoving()
+        mfLayout("BeginDrag",proxy,p)
     end)
     drag:SetScript("OnDragStop",function()
         if not p.dragging then return end
         proxy:StopMovingOrSizing()
+        if not NS.InCombat() then mfLayout("SnapToGrid",proxy) end
         local position=not NS.InCombat() and topLeftPosition(proxy,true,NS.Read(p.GetScale,p)) or nil
         proxy:Hide()
         p.dragging=false

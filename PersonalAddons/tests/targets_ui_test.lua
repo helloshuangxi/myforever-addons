@@ -1,3 +1,6 @@
+-- Drags here check exact saved offsets; hold "Alt" so the shared grid/guide
+-- snapping (covered by style_layout_test.lua) leaves drops where they land.
+IsAltKeyDown = function() return true end
 dofile("_forever_/Interface/AddOns/MyForeverTargets/MyForeverStyle.lua")
 -- Native frame simulation. Restricted snippets and secure mouseover are NOT emulated.
 local checks, combat, secureModel = 0, false, false

@@ -1,4 +1,13 @@
 local _, NS = ...
+-- Shared layout hooks (grid while dragging, snap on release, /myui tags).
+local function mfLayout(name, ...)
+    local S = rawget(_G, "MyForeverStyle")
+    local fn = type(S) == "table" and rawget(S, name)
+    if type(fn) == "function" then
+        local ok, result = pcall(fn, ...)
+        return ok and result or nil
+    end
+end
 local frame, picker
 local selected = 1
 local family = "general"
@@ -176,8 +185,9 @@ local function createUI()
     frame.bar = Style.TitleBar(frame, "宏工坊")
     frame.bar.handle:EnableMouse(true)
     frame.bar.handle:RegisterForDrag("LeftButton")
-    frame.bar.handle:SetScript("OnDragStart", function() frame:StartMoving() end)
-    frame.bar.handle:SetScript("OnDragStop", function() frame:StopMovingOrSizing() end)
+    frame.bar.handle:SetScript("OnDragStart", function() frame:StartMoving(); mfLayout("BeginDrag", frame) end)
+    frame.bar.handle:SetScript("OnDragStop", function() frame:StopMovingOrSizing(); mfLayout("SnapToGrid", frame) end)
+    mfLayout("RegisterLayout", frame, "宏助手")
     frame:SetScript("OnHide", function()
         frame.first:ClearFocus(); frame.second:ClearFocus(); frame.name:ClearFocus(); frame.preview:ClearFocus()
         if picker then picker:Hide() end

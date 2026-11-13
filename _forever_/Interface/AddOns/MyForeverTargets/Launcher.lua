@@ -1,4 +1,13 @@
 local _, NS = ...
+-- Shared layout hooks (grid while dragging, snap on release, /myui tags).
+local function mfLayout(name, ...)
+    local S = rawget(_G, "MyForeverStyle")
+    local fn = type(S) == "table" and rawget(S, name)
+    if type(fn) == "function" then
+        local ok, result = pcall(fn, ...)
+        return ok and result or nil
+    end
+end
 local Style = MyForeverStyle
 local function C(name,alpha) return Style.Color(name,alpha) end
 
@@ -146,6 +155,7 @@ function NS.CreateLauncher()
     menu:Hide()
     icon.menu=menu
     NS.Launcher=icon
+    mfLayout("RegisterLayout",icon,"目标选择 · 图标")
     icon:SetScript("OnEnter",function(self)
         self:SetAlpha(.82)
         if self.dragging or not GameTooltip then return end
@@ -171,11 +181,13 @@ function NS.CreateLauncher()
         menu:Hide();hideTip()
         self.dragging=true
         self:StartMoving()
+        mfLayout("BeginDrag",self)
     end)
     icon:SetScript("OnDragStop",function(self)
         if not self.dragging then return end
         self:StopMovingOrSizing()
         self.dragging=false
+        if not NS.InCombat() then mfLayout("SnapToGrid",self) end
         local point,relativeTo,relativePoint,x,y=self:GetPoint()
         if (relativeTo==nil or relativeTo==UIParent) and type(point)=="string" and type(relativePoint)=="string"
             and NS.Number(x) and NS.Number(y) then

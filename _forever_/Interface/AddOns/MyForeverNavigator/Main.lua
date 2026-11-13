@@ -1,4 +1,13 @@
 local addonName, NS = ...
+-- Shared layout hooks (grid while dragging, snap on release, /myui tags).
+local function mfLayout(name, ...)
+    local S = rawget(_G, "MyForeverStyle")
+    local fn = type(S) == "table" and rawget(S, name)
+    if type(fn) == "function" then
+        local ok, result = pcall(fn, ...)
+        return ok and result or nil
+    end
+end
 local initialized, tick, mapTick = false, 0, 0
 
 function NS.HandleCommand(message)
@@ -94,14 +103,17 @@ local function makeLauncher()
     b:EnableMouse(true)
     b:RegisterForClicks("LeftButtonUp", "RightButtonUp")
     b:RegisterForDrag("LeftButton")
+    mfLayout("RegisterLayout", b, "世界向导 · 图标")
     b:SetScript("OnClick", function(_, button)
         if button == "RightButton" then NS.Stop() else NS.ToggleUI() end
     end)
     b:SetScript("OnDragStart", function(self)
         self:StartMoving()
+        mfLayout("BeginDrag", self)
     end)
     b:SetScript("OnDragStop", function(self)
         self:StopMovingOrSizing()
+        mfLayout("SnapToGrid", self)
         local point,_,relativePoint,x,y=self:GetPoint()
         NS.DB.launcher={point=point,relativePoint=relativePoint,x=x,y=y}
     end)

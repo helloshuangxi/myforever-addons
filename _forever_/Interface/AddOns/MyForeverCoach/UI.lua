@@ -1,4 +1,13 @@
 local _, NS = ...
+-- Shared layout hooks (grid while dragging, snap on release, /myui tags).
+local function mfLayout(name, ...)
+    local S = rawget(_G, "MyForeverStyle")
+    local fn = type(S) == "table" and rawget(S, name)
+    if type(fn) == "function" then
+        local ok, result = pcall(fn, ...)
+        return ok and result or nil
+    end
+end
 local panel, exportPanel
 local diagnostics = false
 local colors = {
@@ -106,8 +115,9 @@ function NS.CreateUI()
     local drag = bar.handle
     drag:EnableMouse(true)
     drag:RegisterForDrag("LeftButton")
-    drag:SetScript("OnDragStart", function() if not combat() then panel:StartMoving() end end)
-    drag:SetScript("OnDragStop", function() panel:StopMovingOrSizing() end)
+    drag:SetScript("OnDragStart", function() if not combat() then panel:StartMoving(); mfLayout("BeginDrag", panel) end end)
+    drag:SetScript("OnDragStop", function() panel:StopMovingOrSizing(); mfLayout("SnapToGrid", panel) end)
+    mfLayout("RegisterLayout", panel, "玩家行为")
 
     panel.overview = CreateFrame("Frame", nil, panel)
     panel.overview:SetPoint("TOPLEFT", 0, 0)

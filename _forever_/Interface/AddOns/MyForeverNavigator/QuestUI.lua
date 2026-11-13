@@ -1,4 +1,13 @@
 local _, NS = ...
+-- Shared layout hooks (grid while dragging, snap on release, /myui tags).
+local function mfLayout(name, ...)
+    local S = rawget(_G, "MyForeverStyle")
+    local fn = type(S) == "table" and rawget(S, name)
+    if type(fn) == "function" then
+        local ok, result = pcall(fn, ...)
+        return ok and result or nil
+    end
+end
 
 local call, number = NS.Call, NS.Number
 local DOUBLE_CLICK_SECONDS, CURSOR_TOLERANCE, PAGE_SIZE = 0.35, 12, 6
@@ -275,8 +284,9 @@ local function createPopup()
     local drag=CreateFrame("Frame",nil,frame)
     drag:SetPoint("TOPLEFT");drag:SetPoint("TOPRIGHT",-36,0);drag:SetHeight(58)
     drag:EnableMouse(true);drag:RegisterForDrag("LeftButton")
-    drag:SetScript("OnDragStart",function()frame:StartMoving()end)
-    drag:SetScript("OnDragStop",function()frame:StopMovingOrSizing()end)
+    drag:SetScript("OnDragStart",function()frame:StartMoving();mfLayout("BeginDrag",frame)end)
+    drag:SetScript("OnDragStop",function()frame:StopMovingOrSizing();mfLayout("SnapToGrid",frame)end)
+    mfLayout("RegisterLayout",frame,"世界向导 · 任务目标")
     ui.title=label(frame,496,44,"GameFontNormalLarge",colors.gold);ui.title:SetPoint("TOPLEFT",18,-14)
     ui.message=label(frame,524,44,"GameFontHighlightSmall",colors.muted);ui.message:SetPoint("TOPLEFT",18,-68)
     ui.close=button(frame,"×",24,24,function()NS.HideQuestTargets()end);ui.close:SetPoint("TOPRIGHT",-6,-6)

@@ -1,4 +1,13 @@
 local _, ns = ...
+-- Shared layout hooks (grid while dragging, snap on release, /myui tags).
+local function mfLayout(name, ...)
+    local S = rawget(_G, "MyForeverStyle")
+    local fn = type(S) == "table" and rawget(S, name)
+    if type(fn) == "function" then
+        local ok, result = pcall(fn, ...)
+        return ok and result or nil
+    end
+end
 local Style = MyForeverStyle
 local function C(name, alpha) return Style.Color(name, alpha) end
 
@@ -85,6 +94,7 @@ local function finishTitleDrag()
     panel:StopMovingOrSizing()
     titleDragging = false
     panel.drag:SetScript("OnUpdate", nil)
+    mfLayout("SnapToGrid", panel)
     savePosition(panel)
 end
 
@@ -828,6 +838,7 @@ local function createCollapsedIcon()
         self:StopMovingOrSizing()
         dragging = false
         self:SetScript("OnUpdate", nil)
+        mfLayout("SnapToGrid", self)
         savePosition(self, 1 / (ns.db.scale or 1))
         restorePosition(panel)
     end
@@ -843,12 +854,14 @@ local function createCollapsedIcon()
         ns.RenderUI()
     end)
     icon:RegisterForDrag("LeftButton")
+    mfLayout("RegisterLayout", icon, "商业技能 · 图标")
     icon:SetScript("OnDragStart", function(self)
         -- The title lock belongs to the expanded panel. Like the chat launcher,
         -- this compact entry can always be moved directly without a modifier.
         dragging, dragged = true, true
         hideOwnedTooltip(self)
         self:StartMoving()
+        mfLayout("BeginDrag", self)
         self:SetScript("OnUpdate", function(frame)
             if IsMouseButtonDown and IsMouseButtonDown("LeftButton") == false then
                 finishDrag(frame)
@@ -913,11 +926,13 @@ function ns.CreateUI()
         finishResize()
         titleDragging = true
         panel:StartMoving()
+        mfLayout("BeginDrag", panel)
         drag:SetScript("OnUpdate", function()
             if IsMouseButtonDown and IsMouseButtonDown("LeftButton") == false then finishTitleDrag() end
         end)
     end)
     drag:SetScript("OnDragStop", finishTitleDrag)
+    mfLayout("RegisterLayout", panel, "商业技能")
     drag:SetScript("OnMouseUp", function(_, mouseButton) if mouseButton == "LeftButton" then finishTitleDrag() end end)
     drag:SetScript("OnEnter", function(self)
         if not GameTooltip then return end

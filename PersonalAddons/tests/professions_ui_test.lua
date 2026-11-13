@@ -1,3 +1,6 @@
+-- Drags here check exact saved offsets; hold "Alt" so the shared grid/guide
+-- snapping (covered by style_layout_test.lua) leaves drops where they land.
+IsAltKeyDown = function() return true end
 -- Behavioral UI checks in a Lua 5.1 frame sandbox; these are not game screenshots.
 local checks = 0
 local function eq(actual, expected, message)

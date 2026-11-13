@@ -16,7 +16,7 @@
 --
 -- Every widget call is guarded: a missing method is skipped instead of raising,
 -- because a styling helper must never break an addon in a client variant.
-local VERSION = 3
+local VERSION = 4
 local existing = rawget(_G, "MyForeverStyle")
 if type(existing) == "table" and (tonumber(existing.version) or 0) >= VERSION then return end
 
@@ -65,12 +65,14 @@ local function has(object, method)
     local ok, value = pcall(function() return object[method] end)
     return ok and type(value) == "function" and value or nil
 end
+local function passOk(ok, ...)
+    if ok then return ... end
+    return nil
+end
 local function call(object, method, ...)
     local fn = has(object, method)
     if not fn then return nil end
-    local ok, a, b, c = pcall(fn, object, ...)
-    if ok then return a, b, c end
-    return nil
+    return passOk(pcall(fn, object, ...))
 end
 S.Call = call
 
@@ -349,4 +351,324 @@ function S.Toast(anchor, message, kind, seconds)
     call(t, "SetAlpha", 1)
     call(t, "Show")
     return t
+end
+
+-- Layout: one way to place every 我的无限 panel, after the game's Edit Mode.
+--   * While any panel is dragged a screen grid appears; on release the panel
+--     snaps to it (S.metrics.grid UI units, measured from the screen centre).
+--   * /myui (or /mylayout) opens layout mode: grid, a name tag on every open
+--     panel, one "完成" button. Entering combat closes it.
+-- Each addon keeps its own drag handle, lock and saved position. It calls
+-- S.BeginDrag() when a move starts and S.SnapToGrid(frame) right after
+-- StopMovingOrSizing and before it reads GetPoint to save. Snapping keeps the
+-- frame's own anchor point and only nudges its offsets, never touches a
+-- protected frame in combat, and does nothing for frames anchored elsewhere.
+S.metrics.grid = 8
+local GRID_LINE = 32
+local layout = { frames = {}, active = false }
+S.layout = layout
+
+local function inCombat() return InCombatLockdown and InCombatLockdown() == true end
+local function num(v) return type(v) == "number" and v == v and v > -1e9 and v < 1e9 end
+
+local function gridFrame()
+    if layout.grid then return layout.grid end
+    if not CreateFrame or not UIParent then return nil end
+    local g = CreateFrame("Frame", nil, UIParent)
+    if not g then return nil end
+    layout.grid = g
+    call(g, "SetAllPoints", UIParent)
+    call(g, "SetFrameStrata", "BACKGROUND")
+    call(g, "EnableMouse", false)
+    g.lines = {}
+    g.hint = S.Text(g, "caption", nil, "")
+    call(g.hint, "SetPoint", "TOP", g, "TOP", 0, -10)
+    call(g, "Hide")
+    return g
+end
+
+local function drawGrid(g)
+    local w, h = tonumber(call(UIParent, "GetWidth")) or 0, tonumber(call(UIParent, "GetHeight")) or 0
+    if w <= 0 or h <= 0 or (g.drawnW == w and g.drawnH == h) then return end
+    g.drawnW, g.drawnH = w, h
+    for _, line in ipairs(g.lines) do call(line, "Hide") end
+    local used = 0
+    local function line(vertical, offset, major)
+        used = used + 1
+        local t = g.lines[used]
+        if not t then
+            t = call(g, "CreateTexture", nil, "BACKGROUND")
+            if not t then return end
+            call(t, "SetTexture", WHITE)
+            g.lines[used] = t
+        end
+        call(t, "ClearAllPoints")
+        if vertical then
+            call(t, "SetPoint", "TOP", g, "TOP", offset, 0); call(t, "SetPoint", "BOTTOM", g, "BOTTOM", offset, 0)
+            call(t, "SetWidth", major and 1.5 or 1)
+        else
+            call(t, "SetPoint", "LEFT", g, "LEFT", 0, offset); call(t, "SetPoint", "RIGHT", g, "RIGHT", 0, offset)
+            call(t, "SetHeight", major and 1.5 or 1)
+        end
+        local r, gg, b = S.Color(major and "accent" or "line")
+        call(t, "SetVertexColor", r, gg, b, major and 0.45 or 0.22)
+        call(t, "Show")
+    end
+    for i = 0, math.floor(w / 2 / GRID_LINE) do
+        line(true, i * GRID_LINE, i == 0)
+        if i > 0 then line(true, -i * GRID_LINE, false) end
+    end
+    for i = 0, math.floor(h / 2 / GRID_LINE) do
+        line(false, i * GRID_LINE, i == 0)
+        if i > 0 then line(false, -i * GRID_LINE, false) end
+    end
+end
+
+local function showGrid(hint)
+    local g = gridFrame()
+    if not g then return end
+    drawGrid(g)
+    call(g.hint, "SetText", hint or "")
+    call(g, "Show")
+end
+local function hideGrid()
+    if layout.grid and not layout.active then call(layout.grid, "Hide") end
+end
+
+-- Rectangle of a frame in UIParent units, or nil.
+local function rectOf(frame)
+    local fs, us = call(frame, "GetEffectiveScale"), call(UIParent, "GetEffectiveScale")
+    local l, r = call(frame, "GetLeft"), call(frame, "GetRight")
+    local t, b = call(frame, "GetTop"), call(frame, "GetBottom")
+    if not (num(fs) and num(us) and fs > 0 and us > 0 and num(l) and num(r) and num(t) and num(b)) then return nil end
+    local k = fs / us
+    return { l = l * k, r = r * k, t = t * k, b = b * k, cx = (l + r) / 2 * k, cy = (t + b) / 2 * k, k = k }
+end
+
+-- Smart guides (as in Figma / Keynote): the dragged panel's edges and centre
+-- are compared with every other open panel's edges and centres and with the
+-- screen centre. Within S.metrics.magnet units it "sticks" to the closest one.
+S.metrics.magnet = 8
+local function smartAlign(rect, moving, exclude)
+    local w, h = tonumber(call(UIParent, "GetWidth")) or 0, tonumber(call(UIParent, "GetHeight")) or 0
+    local xs, ys = { w / 2 }, { h / 2 }
+    for _, entry in ipairs(layout.frames) do
+        local f = entry.frame
+        if f ~= moving and f ~= exclude and call(f, "IsVisible") == true then
+            local o = rectOf(f)
+            if o then
+                xs[#xs + 1], xs[#xs + 2], xs[#xs + 3] = o.l, o.r, o.cx
+                ys[#ys + 1], ys[#ys + 2], ys[#ys + 3] = o.t, o.b, o.cy
+            end
+        end
+    end
+    local function best(own, targets)
+        local bestD, bestAt
+        for _, mine in ipairs(own) do
+            for _, at in ipairs(targets) do
+                local d = at - mine
+                if math.abs(d) <= S.metrics.magnet and (not bestD or math.abs(d) < math.abs(bestD)) then bestD, bestAt = d, at end
+            end
+        end
+        return bestD, bestAt
+    end
+    local dx, gx = best({ rect.l, rect.r, rect.cx }, xs)
+    local dy, gy = best({ rect.t, rect.b, rect.cy }, ys)
+    return dx, dy, gx, gy
+end
+
+local function freePlacement() return IsAltKeyDown and IsAltKeyDown() == true end
+
+-- Guide textures live in layout.guides (plain table), not as frame fields.
+layout.guides = {}
+local function guideLine(g, key, vertical)
+    local t = layout.guides[key]
+    if not t then
+        t = call(g, "CreateTexture", nil, "OVERLAY")
+        if not t then return nil end
+        call(t, "SetTexture", WHITE)
+        call(t, "SetVertexColor", S.Color("success", 0.95))
+        layout.guides[key] = t
+    end
+    call(t, "ClearAllPoints")
+    if vertical then call(t, "SetWidth", 1.5) else call(t, "SetHeight", 1.5) end
+    return t
+end
+
+local function updateGuides(g)
+    local drag = layout.drag
+    local v, hz = layout.guides.v, layout.guides.h
+    if v then call(v, "Hide") end
+    if hz then call(hz, "Hide") end
+    if not drag or freePlacement() then return end
+    local rect = rectOf(drag.frame)
+    if not rect then return end
+    local dx, dy, gx, gy = smartAlign(rect, drag.frame, drag.exclude)
+    if dx then
+        v = guideLine(g, "v", true)
+        call(v, "SetPoint", "TOP", g, "TOPLEFT", gx, 0); call(v, "SetPoint", "BOTTOM", g, "BOTTOMLEFT", gx, 0)
+        call(v, "Show")
+    end
+    if dy then
+        hz = guideLine(g, "h", false)
+        call(hz, "SetPoint", "LEFT", g, "BOTTOMLEFT", 0, gy); call(hz, "SetPoint", "RIGHT", g, "BOTTOMRIGHT", 0, gy)
+        call(hz, "Show")
+    end
+end
+
+-- Call when a panel starts moving: frame is what the cursor moves, exclude is
+-- the real panel when a stand-in outline is dragged. Shows grid and guides.
+function S.BeginDrag(frame, exclude)
+    layout.drag = frame and { frame = frame, exclude = exclude } or nil
+    showGrid(layout.active and "" or "对齐边缘或网格 · 按住 Alt 自由放置 · /myui 摆放全部面板")
+    local g = layout.grid
+    if g and not layout.guidesHooked then
+        layout.guidesHooked = true
+        local elapsed = 0
+        call(g, "SetScript", "OnUpdate", function(self, dt)
+            elapsed = elapsed + (tonumber(dt) or 0)
+            if elapsed >= 0.03 then elapsed = 0; updateGuides(self) end
+        end)
+    end
+end
+
+-- Call right after StopMovingOrSizing, before reading GetPoint to save.
+-- Sticks to a smart guide when one is close, otherwise to the grid; with Alt
+-- held it leaves the panel exactly where it was dropped. Returns true if moved.
+function S.SnapToGrid(frame)
+    local drag = layout.drag
+    layout.drag = nil
+    if layout.guides.v then call(layout.guides.v, "Hide") end
+    if layout.guides.h then call(layout.guides.h, "Hide") end
+    hideGrid()
+    if not frame or freePlacement() then return false end
+    if inCombat() and call(frame, "IsProtected") then return false end
+    local point, relativeTo, relativePoint, x, y = call(frame, "GetPoint", 1)
+    if relativeTo ~= nil and relativeTo ~= UIParent then return false end
+    if type(point) ~= "string" or type(relativePoint) ~= "string" or not num(x) or not num(y) then return false end
+    local rect = rectOf(frame)
+    local w, h = call(UIParent, "GetWidth"), call(UIParent, "GetHeight")
+    if not rect or not (num(w) and num(h)) then return false end
+    local sdx, sdy = smartAlign(rect, frame, drag and drag.exclude)
+    local step, cx, cy = S.metrics.grid, w / 2, h / 2
+    local dx = sdx or (cx + math.floor((rect.l - cx) / step + 0.5) * step - rect.l)
+    local dy = sdy or (cy + math.floor((rect.t - cy) / step + 0.5) * step - rect.t)
+    dx, dy = dx / rect.k, dy / rect.k
+    if math.abs(dx) < 0.01 and math.abs(dy) < 0.01 then return false end
+    call(frame, "ClearAllPoints")
+    call(frame, "SetPoint", point, UIParent, relativePoint, x + dx, y + dy)
+    return true
+end
+S.Snap = S.SnapToGrid
+
+-- Panels announce themselves for layout mode. Re-registering is a no-op.
+function S.RegisterLayout(frame, label)
+    if not frame or type(label) ~= "string" then return end
+    for _, entry in ipairs(layout.frames) do if entry.frame == frame then entry.label = label return end end
+    layout.frames[#layout.frames + 1] = { frame = frame, label = label }
+end
+
+local function tagFor(entry)
+    if entry.tag then return entry.tag end
+    local tag = CreateFrame("Frame", nil, UIParent)
+    if not tag then return nil end
+    entry.tag = tag
+    call(tag, "SetFrameStrata", "TOOLTIP")
+    call(tag, "EnableMouse", false)
+    call(tag, "SetAllPoints", entry.frame)
+    local edges = {}
+    for i, spec in ipairs({ { "TOPLEFT", "TOPRIGHT", true }, { "BOTTOMLEFT", "BOTTOMRIGHT", true },
+        { "TOPLEFT", "BOTTOMLEFT", false }, { "TOPRIGHT", "BOTTOMRIGHT", false } }) do
+        local t = call(tag, "CreateTexture", nil, "OVERLAY")
+        call(t, "SetTexture", WHITE)
+        call(t, "SetVertexColor", S.Color("accent", 0.9))
+        call(t, "SetPoint", spec[1], tag, spec[1], 0, 0)
+        call(t, "SetPoint", spec[2], tag, spec[2], 0, 0)
+        call(t, spec[3] and "SetHeight" or "SetWidth", 1)
+        edges[i] = t
+    end
+    tag.name = CreateFrame("Frame", nil, tag)
+    call(tag.name, "SetPoint", "BOTTOMLEFT", tag, "TOPLEFT", 0, 4)
+    call(tag.name, "SetHeight", 20)
+    S.Round(tag.name, "accent", 1, 6)
+    tag.text = S.Text(tag.name, "caption", nil, entry.label)
+    S.SetType(tag.text, "caption", "onAccent")
+    call(tag.text, "SetPoint", "LEFT", tag.name, "LEFT", 8, 0)
+    call(tag.name, "SetWidth", (tonumber(call(tag.text, "GetStringWidth")) or 60) + 16)
+    return tag
+end
+
+local function refreshTags()
+    local shown = 0
+    for _, entry in ipairs(layout.frames) do
+        local visible = layout.active and call(entry.frame, "IsVisible") == true
+        if visible then shown = shown + 1 end
+        local tag = (visible or entry.tag) and tagFor(entry)
+        if tag then call(tag, "SetShown", visible) end
+    end
+    if layout.bar then
+        local closed = {}
+        for _, entry in ipairs(layout.frames) do
+            if call(entry.frame, "IsVisible") ~= true then closed[#closed + 1] = entry.label end
+        end
+        local line = shown > 0 and ("已打开 " .. shown .. " 个：拖标题栏移动，靠近边缘自动吸附，按住 Alt 自由放置。")
+            or "还没有打开的面板。先打开要摆放的面板，它会出现在这里。"
+        if #closed > 0 then line = line .. "\n未打开：" .. table.concat(closed, "、") end
+        call(layout.bar.count, "SetText", line)
+        call(layout.bar, "SetHeight", #closed > 0 and 82 or 64)
+    end
+    return shown
+end
+
+function S.SetLayoutMode(on)
+    on = on == true
+    if on and inCombat() then
+        S.Toast(nil, "战斗中不能进入布局模式", "pending")
+        return false
+    end
+    layout.active = on
+    if on then
+        showGrid("")
+        if not layout.bar then
+            local bar = CreateFrame("Frame", nil, UIParent)
+            layout.bar = bar
+            call(bar, "SetFrameStrata", "TOOLTIP")
+            call(bar, "SetSize", 540, 82)
+            call(bar, "SetPoint", "TOP", UIParent, "TOP", 0, -36)
+            S.Round(bar, "outer", S.alpha.popup, 12)
+            bar.title = S.Text(bar, "title", nil, "布局模式")
+            call(bar.title, "SetPoint", "TOPLEFT", bar, "TOPLEFT", 16, -12)
+            bar.count = S.Text(bar, "secondary", 420, "")
+            call(bar.count, "SetPoint", "TOPLEFT", bar, "TOPLEFT", 16, -34)
+            bar.done = S.Button(bar, "完成", 72, 28, function() S.SetLayoutMode(false) end, "primary")
+            call(bar.done, "SetPoint", "RIGHT", bar, "RIGHT", -14, 0)
+            local elapsed = 0
+            call(bar, "SetScript", "OnUpdate", function(_, dt)
+                elapsed = elapsed + (tonumber(dt) or 0)
+                if elapsed >= 0.25 then elapsed = 0; refreshTags() end
+            end)
+        end
+        call(layout.bar, "Show")
+    else
+        if layout.bar then call(layout.bar, "Hide") end
+        if layout.grid then call(layout.grid, "Hide") end
+    end
+    refreshTags()
+    return true
+end
+function S.ToggleLayoutMode() return S.SetLayoutMode(not layout.active) end
+
+if CreateFrame then
+    local events = CreateFrame("Frame")
+    if events then
+        call(events, "RegisterEvent", "PLAYER_REGEN_DISABLED")
+        call(events, "SetScript", "OnEvent", function()
+            if layout.active then S.SetLayoutMode(false); S.Toast(nil, "进入战斗，已退出布局模式", "pending") end
+            if layout.grid then call(layout.grid, "Hide") end
+        end)
+    end
+end
+if type(SlashCmdList) == "table" then
+    SLASH_MYFOREVERLAYOUT1, SLASH_MYFOREVERLAYOUT2 = "/myui", "/mylayout"
+    SlashCmdList.MYFOREVERLAYOUT = function() S.ToggleLayoutMode() end
 end

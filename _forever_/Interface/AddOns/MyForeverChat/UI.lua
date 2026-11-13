@@ -1,4 +1,13 @@
 local _, NS = ...
+-- Shared layout hooks (grid while dragging, snap on release, /myui tags).
+local function mfLayout(name, ...)
+    local S = rawget(_G, "MyForeverStyle")
+    local fn = type(S) == "table" and rawget(S, name)
+    if type(fn) == "function" then
+        local ok, result = pcall(fn, ...)
+        return ok and result or nil
+    end
+end
 local panel, launcher, copyWindow, emoteWindow, actionWindow, clearToasts, notifications
 local toastFrames={}
 local toastPrevious,toastNext,toastPage
@@ -1588,8 +1597,9 @@ function NS.BuildUI()
     local drag=CreateFrame("Frame",nil,panel)
     drag:SetPoint("TOPLEFT",220,0); drag:SetPoint("TOPRIGHT",-198,0); drag:SetHeight(65)
     drag:EnableMouse(true); drag:RegisterForDrag("LeftButton")
-    drag:SetScript("OnDragStart",function() panel:StartMoving() end)
-    drag:SetScript("OnDragStop",function() panel:StopMovingOrSizing(); savePosition() end)
+    drag:SetScript("OnDragStart",function() panel:StartMoving(); mfLayout("BeginDrag",panel) end)
+    drag:SetScript("OnDragStop",function() panel:StopMovingOrSizing(); mfLayout("SnapToGrid",panel); savePosition() end)
+    mfLayout("RegisterLayout",panel,"微信式聊天")
     panel.history,panel.historyChild=makeScroll(panel)
     panel.history:SetPoint("TOPLEFT",231,-110); panel.history:SetPoint("BOTTOMRIGHT",-12,148)
     panel.empty=text(panel.history,14,C.muted); panel.empty:SetPoint("CENTER"); panel.empty:SetText("选好会话，从这里开始聊天。")
@@ -1671,9 +1681,11 @@ function NS.BuildUI()
     launcher:SetFrameStrata("MEDIUM")
     launcher.badge=text(launcher,12,{1,0.48,0.40,1}); launcher.badge:SetPoint("TOPRIGHT",3,4)
     launcher:SetMovable(true); launcher:SetClampedToScreen(true); launcher:RegisterForDrag("LeftButton")
-    launcher:SetScript("OnDragStart",function() launcher:StartMoving() end)
+    launcher:SetScript("OnDragStart",function() launcher:StartMoving(); mfLayout("BeginDrag",launcher) end)
+    mfLayout("RegisterLayout",launcher,"微信式聊天 · 图标")
     launcher:SetScript("OnDragStop",function()
         launcher:StopMovingOrSizing()
+        mfLayout("SnapToGrid",launcher)
         local p,_,rp,x,y=launcher:GetPoint()
         NS.db.launcher={point=p,relativePoint=rp,x=x,y=y}
     end)

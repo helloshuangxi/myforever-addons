@@ -1,4 +1,13 @@
 local _, ns = ...
+-- Shared layout hooks (grid while dragging, snap on release, /myui tags).
+local function mfLayout(name, ...)
+    local S = rawget(_G, "MyForeverStyle")
+    local fn = type(S) == "table" and rawget(S, name)
+    if type(fn) == "function" then
+        local ok, result = pcall(fn, ...)
+        return ok and result or nil
+    end
+end
 local call = ns.SafeCall
 local scanner = ns.GatherScan
 
@@ -306,6 +315,7 @@ local function stopMoving()
     if not moving then return end
     moving = false
     hud:StopMovingOrSizing()
+    mfLayout("SnapToGrid", hud)
     local point, _, relativePoint, x, y = hud:GetPoint()
     if type(point) == "string" and type(relativePoint) == "string" and number(x) and number(y) then
         local db = ns.db
@@ -383,9 +393,11 @@ function ns.CreateGatherAlerts()
         if not resize then
             hud:StartMoving()
             moving = true
+            mfLayout("BeginDrag", hud)
         end
     end)
     hud:SetScript("OnDragStop", finishInteraction)
+    mfLayout("RegisterLayout", hud, "商业技能 · 采集提示")
     hud:SetScript("OnMouseUp", function(_, button)
         if button == "LeftButton" then finishInteraction() end
     end)

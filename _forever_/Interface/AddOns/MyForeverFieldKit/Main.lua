@@ -1,4 +1,13 @@
 local addonName, Kit = ...
+-- Shared layout hooks (grid while dragging, snap on release, /myui tags).
+local function mfLayout(name, ...)
+    local S = rawget(_G, "MyForeverStyle")
+    local fn = type(S) == "table" and rawget(S, name)
+    if type(fn) == "function" then
+        local ok, result = pcall(fn, ...)
+        return ok and result or nil
+    end
+end
 Kit = Kit or {}
 
 local panel, db
@@ -182,14 +191,16 @@ local function MakePanel()
     panel.status:SetPoint("BOTTOMLEFT", 12, 9)
 
     local drag = bar.handle
+    mfLayout("RegisterLayout", panel, "随身手册")
     drag:EnableMouse(true)
     drag:RegisterForDrag("LeftButton")
     drag:SetScript("OnDragStart", function()
-        if not db.locked and not InCombat() then panel:StartMoving() end
+        if not db.locked and not InCombat() then panel:StartMoving(); mfLayout("BeginDrag", panel) end
     end)
     drag:SetScript("OnDragStop", function()
         panel:StopMovingOrSizing()
         if InCombat() then return end
+        mfLayout("SnapToGrid", panel)
         local point, _, relativePoint, x, y = panel:GetPoint()
         if IsText(point) and IsText(relativePoint) and IsNumber(x) and IsNumber(y) then
             db.point, db.relativePoint, db.x, db.y = point, relativePoint, x, y

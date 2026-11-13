@@ -1,4 +1,13 @@
 local _, NS = ...
+-- Shared layout hooks (grid while dragging, snap on release, /myui tags).
+local function mfLayout(name, ...)
+    local S = rawget(_G, "MyForeverStyle")
+    local fn = type(S) == "table" and rawget(S, name)
+    if type(fn) == "function" then
+        local ok, result = pcall(fn, ...)
+        return ok and result or nil
+    end
+end
 
 local panel, hud
 local workspace, ready = "npc", false
@@ -155,9 +164,10 @@ local function drag(frame, handle, key)
     frame:SetClampedToScreen(true)
     handle:EnableMouse(true)
     handle:RegisterForDrag("LeftButton")
-    handle:SetScript("OnDragStart", function() frame:StartMoving() end)
+    handle:SetScript("OnDragStart", function() frame:StartMoving(); mfLayout("BeginDrag", frame) end)
     handle:SetScript("OnDragStop", function()
         frame:StopMovingOrSizing()
+        mfLayout("SnapToGrid", frame)
         local point, _, relativePoint, x, y = frame:GetPoint()
         NS.DB[key] = {point = point, relativePoint = relativePoint, x = x, y = y}
     end)
@@ -193,6 +203,7 @@ local function createHUD()
     handle:SetPoint("TOPRIGHT", -64, 0)
     handle:SetHeight(36)
     drag(hud, handle, "hud")
+    mfLayout("RegisterLayout", hud, "世界向导 · 指引")
     hud.title = label(hud, 166, 22, "GameFontNormalLarge", colors.title)
     hud.title:SetPoint("TOPLEFT", 72, -9)
     hud.title:SetWordWrap(false)

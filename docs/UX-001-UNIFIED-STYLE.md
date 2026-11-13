@@ -125,3 +125,38 @@
 1. 四个圆角是否正常（见上面的贴图说明）。
 2. 世界向导：胶囊在中文字体下是否被截断、细分翻页、选中卡片“资料”展开、我的地点表单。
 3. 深蓝底在雪地、沙漠等亮场景下的可读性；必要时调高 `Style.alpha.window`（现为 0.92）。
+
+
+---
+
+# 第三阶段：官网与桌面管理器（2026-11-14）
+
+用户要求“app 和网站也要重新设计”，沿用方向 B「午夜 · 冷蓝」。仍是候选：**未部署官网，未发布管理器**。
+
+## 官网
+
+- 新增一个设计层 `website/public/theme.css`，在首页和 5 个详情页的 `<head>` 里最后加载；`theme-color` 改为 `#0a0e19`。原来 7 个样式表一个字都没改，删掉这一行 `<link>` 即可回到原样。
+- **同步脚本生成的部分不动**：`release:catalog`、`release:hero-download` 等标记区里的下载按钮、版本、校验值和更新记录，结构与文字原样；只靠 CSS 换样式。
+- **游戏画面插图保持真实**：官网介绍的是已发布版本（聊天 0.9.3、专业 0.4.6、向导 0.4.1、目标 0.1.46），它们在游戏里仍是原来的绿色界面。所以截图、目标面板示意图、「导」字图标都保持原配色，没有改成新风格冒充。首页卡片左上角的图标也用的是游戏里那个绿色启动图标。
+- 设计要点：深色背景与淡蓝光晕；顶部浮动玻璃导航条、胶囊链接、当前页高亮；无衬线粗标题、渐变标题字；插件卡片圆角、悬停浮起；按钮圆角带光晕；建议楼输入框、打赏弹窗、下载悬浮条都换成深色。
+- 对比图：[首页](ux-001/site-home.png) · [世界向导页](ux-001/site-navigator.png) · [目标选择页](ux-001/site-targets.png) · [手机宽度](ux-001/site-mobile.png)
+
+**检查结果：** `community/test_server.py` 8 项、`ops/test_upload_archive.py` 9 项通过。`verify_site.py`、`test_community_assets.py`、各 `test_sync_*_release.py` 需要已发布的 ZIP，本环境访问不到官网，`restore_release_assets.py` 下载失败；这些检查在**未修改的原始仓库上也同样失败**，所以没能验证。请在原开发机先恢复发行包再跑一遍。上线仍按 `AGENTS.md` 走发版同步与部署流程，本次没有执行。
+
+## 桌面管理器
+
+本环境没有 .NET SDK，也无法下载，**没有编译过，也没有截图**。因此只做了值层面的改动：
+
+- `Program.cs`：Fluent 主题从 Light 改为 Dark，系统强调色 `#7C93FF`。
+- `MainWindow.cs`、`BehaviorStatisticsView.cs`：原来的色值常量换成午夜配色（名称沿用，便于对照），新增卡片、凸起、输入底、强调、警示几个画刷常量；主按钮改为强调色实心、普通按钮改为凸起色块，圆角 10；卡片圆角 16；警示文字与底色改为深色版本。
+- 布局、功能、文字、控件结构都没动。
+
+**需要在原开发机执行：**
+
+```bash
+cd PersonalAddons/Manager
+dotnet build Desktop/MyForeverManager.Desktop.csproj -c Release
+dotnet run --project Desktop/MyForeverManager.Desktop.csproj
+```
+
+重点看：深色下复选框、标签页、文本框（Fluent 自带控件）是否清楚；行为统计里的进度条颜色；更新说明文本框的底色。若编译报错，错误应只会出现在新增的画刷常量附近。

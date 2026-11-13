@@ -13,10 +13,17 @@ namespace MyForeverManager.Desktop;
 
 public sealed class MainWindow : Window
 {
-    private static readonly IBrush Ink = Brush.Parse("#18344F");
-    private static readonly IBrush Muted = Brush.Parse("#596F83");
-    private static readonly IBrush Cream = Brush.Parse("#F4F7FA");
-    private static readonly IBrush Line = Brush.Parse("#DCE4EC");
+    // Suite palette, direction B "Midnight". Names kept from the light theme.
+    private static readonly IBrush Ink = Brush.Parse("#EEF1FF");
+    private static readonly IBrush Muted = Brush.Parse("#A3ABCB");
+    private static readonly IBrush Cream = Brush.Parse("#0A0E19");
+    private static readonly IBrush Line = Brush.Parse("#232B48");
+    private static readonly IBrush Card = Brush.Parse("#121830");
+    private static readonly IBrush Raised = Brush.Parse("#1B2242");
+    private static readonly IBrush Well = Brush.Parse("#0D1222");
+    private static readonly IBrush Accent = Brush.Parse("#7C93FF");
+    private static readonly IBrush OnAccent = Brush.Parse("#0B1030");
+    private static readonly IBrush Warning = Brush.Parse("#FF9A7A");
     private readonly SettingsStore store;
     private readonly UpdateService service;
     private ManagerSettings settings = new();
@@ -98,9 +105,9 @@ public sealed class MainWindow : Window
         var button = new Button
         {
             Content = label, Padding = new Thickness(18, 11), MinHeight = 42,
-            CornerRadius = new CornerRadius(7), FontWeight = FontWeight.SemiBold,
-            Background = primary ? Ink : Brushes.White, Foreground = primary ? Brushes.White : Ink,
-            BorderBrush = primary ? Ink : Line, BorderThickness = new Thickness(1)
+            CornerRadius = new CornerRadius(10), FontWeight = FontWeight.SemiBold,
+            Background = primary ? Accent : Raised, Foreground = primary ? OnAccent : Ink,
+            BorderBrush = primary ? Accent : Raised, BorderThickness = new Thickness(1)
         };
         button.Click += async (_, _) => await action();
         return button;
@@ -108,8 +115,8 @@ public sealed class MainWindow : Window
 
     private static Border Surface(Control child, Thickness? padding = null) => new()
     {
-        Background = Brushes.White, BorderBrush = Line, BorderThickness = new Thickness(1),
-        CornerRadius = new CornerRadius(12), Padding = padding ?? new Thickness(24), Child = child
+        Background = Card, BorderBrush = Line, BorderThickness = new Thickness(1),
+        CornerRadius = new CornerRadius(16), Padding = padding ?? new Thickness(24), Child = child
     };
 
     private StackPanel Shell(string eyebrow, string title, string subtitle)
@@ -163,7 +170,7 @@ public sealed class MainWindow : Window
         var auto = new CheckBox { Content = "自动安装所选插件，并在有新版本时自动更新", IsChecked = settings.AutoUpdate };
         panel.Children.Add(auto);
         panel.Children.Add(Text("程序运行期间每 30 分钟检查一次；游戏运行时等待退出后再安装。可以最小化程序继续管理，关闭窗口即退出。", 13, false, Muted));
-        var error = Text(message ?? "", 13, false, Brush.Parse("#9A4F25"));
+        var error = Text(message ?? "", 13, false, Warning);
         panel.Children.Add(error);
         var start = MakeButton("保存并开始管理", async () =>
         {
@@ -425,7 +432,7 @@ public sealed class MainWindow : Window
     private void SetStatus(string value, bool error = false)
     {
         statusText.Text = value;
-        statusText.Foreground = error ? Brush.Parse("#9A4F25") : Muted;
+        statusText.Foreground = error ? Warning : Muted;
     }
 
     private static string FriendlyError(Exception ex) => ex switch
@@ -518,7 +525,7 @@ public sealed class MainWindow : Window
             notes = new TextBox
             {
                 IsReadOnly = true, AcceptsReturn = true, TextWrapping = TextWrapping.Wrap,
-                Height = 145, Background = Brush.Parse("#F6F8F4"), BorderThickness = new Thickness(0),
+                Height = 145, Background = Well, BorderThickness = new Thickness(0),
                 Padding = new Thickness(12), FontSize = 12, Foreground = Muted,
                 Text = "检查更新后，在这里查看作者的更新说明与验证范围。"
             };
@@ -553,7 +560,7 @@ public sealed class MainWindow : Window
         public void SetNotice(string message, bool error = false)
         {
             notice.Text = message;
-            notice.Foreground = error ? Brush.Parse("#9A4F25") : Muted;
+            notice.Foreground = error ? Warning : Muted;
         }
 
         public void ApplyEnabledState(bool enabled)

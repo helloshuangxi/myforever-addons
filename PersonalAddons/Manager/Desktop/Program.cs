@@ -47,9 +47,10 @@ public sealed class ManagerApp : Application
 {
     public override void Initialize()
     {
-        RequestedThemeVariant = ThemeVariant.Light;
+        // Suite direction B "Midnight" (2026-11-14): dark Fluent variant, electric-blue accent.
+        RequestedThemeVariant = ThemeVariant.Dark;
         Styles.Add(new FluentTheme());
-        Resources["SystemAccentColor"] = Color.Parse("#2864B3");
+        Resources["SystemAccentColor"] = Color.Parse("#7C93FF");
     }
 
     public override void OnFrameworkInitializationCompleted()

@@ -1,0 +1,233 @@
+/* 我的无限 · Midnight (UX-001 direction B, 2026-11-14)
+   One design layer over the original stylesheets, loaded last on every page.
+   It only restyles: no markup that the release sync scripts generate is changed.
+   Remove the <link> to theme.css to return to the previous look. */
+
+:root{
+  --bg:#0a0e19; --bg-2:#0d1222;
+  --surface:rgba(140,160,255,.07); --surface-solid:#141a2e; --surface-2:#1a2140;
+  --paper:transparent; --line:rgba(140,160,255,.14); --line-strong:rgba(140,160,255,.26);
+  --ink:#eef1ff; --muted:#a3abcb; --faint:#737c9e;
+  --accent:#7c93ff; --accent-hover:#97a9ff; --accent-ink:#0b1030; --accent-soft:rgba(124,147,255,.16);
+  --success:#4fd39a; --warning:#f2b35c; --danger:#ff6b6b;
+  --stage:#11172b; --stage-ink:#eef1ff;
+  --radius:12px; --radius-lg:18px;
+  --sans:"Inter","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei","Noto Sans CJK SC",system-ui,sans-serif;
+  --serif:var(--sans);
+  --display:clamp(40px,4.6vw,68px); --head:clamp(26px,2.4vw,34px);
+  --shadow:0 18px 50px rgba(0,0,0,.35);
+  color-scheme:dark;
+}
+
+html{background:var(--bg)}
+body{
+  background:
+    radial-gradient(900px 520px at 78% -8%,rgba(124,147,255,.20),transparent 62%),
+    radial-gradient(700px 480px at 6% 8%,rgba(150,110,255,.12),transparent 60%),
+    var(--bg);
+  background-attachment:fixed;
+  color:var(--ink);
+}
+::selection{background:var(--accent);color:var(--accent-ink)}
+a:hover{color:var(--accent-hover)}
+h1,h2{font-family:var(--sans);font-weight:700;letter-spacing:-.025em}
+h1{line-height:1.12}
+h2{line-height:1.25}
+h3{font-weight:650}
+p,li,dd{color:var(--muted)}
+strong,h1,h2,h3,dt{color:var(--ink)}
+code{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:.05em .4em;color:var(--ink)}
+pre code{background:none;border:0;padding:0}
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* Header: a floating glass bar with pill links. */
+.site-header{
+  position:sticky;top:12px;z-index:30;
+  margin:12px auto 0;max-width:1320px;width:calc(100% - 24px);
+  padding:10px 14px 10px 20px;
+  background:rgba(13,18,34,.72);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);
+  border:1px solid var(--line);border-radius:999px;
+}
+.brand{font-size:17px;flex-direction:row;align-items:center;gap:10px}
+.brand::before{
+  content:"无";display:inline-grid;place-items:center;width:30px;height:30px;border-radius:9px;
+  background:linear-gradient(135deg,#7c93ff,#9a7cff);color:#0b1030;font-weight:800;font-size:15px;
+}
+.brand span{display:none}
+.site-header nav{gap:4px}
+.site-header nav a{font-size:14.5px;padding:7px 14px;border-radius:999px;color:var(--muted)}
+.site-header nav a:hover{background:var(--surface);color:var(--ink)}
+.site-header nav a[aria-current="page"]{background:var(--accent-soft);color:var(--accent);text-decoration:none}
+.skip-link{background:var(--accent);color:var(--accent-ink);border-radius:8px}
+
+/* Buttons */
+.button{
+  border-radius:12px;min-height:48px;padding:11px 20px;gap:18px;
+  background:var(--accent);color:var(--accent-ink);font-size:15.5px;font-weight:650;
+  box-shadow:0 8px 24px rgba(124,147,255,.28),inset 0 1px 0 rgba(255,255,255,.25);
+  transition:transform .18s var(--ease),background-color .18s,box-shadow .18s;
+}
+.button:hover{background:var(--accent-hover);color:var(--accent-ink);transform:translateY(-1px);box-shadow:0 12px 30px rgba(124,147,255,.36)}
+.button span{font-size:16px}
+.button-light{background:var(--ink);color:var(--accent-ink);box-shadow:none}
+.button-light:hover{background:#fff;color:var(--accent-ink)}
+.text-link{color:var(--accent);text-decoration:none}
+.text-link:hover{text-decoration:underline}
+.plain-button{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:10px}
+.plain-button:hover{background:var(--surface-2);color:var(--ink)}
+
+/* Shared sections */
+.page-section{padding:96px var(--gutter);border-top:1px solid var(--line)}
+.page-section,.screenshots,.install,.updates,.community-section,.navigator-features{background:transparent}
+.section-intro>p{color:var(--muted)}
+.site-footer{background:transparent;border-top:1px solid var(--line);color:var(--muted)}
+.site-footer .brand::before{width:26px;height:26px;font-size:13px}
+
+/* Cards and panels that used flat paper/surface blocks */
+.folder-guide,.command-list,.checksum,.history details,.suggestion-form,.portal-manager,
+.portal-author .author-section,.author-section{
+  background:linear-gradient(180deg,rgba(140,160,255,.07),rgba(140,160,255,.035));
+  border:1px solid var(--line);border-radius:var(--radius-lg);
+}
+.copy-command{background:var(--surface-solid);border:1px solid var(--line);border-radius:10px;color:var(--ink)}
+.copy-command:hover{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+.copy-status{color:var(--success)}
+.latest-release{
+  background:linear-gradient(145deg,#2a3577,#1a2150 60%,#141a36);
+  border:1px solid var(--line-strong);border-radius:var(--radius-lg);box-shadow:var(--shadow);
+}
+.latest-release h3{font-family:var(--sans);font-weight:700;letter-spacing:-.03em}
+.latest-release li,.latest-release p{color:#d3d9ff}
+.history details{margin-top:10px}
+.history summary:hover{color:var(--accent)}
+.history details p{color:var(--muted)}
+.checksum code{background:none;border:0;padding:0;color:var(--muted)}
+kbd,.key-feature kbd{background:var(--surface-solid);border:1px solid var(--line-strong);border-bottom-width:3px;border-radius:10px;color:var(--ink)}
+
+/* Visual stages beside the hero */
+.visual-stage,.navigator-overview,.manager-stage,.professions-stage,.targets-stage{
+  background:
+    radial-gradient(420px 320px at 70% 20%,rgba(124,147,255,.22),transparent 70%),
+    linear-gradient(180deg,#121933,#0d1224);
+  color:var(--stage-ink);
+}
+.image-link{background:transparent;border-radius:var(--radius-lg);box-shadow:var(--shadow);border:1px solid var(--line)}
+.image-link img,.screenshot-item img{border-radius:var(--radius-lg)}
+.screenshot-item img{border:1px solid var(--line)}
+.image-dialog{background:var(--surface-solid);border:1px solid var(--line);border-radius:var(--radius-lg)}
+.image-dialog::backdrop{background:rgba(5,8,16,.86);backdrop-filter:blur(6px)}
+.close-dialog{background:var(--surface-2);color:var(--ink);border-radius:10px}
+
+/* Floating download dock */
+.latest-download-dock{
+  background:rgba(20,26,50,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid var(--line-strong);border-radius:16px;box-shadow:var(--shadow);color:var(--ink);
+}
+.latest-download-dock:hover{background:var(--accent);color:var(--accent-ink)}
+.download-dock-arrow{color:var(--accent)}
+.latest-download-dock:hover .download-dock-arrow{color:var(--accent-ink)}
+
+/* ---------- Home ---------- */
+.portal-intro{padding:88px var(--gutter) 56px;text-align:left}
+.portal-eyebrow,.eyebrow,.manager-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;font-size:13px;letter-spacing:.04em;
+  color:var(--accent);background:var(--accent-soft);border:1px solid rgba(124,147,255,.28);
+  padding:5px 12px;border-radius:999px;margin-bottom:26px;
+}
+.portal-intro h1{font-size:clamp(42px,5.4vw,78px);background:linear-gradient(180deg,#fff 30%,#b9c4ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.portal-intro .lead{font-size:19px;color:var(--muted)}
+
+.addon-grid{gap:18px}
+.addon-card{
+  position:relative;padding:30px 30px 26px;border:1px solid var(--line);border-top:1px solid var(--line);
+  border-radius:var(--radius-lg);
+  background:linear-gradient(180deg,rgba(140,160,255,.08),rgba(140,160,255,.025));
+  transition:transform .25s var(--ease),border-color .25s,box-shadow .25s;
+}
+.addon-card:hover{transform:translateY(-3px);border-color:var(--line-strong);box-shadow:var(--shadow)}
+/* Each addon wears the glyph of its in-game launcher icon, in that icon's actual
+   green, so the card shows what the player will look for in the game. */
+.addon-card::before{
+  content:"";display:grid;place-items:center;width:46px;height:46px;border-radius:13px;margin-bottom:18px;
+  font-weight:700;font-size:22px;color:#0f291a;background:#6bd194;box-shadow:0 8px 22px rgba(0,0,0,.3);
+}
+.addon-card[data-addon="MyForeverChat"]::before{content:"聊"}
+.addon-card[data-addon="MyForeverProfessions"]::before{content:"商"}
+.addon-card[data-addon="MyForeverNavigator"]::before{content:"导"}
+.addon-card[data-addon="MyForeverTargets"]::before{content:"目"}
+.addon-code{order:2;margin-top:4px;font-size:12.5px;color:var(--faint);font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.addon-card h2{order:1;font-size:clamp(24px,2.1vw,30px);color:var(--ink)}
+.addon-card .addon-description{order:3;margin-top:14px;color:var(--muted);font-size:16px}
+.addon-card .addon-version{order:4;margin-top:22px;padding-top:18px;border-top:1px solid var(--line);color:var(--faint)}
+.addon-card .addon-actions{order:5}
+.addon-actions .button{min-height:44px;font-size:15px}
+.portal-download-note{color:var(--faint)}
+
+.portal-manager{
+  margin:8px auto 56px;max-width:calc(1440px - 2 * var(--gutter));padding:34px 36px;
+  background:
+    radial-gradient(500px 220px at 85% 50%,rgba(124,147,255,.22),transparent 70%),
+    linear-gradient(135deg,#161d3a,#10152a);
+}
+.portal-manager h2{color:var(--ink)}
+.portal-author{max-width:1440px}
+.author-avatar{border-radius:14px}
+.author-email{color:var(--accent)}
+.author-support .support-author{background:var(--surface-2);color:var(--ink);border:1px solid var(--line-strong);border-radius:10px;box-shadow:none}
+.author-support .support-author:hover{background:var(--accent);color:var(--accent-ink)}
+.author-game-profile dt{color:var(--faint)}
+.author-game-profile dd{color:var(--ink)}
+
+/* Suggestion board */
+.community-section{border-top:1px solid var(--line)}
+.suggestion-form input,.suggestion-form textarea{
+  background:var(--bg-2);border:1px solid var(--line-strong);border-radius:10px;color:var(--ink);
+}
+.suggestion-form input::placeholder,.suggestion-form textarea::placeholder{color:var(--faint)}
+.suggestion-form label{color:var(--ink)}
+.suggestion-entry{border-bottom:1px solid var(--line)}
+.suggestion-entry:nth-child(2n){background:transparent;padding-inline:0}
+.suggestion-content{color:var(--ink)}
+.form-status.is-error,#suggestion-list-status.is-error{color:var(--danger)}
+
+/* Donation dialog */
+.donation-dialog{background:var(--surface-solid);color:var(--ink);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow)}
+.donation-dialog::backdrop{background:rgba(5,8,16,.8);backdrop-filter:blur(6px)}
+.donation-choices button{background:var(--surface);color:var(--ink);border:1px solid var(--line-strong);border-radius:12px}
+.donation-choices button:hover{background:var(--accent);color:var(--accent-ink)}
+
+/* ---------- Detail pages ---------- */
+.hero h1,.navigator-intro h1,.manager-hero h1,.professions-hero h1,.targets-hero h1{
+  background:linear-gradient(180deg,#fff 35%,#b9c4ff);-webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.download-meta{color:var(--faint)}
+/* In-game depictions (glyphs, the Targets panel mock, screenshots) keep the
+   published plugins' real colours; only the site chrome follows Midnight. */
+.navigator-counts dt{font-weight:700;letter-spacing:-.03em}
+.navigator-counts dd,.navigator-overview>p{color:#c3cbef}
+.feature-columns h3,.usage-notes h3,.install-steps h3{color:var(--ink)}
+.install-steps li::marker{color:var(--accent);font-weight:700}
+
+/* Targets and Manager page bands that were light paper */
+.compatibility-note{background:linear-gradient(180deg,rgba(140,160,255,.07),rgba(140,160,255,.03));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.compatibility-note p,.compatibility-note li{color:var(--muted)}
+.roster-table th,.roster-table td{border-bottom:1px solid var(--line)}
+.roster-table th{color:var(--ink)}
+.manager-feature-grid article{border-top:1px solid var(--line)}
+.manager-download-card{
+  background:linear-gradient(180deg,rgba(140,160,255,.08),rgba(140,160,255,.025));
+  border:1px solid var(--line);border-top:1px solid var(--line);border-radius:var(--radius-lg);
+}
+.manager-download-card h3{color:var(--ink)}
+.form-status.is-error{color:var(--danger)}
+
+@media(max-width:720px){
+  .site-header{border-radius:20px;top:8px;padding:10px 12px}
+  .site-header nav{margin-top:8px}
+  .site-header nav a{padding:6px 10px;font-size:14px}
+  .portal-intro{padding-top:48px}
+  .portal-manager{padding:26px 22px}
+  .addon-card{padding:24px}
+}
+@media(prefers-reduced-motion:reduce){.addon-card,.button{transition:none}.addon-card:hover,.button:hover{transform:none}}
+@media print{body{background:#fff;color:#000}.site-header{position:static;background:none;border:0}}

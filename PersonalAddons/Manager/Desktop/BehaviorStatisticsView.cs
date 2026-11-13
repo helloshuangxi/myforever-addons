@@ -13,11 +13,16 @@ namespace MyForeverManager.Desktop;
 /// <summary>Read-only local statistics. Its refresh lifecycle is independent of plugin updates.</summary>
 public sealed class BehaviorStatisticsView : UserControl, IDisposable
 {
-    private static readonly IBrush Ink = Brush.Parse("#18344F");
-    private static readonly IBrush Muted = Brush.Parse("#596F83");
-    private static readonly IBrush Blue = Brush.Parse("#2864B3");
-    private static readonly IBrush Line = Brush.Parse("#DCE4EC");
-    private static readonly IBrush Soft = Brush.Parse("#F0F5FB");
+    // Suite palette, direction B "Midnight". Names kept from the light theme.
+    private static readonly IBrush Ink = Brush.Parse("#EEF1FF");
+    private static readonly IBrush Muted = Brush.Parse("#A3ABCB");
+    private static readonly IBrush Blue = Brush.Parse("#7C93FF");
+    private static readonly IBrush Line = Brush.Parse("#232B48");
+    private static readonly IBrush Soft = Brush.Parse("#1B2242");
+    private static readonly IBrush Card = Brush.Parse("#121830");
+    private static readonly IBrush OnAccent = Brush.Parse("#0B1030");
+    private static readonly IBrush WarnText = Brush.Parse("#F2B35C");
+    private static readonly IBrush WarnFill = Brush.Parse("#2A2316");
     private static readonly TimeSpan DayOffset = TimeSpan.FromHours(8);
     private readonly BehaviorDataService service;
     private readonly DispatcherTimer timer = new() { Interval = TimeSpan.FromSeconds(30) };
@@ -45,7 +50,7 @@ public sealed class BehaviorStatisticsView : UserControl, IDisposable
         refresh = new Button
         {
             Content = "刷新本机数据", MinHeight = 42, Padding = new Thickness(18, 10),
-            CornerRadius = new CornerRadius(7), Background = Blue, Foreground = Brushes.White,
+            CornerRadius = new CornerRadius(10), Background = Blue, Foreground = OnAccent,
             FontWeight = FontWeight.SemiBold
         };
         AutomationProperties.SetName(character, "统计角色");
@@ -154,7 +159,7 @@ public sealed class BehaviorStatisticsView : UserControl, IDisposable
             if (!disposed)
             {
                 status.Text = "本机数据暂时无法读取。请检查游戏目录是否可访问，再点击刷新。已显示的历史统计仍然保留。";
-                status.Foreground = Brush.Parse("#925321");
+                status.Foreground = WarnText;
             }
         }
         finally
@@ -284,12 +289,12 @@ public sealed class BehaviorStatisticsView : UserControl, IDisposable
         var unique = messages.Distinct().ToList();
         if (unique.Count == 0) return;
         var details = new StackPanel { Spacing = 8 };
-        details.Children.Add(Label("记录说明", 13, true, Brush.Parse("#84501E")));
-        foreach (var message in unique) details.Children.Add(Label("• " + message, 12, color: Brush.Parse("#84501E")));
+        details.Children.Add(Label("记录说明", 13, true, WarnText));
+        foreach (var message in unique) details.Children.Add(Label("• " + message, 12, color: WarnText));
         notices.Children.Add(new Border
         {
             Padding = new Thickness(18, 14), CornerRadius = new CornerRadius(9),
-            Background = Brush.Parse("#FFF5E8"), Child = details
+            Background = WarnFill, Child = details
         });
     }
 
@@ -372,8 +377,8 @@ public sealed class BehaviorStatisticsView : UserControl, IDisposable
 
     private static Border Surface(Control content, Thickness? padding = null) => new()
     {
-        Background = Brushes.White, BorderBrush = Line, BorderThickness = new Thickness(1),
-        CornerRadius = new CornerRadius(11), Padding = padding ?? new Thickness(22), Child = content
+        Background = Card, BorderBrush = Line, BorderThickness = new Thickness(1),
+        CornerRadius = new CornerRadius(16), Padding = padding ?? new Thickness(22), Child = content
     };
 
     private static TextBlock Label(string text, double size = 14, bool bold = false, IBrush? color = null) => new()

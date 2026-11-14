@@ -81,9 +81,19 @@
 
 **未完成：** Windows x64、Intel Mac 原生界面/目录权限/安装运行；完整 30 分钟检查及退出游戏后 60 秒重试等待；Windows Authenticode、Apple Developer ID 和公证。Mac 当前为本地临时签名。跨平台编译和隔离测试不代表对应真机验收。
 
-**行为统计边界：** SavedVariables 通常 `/reload` 或退出才写盘；桌面不能读取尚未写盘的事件。分日固定 UTC+08:00，保留 90 天日累计，旧采集片段有缺失；静止不是挂机，施法失败不是误操作。采集器与管理器不得采集按键/聊天/姓名/GUID，不上传行为数据。跨日、战斗、死亡、任务、容量等需要对应真实场景，不可从一次自疗及导入测试推定全部通过。
+**行为统计边界：** SavedVariables 通常 `/reload` 或退出才写盘；桌面不能读取尚未写盘的事件。分日固定 UTC+08:00，保留 90 天日累计，旧采集片段有缺失；静止不是挂机，施法失败不是误操作。采集器与自动本机分析不采集按键/聊天/姓名/GUID，不上传行为数据；新候选可选 AI 的发送范围另见 MFM-002。跨日、战斗、死亡、任务、容量等需要对应真实场景，不可从一次自疗及导入测试推定全部通过。
 
 **入口：** `Manager/Core/UpdateService.cs`、`GamePaths.cs`、`BehaviorDataService.cs`、`BehaviorLuaReader.cs`、`Desktop/BehaviorStatisticsView.cs`；测试使用隔离目录。见 `Manager/README.md`、`BEHAVIOR-CONTRACT.md`、`BEHAVIOR-VALIDATION.md`。
+
+## P2 / MFM-002：行为洞察与可选 AI 复盘候选待实际验收
+
+来源 Claude `7214d62`，当前候选在 `codex/behavior-insights-ai-20261115`，基于已发布 `5392bd7` 整合，Manager 0.4.0 / Coach 0.2.1 仅为当前源码标识。新功能尚未包含在同号公开包，后续公开需另升版本。与 PR #10 独立。
+
+已复现并修复区域经验错记旧地图、默认 HTTP 307 转发摘要；另补齐正文期限、预览快照与旧请求取消、供应商密钥交接和深色对比。Manager Release 0 警告/错误，47 行为/AI、68 隔离更新及七插件 72 组 Lua/19 Python 检查通过。首次作者 44 项也曾独立通过。
+
+仍需游戏区域/跨日、新旧数据、桌面 AI 启用/停止/刷新/过滤切换、真实本机或远端模型、完整超时、Windows/Intel Mac 真机。CUA 未能绑定命令行候选窗口，因此无本轮原生视觉/点击通过记录；模拟启动后已停止，没有向真实模型发送数据。保留数据少、不完整、非战斗死亡和施法事件口径，不能把战斗结束说成击杀。
+
+见 [完整交接](docs/HANDOFF-2026-11-15-behavior-insights-ai.md) 与 `PersonalAddons/work/behavior-insights-ai-20261115/VALIDATION.json`。未改已安装应用、游戏目录、公开包或官网。
 
 ## P2 / MFC-001：真实聊天交互和社区收发仍需专项实测
 

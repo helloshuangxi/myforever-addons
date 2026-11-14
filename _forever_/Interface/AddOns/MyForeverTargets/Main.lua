@@ -295,7 +295,7 @@ function NS.HandleCommand(message)
         NS.Print("战斗悬停施法："..(status.enabled and "开启" or "关闭")..
             "；友方 "..tostring(status.friendlySpells).." 个技能/"..tostring(status.friendlyKeys).." 个键，"..
             "敌方 "..tostring(status.enemySpells).." 个技能/"..tostring(status.enemyKeys).." 个键。"..
-            "仅固定单位格（自己、小队、团队、宠物、目标、焦点、首领、竞技场）在战斗中生效；附近姓名板格不支持。技能或键位改动后脱战自动重读。")
+            "固定单位格（自己、小队、团队、宠物、目标、焦点、首领、竞技场）可在战斗中直接施法，待游戏验收；敌方战前唯一名称桥沿用，附近新出现或同名格不接管。技能或键位改动后脱战自动重读。")
         return
     end
     if command=="debug" then

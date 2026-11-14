@@ -112,7 +112,10 @@ end}
 local chunk=assert(loadfile("_forever_/Interface/AddOns/MyForeverTargets/CombatHover.lua"))
 chunk("MyForeverTargets",NS)
 local Hover=NS.CombatHover
+local hoverEvents=frames[#frames]
 yes(Hover,"module published")
+yes(hoverEvents.events.CVAR_UPDATE,"key-down setting changes invalidate preparation")
+yes(hoverEvents.events.UPDATE_OVERRIDE_ACTIONBAR,"override-bar changes invalidate preparation")
 
 -- Stable token classification.
 for _,unit in ipairs({"player","pet","target","focus","party1","party4","partypet2","raid1","raid40",
@@ -144,7 +147,8 @@ for _,d in ipairs(drivers) do
     if d.state=="mfchcombat" then combatDriver=d elseif d.state=="mfchbar" then barDriver=d end
 end
 eq(combatDriver and combatDriver.condition,"[combat] combat; idle","combat driver")
-yes(barDriver and barDriver.condition:find("%[bonusbar:1%]") and barDriver.condition:find("%[shapeshift%]"),"bar paging driver")
+yes(barDriver and barDriver.condition:find("%[bonusbar:1%]") and barDriver.condition:find("%[form:1%]")
+    and barDriver.condition:find("%[form:2%]"),"bar paging driver distinguishes forms")
 eq(fParty.attrs["mfch-index"],1,"friendly index")
 eq(owner.refs["mfch-row1"],fParty,"row ref")
 eq(Hover.Install(fParty),true,"install idempotent")
@@ -162,6 +166,7 @@ eq(eBoss.attrs["mfch-ready"],true,"boss tile ready")
 eq(ePlate.attrs["mfch-ready"],nil,"enemy nameplate tile not ready")
 eq(owner.attrs["mfch-enabled"],true,"enabled attribute")
 eq(owner.attrs["friendly-keys"],3,"friendly key count")
+eq(Hover.Status(fParty).availableKeys,3,"status counts available prepared keys")
 eq(owner.attrs["enemy-keys"],1,"enemy macro action skipped")
 eq(owner.attrs["friendly-key1"],"1","key1")
 eq(owner.attrs["friendly-key2"],"SHIFT-1","key2")
@@ -216,6 +221,17 @@ enter(ePlate)
 eq(next(bindings),nil,"enemy nameplate tile unsupported")
 leave(ePlate)
 
+-- A page change while the pointer remains on the tile must release the old
+-- main-bar action immediately, without requiring another OnEnter.
+enter(fParty)
+yes(bindings["1"],"main-bar key initially bound while hovering")
+setState(owner,"mfchbar","b1")
+eq(bindings["1"],nil,"page change while hovering releases old-page key")
+yes(bindings["F"],"page change keeps independent multibar key")
+setState(owner,"mfchbar","a1")
+yes(bindings["1"],"return to prepared page rebinds without pointer motion")
+leave(fParty)
+
 -- Stance/form paging in combat: main-bar keys are skipped, multibar keys stay.
 owner.attrs["state-mfchbar"]="s"
 enter(fParty)
@@ -239,6 +255,8 @@ Hover.dirty=false
 eq(Hover.Sync(),false,"sync deferred in combat")
 eq(Hover.dirty,true,"marked dirty")
 eq(Hover.BindRow(fParty),false,"bindrow deferred in combat")
+local late=tile("friendly",6,"party3")
+eq(Hover.Install(late),false,"new installation defers in combat")
 
 -- Leaving combat clears combat bindings so the OOC bridge takes over.
 enter(fParty)
@@ -254,6 +272,7 @@ NS.DB.legacyNameBridgeEnabled=false
 yes(Hover.Sync(),"resync")
 eq(owner.attrs["mfch-enabled"],nil,"disabled attribute")
 eq(owner.attrs["friendly-keys"],0,"no keys when disabled")
+eq(Hover.Status(fParty).ready,false,"disabled status never claims readiness")
 eq(_G[owner.attrs["friendly-proxyname1"] or "MyForeverTargetsCombatHoverfriendly1"].attrs["mfch-spell"],nil,"stale proxy retired")
 enter(fParty);combat=true;setState(owner,"mfchcombat","combat")
 eq(next(bindings),nil,"no bindings when disabled")
@@ -279,6 +298,111 @@ NS.NearbyCast.legacyName=false
 local extra=tile("friendly",3,"party2")
 eq(Hover.Install(extra),false,"no install without bridge mode")
 NS.NearbyCast.legacyName=true
+
+-- Form changes while already hovering and conservative unknown-form fallback.
+fParty.unit="party1";fParty.attrs.unit="party1"
+owner.attrs["state-mfchbar"]="f1";Hover.Sync()
+enter(fParty);combat=true;setState(owner,"mfchcombat","combat")
+yes(bindings["1"],"prepared form main key is initially available")
+setState(owner,"mfchbar","f2")
+eq(bindings["1"],nil,"form-to-form change releases previous spell")
+eq(Hover.Status(fParty).availableKeys,1,"status excludes invalidated main-bar keys")
+setState(owner,"mfchcombat","idle");combat=false;leave(fParty)
+owner.attrs["state-mfchbar"]="unknown";Hover.Sync()
+enter(fParty);combat=true;setState(owner,"mfchcombat","combat")
+eq(bindings["1"],nil,"unknown form never acquires main-bar key")
+yes(bindings["F"],"unknown form retains independent multibar key")
+setState(owner,"mfchcombat","idle");combat=false;leave(fParty)
+owner.attrs["state-mfchbar"]="a1";Hover.Sync()
+
+-- Integration with the released controllers. Native Wrapped_OnLeave consumes
+-- one shared _wrapentered flag, so only the outer wrapper's pre-body runs.
+-- Model that dispatch rule rather than incorrectly running every leave body.
+local function nativeEvent(row,event)
+    if event=="OnEnter" then row.under=true;row.attrs._wrapentered=true end
+    if event=="OnLeave" then row.under=false end
+    for i=#wrappers,1,-1 do
+        local w=wrappers[i]
+        if w.row==row and w.event==event then
+            if event~="OnLeave" or row.attrs._wrapentered then
+                if event=="OnLeave" then row.attrs._wrapentered=nil end
+                run(w.pre,row,w.owner)
+            end
+        end
+    end
+end
+local originalOwner=frame("Frame","OriginalNearbyOwner",UIParent,"SecureHandlerStateTemplate")
+NS.NearbyCast.owner=originalOwner
+local sharedFriend=tile("friendly",4,"party2")
+SecureHandlerWrapScript(sharedFriend,"OnLeave",originalOwner,"control:ClearBindings()")
+SecureHandlerWrapScript(sharedFriend,"OnHide",originalOwner,"control:ClearBindings()")
+yes(Hover.Install(sharedFriend),"install alongside original OOC leave wrapper")
+Hover.Sync()
+handle(originalOwner):SetBindingClick(true,"OLD","OriginalNearbyProxy","LeftButton")
+nativeEvent(sharedFriend,"OnEnter")
+nativeEvent(sharedFriend,"OnLeave")
+eq(bindings.OLD,nil,"outer leave also clears original OOC owner's override")
+
+-- Load the actual released name controller, not a duplicate binding model.
+SecureHandlerSetFrameRef=function(f,k,v) f:SetFrameRef(k,v) end
+ClearOverrideBindings=function() end
+NS.NearbyCast.combatName=true
+assert(loadfile("_forever_/Interface/AddOns/MyForeverTargets/CombatCast.lua"))("MyForeverTargets",NS)
+local names=NS.CombatCast
+local sharedEnemy=tile("enemy",4,"boss2")
+yes(names.Install(sharedEnemy),"released enemy name controller installed")
+yes(Hover.Install(sharedEnemy),"fixed-token controller installed on same row")
+Hover.Sync()
+sharedEnemy.attrs["combat-prepared"]=true
+sharedEnemy.attrs["combat-key-count"]=1
+sharedEnemy.attrs["combat-key1"]="2"
+sharedEnemy.attrs["combat-proxy1"]="OldNameProxy"
+names.owner.attrs["combat-active"]=true
+combat=true;setState(owner,"mfchcombat","combat")
+nativeEvent(sharedEnemy,"OnEnter")
+eq(bindings["2"] and bindings["2"].name,e1.name,"fixed-token direct route wins over name continuation")
+setState(names.owner,"combat","combat")
+eq(bindings["2"] and bindings["2"].name,e1.name,"name combat-state callback also defers fixed tokens")
+nativeEvent(sharedEnemy,"OnLeave")
+eq(next(bindings),nil,"native leave clears all participating owners")
+setState(owner,"mfchcombat","idle");combat=false
+
+-- Nameplate tiles still use the released unique-name continuation; the new
+-- outer leave must clear that owner even though its inner wrapper is skipped.
+local sharedPlate=tile("enemy",5,"nameplate7")
+yes(names.Install(sharedPlate),"nameplate name controller installed")
+yes(Hover.Install(sharedPlate),"outer cleanup installed on nameplate")
+Hover.Sync()
+sharedPlate.attrs["combat-prepared"]=true
+sharedPlate.attrs["combat-key-count"]=1
+sharedPlate.attrs["combat-key1"]="2"
+sharedPlate.attrs["combat-proxy1"]="OldNameProxy"
+combat=true;setState(owner,"mfchcombat","combat")
+nativeEvent(sharedPlate,"OnEnter")
+eq(bindings["2"] and bindings["2"].name,"OldNameProxy","nameplate keeps released name route")
+nativeEvent(sharedPlate,"OnLeave")
+eq(next(bindings),nil,"outer native leave clears released name owner")
+nativeEvent(sharedPlate,"OnEnter")
+yes(bindings["2"],"old enemy route bound before crossing controllers")
+nativeEvent(sharedFriend,"OnEnter")
+eq(bindings["2"],nil,"entering friendly fixed row releases previous enemy owner")
+yes(bindings["1"],"new friendly owner acquires its own keys")
+nativeEvent(sharedPlate,"OnLeave")
+yes(bindings["1"],"late old enemy leave preserves new friendly binding")
+nativeEvent(sharedFriend,"OnLeave")
+eq(next(bindings),nil,"leaving new friendly row clears remaining binding")
+setState(owner,"mfchcombat","idle");combat=false
+
+-- Disabling only the new module must restore the pre-existing enemy route.
+NS.CombatHoverEnabled=false;Hover.Sync()
+eq(sharedEnemy.attrs["mfch-ready"],nil,"disabled direct module does not reserve a stable enemy row")
+combat=true;setState(owner,"mfchcombat","combat")
+nativeEvent(sharedEnemy,"OnEnter")
+eq(bindings["2"] and bindings["2"].name,"OldNameProxy","disabled direct module leaves old name route available")
+nativeEvent(sharedEnemy,"OnLeave")
+eq(next(bindings),nil,"disabled module cleanup still releases old owner")
+setState(owner,"mfchcombat","idle");combat=false
+NS.CombatHoverEnabled=true;Hover.Sync()
 
 -- No snippet uses a global that the restricted environment lacks.
 for name,snippet in pairs(Hover.Snippets) do

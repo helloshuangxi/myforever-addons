@@ -1,3 +1,29 @@
+## Codex 当前整合记录（2026-11-14）
+
+来源 `jnfx962/myforever-addons:fix/targets-combat-hover-cast` / `0cf2b1e`；该提交以旧 main `3c8ba32` 为基础。整合基线为已发布 main `5392bd7`，候选分支 `codex/targets-combat-hover-20261114`。原作者的 0.1.47 是旧分支编号，整合源码保留现有 0.2.0；后续公开代码若改变必须另升版本，不覆盖 0.2.0 ZIP。
+
+合并时保留七插件星辉样式、MyForeverStyleDB、已发布敌方唯一名称战斗桥及说明；解决 AGENTS、问题清单、版本、TOC 和 UI 的五个旧基线冲突。新的固定单位路径优先，姓名板仍只沿用已有战前唯一名称路线；新出现或无法确认唯一的怪物仍不接管。当前版本的 MFT-002 继续 open。
+
+补充审查先复现再修复三类缺陷：
+
+1. 停在格上翻页时未清旧主条绑定：新增安全状态回调即时重算；形态分别编号，未知形态不接管主条。
+2. 原生 OnLeave 共用 `_wrapentered`，外层新包装会抑制内层清理：由新外层统一清理自身、脱战名称桥、敌方名称控制器各自拥有的绑定，并在新 Enter 先交还旧控制器的绑定，保留旧格延迟 Leave 不清新格的规则。
+3. 同一固定敌方格可能同时由新直施与旧名称桥绑定：旧控制器在 enter 与战斗状态回调中均让出固定单位格，姓名板路径保持原样；单独关闭新模块时也会归还该资格给旧控制器。
+
+同时补充 ActionButtonUseKeyDown/覆盖动作条更新事件、战斗中安装延期和实际可用键数状态。没有改另外六个插件、共享星辉样式、官网或管理器。未生成任何 ZIP、未合并 main、未部署、未改游戏目录或设置。
+
+**实际验证：** `/Users/mashuangxi/World of Warcraft/PersonalAddons/.venv/bin/python tools/check_addons.py`：83 个 Lua 文件语法、7 TOC、73 组自研 Lua 模拟、19 项 Python 解析检查全部通过。新 combat-hover 测试从作者原 107 项扩展到 141 项，包含上述失败顺序与实际旧 CombatCast 模块交互。模拟仍不是原生引擎、实际施法或键位的游戏验收。Manager 和官网本次无源码变化。
+
+**主要接口依据：** 核对 Blizzard 编写、Gethe 镜像的 build 70888 提交 `4cd0ab7`：[SecureHandlers.lua](https://github.com/Gethe/wow-ui-source/blob/4cd0ab752a77164f654ccbca9d0c1fe8dafceebe/Interface/AddOns/Blizzard_RestrictedAddOnEnvironment/SecureHandlers.lua)、[RestrictedFrames.lua](https://github.com/Gethe/wow-ui-source/blob/4cd0ab752a77164f654ccbca9d0c1fe8dafceebe/Interface/AddOns/Blizzard_RestrictedAddOnEnvironment/RestrictedFrames.lua)、[SecureStateDriver.lua](https://github.com/Gethe/wow-ui-source/blob/4cd0ab752a77164f654ccbca9d0c1fe8dafceebe/Interface/AddOns/Blizzard_RestrictedAddOnEnvironment/SecureStateDriver.lua)。保留来源哈希，不将镜像源码审查当成当前客户端运行证明。
+
+验证清单、来源哈希见 `PersonalAddons/work/targets-combat-hover-20261114/VALIDATION.json` 与 `OFFICIAL-SOURCES.json`。失败前日志和完整运行日志留在本机忽略目录 `PersonalAddons/local-logs/targets-combat-hover-20261114/`。
+
+**游戏待测：** 小队治疗受术者与当前目标不变；已悬停入战；移开/隐藏还键；脱战名称桥接回；停在格上切动作条/换形态；按下/抬起及修饰键；关闭施法后无覆盖；敌方固定单位直施及旧唯一名称格的独立验证。附近任意同名怪精确焦点仍不在本模块能力范围。
+
+---
+
+以下是 Claude 在旧基线上的原始交接，版本号与“公开 0.1.46”等描述仅为当时记录，不覆盖上方当前状态。
+
 # 交接：目标选择 0.1.47 战斗中固定单位格悬停施法（2026-11-14）
 
 写给接手的 Codex。本轮由 Claude 在**没有安装游戏的维护机**上完成，用户明确要求“按官方文档和其他开发者的经验做”。所有结论只有模拟证据，**没有游戏实测，没有发布**。分支：`fix/targets-combat-hover-cast`。

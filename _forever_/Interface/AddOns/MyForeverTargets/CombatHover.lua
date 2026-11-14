@@ -32,8 +32,10 @@ local MAX_KEYS=48
 -- Main action bar paging (stances, forms, stealth, vehicles, override bars).
 -- Keys from the main bar are only bound in combat while this state still
 -- equals the state recorded when the spells were read.
-local BAR_DRIVER="[vehicleui] v; [overridebar] o; [possessbar] p; [shapeshift] s; "
+local BAR_DRIVER="[vehicleui] v; [overridebar] o; [possessbar] p; "
     .."[bonusbar:5] b5; [bonusbar:4] b4; [bonusbar:3] b3; [bonusbar:2] b2; [bonusbar:1] b1; "
+    .."[form:10] f10; [form:9] f9; [form:8] f8; [form:7] f7; [form:6] f6; "
+    .."[form:5] f5; [form:4] f4; [form:3] f3; [form:2] f2; [form:1] f1; [form] unknown; "
     .."[actionbar:6] a6; [actionbar:5] a5; [actionbar:4] a4; [actionbar:3] a3; [actionbar:2] a2; a1"
 
 local function idle()
@@ -83,7 +85,7 @@ local BIND=[[
                 local name = index and ctl:GetAttribute(side .. "-proxyname" .. index)
                 local proxy = index and ctl:GetFrameRef(side .. "-proxy" .. index)
                 local spell = proxy and proxy:GetAttribute("mfch-spell")
-                if key and name and spell and (not paged or (bar and bar == preparedBar)) then
+                if key and name and spell and (not paged or (bar and bar ~= "unknown" and bar == preparedBar)) then
                     proxy:SetAttribute("macrotext", "/cast [@" .. unit .. ",exists," .. relation .. "] " .. spell)
                     ctl:SetBindingClick(true, key, name, "LeftButton")
                 end
@@ -93,9 +95,18 @@ local BIND=[[
 ]]
 
 local ENTER=[[
+    -- Crossing between controllers may deliver the new Enter before the old
+    -- Leave. Retire the previous owners before installing this row's route.
+    control:ClearBindings()
+    local nearby = control:GetFrameRef("mfch-nearbyOwner")
+    if nearby then nearby:ClearBindings() end
+    local names = control:GetFrameRef("mfch-nameOwner")
+    if names then
+        names:ClearBindings()
+        names:SetAttribute("combat-hover-index", nil)
+    end
     control:SetAttribute("mfch-hover", self:GetAttribute("mfch-index"))
     if control:GetAttribute("mfch-combat") then
-        control:ClearBindings()
         local ctl, row = control, self
 ]]..BIND..[[
     end
@@ -105,6 +116,15 @@ local LEAVE=[[
     if control:GetAttribute("mfch-hover") == self:GetAttribute("mfch-index") then
         control:SetAttribute("mfch-hover", nil)
         control:ClearBindings()
+        -- Native OnLeave wrappers share _wrapentered; an outer wrapper consumes
+        -- it before inner pre-bodies run. Clear each participating owner here.
+        local nearby = control:GetFrameRef("mfch-nearbyOwner")
+        if nearby then nearby:ClearBindings() end
+        local names = control:GetFrameRef("mfch-nameOwner")
+        if names and names:GetAttribute("combat-hover-index") == self:GetAttribute("combat-row-index") then
+            names:ClearBindings()
+            names:SetAttribute("combat-hover-index", nil)
+        end
     end
 ]]
 
@@ -120,7 +140,20 @@ local STATE=[[
         end
     end
 ]]
-Hover.Snippets={BIND=BIND,ENTER=ENTER,LEAVE=LEAVE,STATE=STATE}
+-- State drivers update even if the cursor does not move. Drop stale page keys
+-- and only rebind those still valid for the current page and hovered row.
+local PAGE=[[
+    self:ClearBindings()
+    if self:GetAttribute("mfch-combat") then
+        local index = self:GetAttribute("mfch-hover")
+        local row = index and self:GetFrameRef("mfch-row" .. index)
+        if row and row:IsUnderMouse() then
+            local ctl = self
+]]..BIND..[[
+        end
+    end
+]]
+Hover.Snippets={BIND=BIND,ENTER=ENTER,LEAVE=LEAVE,STATE=STATE,PAGE=PAGE}
 
 local function owner()
     if Hover.owner then return Hover.owner end
@@ -129,6 +162,7 @@ local function owner()
     frame:SetAttribute("friendly-relation",RELATION.friendly)
     frame:SetAttribute("enemy-relation",RELATION.enemy)
     frame:SetAttribute("_onstate-mfchcombat",STATE)
+    frame:SetAttribute("_onstate-mfchbar",PAGE)
     RegisterStateDriver(frame,"mfchbar",BAR_DRIVER)
     RegisterStateDriver(frame,"mfchcombat","[combat] combat; idle")
     Hover.owner=frame
@@ -209,12 +243,19 @@ local function rowIndex(row)
     return offset+row.index
 end
 
+local function linkOwners(frame)
+    local nearby=NS.NearbyCast and NS.NearbyCast.owner
+    local names=NS.CombatCast and NS.CombatCast.owner
+    if nearby then frame:SetFrameRef("mfch-nearbyOwner",nearby) end
+    if names then frame:SetFrameRef("mfch-nameOwner",names) end
+end
+
 -- Publish one tile's eligibility. Tiles are only rebound out of combat, so the
 -- unit recorded here is the unit the tile keeps showing during combat.
 function Hover.BindRow(row)
     if not idle() or not Hover.installed[row] or not Hover.owner then return false end
     local unit=row.unit
-    local ready=Hover.StableUnit(unit) and NS.Read(row.GetAttribute,row,"unit")==unit
+    local ready=enabled() and Hover.StableUnit(unit) and NS.Read(row.GetAttribute,row,"unit")==unit
     row:SetAttribute("mfch-unit",ready and unit or nil)
     row:SetAttribute("mfch-ready",ready or nil)
     return ready
@@ -227,11 +268,13 @@ end
 
 function Hover.Install(row)
     if Hover.installed[row] then return true end
+    if not idle() then Hover.dirty=true;return false end
     if not bridgeMode() then return false end
     if not row or not SIDE_OFFSET[row.side] then return false end
     local frame=owner()
     local index=frame and rowIndex(row)
     if not index then return false end
+    linkOwners(frame)
     row:SetAttribute("mfch-index",index)
     row:SetAttribute("mfch-side",row.side)
     frame:SetFrameRef("mfch-row"..index,row)
@@ -249,6 +292,7 @@ function Hover.Sync()
     if not idle() then Hover.dirty=true;return false end
     local frame=owner()
     if not frame then return false end
+    linkOwners(frame)
     Hover.dirty=false
     -- Tiles created while combat blocked the owner are installed here.
     local ui=NS.UI
@@ -274,15 +318,29 @@ function Hover.Status(row)
     if row then
         status.unit=row.unit
         status.stable=Hover.StableUnit(row.unit)
-        status.ready=Hover.installed[row] and NS.Read(row.GetAttribute,row,"mfch-ready")==true or false
+        status.availableKeys=0
+        local frame=Hover.owner
+        local side=row.side
+        if frame and SIDE_OFFSET[side] then
+            local bar=NS.Read(frame.GetAttribute,frame,"state-mfchbar")
+            local prepared=NS.Read(frame.GetAttribute,frame,side.."-bar")
+            for i=1,Hover.keys[side] do
+                local paged=NS.Read(frame.GetAttribute,frame,side.."-keypaged"..i)
+                if paged~=true or plain(bar) and bar~="unknown" and bar==prepared then
+                    status.availableKeys=status.availableKeys+1
+                end
+            end
+        end
+        status.ready=status.enabled and status.availableKeys>0 and Hover.installed[row]
+            and NS.Read(row.GetAttribute,row,"mfch-ready")==true or false
     end
     return status
 end
 
 local events=CreateFrame("Frame")
 for _,event in ipairs({"PLAYER_LOGIN","PLAYER_ENTERING_WORLD","PLAYER_REGEN_ENABLED","UPDATE_BINDINGS",
-    "ACTIONBAR_SLOT_CHANGED","ACTIONBAR_PAGE_CHANGED","UPDATE_BONUS_ACTIONBAR","UPDATE_SHAPESHIFT_FORM",
-    "SPELLS_CHANGED","UPDATE_MACROS","GROUP_ROSTER_UPDATE"}) do
+    "ACTIONBAR_SLOT_CHANGED","ACTIONBAR_PAGE_CHANGED","UPDATE_BONUS_ACTIONBAR","UPDATE_OVERRIDE_ACTIONBAR","UPDATE_SHAPESHIFT_FORM",
+    "SPELLS_CHANGED","UPDATE_MACROS","GROUP_ROSTER_UPDATE","CVAR_UPDATE"}) do
     pcall(events.RegisterEvent,events,event)
 end
 events:SetScript("OnEvent",function() Hover.dirty=true end)

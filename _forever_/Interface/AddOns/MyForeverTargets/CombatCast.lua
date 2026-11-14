@@ -91,7 +91,8 @@ local STATE=[[
     if newstate == "combat" and not self:GetAttribute("guid-probe-suspended") then
         local index = self:GetAttribute("combat-hover-index")
         local row = index and self:GetFrameRef("row" .. index)
-        if row and row:GetAttribute("combat-prepared") and row:IsVisible() and row:IsUnderMouse() then
+        if row and row:GetAttribute("combat-prepared") and not row:GetAttribute("mfch-ready")
+            and row:IsVisible() and row:IsUnderMouse() then
 ]]..BIND..[[
         end
     end
@@ -100,7 +101,7 @@ local ENTER=[[
     control:ClearBindings()
     control:SetAttribute("combat-hover-index", self:GetAttribute("combat-row-index"))
     if control:GetAttribute("combat-active") and not control:GetAttribute("guid-probe-suspended")
-        and self:GetAttribute("combat-prepared") then
+        and self:GetAttribute("combat-prepared") and not self:GetAttribute("mfch-ready") then
         local count = self:GetAttribute("combat-key-count") or 0
         for i = 1, count do
             local key = self:GetAttribute("combat-key" .. i)

@@ -1,0 +1,36 @@
+{
+  "checked_on": "2026-11-15",
+  "sources": [
+    {
+      "title": "DeepSeek model IDs and thinking parameters",
+      "url": "https://api-docs.deepseek.com/api/create-chat-completion/",
+      "note": "deepseek-flash; thinking defaults enabled; disabled is supported"
+    },
+    {
+      "title": "DeepSeek retired-name compatibility",
+      "url": "https://api-docs.deepseek.com/updates/",
+      "note": "deepseek-v4-flash currently routes temporarily to the new model"
+    },
+    {
+      "title": "HttpCompletionOption",
+      "url": "https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcompletionoption?view=net-10.0",
+      "note": "ResponseHeadersRead limits HttpClient.Timeout to header reception"
+    },
+    {
+      "title": "AllowAutoRedirect",
+      "url": "https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpclienthandler.allowautoredirect?view=net-10.0",
+      "note": "default follows redirects; 307 can resend request body"
+    },
+    {
+      "title": "Alibaba OpenAI-compatible chat",
+      "url": "https://help.aliyun.com/zh/model-studio/qwen-api-via-openai-chat-completions",
+      "note": "compatible chat completions path; existing DashScope domains remain supported"
+    },
+    {
+      "title": "Ollama OpenAI compatibility",
+      "url": "https://docs.ollama.com/api/openai-compatibility",
+      "note": "localhost supports chat completions; local server can also use cloud models"
+    }
+  ],
+  "live_provider_connectivity_tested": false
+}

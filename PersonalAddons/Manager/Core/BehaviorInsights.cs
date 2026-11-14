@@ -203,7 +203,7 @@ public static class BehaviorInsights
         var fewCombats = now.DeathsPer100Combats is null;
         if (now.Deaths >= 3 && (fewCombats || now.DeathsPer100Combats >= 8))
         {
-            var evidence = $"{Number(now.CombatEntries)} 场战斗中死亡 {Number(now.Deaths)} 次" +
+            var evidence = $"采集期间记录 {Number(now.CombatEntries)} 场战斗、{Number(now.Deaths)} 次死亡" +
                 (now.DeathsPer100Combats is { } rate ? $"，约每 100 场 {OneDecimal(rate)} 次。" : "。");
             var detailDeaths = analysis.Zones.Sum(z => z.Deaths);
             var top = analysis.Zones.Where(z => z.Deaths > 0).OrderByDescending(z => z.Deaths).FirstOrDefault();
@@ -241,7 +241,7 @@ public static class BehaviorInsights
             list.Add(new()
             {
                 Tone = InsightTone.Attention, Title = "读条技能经常中断",
-                Evidence = string.Join("；", interrupted.Select(s => $"{s.DisplayName} 中断 {Number(s.Interrupted)} 次（占读条 {Percent(s.InterruptRate ?? 0)}）")) + "。",
+                Evidence = string.Join("；", interrupted.Select(s => $"{s.DisplayName} 中断 {Number(s.Interrupted)} 次（占成功与中断记录的 {Percent(s.InterruptRate ?? 0)}）")) + "。",
                 Suggestion = "读条时移动、被怪物打断或主动按了别的技能都会记为中断。读条前先停步；怪物贴身时先用瞬发技能或控制，再开始读条。"
             });
     }
@@ -330,7 +330,7 @@ public static class BehaviorInsights
             else if (change <= -0.25)
                 list.Add(new() { Tone = InsightTone.Positive, Title = "单场战斗更快",
                     Evidence = $"平均每场 {Seconds(lengthBefore)} → {Seconds(lengthNow)}（较{label} {Signed(change)}）。",
-                    Suggestion = "击杀速度提升了，可以考虑适当提高每次处理的数量。" });
+                    Suggestion = "记录到的平均战斗用时缩短了，可以继续按相同区域和战斗方式观察。" });
         }
     }
 

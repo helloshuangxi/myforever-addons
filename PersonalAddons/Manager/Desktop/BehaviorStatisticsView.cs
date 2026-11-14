@@ -24,6 +24,8 @@ public sealed class BehaviorStatisticsView : UserControl, IDisposable
     private static readonly IBrush WarnText = Brush.Parse("#F2B35C");
     private static readonly IBrush WarnFill = Brush.Parse("#2A2316");
     private static readonly IBrush Warn = WarnText;
+    private static readonly IBrush Positive = Brush.Parse("#70DDB0");
+    private static readonly IBrush PositiveFill = Brush.Parse("#102C26");
     private static readonly TimeSpan DayOffset = TimeSpan.FromHours(8);
     private readonly BehaviorDataService service;
     private readonly DispatcherTimer timer = new() { Interval = TimeSpan.FromSeconds(30) };
@@ -46,7 +48,7 @@ public sealed class BehaviorStatisticsView : UserControl, IDisposable
     private readonly TextBox aiEndpoint = new() { MinHeight = 38, Watermark = "https://…/v1" };
     private readonly TextBox aiModel = new() { MinHeight = 38, Watermark = "模型名称" };
     private readonly TextBox aiKey = new() { MinHeight = 38, PasswordChar = '•', Watermark = "API Key（本机模型可留空）" };
-    private readonly CheckBox aiRemember = new() { Content = "在本机保存密钥（仅当前电脑用户可读的软件设置目录）" };
+    private readonly CheckBox aiRemember = new() { Content = "在本机保存密钥（明文设置文件）" };
     private readonly TextBlock aiPresetNote = Label("", 12, color: Muted);
     private readonly TextBox aiQuestion = new() { MinHeight = 38, MaxLength = BehaviorAiCoach.MaxQuestionLength, Watermark = "想重点问什么？例如：为什么我最近练级变慢了（可选）" };
     private readonly Button aiGenerate;
@@ -59,6 +61,7 @@ public sealed class BehaviorStatisticsView : UserControl, IDisposable
     private BehaviorAnalysis? currentAnalysis;
     private List<BehaviorCharacter> currentCharacters = [];
     private string aiContext = "";
+    private string aiSentPreview = "";
     private bool aiRunning, changingAi;
     private string gameDirectory;
     private BehaviorDashboard? data;
@@ -75,7 +78,7 @@ public sealed class BehaviorStatisticsView : UserControl, IDisposable
         aiGenerate = new Button
         {
             Content = "生成 AI 复盘", MinHeight = 40, Padding = new Thickness(18, 9),
-            CornerRadius = new CornerRadius(7), Background = Blue, Foreground = Brushes.White, FontWeight = FontWeight.SemiBold
+            CornerRadius = new CornerRadius(7), Background = Blue, Foreground = OnAccent, FontWeight = FontWeight.SemiBold
         };
         aiCancel = new Button { Content = "停止", MinHeight = 40, Padding = new Thickness(16, 9), CornerRadius = new CornerRadius(7), IsVisible = false };
         aiResultHost = new Border { Background = Soft, CornerRadius = new CornerRadius(9), Padding = new Thickness(18, 14), Child = aiResult, IsVisible = false };
@@ -189,6 +192,8 @@ public sealed class BehaviorStatisticsView : UserControl, IDisposable
         catch (OperationCanceledException) when (cancellation.IsCancellationRequested) { }
         catch (Exception)
         {
+            currentAnalysis = null;
+            currentCharacters = [];
             if (!disposed)
             {
                 status.Text = "本机数据暂时无法读取。请检查游戏目录是否可访问，再点击刷新。已显示的历史统计仍然保留。";
@@ -230,6 +235,7 @@ public sealed class BehaviorStatisticsView : UserControl, IDisposable
             results.Children.Clear();
             metricsHost.Children.Add(Empty("这份记录暂时无法生成统计", "请刷新重读，或切换角色与日期范围后再试。本机归档的历史不会被清除。"));
         }
+        finally { UpdateAiContext(); UpdateAiState(); }
     }
 
     private void RenderResultsCore()
@@ -239,8 +245,6 @@ public sealed class BehaviorStatisticsView : UserControl, IDisposable
         results.Children.Clear();
         currentAnalysis = null;
         currentCharacters = [];
-        UpdateAiContext();
-        UpdateAiState();
         if (data is null)
         {
             metricsHost.Children.Add(Empty("准备读取你的游戏记录", "选择行为统计页后会读取当前游戏目录。首次使用需要先加载采集插件，再 /reload 或退出角色写入存档。"));
@@ -314,7 +318,6 @@ public sealed class BehaviorStatisticsView : UserControl, IDisposable
         var analysis = BehaviorInsights.Analyze(days, previousDays, periodLabel, earlier?.Label ?? "上一周期");
         currentAnalysis = analysis;
         currentCharacters = chosen.ToList();
-        UpdateAiState();
         results.Children.Add(BuildInsights(analysis, chosen.Length > 1));
         results.Children.Add(BuildEfficiency(analysis));
         results.Children.Add(BuildTrend(days));
@@ -332,15 +335,15 @@ public sealed class BehaviorStatisticsView : UserControl, IDisposable
         {
             var (tag, accent, tint) = insight.Tone switch
             {
-                InsightTone.Attention => ("需要注意", Brush.Parse("#B4561F"), Brush.Parse("#FFF5E8")),
-                InsightTone.Positive => ("做得好", Brush.Parse("#2E7D4F"), Brush.Parse("#EEF8F1")),
+                InsightTone.Attention => ("需要注意", WarnText, WarnFill),
+                InsightTone.Positive => ("做得好", Positive, PositiveFill),
                 _ => ("参考", Blue, Soft)
             };
             var header = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 10 };
             header.Children.Add(new Border
             {
                 Background = accent, CornerRadius = new CornerRadius(5), Padding = new Thickness(8, 2),
-                Child = Label(tag, 12, true, Brushes.White), VerticalAlignment = VerticalAlignment.Center
+                Child = Label(tag, 12, true, OnAccent), VerticalAlignment = VerticalAlignment.Center
             });
             header.Children.Add(Label(insight.Title + (insight.LowSample ? "（样本较少）" : ""), 15, true));
             var body = new StackPanel { Spacing = 7, Children = { header, Label(insight.Evidence, 13) } };
@@ -370,7 +373,7 @@ public sealed class BehaviorStatisticsView : UserControl, IDisposable
             ("平均每场战斗", x => x.AverageCombatSeconds, BehaviorInsights.Seconds, -1, false),
             ("每百场战斗死亡", x => x.DeathsPer100Combats, BehaviorInsights.OneDecimal, -1, false),
             ("施法失败事件率", x => x.CastFailureRate, BehaviorInsights.Percent, -1, true),
-            ("读条中断率", x => x.CastInterruptRate, BehaviorInsights.Percent, -1, true)
+            ("施法中断事件率", x => x.CastInterruptRate, BehaviorInsights.Percent, -1, true)
         };
         var header = new Grid { ColumnDefinitions = new ColumnDefinitions("2*,*,*,*"), ColumnSpacing = 12 };
         var titles = new[] { "指标", analysis.PeriodLabel, before is null ? "" : analysis.PreviousLabel, before is null ? "" : "变化" };
@@ -388,7 +391,7 @@ public sealed class BehaviorStatisticsView : UserControl, IDisposable
                 var previousText = Label(previous is { } p ? row.Format(p) : "—", 13, color: Muted); previousText.TextAlignment = TextAlignment.Right;
                 Grid.SetColumn(previousText, 2); line.Children.Add(previousText);
                 var (change, tone) = Change(current, previous, row.Better, row.Points);
-                var changeText = Label(change, 12, tone != 0, tone > 0 ? Brush.Parse("#2E7D4F") : tone < 0 ? Brush.Parse("#B4561F") : Muted); changeText.TextAlignment = TextAlignment.Right;
+                var changeText = Label(change, 12, tone != 0, tone > 0 ? Positive : tone < 0 ? WarnText : Muted); changeText.TextAlignment = TextAlignment.Right;
                 Grid.SetColumn(changeText, 3); line.Children.Add(changeText);
             }
             panel.Children.Add(line);
@@ -533,10 +536,13 @@ public sealed class BehaviorStatisticsView : UserControl, IDisposable
         {
             if (changingAi || aiProvider.SelectedIndex < 0) return;
             var preset = BehaviorAiPresets.All[Math.Min(aiProvider.SelectedIndex, BehaviorAiPresets.All.Count - 1)];
+            aiKey.Text = "";
+            aiRemember.IsChecked = false;
             if (preset.Id != "custom") { aiEndpoint.Text = preset.Endpoint; aiModel.Text = preset.Model; }
             aiPresetNote.Text = preset.Note;
         };
-        aiQuestion.TextChanged += (_, _) => UpdateAiPreview();
+        aiQuestion.TextChanged += (_, _) => { UpdateAiContext(); UpdateAiState(); };
+        aiRemember.Click += (_, _) => SaveAi(false);
         aiGenerate.Click += async (_, _) => await GenerateAiAsync();
         aiCancel.Click += (_, _) => aiCancellation?.Cancel();
         var save = new Button { Content = "保存设置", MinHeight = 38, Padding = new Thickness(16, 8), CornerRadius = new CornerRadius(7) };
@@ -563,7 +569,7 @@ public sealed class BehaviorStatisticsView : UserControl, IDisposable
         aiSettingsPanel.Children.Add(aiStatus);
         aiSettingsPanel.Children.Add(aiResultHost);
         aiSettingsPanel.Children.Add(preview);
-        aiSettingsPanel.Children.Add(Label("AI 内容由你选择的第三方或本机模型生成，可能出错，请以上方统计数字为准；云端模型按服务商规则计费。发送内容只包含所选范围的汇总数字、职业等级、技能和区域名称，不含角色名、账号、聊天、按键或文件路径。", 12, color: Muted));
+        aiSettingsPanel.Children.Add(Label("AI 内容由你选择的第三方或本机模型生成，可能出错，请以上方统计数字为准；云端模型按服务商规则计费。自动摘要包含汇总数字、职业等级、技能和区域名称，不含角色名、账号、聊天、按键或文件路径。你填写的问题也会发送，请检查预览。", 12, color: Muted));
 
         var panel = Section("AI 复盘（可选）", "让大模型根据上面的统计像教练一样复盘：指出最值得改进的地方，并给出下次可以怎么做。默认关闭，只在你点击生成时发送。");
         panel.Children.Add(aiEnabled);
@@ -598,7 +604,8 @@ public sealed class BehaviorStatisticsView : UserControl, IDisposable
     private void UpdateAiContext()
     {
         var selected = character.SelectedIndex > 0 && character.SelectedIndex <= characterOptions.Count ? characterOptions[character.SelectedIndex - 1].Id : "all";
-        var next = selected + "|" + range.SelectedIndex.ToString(CultureInfo.InvariantCulture);
+        var next = selected + "|" + range.SelectedIndex.ToString(CultureInfo.InvariantCulture) + "|" +
+            (currentAnalysis is null ? "" : BehaviorAiCoach.BuildSummary(currentAnalysis, currentCharacters, aiQuestion.Text));
         if (next == aiContext) return;
         aiContext = next;
         aiCancellation?.Cancel();
@@ -612,6 +619,8 @@ public sealed class BehaviorStatisticsView : UserControl, IDisposable
         var enabled = aiEnabled.IsChecked == true;
         aiSettingsPanel.IsVisible = enabled;
         aiGenerate.IsEnabled = enabled && currentAnalysis is not null && !aiRunning;
+        foreach (var field in new Control[] { aiProvider, aiEndpoint, aiModel, aiKey, aiRemember, aiQuestion })
+            field.IsEnabled = !aiRunning;
         aiCancel.IsVisible = aiRunning;
         const string noData = "当前范围还没有可复盘的统计。";
         if (enabled && currentAnalysis is null && !aiRunning && string.IsNullOrEmpty(aiStatus.Text)) aiStatus.Text = noData;
@@ -622,6 +631,7 @@ public sealed class BehaviorStatisticsView : UserControl, IDisposable
     private void UpdateAiPreview()
     {
         if (aiEnabled.IsChecked != true) return;
+        if (aiRunning) { aiPreview.Text = aiSentPreview; return; }
         aiPreview.Text = currentAnalysis is null
             ? "当前范围没有可发送的统计。"
             : "【固定规则说明】\n" + BehaviorAiCoach.SystemPrompt + "\n\n【统计摘要】\n" + BehaviorAiCoach.BuildSummary(currentAnalysis, currentCharacters, aiQuestion.Text);
@@ -632,6 +642,7 @@ public sealed class BehaviorStatisticsView : UserControl, IDisposable
         if (aiRunning || disposed || currentAnalysis is null || aiEnabled.IsChecked != true) return;
         var settings = ReadAiFields();
         var message = BehaviorAiCoach.BuildSummary(currentAnalysis, currentCharacters, aiQuestion.Text);
+        aiSentPreview = "【固定规则说明】\n" + BehaviorAiCoach.SystemPrompt + "\n\n【统计摘要】\n" + message;
         var context = aiContext;
         var cancellation = new CancellationTokenSource();
         aiCancellation = cancellation;
@@ -644,14 +655,14 @@ public sealed class BehaviorStatisticsView : UserControl, IDisposable
             try { aiStore.Save(settings); }
             catch (Exception e) when (e is IOException or UnauthorizedAccessException) { }
             var answer = await BehaviorAiCoach.AskAsync(settings, message, null, cancellation.Token);
-            if (disposed || context != aiContext) return;
+            if (disposed || context != aiContext || cancellation.IsCancellationRequested) return;
             aiResult.Text = answer;
             aiResultHost.IsVisible = true;
             aiStatus.Text = $"已生成 · {DateTimeOffset.Now:HH:mm} · {BehaviorAiPresets.Find(settings.Provider).Label} / {settings.Model}。AI 可能出错，请以上方统计数字为准。";
         }
         catch (OperationCanceledException) { if (!disposed && context == aiContext) aiStatus.Text = "已停止。"; }
-        catch (BehaviorAiException e) { if (!disposed) { aiStatus.Text = e.Message; aiStatus.Foreground = Warn; } }
-        catch (Exception) { if (!disposed) { aiStatus.Text = "生成失败，请稍后重试。"; aiStatus.Foreground = Warn; } }
+        catch (BehaviorAiException e) { if (!disposed && context == aiContext) { aiStatus.Text = e.Message; aiStatus.Foreground = Warn; } }
+        catch (Exception) { if (!disposed && context == aiContext) { aiStatus.Text = "生成失败，请稍后重试。"; aiStatus.Foreground = Warn; } }
         finally
         {
             if (ReferenceEquals(aiCancellation, cancellation)) aiCancellation = null;

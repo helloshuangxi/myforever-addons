@@ -31,9 +31,9 @@ public static class BehaviorAiPresets
     // Model names change over time; players can edit them. Values checked against provider docs 2026-11.
     public static readonly IReadOnlyList<BehaviorAiPreset> All =
     [
-        new("deepseek", "DeepSeek", "https://api.deepseek.com", "deepseek-v4-flash", true, "需要在 DeepSeek 开放平台创建 API Key，按用量计费。"),
+        new("deepseek", "DeepSeek", "https://api.deepseek.com", "deepseek-flash", true, "需要在 DeepSeek 开放平台创建 API Key，按用量计费。"),
         new("qwen", "通义千问（阿里云百炼）", "https://dashscope.aliyuncs.com/compatible-mode/v1", "qwen-plus", true, "需要在阿里云百炼创建 API Key，按用量计费。"),
-        new("ollama", "本机模型（Ollama）", "http://127.0.0.1:11434/v1", "qwen3", false, "数据只发到本机运行的模型，不经过外网；需先安装 Ollama 并下载模型。"),
+        new("ollama", "本机模型（Ollama）", "http://127.0.0.1:11434/v1", "qwen3", false, "请求发到本机 Ollama；请使用已下载的本地模型，云端模型仍会联网。"),
         new("custom", "其他 OpenAI 兼容接口", "", "", true, "填写服务商提供的接口地址（通常以 /v1 结尾）、模型名称和密钥。")
     ];
     public static BehaviorAiPreset Default => All[0];
@@ -208,8 +208,18 @@ public static class BehaviorAiCoach
                 new JsonObject { ["role"] = "system", ["content"] = SystemPrompt },
                 new JsonObject { ["role"] = "user", ["content"] = userMessage })
         };
-        using var client = handler is null ? new HttpClient() : new HttpClient(handler, false);
+        // DeepSeek Flash currently defaults to thinking; reserve the short
+        // answer budget for the visible review rather than hidden reasoning.
+        if (url.Host.Equals("api.deepseek.com", StringComparison.OrdinalIgnoreCase))
+            body["thinking"] = new JsonObject { ["type"] = "disabled" };
+        // A local endpoint may redirect to an external host. Send the reviewed
+        // payload only to the chosen endpoint, and never proxy loopback traffic.
+        using var client = handler is null
+            ? new HttpClient(new HttpClientHandler { AllowAutoRedirect = false, UseProxy = !url.IsLoopback })
+            : new HttpClient(handler, false);
         client.Timeout = TimeSpan.FromSeconds(120);
+        using var deadline = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+        deadline.CancelAfter(TimeSpan.FromSeconds(120));
         using var request = new HttpRequestMessage(HttpMethod.Post, url)
         { Content = new StringContent(body.ToJsonString(), Encoding.UTF8, "application/json") };
         if (key.Length > 0) request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", key);
@@ -217,9 +227,9 @@ public static class BehaviorAiCoach
         string text; HttpStatusCode status;
         try
         {
-            using var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+            using var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, deadline.Token).ConfigureAwait(false);
             status = response.StatusCode;
-            text = await ReadLimitedAsync(response, cancellationToken).ConfigureAwait(false);
+            text = await ReadLimitedAsync(response, deadline.Token).ConfigureAwait(false);
         }
         catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
         { throw new BehaviorAiException("模型服务响应超时，请稍后再试，或换一个更快的模型。"); }

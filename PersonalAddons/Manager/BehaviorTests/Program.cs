@@ -503,7 +503,7 @@ try
         var analysis = BehaviorInsights.Analyze([Synthetic("2026-11-11", 2, 40, 6, 20000, 30, 15, 1)], null);
         var deaths = Find(analysis, "死亡偏多");
         Equal(InsightTone.Attention, deaths.Tone);
-        Assert(deaths.Evidence.Contains("40 场战斗中死亡 6 次", StringComparison.Ordinal) && deaths.Evidence.Contains("15", StringComparison.Ordinal), deaths.Evidence);
+        Assert(deaths.Evidence.Contains("40 场战斗、6 次死亡", StringComparison.Ordinal) && deaths.Evidence.Contains("15", StringComparison.Ordinal), deaths.Evidence);
         var spells = Find(analysis, "部分技能失败事件较多");
         Assert(spells.Evidence.Contains("圣光术 失败 15/45（33%）", StringComparison.Ordinal), spells.Evidence);
         Equal(InsightTone.Attention, analysis.Insights[0].Tone);
@@ -529,6 +529,8 @@ try
         Assert(Has(worse, "练级效率下降"));
         var shortPrevious = BehaviorInsights.Analyze(current, [Synthetic("2026-11-04", 0.5, 10, 0, 1000)], "最近 7 天", "前 7 天");
         Assert(!Has(shortPrevious, "练级效率提升"), "a comparison period under one hour is not compared");
+        var faster = BehaviorInsights.Analyze([Synthetic("2026-11-11", 2, 40, 0, 20000)], [Synthetic("2026-11-04", 2, 20, 0, 20000)]);
+        Assert(!Find(faster, "单场战斗更快").Suggestion.Contains("击杀速度提升", StringComparison.Ordinal), "completed combat is not a kill counter");
         await Task.CompletedTask;
     });
 
@@ -626,6 +628,49 @@ try
         await Task.CompletedTask;
     });
 
+    await Test("AI 本机接口重定向不转发摘要到未选地址", async () =>
+    {
+        await using var server = new LoopbackAiServer();
+        using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(5));
+        var message = "";
+        try
+        {
+            await BehaviorAiCoach.AskAsync(new BehaviorAiSettings
+            { Enabled = true, Endpoint = server.BaseUrl + "/v1", Model = "fixture" }, "synthetic summary", cancellationToken: deadline.Token);
+        }
+        catch (BehaviorAiException e) { message = e.Message; }
+        Equal(1, server.Requests, "AI summary followed a redirect away from the selected endpoint");
+        Assert(message.Contains("307", StringComparison.Ordinal), "redirect must be reported as a non-success response");
+    });
+
+    await Test("AI 预设与 DeepSeek 短复盘参数保持兼容，其他接口不加专用字段", async () =>
+    {
+        Equal("deepseek-flash", BehaviorAiPresets.Default.Model);
+        var stub = new StubHandler(HttpStatusCode.OK, """{"choices":[{"message":{"content":"fixture"}}]}""");
+        var settings = new BehaviorAiSettings { Enabled = true, Endpoint = "https://api.deepseek.com", Model = "deepseek-flash", ApiKey = "fixture" };
+        await BehaviorAiCoach.AskAsync(settings, "summary", stub);
+        using var body = JsonDocument.Parse(stub.Body);
+        Equal("disabled", body.RootElement.GetProperty("thinking").GetProperty("type").GetString()!);
+        settings.Endpoint = "https://other.example.test/v1";
+        await BehaviorAiCoach.AskAsync(settings, "summary", stub);
+        using var generic = JsonDocument.Parse(stub.Body);
+        Assert(!generic.RootElement.TryGetProperty("thinking", out _), "provider-specific parameters leaked into a generic endpoint");
+    });
+
+    await Test("AI 接收回复正文时仍可取消，过大正文停止读取", async () =>
+    {
+        var settings = new BehaviorAiSettings { Enabled = true, Endpoint = "http://127.0.0.1:11434/v1", Model = "fixture" };
+        using var token = new CancellationTokenSource(TimeSpan.FromMilliseconds(100));
+        var cancelled = false;
+        try { await BehaviorAiCoach.AskAsync(settings, "summary", new StalledBodyHandler(), token.Token); }
+        catch (OperationCanceledException) { cancelled = true; }
+        Assert(cancelled, "cancellation after response headers must reach the body reader");
+        var message = "";
+        try { await BehaviorAiCoach.AskAsync(settings, "summary", new StubHandler(HttpStatusCode.OK, new string('x', 512 * 1024 + 1))); }
+        catch (BehaviorAiException e) { message = e.Message; }
+        Assert(message.Contains("过大", StringComparison.Ordinal), "oversized response must fail safely");
+    });
+
     var sampleIndex = Array.IndexOf(args, "--legacy-sample");
     if (sampleIndex >= 0)
     {
@@ -704,4 +749,26 @@ internal sealed class StubHandler(HttpStatusCode status, string reply) : HttpMes
         Body = request.Content is null ? "" : await request.Content.ReadAsStringAsync(cancellationToken);
         return new HttpResponseMessage(status) { Content = new StringContent(reply, System.Text.Encoding.UTF8, "application/json") };
     }
+}
+
+internal sealed class StalledBodyHandler : HttpMessageHandler
+{
+    protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken) =>
+        Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK) { Content = new StreamContent(new StalledBodyStream()) });
+}
+
+internal sealed class StalledBodyStream : Stream
+{
+    public override bool CanRead => true;
+    public override bool CanSeek => false;
+    public override bool CanWrite => false;
+    public override long Length => throw new NotSupportedException();
+    public override long Position { get => throw new NotSupportedException(); set => throw new NotSupportedException(); }
+    public override int Read(byte[] buffer, int offset, int count) => throw new NotSupportedException();
+    public override async ValueTask<int> ReadAsync(Memory<byte> buffer, CancellationToken cancellationToken = default)
+    { await Task.Delay(Timeout.InfiniteTimeSpan, cancellationToken); return 0; }
+    public override void Flush() => throw new NotSupportedException();
+    public override long Seek(long offset, SeekOrigin origin) => throw new NotSupportedException();
+    public override void SetLength(long value) => throw new NotSupportedException();
+    public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
 }

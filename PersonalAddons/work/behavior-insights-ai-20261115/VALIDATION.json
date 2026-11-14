@@ -1,0 +1,67 @@
+{
+  "source_commit": "7214d62af6c3ba0e67fddffa479e464a9ccfd1a1",
+  "source_base": "3c8ba327ac15419cac529a33c788bd6af270d5b5",
+  "integration_base": "5392bd771f8debb1b25ad5d27223c764beba99be",
+  "branch": "codex/behavior-insights-ai-20261115",
+  "status": "build_and_simulations_passed_runtime_acceptance_pending",
+  "baseline": {
+    "manager_build": "passed",
+    "behavior_tests": 44,
+    "lua_checks": "passed"
+  },
+  "final": {
+    "manager_release_build": "passed",
+    "warnings": 0,
+    "errors": 0,
+    "behavior_tests": 47,
+    "isolated_updater_tests": 68,
+    "lua_syntax_files": 82,
+    "owned_lua_suites": 72,
+    "python_parser_tests": 19,
+    "behavior_lua_assertions": 109,
+    "new_dark_text_pairs_above_4_5_to_1": 9
+  },
+  "regressions_reproduced_before_fix": [
+    "new snapshot experience incorrectly credited to previous map",
+    "HTTP 307 automatically forwarded synthetic summary to an unselected local endpoint"
+  ],
+  "additional_review_fixes": [
+    "deadline covers headers and response body; caller cancellation and maximum response size tested",
+    "request preview freezes while sending; changed analysis cancels outdated reply; desktop UI behavior not yet exercised",
+    "provider change clears previous key; unchecking key persistence saves removal",
+    "new insight colors use existing Midnight palette",
+    "DeepSeek canonical model and non-thinking parameter checked against official docs",
+    "wording distinguishes all death events from combat deaths and completed combats from kills"
+  ],
+  "native_ui": {
+    "status": "not_visually_verified",
+    "reason": "Command-line dotnet window could not be bound by CUA",
+    "isolated_process_started_and_stopped": true,
+    "fixture_data_only": true,
+    "model_requests": 0
+  },
+  "source_versions": {
+    "Manager": "0.4.0",
+    "MyForeverCoach": "0.2.1",
+    "public_version_changed": false
+  },
+  "live_model_called": false,
+  "actual_player_saves_read": false,
+  "installed_apps_changed": false,
+  "main_changed": false,
+  "public_zip_generated": false,
+  "site_deployed": false,
+  "other_six_addons_unchanged": true,
+  "shared_style_unchanged": true,
+  "website_unchanged": true,
+  "pr10_included": false,
+  "excluded_test": "third-party details_truncation_test.lua",
+  "logs": {
+    "build-final.log": "c03edce4cc77e6dfd4d4ebd525e2acdad8297ad9a28e34df1f5377fa1eb31f6c",
+    "behavior-final.log": "6cb78ce8205361b152ca80269a66de45da19caf4f19585bf56207450f22a4d84",
+    "updater-final.log": "83ed6ea302933cc5f5b3a1116b7743b88e9abd2727196fd5916b6d62a857cc9d",
+    "addons-final.log": "5408af07742ecc9ea01db088c806f5ef26f3c67870e0b7fc80587658647e945f"
+  },
+  "checked_at": "2026-11-14T16:33:22.217198+00:00",
+  "real_credentials_used": false
+}

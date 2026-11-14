@@ -318,10 +318,10 @@ function NS.RecordBehavior(kind, data)
         local key = data.event == "QUEST_ACCEPTED" and "questsAccepted" or data.event == "QUEST_TURNED_IN" and "questsTurnedIn"
         if key then day.counts[key] = day.counts[key] + 1 end
     elseif kind == "snapshot" then
-        xpSnapshot(day, data)
         runtime.combat = NS.Bool(data.combat)
         runtime.map = id(data.mapID)
         visit(runtime.map)
+        xpSnapshot(day, data)
     end
 end
 

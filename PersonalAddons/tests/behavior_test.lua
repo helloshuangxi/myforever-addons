@@ -276,5 +276,16 @@ eq(d.counts.castsSucceeded,0,"safety stop excludes later actions")
 eq(ns.SetEnabled(true),false,"safety stop cannot be resumed in same load")
 eq(cleuReads,0,"full runtime preserves combat-log prohibition")
 
+-- Experience and location come from the same public snapshot. Do not attribute
+-- a new-zone reward (or an unknown-zone reward) to the previous location.
+ns=fresh(); d=today(ns)
+mapID=1427; xp=950; ns.Sample("xp_after_zone_change")
+eq(d.counts.xpGained,50,"zone transition keeps total experience")
+eq(d.maps[1426].xp,0,"new snapshot experience is not assigned to previous map")
+eq(d.maps[1427].xp,50,"snapshot experience belongs to its observed map")
+mapID=secret; xp=980; ns.Sample("unknown_map_xp")
+eq(d.counts.xpGained,80,"unknown-map experience still counts in daily total")
+eq(d.maps[1427].xp,50,"unknown map does not reuse previous location")
+
 print("behavior_test: "..checks.." checks passed (simulated; not in-game validation)")
 return exported

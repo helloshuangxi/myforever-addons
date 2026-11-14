@@ -266,7 +266,7 @@ public sealed class MainWindow : Window
         column.Children.Add(footer);
         column.Children.Add(Text("更新只管理所选插件目录，保留 WTF。关闭窗口会退出程序；当前试用版不设置开机启动。", 12, false, Muted));
 
-        behaviorView = new BehaviorStatisticsView(new BehaviorDataService(store.DirectoryPath), settings.GameDirectory);
+        behaviorView = new BehaviorStatisticsView(new BehaviorDataService(store.DirectoryPath), settings.GameDirectory, new BehaviorAiSettingsStore(store.DirectoryPath));
         var tabs = new TabControl
         {
             Items =

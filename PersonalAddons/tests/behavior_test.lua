@@ -166,6 +166,12 @@ eq(d.time.combatSeconds,15,"resume uses current public combat baseline")
 mapID=1427; ns.Sample("map_changed"); tick(ns,4)
 eq(d.maps[1427].seconds,4,"map dwell changes after public observation")
 eq(d.maps[1427].visits,1,"new map visit")
+eq(d.version,2,"new day records per-map layout")
+eq(d.maps[1426].combats,1,"combat entry attributed to observed map")
+eq(d.maps[1426].deaths,2,"deaths attributed to observed map")
+eq(d.maps[1426].xp,d.counts.xpGained,"experience attributed to the map where it was observed")
+eq(d.maps[1427].xp,0,"map change itself adds no experience")
+eq(d.maps[1427].deaths,0,"new map starts without deaths")
 while #ns.session.records<ns.LIMITS.records do ns.Record("control",{}) end
 local before = d.counts.castsSucceeded
 cast(ns,"UNIT_SPELLCAST_SUCCEEDED","player")
@@ -192,6 +198,15 @@ eq(ns.db.behavior.days["2026-11-11"].counts.castsSucceeded,before+1,"reload reta
 eq(ns.db.behavior.FORBIDDEN_PRIVATE_PAYLOAD,nil,"migration strips unknown root behavior fields")
 eq(ns.db.behavior.days["2026-11-11"].spells[639].FORBIDDEN_PRIVATE_PAYLOAD,nil,"migration strips arbitrary spell fields")
 ok(#ns.db.sessions>=2,"legacy diagnostic sessions retained")
+eq(ns.db.behavior.days["2026-11-11"].version,2,"reload keeps day layout")
+eq(ns.db.behavior.days["2026-11-11"].maps[1426].deaths,2,"reload keeps per-map deaths")
+local olderLayout=ns.db
+olderLayout.behavior.days["2026-11-11"].version=nil
+local knownMapXP=olderLayout.behavior.days["2026-11-11"].maps[1426].xp
+ok(knownMapXP>0,"fixture has per-map experience before migration")
+ns=fresh(nil,olderLayout)
+eq(ns.db.behavior.days["2026-11-11"].version,1,"day started by an older collector keeps layout 1")
+eq(ns.db.behavior.days["2026-11-11"].maps[1426].xp,knownMapXP,"older layout still keeps known map values")
 
 ns=fresh(1794326390); tick(ns,20)
 eq(ns.db.behavior.days["2026-11-10"].time.observedSeconds,10,"pre-midnight interval")

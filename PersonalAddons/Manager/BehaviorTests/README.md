@@ -18,4 +18,4 @@
 /Users/mashuangxi/.cache/afabiaoge-dotnet/dotnet run --project PersonalAddons/Manager/BehaviorTests/MyForeverManager.BehaviorTests.csproj -- --legacy-sample PersonalAddons/work/coach-validation/session-1794108823-9.json --current-sample PersonalAddons/work/behavior-validation/simulated-current.lua
 ```
 
-覆盖每日统计映射、幂等/替换/迁移/历史归档、跨角色隔离、旧版真实 records 回填、现代与旧版混合、暂停/跨日/经验升级、必需字段缺失、损坏/null/极端整数归档、只读采集器检测、坏 Lua、路径隐私、符号链接、文件/深度/角色容量限制与取消。默认使用合成数据；可选旧样本为既有匿名验证片段，当前 Lua 样本为插件模拟导出。测试通过不代表当前游戏实测。
+覆盖 0.2.1 区域经验/死亡/战斗与日记录版本导入、规则分析（样本门槛、死亡/技能失败/周期对比/区域效率、禁用措辞）、AI 摘要隐私（不含路径/账号/角色哈希）、AI 接口地址校验、本地桩模拟的 OpenAI 兼容请求与回复清理、密钥默认不落盘，以及每日统计映射、幂等/替换/迁移/历史归档、跨角色隔离、旧版真实 records 回填、现代与旧版混合、暂停/跨日/经验升级、必需字段缺失、损坏/null/极端整数归档、只读采集器检测、坏 Lua、路径隐私、符号链接、文件/深度/角色容量限制与取消。默认使用合成数据；可选旧样本为既有匿名验证片段，当前 Lua 样本为插件模拟导出。测试通过不代表当前游戏实测。

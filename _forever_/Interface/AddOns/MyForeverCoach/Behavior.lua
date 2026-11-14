@@ -8,6 +8,11 @@ local countKeys = {"combatsEntered", "combatsCompleted", "deaths", "castsStarted
 local qualityKeys = {"xpGaps", "unknownMapSeconds", "detailDropped", "spellOverflow", "mapOverflow"}
 local runtime
 local OFFSET, DAY, RETAIN, ENTRIES = 28800, 86400, 90, 128
+-- Day layout 2 adds per-map experience, deaths and combat entries. A day first
+-- created by an older collector keeps layout 1 so partial zone data is never
+-- presented as a complete zone comparison.
+local DAY_VERSION = 2
+local mapKeys = {"seconds", "visits", "xp", "deaths", "combats"}
 
 local function nonnegative(value)
     value = NS.Number(value)
@@ -32,7 +37,7 @@ local function numbers(source, keys)
     return result
 end
 local function newDay()
-    return {time=empty(timeKeys), counts=empty(countKeys), spells={}, maps={}, quality=empty(qualityKeys)}
+    return {version=DAY_VERSION, time=empty(timeKeys), counts=empty(countKeys), spells={}, maps={}, quality=empty(qualityKeys)}
 end
 
 -- Gregorian date from a UTC day index. Never uses the computer's timezone.
@@ -94,7 +99,7 @@ local function entry(day, kind, identifier)
     local list = kind == "map" and day.maps or day.spells
     if list[identifier] then return list[identifier] end
     if countEntries(list) >= ENTRIES then return nil end
-    local result = kind == "map" and {seconds=0, visits=0} or {succeeded=0, failed=0, interrupted=0}
+    local result = kind == "map" and {seconds=0, visits=0, xp=0, deaths=0, combats=0} or {succeeded=0, failed=0, interrupted=0}
     result.name = publicName(kind, identifier)
     list[identifier] = result
     return result
@@ -116,6 +121,7 @@ function NS.InitializeBehavior(source)
             local old = NS.Field(days, key)
             if not NS.IsSecret(old) and type(old) == "table" then
                 local day = newDay()
+                day.version = math.min(DAY_VERSION, id(NS.Field(old, "version")) or 1)
                 day.time = numbers(NS.Field(old, "time"), timeKeys)
                 day.counts = numbers(NS.Field(old, "counts"), countKeys)
                 day.quality = numbers(NS.Field(old, "quality"), qualityKeys)
@@ -126,7 +132,7 @@ function NS.InitializeBehavior(source)
                         for rawID, rawEntry in pairs(list) do
                             local identifier = id(rawID)
                             if identifier and not NS.IsSecret(rawEntry) and type(rawEntry) == "table" then
-                                local keys = kind == "spells" and {"succeeded", "failed", "interrupted"} or {"seconds", "visits"}
+                                local keys = kind == "spells" and {"succeeded", "failed", "interrupted"} or mapKeys
                                 local clean = numbers(rawEntry, keys)
                                 clean.name = NS.Text(NS.Field(rawEntry, "name"))
                                 day[kind][identifier] = clean
@@ -234,6 +240,15 @@ function NS.BehaviorDropped()
     day.quality.detailDropped = day.quality.detailDropped + 1
 end
 
+-- Attribute an event to the last publicly observed map. Unknown maps are not
+-- guessed; the daily total still counts the event.
+local function zoneAdd(day, field, amount)
+    if not runtime.map or amount <= 0 then return end
+    local zone = entry(day, "map", runtime.map)
+    if zone then zone[field] = (nonnegative(zone[field]) or 0) + amount
+    else day.quality.mapOverflow = day.quality.mapOverflow + 1 end
+end
+
 local function xpSnapshot(day, data)
     local nextXP = {level=id(data.level), xp=nonnegative(data.xp), xpMax=id(data.xpMax)}
     if not validXP(nextXP) then
@@ -254,7 +269,10 @@ local function xpSnapshot(day, data)
             return
         else day.quality.xpGaps = day.quality.xpGaps + 1 end
         if levels > 0 then day.counts.levelsGained = day.counts.levelsGained + levels end
-        if gained then day.counts.xpGained = day.counts.xpGained + gained end
+        if gained then
+            day.counts.xpGained = day.counts.xpGained + gained
+            zoneAdd(day, "xp", gained)
+        end
     end
     runtime.xp = nextXP
     runtime.xpGapDay = nil
@@ -268,13 +286,18 @@ function NS.RecordBehavior(kind, data)
         local nextCombat = data.phase == "enter" and true or data.phase == "leave" and false
         if data.phase ~= "enter" and data.phase ~= "leave" then return end
         if runtime.combat ~= nextCombat then
-            if nextCombat then day.counts.combatsEntered = day.counts.combatsEntered + 1
+            if nextCombat then
+                day.counts.combatsEntered = day.counts.combatsEntered + 1
+                zoneAdd(day, "combats", 1)
             elseif runtime.combat == true then day.counts.combatsCompleted = day.counts.combatsCompleted + 1 end
         end
         runtime.combat = nextCombat
     elseif kind == "death" then
         if data.event == "PLAYER_DEAD" then
-            if runtime.dead ~= true then day.counts.deaths = day.counts.deaths + 1 end
+            if runtime.dead ~= true then
+                day.counts.deaths = day.counts.deaths + 1
+                zoneAdd(day, "deaths", 1)
+            end
             runtime.dead = true
         elseif data.event == "PLAYER_ALIVE" or data.event == "PLAYER_UNGHOST" then runtime.dead = false end
     elseif kind == "player_cast" then
@@ -323,6 +346,7 @@ function NS.BuildBehaviorExport()
         local sourceDay = NS.Field(days, key)
         if not NS.IsSecret(sourceDay) and type(sourceDay) == "table" then
             local day = newDay()
+            day.version = math.min(DAY_VERSION, id(NS.Field(sourceDay,"version")) or 1)
             day.time = numbers(NS.Field(sourceDay,"time"),timeKeys)
             day.counts = numbers(NS.Field(sourceDay,"counts"),countKeys)
             day.quality = numbers(NS.Field(sourceDay,"quality"),qualityKeys)
@@ -333,7 +357,7 @@ function NS.BuildBehaviorExport()
                     for rawID, value in pairs(list) do
                         local identifier=id(rawID)
                         if identifier and not NS.IsSecret(value) and type(value)=="table" then
-                            local fields=kind=="spells" and {"succeeded","failed","interrupted"} or {"seconds","visits"}
+                            local fields=kind=="spells" and {"succeeded","failed","interrupted"} or mapKeys
                             local clean=numbers(value,fields)
                             clean.name=NS.Text(NS.Field(value,"name"))
                             day[kind][string.format("%.0f",identifier)]=clean

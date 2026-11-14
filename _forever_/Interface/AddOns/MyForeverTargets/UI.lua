@@ -1358,7 +1358,22 @@ local function makePanel(side,menu)
     proxy.caption:SetText("释放鼠标以移动")
     proxy:Hide()
     p.dragProxy=proxy
-    mfLayout("RegisterLayout",p,side=="friendly" and "目标选择 · 友方" or "目标选择 · 敌方")
+    mfLayout("RegisterLayout",p,side=="friendly" and "目标选择 · 友方" or "目标选择 · 敌方",{
+        -- Layout mode is closed in combat; these never run there.
+        save=function(frame)
+            if NS.InCombat() then return end
+            local position=topLeftPosition(frame,true)
+            if position then NS.DB[side.."Position"]=position;frame.positionKey=nil end
+        end,
+        reset=function()
+            if NS.InCombat() then return end
+            local default=NS.NormalizeDB(nil)[side.."Position"]
+            NS.DB[side.."Position"]=default
+            p:ClearAllPoints();p:SetPoint(default.point,UIParent,default.relativePoint,default.x,default.y)
+            p.positionKey=nil
+        end,
+        scale={get=function() return NS.DB.scale end,set=function(value) NS.SetScale(value) end,min=.7,max=1.4,step=.05},
+    })
     p:SetScript("OnHide",function()
         if p.dragging then proxy:StopMovingOrSizing() end
         proxy:Hide()

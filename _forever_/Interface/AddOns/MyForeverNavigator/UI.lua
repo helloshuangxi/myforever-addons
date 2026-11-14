@@ -203,7 +203,16 @@ local function createHUD()
     handle:SetPoint("TOPRIGHT", -64, 0)
     handle:SetHeight(36)
     drag(hud, handle, "hud")
-    mfLayout("RegisterLayout", hud, "世界向导 · 指引")
+    mfLayout("RegisterLayout", hud, "世界向导 · 指引", {
+        save = function(frame)
+            local point, _, relativePoint, x, y = frame:GetPoint()
+            NS.DB.hud = {point = point, relativePoint = relativePoint, x = x, y = y}
+        end,
+        reset = function()
+            NS.DB.hud = {point = "CENTER", relativePoint = "CENTER", x = 0, y = 180}
+            restorePosition(hud, "hud", 0, 180)
+        end,
+    })
     hud.title = label(hud, 166, 22, "GameFontNormalLarge", colors.title)
     hud.title:SetPoint("TOPLEFT", 72, -9)
     hud.title:SetWordWrap(false)

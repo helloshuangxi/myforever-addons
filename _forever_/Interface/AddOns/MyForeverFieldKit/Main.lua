@@ -191,7 +191,19 @@ local function MakePanel()
     panel.status:SetPoint("BOTTOMLEFT", 12, 9)
 
     local drag = bar.handle
-    mfLayout("RegisterLayout", panel, "随身手册")
+    mfLayout("RegisterLayout", panel, "随身手册", {
+        save = function()
+            if InCombat() then return end
+            local point, _, relativePoint, x, y = panel:GetPoint()
+            if IsText(point) and IsText(relativePoint) and IsNumber(x) and IsNumber(y) then
+                db.point, db.relativePoint, db.x, db.y = point, relativePoint, x, y
+            end
+        end,
+        reset = function()
+            db.point, db.relativePoint, db.x, db.y = "CENTER", "CENTER", 320, 0
+            panel:ClearAllPoints(); panel:SetPoint("CENTER", UIParent, "CENTER", 320, 0)
+        end,
+    })
     drag:EnableMouse(true)
     drag:RegisterForDrag("LeftButton")
     drag:SetScript("OnDragStart", function()

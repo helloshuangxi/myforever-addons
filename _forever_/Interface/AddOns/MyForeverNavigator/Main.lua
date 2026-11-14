@@ -103,7 +103,16 @@ local function makeLauncher()
     b:EnableMouse(true)
     b:RegisterForClicks("LeftButtonUp", "RightButtonUp")
     b:RegisterForDrag("LeftButton")
-    mfLayout("RegisterLayout", b, "世界向导 · 图标")
+    mfLayout("RegisterLayout", b, "世界向导 · 图标", {
+        save = function(frame)
+            local point,_,relativePoint,x,y=frame:GetPoint()
+            NS.DB.launcher={point=point,relativePoint=relativePoint,x=x,y=y}
+        end,
+        reset = function()
+            NS.DB.launcher={point="TOPRIGHT",relativePoint="TOPRIGHT",x=-30,y=-287}
+            b:ClearAllPoints();b:SetPoint("TOPRIGHT",UIParent,"TOPRIGHT",-30,-287)
+        end,
+    })
     b:SetScript("OnClick", function(_, button)
         if button == "RightButton" then NS.Stop() else NS.ToggleUI() end
     end)

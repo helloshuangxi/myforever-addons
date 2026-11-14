@@ -516,10 +516,108 @@ local function updateGuides(g)
     end
 end
 
+-- History, selection and per-panel tools (layout mode).
+-- RegisterLayout(frame, label, opts) — every opts field is optional:
+--   save(frame)  persist the frame's current position (after undo / nudge);
+--                leave nil for panels whose position is not saved anyway
+--   reset()      move the panel to its default position and persist it
+--   scale        { get = fn() -> number, set = fn(number), min, max, step }
+local HISTORY_MAX = 30
+layout.history = {}
+
+local function entryFor(frame)
+    for _, entry in ipairs(layout.frames) do if entry.frame == frame then return entry end end
+end
+
+local function pointOf(frame)
+    local point, relativeTo, relativePoint, x, y = call(frame, "GetPoint", 1)
+    if type(point) ~= "string" or not num(x) or not num(y) then return nil end
+    return { point, relativeTo or UIParent, relativePoint or point, x, y }
+end
+
+local function persist(entry)
+    if entry and type(entry.opts.save) == "function" then pcall(entry.opts.save, entry.frame) end
+end
+
+local function pushHistory(entry, before)
+    if not entry or not before then return end
+    local h = layout.history
+    h[#h + 1] = { entry = entry, before = before }
+    if #h > HISTORY_MAX then table.remove(h, 1) end
+end
+
+local refreshTags
+
+function S.SelectLayout(frame)
+    layout.selected = frame and entryFor(frame) or nil
+    layout.nudging = nil
+    if refreshTags then refreshTags() end
+end
+
+-- Undo the most recent move (drag, nudge or reset), newest first.
+function S.UndoLayout()
+    if inCombat() then return false end
+    local item = table.remove(layout.history)
+    if not item then S.Toast(layout.bar, "没有可撤销的移动", "info") return false end
+    local p = item.before
+    call(item.entry.frame, "ClearAllPoints")
+    call(item.entry.frame, "SetPoint", p[1], p[2], p[3], p[4], p[5])
+    persist(item.entry)
+    layout.nudging = nil
+    S.Toast(layout.bar, "已撤销：" .. item.entry.label, "success", 1.6)
+    if refreshTags then refreshTags() end
+    return true
+end
+
+-- Move the selected panel by dx, dy UI units (arrow keys).
+function S.NudgeLayout(dx, dy)
+    local entry = layout.selected
+    if not entry or inCombat() or call(entry.frame, "IsVisible") ~= true then return false end
+    local p = pointOf(entry.frame)
+    local rect = rectOf(entry.frame)
+    if not p or not rect then return false end
+    if layout.nudging ~= entry then pushHistory(entry, p); layout.nudging = entry end
+    call(entry.frame, "ClearAllPoints")
+    call(entry.frame, "SetPoint", p[1], p[2], p[3], p[4] + dx / rect.k, p[5] + dy / rect.k)
+    persist(entry)
+    return true
+end
+
+function S.ResetLayout()
+    local entry = layout.selected
+    if not entry or inCombat() or type(entry.opts.reset) ~= "function" then return false end
+    pushHistory(entry, pointOf(entry.frame))
+    layout.nudging = nil
+    local ok = pcall(entry.opts.reset)
+    if ok then S.Toast(layout.bar, "已还原默认位置：" .. entry.label, "success", 1.6) end
+    if refreshTags then refreshTags() end
+    return ok
+end
+
+function S.StepLayoutScale(direction)
+    local entry = layout.selected
+    local sc = entry and entry.opts.scale
+    if not sc or inCombat() then return false end
+    local okGet, value = pcall(sc.get)
+    if not okGet or not num(value) then return false end
+    local step = sc.step or 0.05
+    local target = math.floor((value + direction * step) / step + 0.5) * step
+    target = math.max(sc.min or 0.5, math.min(sc.max or 2, target))
+    if math.abs(target - value) < 0.001 then return false end
+    pcall(sc.set, target)
+    if refreshTags then refreshTags() end
+    return true
+end
+
 -- Call when a panel starts moving: frame is what the cursor moves, exclude is
--- the real panel when a stand-in outline is dragged. Shows grid and guides.
+-- the real panel when a stand-in outline is dragged. Shows grid and guides,
+-- selects the panel and remembers where it was for undo.
 function S.BeginDrag(frame, exclude)
     layout.drag = frame and { frame = frame, exclude = exclude } or nil
+    local entry = entryFor(exclude or frame)
+    if layout.drag then layout.drag.entry, layout.drag.before = entry, entry and pointOf(entry.frame) end
+    if entry and layout.active then layout.selected = entry end
+    layout.nudging = nil
     showGrid(layout.active and "" or "对齐边缘或网格 · 按住 Alt 自由放置 · /myui 摆放全部面板")
     local g = layout.grid
     if g and not layout.guidesHooked then
@@ -538,6 +636,7 @@ end
 function S.SnapToGrid(frame)
     local drag = layout.drag
     layout.drag = nil
+    if drag and drag.entry then pushHistory(drag.entry, drag.before) end
     if layout.guides.v then call(layout.guides.v, "Hide") end
     if layout.guides.h then call(layout.guides.h, "Hide") end
     hideGrid()
@@ -561,11 +660,13 @@ function S.SnapToGrid(frame)
 end
 S.Snap = S.SnapToGrid
 
--- Panels announce themselves for layout mode. Re-registering is a no-op.
-function S.RegisterLayout(frame, label)
+-- Panels announce themselves for layout mode. Re-registering updates them.
+function S.RegisterLayout(frame, label, opts)
     if not frame or type(label) ~= "string" then return end
-    for _, entry in ipairs(layout.frames) do if entry.frame == frame then entry.label = label return end end
-    layout.frames[#layout.frames + 1] = { frame = frame, label = label }
+    opts = type(opts) == "table" and opts or {}
+    local entry = entryFor(frame)
+    if entry then entry.label, entry.opts = label, opts return end
+    layout.frames[#layout.frames + 1] = { frame = frame, label = label, opts = opts }
 end
 
 local function tagFor(entry)
@@ -576,48 +677,137 @@ local function tagFor(entry)
     call(tag, "SetFrameStrata", "TOOLTIP")
     call(tag, "EnableMouse", false)
     call(tag, "SetAllPoints", entry.frame)
-    local edges = {}
+    tag.edges = {}
     for i, spec in ipairs({ { "TOPLEFT", "TOPRIGHT", true }, { "BOTTOMLEFT", "BOTTOMRIGHT", true },
         { "TOPLEFT", "BOTTOMLEFT", false }, { "TOPRIGHT", "BOTTOMRIGHT", false } }) do
         local t = call(tag, "CreateTexture", nil, "OVERLAY")
         call(t, "SetTexture", WHITE)
-        call(t, "SetVertexColor", S.Color("accent", 0.9))
         call(t, "SetPoint", spec[1], tag, spec[1], 0, 0)
         call(t, "SetPoint", spec[2], tag, spec[2], 0, 0)
-        call(t, spec[3] and "SetHeight" or "SetWidth", 1)
-        edges[i] = t
+        tag.edges[i] = { texture = t, horizontal = spec[3] }
     end
-    tag.name = CreateFrame("Frame", nil, tag)
+    -- Only the name pill takes the mouse: the panel itself stays draggable.
+    tag.name = CreateFrame("Button", nil, tag)
     call(tag.name, "SetPoint", "BOTTOMLEFT", tag, "TOPLEFT", 0, 4)
     call(tag.name, "SetHeight", 20)
-    S.Round(tag.name, "accent", 1, 6)
+    call(tag.name, "EnableMouse", true)
+    call(tag.name, "RegisterForClicks", "LeftButtonUp")
+    call(tag.name, "SetScript", "OnClick", function() S.SelectLayout(entry.frame) end)
     tag.text = S.Text(tag.name, "caption", nil, entry.label)
-    S.SetType(tag.text, "caption", "onAccent")
     call(tag.text, "SetPoint", "LEFT", tag.name, "LEFT", 8, 0)
     call(tag.name, "SetWidth", (tonumber(call(tag.text, "GetStringWidth")) or 60) + 16)
     return tag
 end
 
-local function refreshTags()
-    local shown = 0
+local function paintTag(entry, selected)
+    local tag = entry.tag
+    local color = selected and "success" or "accent"
+    for _, edge in ipairs(tag.edges) do
+        call(edge.texture, "SetVertexColor", S.Color(color, 0.95))
+        call(edge.texture, edge.horizontal and "SetHeight" or "SetWidth", selected and 2 or 1)
+    end
+    S.Round(tag.name, color, 1, 6)
+    S.SetType(tag.text, "caption", "onAccent")
+    call(tag.text, "SetText", entry.label .. (selected and "（已选）" or ""))
+    call(tag.name, "SetWidth", (tonumber(call(tag.text, "GetStringWidth")) or 60) + 16)
+end
+
+local SELECT_HINT = "点面板上方的名字选中它：方向键微调（Shift 每次 8），Ctrl+Z 撤销，Esc 退出。"
+
+local function refreshBar(shown, closed)
+    local bar = layout.bar
+    if not bar then return end
+    local line = shown > 0 and ("已打开 " .. shown .. " 个：拖标题栏移动，靠近边缘自动吸附，按住 Alt 自由放置。")
+        or "还没有打开的面板。先打开要摆放的面板，它会出现在这里。"
+    if #closed > 0 then line = line .. "\n未打开：" .. table.concat(closed, "、") end
+    call(bar.count, "SetText", line)
+    call(bar.undo, "SetEnabled", #layout.history > 0)
+    local entry = layout.selected
+    local visible = entry and call(entry.frame, "IsVisible") == true
+    if not visible then entry = nil end
+    call(bar.selected, "SetText", entry and ("已选：" .. entry.label) or SELECT_HINT)
+    S.SetType(bar.selected, "secondary", entry and "text" or "muted")
+    local sc = entry and entry.opts.scale
+    local value = sc and select(2, pcall(sc.get))
+    for _, b in ipairs({ bar.smaller, bar.bigger, bar.size }) do call(b, "SetShown", sc ~= nil) end
+    if sc and num(value) then call(bar.size, "SetText", "大小 " .. math.floor(value * 100 + 0.5) .. "%") end
+    call(bar.reset, "SetShown", entry ~= nil and type(entry.opts.reset) == "function")
+    call(bar, "SetHeight", 104 + (#closed > 0 and 18 or 0))
+end
+
+refreshTags = function()
+    local shown, closed = 0, {}
     for _, entry in ipairs(layout.frames) do
         local visible = layout.active and call(entry.frame, "IsVisible") == true
         if visible then shown = shown + 1 end
+        if layout.active and call(entry.frame, "IsVisible") ~= true then closed[#closed + 1] = entry.label end
         local tag = (visible or entry.tag) and tagFor(entry)
-        if tag then call(tag, "SetShown", visible) end
-    end
-    if layout.bar then
-        local closed = {}
-        for _, entry in ipairs(layout.frames) do
-            if call(entry.frame, "IsVisible") ~= true then closed[#closed + 1] = entry.label end
+        if tag then
+            call(tag, "SetShown", visible)
+            if visible then paintTag(entry, entry == layout.selected) end
         end
-        local line = shown > 0 and ("已打开 " .. shown .. " 个：拖标题栏移动，靠近边缘自动吸附，按住 Alt 自由放置。")
-            or "还没有打开的面板。先打开要摆放的面板，它会出现在这里。"
-        if #closed > 0 then line = line .. "\n未打开：" .. table.concat(closed, "、") end
-        call(layout.bar.count, "SetText", line)
-        call(layout.bar, "SetHeight", #closed > 0 and 82 or 64)
     end
+    refreshBar(shown, closed)
     return shown
+end
+
+local ARROWS = { UP = { 0, 1 }, DOWN = { 0, -1 }, LEFT = { -1, 0 }, RIGHT = { 1, 0 } }
+local function onKey(self, key)
+    local consume = false
+    if inCombat() then return end
+    if key == "ESCAPE" then consume = true; S.SetLayoutMode(false)
+    elseif key == "Z" and IsControlKeyDown and IsControlKeyDown() then consume = true; S.UndoLayout()
+    elseif ARROWS[key] and layout.selected then
+        consume = true
+        local step = (IsShiftKeyDown and IsShiftKeyDown()) and S.metrics.grid or 1
+        S.NudgeLayout(ARROWS[key][1] * step, ARROWS[key][2] * step)
+    end
+    call(self, "SetPropagateKeyboardInput", not consume)
+end
+
+local function buildBar()
+    local bar = CreateFrame("Frame", nil, UIParent)
+    layout.bar = bar
+    call(bar, "SetFrameStrata", "TOOLTIP")
+    call(bar, "SetSize", 560, 104)
+    call(bar, "SetPoint", "TOP", UIParent, "TOP", 0, -36)
+    call(bar, "EnableMouse", true)
+    S.Round(bar, "outer", S.alpha.popup, 12)
+    bar.title = S.Text(bar, "title", nil, "布局模式")
+    call(bar.title, "SetPoint", "TOPLEFT", bar, "TOPLEFT", 16, -12)
+    bar.count = S.Text(bar, "secondary", 400, "")
+    call(bar.count, "SetPoint", "TOPLEFT", bar, "TOPLEFT", 16, -34)
+    bar.done = S.Button(bar, "完成", 64, 26, function() S.SetLayoutMode(false) end, "primary")
+    call(bar.done, "SetPoint", "TOPRIGHT", bar, "TOPRIGHT", -14, -12)
+    bar.undo = S.Button(bar, "撤销", 64, 26, function() S.UndoLayout() end, "default")
+    call(bar.undo, "SetPoint", "RIGHT", bar.done, "LEFT", -8, 0)
+    -- Selection row: what is selected and what can be done to it.
+    bar.rule = S.Rule(bar, "line", 0.6)
+    call(bar.rule, "SetPoint", "BOTTOMLEFT", bar, "BOTTOMLEFT", 16, 44)
+    call(bar.rule, "SetPoint", "BOTTOMRIGHT", bar, "BOTTOMRIGHT", -16, 44)
+    bar.selected = S.Text(bar, "secondary", 300, "")
+    call(bar.selected, "SetPoint", "BOTTOMLEFT", bar, "BOTTOMLEFT", 16, 18)
+    bar.reset = S.Button(bar, "还原默认位置", 104, 24, function() S.ResetLayout() end, "quiet")
+    call(bar.reset, "SetPoint", "BOTTOMRIGHT", bar, "BOTTOMRIGHT", -14, 12)
+    bar.bigger = S.Button(bar, "+", 26, 24, function() S.StepLayoutScale(1) end, "default")
+    call(bar.bigger, "SetPoint", "RIGHT", bar.reset, "LEFT", -10, 0)
+    bar.size = S.Text(bar, "secondary", 70, "")
+    call(bar.size, "SetPoint", "RIGHT", bar.bigger, "LEFT", -6, 0)
+    call(bar.size, "SetJustifyH", "CENTER")
+    bar.smaller = S.Button(bar, "-", 26, 24, function() S.StepLayoutScale(-1) end, "default")
+    call(bar.smaller, "SetPoint", "RIGHT", bar.size, "LEFT", -6, 0)
+    local elapsed = 0
+    call(bar, "SetScript", "OnUpdate", function(_, dt)
+        elapsed = elapsed + (tonumber(dt) or 0)
+        if elapsed >= 0.25 then elapsed = 0; refreshTags() end
+    end)
+    -- Keyboard: only arrows, Ctrl+Z and Esc are taken; everything else
+    -- (movement, spells, chat) passes through to the game.
+    layout.keys = CreateFrame("Frame", nil, UIParent)
+    call(layout.keys, "EnableKeyboard", true)
+    call(layout.keys, "SetPropagateKeyboardInput", true)
+    call(layout.keys, "SetScript", "OnKeyDown", onKey)
+    call(layout.keys, "Hide")
 end
 
 function S.SetLayoutMode(on)
@@ -627,30 +817,16 @@ function S.SetLayoutMode(on)
         return false
     end
     layout.active = on
+    layout.nudging = nil
     if on then
         showGrid("")
-        if not layout.bar then
-            local bar = CreateFrame("Frame", nil, UIParent)
-            layout.bar = bar
-            call(bar, "SetFrameStrata", "TOOLTIP")
-            call(bar, "SetSize", 540, 82)
-            call(bar, "SetPoint", "TOP", UIParent, "TOP", 0, -36)
-            S.Round(bar, "outer", S.alpha.popup, 12)
-            bar.title = S.Text(bar, "title", nil, "布局模式")
-            call(bar.title, "SetPoint", "TOPLEFT", bar, "TOPLEFT", 16, -12)
-            bar.count = S.Text(bar, "secondary", 420, "")
-            call(bar.count, "SetPoint", "TOPLEFT", bar, "TOPLEFT", 16, -34)
-            bar.done = S.Button(bar, "完成", 72, 28, function() S.SetLayoutMode(false) end, "primary")
-            call(bar.done, "SetPoint", "RIGHT", bar, "RIGHT", -14, 0)
-            local elapsed = 0
-            call(bar, "SetScript", "OnUpdate", function(_, dt)
-                elapsed = elapsed + (tonumber(dt) or 0)
-                if elapsed >= 0.25 then elapsed = 0; refreshTags() end
-            end)
-        end
+        if not layout.bar then buildBar() end
         call(layout.bar, "Show")
+        call(layout.keys, "Show")
     else
+        layout.selected = nil
         if layout.bar then call(layout.bar, "Hide") end
+        if layout.keys then call(layout.keys, "Hide") end
         if layout.grid then call(layout.grid, "Hide") end
     end
     refreshTags()

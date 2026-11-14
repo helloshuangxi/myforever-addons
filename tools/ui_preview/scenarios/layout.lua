@@ -8,6 +8,7 @@ local friendly, enemy = NS.UI.friendly.frame, NS.UI.enemy.frame
 friendly:ClearAllPoints(); friendly:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 640, -300)
 enemy:ClearAllPoints(); enemy:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 640 + friendly:GetWidth() + 14, -304)
 S.SetLayoutMode(true)
+S.SelectLayout(enemy)
 local bar = S.layout.bar
 local tick = bar and bar.GetScript and bar:GetScript("OnUpdate")
 if tick then tick(bar, 1) end

@@ -1599,7 +1599,10 @@ function NS.BuildUI()
     drag:EnableMouse(true); drag:RegisterForDrag("LeftButton")
     drag:SetScript("OnDragStart",function() panel:StartMoving(); mfLayout("BeginDrag",panel) end)
     drag:SetScript("OnDragStop",function() panel:StopMovingOrSizing(); mfLayout("SnapToGrid",panel); savePosition() end)
-    mfLayout("RegisterLayout",panel,"微信式聊天")
+    mfLayout("RegisterLayout",panel,"微信式聊天",{
+        save=function() savePosition() end,
+        reset=function() panel:ClearAllPoints(); panel:SetPoint("CENTER",UIParent,"CENTER",0,0); savePosition() end,
+    })
     panel.history,panel.historyChild=makeScroll(panel)
     panel.history:SetPoint("TOPLEFT",231,-110); panel.history:SetPoint("BOTTOMRIGHT",-12,148)
     panel.empty=text(panel.history,14,C.muted); panel.empty:SetPoint("CENTER"); panel.empty:SetText("选好会话，从这里开始聊天。")
@@ -1682,7 +1685,13 @@ function NS.BuildUI()
     launcher.badge=text(launcher,12,{1,0.48,0.40,1}); launcher.badge:SetPoint("TOPRIGHT",3,4)
     launcher:SetMovable(true); launcher:SetClampedToScreen(true); launcher:RegisterForDrag("LeftButton")
     launcher:SetScript("OnDragStart",function() launcher:StartMoving(); mfLayout("BeginDrag",launcher) end)
-    mfLayout("RegisterLayout",launcher,"微信式聊天 · 图标")
+    mfLayout("RegisterLayout",launcher,"微信式聊天 · 图标",{
+        save=function() local p,_,rp,x,y=launcher:GetPoint(); NS.db.launcher={point=p,relativePoint=rp,x=x,y=y} end,
+        reset=function()
+            NS.db.launcher={point="TOPRIGHT",relativePoint="TOPRIGHT",x=-30,y=-235}
+            launcher:ClearAllPoints(); launcher:SetPoint("TOPRIGHT",UIParent,"TOPRIGHT",-30,-235)
+        end,
+    })
     launcher:SetScript("OnDragStop",function()
         launcher:StopMovingOrSizing()
         mfLayout("SnapToGrid",launcher)

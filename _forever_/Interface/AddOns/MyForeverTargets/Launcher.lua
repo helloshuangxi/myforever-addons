@@ -155,7 +155,15 @@ function NS.CreateLauncher()
     menu:Hide()
     icon.menu=menu
     NS.Launcher=icon
-    mfLayout("RegisterLayout",icon,"目标选择 · 图标")
+    mfLayout("RegisterLayout",icon,"目标选择 · 图标",{
+        save=function(frame)
+            local point,_,relativePoint,x,y=frame:GetPoint()
+            if type(point)=="string" and type(relativePoint)=="string" and NS.Number(x) and NS.Number(y) then
+                NS.DB.launcherPosition={point=point,relativePoint=relativePoint,x=x,y=y,manual=true}
+            end
+        end,
+        reset=function() NS.ResetLauncherPosition() end,
+    })
     icon:SetScript("OnEnter",function(self)
         self:SetAlpha(.82)
         if self.dragging or not GameTooltip then return end

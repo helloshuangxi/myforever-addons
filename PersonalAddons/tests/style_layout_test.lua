@@ -135,4 +135,83 @@ S.ToggleLayoutMode()
 ok(not S.layout.active and not S.layout.bar.shown and not S.layout.grid.shown, "toggle closes it")
 for _, entry in ipairs(S.layout.frames) do ok(not (entry.tag and entry.tag.shown), "tag hidden after exit: " .. entry.label) end
 
+
+-- Upgrade: selection, undo, arrow-key nudge, reset, size, keyboard.
+local ctrl, shift = false, false
+function IsControlKeyDown() return ctrl end
+function IsShiftKeyDown() return shift end
+S.layout.history = {}
+local saved = {}
+local p1 = panel(160, 400, 100, 50)
+local size = 1
+S.RegisterLayout(p1, "P1", {
+    save = function(frame) saved[#saved + 1] = { frame.x, frame.y } end,
+    reset = function() p1.x, p1.y = 0, 0 end,
+    scale = { get = function() return size end, set = function(v) size = v end, min = 0.7, max = 1.3, step = 0.05 },
+})
+ok(S.SetLayoutMode(true), "layout mode for the upgrade checks")
+ok(S.layout.bar.undo and S.layout.bar.reset and S.layout.bar.size, "bar has undo, reset and size controls")
+ok(S.layout.keys and S.layout.keys.shown, "keyboard listener active in layout mode")
+
+-- Dragging records history and selects the panel.
+S.BeginDrag(p1)
+p1.x, p1.y = 233, 377
+S.SnapToGrid(p1)
+ok(S.layout.selected and S.layout.selected.frame == p1, "drag selects the panel")
+ok(#S.layout.history == 1 and S.layout.history[1].before[4] == 160, "drag recorded for undo")
+S.layout.bar.scripts.OnUpdate(S.layout.bar, 0.3)
+ok(S.layout.bar.selected.text == "已选：P1", "bar names the selection")
+ok(S.layout.bar.reset.shown and S.layout.bar.size.shown and S.layout.bar.size.text == "大小 100%", "reset and size offered when supported")
+
+-- Arrow keys: 1 unit, Shift = grid step; consumed; one undo step per run.
+local keys = S.layout.keys
+local propagate
+function keys:SetPropagateKeyboardInput(v) propagate = v end
+local x0, y0 = p1.x, p1.y
+keys.scripts.OnKeyDown(keys, "RIGHT")
+ok(near(p1.x, x0 + 1) and propagate == false, "right arrow nudges one unit and is consumed")
+shift = true
+keys.scripts.OnKeyDown(keys, "UP")
+shift = false
+ok(near(p1.y, y0 + 8), "shift+up nudges one grid step")
+ok(#saved >= 2 and near(saved[#saved][2], y0 + 8), "nudge persists through save")
+ok(#S.layout.history == 2, "consecutive nudges share one undo step")
+keys.scripts.OnKeyDown(keys, "W")
+ok(propagate == true, "other keys pass through to the game")
+
+-- Ctrl+Z undoes the nudges, then the drag.
+ctrl = true
+keys.scripts.OnKeyDown(keys, "Z")
+ok(near(p1.x, x0) and near(p1.y, y0) and propagate == false, "ctrl+z undoes the nudges")
+keys.scripts.OnKeyDown(keys, "Z")
+ctrl = false
+ok(near(p1.x, 160) and near(p1.y, 400), "second undo restores the pre-drag spot")
+ok(near(saved[#saved][1], 160), "undo persists through save")
+ok(S.UndoLayout() == false, "nothing left to undo")
+
+-- Reset is undoable; size steps clamp.
+ok(S.ResetLayout() and p1.x == 0 and p1.y == 0, "reset to default")
+ok(S.UndoLayout() and near(p1.x, 160), "reset can be undone")
+for _ = 1, 10 do S.StepLayoutScale(1) end
+ok(near(size, 1.3), "size clamps at max")
+S.StepLayoutScale(-1)
+ok(near(size, 1.25), "size steps down")
+
+-- Panels without options: no reset or size, nudge still works visually.
+local plainPanel = panel(400, 300, 50, 50)
+S.RegisterLayout(plainPanel, "Plain")
+S.SelectLayout(plainPanel)
+S.layout.bar.scripts.OnUpdate(S.layout.bar, 0.3)
+ok(not S.layout.bar.reset.shown and not S.layout.bar.size.shown, "no reset or size without callbacks")
+ok(S.NudgeLayout(1, 0) and near(plainPanel.x, 401), "nudge without save callback")
+ok(S.ResetLayout() == false, "reset refused without a reset callback")
+
+-- Esc leaves layout mode; combat blocks nudge and undo.
+keys.scripts.OnKeyDown(keys, "ESCAPE")
+ok(not S.layout.active and not keys.shown and S.layout.selected == nil, "esc exits and clears selection")
+combat = true
+S.layout.selected = S.layout.frames[#S.layout.frames]
+ok(S.NudgeLayout(1, 0) == false and S.UndoLayout() == false, "no nudge or undo in combat")
+combat = false
+
 print("style layout checks: " .. checks)

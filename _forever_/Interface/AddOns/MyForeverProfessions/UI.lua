@@ -854,7 +854,13 @@ local function createCollapsedIcon()
         ns.RenderUI()
     end)
     icon:RegisterForDrag("LeftButton")
-    mfLayout("RegisterLayout", icon, "商业技能 · 图标")
+    mfLayout("RegisterLayout", icon, "商业技能 · 图标", {
+        save = function(frame) savePosition(frame, 1 / (ns.db.scale or 1)) end,
+        reset = function()
+            ns.db.point, ns.db.relativePoint, ns.db.x, ns.db.y = "CENTER", "CENTER", 300, 0
+            restorePosition(icon, ns.db.scale or 1)
+        end,
+    })
     icon:SetScript("OnDragStart", function(self)
         -- The title lock belongs to the expanded panel. Like the chat launcher,
         -- this compact entry can always be moved directly without a modifier.
@@ -932,7 +938,14 @@ function ns.CreateUI()
         end)
     end)
     drag:SetScript("OnDragStop", finishTitleDrag)
-    mfLayout("RegisterLayout", panel, "商业技能")
+    mfLayout("RegisterLayout", panel, "商业技能", {
+        save = function(frame) savePosition(frame) end,
+        reset = function()
+            ns.db.point, ns.db.relativePoint, ns.db.x, ns.db.y = "CENTER", "CENTER", 300, 0
+            restorePosition(panel)
+        end,
+        scale = { get = function() return ns.db.scale or 1 end, set = ns.SetScale, min = 0.65, max = 1.6, step = 0.05 },
+    })
     drag:SetScript("OnMouseUp", function(_, mouseButton) if mouseButton == "LeftButton" then finishTitleDrag() end end)
     drag:SetScript("OnEnter", function(self)
         if not GameTooltip then return end

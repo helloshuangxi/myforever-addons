@@ -311,17 +311,22 @@ local function restorePlacement()
         db.gatherX / db.gatherScale, db.gatherY / db.gatherScale)
 end
 
-local function stopMoving()
-    if not moving then return end
-    moving = false
-    hud:StopMovingOrSizing()
-    mfLayout("SnapToGrid", hud)
+-- Offsets are stored in UIParent units (see restorePlacement).
+local function savePlacement()
     local point, _, relativePoint, x, y = hud:GetPoint()
     if type(point) == "string" and type(relativePoint) == "string" and number(x) and number(y) then
         local db = ns.db
         db.gatherPoint, db.gatherRelativePoint = point, relativePoint
         db.gatherX, db.gatherY = x * db.gatherScale, y * db.gatherScale
     end
+end
+
+local function stopMoving()
+    if not moving then return end
+    moving = false
+    hud:StopMovingOrSizing()
+    mfLayout("SnapToGrid", hud)
+    savePlacement()
 end
 
 local function adjustmentLabel()
@@ -397,7 +402,19 @@ function ns.CreateGatherAlerts()
         end
     end)
     hud:SetScript("OnDragStop", finishInteraction)
-    mfLayout("RegisterLayout", hud, "商业技能 · 采集提示")
+    mfLayout("RegisterLayout", hud, "商业技能 · 采集提示", {
+        save = function() savePlacement() end,
+        reset = function()
+            local db = ns.db
+            db.gatherPoint, db.gatherRelativePoint, db.gatherX, db.gatherY = "CENTER", "CENTER", 0, 170
+            restorePlacement()
+        end,
+        scale = {
+            get = function() return ns.db.gatherScale end,
+            set = function(value) ns.db.gatherScale = value; restorePlacement() end,
+            min = 0.7, max = 1.3, step = 0.05,
+        },
+    })
     hud:SetScript("OnMouseUp", function(_, button)
         if button == "LeftButton" then finishInteraction() end
     end)

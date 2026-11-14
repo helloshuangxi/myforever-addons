@@ -1,0 +1,22 @@
+{
+  "source": "Blizzard-authored FrameXML mirrored in Gethe/wow-ui-source",
+  "commit": "4cd0ab752a77164f654ccbca9d0c1fe8dafceebe",
+  "build": "70888",
+  "files": [
+    {
+      "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/4cd0ab752a77164f654ccbca9d0c1fe8dafceebe/Interface/AddOns/Blizzard_RestrictedAddOnEnvironment/SecureHandlers.lua",
+      "sha256": "d8b691f2c7e0bee2673c06fe57e854b1d205814e305eae53b72be69d7f549548",
+      "bytes": 22311
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/4cd0ab752a77164f654ccbca9d0c1fe8dafceebe/Interface/AddOns/Blizzard_RestrictedAddOnEnvironment/RestrictedFrames.lua",
+      "sha256": "d934a9ff9bcad70b754047498eb0a130a210ac7d4eacec67f321f04dcdfd7bb3",
+      "bytes": 23328
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/4cd0ab752a77164f654ccbca9d0c1fe8dafceebe/Interface/AddOns/Blizzard_RestrictedAddOnEnvironment/SecureStateDriver.lua",
+      "sha256": "bebd4a4b18e610233ff8f734df7b473df08fe25b1ce383b0c7883ae962a63029",
+      "bytes": 6480
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "source_commit": "0cf2b1e122ca0a0e8c0c192c7b3af2cd1e6d18cf",
+  "source_base": "3c8ba327ac15419cac529a33c788bd6af270d5b5",
+  "integration_base": "5392bd771f8debb1b25ad5d27223c764beba99be",
+  "branch": "codex/targets-combat-hover-20261114",
+  "status": "simulation_passed_native_acceptance_pending",
+  "lua_runtime": "Lua 5.1 via lupa.lua51",
+  "syntax_files": 83,
+  "owned_lua_suites": 73,
+  "python_parser_tests": 19,
+  "combat_hover_assertions": 141,
+  "existing_third_party_test_excluded": "details_truncation_test.lua",
+  "before_fix_failures": [
+    "page change while hovering releases old-page key: expected nil, got table",
+    "outer leave also clears original OOC owner override: expected nil, got table",
+    "fixed-token direct route wins over name continuation: expected direct proxy, got OldNameProxy",
+    "entering friendly fixed row releases previous enemy owner: expected nil, got table",
+    "disabled direct module does not reserve stable enemy row: expected nil, got true"
+  ],
+  "fixes": [
+    "state-driven page and form change releases stale main-bar bindings",
+    "outer leave clears all participating binding owners",
+    "fixed-token route and unique-name continuation have separate eligibility",
+    "key-down setting and override-bar refresh events; readiness counts only available keys",
+    "new row entry retires previous controller before late old Leave",
+    "disabling the new module restores the existing name route"
+  ],
+  "unchanged": {
+    "PersonalAddons/Manager": true,
+    "PersonalAddons/website": true,
+    "PersonalAddons/shared": true
+  },
+  "other_six_addons_unchanged": true,
+  "current_source_version": "0.2.0",
+  "public_version_changed": false,
+  "public_packages_generated": false,
+  "main_merged": false,
+  "runtime_installed": false,
+  "native_game_tested": false,
+  "checked_at": "2026-11-14T13:42:38.683534+00:00",
+  "test_log_sha256": "ab39187748029a7538b545730588ec06d7892f3f178acd12c5520ce88e7f4821"
+}

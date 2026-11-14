@@ -34,7 +34,8 @@ local function choice(parent, text, x, y, width, callback, row)
     if row then
         -- List rows read left to right; tabs stay centred.
         b.label:ClearAllPoints()
-        b.label:SetPoint("LEFT", b, "LEFT", 10, 0)
+        b.label:SetPoint("LEFT", b, "LEFT", 20, 0)
+        b.isRow = true
         b.label:SetPoint("RIGHT", b, "RIGHT", -8, 0)
         b.label:SetJustifyH("LEFT")
     else
@@ -45,7 +46,14 @@ local function choice(parent, text, x, y, width, callback, row)
     return b
 end
 local function mark(b, chosen)
-    Style.SetButtonKind(b, chosen and "selected" or "quiet")
+    if b.isRow and Style.MarkSelected then
+        -- 星辉 cursor for list rows; tabs keep the selected pill.
+        Style.SetButtonKind(b, "quiet")
+        Style.MarkSelected(b, chosen)
+        if b.label then Style.SetType(b.label, "button", chosen and "text" or "secondary") end
+    else
+        Style.SetButtonKind(b, chosen and "selected" or "quiet")
+    end
     b:SetEnabled(not chosen)
 end
 local function edit(parent, x, y, width)
@@ -230,6 +238,7 @@ local function createUI()
     well:SetSize(404, 104)
     Style.Round(well, "side", 1, 8)
     local scroll = CreateFrame("ScrollFrame", nil, well, "UIPanelScrollFrameTemplate")
+    if Style.SkinScroll then Style.SkinScroll(scroll) end
     scroll:SetPoint("TOPLEFT", 8, -8)
     scroll:SetPoint("BOTTOMRIGHT", -28, 8)
     frame.preview = CreateFrame("EditBox", nil, scroll)

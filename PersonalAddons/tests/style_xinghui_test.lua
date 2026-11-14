@@ -140,4 +140,19 @@ ok(S.HintBar(window, nil) == nil, "no items, no bar")
 local tb = S.TitleBar(window, "玩家行为")
 ok(tb.title.text == "玩 家 行 为" and tb.rule and tb.rule.gradient, "title bar: spaced title and gold rule")
 
+
+-- Slim scroll bar: arrows hidden, thumb recoloured, applied once.
+local scroll, sb = widget(), widget()
+sb.ScrollUpButton, sb.ScrollDownButton = widget(), widget()
+sb.ScrollUpButton.alpha, sb.ScrollDownButton.alpha = 1, 1
+function sb.ScrollUpButton:SetAlpha(a) self.alpha = a end
+function sb.ScrollDownButton:SetAlpha(a) self.alpha = a end
+local thumb = widget()
+function sb:GetThumbTexture() return thumb end
+function sb:GetRegions() return thumb end
+scroll.ScrollBar = sb
+ok(S.SkinScroll(scroll) == sb and sb.ScrollUpButton.alpha == 0 and sb.ScrollDownButton.alpha == 0, "arrows hidden")
+ok(thumb.vertex and scroll.styleScroll == true and S.SkinScroll(scroll) == nil, "thumb restyled once")
+ok(S.SkinScroll(widget()) == nil, "frames without a scroll bar are ignored")
+
 print("style xinghui checks: " .. checks)

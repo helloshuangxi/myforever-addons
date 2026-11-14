@@ -71,6 +71,7 @@ function NS.ShowExport(report)
         well:SetPoint("BOTTOMRIGHT", -12, 48)
         Style.Surface(well, "side")
         local scroll = CreateFrame("ScrollFrame", nil, well, "UIPanelScrollFrameTemplate")
+        if Style.SkinScroll then Style.SkinScroll(scroll) end
         scroll:SetPoint("TOPLEFT", 8, -8)
         scroll:SetPoint("BOTTOMRIGHT", -28, 8)
         box = CreateFrame("EditBox", nil, scroll)

@@ -532,9 +532,15 @@ local function followCursor(scroll,_,y,_,height)
 end
 local function showCopy(value,nativeContent)
     if not copyWindow then
-        copyWindow=CreateFrame("Frame","MyForeverChatCopy",panel,"BasicFrameTemplateWithInset")
+        local Style=rawget(_G,"MyForeverStyle")
+        copyWindow=CreateFrame("Frame","MyForeverChatCopy",panel,Style and "BackdropTemplate" or "BasicFrameTemplateWithInset")
         copyWindow:SetSize(500,220); copyWindow:SetPoint("CENTER"); copyWindow:SetFrameStrata("FULLSCREEN_DIALOG")
         copyWindow:EnableMouse(true)
+        if Style then
+            -- Suite popup (星辉) instead of the grey Blizzard frame.
+            Style.Panel(copyWindow,"popup")
+            copyWindow.TitleText=Style.TitleBar(copyWindow,"复制消息 · Ctrl/Cmd+C",function() copyWindow:Hide() end).title
+        end
         copyWindow.TitleText:SetText("复制消息 · Ctrl/Cmd+C")
         local scroll=CreateFrame("ScrollFrame",nil,copyWindow,"UIPanelScrollFrameTemplate")
         scroll:SetPoint("TOPLEFT",18,-40); scroll:SetSize(440,150)
@@ -545,6 +551,7 @@ local function showCopy(value,nativeContent)
         copyWindow.edit.appearanceFixedTextColor={0.91,0.94,0.93,1}
         copyWindow.edit:SetTextColor(unpack(copyWindow.edit.appearanceFixedTextColor))
         copyWindow.edit:SetScript("OnCursorChanged",function(_,x,y,w,h) followCursor(scroll,x,y,w,h) end)
+        if Style and Style.SkinScroll then Style.SkinScroll(scroll) end
         UISpecialFrames[#UISpecialFrames+1]="MyForeverChatCopy"
     end
     copyWindow.TitleText:SetText(nativeContent and "受保护的群消息" or "复制消息 · Ctrl/Cmd+C")

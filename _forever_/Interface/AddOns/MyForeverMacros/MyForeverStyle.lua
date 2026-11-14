@@ -1073,3 +1073,40 @@ function S.HintBar(frame, items, trailing)
     end
     return bar
 end
+
+-- Slim scroll bar for UIPanelScrollFrameTemplate-style frames: hides the
+-- arrow buttons and track art, keeps a thin tonal thumb. Scrolling (wheel,
+-- drag, the bar's value) is untouched; only looks change.
+function S.SkinScroll(scroll)
+    if not scroll or scroll.styleScroll == true then return end
+    local bar = scroll.ScrollBar
+    if type(bar) ~= "table" then
+        local name = call(scroll, "GetName")
+        bar = type(name) == "string" and rawget(_G, name .. "ScrollBar") or nil
+    end
+    if type(bar) ~= "table" then return end
+    scroll.styleScroll = true
+    for _, key in ipairs({ "ScrollUpButton", "ScrollDownButton", "Top", "Bottom", "Middle", "Background", "Track" }) do
+        local part = rawget(bar, key)
+        if type(part) == "table" then call(part, "SetAlpha", 0); call(part, "EnableMouse", false) end
+    end
+    local regions = { call(bar, "GetRegions") }
+    local thumb = call(bar, "GetThumbTexture")
+    for _, region in ipairs(regions) do
+        if region ~= thumb and call(region, "GetObjectType") == "Texture" then call(region, "SetAlpha", 0) end
+    end
+    if thumb then
+        call(thumb, "SetTexture", WHITE)
+        call(thumb, "SetVertexColor", S.Color("line", 0.9))
+        call(thumb, "SetSize", 4, 36)
+    end
+    local track = call(bar, "CreateTexture", nil, "BACKGROUND")
+    if track then
+        call(track, "SetTexture", WHITE)
+        call(track, "SetVertexColor", S.Color("surface", 0.6))
+        call(track, "SetPoint", "TOP", bar, "TOP", 0, 0)
+        call(track, "SetPoint", "BOTTOM", bar, "BOTTOM", 0, 0)
+        call(track, "SetWidth", 2)
+    end
+    return bar
+end

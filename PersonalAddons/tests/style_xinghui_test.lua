@@ -62,6 +62,18 @@ ok(S.version >= 5 and S.colors.gold and S.colors.titleText, "v5 palette has the 
 ok(S.SpacedTitle("世界向导") == "世 界 向 导", "short Chinese title is spaced")
 ok(S.SpacedTitle("选择本角色已学技能") == "选择本角色已学技能", "long title untouched")
 ok(S.SpacedTitle("宏工坊 v2") == "宏工坊 v2", "mixed title untouched")
+-- Standalone Lua starts in C; Python/Lupa can inherit a UTF-8 LC_CTYPE.
+-- Verify both without leaving a changed process locale for later checks.
+local titleLocale = os.setlocale(nil, "ctype")
+for _, candidate in ipairs({ "C", "C.UTF-8", "en_US.UTF-8" }) do
+    if os.setlocale(candidate, "ctype") then
+        local short = S.SpacedTitle("世界向导")
+        local mixed = S.SpacedTitle("宏工坊 v2")
+        os.setlocale(titleLocale, "ctype")
+        ok(short == "世 界 向 导", "short title spacing in " .. candidate)
+        ok(mixed == "宏工坊 v2", "mixed title untouched in " .. candidate)
+    end
+end
 local fs = widget()
 S.WindowTitle(fs, "宏工坊")
 ok(fs.text == "宏 工 坊" and fs.face == S.titleFont and fs.size == 16, "title font, size and spacing")

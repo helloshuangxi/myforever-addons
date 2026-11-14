@@ -911,7 +911,9 @@ local function spaced(text)
     if type(text) ~= "string" then return text end
     local chars = {}
     for ch in text:gmatch("[%z\1-\127\194-\244][\128-\191]*") do chars[#chars + 1] = ch end
-    if #chars < 2 or #chars > 6 or text:find("[%w%p ]") then return text end
+    -- Lua's %w/%p classes depend on LC_CTYPE and can classify UTF-8 bytes as
+    -- ASCII text. Check the ASCII byte range explicitly in every locale.
+    if #chars < 2 or #chars > 6 or text:find("[%z\1-\127]") then return text end
     return table.concat(chars, " ")
 end
 S.SpacedTitle = spaced

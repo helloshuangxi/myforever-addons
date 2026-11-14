@@ -1,0 +1,178 @@
+{
+  "checked_at": "2026-11-14T04:23:04.830242+00:00",
+  "status": "passed",
+  "location": "local Mac through public HTTPS",
+  "checks": [
+    {
+      "path": "/",
+      "status": 200,
+      "bytes": 10882,
+      "sha256": "202c233c6d43010d72bbbd6c747814dad9f20ae1d5a842b2ffe5f6a509e357e3",
+      "cache_control": "no-cache"
+    },
+    {
+      "path": "/chat/",
+      "status": 200,
+      "bytes": 35647,
+      "sha256": "843ff08de9187c627ca0fcf263fb8f9aa9f9065d649f8ba4cc081c3b94d0964b",
+      "cache_control": "no-cache"
+    },
+    {
+      "path": "/professions/",
+      "status": 200,
+      "bytes": 23362,
+      "sha256": "9ec55ef3efa48b0e46da786c0f674627418dd920003b438ebcd03f79413def16",
+      "cache_control": "no-cache"
+    },
+    {
+      "path": "/navigator/",
+      "status": 200,
+      "bytes": 29246,
+      "sha256": "3d0ad856a8da0fca6f56489277698d8ade8e195f006d2c96fca4920719cbab36",
+      "cache_control": "no-cache"
+    },
+    {
+      "path": "/targets/",
+      "status": 200,
+      "bytes": 19503,
+      "sha256": "59a165ff67ad675c294218353747f9d8d1b3ab4cd832a84ab647f44ff4dcb23e",
+      "cache_control": "no-cache"
+    },
+    {
+      "path": "/manager/",
+      "status": 200,
+      "bytes": 15560,
+      "sha256": "4e9b6d44780c7d1c2a78843477ce7316005d40b2a33ec36bb9383b111fc09896",
+      "cache_control": "no-cache"
+    },
+    {
+      "path": "/theme.css",
+      "status": 200,
+      "bytes": 14234,
+      "sha256": "d52bb42ba301d193e34539ed3e4ac63599a9ae9185a3b20c5b4b0ff723115061",
+      "cache_control": "no-cache"
+    },
+    {
+      "path": "/latest.json",
+      "status": 200,
+      "bytes": 1850,
+      "sha256": "cf0a3f13bf7079781d4e1e01e0cb480d22fc5a811d6f15736e7ed40d0f79d5c3",
+      "cache_control": "no-cache"
+    },
+    {
+      "path": "/releases.json",
+      "status": 200,
+      "bytes": 20240,
+      "sha256": "766579ea43855d0ef8bd8b5b25c9457c7a688d09eb2124f4b51fa201fbaa601d",
+      "cache_control": "no-cache"
+    },
+    {
+      "path": "/professions/latest.json",
+      "status": 200,
+      "bytes": 1990,
+      "sha256": "4c90d6cf3c8d23fb228641812a31579cb4c56357ccb10dd29fb84c19766aec43",
+      "cache_control": "no-cache"
+    },
+    {
+      "path": "/professions/releases.json",
+      "status": 200,
+      "bytes": 18446,
+      "sha256": "d313fb81dfe734167b05428b95b2d5a63b93307725937e309402d7cb5cf2886a",
+      "cache_control": "no-cache"
+    },
+    {
+      "path": "/navigator/latest.json",
+      "status": 200,
+      "bytes": 1901,
+      "sha256": "d21cdfbfab0c2fb4c916db6c0f7e1b0863ac447fb16ac35bb58c34f10897ef63",
+      "cache_control": "no-cache"
+    },
+    {
+      "path": "/navigator/releases.json",
+      "status": 200,
+      "bytes": 28686,
+      "sha256": "f7d80ac8b10a6b0e1df98d94fe65d267c8b8738fd9d6f11d34e2e538c3231c58",
+      "cache_control": "no-cache"
+    },
+    {
+      "path": "/targets/latest.json",
+      "status": 200,
+      "bytes": 2042,
+      "sha256": "d83a2b79fdba63f633ec8a97894151025b2b30c15d29c606c210930f07be3015",
+      "cache_control": "no-cache"
+    },
+    {
+      "path": "/targets/releases.json",
+      "status": 200,
+      "bytes": 9742,
+      "sha256": "8c2fdba91fc27a56e80677f855dd16e41ac8c96032f6f052473dc50885354fa6",
+      "cache_control": "no-cache"
+    },
+    {
+      "path": "/manager/latest.json",
+      "status": 200,
+      "bytes": 2499,
+      "sha256": "f489d2aac707286b4b377e63d6960f1500e186e04d2f053c7ce8b78c9969e100",
+      "cache_control": "no-cache"
+    },
+    {
+      "path": "/manager/releases.json",
+      "status": 200,
+      "bytes": 12193,
+      "sha256": "fbf4777c93581f25c721363b7194836c0678a107367361bd39c580261632d6a9",
+      "cache_control": "no-cache"
+    },
+    {
+      "path": "/downloads/MyForeverChat-0.10.0-Trial.zip",
+      "status": 200,
+      "bytes": 123404,
+      "sha256": "444a1ad6f55c25a4e0e9be5fceb9c1be42b8f170ab5ba028943bc005e4744f35",
+      "cache_control": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "/downloads/MyForeverProfessions-0.5.0-Trial.zip",
+      "status": 200,
+      "bytes": 112208,
+      "sha256": "471047797b1fc9e3cfbc1a3a8c73db99176a3e8220f187af97cac2ba6b5b9504",
+      "cache_control": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "/downloads/MyForeverNavigator-0.5.0-Trial.zip",
+      "status": 200,
+      "bytes": 585363,
+      "sha256": "3e6ce66ff87e5c4765db3d0fe7602e25d2217154471d4e1693bab13c870a0500",
+      "cache_control": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "/downloads/MyForeverTargets-0.2.0-Trial.zip",
+      "status": 200,
+      "bytes": 205018,
+      "sha256": "6a43ec0cf6df0c803b3054718a3e870c5b691f9fc7e03c4af324fede3886f60a",
+      "cache_control": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "/manager/downloads/MyForeverManager-0.4.0-Trial-win-x64.zip",
+      "status": 206,
+      "bytes_checked": 64,
+      "content_range": "bytes 0-63/41677921",
+      "cache_control": "public, max-age=31536000, immutable",
+      "full_sha256_verified_from_server": true
+    },
+    {
+      "path": "/manager/downloads/MyForeverManager-0.4.0-Trial-osx-arm64.zip",
+      "status": 206,
+      "bytes_checked": 64,
+      "content_range": "bytes 0-63/41234171",
+      "cache_control": "public, max-age=31536000, immutable",
+      "full_sha256_verified_from_server": true
+    },
+    {
+      "path": "/manager/downloads/MyForeverManager-0.4.0-Trial-osx-x64.zip",
+      "status": 206,
+      "bytes_checked": 64,
+      "content_range": "bytes 0-63/43711225",
+      "cache_control": "public, max-age=31536000, immutable",
+      "full_sha256_verified_from_server": true
+    }
+  ]
+}

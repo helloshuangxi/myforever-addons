@@ -1,5 +1,13 @@
 # 我的无限双插件官网部署
 
+## 2026-11-14 星辉套件与午夜管理器
+
+用户进游戏接受本批 UI 后授权合并并发布。源码 `6ae77c6`，GitHub prerelease `suite-2026.11.14`；官网部署 `20261114T041752Z`。Chat 0.10.0、Professions/Navigator 0.5.0、Targets 0.2.0、Manager 0.4.0 同批上线，Coach/Macros/FieldKit 从管理器页面链接到 GitHub 手动包。全部旧包保留原哈希。
+
+使用五个正常同步入口先冻结本站内容，再由 `sync_manager_release.py --publish` 单次部署。相同 `verify_live.py` 在服务器通过真实公网 HTTPS 核对 132 资源，本机另做 24 项外网检查与真实浏览器下载；重复的本机全历史大包校验在服务器等效完整校验通过后停止，不记为本机完整下载通过。36 个历史 ZIP 不变、现有子域健康与保护正常、无关 Caddy 及社区后端源码不变。未进行生产建议写入或付款测试。
+
+详见 `ui-20261114-publication.json`、`ui-20261114-live-verification.json`、`ui-20261114-external-verification.json`、`ui-20261114-server-scope.json` 及 `../../releases/ui-20261114-RELEASE.md`。跨平台编译不替代 Windows/Intel Mac 真机验收；矿名/战斗桥接等专项继续 open。
+
 2026-11-06 只读核验：Porkbun 权威 DNS 的 `afabiaoge.xyz` 与 `www.afabiaoge.xyz` 都指向现有新加坡服务器；无 AAAA 与 CAA 冲突。现有 Caddy 仅承担聊天网站与工作台各域名，主域尚无站点配置。根分区空闲约 8 GiB。现有聊天健康接口通过。
 
 ## 发布结构

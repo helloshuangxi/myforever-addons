@@ -1,0 +1,195 @@
+{
+  "status": "published_and_verified",
+  "deployment": "20261114T041752Z",
+  "source_commit": "6ae77c6ccf2c15bf87e49ff527fa3d7c9edea07a",
+  "tag": "suite-2026.11.14",
+  "website": "https://afabiaoge.xyz/",
+  "github_release": "https://github.com/helloshuangxi/myforever-addons/releases/tag/suite-2026.11.14",
+  "package_audit": {
+    "status": "passed",
+    "new_packages": [
+      {
+        "filename": "MyForeverChat-0.10.0-Trial.zip",
+        "sha256": "444a1ad6f55c25a4e0e9be5fceb9c1be42b8f170ab5ba028943bc005e4744f35",
+        "verified": true
+      },
+      {
+        "filename": "MyForeverProfessions-0.5.0-Trial.zip",
+        "sha256": "471047797b1fc9e3cfbc1a3a8c73db99176a3e8220f187af97cac2ba6b5b9504",
+        "verified": true
+      },
+      {
+        "filename": "MyForeverNavigator-0.5.0-Trial.zip",
+        "sha256": "3e6ce66ff87e5c4765db3d0fe7602e25d2217154471d4e1693bab13c870a0500",
+        "verified": true
+      },
+      {
+        "filename": "MyForeverTargets-0.2.0-Trial.zip",
+        "sha256": "6a43ec0cf6df0c803b3054718a3e870c5b691f9fc7e03c4af324fede3886f60a",
+        "verified": true
+      },
+      {
+        "filename": "MyForeverCoach-0.2.1-Trial.zip",
+        "sha256": "2b335bb41bbde5f67afca09c29f3afd3df078e3d0119fce204ea1e76c7bad1a3",
+        "verified": true
+      },
+      {
+        "filename": "MyForeverMacros-0.2.3-Trial.zip",
+        "sha256": "6c2ccd98d78c65c14287b911d43d65f8714cf7cafd6484e8d20f5aaf9017907a",
+        "verified": true
+      },
+      {
+        "filename": "MyForeverFieldKit-0.1.1-Trial.zip",
+        "sha256": "1897681512677786ba421bd0c6490e79e21b05f9fdf729e12ef6db98245de1e2",
+        "verified": true
+      },
+      {
+        "filename": "MyForeverManager-0.4.0-Trial-osx-arm64.zip",
+        "sha256": "01ec2aa3d1f370ff2487c0f41736fe9a6644d98dd85c5b87e377132e4c5f0934",
+        "verified": true
+      },
+      {
+        "filename": "MyForeverManager-0.4.0-Trial-osx-x64.zip",
+        "sha256": "366a8d0e606388e3c3a3462a1e656a4fdaa42f6cab138c36a3cf786298c4ebc2",
+        "verified": true
+      },
+      {
+        "filename": "MyForeverManager-0.4.0-Trial-win-x64.zip",
+        "sha256": "a1de762a4c4a59edeb20f5b1c450a4c1b5d4965427277f0e1e6d2200e21f5a6d",
+        "verified": true
+      }
+    ],
+    "old_public_archives_unchanged": 36,
+    "settings_included": false
+  },
+  "github_assets_verified": 22,
+  "additional_github_downloads_full_sha256": [
+    {
+      "name": "MyForeverMacros-0.2.3-Trial.zip",
+      "url": "https://github.com/helloshuangxi/myforever-addons/releases/download/suite-2026.11.14/MyForeverMacros-0.2.3-Trial.zip",
+      "status": 200,
+      "size": 33683,
+      "sha256": "6c2ccd98d78c65c14287b911d43d65f8714cf7cafd6484e8d20f5aaf9017907a"
+    },
+    {
+      "name": "MyForeverCoach-0.2.1-Trial.zip",
+      "url": "https://github.com/helloshuangxi/myforever-addons/releases/download/suite-2026.11.14/MyForeverCoach-0.2.1-Trial.zip",
+      "status": 200,
+      "size": 46042,
+      "sha256": "2b335bb41bbde5f67afca09c29f3afd3df078e3d0119fce204ea1e76c7bad1a3"
+    },
+    {
+      "name": "MyForeverFieldKit-0.1.1-Trial.zip",
+      "url": "https://github.com/helloshuangxi/myforever-addons/releases/download/suite-2026.11.14/MyForeverFieldKit-0.1.1-Trial.zip",
+      "status": 200,
+      "size": 22606,
+      "sha256": "1897681512677786ba421bd0c6490e79e21b05f9fdf729e12ef6db98245de1e2"
+    }
+  ],
+  "public_https_full_verifier": {
+    "status": "passed",
+    "files": 132,
+    "location": "existing server, through real public HTTPS, same ops/verify_live.py",
+    "checked_at": "2026-11-14T04:22:43.361551+00:00",
+    "old_archives_unchanged": 36
+  },
+  "local_external_https": {
+    "status": "passed",
+    "checks": 24,
+    "full_current_plugin_downloads": 4,
+    "manager_range_checks": 3
+  },
+  "local_sync_command_note": "Deployment succeeded. Its redundant local 514MB full-history download verifier was stopped after the same complete verifier passed from the server through public HTTPS; local external and browser checks were performed separately. The cancelled child caused the sync wrapper to exit 1; this is not reported as a local full-verifier pass.",
+  "local_manager": {
+    "version": "0.4.0",
+    "installed": true,
+    "previous_app_backed_up": true,
+    "settings_files_unchanged": 3,
+    "not_launched": true
+  },
+  "local_game": {
+    "running": true,
+    "accepted_candidate_files_preserved": 116,
+    "not_hot_overwritten": true,
+    "local_git_checkout_sync_deferred": true
+  },
+  "tests": {
+    "lua_syntax_files": 82,
+    "lua_owned_suites": 72,
+    "python_parser_tests": 19,
+    "manager_release_build": "passed",
+    "manager_behavior": 35,
+    "manager_isolated_update": 68,
+    "website_regression_tests": 72
+  },
+  "limits": [
+    "Windows and Intel Mac native execution not tested",
+    "Ore names, combat name bridge, sounds/clicks and map/input recovery remain specific game acceptance tasks",
+    "No payment or community write test performed on production"
+  ],
+  "checked_at": "2026-11-14T04:25:23.304706+00:00",
+  "browser": {
+    "desktop": [
+      {
+        "url": "https://afabiaoge.xyz/",
+        "viewport": 1440,
+        "scrollWidth": 1440,
+        "brokenImages": [],
+        "pendingLazyImages": 0,
+        "theme": true
+      },
+      {
+        "url": "https://afabiaoge.xyz/chat/",
+        "viewport": 1440,
+        "scrollWidth": 1440,
+        "brokenImages": [],
+        "pendingLazyImages": 5,
+        "theme": true
+      },
+      {
+        "url": "https://afabiaoge.xyz/professions/",
+        "viewport": 1440,
+        "scrollWidth": 1440,
+        "brokenImages": [],
+        "pendingLazyImages": 1,
+        "theme": true
+      },
+      {
+        "url": "https://afabiaoge.xyz/navigator/",
+        "viewport": 1440,
+        "scrollWidth": 1440,
+        "brokenImages": [],
+        "pendingLazyImages": 1,
+        "theme": true
+      },
+      {
+        "url": "https://afabiaoge.xyz/targets/",
+        "viewport": 1440,
+        "scrollWidth": 1440,
+        "brokenImages": [],
+        "pendingLazyImages": 1,
+        "theme": true
+      },
+      {
+        "url": "https://afabiaoge.xyz/manager/",
+        "viewport": 1440,
+        "scrollWidth": 1440,
+        "brokenImages": [],
+        "pendingLazyImages": 0,
+        "theme": true
+      }
+    ],
+    "mobile_manager": {
+      "url": "https://afabiaoge.xyz/manager/",
+      "width": 390,
+      "scrollWidth": 390,
+      "brokenImages": []
+    },
+    "browser_chat_download_sha256": "444a1ad6f55c25a4e0e9be5fceb9c1be42b8f170ab5ba028943bc005e4744f35",
+    "screenshots_reviewed": [
+      "live-home-desktop.png",
+      "live-manager-mobile.png"
+    ],
+    "note": "Lazy images pending outside viewport are not classified as broken; all image bytes separately verified over HTTPS."
+  }
+}

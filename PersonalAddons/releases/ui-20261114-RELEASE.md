@@ -24,3 +24,15 @@
 详细范围见 [统一验证说明](ui-20261114-VALIDATION.md)，包与SHA-256见 `ui-20261114-packages.json`、`ui-20261114-SHA256SUMS.txt`。旧同名ZIP不覆盖，公开包排除WTF、SavedVariables、个人设置、密钥、数据库和日志。
 
 同批 GitHub 发行：https://github.com/helloshuangxi/myforever-addons/releases/tag/suite-2026.11.14
+
+## 实际发布与核验
+
+发行源码提交 `6ae77c6ccf2c15bf87e49ff527fa3d7c9edea07a` 已进入远端 `main`，PR #9 为 merged；`suite-2026.11.14` 为已公开的 prerelease。10 个新 ZIP 与 10 个 SHA 文件、清单和总校验表共 22 个附件，GitHub 返回的大小及 SHA-256 与本地一致。Coach/Macros/FieldKit 的三个公开附件另做完整 HTTPS 下载，哈希通过。
+
+官网部署 `20261114T041752Z`，四插件首页卡片、详情、历史、下载以及三平台 Manager 0.4.0 同批生效。同一 `ops/verify_live.py` 从现有服务器通过真实公网 HTTPS 完整核对 132 个资源；36 个历史 ZIP 哈希保持不变。www 跳转、chat 健康、studio 登录保护与建议只读接口通过，既有无关 Caddy 配置及社区后端源码哈希不变。
+
+本机外网另通过 24 项页面/元数据/完整新插件下载与管理器 Range 检查；浏览器实际下载聊天包，哈希一致。官网六页在 1440px 下无横向溢出或已失败图片，Manager 390px 检查通过；新版预览图仍标明离线模拟。完整 HTTPS 历史包核验在服务器执行，本机不冒充完整下载了所有历史大包。同步命令已完成部署；其重复的本机全历史下载子进程在等效服务器核验通过后停止，因此包装命令退出 1，不将它记作本机完整核验通过。
+
+本机 `/Applications/MyForeverManager.app` 已从 0.3.1 替换为同批 0.4.0，旧应用已备份，3 个设置文件保持原哈希，签名检查通过；未自动启动。游戏仍在运行，116 个已验收候选文件保持原样，没有热覆盖或重载。游戏安装树内的本机 Git checkout 仍保留此前状态，待退出游戏后再同步；远端 main 和独立发布工作区已更新。退出游戏后可用管理器更新四个受管理插件。
+
+证据：`website/ops/ui-20261114-publication.json`、`ui-20261114-live-verification.json`、`ui-20261114-external-verification.json`、`ui-20261114-server-scope.json`。原始本机日志、备份与截图留在私有本机目录；生产环境没有付款或建议写入测试。UX-001 #1 已按用户验收关闭，其他专项问题继续 open。

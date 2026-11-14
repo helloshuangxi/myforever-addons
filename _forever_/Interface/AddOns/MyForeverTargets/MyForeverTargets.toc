@@ -17,6 +17,7 @@ Quest.lua
 Units.lua
 Mouseover.lua
 NearbyCast.lua
+CombatHover.lua
 CombatCast.lua
 GUIDProbeLog.lua
 GUIDProbe.lua

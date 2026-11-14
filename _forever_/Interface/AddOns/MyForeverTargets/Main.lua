@@ -285,7 +285,17 @@ function NS.HandleCommand(message)
             NS.ApplySetting("legacyNameBridgeEnabled",argument=="on")
         end
         NS.Print("普通技能悬停兼容："..(NS.DB.legacyNameBridgeEnabled and "开启" or "关闭")..
-            "；仅脱战，按键时临时选中悬停单位、施法并恢复原目标。/mytargets legacycast on 或 off")
+            "；脱战时临时选中悬停单位、施法并恢复原目标；战斗中固定单位格直接施法。/mytargets legacycast on 或 off；/mytargets combatcast 查看战斗准备。")
+        return
+    end
+    if command=="combatcast" then
+        local module=NS.CombatHover
+        local status=module and NS.Read(module.Status)
+        if type(status)~="table" then NS.Print("战斗悬停模块未加载，请 /reload。");return end
+        NS.Print("战斗悬停施法："..(status.enabled and "开启" or "关闭")..
+            "；友方 "..tostring(status.friendlySpells).." 个技能/"..tostring(status.friendlyKeys).." 个键，"..
+            "敌方 "..tostring(status.enemySpells).." 个技能/"..tostring(status.enemyKeys).." 个键。"..
+            "仅固定单位格（自己、小队、团队、宠物、目标、焦点、首领、竞技场）在战斗中生效；附近姓名板格不支持。技能或键位改动后脱战自动重读。")
         return
     end
     if command=="debug" then
@@ -339,7 +349,7 @@ function NS.HandleCommand(message)
         end
     elseif command=="help" then
         if NS.NativeMacroOnly then
-            NS.Print("/mytargets 显隐；raid 团队；party 小队；nearby 5/10/20；enemy 5/10/20；legacycast on/off 普通技能兼容；macro 原生宏说明；plates on/off 附近识别与原设置恢复；scale 0.7–1.4；lock/unlock；reset；log start/stop/status/mark。")
+            NS.Print("/mytargets 显隐；raid 团队；party 小队；nearby 5/10/20；enemy 5/10/20；legacycast on/off 普通技能兼容；combatcast 战斗悬停状态；macro 原生宏说明；plates on/off 附近识别与原设置恢复；scale 0.7–1.4；lock/unlock；reset；log start/stop/status/mark。")
             return
         end
         local guidHelp=NS.PreserveCastTarget and "guid 查看GUID直施尝试说明。悬停正常敌方方块后按普通技能键，当前目标保持。" or
@@ -427,7 +437,7 @@ function NS.HandleEvent(event,unit)
             NS.DB.mouseoverRequested=false
             if NS.LegacyNameBridge==true then
                 NS.Print("目标选择 "..NS.VERSION.." 已加载；全部目标普通技能兼容"..
-                    (NS.DB.legacyNameBridgeEnabled and "已开启" or "已关闭").."，仅脱战，施法时临时选人并恢复原目标。")
+                    (NS.DB.legacyNameBridgeEnabled and "已开启" or "已关闭").."；脱战临时选人施法，战斗中固定单位格直接施法。")
             else
                 NS.Print("目标选择 "..NS.VERSION.." 本机试用版已加载；使用自己的 @mouseover 宏和原按键，/mytargets macro 查看识别状态。")
             end

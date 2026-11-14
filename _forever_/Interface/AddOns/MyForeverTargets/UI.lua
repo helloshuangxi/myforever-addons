@@ -291,10 +291,15 @@ local function combatCastStatus(row)
         if not NS.DB.legacyNameBridgeEnabled or reason=="disabled" then
             state.nativeText="普通技能悬停兼容已关闭，可点上方“施法”开启。"
         elseif NS.InCombat() or reason=="out_of_combat_only" then
+            local fixed=NS.CombatHover and NS.Read(NS.CombatHover.Status,row)
             -- In combat the keys belong to CombatCast, armed before combat began.
             local combat=row.side=="enemy" and not row.bridgeTarget and NS.CombatCast and NS.CombatCast.legacy
                 and NS.Read(NS.CombatCast.Status,row)
-            if type(combat)=="table" and combat.prepared==true and NS.Number(combat.count) and combat.count>0
+            if type(fixed)=="table" and fixed.ready==true and fixed.enabled==true then
+                state.prepared,state.count,state.combat=true,
+                    row.side=="enemy" and fixed.enemyKeys or fixed.friendlyKeys,true
+                state.nativeText="战斗中：固定单位格按普通技能键直接施法，不切换目标（待游戏验收）。"
+            elseif type(combat)=="table" and combat.prepared==true and NS.Number(combat.count) and combat.count>0
                 and NS.Text(combat.guid)==NS.Text(row.expectedGUID) then
                 state.prepared,state.count,state.combat=true,combat.count,true
                 state.nativeText="战斗中：已准备 "..combat.count.." 个普通技能键；按战前确认的名字临时选中、施法，再恢复原目标。"
@@ -1255,7 +1260,7 @@ local function createTile(panel,side,index,menu)
         end
         local castInstruction
         if legacyBridge(self.side) then
-            castInstruction="脱战悬停后按原普通技能键：友方接治疗／增益，敌方接攻击；内部临时选中此单位、施法并恢复原目标。移开或入战交还原键；已有宏和物品不接管。"
+            castInstruction="悬停后按原普通技能键：友方接治疗／增益，敌方接攻击。脱战时临时选中此单位、施法并恢复原目标；战斗中只有自己、小队、团队、宠物、目标、焦点、首领、竞技场这类固定单位格直接对该单位施法，附近姓名板格交还原键。已有宏和物品不接管。"
         elseif NS.NativeMacroOnly then
             castInstruction="悬停方块后，按原 @mouseover 宏的原按键。保留原宏写法与后备分支；插件不改变当前目标。鼠标单位未确认时，宏可能回退当前目标。"
         elseif NS.PreserveCastTarget then
@@ -1331,6 +1336,7 @@ local function createTile(panel,side,index,menu)
     row.nativeClick=row:GetScript("OnClick")
     if side=="enemy" and NS.EnemyTargetHover then NS.EnemyTargetHover.Create(row) end
     if (not NS.NativeMacroOnly or legacyBridge(side)) and NS.NearbyCast then NS.NearbyCast.Install(row) end
+    if legacyBridge(side) and NS.CombatHover then NS.CombatHover.Install(row) end
     return row
 end
 
@@ -1439,7 +1445,7 @@ local function makePanel(side,menu)
             lines[#lines+1]="附近目标按距离由近到远；距离未知的排在后面。"
         end
         if legacyBridge(side) then
-            lines[#lines+1]="仅脱战：悬停后按普通技能键，临时选中、施法，再恢复原目标。"
+            lines[#lines+1]="悬停后按普通技能键：脱战临时选中、施法再恢复目标；战斗中仅固定单位格（小队/团队/焦点/首领等）直接施法。"
         elseif NS.PreserveCastTarget and side=="enemy" then
             lines[#lines+1]="悬停怪物后按原普通技能键做GUID直施尝试；不切换当前目标，实际施法待验证。"
         end
@@ -1519,7 +1525,7 @@ local function makePanel(side,menu)
             return {"友方、敌方及下方目标条：脱战悬停后按原普通技能键。",
                 "临时选中悬停单位、施法，再恢复原目标；原来无目标则恢复为空。",
                 "友方接治疗／增益、敌方接伤害；已有宏、物品及其他插件占用的键保持原行为。",
-                "移开、隐藏或入战会交还原键。同名怪物无法确认唯一时不准备名称施法。",
+                "战斗中固定单位格可直接施法（待实测）；移开或隐藏交还原键，同名怪物未确认唯一时不准备名称施法。",
                 "敌方战斗中：脱战时已确认名字唯一的怪物继续可用，沿用战前名字；战斗中新出现的和同名的不接管。友方战斗中保持原样。",
                 "格子右下角绿点＝此单位现在可悬停施法；黄点＝有同名单位，未准备。",
                 NS.DB.legacyNameBridgeEnabled and "点击关闭普通技能悬停兼容。" or "点击开启普通技能悬停兼容。"}
@@ -1656,6 +1662,7 @@ function NS.BindTiles(side,tokens,limit)
             row:SetAttribute("*macrotext1",nil)
         end
         shown(row,i <= limit)
+        if NS.CombatHover then NS.CombatHover.BindRow(row) end
         if side=="enemy" and NS.EnemyTargetHover then NS.EnemyTargetHover.Bind(row) end
         if i > limit or not NS.IsPanelShown(side) then row.shield:Hide() end
         if (not NS.NativeMacroOnly or NS.CombatCast and NS.CombatCast.legacy) and NS.CombatCast

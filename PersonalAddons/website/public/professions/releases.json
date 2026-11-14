@@ -1,8 +1,41 @@
 {
   "schema_version": 1,
   "name": "MyForeverProfessions",
-  "latest": "0.4.6",
+  "latest": "0.5.0",
   "releases": [
+    {
+      "schema_version": 1,
+      "name": "MyForeverProfessions",
+      "display_name": "我的无限 · 商业技能助手",
+      "homepage": "https://afabiaoge.xyz/professions/",
+      "installation": "完整退出游戏，将 MyForeverProfessions 文件夹放入 _forever_/Interface/AddOns/，保留 WTF，然后重新启动游戏。",
+      "automatic_install": false,
+      "version": "0.5.0",
+      "channel": "trial",
+      "published_at": "2026-11-14",
+      "compatibility": {
+        "product": "国服魔兽世界：无限",
+        "client": "1.60.1",
+        "interface": 16001
+      },
+      "changes": [
+        "统一星辉菜单、金色包角、选中光标、轻量动效与可关菜单音效；战斗面板和HUD保持克制。",
+        "/myui提供网格、参考线吸附、Alt自由放置、方向键微调、撤销、默认位置与受支持面板缩放；保留原有位置和设置。",
+        "保留窗口拉伸、顶部技能书和提醒/声音/闪光设置；新增受保护矿名直显与tooltip备用显示候选，以及公开身份字段过滤。"
+      ],
+      "validation": [
+        "用户安装候选并进游戏后反馈“没问题”，明确授权合并与本批发布；这是用户界面验收，不代表全部专项实机路径通过。",
+        "82个Lua文件语法、七个TOC、72组自研模拟、共享样式一致及19项Python解析检查通过；模拟不等同游戏实测。",
+        "矿名直显、真实新矿、听感、右键及地图/输入恢复未完成本批专项实测；不能识别受保护名称对应的矿种/技能要求，候选可用 /myprof gather passthrough off 关闭。"
+      ],
+      "package_note": "插件源码、内嵌共享样式、必要素材与说明/许可；无WTF、SavedVariables、个人配置、聊天或日志。",
+      "download": {
+        "url": "https://afabiaoge.xyz/downloads/MyForeverProfessions-0.5.0-Trial.zip",
+        "filename": "MyForeverProfessions-0.5.0-Trial.zip",
+        "size_bytes": 112208,
+        "sha256": "471047797b1fc9e3cfbc1a3a8c73db99176a3e8220f187af97cac2ba6b5b9504"
+      }
+    },
     {
       "schema_version": 1,
       "name": "MyForeverProfessions",

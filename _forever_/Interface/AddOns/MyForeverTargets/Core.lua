@@ -1,5 +1,5 @@
 local _, NS = ...
-NS.VERSION = "0.1.45"
+NS.VERSION = "0.2.0"
 -- This client read back 512x256 after the requested native expansion. Keep the
 -- incompatible trial unavailable until a separately verified implementation.
 NS.NativeTrialUnavailable = "native_size_clamped_512x256"

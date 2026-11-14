@@ -291,7 +291,7 @@ public sealed class MainWindow : Window
             Margin = new Thickness(36, 24, 36, 18), Spacing = 5, Children =
             {
                 Text("我的无限", 23, true),
-                Text($"v{ManagerVersion.Current} 本机候选  ·  插件管理与玩家行为统计", 12, false, Muted)
+                Text($"v{ManagerVersion.Current} 试用版  ·  插件管理与玩家行为统计", 12, false, Muted)
             }
         });
         Grid.SetRow(tabs, 1); root.Children.Add(tabs);

@@ -1,5 +1,5 @@
 local _, NS = ...
-NS.VERSION = "0.4.1"
+NS.VERSION = "0.5.0"
 
 function NS.Number(value)
     return not (issecretvalue and issecretvalue(value)) and type(value) == "number"

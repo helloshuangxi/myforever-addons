@@ -273,3 +273,8 @@ Path('ops/live-verification-server.json').write_text(
 部署 `20261113T105612Z`，冻结 `PersonalAddons/work/navigator-0.4.1-site`。包585107字节、15白名单文件，SHA-256 `6ad246ffc2d9505d4a72b8a8e0b72089860f19a6cc0b662e4085e1a23ce82414`。公开管理器0.2.1冻结源码重新构建后，公网HTTPS／fake目录安装、更新、备份恢复71项通过，未安装至真实游戏。
 
 公网114资源逐字节／哈希通过，35旧ZIP不变；Chat0.9.3、Professions0.4.6、Targets0.1.46、Manager0.2.1与私有社区源码保留，未发布专业实验候选或本机管理器候选。www、chat健康、studio登录保护及建议只读接口正常。证据：`navigator-0.4.1-publish.log`、`navigator-0.4.1-live-verification.json`、`release-navigator-0.4.1-validation.json`及work中的专业/管理器检查记录。
+
+
+## 2026-11-14 星辉 UI / 午夜官网与管理器
+
+用户已明确授权本批合并和发布。四插件与Manager使用各自同步脚本生成版本/历史/首页，单次部署完整冻结站点；可选三个插件由同批GitHub发行提供手动安装。theme.css显式设为no-cache，三份离线预览PNG加入verify_live；历史36个ZIP保持SHA-256。实际部署标识、公网结果见本批后续验证记录，不能只凭本地同步声明上线。

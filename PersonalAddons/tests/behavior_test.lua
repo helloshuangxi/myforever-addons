@@ -85,7 +85,7 @@ local function tick(ns, seconds) now=now+seconds; ns.SettleBehavior() end
 local function cast(ns, event, unit, spell) ns.HandleEvent(event,unit,"FORBIDDEN_CAST_GUID",spell or 639,1) end
 
 local ns = fresh()
-eq(ns.VERSION,"0.2.0","candidate version")
+eq(ns.VERSION,"0.2.1","released collector version")
 eq(ns.db.schema,1,"root schema remains compatible")
 eq(ns.db.behavior.schema,1,"independent daily schema")
 eq(ns.db.behavior.dayBasis,"UTC+08:00","fixed day basis")

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Isolated multi-add-on release transitions; never modify or deploy the live tree."""
 import copy
+from datetime import date, timedelta
 import hashlib
 import json
 import re
@@ -29,7 +30,12 @@ class ProfessionsReleaseTests(unittest.TestCase):
         self.chat_catalog = (self.public / 'releases.json').read_bytes()
         major, minor, patch = sync.version_key(self.old['version'])
         self.version = f'{major}.{minor}.{patch + 1}'
-        self.notes = {'version': self.version, 'published_at': '2026-11-08', 'channel': 'trial',
+        # A fixture release must be later than the copied site's current dates;
+        # historical hardcoded dates would correctly be kept from backdating it.
+        dates = re.findall(r'<lastmod>(\d{4}-\d{2}-\d{2})</lastmod>', (self.public/'sitemap.xml').read_text())
+        self.profession_date = (date.fromisoformat(max(dates)) + timedelta(days=1)).isoformat()
+        self.chat_date = (date.fromisoformat(self.profession_date) + timedelta(days=1)).isoformat()
+        self.notes = {'version': self.version, 'published_at': self.profession_date, 'channel': 'trial',
                       'compatibility': {'product': '国服魔兽世界：无限', 'client': '1.60.1'},
                       'changes': ['仅临时测试，不能发布。'], 'validation': ['脚本测试不是游戏实测。']}
 
@@ -143,7 +149,7 @@ class ProfessionsReleaseTests(unittest.TestCase):
         changes,_=chat.prepare(self.public,self.public/'downloads'/current['download']['filename'],current)
         sync.apply(self.public,changes)
         final=path.read_text()
-        self.assertIn('<loc>https://afabiaoge.xyz/professions/</loc><lastmod>2026-11-08</lastmod>',final)
+        self.assertIn('<loc>https://afabiaoge.xyz/professions/</loc><lastmod>' + self.profession_date + '</lastmod>',final)
         self.assertEqual(len(re.findall(r'<url>.*?</url>', final, re.S)), len(entries))
         for manager_entry in manager_entries:
             self.assertIn(manager_entry, final)
@@ -163,7 +169,7 @@ class ProfessionsReleaseTests(unittest.TestCase):
                         current = json.loads(self.chat_latest)
                         major, minor, patch = chat.version_key(current['version'])
                         version = f'{major}.{minor}.{patch + 1}'
-                        notes = dict(self.notes, version=version, published_at='2026-11-09')
+                        notes = dict(self.notes, version=version, published_at=self.chat_date)
                         package = self.package(version=version, addon='MyForeverChat')
                         operation = chat
                     else:
@@ -200,9 +206,9 @@ class ProfessionsReleaseTests(unittest.TestCase):
                     package = self.public/'downloads'/current['download']['filename']
                     self.assertEqual(operation.prepare(self.public, package, current)[0], {})
                 sitemap = (self.public/'sitemap.xml').read_text()
-                self.assertIn('<loc>https://afabiaoge.xyz/</loc><lastmod>' + max(initial_portal_date, '2026-11-09') + '</lastmod>', sitemap)
-                self.assertIn('<loc>https://afabiaoge.xyz/chat/</loc><lastmod>2026-11-09</lastmod>', sitemap)
-                self.assertIn('<loc>https://afabiaoge.xyz/professions/</loc><lastmod>2026-11-08</lastmod>', sitemap)
+                self.assertIn('<loc>https://afabiaoge.xyz/</loc><lastmod>' + max(initial_portal_date, self.chat_date) + '</lastmod>', sitemap)
+                self.assertIn('<loc>https://afabiaoge.xyz/chat/</loc><lastmod>' + self.chat_date + '</lastmod>', sitemap)
+                self.assertIn('<loc>https://afabiaoge.xyz/professions/</loc><lastmod>' + self.profession_date + '</lastmod>', sitemap)
                 result = self.verify()
                 self.assertEqual(result.returncode, 0, result.stderr)
 

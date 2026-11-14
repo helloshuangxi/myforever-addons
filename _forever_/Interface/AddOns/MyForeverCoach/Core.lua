@@ -2,7 +2,7 @@ local addonName, NS = ...
 NS = NS or {}
 _G.MyForeverCoach = NS
 
-NS.VERSION = "0.2.0"
+NS.VERSION = "0.2.1"
 NS.SCHEMA = 1
 NS.LIMITS = { sessions = 8, records = 1200, errors = 12 }
 NS.CAPABILITIES = {

@@ -5,30 +5,29 @@
   "homepage": "https://afabiaoge.xyz/professions/",
   "installation": "完整退出游戏，将 MyForeverProfessions 文件夹放入 _forever_/Interface/AddOns/，保留 WTF，然后重新启动游戏。",
   "automatic_install": false,
-  "version": "0.4.6",
+  "version": "0.5.0",
   "channel": "trial",
-  "published_at": "2026-11-08",
+  "published_at": "2026-11-14",
   "compatibility": {
     "product": "国服魔兽世界：无限",
     "client": "1.60.1",
     "interface": 16001
   },
   "changes": [
-    "补充原生交互目标识别：客户端未生成资源姓名板时，已确认且技能足够的矿草仍可触发近距离文字和声音；闪光继续跟随真实姓名板。",
-    "改进交互目标与姓名板切换时的声音去重，避免同一目标重复提醒，或误将不同可识别矿点的声音一起抑制。",
-    "状态命令分别显示闪光数量、近距离资源种类和声音调用次数，便于确认当前识别情况。",
-    "已在真实铜矿旁确认自动“铜矿／就在附近”提示和描边闪光。本次按头顶提示出现验收；小地图方向仍未恢复，实际声音听感待确认。"
+    "统一星辉菜单、金色包角、选中光标、轻量动效与可关菜单音效；战斗面板和HUD保持克制。",
+    "/myui提供网格、参考线吸附、Alt自由放置、方向键微调、撤销、默认位置与受支持面板缩放；保留原有位置和设置。",
+    "保留窗口拉伸、顶部技能书和提醒/声音/闪光设置；新增受保护矿名直显与tooltip备用显示候选，以及公开身份字段过滤。"
   ],
   "validation": [
-    "11 个 Lua 文件语法检查、1254 项模拟检查通过（近距离专项 209 项）；独立复核另有 27 项断言通过，覆盖无姓名板识别、来源顺序、失败重试与声音去重。",
-    "macOS 无限 1.60.1（build 70862）中，加载相同功能源码的 0.4.6-dev.1 后，靠近并面向真实铜矿时自动出现“铜矿／就在附近”和金色描边闪光；矿点消失后提示与特效清除。客户端记录近距离声音调用成功 3 次，用户未留意实际声音，并明确以头顶提示出现作为本次验收标准。",
-    "无姓名板回退在模拟中通过，现场触发时可见姓名板闪光，尚未隔离实测该回退路径。可靠方向、实际声音听感、草药、更多地形及其他操作系统仍待验证；本版不代表完整小地图找矿恢复。"
+    "用户安装候选并进游戏后反馈“没问题”，明确授权合并与本批发布；这是用户界面验收，不代表全部专项实机路径通过。",
+    "82个Lua文件语法、七个TOC、72组自研模拟、共享样式一致及19项Python解析检查通过；模拟不等同游戏实测。",
+    "矿名直显、真实新矿、听感、右键及地图/输入恢复未完成本批专项实测；不能识别受保护名称对应的矿种/技能要求，候选可用 /myprof gather passthrough off 关闭。"
   ],
-  "package_note": "插件源码、MIT 许可、使用说明和脱敏验证摘要；不含角色配置或聊天数据",
+  "package_note": "插件源码、内嵌共享样式、必要素材与说明/许可；无WTF、SavedVariables、个人配置、聊天或日志。",
   "download": {
-    "url": "https://afabiaoge.xyz/downloads/MyForeverProfessions-0.4.6-Trial.zip",
-    "filename": "MyForeverProfessions-0.4.6-Trial.zip",
-    "size_bytes": 57254,
-    "sha256": "6d1e93b4d9865216d46d532770813b38572692134a8dd16333f87d864cf62bb6"
+    "url": "https://afabiaoge.xyz/downloads/MyForeverProfessions-0.5.0-Trial.zip",
+    "filename": "MyForeverProfessions-0.5.0-Trial.zip",
+    "size_bytes": 112208,
+    "sha256": "471047797b1fc9e3cfbc1a3a8c73db99176a3e8220f187af97cac2ba6b5b9504"
   }
 }

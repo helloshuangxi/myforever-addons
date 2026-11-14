@@ -5,30 +5,29 @@
   "homepage": "https://afabiaoge.xyz/navigator/",
   "installation": "完整退出游戏，将 MyForeverNavigator 文件夹放入 _forever_/Interface/AddOns/，保留 WTF，然后重新启动游戏。",
   "automatic_install": false,
-  "version": "0.4.1",
+  "version": "0.5.0",
   "channel": "trial",
-  "published_at": "2026-11-13",
+  "published_at": "2026-11-14",
   "compatibility": {
     "product": "国服魔兽世界：无限",
     "client": "1.60.1",
     "interface": 16001
   },
   "changes": [
-    "新增独立“专业训练师”入口，与职业训练师分开，按采矿、草药学、剥皮、炼金、锻造、制皮、裁缝、工程学、附魔、急救、烹饪、钓鱼细分，可直接收藏和导航。",
-    "依据训练功能标记与完整中英文头衔识别，兼容初中高级、大师、明确专精及 Junior 标题；支持采矿训练师、工程训练师、炼金术等搜索别名，材料和技能书商人不混入。",
-    "既有6位专业进阶精选NPC保留原ID和特殊主分类，同时加入对应专业分组；同NPC／地图不重复添加，原收藏继续使用。",
-    "调整八用途侧栏与细分类分页的间距，保留固定小尺寸半透明HUD、Questie只读目录、任务导航和个人地点。"
+    "统一星辉菜单、金色包角、选中光标、轻量动效与可关菜单音效；战斗面板和HUD保持克制。",
+    "/myui提供网格、参考线吸附、Alt自由放置、方向键微调、撤销、默认位置与受支持面板缩放；保留原有位置和设置。",
+    "窗口改为440×690单列、用途胶囊、底部目的地卡片及展开资料；保留300×84、0.56底板的精简HUD与NPC/专业训练师目录。"
   ],
   "validation": [
-    "11个Lua文件通过Lua5.1语法，13组模拟通过；专业训练师319项、UI侧栏602项、Questie目录328项、端到端44项、导航249项、任务导航7083项、任务UI254项，任务参考831039返回点。HUD构建和刷新代码与0.4.0发行ZIP一致。",
-    "使用本机Questie12.8.0／QuestieDB1.1.0实际数据库，在模型地图API下返回305个专业训练师点位，含6个保留旧ID及特殊分类的副成员。12专业各一个实际样例通过搜索别名、收藏、开始导航及目标读取；材料和技能书商人反例被排除，源数据保持不变。此为离线集成，不是游戏站位或可教内容实测。",
-    "本轮仅观察到角色在游戏中，未重载或执行专业入口、物理点击、NPC站位与可教技能验收，原始截图未公开。专业目录需启用兼容的Questie和QuestieDB，覆盖取决于数据库、客户端地图及角色条件，不自动学习技能。"
+    "用户安装候选并进游戏后反馈“没问题”，明确授权合并与本批发布；这是用户界面验收，不代表全部专项实机路径通过。",
+    "82个Lua文件语法、七个TOC、72组自研模拟、共享样式一致及19项Python解析检查通过；模拟不等同游戏实测。",
+    "Questie数据和导航已离线模型检查；真实NPC站位、可教内容、相位、行程与全部物理点击仍需对应实机验证。"
   ],
-  "package_note": "世界向导源码、离线参考、说明及pfQuest MIT声明；不附送Questie数据库，不含WTF或个人数据",
+  "package_note": "插件源码、内嵌共享样式、必要素材与说明/许可；无WTF、SavedVariables、个人配置、聊天或日志。",
   "download": {
-    "url": "https://afabiaoge.xyz/downloads/MyForeverNavigator-0.4.1-Trial.zip",
-    "filename": "MyForeverNavigator-0.4.1-Trial.zip",
-    "size_bytes": 585107,
-    "sha256": "6ad246ffc2d9505d4a72b8a8e0b72089860f19a6cc0b662e4085e1a23ce82414"
+    "url": "https://afabiaoge.xyz/downloads/MyForeverNavigator-0.5.0-Trial.zip",
+    "filename": "MyForeverNavigator-0.5.0-Trial.zip",
+    "size_bytes": 585363,
+    "sha256": "3e6ce66ff87e5c4765db3d0fe7602e25d2217154471d4e1693bab13c870a0500"
   }
 }

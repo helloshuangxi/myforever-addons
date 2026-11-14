@@ -1,8 +1,42 @@
 {
   "schema_version": 1,
   "name": "MyForeverTargets",
-  "latest": "0.1.46",
+  "latest": "0.2.0",
   "releases": [
+    {
+      "schema_version": 1,
+      "name": "MyForeverTargets",
+      "display_name": "我的无限 · 目标选择",
+      "homepage": "https://afabiaoge.xyz/targets/",
+      "installation": "完整退出游戏，将 MyForeverTargets 文件夹放入 _forever_/Interface/AddOns/，保留 WTF，然后重新启动游戏。",
+      "automatic_install": false,
+      "version": "0.2.0",
+      "channel": "trial",
+      "published_at": "2026-11-14",
+      "compatibility": {
+        "product": "国服魔兽世界：无限",
+        "client": "1.60.1",
+        "interface": 16001
+      },
+      "changes": [
+        "统一星辉菜单、金色包角、选中光标、轻量动效与可关菜单音效；战斗面板和HUD保持克制。",
+        "/myui提供网格、参考线吸附、Alt自由放置、方向键微调、撤销、默认位置与受支持面板缩放；保留原有位置和设置。",
+        "统一紧凑面板与状态反馈，战斗中设置暂存会就近提示并在脱战应用后确认；保留已保存位置。",
+        "加入敌方唯一名称预先绑定的战斗施法桥接候选；友方脱战兼容路径保留，不等于任意同名怪物战斗GUID焦点已解决。"
+      ],
+      "validation": [
+        "用户安装候选并进游戏后反馈“没问题”，明确授权合并与本批发布；这是用户界面验收，不代表全部专项实机路径通过。",
+        "82个Lua文件语法、七个TOC、72组自研模拟、共享样式一致及19项Python解析检查通过；模拟不等同游戏实测。",
+        "唯一名称战斗桥接、敌方/子目标施法与全部恢复场景仍未完整实测；原生缩放探针默认关闭，未作为已验证功能宣传。"
+      ],
+      "package_note": "插件源码、内嵌共享样式、必要素材与说明/许可；无WTF、SavedVariables、个人配置、聊天或日志。",
+      "download": {
+        "url": "https://afabiaoge.xyz/downloads/MyForeverTargets-0.2.0-Trial.zip",
+        "filename": "MyForeverTargets-0.2.0-Trial.zip",
+        "size_bytes": 205018,
+        "sha256": "6a43ec0cf6df0c803b3054718a3e870c5b691f9fc7e03c4af324fede3886f60a"
+      }
+    },
     {
       "schema_version": 1,
       "name": "MyForeverTargets",

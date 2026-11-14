@@ -1,6 +1,8 @@
 # 我的无限 / MyForever development
 
-七个自研魔兽插件、跨平台管理器、官网与建议服务的协作源码仓库。面向国服《魔兽世界：无限》，插件 TOC Interface 为 **16001**。这是开发快照，包含本机候选；提交代码不代表发布或游戏验收通过。
+七个自研魔兽插件、跨平台管理器、官网与建议服务的协作源码仓库。面向国服《魔兽世界：无限》，插件 TOC Interface 为 **16001**。源码包含已发布试用功能与仍待专项实测的候选路径；当前发行范围见 `PersonalAddons/releases/ui-20261114-RELEASE.md`。
+
+本批星辉 UI 已获得用户界面验收及明确发布授权；[同批安装包](https://github.com/helloshuangxi/myforever-addons/releases/tag/suite-2026.11.14)，官网与管理器独立版本。
 
 **先读 [目前的问题](CURRENT_ISSUES.md)，再读 [协作开发](CONTRIBUTING.md)。** [8 个协作 Issues](docs/ISSUE_INDEX.md) 包含整体 UI/UX 重设计这一优先问题。English onboarding: [Development handoff](docs/DEVELOPMENT_HANDOFF_EN.md).
 
@@ -58,6 +60,6 @@ python3 -m http.server 8765 --bind 127.0.0.1 --directory PersonalAddons/website/
 
 ## 发布约束与许可
 
-遵守 [AGENTS.md](AGENTS.md)。商业技能助手 `0.4.7-dev.22` 仍待用户本机验收，禁止生成公开包、同步官网或部署。管理器行为统计候选也未发布。现有公开版本的 ZIP 不得覆盖；部署凭据不随协作仓库提供。
+遵守 [AGENTS.md](AGENTS.md)。2026-11-14 用户明确授权本批星辉升级合并与发布；商业技能助手0.5.0与管理器0.4.0进入本批试用发行，未完成的专项实机事项仍按验证说明保留。现有公开版本的 ZIP 不得覆盖；部署凭据不随协作仓库提供。
 
 现有 MIT 许可及第三方声明保留在各自模块；本仓库没有新增覆盖全部模块的统一开源授权。Questie/QuestieDB 等参考插件由开发者另行安装，调查来源与许可证见各模块 `SOURCES` 和 `LICENSE` 文件。

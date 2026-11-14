@@ -14,6 +14,9 @@ base='https://afabiaoge.xyz/'
 latest=json.loads((public/'latest.json').read_text())
 paths=['','chat/','style.css','script.js','portal.css','portal.js','latest.json','releases.json','sitemap.xml']+['assets/'+p.name for pattern in ('chat-*.jpg', 'professions-*.jpg') for p in sorted((public/'assets').glob(pattern))]
 packages={}
+if (public/'theme.css').is_file():
+ paths += ['theme.css']
+paths += ['assets/'+p.name for p in sorted((public/'assets').glob('ui-20261114-*.png'))]
 for folder in [public, *[public/name for name in ('professions','navigator','targets') if (public/name/'latest.json').exists()]]:
  catalog=json.loads((folder/'releases.json').read_text())
  for entry in catalog['releases']:

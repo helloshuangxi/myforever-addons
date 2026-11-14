@@ -1,3 +1,5 @@
+> Update 2026-11-14: the user entered the game, accepted the candidate UI and explicitly authorized merging and publication. This batch: Chat 0.10.0, Professions/Navigator 0.5.0, Targets 0.2.0, Coach 0.2.1, Macros 0.2.3, FieldKit 0.1.1, Manager 0.4.0. UX approval does not close the remaining native functional tests. See `PersonalAddons/releases/ui-20261114-RELEASE.md`; older snapshots below retain their historical scope.
+
 # MyForever development handoff
 
 Snapshot date: **13 November 2026, Asia/Shanghai**. This private repository contains seven owned WoW Forever addons, the .NET/Avalonia desktop manager, website/community service, tools, tests, and our research/experiments. It is a development snapshot, not a release branch.

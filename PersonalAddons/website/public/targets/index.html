@@ -29,7 +29,7 @@
     <p class="eyebrow">MyForeverTargets · 目标选择</p>
     <h1 id="hero-title">身边的目标，<br>一眼看清。</h1>
     <p class="lead">友方和敌方分开排列。每个格子就是血条，名字用职业颜色区分，资源和与你相关的效果放在格子里；敌人正在看谁，留给下方的小条。</p>
-    <!-- release:hero-download:start --><a class="button" href="/downloads/MyForeverTargets-0.1.46-Trial.zip" download>下载 v0.1.46 试用版 <span aria-hidden="true">↗</span></a><p class="download-meta">2026-11-12 发布 · 175.5 KiB<br>适配 1.60.1 / Interface 16001（Apple 芯片 Mac 已有游戏实测；本机客户端 build 70888，Windows 游戏客户端待独立验证） / Interface 16001</p><!-- release:hero-download:end -->
+    <!-- release:hero-download:start --><a class="button" href="/downloads/MyForeverTargets-0.2.0-Trial.zip" download>下载 v0.2.0 试用版 <span aria-hidden="true">↗</span></a><p class="download-meta">2026-11-14 发布 · 200.2 KiB<br>适配 1.60.1 / Interface 16001</p><!-- release:hero-download:end -->
     <a class="text-link" href="/manager/">通过最新版插件管理器安装与更新 <span aria-hidden="true">↗</span></a>
     <a class="scope-link" href="#compatibility">普通技能悬停仅限脱战，先看兼容范围 <span aria-hidden="true">↓</span></a>
   </div>
@@ -84,28 +84,31 @@
   <div class="usage-layout"><div class="usage-notes">
     <article><h3>左键目标，右键焦点</h3><p>左键选为当前目标，右键设为焦点，Ctrl + 右键打开标记菜单。再次点击同一格不会取消目标或焦点；操作结果以游戏实际选中状态为准。</p><p>附近单位的名称兼容焦点操作需要脱战。同名怪物可按提示多次右键：每次推进一个目标，插件按 GUID 核验，找到后设置焦点，再恢复原目标；请等到流程提示完成。战斗中的自动匹配焦点尚未实现。标记还取决于单位识别和当前队伍权限。</p></article>
     <article><h3>关闭后，也能随时找回</h3><p>面板“×”只关闭对应一侧；从“目”字菜单分别打开友方、敌方，或全部打开。脱战拖动标题栏与独立图标，位置及关闭状态会保存，重载后继续保留。新安装的友方面板位于屏幕左侧偏上；更新保留已手动保存的位置。</p></article>
-    <article><h3>脱战普通技能兼容开关</h3><p>两侧“施法”按钮控制同一个开关。只接入普通治疗／增益或伤害技能，不接入已有宏、物品、鼠标按键技能及其他插件占用的键。技能仍受距离、视线、朝向与游戏规则限制。</p><p>临时选中会改变 <code>lasttarget</code> 历史。移开、隐藏、单位失效或进入战斗后交还原按键；不创建或改写玩家宏。敌方与子目标路径请按上方兼容范围看待。</p></article>
+    <article><h3>脱战普通技能兼容开关</h3><p>两侧“施法”按钮控制同一个开关。只接入普通治疗／增益或伤害技能，不接入已有宏、物品、鼠标按键技能及其他插件占用的键。技能仍受距离、视线、朝向与游戏规则限制。</p><p>临时选中会改变 <code>lasttarget</code> 历史。移开、隐藏或单位失效后交还原按键；友方兼容仍仅脱战，敌方唯一名称战斗桥接为待实测候选；不创建或改写玩家宏。敌方与子目标路径请按上方兼容范围看待。</p></article>
   </div><div class="command-list"><h3>常用命令</h3><p>点击复制，粘贴到游戏聊天框执行。</p><dl>
     <div><dt><button class="copy-command" data-copy="/mytargets show" type="button"><code>/mytargets show</code><span>复制</span></button></dt><dd>显示两侧面板</dd></div>
     <div><dt><button class="copy-command" data-copy="/mytargets hide" type="button"><code>/mytargets hide</code><span>复制</span></button></dt><dd>隐藏两侧面板，保留独立图标</dd></div>
     <div><dt><button class="copy-command" data-copy="/mytargets reset" type="button"><code>/mytargets reset</code><span>复制</span></button></dt><dd>恢复面板与图标位置，并打开两侧</dd></div>
-    <div><dt><button class="copy-command" data-copy="/mytargets legacycast on" type="button"><code>/mytargets legacycast on</code><span>复制</span></button></dt><dd>开启脱战普通技能悬停兼容</dd></div>
+    <div><dt><button class="copy-command" data-copy="/mytargets legacycast on" type="button"><code>/mytargets legacycast on</code><span>复制</span></button></dt><dd>开启普通技能悬停兼容（范围见说明）</dd></div>
     <div><dt><button class="copy-command" data-copy="/mytargets legacycast off" type="button"><code>/mytargets legacycast off</code><span>复制</span></button></dt><dd>关闭普通技能悬停兼容</dd></div>
   </dl><p class="copy-status" role="status" aria-live="polite"></p></div></div>
 </section>
 <section class="updates page-section" id="updates" aria-labelledby="updates-title">
   <div class="section-intro"><h2 id="updates-title">下载与验证记录</h2><p>目标选择独立维护版本、安装包和更新记录。试用版会明确区分游戏实测、模拟检查与仍待验证的功能。</p></div>
   <div class="release-layout">
-    <!-- release:latest:start --><article class="latest-release"><h3>v0.1.46 · 试用版</h3><p class="release-date">2026-11-12</p><ul><li>发布当前已验证功能基线：脱战悬停友方格子，按普通治疗／增益技能键，临时选中施法后恢复原目标。新装默认启用，原有关闭设置继续保留；已有宏保持原按键与内容。</li><li>完善脱战焦点流程：同名敌方怪物可按提示多次右键，插件逐次按 GUID 匹配，确认后设为焦点并恢复原目标；合并设焦点和首步恢复，减少一次点击。</li><li>左键选择目标，右键设焦点，Ctrl＋右键打开标记菜单；目标红框、焦点黄框保留。脱战附近名称焦点增加身份核验。</li><li>调整新安装友方面板的初始位置，避开已实测视口中的动作条；升级保留手动位置。继续使用紧凑血量／资源格、相关 buff／debuff、敌人目标小条和独立开关。</li><li>本次不包含未验证的原生姓名板缩放探针。战斗中任意怪物按 GUID 自动设焦点仍未解决；敌方及敌人的目标条普通技能悬停尚未验证成功。</li></ul><a class="button" href="/downloads/MyForeverTargets-0.1.46-Trial.zip" download>下载 v0.1.46 试用版 <span aria-hidden="true">↗</span></a><p class="package-meta">ZIP · 179,731 字节 · 包内仅含插件代码、第三方库及许可、使用说明和验证范围；不含 WTF、SavedVariables、个人配置或日志。日志默认关闭，主动启动焦点流程时会在本机记录诊断。</p></article><!-- release:latest:end -->
+    <!-- release:latest:start --><article class="latest-release"><h3>v0.2.0 · 试用版</h3><p class="release-date">2026-11-14</p><ul><li>统一星辉菜单、金色包角、选中光标、轻量动效与可关菜单音效；战斗面板和HUD保持克制。</li><li>/myui提供网格、参考线吸附、Alt自由放置、方向键微调、撤销、默认位置与受支持面板缩放；保留原有位置和设置。</li><li>统一紧凑面板与状态反馈，战斗中设置暂存会就近提示并在脱战应用后确认；保留已保存位置。</li><li>加入敌方唯一名称预先绑定的战斗施法桥接候选；友方脱战兼容路径保留，不等于任意同名怪物战斗GUID焦点已解决。</li></ul><a class="button" href="/downloads/MyForeverTargets-0.2.0-Trial.zip" download>下载 v0.2.0 试用版 <span aria-hidden="true">↗</span></a><p class="package-meta">ZIP · 205,018 字节 · 插件源码、内嵌共享样式、必要素材与说明/许可；无WTF、SavedVariables、个人配置、聊天或日志。</p></article><!-- release:latest:end -->
     <div class="release-detail"><h3>下载校验</h3><p>安装包包含插件源码、所需库、说明与许可；不包含 WTF、SavedVariables 或游戏日志。</p>
-      <!-- release:checksum:start --><div class="checksum"><span>SHA-256</span><code>5c5865a8dc8f850bde6b359f5729a7195c48eb49b4ea42c0812002ec521634bf</code></div><!-- release:checksum:end -->
+      <!-- release:checksum:start --><div class="checksum"><span>SHA-256</span><code>6a43ec0cf6df0c803b3054718a3e870c5b691f9fc7e03c4af324fede3886f60a</code></div><!-- release:checksum:end -->
       <a class="text-link" href="/targets/latest.json">查看版本信息 JSON</a>
       <h3 class="validation-heading" id="validation">当前验证范围</h3>
-      <!-- release:validation:start --><p>本包以已实测的 0.1.44 功能代码为基线，仅更新版本与公开说明；0.1.45 未验证的缩放探针及接入代码未纳入。23 个 Lua 文件语法及 19 套 9820 项模拟检查通过，模拟不等同游戏实测。</p><p>用户已验证附近友方脱战悬停后按普通治疗／增益技能施放成功，并恢复原目标。不是任意格子的原生 @mouseover 修复；临时选中会改变 lasttarget 历史。进入战斗后交还原技能键。</p><p>同名敌人脱战 GUID 匹配：0.1.43 合并流程非空原目标 A→焦点 B→恢复 A，六轮中五轮完成、一次中止；五次完成均为两次右键。0.1.42 分步流程的空原目标四轮完成；空原目标合并流程与更多步恢复仍待独立实测。</p><p>0.1.44 日常游戏日志中两次脱战名称焦点成功、三次重复右键保留已有焦点。七次战斗内名称焦点尝试被脱战限制拒绝，未将其标为修复。</p><p>用户确认友方面板新位置正常；1920×1080、两侧各 5 格的七份布局观测均位于视口内且未与六个可见原生动作条相交。其他分辨率、20 格布局及第三方动作条需继续验证。</p><p>已有游戏验证覆盖附近玩家左键、焦点黄框、拖动保存、血量／资源及常驻光环隐藏。可驱散减益、大量效果滚动、全部子目标与战斗场景尚未完整实测；Windows 游戏客户端尚未独立验证。</p><!-- release:validation:end -->
+      <!-- release:validation:start --><p>用户安装候选并进游戏后反馈“没问题”，明确授权合并与本批发布；这是用户界面验收，不代表全部专项实机路径通过。</p><p>82个Lua文件语法、七个TOC、72组自研模拟、共享样式一致及19项Python解析检查通过；模拟不等同游戏实测。</p><p>唯一名称战斗桥接、敌方/子目标施法与全部恢复场景仍未完整实测；原生缩放探针默认关闭，未作为已验证功能宣传。</p><!-- release:validation:end -->
     </div>
   </div>
-  <div class="history"><h3>版本记录</h3><!-- release:history:start --><details><summary><span>v0.1.37</span><span>2026-11-11</span></summary><p>首次公开发布目标选择：友方分团队 20 格、小队 5 格、附近 5／10／20 格；敌方玩家和怪物共用 5／10／20 格面板，按可用距离信息排列。</p><p>紧凑长方形格子显示姓名、职业颜色、整格血量与资源条；保留与自己相关的 buff／debuff、友方可驱散提示，隐藏常驻光环；敌人的目标使用独立小条。</p><p>左键选择目标，右键设为焦点，Ctrl＋右键打开标记菜单；当前目标和焦点分别显示边框。</p><p>友方与敌方面板各有关闭按钮，屏幕左侧统一“目”字图标可重新打开；保存拖动位置与开关状态，战斗期间布局和开关变更延后应用。</p><p>脱战普通技能兼容采用短暂选择悬停单位并恢复原目标的方案。敌方及敌人的目标条施法尚未验证成功，原生 @mouseover 识别不作为已实现能力。</p></details><!-- release:history:end --></div>
+  <div class="history"><h3>版本记录</h3><!-- release:history:start --><details><summary><span>v0.1.46</span><span>2026-11-12</span></summary><p>发布当前已验证功能基线：脱战悬停友方格子，按普通治疗／增益技能键，临时选中施法后恢复原目标。新装默认启用，原有关闭设置继续保留；已有宏保持原按键与内容。</p><p>完善脱战焦点流程：同名敌方怪物可按提示多次右键，插件逐次按 GUID 匹配，确认后设为焦点并恢复原目标；合并设焦点和首步恢复，减少一次点击。</p><p>左键选择目标，右键设焦点，Ctrl＋右键打开标记菜单；目标红框、焦点黄框保留。脱战附近名称焦点增加身份核验。</p><p>调整新安装友方面板的初始位置，避开已实测视口中的动作条；升级保留手动位置。继续使用紧凑血量／资源格、相关 buff／debuff、敌人目标小条和独立开关。</p><p>本次不包含未验证的原生姓名板缩放探针。战斗中任意怪物按 GUID 自动设焦点仍未解决；敌方及敌人的目标条普通技能悬停尚未验证成功。</p></details>
+<details><summary><span>v0.1.37</span><span>2026-11-11</span></summary><p>首次公开发布目标选择：友方分团队 20 格、小队 5 格、附近 5／10／20 格；敌方玩家和怪物共用 5／10／20 格面板，按可用距离信息排列。</p><p>紧凑长方形格子显示姓名、职业颜色、整格血量与资源条；保留与自己相关的 buff／debuff、友方可驱散提示，隐藏常驻光环；敌人的目标使用独立小条。</p><p>左键选择目标，右键设为焦点，Ctrl＋右键打开标记菜单；当前目标和焦点分别显示边框。</p><p>友方与敌方面板各有关闭按钮，屏幕左侧统一“目”字图标可重新打开；保存拖动位置与开关状态，战斗期间布局和开关变更延后应用。</p><p>脱战普通技能兼容采用短暂选择悬停单位并恢复原目标的方案。敌方及敌人的目标条施法尚未验证成功，原生 @mouseover 识别不作为已实现能力。</p></details><!-- release:history:end --></div>
 </section>
+
+<section class="page-section" aria-label="目标选择星辉界面离线预览"><div class="section-intro"><h2>星辉统一界面</h2><p>统一窗口、金色包角、选中光标与布局模式。下图为离线布局模拟，非游戏截图；姓名和数值是示例。用户已进游戏确认本批界面并授权发布，专项功能实测范围见更新记录。</p></div><figure><a href="/assets/ui-20261114-targets.png" target="_blank" rel="noopener"><img src="/assets/ui-20261114-targets.png" alt="目标选择星辉界面离线模拟，非游戏截图" width="1660" height="756" style="display:block;max-width:100%;height:auto;border-radius:16px" loading="lazy"></a><figcaption>离线界面预览 · 具体字形、窗口外提示条与游戏缩放以客户端为准。</figcaption></figure></section>
 </main>
 <footer class="site-footer"><a class="brand" href="/">我的无限<span>Hyder 的魔兽插件</span></a><p>为国服《魔兽世界：无限》制作的独立插件。<br>本网站与暴雪娱乐无隶属关系。</p><nav class="footer-links" aria-label="站点链接"><a href="/chat/">聊天</a><a href="/professions/">商业技能</a><a href="/navigator/">世界向导</a><a href="/targets/">目标选择</a><a href="/manager/">管理器</a><a href="/#community">建议楼</a><a href="/LICENSE.txt">MIT 许可证</a></nav></footer>
 </body>

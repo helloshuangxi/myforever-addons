@@ -1,0 +1,10 @@
+444a1ad6f55c25a4e0e9be5fceb9c1be42b8f170ab5ba028943bc005e4744f35  MyForeverChat-0.10.0-Trial.zip
+471047797b1fc9e3cfbc1a3a8c73db99176a3e8220f187af97cac2ba6b5b9504  MyForeverProfessions-0.5.0-Trial.zip
+3e6ce66ff87e5c4765db3d0fe7602e25d2217154471d4e1693bab13c870a0500  MyForeverNavigator-0.5.0-Trial.zip
+6a43ec0cf6df0c803b3054718a3e870c5b691f9fc7e03c4af324fede3886f60a  MyForeverTargets-0.2.0-Trial.zip
+2b335bb41bbde5f67afca09c29f3afd3df078e3d0119fce204ea1e76c7bad1a3  MyForeverCoach-0.2.1-Trial.zip
+6c2ccd98d78c65c14287b911d43d65f8714cf7cafd6484e8d20f5aaf9017907a  MyForeverMacros-0.2.3-Trial.zip
+1897681512677786ba421bd0c6490e79e21b05f9fdf729e12ef6db98245de1e2  MyForeverFieldKit-0.1.1-Trial.zip
+01ec2aa3d1f370ff2487c0f41736fe9a6644d98dd85c5b87e377132e4c5f0934  MyForeverManager-0.4.0-Trial-osx-arm64.zip
+366a8d0e606388e3c3a3462a1e656a4fdaa42f6cab138c36a3cf786298c4ebc2  MyForeverManager-0.4.0-Trial-osx-x64.zip
+a1de762a4c4a59edeb20f5b1c450a4c1b5d4965427277f0e1e6d2200e21f5a6d  MyForeverManager-0.4.0-Trial-win-x64.zip

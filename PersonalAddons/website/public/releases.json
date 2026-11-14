@@ -1,7 +1,40 @@
 {
   "schema_version": 1,
-  "latest": "0.9.3",
+  "latest": "0.10.0",
   "releases": [
+    {
+      "schema_version": 1,
+      "name": "MyForeverChat",
+      "display_name": "我的微信式聊天",
+      "homepage": "https://afabiaoge.xyz/",
+      "installation": "完整退出游戏，替换 _forever_/Interface/AddOns/MyForeverChat 文件夹，保留 WTF，然后重启游戏。",
+      "automatic_install": false,
+      "version": "0.10.0",
+      "channel": "trial",
+      "published_at": "2026-11-14",
+      "compatibility": {
+        "product": "国服魔兽世界：无限",
+        "client": "1.60.1",
+        "interface": 16001
+      },
+      "changes": [
+        "统一星辉菜单、金色包角、选中光标、轻量动效与可关菜单音效；战斗面板和HUD保持克制。",
+        "/myui提供网格、参考线吸附、Alt自由放置、方向键微调、撤销、默认位置与受支持面板缩放；保留原有位置和设置。",
+        "聊天新增午夜主题作为新装默认，已有主题不迁移；关于与复制弹窗采用套件样式，保留正文优先的通知泡泡。"
+      ],
+      "validation": [
+        "用户安装候选并进游戏后反馈“没问题”，明确授权合并与本批发布；这是用户界面验收，不代表全部专项实机路径通过。",
+        "82个Lua文件语法、七个TOC、72组自研模拟、共享样式一致及19项Python解析检查通过；模拟不等同游戏实测。",
+        "真实社区/私聊/频道投递需要相应真实成员场景；没有新增通用离线角色私聊服务，旧截图只作历史参考。"
+      ],
+      "package_note": "插件源码、内嵌共享样式、必要素材与说明/许可；无WTF、SavedVariables、个人配置、聊天或日志。",
+      "download": {
+        "url": "https://afabiaoge.xyz/downloads/MyForeverChat-0.10.0-Trial.zip",
+        "filename": "MyForeverChat-0.10.0-Trial.zip",
+        "size_bytes": 123404,
+        "sha256": "444a1ad6f55c25a4e0e9be5fceb9c1be42b8f170ab5ba028943bc005e4744f35"
+      }
+    },
     {
       "schema_version": 1,
       "name": "MyForeverChat",

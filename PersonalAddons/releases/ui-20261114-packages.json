@@ -1,0 +1,75 @@
+{
+  "tag": "suite-2026.11.14",
+  "packages": [
+    {
+      "name": "MyForeverChat",
+      "version": "0.10.0",
+      "filename": "MyForeverChat-0.10.0-Trial.zip",
+      "size_bytes": 123404,
+      "sha256": "444a1ad6f55c25a4e0e9be5fceb9c1be42b8f170ab5ba028943bc005e4744f35"
+    },
+    {
+      "name": "MyForeverProfessions",
+      "version": "0.5.0",
+      "filename": "MyForeverProfessions-0.5.0-Trial.zip",
+      "size_bytes": 112208,
+      "sha256": "471047797b1fc9e3cfbc1a3a8c73db99176a3e8220f187af97cac2ba6b5b9504"
+    },
+    {
+      "name": "MyForeverNavigator",
+      "version": "0.5.0",
+      "filename": "MyForeverNavigator-0.5.0-Trial.zip",
+      "size_bytes": 585363,
+      "sha256": "3e6ce66ff87e5c4765db3d0fe7602e25d2217154471d4e1693bab13c870a0500"
+    },
+    {
+      "name": "MyForeverTargets",
+      "version": "0.2.0",
+      "filename": "MyForeverTargets-0.2.0-Trial.zip",
+      "size_bytes": 205018,
+      "sha256": "6a43ec0cf6df0c803b3054718a3e870c5b691f9fc7e03c4af324fede3886f60a"
+    },
+    {
+      "name": "MyForeverCoach",
+      "version": "0.2.1",
+      "filename": "MyForeverCoach-0.2.1-Trial.zip",
+      "size_bytes": 46042,
+      "sha256": "2b335bb41bbde5f67afca09c29f3afd3df078e3d0119fce204ea1e76c7bad1a3"
+    },
+    {
+      "name": "MyForeverMacros",
+      "version": "0.2.3",
+      "filename": "MyForeverMacros-0.2.3-Trial.zip",
+      "size_bytes": 33683,
+      "sha256": "6c2ccd98d78c65c14287b911d43d65f8714cf7cafd6484e8d20f5aaf9017907a"
+    },
+    {
+      "name": "MyForeverFieldKit",
+      "version": "0.1.1",
+      "filename": "MyForeverFieldKit-0.1.1-Trial.zip",
+      "size_bytes": 22606,
+      "sha256": "1897681512677786ba421bd0c6490e79e21b05f9fdf729e12ef6db98245de1e2"
+    },
+    {
+      "name": "MyForeverManager",
+      "version": "0.4.0",
+      "filename": "MyForeverManager-0.4.0-Trial-osx-arm64.zip",
+      "size_bytes": 41234171,
+      "sha256": "01ec2aa3d1f370ff2487c0f41736fe9a6644d98dd85c5b87e377132e4c5f0934"
+    },
+    {
+      "name": "MyForeverManager",
+      "version": "0.4.0",
+      "filename": "MyForeverManager-0.4.0-Trial-osx-x64.zip",
+      "size_bytes": 43711225,
+      "sha256": "366a8d0e606388e3c3a3462a1e656a4fdaa42f6cab138c36a3cf786298c4ebc2"
+    },
+    {
+      "name": "MyForeverManager",
+      "version": "0.4.0",
+      "filename": "MyForeverManager-0.4.0-Trial-win-x64.zip",
+      "size_bytes": 41677921,
+      "sha256": "a1de762a4c4a59edeb20f5b1c450a4c1b5d4965427277f0e1e6d2200e21f5a6d"
+    }
+  ]
+}

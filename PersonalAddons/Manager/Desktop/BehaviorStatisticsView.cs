@@ -146,7 +146,7 @@ public sealed class BehaviorStatisticsView : UserControl, IDisposable
                 ? $"最近写盘：{time.ToOffset(DayOffset):yyyy-MM-dd HH:mm:ss}（UTC+08:00）"
                 : "最近写盘：尚无可读取的记录";
             source.Text = next.CollectorInstalled
-                ? $"玩家行为采集插件：v{next.CollectorVersion ?? "未知"} 本机候选"
+                ? $"玩家行为采集插件：v{next.CollectorVersion ?? "未知"} 试用版"
                 : "当前目录未检测到玩家行为采集插件。已归档的历史仍可查看。";
             saveHint.Text = next.IsGameRunning
                 ? "游戏运行中，仅显示最近写盘的记录。脱战后 /reload 或登出，再刷新；页面可见时每 30 秒检查。"

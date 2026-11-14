@@ -1,8 +1,56 @@
 {
   "schema_version": 1,
   "name": "MyForeverManager",
-  "latest": "0.2.1",
+  "latest": "0.4.0",
   "releases": [
+    {
+      "schema_version": 1,
+      "name": "MyForeverManager",
+      "display_name": "我的无限 · 插件管理器",
+      "homepage": "https://afabiaoge.xyz/manager/",
+      "version": "0.4.0",
+      "channel": "trial",
+      "published_at": "2026-11-14",
+      "changes": [
+        "午夜深色界面、统一卡片/按钮与状态反馈，四个插件保持独立选择、安装、更新和恢复。",
+        "公开本机行为统计页：按角色与时间筛选日累计、技能及区域分布；需要手动安装同批MyForeverCoach采集器，统计不上传。",
+        "保留既有目录、插件勾选、自动更新选择与本地统计；管理器自身需下载新包替换，不自动升级。"
+      ],
+      "validation": [
+        ".NET10 Release构建完成，Windows x64、Apple芯片Mac与Intel Mac三平台自包含包完成；两个Mac包通过本地临时签名结构校验。",
+        "原升级源码编译0警告/0错误，35项行为统计与68项安装/更新/备份/恢复隔离检查通过；不将隔离目录当作真实游戏安装验收。",
+        "Windows及Intel Mac未作原生真机运行；完整30分钟检查/退出游戏后60秒重试仍未完整等待；Windows未签名，Mac未做Developer ID签名与公证。",
+        "用户已验收游戏内界面并授权网站与app同步发布；没有把它扩写为Manager所有平台的视觉/操作验收。"
+      ],
+      "requirements": {
+        "win-x64": "Windows 10 / 11 64 位",
+        "osx-arm64": "macOS 14 或更新版本 · Apple silicon",
+        "osx-x64": "macOS 14 或更新版本 · Intel"
+      },
+      "downloads": [
+        {
+          "platform": "win-x64",
+          "filename": "MyForeverManager-0.4.0-Trial-win-x64.zip",
+          "url": "https://afabiaoge.xyz/manager/downloads/MyForeverManager-0.4.0-Trial-win-x64.zip",
+          "size_bytes": 41677921,
+          "sha256": "a1de762a4c4a59edeb20f5b1c450a4c1b5d4965427277f0e1e6d2200e21f5a6d"
+        },
+        {
+          "platform": "osx-arm64",
+          "filename": "MyForeverManager-0.4.0-Trial-osx-arm64.zip",
+          "url": "https://afabiaoge.xyz/manager/downloads/MyForeverManager-0.4.0-Trial-osx-arm64.zip",
+          "size_bytes": 41234171,
+          "sha256": "01ec2aa3d1f370ff2487c0f41736fe9a6644d98dd85c5b87e377132e4c5f0934"
+        },
+        {
+          "platform": "osx-x64",
+          "filename": "MyForeverManager-0.4.0-Trial-osx-x64.zip",
+          "url": "https://afabiaoge.xyz/manager/downloads/MyForeverManager-0.4.0-Trial-osx-x64.zip",
+          "size_bytes": 43711225,
+          "sha256": "366a8d0e606388e3c3a3462a1e656a4fdaa42f6cab138c36a3cf786298c4ebc2"
+        }
+      ]
+    },
     {
       "schema_version": 1,
       "name": "MyForeverManager",

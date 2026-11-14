@@ -1,3 +1,9 @@
+# 2026-11-14 星辉 UI 与午夜官网/管理器
+
+本批用户已明确授权合并发布；Chat0.10.0、Professions0.5.0、Navigator0.5.0、Targets0.2.0、Manager0.4.0。可选Coach0.2.1、Macros0.2.3、FieldKit0.1.1从同批GitHub发行手动安装，管理器页提供入口。主题CSS与新版离线预览加入公网校验，预览明确区别历史实机图。旧包保持原哈希。
+
+下方流程继续有效；先前采集候选暂停发布的说明按AGENTS.md新增的本批授权处理，专项实测边界并未解除。
+
 # 我的无限插件下载与更新网站
 
 公开地址：[afabiaoge.xyz](https://afabiaoge.xyz/)。仅 `public/` 是发布目录。当前独立维护 MyForeverChat、MyForeverProfessions、MyForeverNavigator 与 MyForeverTargets，发版时同步下载包、版本号、更新记录和相关使用说明，遵循游戏根目录 `AGENTS.md`。用户已授权相应插件的上线及管理器下载更新流程，无需为同范围常规发布重复确认。商业技能助手尚未获准上线的本机候选仍须保留在发布目录之外。

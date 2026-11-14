@@ -919,6 +919,9 @@ function ns.CreateUI()
     panel.title:SetText("商业技能助手")
     panel.title:SetTextColor(C("text"))
     Style.SetType(panel.title, "title", "text")
+    if Style.WindowTitle then Style.WindowTitle(panel.title, "商业技能助手") end
+    if Style.TitleRule then Style.TitleRule(panel, 13, nil, 160, 34) end
+    if Style.HintBar then Style.HintBar(panel, { { "Esc", "关闭" } }, "/myui 摆放面板") end
     local drag = CreateFrame("Frame", nil, panel)
     panel.drag = drag
     drag:SetPoint("TOPLEFT", 4, -4)

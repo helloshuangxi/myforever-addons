@@ -3,6 +3,7 @@
 ## Notes: 公开游戏行为的本机日累计；/mybehavior 打开。本机统计由我的无限软件展示。
 ## Author: Hyder
 ## Version: 0.2.0
+## SavedVariables: MyForeverStyleDB
 ## SavedVariablesPerCharacter: MyForeverCoachDB
 
 MyForeverStyle.lua

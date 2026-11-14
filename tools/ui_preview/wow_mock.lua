@@ -512,6 +512,7 @@ end
 
 -- ---------------------------------------------------------------- globals
 function M.install(width, height)
+    CreateColor = function(r, g, b, a) return { r = r, g = g, b = b, a = a or 1 } end
     M.screen = new("Frame", "UIParent", nil)
     M.screen.isScreen, M.screen.width, M.screen.height = true, width, height
     _G.CreateFrame = M.CreateFrame

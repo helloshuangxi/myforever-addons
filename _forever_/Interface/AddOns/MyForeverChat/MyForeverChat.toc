@@ -5,7 +5,7 @@
 ## Version: 0.9.3
 ## X-License: MIT
 ## SavedVariablesPerCharacter: MyForeverChatDB
-## SavedVariables: MyForeverChatAccountDB
+## SavedVariables: MyForeverChatAccountDB, MyForeverStyleDB
 
 MyForeverStyle.lua
 Core.lua

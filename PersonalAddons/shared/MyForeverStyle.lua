@@ -16,7 +16,7 @@
 --
 -- Every widget call is guarded: a missing method is skipped instead of raising,
 -- because a styling helper must never break an addon in a client variant.
-local VERSION = 4
+local VERSION = 5
 local existing = rawget(_G, "MyForeverStyle")
 if type(existing) == "table" and (tonumber(existing.version) or 0) >= VERSION then return end
 
@@ -45,6 +45,10 @@ S.colors = {
     warning = { 0.949, 0.702, 0.361 },
     danger = { 1.000, 0.392, 0.392 },
     info = { 0.486, 0.576, 1.000 },
+    -- Ornament only (window corners, title rule, selection cursor). Never
+    -- carries game meaning; focus gold in Targets is a separate constant.
+    gold = { 0.890, 0.812, 0.596 },
+    titleText = { 0.957, 0.918, 0.816 },
 }
 
 -- Background opacity by role. Only the backdrop is translucent; text and
@@ -156,7 +160,14 @@ end
 -- Window, HUD, toast or popup: rounded, borderless, translucent.
 function S.Panel(frame, role)
     local alpha = S.alpha[role or "window"] or S.alpha.window
-    return S.Round(frame, "outer", alpha, role == "hud" and 10 or S.metrics.radius)
+    local result = S.Round(frame, "outer", alpha, role == "hud" and 10 or S.metrics.radius)
+    -- 星辉: windows and popups get the gold corners, the open motion and the
+    -- open/close sounds; HUD-role panels stay plain.
+    if role == "window" or role == "popup" or role == nil then
+        if S.Corners then S.Corners(frame) end
+        if S.WindowMotion then S.WindowMotion(frame) end
+    end
+    return result
 end
 
 function S.SetType(fontString, level, colorName)
@@ -225,6 +236,10 @@ function S.Button(parent, caption, width, height, onClick, kind)
     end
     S.SetButtonKind(b, kind)
     if onClick then call(b, "SetScript", "OnClick", onClick) end
+    -- PostClick survives callers that replace OnClick later.
+    call(b, "SetScript", "PostClick", function(self)
+        if S.Sound then S.Sound(self.styleKind == "primary" and "confirm" or "select") end
+    end)
     call(b, "SetScript", "OnEnter", hoverIn)
     call(b, "SetScript", "OnLeave", hoverOut)
     call(b, "SetScript", "OnDisable", function(self) call(self, "SetAlpha", 0.42) end)
@@ -258,6 +273,8 @@ function S.TitleBar(frame, title, onClose)
     call(bar, "SetHeight", m.title)
     bar.title = S.Text(bar, "title", nil, title)
     if bar.title then call(bar.title, "SetPoint", "LEFT", bar, "LEFT", m.pad, -1) end
+    if S.WindowTitle then S.WindowTitle(bar.title, title) end
+    if S.TitleRule then bar.rule = S.TitleRule(bar, m.pad, 0) end
     bar.close = S.CloseButton(bar, onClose or function() call(frame, "Hide") end)
     call(bar.close, "SetPoint", "RIGHT", bar, "RIGHT", -8, -1)
     bar.handle = CreateFrame("Frame", nil, bar)
@@ -846,5 +863,213 @@ if CreateFrame then
 end
 if type(SlashCmdList) == "table" then
     SLASH_MYFOREVERLAYOUT1, SLASH_MYFOREVERLAYOUT2 = "/myui", "/mylayout"
-    SlashCmdList.MYFOREVERLAYOUT = function() S.ToggleLayoutMode() end
+    SlashCmdList.MYFOREVERLAYOUT = function(message)
+        local word = type(message) == "string" and message:lower():match("^%s*(%S*)") or ""
+        if word == "sound" or word == "音效" then
+            local on = S.SetSoundEnabled(not S.SoundEnabled())
+            S.Toast(nil, on and "我的无限：菜单音效已开启" or "我的无限：菜单音效已关闭", "success")
+            return
+        end
+        S.ToggleLayoutMode()
+    end
+end
+
+
+-- 星辉 (v5): the suite's own console-inspired layer on top of Midnight.
+-- Menus may perform (corners, title rule, selection cursor, motion, sound);
+-- combat panels stay plain. Nothing here runs or animates in combat.
+
+local function now() return (GetTime and tonumber(GetTime())) or 0 end
+S.loadedAt = now()
+
+-- Gold L-shaped corners just outside a window (Final Fantasy style frames).
+function S.Corners(frame)
+    if not frame or type(frame.styleCorners) == "table" then return end
+    local corners = {}
+    frame.styleCorners = corners
+    local size, thick, out = 12, 1.5, 4
+    for _, spec in ipairs({ { "TOPLEFT", -1, 1 }, { "TOPRIGHT", 1, 1 }, { "BOTTOMLEFT", -1, -1 }, { "BOTTOMRIGHT", 1, -1 } }) do
+        local point, sx, sy = spec[1], spec[2], spec[3]
+        for i = 1, 2 do
+            local t = call(frame, "CreateTexture", nil, "OVERLAY")
+            if t then
+                call(t, "SetTexture", WHITE)
+                call(t, "SetVertexColor", S.Color("gold", 0.75))
+                call(t, "SetPoint", point, frame, point, sx * out, sy * out)
+                if i == 1 then call(t, "SetSize", size, thick) else call(t, "SetSize", thick, size) end
+                corners[#corners + 1] = t
+            end
+        end
+    end
+end
+
+-- Window titles: classical face when the client has it, wider spacing, warm
+-- white. Spacing is real spaces between characters (FontStrings have no
+-- tracking); only for short titles.
+S.titleFont = "Fonts\\ARKai_T.ttf"
+local function spaced(text)
+    if type(text) ~= "string" then return text end
+    local chars = {}
+    for ch in text:gmatch("[%z\1-\127\194-\244][\128-\191]*") do chars[#chars + 1] = ch end
+    if #chars < 2 or #chars > 6 or text:find("[%w%p ]") then return text end
+    return table.concat(chars, " ")
+end
+S.SpacedTitle = spaced
+function S.WindowTitle(fontString, text)
+    if not fontString then return end
+    local face, size, flags = call(fontString, "GetFont")
+    if type(size) == "number" and S.titleFont then
+        local ok = call(fontString, "SetFont", S.titleFont, size + 1, flags or "")
+        if ok == false and type(face) == "string" then call(fontString, "SetFont", face, size, flags or "") end
+    end
+    call(fontString, "SetTextColor", S.Color("titleText"))
+    if type(text) == "string" then call(fontString, "SetText", spaced(text)) end
+end
+
+-- Thin gold rule under a title, fading out to the right.
+-- top: when given, the rule sits that far below the parent's top edge.
+function S.TitleRule(parent, left, bottom, width, top)
+    local t = call(parent, "CreateTexture", nil, "ARTWORK")
+    if not t then return nil end
+    call(t, "SetTexture", WHITE)
+    call(t, "SetHeight", 1)
+    if top then call(t, "SetPoint", "TOPLEFT", parent, "TOPLEFT", left or 14, -top)
+    else call(t, "SetPoint", "BOTTOMLEFT", parent, "BOTTOMLEFT", left or 14, bottom or 0) end
+    local w = width or ((tonumber(call(parent, "GetWidth")) or 300) * 0.55)
+    call(t, "SetWidth", math.max(60, w))
+    local r, g, b = S.Color("gold")
+    if CreateColor and has(t, "SetGradient") then
+        call(t, "SetGradient", "HORIZONTAL", CreateColor(r, g, b, 0.85), CreateColor(r, g, b, 0))
+    else
+        call(t, "SetVertexColor", r, g, b, 0.5)
+    end
+    return t
+end
+
+-- Selection cursor for list rows (Persona-style slanted band + a breathing
+-- gold diamond). Text must start at least 18 units in from the row's left.
+function S.MarkSelected(row, on)
+    if not row then return end
+    local mark = type(row.styleMark) == "table" and row.styleMark or nil
+    if not mark then
+        if not on then return end
+        mark = {}
+        row.styleMark = mark
+        mark.band = call(row, "CreateTexture", nil, "BACKGROUND", nil, 1)
+        call(mark.band, "SetTexture", WHITE)
+        call(mark.band, "SetPoint", "TOPLEFT", row, "TOPLEFT", 2, -4)
+        call(mark.band, "SetPoint", "BOTTOMLEFT", row, "BOTTOMLEFT", 2, 4)
+        call(mark.band, "SetWidth", math.max(40, (tonumber(call(row, "GetWidth")) or 200) * 0.7))
+        local r, g, b = S.Color("accent")
+        if CreateColor and has(mark.band, "SetGradient") then
+            call(mark.band, "SetGradient", "HORIZONTAL", CreateColor(r, g, b, 0.5), CreateColor(r, g, b, 0))
+        else
+            call(mark.band, "SetVertexColor", r, g, b, 0.28)
+        end
+        mark.diamond = call(row, "CreateTexture", nil, "OVERLAY")
+        call(mark.diamond, "SetTexture", WHITE)
+        call(mark.diamond, "SetSize", 6, 6)
+        call(mark.diamond, "SetPoint", "LEFT", row, "LEFT", 7, 0)
+        call(mark.diamond, "SetVertexColor", S.Color("gold"))
+        call(mark.diamond, "SetRotation", math.rad(45))
+        local group = call(mark.diamond, "CreateAnimationGroup")
+        if group then
+            call(group, "SetLooping", "BOUNCE")
+            local fade = call(group, "CreateAnimation", "Alpha")
+            if fade then
+                call(fade, "SetFromAlpha", 1); call(fade, "SetToAlpha", 0.45)
+                call(fade, "SetDuration", 0.9); call(fade, "SetSmoothing", "IN_OUT")
+            end
+            mark.breath = group
+        end
+    end
+    call(mark.band, "SetShown", on == true)
+    call(mark.diamond, "SetShown", on == true)
+    if mark.breath then
+        if on and not inCombat() then call(mark.breath, "Play") else call(mark.breath, "Stop") end
+    end
+end
+
+-- Menu sounds. Built-in sound kits only; off in combat, quiet for the first
+-- seconds after login, and switchable with /myui sound.
+S.sounds = {
+    open = "IG_CHARACTER_INFO_OPEN", close = "IG_CHARACTER_INFO_CLOSE",
+    select = "U_CHAT_SCROLL_BUTTON", confirm = "IG_MAINMENU_OPTION_CHECKBOX_ON",
+}
+function S.SoundEnabled()
+    local db = rawget(_G, "MyForeverStyleDB")
+    return not (type(db) == "table" and db.sound == false)
+end
+function S.SetSoundEnabled(on)
+    local db = rawget(_G, "MyForeverStyleDB")
+    if type(db) ~= "table" then db = {}; _G.MyForeverStyleDB = db end
+    db.sound = on == true
+    return db.sound
+end
+function S.Sound(kind)
+    if not S.SoundEnabled() or inCombat() or not PlaySound then return false end
+    if now() - (S.loadedAt or 0) < 4 then return false end
+    local kits = rawget(_G, "SOUNDKIT")
+    local id = type(kits) == "table" and kits[S.sounds[kind] or ""] or nil
+    if type(id) ~= "number" then return false end
+    return pcall(PlaySound, id, "SFX") and true or false
+end
+
+-- Window motion: 0.15 s fade and 6-unit rise on show, plus open/close sounds.
+-- Skipped for protected frames and in combat.
+function S.WindowMotion(frame)
+    if not frame or frame.styleMotion == true then return end
+    frame.styleMotion = true
+    local group = call(frame, "CreateAnimationGroup")
+    if group then
+        local fade = call(group, "CreateAnimation", "Alpha")
+        if fade then call(fade, "SetFromAlpha", 0); call(fade, "SetToAlpha", 1); call(fade, "SetDuration", 0.15) end
+        local rise = call(group, "CreateAnimation", "Translation")
+        if rise then
+            call(rise, "SetOffset", 0, 6); call(rise, "SetDuration", 0.15); call(rise, "SetSmoothing", "OUT")
+        end
+        frame.styleOpen = group
+    end
+    local hook = has(frame, "HookScript") and "HookScript" or nil
+    if not hook then return end
+    call(frame, hook, "OnShow", function(self)
+        if inCombat() or call(self, "IsProtected") then return end
+        if self.styleOpen then call(self.styleOpen, "Stop"); call(self.styleOpen, "Play") end
+        S.Sound("open")
+    end)
+    call(frame, hook, "OnHide", function() S.Sound("close") end)
+end
+
+-- Console-style key hints under a window: {{"左键","选择"},{"Esc","关闭"}}.
+-- Sits just outside the bottom edge so no existing layout moves.
+function S.HintBar(frame, items, trailing)
+    if not frame or type(items) ~= "table" then return nil end
+    local bar = CreateFrame("Frame", nil, frame)
+    if not bar then return nil end
+    call(bar, "SetPoint", "TOPLEFT", frame, "BOTTOMLEFT", 0, -10)
+    call(bar, "SetPoint", "TOPRIGHT", frame, "BOTTOMRIGHT", 0, -10)
+    call(bar, "SetHeight", 26)
+    S.Round(bar, "outer", 0.78, 8)
+    local x = 10
+    bar.keys = {}
+    for _, item in ipairs(items) do
+        local cap = CreateFrame("Frame", nil, bar)
+        call(cap, "SetHeight", 18)
+        S.Round(cap, "line", 1, 5)
+        local key = S.Text(cap, "caption", nil, item[1])
+        S.SetType(key, "caption", "text")
+        call(key, "SetPoint", "CENTER", cap, "CENTER", 0, 0)
+        local kw = (tonumber(call(key, "GetStringWidth")) or 20) + 10
+        call(cap, "SetWidth", math.max(20, kw))
+        call(cap, "SetPoint", "LEFT", bar, "LEFT", x, 0)
+        local label = S.Text(bar, "caption", nil, item[2])
+        call(label, "SetPoint", "LEFT", cap, "RIGHT", 5, 0)
+        x = x + math.max(20, kw) + 5 + ((tonumber(call(label, "GetStringWidth")) or 24)) + 14
+        bar.keys[#bar.keys + 1] = { cap = cap, key = key, label = label }
+    end
+    if type(trailing) == "string" then
+        bar.trailing = S.Text(bar, "caption", nil, trailing)
+        call(bar.trailing, "SetPoint", "RIGHT", bar, "RIGHT", -10, 0)
+    end
+    return bar
 end

@@ -109,6 +109,7 @@ function NS.CreateUI()
     panel:EnableMouse(true)
     Style.Panel(panel, "window")
     local bar = Style.TitleBar(panel, "玩家行为", function() NS.db.settings.shown = false; panel:Hide() end)
+    if Style.HintBar then Style.HintBar(panel, { { "拖标题栏", "移动" } }, "/myui 摆放面板") end
     -- What is happening now (status) reads first; when and how it is counted (meta) is a caption.
     panel.status = label(panel, "body", 12, -40, 428)
     panel.meta = label(panel, "caption", 12, -60, 428)

@@ -183,6 +183,7 @@ local function createUI()
     frame:EnableMouse(true)
     Style.Panel(frame, "window")
     frame.bar = Style.TitleBar(frame, "宏工坊")
+    if Style.HintBar then Style.HintBar(frame, { { "Esc", "关闭" } }, "/myui 摆放面板") end
     frame.bar.handle:EnableMouse(true)
     frame.bar.handle:RegisterForDrag("LeftButton")
     frame.bar.handle:SetScript("OnDragStart", function() frame:StartMoving(); mfLayout("BeginDrag", frame) end)

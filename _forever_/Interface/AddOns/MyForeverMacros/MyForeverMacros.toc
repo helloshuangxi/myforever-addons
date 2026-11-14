@@ -3,6 +3,7 @@
 ## Notes: 从本角色法术本生成可预览的个人宏。/mypriest 牧师页，/mymacro 通用入口，/myseal 圣印提醒。
 ## Author: mashuangxi & Codex
 ## Version: 0.2.2
+## SavedVariables: MyForeverStyleDB
 ## SavedVariablesPerCharacter: MyForeverSealDB
 
 MyForeverStyle.lua

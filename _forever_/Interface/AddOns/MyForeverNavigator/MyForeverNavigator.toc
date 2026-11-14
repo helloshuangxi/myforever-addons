@@ -4,6 +4,7 @@
 ## Author: Personal Addons
 ## Version: 0.4.1
 ## OptionalDeps: Questie, QuestieDB
+## SavedVariables: MyForeverStyleDB
 ## SavedVariablesPerCharacter: MyForeverNavigatorDB
 
 MyForeverStyle.lua

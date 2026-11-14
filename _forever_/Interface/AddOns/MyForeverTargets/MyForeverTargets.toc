@@ -3,6 +3,7 @@
 ## Notes: 友方团队、小队与附近玩家；敌方玩家与怪物。两侧独立关闭，左侧“目”字图标控制面板。脱战普通技能悬停；左键选中、右键焦点、Ctrl+右键标记。/mytargets
 ## Author: Personal Addons
 ## Version: 0.1.45
+## SavedVariables: MyForeverStyleDB
 ## SavedVariablesPerCharacter: MyForeverTargetsDB, MyForeverTargetsLogDB
 
 MyForeverStyle.lua

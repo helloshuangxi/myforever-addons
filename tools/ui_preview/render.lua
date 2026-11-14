@@ -167,6 +167,10 @@ function M.html(W, options)
                             local corner = (tc[2] - tc[1] >= 0.99) and "border-radius:50%;"
                                 or string.format("border-%s-%s-radius:100%%;", tc[3] < 0.25 and "top" or "bottom", tc[1] < 0.25 and "left" or "right")
                             style = "background:" .. rgba(g.vertex, ga) .. ";" .. corner
+                        elseif g.gradient and type(g.gradient[2]) == "table" and type(g.gradient[3]) == "table" then
+                            local function c(col) return { col.r or col[1] or 1, col.g or col[2] or 1, col.b or col[3] or 1, col.a or col[4] or 1 } end
+                            local dir = g.gradient[1] == "VERTICAL" and "0deg" or "90deg"
+                            style = "background:linear-gradient(" .. dir .. "," .. rgba(c(g.gradient[2]), ga) .. "," .. rgba(c(g.gradient[3]), ga) .. ");"
                         elseif g.color then style = "background:" .. rgba(g.color, ga) .. ";"
                         elseif g.isBarFill then style = "background:" .. rgba(f.barColor or g.vertex, ga) .. ";"
                         elseif white or (g.isThumb and not g.file) then style = "background:" .. rgba(g.vertex, ga) .. ";"

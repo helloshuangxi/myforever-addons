@@ -437,7 +437,9 @@ local function refreshBrowser(browser)
             row.service:SetText((point.service or "自定义地点").." · "..(point.zone or "目标地图"))
             row.distance:SetText(pointDistance(point))
             row.selected = point.id==state.selectedID
-            Style.Round(row, row.selected and "selected" or "surface", row.selected and 1 or 0, 8)
+            -- 星辉 cursor: slanted band + gold diamond instead of a flat fill.
+            Style.Round(row, "surface", 0, 8)
+            if Style.MarkSelected then Style.MarkSelected(row, row.selected) end
         end
     end
     browser.empty:SetShown(#list==0)
@@ -513,10 +515,10 @@ local function createBrowser(parent,state,kind,headerHeight)
         row:SetSize(INNER,ROW_HEIGHT)
         Style.Round(row,"surface",0,8)
         row.name=label(row,INNER-110,18,"GameFontHighlightSmall",colors.white)
-        row.name:SetPoint("TOPLEFT",10,-2);row.name:SetWordWrap(false)
+        row.name:SetPoint("TOPLEFT",22,-2);row.name:SetWordWrap(false)
         Style.SetType(row.name,"body","text")
         row.service=label(row,INNER-110,16,"GameFontHighlightSmall",colors.muted)
-        row.service:SetPoint("TOPLEFT",10,-19);row.service:SetWordWrap(false)
+        row.service:SetPoint("TOPLEFT",22,-19);row.service:SetWordWrap(false)
         Style.SetType(row.service,"caption","muted")
         -- Kept for callers that read the zone on its own; the caption shows it.
         row.zone=label(row,1,1,"GameFontHighlightSmall",colors.muted);row.zone:Hide()
@@ -645,6 +647,9 @@ function NS.CreateUI()
     local header=CreateFrame("Frame",nil,panel);header:SetPoint("TOPLEFT");header:SetPoint("TOPRIGHT",-36,0);header:SetHeight(40);drag(panel,header,"panel")
     local title=label(panel,300,24,"GameFontNormalLarge",colors.title);title:SetPoint("TOPLEFT",16,-11);title:SetText("世界向导")
     Style.SetType(title,"title","text")
+    if Style.WindowTitle then Style.WindowTitle(title,"世界向导") end
+    if Style.TitleRule then Style.TitleRule(panel,16,nil,220,38) end
+    if Style.HintBar then Style.HintBar(panel,{{"左键","选择"},{"Esc","关闭"}},"/myui 摆放面板") end
     local close=Style.CloseButton(panel,function()panel:Hide()end);close:SetPoint("TOPRIGHT",-8,-8)
     for i,item in ipairs({{"npc","找 NPC"},{"places","我的地点"},{"navigation","当前导航"}})do
         local id=item[1]

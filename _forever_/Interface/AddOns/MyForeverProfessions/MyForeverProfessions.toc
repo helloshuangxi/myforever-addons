@@ -4,6 +4,7 @@
 ## Author: Hyder
 ## Version: 0.4.7-dev.22
 ## OptionalDeps: Questie, QuestieDB
+## SavedVariables: MyForeverStyleDB
 ## SavedVariablesPerCharacter: MyForeverProfessionsDB
 
 MyForeverStyle.lua

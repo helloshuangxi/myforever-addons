@@ -40,6 +40,13 @@ if (public/'manager/latest.json').is_file():
    assert path not in packages, 'Duplicate manager package path'
    packages[path]=record;paths.extend([path,path+'.sha256'])
 
+  for item in entry.get('self_update',{}).get('feeds',[]):
+   record=item['package'];path='manager/updates/'+item['platform']+'/'+record['filename']
+   assert path not in packages, 'Duplicate manager update package'
+   packages[path]=record;paths.append(path)
+   if entry['version']==catalog['latest']:
+    paths.append('manager/updates/'+item['platform']+'/releases.'+item['platform']+'.json')
+
 if (public/'community-config.json').is_file():
  config=json.loads((public/'community-config.json').read_text())
  paths += ['community-config.json','community.js','community.css']
@@ -59,7 +66,9 @@ def fetch(path):
   if suffix in {'.jpg','.jpeg'}:assert body.startswith(b'\xff\xd8') and 'image/jpeg' in d['content_type']
   if suffix=='.png':assert body.startswith(b'\x89PNG\r\n\x1a\n') and 'image/png' in d['content_type']
   if suffix=='.webp':assert body.startswith(b'RIFF') and body[8:12]==b'WEBP' and 'image/webp' in d['content_type']
-  if path in packages:assert d['bytes']==packages[path]['size_bytes'] and d['sha256']==packages[path]['sha256']
+  if path in packages:
+   assert d['bytes']==packages[path]['size_bytes'] and d['sha256']==packages[path]['sha256']
+   assert 'immutable' in d['cache_control'],f'Versioned package must be immutable: {path}'
   return d
 
 results=list(ThreadPoolExecutor(max_workers=4).map(fetch,paths))

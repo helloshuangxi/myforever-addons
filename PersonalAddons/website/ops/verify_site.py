@@ -108,7 +108,7 @@ assert len(re.findall(r'<article\b[^>]*\bdata-addon=', html)) == len(portal), 'P
 assert len(re.findall(r'<a\b[^>]*href="[^"]+\.zip"[^>]*\bdownload', html)) == len(portal), 'Portal must expose one download per add-on'
 manager_packages, manager_latest = verify_manager_catalog(root)
 registered_packages.update(manager_packages)
-assert {p.relative_to(root).as_posix() for p in root.rglob('*') if p.is_file() and p.suffix.lower() == '.zip'} == registered_packages, 'Unregistered or missing ZIP in public files'
+assert {p.relative_to(root).as_posix() for p in root.rglob('*') if p.is_file() and p.suffix.lower() in {'.zip', '.dmg', '.exe', '.nupkg'}} == registered_packages, 'Unregistered or missing release package in public files'
 info = latest['download']
 screenshots = list((root / 'assets').glob('chat-*.jpg'))
 assert {'chat-overview.jpg', 'chat-settings.jpg', 'chat-emotes.jpg', 'chat-actions.jpg', 'chat-groups-0.9.jpg', 'chat-channels-0.9.jpg'} <= {p.name for p in screenshots}

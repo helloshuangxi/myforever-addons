@@ -148,3 +148,19 @@ python3 ops/sync_targets_release.py --zip ../dist/MyForeverTargets-<版本>-Tria
 发布说明明确：友方普通技能悬停兼容仅脱战，通过临时选中和恢复完成；同名怪焦点仅脱战按提示多次右键逐次 GUID 核验；战斗中任意怪物自动匹配焦点仍未解决。空原目标合并模式、更多步恢复和敌方／子目标施法尚未完整实测，不将模拟或旧分步成功冒充这些场景通过。
 
 证据：`ops/release-targets-0.1.46-validation.json`、`ops/targets-0.1.46-publish.log`、`ops/targets-0.1.46-live-verification.json`、`ops/targets-0.1.46-external-verification.json` 与 `ops/targets-0.1.46-manager-isolated-live.json`。
+
+## 管理器 0.5.0：安装器、自身更新与开源参与
+
+用户于 2026-11-15 验收 M 芯片 DMG 后授权上线。此版本使用 DMG（osx-arm64/osx-x64）及 Setup.exe（win-x64），旧 ZIP 历史保留。管理器自身通过 `/manager/updates/<rid>/releases.<rid>.json` 获取已校验的版本化 full.nupkg，与游戏插件更新分开。
+
+```bash
+python3 ops/sync_manager_installers.py --build /path/to/clean-release-build --notes ops/release-manager-0.5.0.json --dry-run
+python3 ops/sync_manager_installers.py --build /path/to/clean-release-build --notes ops/release-manager-0.5.0.json
+python3 ops/verify_site.py
+python3 ops/deploy.py --execute
+python3 ops/verify_live.py
+```
+
+构建先用 `Manager/packaging/build_installers.py --release`，再用 `check_installers.py` 检查真实 DMG 挂载/架构/签名与 feed；同步脚本拒绝候选、probe、脏源码和覆盖既有版本字节。生产发布通过整站原子切换，更新包和索引同时可见，失败回滚。新旧包与自身更新源都有哈希回读；更新索引 no-cache，版本化 DMG/Setup/nupkg 为 immutable。
+
+官网首页、管理器页及页脚提供公开仓库 https://github.com/helloshuangxi/myforever-addons 和贡献指南。欢迎补充问题、复现步骤、兼容性测试、代码、文档及界面。Windows/Intel Mac 未真机验证、Mac 临时签名未公证和 Windows 未签名都须保留真实说明。

@@ -17,6 +17,11 @@ internal static class Program
     [STAThread]
     public static void Main(string[] args)
     {
+        Velopack.VelopackApp.Build().SetAutoApplyOnStartup(false).Run();
+#if SELF_UPDATE_PROBE
+        if (args.FirstOrDefault() is "--self-update-probe" or "--self-update-probe-record")
+        { SelfUpdateProbe.RunAsync(args).GetAwaiter().GetResult(); return; }
+#endif
         var stateDirectory = Environment.GetEnvironmentVariable("MYFOREVER_MANAGER_STATE_DIR");
         Store = new SettingsStore(string.IsNullOrWhiteSpace(stateDirectory) ? null : stateDirectory);
         FileStream? instanceLock = null;

@@ -2,18 +2,18 @@
 
 # 协作开发
 
-1. 接受私有 GitHub 仓库邀请，使用自己的 GitHub 账号与 SSH key / PAT 克隆。不要共享主账号或部署私钥。
+1. 仓库已公开：https://github.com/helloshuangxi/myforever-addons 。欢迎提 Issue、补充兼容性和复现信息、改进代码/文档/界面；可以 Fork 后提交 Pull Request。使用自己的 GitHub 账号，不共享主账号或部署私钥。
 2. 阅读根目录 `AGENTS.md`、`CURRENT_ISSUES.md`，从 `main` 建立 `feature/<topic>` 或 `fix/<topic>` 分支；一个分支尽量只改一个模块，通过 Pull Request 合并。
 3. 按根 README 安装 Python 依赖和 .NET SDK。先跑相关模拟，再跑 `tools/check_addons.py`；管理器使用临时游戏目录与合成存档。
 4. 测试游戏行为时，记录插件版本、真实客户端 build、角色环境、重现步骤、预期/实际结果、恢复结果。区分 API 调用、模拟通过、真实硬件点击、听感和用户验收。
 5. 提交前执行 `git diff --check`、`git diff --cached --stat`。只暂存自己的路径，检查没有 WTF、账号、聊天内容、日志、密钥和原始截图。
 6. PR 说明写清问题、实现、验证与待验收项。候选代码进入 Git 不会解除本机验收或发布限制；不要因上传 Git 自动运行官网 `--publish`。
 
-## 两位开发者的工作方式
+## 共同开发的方式
 
 可同时开发不同插件；需要共同修改 `Main.lua`、`UI.lua`、目录/版本元数据时，先在 PR 中约定负责人，避免覆盖。当前 `work/*-site` 是旧发行时冻结的副本，已排除；日常修改官网主目录，不从历史冻结副本覆盖活动源码。
 
-`main` 的目标选择是本机 0.1.45 探针候选。公开 0.1.46 的独立源码与测试保留在 `PersonalAddons/work/targets-0.1.46-release-root`；版本号更大不表示包含探针。不要直接拿本机目录重新打包成已有公开版本。
+`main` 的游戏插件仍以已发布的星辉套件为基线；PR #10 的战斗悬停与 PR #11 的采集器候选继续单独验收。本批只发布管理器 0.5.0。不要将本机游戏目录重新打包成已有公开版本。
 
 澳洲本地系统时区可以不同。行为统计目前按固定 UTC+08:00 分日；测试本地午夜和跨日时必须保留该语义，不改用电脑本地时区。
 
@@ -40,6 +40,7 @@ python PersonalAddons/website/ops/verify_site.py
 ```bash
 dotnet run --project Tests/MyForeverManager.Tests.csproj -- --site-root ../website/public
 dotnet run --project BehaviorTests/MyForeverManager.BehaviorTests.csproj
+dotnet run --project SelfUpdateTests/MyForeverManager.SelfUpdateTests.csproj
 dotnet build Desktop/MyForeverManager.Desktop.csproj -c Release
 ```
 

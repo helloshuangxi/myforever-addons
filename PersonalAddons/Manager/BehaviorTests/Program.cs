@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Net;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using MyForeverManager.Core;
@@ -449,6 +450,227 @@ try
         catch (OperationCanceledException) { }
     });
 
+
+    Dictionary<string, object?> ModernDay(Dictionary<string, object?> root) =>
+        (Dictionary<string, object?>)((Dictionary<string, object?>)((Dictionary<string, object?>)root["behavior"]!)["days"]!)[Day]!;
+    BehaviorDay Synthetic(string date, double hours, long combats, long deaths, long xp, long successes = 0, long failures = 0, long interrupts = 0,
+        bool detail = true, params BehaviorZone[] zones)
+    {
+        var day = new BehaviorDay { Date = date, HasZoneDetail = detail, Counts = new()
+        {
+            CollectedSeconds = hours * 3600, CombatSeconds = hours * 1800, NonCombatSeconds = hours * 1800,
+            CombatEntries = combats, CombatsCompleted = combats, Deaths = deaths, XpGained = xp,
+            CastSuccesses = successes, CastFailures = failures, CastInterruptions = interrupts
+        } };
+        if (successes + failures + interrupts > 0)
+            day.Spells.Add(new() { SpellId = 639, Name = "圣光术", Successes = successes, Failures = failures, Interrupted = interrupts });
+        day.Zones.AddRange(zones);
+        return day;
+    }
+    bool Has(BehaviorAnalysis analysis, string title) => analysis.Insights.Any(i => i.Title == title);
+    BehaviorInsight Find(BehaviorAnalysis analysis, string title) => analysis.Insights.Single(i => i.Title == title);
+
+    await Test("区域经验/死亡/战斗与中断次数从 0.2.1 日记录导入，旧日记录不标为区域明细", async () =>
+    {
+        var game = Game(); var data = Modern(); var day = ModernDay(data);
+        day["version"] = 2;
+        var map = (Dictionary<string, object?>)((Dictionary<string, object?>)day["maps"]!)["1426"]!;
+        map["xp"] = 250; map["deaths"] = 1; map["combats"] = 3;
+        Write(game, data);
+        var imported = OneDay(await new BehaviorDataService(State()).RefreshAsync(game));
+        Assert(imported.HasZoneDetail, "version 2 day should carry zone detail");
+        var zone = imported.Zones.Single();
+        Equal(250L, zone.XpGained); Equal(1L, zone.Deaths); Equal(3L, zone.CombatEntries);
+        Equal(1L, imported.Counts.CastInterruptions);
+        var older = Game(); Write(older, Modern());
+        var old = OneDay(await new BehaviorDataService(State()).RefreshAsync(older));
+        Assert(!old.HasZoneDetail, "a day without version must not be treated as complete zone detail");
+        Equal(0L, old.Zones.Single().XpGained);
+    });
+
+    await Test("规则分析：样本不足只提示积累记录，不给结论", async () =>
+    {
+        var analysis = BehaviorInsights.Analyze([Synthetic("2026-11-11", 10.0 / 60, 2, 0, 100)], null);
+        Assert(Has(analysis, "记录还比较少") && Find(analysis, "记录还比较少").LowSample);
+        Assert(!Has(analysis, "死亡偏多") && !Has(analysis, "零死亡"));
+        Assert(analysis.Current.DeathsPer100Combats is null, "fewer than 10 combats has no death rate");
+        Assert(analysis.Current.CastFailureRate is null, "no casts has no failure rate");
+        await Task.CompletedTask;
+    });
+
+    await Test("规则分析：死亡偏多和技能失败附带数字并排在前面，不使用误操作或挂机措辞", async () =>
+    {
+        var analysis = BehaviorInsights.Analyze([Synthetic("2026-11-11", 2, 40, 6, 20000, 30, 15, 1)], null);
+        var deaths = Find(analysis, "死亡偏多");
+        Equal(InsightTone.Attention, deaths.Tone);
+        Assert(deaths.Evidence.Contains("40 场战斗、6 次死亡", StringComparison.Ordinal) && deaths.Evidence.Contains("15", StringComparison.Ordinal), deaths.Evidence);
+        var spells = Find(analysis, "部分技能失败事件较多");
+        Assert(spells.Evidence.Contains("圣光术 失败 15/45（33%）", StringComparison.Ordinal), spells.Evidence);
+        Equal(InsightTone.Attention, analysis.Insights[0].Tone);
+        foreach (var insight in analysis.Insights)
+            Assert(!(insight.Title + insight.Evidence + insight.Suggestion).Contains("误操作", StringComparison.Ordinal)
+                && !(insight.Title + insight.Evidence + insight.Suggestion).Contains("挂机", StringComparison.Ordinal), insight.Title);
+        Close(15, analysis.Current.DeathsPer100Combats ?? -1);
+        Close(10000, analysis.Current.XpPerHour ?? -1);
+        Close(1.0 / 3, analysis.Current.CastFailureRate ?? -1);
+        await Task.CompletedTask;
+    });
+
+    await Test("规则分析：与上一周期对比和零死亡", async () =>
+    {
+        var current = new[] { Synthetic("2026-11-11", 2, 40, 0, 30000) };
+        var previous = new[] { Synthetic("2026-11-04", 2, 40, 0, 20000) };
+        var analysis = BehaviorInsights.Analyze(current, previous, "最近 7 天", "前 7 天");
+        var better = Find(analysis, "练级效率提升");
+        Assert(better.Evidence.Contains("10,000 → 15,000", StringComparison.Ordinal) && better.Evidence.Contains("+50%", StringComparison.Ordinal), better.Evidence);
+        Assert(Has(analysis, "零死亡"));
+        Assert(!Has(analysis, "练级效率下降"));
+        var worse = BehaviorInsights.Analyze(previous, current, "最近 7 天", "前 7 天");
+        Assert(Has(worse, "练级效率下降"));
+        var shortPrevious = BehaviorInsights.Analyze(current, [Synthetic("2026-11-04", 0.5, 10, 0, 1000)], "最近 7 天", "前 7 天");
+        Assert(!Has(shortPrevious, "练级效率提升"), "a comparison period under one hour is not compared");
+        var faster = BehaviorInsights.Analyze([Synthetic("2026-11-11", 2, 40, 0, 20000)], [Synthetic("2026-11-04", 2, 20, 0, 20000)]);
+        Assert(!Find(faster, "单场战斗更快").Suggestion.Contains("击杀速度提升", StringComparison.Ordinal), "completed combat is not a kill counter");
+        await Task.CompletedTask;
+    });
+
+    await Test("规则分析：区域效率只用完整区域明细的日期", async () =>
+    {
+        BehaviorZone Zone(long id, string name, double hours, long xp, long deaths = 0) =>
+            new() { MapId = id, Name = name, Seconds = hours * 3600, Visits = 1, XpGained = xp, Deaths = deaths };
+        var detail = Synthetic("2026-11-11", 2, 40, 0, 40000, detail: true, zones: [Zone(1426, "丹莫罗", 1, 30000), Zone(1429, "艾尔文森林", 1, 10000)]);
+        var analysis = BehaviorInsights.Analyze([detail], null);
+        Equal(1, analysis.ZoneDetailDays);
+        Close(30000, analysis.Zones.Single(z => z.MapId == 1426).XpPerHour ?? -1);
+        Assert(Find(analysis, "不同区域的练级效率差别明显").Evidence.Contains("丹莫罗 每小时约 30,000 经验", StringComparison.Ordinal));
+        var legacy = Synthetic("2026-11-11", 2, 40, 0, 40000, detail: false, zones: [Zone(1426, "丹莫罗", 1, 30000), Zone(1429, "艾尔文森林", 1, 10000)]);
+        var old = BehaviorInsights.Analyze([legacy], null);
+        Equal(0, old.ZoneDetailDays);
+        Assert(old.Zones.All(z => z.XpPerHour is null) && !Has(old, "不同区域的练级效率差别明显"), "zones without detail must not be compared");
+        await Task.CompletedTask;
+    });
+
+    await Test("AI 摘要只含汇总数字，不含路径、账号、角色目录或哈希标识", async () =>
+    {
+        var game = Game(); Write(game, Modern());
+        var dashboard = await new BehaviorDataService(State()).RefreshAsync(game);
+        var character = dashboard.Characters.Single();
+        var analysis = BehaviorInsights.Analyze(character.Days, null, "全部日期");
+        var question = "为什么\u0007我练级慢" + new string('慢', 400);
+        var summary = BehaviorAiCoach.BuildSummary(analysis, dashboard.Characters, question);
+        foreach (var token in new[] { suiteDirectory, game, "FixtureAccount", "FixtureRealm", "FixtureCharacter", character.Id, "WTF", "SavedVariables" })
+            Assert(!summary.Contains(token, StringComparison.OrdinalIgnoreCase), "AI summary exposed " + token);
+        Assert(summary.Contains("圣骑士", StringComparison.Ordinal) && summary.Contains("圣光术", StringComparison.Ordinal) && summary.Contains("丹莫罗", StringComparison.Ordinal));
+        Assert(!summary.Contains('\u0007'), "control characters are removed from the question");
+        Equal(BehaviorAiCoach.MaxQuestionLength, BehaviorAiCoach.CleanQuestion(question).Length);
+        using var json = JsonDocument.Parse(summary[summary.IndexOf('{')..]);
+        Equal(9L, json.RootElement.GetProperty("characters")[0].GetProperty("level").GetInt64());
+        Equal(5L, json.RootElement.GetProperty("current").GetProperty("castSuccesses").GetInt64());
+    });
+
+    await Test("AI 接口地址：外网必须 https，http 只允许本机", async () =>
+    {
+        Equal("https://api.deepseek.com/chat/completions", BehaviorAiCoach.ChatEndpoint("https://api.deepseek.com").ToString());
+        Equal("https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions", BehaviorAiCoach.ChatEndpoint("https://dashscope.aliyuncs.com/compatible-mode/v1/").ToString());
+        Equal("https://example.com/v1/chat/completions", BehaviorAiCoach.ChatEndpoint("https://example.com/v1/chat/completions").ToString());
+        Equal("http://127.0.0.1:11434/v1/chat/completions", BehaviorAiCoach.ChatEndpoint("http://127.0.0.1:11434/v1").ToString());
+        foreach (var bad in new[] { "", "api.deepseek.com", "http://example.com/v1", "https://user:pass@example.com/v1", "ftp://example.com", "https://example.com/v1?key=1" })
+        {
+            var rejected = false;
+            try { BehaviorAiCoach.ChatEndpoint(bad); } catch (BehaviorAiException) { rejected = true; }
+            Assert(rejected, "endpoint should be rejected: " + bad);
+        }
+        await Task.CompletedTask;
+    });
+
+    await Test("AI 请求使用 OpenAI 兼容格式并清理回复（本地桩，不联网）", async () =>
+    {
+        var stub = new StubHandler(HttpStatusCode.OK, """{"choices":[{"message":{"role":"assistant","content":"<think>内部推理</think>## 【一句话总结】\n**节奏稳定**"}}]}""");
+        var settings = new BehaviorAiSettings { Enabled = true, Endpoint = "https://ai.example.test/v1", Model = "fixture-model", ApiKey = "sk-fixture" };
+        var answer = await BehaviorAiCoach.AskAsync(settings, "用户摘要", stub);
+        Equal("【一句话总结】\n节奏稳定", answer);
+        Equal("https://ai.example.test/v1/chat/completions", stub.Url);
+        Equal("Bearer sk-fixture", stub.Authorization);
+        using var body = JsonDocument.Parse(stub.Body);
+        Equal("fixture-model", body.RootElement.GetProperty("model").GetString()!);
+        Equal("system", body.RootElement.GetProperty("messages")[0].GetProperty("role").GetString()!);
+        Equal("用户摘要", body.RootElement.GetProperty("messages")[1].GetProperty("content").GetString()!);
+
+        var denied = new StubHandler(HttpStatusCode.Unauthorized, """{"error":{"message":"invalid key sk-fixture"}}""");
+        var message = "";
+        try { await BehaviorAiCoach.AskAsync(settings, "用户摘要", denied); } catch (BehaviorAiException e) { message = e.Message; }
+        Assert(message.Contains("API Key 无效", StringComparison.Ordinal) && !message.Contains("sk-fixture", StringComparison.Ordinal), message);
+
+        var garbage = new StubHandler(HttpStatusCode.OK, "<html>not json</html>");
+        message = "";
+        try { await BehaviorAiCoach.AskAsync(settings, "用户摘要", garbage); } catch (BehaviorAiException e) { message = e.Message; }
+        Assert(message.Length > 0, "an unrecognised reply is reported");
+
+        var missingKey = "";
+        try { await BehaviorAiCoach.AskAsync(new BehaviorAiSettings { Endpoint = "https://ai.example.test/v1", Model = "m" }, "x", stub); }
+        catch (BehaviorAiException e) { missingKey = e.Message; }
+        Assert(missingKey.Contains("API Key", StringComparison.Ordinal), "remote endpoints require a key");
+    });
+
+    await Test("AI 设置：未勾选保存密钥时不写入磁盘", async () =>
+    {
+        var state = State(); var store = new BehaviorAiSettingsStore(state);
+        store.Save(new BehaviorAiSettings { Enabled = true, Provider = "qwen", Endpoint = "https://dashscope.aliyuncs.com/compatible-mode/v1", Model = "qwen-plus", ApiKey = "sk-not-saved" });
+        var file = Path.Combine(state, "behavior-ai.json");
+        Assert(!File.ReadAllText(file).Contains("sk-not-saved", StringComparison.Ordinal), "key written without consent");
+        var loaded = store.Load();
+        Assert(loaded.Enabled); Equal("qwen", loaded.Provider); Equal("", loaded.ApiKey);
+        store.Save(new BehaviorAiSettings { Enabled = true, Provider = "unknown-provider", Endpoint = "https://x.test/v1", Model = "m", ApiKey = "sk-saved", RememberKey = true });
+        loaded = store.Load();
+        Equal("sk-saved", loaded.ApiKey); Equal("custom", loaded.Provider);
+        File.WriteAllText(file, "{ not json");
+        Assert(!store.Load().Enabled, "a damaged settings file falls back to disabled");
+        await Task.CompletedTask;
+    });
+
+    await Test("AI 本机接口重定向不转发摘要到未选地址", async () =>
+    {
+        await using var server = new LoopbackAiServer();
+        using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(5));
+        var message = "";
+        try
+        {
+            await BehaviorAiCoach.AskAsync(new BehaviorAiSettings
+            { Enabled = true, Endpoint = server.BaseUrl + "/v1", Model = "fixture" }, "synthetic summary", cancellationToken: deadline.Token);
+        }
+        catch (BehaviorAiException e) { message = e.Message; }
+        Equal(1, server.Requests, "AI summary followed a redirect away from the selected endpoint");
+        Assert(message.Contains("307", StringComparison.Ordinal), "redirect must be reported as a non-success response");
+    });
+
+    await Test("AI 预设与 DeepSeek 短复盘参数保持兼容，其他接口不加专用字段", async () =>
+    {
+        Equal("deepseek-flash", BehaviorAiPresets.Default.Model);
+        var stub = new StubHandler(HttpStatusCode.OK, """{"choices":[{"message":{"content":"fixture"}}]}""");
+        var settings = new BehaviorAiSettings { Enabled = true, Endpoint = "https://api.deepseek.com", Model = "deepseek-flash", ApiKey = "fixture" };
+        await BehaviorAiCoach.AskAsync(settings, "summary", stub);
+        using var body = JsonDocument.Parse(stub.Body);
+        Equal("disabled", body.RootElement.GetProperty("thinking").GetProperty("type").GetString()!);
+        settings.Endpoint = "https://other.example.test/v1";
+        await BehaviorAiCoach.AskAsync(settings, "summary", stub);
+        using var generic = JsonDocument.Parse(stub.Body);
+        Assert(!generic.RootElement.TryGetProperty("thinking", out _), "provider-specific parameters leaked into a generic endpoint");
+    });
+
+    await Test("AI 接收回复正文时仍可取消，过大正文停止读取", async () =>
+    {
+        var settings = new BehaviorAiSettings { Enabled = true, Endpoint = "http://127.0.0.1:11434/v1", Model = "fixture" };
+        using var token = new CancellationTokenSource(TimeSpan.FromMilliseconds(100));
+        var cancelled = false;
+        try { await BehaviorAiCoach.AskAsync(settings, "summary", new StalledBodyHandler(), token.Token); }
+        catch (OperationCanceledException) { cancelled = true; }
+        Assert(cancelled, "cancellation after response headers must reach the body reader");
+        var message = "";
+        try { await BehaviorAiCoach.AskAsync(settings, "summary", new StubHandler(HttpStatusCode.OK, new string('x', 512 * 1024 + 1))); }
+        catch (BehaviorAiException e) { message = e.Message; }
+        Assert(message.Contains("过大", StringComparison.Ordinal), "oversized response must fail safely");
+    });
+
     var sampleIndex = Array.IndexOf(args, "--legacy-sample");
     if (sampleIndex >= 0)
     {
@@ -514,3 +736,39 @@ finally
 }
 Console.WriteLine($"Behavior tests: {passed} passed, {failed} failed.");
 return failed == 0 ? 0 : 1;
+
+internal sealed class StubHandler(HttpStatusCode status, string reply) : HttpMessageHandler
+{
+    public string Url { get; private set; } = "";
+    public string Authorization { get; private set; } = "";
+    public string Body { get; private set; } = "";
+    protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+    {
+        Url = request.RequestUri?.ToString() ?? "";
+        Authorization = request.Headers.Authorization?.ToString() ?? "";
+        Body = request.Content is null ? "" : await request.Content.ReadAsStringAsync(cancellationToken);
+        return new HttpResponseMessage(status) { Content = new StringContent(reply, System.Text.Encoding.UTF8, "application/json") };
+    }
+}
+
+internal sealed class StalledBodyHandler : HttpMessageHandler
+{
+    protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken) =>
+        Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK) { Content = new StreamContent(new StalledBodyStream()) });
+}
+
+internal sealed class StalledBodyStream : Stream
+{
+    public override bool CanRead => true;
+    public override bool CanSeek => false;
+    public override bool CanWrite => false;
+    public override long Length => throw new NotSupportedException();
+    public override long Position { get => throw new NotSupportedException(); set => throw new NotSupportedException(); }
+    public override int Read(byte[] buffer, int offset, int count) => throw new NotSupportedException();
+    public override async ValueTask<int> ReadAsync(Memory<byte> buffer, CancellationToken cancellationToken = default)
+    { await Task.Delay(Timeout.InfiniteTimeSpan, cancellationToken); return 0; }
+    public override void Flush() => throw new NotSupportedException();
+    public override long Seek(long offset, SeekOrigin origin) => throw new NotSupportedException();
+    public override void SetLength(long value) => throw new NotSupportedException();
+    public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
+}

@@ -22,6 +22,7 @@ import sys
 import zipfile
 
 from sync_release import ROOT, CHANNELS, apply, json_bytes, marked, nonempty_strings, update_sitemap, version_key
+from manager_installers import installer_filename, read_installer, verify_updates
 
 NAME = 'MyForeverManager'
 HOMEPAGE = 'https://afabiaoge.xyz/manager/'
@@ -128,11 +129,12 @@ def render(document, catalog):
     for record in release['downloads']:
         title, subtitle, requirement = PLATFORMS[record['platform']]
         href = '/manager/downloads/' + record['filename']
+        kind = {'dmg': 'DMG', 'setup': 'Windows 安装程序'}.get(record.get('format'), 'ZIP')
         cards.append(f'''<article class="manager-download-card" data-platform="{record['platform']}">
 <p class="manager-platform-note">{esc(subtitle)}</p><h3>{esc(title)}</h3>
 <p class="manager-system">{esc(requirement)}</p>
 <a class="button" href="{href}" download>下载 v{esc(release['version'])} {CHANNELS[release['channel']]} <span aria-hidden="true">↓</span></a>
-<p class="download-meta">ZIP · {record['size_bytes'] / (1024 * 1024):.1f} MiB · {esc(release['published_at'])}</p>
+<p class="download-meta">{kind} · {record['size_bytes'] / (1024 * 1024):.1f} MiB · {esc(release['published_at'])}</p>
 <details class="manager-digest"><summary>校验下载文件</summary><p>SHA-256</p><code>{record['sha256']}</code><a href="{href}.sha256">下载校验文件</a></details>
 </article>''')
     changes = '<ul>' + ''.join('<li>' + esc(x) + '</li>' for x in release['changes']) + '</ul>'
@@ -237,16 +239,22 @@ def verify_catalog(public):
         if len(records) != len(PLATFORMS) or {x['platform'] for x in records} != set(PLATFORMS):
             raise ValueError('Manager history must have all three platforms')
         for record in records:
-            filename = package_filename(release['version'], release['channel'], record['platform'])
+            installer = record.get('format') is not None
+            expected_format = 'setup' if record['platform'] == 'win-x64' else 'dmg'
+            if installer and record['format'] != expected_format:
+                raise ValueError('Manager installer format/platform mismatch')
+            filename = (installer_filename if installer else package_filename)(release['version'], release['channel'], record['platform'])
             relative = 'manager/downloads/' + filename
             if record['filename'] != filename or record['url'] != HOMEPAGE + 'downloads/' + filename or relative in registered:
                 raise ValueError('Manager download identity mismatch')
-            raw, digest = read_package(public / relative, release['version'], record['platform'])
+            raw, digest = (read_installer(public / relative, record['platform']) if installer else
+                           read_package(public / relative, release['version'], record['platform']))
             if record['size_bytes'] != len(raw) or record['sha256'] != digest:
                 raise ValueError('Manager archive digest mismatch')
             if (public / (relative + '.sha256')).read_text() != digest + '  ' + filename + '\n':
                 raise ValueError('Manager checksum file mismatch')
             registered.add(relative)
+        registered.update(verify_updates(public, release, active=release['version'] == catalog['latest']))
     document = (folder / 'index.html').read_text()
     if render(document, catalog) != document:
         raise ValueError('Stale manager page/downloads/validation')

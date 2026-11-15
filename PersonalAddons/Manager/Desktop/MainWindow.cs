@@ -11,7 +11,7 @@ using MyForeverManager.Core;
 
 namespace MyForeverManager.Desktop;
 
-public sealed class MainWindow : Window
+public sealed partial class MainWindow : Window
 {
     // Suite palette, direction B "Midnight". Names kept from the light theme.
     private static readonly IBrush Ink = Brush.Parse("#EEF1FF");
@@ -57,7 +57,7 @@ public sealed class MainWindow : Window
             if (icon is not null) Icon = new WindowIcon(icon);
         WindowStartupLocation = WindowStartupLocation.CenterScreen;
         Closing += OnClosing;
-        Closed += (_, _) => { timer.Stop(); behaviorView?.Dispose(); service.Dispose(); operationCancellation?.Dispose(); };
+        Closed += (_, _) => { timer.Stop(); CloseManagerUpdates(); behaviorView?.Dispose(); service.Dispose(); operationCancellation?.Dispose(); };
         PropertyChanged += (_, change) =>
         {
             if (change.Property == WindowStateProperty)
@@ -65,6 +65,8 @@ public sealed class MainWindow : Window
         };
         timer.Tick += async (_, _) =>
         {
+            if (!exitRequested && DateTimeOffset.UtcNow - lastManagerAttempt >= TimeSpan.FromMinutes(30))
+                await CheckManagerAsync(automatic: true);
             if (busy || dialogOpen || !dashboard || exitRequested) return;
             if (pending.Count > 0 || DateTimeOffset.UtcNow - lastCheck >= TimeSpan.FromMinutes(30))
                 await RunAsync(() => CheckAndUpdateAsync(settings.AutoUpdate));
@@ -80,6 +82,7 @@ public sealed class MainWindow : Window
 
         try { settings = store.Load(); }
         catch (Exception ex) { startupMessage = "原有设置无法读取，请重新选择目录。" + FriendlyError(ex); }
+        InitializeManagerUpdates();
         if (string.IsNullOrWhiteSpace(settings.GameDirectory)) ShowSetup(startupMessage);
         else
         {
@@ -90,6 +93,7 @@ public sealed class MainWindow : Window
         Opened += async (_, _) =>
         {
             timer.Start();
+            _ = CheckManagerAsync(automatic: true);
             if (dashboard) await RunAsync(() => CheckAndUpdateAsync(settings.AutoUpdate));
         };
     }
@@ -179,7 +183,7 @@ public sealed class MainWindow : Window
                 var resolved = GamePaths.Resolve(directory.Text?.Trim() ?? "");
                 var selectedIds = selections.Where(x => x.Value.IsChecked == true).Select(x => x.Key).ToList();
                 if (selectedIds.Count == 0) { error.Text = "请至少选择一个要管理的插件。"; return; }
-                var next = new ManagerSettings { GameDirectory = resolved, ManagedAddons = selectedIds, AutoUpdate = auto.IsChecked == true };
+                var next = new ManagerSettings { GameDirectory = resolved, ManagedAddons = selectedIds, AutoUpdate = auto.IsChecked == true, AutoUpdateManager = settings.AutoUpdateManager };
                 store.Save(next);
                 settings = next;
                 pending.Clear();
@@ -194,6 +198,7 @@ public sealed class MainWindow : Window
         panel.Children.Add(actions);
         column.Children.Add(Surface(panel));
         column.Children.Add(Text("更新时校验 SHA-256，并保留上一版插件备份。个人设置和聊天记录所在的 WTF 目录保持原样。", 13, false, Muted));
+        column.Children.Add(ManagerUpdatesPanel());
     }
 
     private void ShowDashboard()
@@ -266,7 +271,7 @@ public sealed class MainWindow : Window
         column.Children.Add(footer);
         column.Children.Add(Text("更新只管理所选插件目录，保留 WTF。关闭窗口会退出程序；当前试用版不设置开机启动。", 12, false, Muted));
 
-        behaviorView = new BehaviorStatisticsView(new BehaviorDataService(store.DirectoryPath), settings.GameDirectory);
+        behaviorView = new BehaviorStatisticsView(new BehaviorDataService(store.DirectoryPath), settings.GameDirectory, new BehaviorAiSettingsStore(store.DirectoryPath));
         var tabs = new TabControl
         {
             Items =
@@ -291,7 +296,8 @@ public sealed class MainWindow : Window
             Margin = new Thickness(36, 24, 36, 18), Spacing = 5, Children =
             {
                 Text("我的无限", 23, true),
-                Text($"v{ManagerVersion.Current} 试用版  ·  插件管理与玩家行为统计", 12, false, Muted)
+                Text($"v{ManagerVersion.Current} 试用版  ·  插件管理与玩家行为统计", 12, false, Muted),
+                ManagerUpdatesPanel()
             }
         });
         Grid.SetRow(tabs, 1); root.Children.Add(tabs);
@@ -473,8 +479,23 @@ public sealed class MainWindow : Window
 
     private void OnClosing(object? sender, WindowClosingEventArgs args)
     {
-        behaviorView?.Dispose();
-        if (!busy) return;
+        if (!busy)
+        {
+            if (managerUpdates is not null)
+            {
+                var scheduled = managerUpdates.ApplyAfterExit(settings.AutoUpdateManager, restartManager, addonOperationBusy: false);
+                if (restartManager && !scheduled)
+                {
+                    args.Cancel = true;
+                    restartManager = false;
+                    exitRequested = false;
+                    timer.Start();
+                    ApplyEnabledState();
+                    RefreshManagerUpdates();
+                }
+            }
+            return;
+        }
         args.Cancel = true;
         exitRequested = true;
         timer.Stop();

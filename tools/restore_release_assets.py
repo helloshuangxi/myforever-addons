@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Restore immutable published ZIPs from checked-in release metadata.
+"""Restore immutable published packages from checked-in release metadata.
 
 Downloads only into website/public. Does not install addons or publish anything.
 """
@@ -25,10 +25,14 @@ def validated_download(item):
     parsed = urllib.parse.urlsplit(item["url"])
     name = item["filename"]
     relative = PurePosixPath(parsed.path.lstrip("/"))
+    parent = relative.parent.as_posix()
+    suffix = relative.suffix.lower()
+    allowed = ((parent == 'downloads' and suffix == '.zip') or
+               (parent == 'manager/downloads' and suffix in {'.zip', '.dmg', '.exe'}) or
+               (parent in {'manager/updates/' + rid for rid in ('osx-arm64', 'osx-x64', 'win-x64')} and suffix == '.nupkg'))
     if (parsed.scheme != "https" or parsed.netloc != "afabiaoge.xyz"
             or parsed.query or parsed.fragment
-            or relative.parent.as_posix() not in ("downloads", "manager/downloads")
-            or "/" in name or "\\" in name or not name.endswith(".zip")
+            or not allowed or "/" in name or "\\" in name
             or relative.name != name or ".." in relative.parts):
         raise ValueError("Unsafe release URL or filename")
     size = item["size_bytes"]
@@ -39,7 +43,7 @@ def validated_download(item):
         raise ValueError("Invalid SHA-256")
     destination = PUBLIC.joinpath(*relative.parts)
     # Refuse symlinked destinations and parent directories.
-    if any(p.is_symlink() for p in (PUBLIC, destination.parent, destination.parent.parent, destination)):
+    if any(p.is_symlink() for p in (destination, *destination.parents) if p == PUBLIC or PUBLIC in p.parents):
         raise ValueError("Release paths must not contain symlinks")
     return destination, size, digest
 
@@ -87,7 +91,7 @@ def restore(item, dry_run=False):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--all", action="store_true", help="Restore all historical releases")
-    parser.add_argument("--include-manager", action="store_true", help="Also restore desktop runtime ZIPs")
+    parser.add_argument("--include-manager", action="store_true", help="Also restore manager installers and self-update packages")
     parser.add_argument("--dry-run", action="store_true", help="Verify metadata/existing files without downloading")
     args = parser.parse_args()
     bases = ["", "professions", "navigator", "targets"]
@@ -104,7 +108,8 @@ def main():
             if args.all and "download" not in release and "downloads" not in release:
                 print(f"HISTORY ONLY {base or 'chat'} {release['version']} (no published archive metadata)")
                 continue
-            for item in release.get("downloads", [release.get("download")]):
+            items = release.get("downloads", [release.get("download")]) + [feed['package'] for feed in release.get('self_update', {}).get('feeds', [])]
+            for item in items:
                 if item is None:
                     raise ValueError("Release metadata has no download")
                 previous = downloads.setdefault(item["url"], item)

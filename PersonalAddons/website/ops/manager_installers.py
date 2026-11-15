@@ -54,7 +54,7 @@ def read_update_package(path, version, platform):
             mode = stat.S_IFMT(entry.external_attr >> 16)
             if (not parts or name.startswith('/') or '\\' in name or ':' in name or
                     '/'.join(parts) != name.rstrip('/') or name.casefold() in seen or
-                    any(p in ('.', '..') or private.fullmatch(p) or p.startswith('.') for p in parts) or
+                    any(p in ('.', '..') or private.fullmatch(p) or (p.startswith('.') and name != '_rels/.rels') for p in parts) or
                     mode not in (0, stat.S_IFREG, stat.S_IFDIR) or entry.flag_bits & 1):
                 raise ValueError('Unsafe update member: ' + name)
             seen.add(name.casefold())

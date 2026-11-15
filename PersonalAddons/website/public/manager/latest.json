@@ -3,19 +3,21 @@
   "name": "MyForeverManager",
   "display_name": "我的无限 · 插件管理器",
   "homepage": "https://afabiaoge.xyz/manager/",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "channel": "trial",
-  "published_at": "2026-11-14",
+  "published_at": "2026-11-15",
   "changes": [
-    "午夜深色界面、统一卡片/按钮与状态反馈，四个插件保持独立选择、安装、更新和恢复。",
-    "公开本机行为统计页：按角色与时间筛选日累计、技能及区域分布；需要手动安装同批MyForeverCoach采集器，统计不上传。",
-    "保留既有目录、插件勾选、自动更新选择与本地统计；管理器自身需下载新包替换，不自动升级。"
+    "Mac 新增 M 芯片（Apple Silicon / ARM64）与 Intel 独立 DMG，拖入应用程序安装；Windows x64 提供安装程序和开始菜单入口，自带运行时。",
+    "管理器自身支持自动检查和下载，正常退出时安装，也可立即重启更新；与游戏插件自动更新的开关独立，保留原设置和行为归档。",
+    "行为统计新增数字依据的关键发现和效率指标；可选 AI 复盘默认关闭，发送前可查看汇总，只有启用后点击生成才发送。旧采集器缺少字段时会说明。",
+    "代码公开在 GitHub，欢迎反馈问题、补充兼容性与测试结果、改进代码、文档和界面；四个游戏插件的公开版本保持不变。"
   ],
   "validation": [
-    ".NET10 Release构建完成，Windows x64、Apple芯片Mac与Intel Mac三平台自包含包完成；两个Mac包通过本地临时签名结构校验。",
-    "原升级源码编译0警告/0错误，35项行为统计与68项安装/更新/备份/恢复隔离检查通过；不将隔离目录当作真实游戏安装验收。",
-    "Windows及Intel Mac未作原生真机运行；完整30分钟检查/退出游戏后60秒重试仍未完整等待；Windows未签名，Mac未做Developer ID签名与公证。",
-    "用户已验收游戏内界面并授权网站与app同步发布；没有把它扩写为Manager所有平台的视觉/操作验收。"
+    "用户已使用 M 芯片 DMG 完成安装验收并授权发布；应用 Core/Desktop 与验收版本的 19 个源码文件一致。",
+    "18 项自身更新、47 项行为分析及可选 AI、68 项插件安装/更新/恢复回归通过，均使用隔离环境或合成数据，没有真实模型请求。",
+    "Mac 隔离真实升级助手已验证坏包拒绝、下载后退出替换、重启、更新后签名与五份保护文件不变；本批两个 DMG 另做只读挂载、架构与签名检查，Windows 完成交叉构建和包检查。",
+    "Windows 与 Intel Mac 尚未真机安装/卸载/更新；完整30分钟周期未完整等待。Mac 为临时签名，未 Developer ID 公证；Windows 未 Authenticode 签名。",
+    "管理器与游戏插件独立发版：本批不发布 PR #10 的游戏改动或 PR #11 的采集器候选。0.4.0 及更早版需手动换装一次。"
   ],
   "requirements": {
     "win-x64": "Windows 10 / 11 64 位",
@@ -24,25 +26,67 @@
   },
   "downloads": [
     {
-      "platform": "win-x64",
-      "filename": "MyForeverManager-0.4.0-Trial-win-x64.zip",
-      "url": "https://afabiaoge.xyz/manager/downloads/MyForeverManager-0.4.0-Trial-win-x64.zip",
-      "size_bytes": 41677921,
-      "sha256": "a1de762a4c4a59edeb20f5b1c450a4c1b5d4965427277f0e1e6d2200e21f5a6d"
+      "platform": "osx-arm64",
+      "format": "dmg",
+      "filename": "MyForeverManager-0.5.0-Trial-osx-arm64.dmg",
+      "url": "https://afabiaoge.xyz/manager/downloads/MyForeverManager-0.5.0-Trial-osx-arm64.dmg",
+      "size_bytes": 50907575,
+      "sha256": "92af89759de293374f732be9bc220338420722f66efe0c7e0b1cf02f5591051c"
     },
     {
-      "platform": "osx-arm64",
-      "filename": "MyForeverManager-0.4.0-Trial-osx-arm64.zip",
-      "url": "https://afabiaoge.xyz/manager/downloads/MyForeverManager-0.4.0-Trial-osx-arm64.zip",
-      "size_bytes": 41234171,
-      "sha256": "01ec2aa3d1f370ff2487c0f41736fe9a6644d98dd85c5b87e377132e4c5f0934"
+      "platform": "win-x64",
+      "format": "setup",
+      "filename": "MyForeverManager-0.5.0-Trial-win-x64-Setup.exe",
+      "url": "https://afabiaoge.xyz/manager/downloads/MyForeverManager-0.5.0-Trial-win-x64-Setup.exe",
+      "size_bytes": 53926307,
+      "sha256": "dae5d5a475df5e17fd92489851e664b6a9f39d6f74f25492b51303a76a4fd68a"
     },
     {
       "platform": "osx-x64",
-      "filename": "MyForeverManager-0.4.0-Trial-osx-x64.zip",
-      "url": "https://afabiaoge.xyz/manager/downloads/MyForeverManager-0.4.0-Trial-osx-x64.zip",
-      "size_bytes": 43711225,
-      "sha256": "366a8d0e606388e3c3a3462a1e656a4fdaa42f6cab138c36a3cf786298c4ebc2"
+      "format": "dmg",
+      "filename": "MyForeverManager-0.5.0-Trial-osx-x64.dmg",
+      "url": "https://afabiaoge.xyz/manager/downloads/MyForeverManager-0.5.0-Trial-osx-x64.dmg",
+      "size_bytes": 52414231,
+      "sha256": "b22ac3606ba8916619e312aea758a34fb6a9ad818f44f29831749bffe5bc9c70"
     }
-  ]
+  ],
+  "source": {
+    "repository": "https://github.com/helloshuangxi/myforever-addons",
+    "commit": "08764eaa04a1256dc15aaf094fd3c57e85b437ba"
+  },
+  "self_update": {
+    "package_id": "MyForeverManagerApp",
+    "feeds": [
+      {
+        "platform": "osx-arm64",
+        "feed_url": "https://afabiaoge.xyz/manager/updates/osx-arm64/releases.osx-arm64.json",
+        "package": {
+          "filename": "MyForeverManagerApp-0.5.0-osx-arm64-full.nupkg",
+          "url": "https://afabiaoge.xyz/manager/updates/osx-arm64/MyForeverManagerApp-0.5.0-osx-arm64-full.nupkg",
+          "size_bytes": 45656597,
+          "sha256": "b8fc1e216342a36e64208007c8eec1fec83304c9a336cc066dec372e93856f08"
+        }
+      },
+      {
+        "platform": "win-x64",
+        "feed_url": "https://afabiaoge.xyz/manager/updates/win-x64/releases.win-x64.json",
+        "package": {
+          "filename": "MyForeverManagerApp-0.5.0-win-x64-full.nupkg",
+          "url": "https://afabiaoge.xyz/manager/updates/win-x64/MyForeverManagerApp-0.5.0-win-x64-full.nupkg",
+          "size_bytes": 46373795,
+          "sha256": "6f414f0e40da5a825a65a7ab2aece516ef2f6dc39bdd0f05fdc031a0c989a811"
+        }
+      },
+      {
+        "platform": "osx-x64",
+        "feed_url": "https://afabiaoge.xyz/manager/updates/osx-x64/releases.osx-x64.json",
+        "package": {
+          "filename": "MyForeverManagerApp-0.5.0-osx-x64-full.nupkg",
+          "url": "https://afabiaoge.xyz/manager/updates/osx-x64/MyForeverManagerApp-0.5.0-osx-x64-full.nupkg",
+          "size_bytes": 48288567,
+          "sha256": "d4083ea0260d213f443a8e5f0653b2bb6061cd43731bb51d06b32d84ccd38bf4"
+        }
+      }
+    ]
+  }
 }

@@ -42,6 +42,7 @@ class InstallerTests(unittest.TestCase):
             folder = self.build / 'updates' / rid; folder.mkdir(parents=True)
             name = f'MyForeverManagerApp-0.5.0-{rid}-full.nupkg'
             with zipfile.ZipFile(folder / name, 'w') as archive:
+                archive.writestr('_rels/.rels', '<Relationships/>')
                 archive.writestr('MyForeverManagerApp.nuspec', '<package><metadata><id>MyForeverManagerApp</id><version>0.5.0</version><channel>'+rid+'</channel><rid>'+rid+'</rid></metadata></package>')
                 prefix = 'lib/app/'
                 identity = {'name': 'MyForeverManager', 'version': '0.5.0', 'platform': rid}

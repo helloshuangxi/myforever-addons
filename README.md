@@ -2,7 +2,9 @@
 
 七个自研魔兽插件、跨平台管理器、官网与建议服务的协作源码仓库。面向国服《魔兽世界：无限》，插件 TOC Interface 为 **16001**。源码包含已发布试用功能与仍待专项实测的候选路径；当前发行范围见 `PersonalAddons/releases/ui-20261114-RELEASE.md`。
 
-本批星辉 UI 已获得用户界面验收及明确发布授权；[同批安装包](https://github.com/helloshuangxi/myforever-addons/releases/tag/suite-2026.11.14)，官网与管理器独立版本。
+本批星辉 UI 已获得用户界面验收及明确发布授权；[同批安装包](https://github.com/helloshuangxi/myforever-addons/releases/tag/suite-2026.11.14)，官网与管理器独立版本。管理器 0.5.0 已获用户发布授权，提供 Mac DMG、Windows 安装程序和管理器自身更新；见 [管理器发行记录](PersonalAddons/releases/manager-0.5.0-RELEASE.md)。
+
+公开仓库：https://github.com/helloshuangxi/myforever-addons 。欢迎提 Issue、补充测试结果与文档，或提交 Pull Request；参与方式见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 **先读 [目前的问题](CURRENT_ISSUES.md)，再读 [协作开发](CONTRIBUTING.md)。** [8 个协作 Issues](docs/ISSUE_INDEX.md) 包含整体 UI/UX 重设计这一优先问题。English onboarding: [Development handoff](docs/DEVELOPMENT_HANDOFF_EN.md).
 

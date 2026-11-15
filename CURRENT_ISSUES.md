@@ -15,7 +15,7 @@
 | 玩家行为采集 MyForeverCoach | 0.2.1 | 同批GitHub发行 | 本机采集；手动安装 |
 | 宏工坊 MyForeverMacros | 0.2.3 | 同批GitHub发行 | 手动安装 |
 | 随身手册 MyForeverFieldKit | 0.1.1 | 同批GitHub发行 | 手动安装 |
-| 桌面管理器 | **0.4.0** | **0.4.0** | 午夜深色、四插件管理及本机行为统计 |
+| 桌面管理器 | **0.5.0** | **0.5.0 发布中** | DMG/Setup、自身更新、行为洞察及可选 AI |
 
 本表为本批发行版本。实际部署标识与公网校验见 `PersonalAddons/releases/ui-20261114-RELEASE.md`；更早版本及模拟/实机记录按日期保留，不能覆盖当前版本或扩大验证范围。
 
@@ -77,11 +77,11 @@
 
 ## P2 / MFM-001：管理器跨平台与自动周期未完整真机验证
 
-本批源码和公开试用包均为 0.4.0，包含午夜深色界面、四插件管理与本机行为统计。管理器自身不会自动升级，旧用户需从官网重新下载替换；本机应用已更新，用户设置保留。
+本批 0.5.0 已获 M 芯片用户验收及发布授权，新增 DMG/Setup 与独立自身更新；旧 0.4.0 需手动换装一次。Windows/Intel Mac 原生安装/卸载/更新仍待验证，不将交叉编译或 Mac 用户验收扩写为其他平台通过。用户设置和本机行为归档保留。
 
 **未完成：** Windows x64、Intel Mac 原生界面/目录权限/安装运行；完整 30 分钟检查及退出游戏后 60 秒重试等待；Windows Authenticode、Apple Developer ID 和公证。Mac 当前为本地临时签名。跨平台编译和隔离测试不代表对应真机验收。
 
-**行为统计边界：** SavedVariables 通常 `/reload` 或退出才写盘；桌面不能读取尚未写盘的事件。分日固定 UTC+08:00，保留 90 天日累计，旧采集片段有缺失；静止不是挂机，施法失败不是误操作。采集器与管理器不得采集按键/聊天/姓名/GUID，不上传行为数据。跨日、战斗、死亡、任务、容量等需要对应真实场景，不可从一次自疗及导入测试推定全部通过。
+**行为统计边界：** SavedVariables 通常 `/reload` 或退出才写盘；桌面不能读取尚未写盘的事件。分日固定 UTC+08:00，保留 90 天日累计，旧采集片段有缺失；静止不是挂机，施法失败不是误操作。采集器与管理器不得采集按键/聊天/姓名/GUID，本机统计不上传；可选 AI 默认关闭，仅在玩家启用并点击生成时发送预览中的汇总。跨日、战斗、死亡、任务、容量等需要对应真实场景，不可从一次自疗及导入测试推定全部通过。
 
 **入口：** `Manager/Core/UpdateService.cs`、`GamePaths.cs`、`BehaviorDataService.cs`、`BehaviorLuaReader.cs`、`Desktop/BehaviorStatisticsView.cs`；测试使用隔离目录。见 `Manager/README.md`、`BEHAVIOR-CONTRACT.md`、`BEHAVIOR-VALIDATION.md`。
 

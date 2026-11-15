@@ -17,9 +17,9 @@ afabiaoge.xyz {
         Referrer-Policy strict-origin-when-cross-origin
         X-Frame-Options DENY
     }
-    @downloads path /downloads/*.zip /manager/downloads/*.zip
+    @downloads path /downloads/*.zip /manager/downloads/*.zip /manager/downloads/*.dmg /manager/downloads/*.exe /manager/updates/*/*.nupkg
     header @downloads Cache-Control "public, max-age=31536000, immutable"
-    @manifest path /latest.json /releases.json /professions/latest.json /professions/releases.json /navigator/latest.json /navigator/releases.json /targets/latest.json /targets/releases.json /manager/latest.json /manager/releases.json
+    @manifest path /latest.json /releases.json /professions/latest.json /professions/releases.json /navigator/latest.json /navigator/releases.json /targets/latest.json /targets/releases.json /manager/latest.json /manager/releases.json /manager/updates/*/releases.*.json
     header @manifest Cache-Control "no-cache"
     @pages path / /index.html /chat /chat/ /chat/index.html /professions /professions/ /professions/index.html /navigator /navigator/ /navigator/index.html /navigator/style.css /targets /targets/ /targets/index.html /targets/style.css /style.css /theme.css /script.js /portal.css /portal.js /community.css /community.js /professions/style.css /manager /manager/ /manager/index.html /manager/style.css /community-config.json /sitemap.xml
     header @pages Cache-Control "no-cache"

@@ -15,7 +15,7 @@
 | 玩家行为采集 MyForeverCoach | 0.2.1 | 同批GitHub发行 | 本机采集；手动安装 |
 | 宏工坊 MyForeverMacros | 0.2.3 | 同批GitHub发行 | 手动安装 |
 | 随身手册 MyForeverFieldKit | 0.1.1 | 同批GitHub发行 | 手动安装 |
-| 桌面管理器 | **0.5.0** | **0.5.0 发布中** | DMG/Setup、自身更新、行为洞察及可选 AI |
+| 桌面管理器 | **0.5.0** | **0.5.0** | DMG/Setup、自身更新、行为洞察及可选 AI |
 
 本表为本批发行版本。实际部署标识与公网校验见 `PersonalAddons/releases/ui-20261114-RELEASE.md`；更早版本及模拟/实机记录按日期保留，不能覆盖当前版本或扩大验证范围。
 

@@ -1,0 +1,72 @@
+{
+  "name": "MyForeverManager",
+  "version": "0.5.0",
+  "channel": "trial",
+  "published_at": "2026-11-15",
+  "user_authorization": "M芯片DMG验收后明确授权管理器合并main、打包上线并在官网公开GitHub地址及贡献邀请。",
+  "application_source_commit": "08764eaa04a1256dc15aaf094fd3c57e85b437ba",
+  "main_merge_commit": "2238b906292d50a2fa8f98c3956131a694a07314",
+  "pull_request": "https://github.com/helloshuangxi/myforever-addons/pull/12",
+  "github_release": "https://github.com/helloshuangxi/myforever-addons/releases/tag/manager-v0.5.0",
+  "website": "https://afabiaoge.xyz/manager/",
+  "website_deployment": "20261115T073529Z",
+  "public_https_resources_verified": 144,
+  "historical_zips_unchanged": 43,
+  "other_plugin_metadata_unchanged": true,
+  "outside_website_caddy_unchanged": true,
+  "community_source_unchanged": true,
+  "production_self_update_transport_verified": [
+    {
+      "platform": "osx-arm64",
+      "version": "0.5.0",
+      "sha256": "B8FC1E216342A36E64208007C8EEC1FEC83304C9A336CC066DEC372E93856F08",
+      "size": 45656597
+    },
+    {
+      "platform": "osx-x64",
+      "version": "0.5.0",
+      "sha256": "D4083EA0260D213F443A8E5F0653B2BB6061CD43731BB51D06B32D84CCD38BF4",
+      "size": 48288567
+    },
+    {
+      "platform": "win-x64",
+      "version": "0.5.0",
+      "sha256": "6F414F0E40DA5A825A65A7AB2AECE516EF2F6DC39BDD0F05FDC031A0C989A811",
+      "size": 46373795
+    }
+  ],
+  "browser_arm64_dmg_sha256": "92af89759de293374f732be9bc220338420722f66efe0c7e0b1cf02f5591051c",
+  "downloads": [
+    {
+      "platform": "osx-arm64",
+      "format": "dmg",
+      "filename": "MyForeverManager-0.5.0-Trial-osx-arm64.dmg",
+      "url": "https://afabiaoge.xyz/manager/downloads/MyForeverManager-0.5.0-Trial-osx-arm64.dmg",
+      "size_bytes": 50907575,
+      "sha256": "92af89759de293374f732be9bc220338420722f66efe0c7e0b1cf02f5591051c"
+    },
+    {
+      "platform": "win-x64",
+      "format": "setup",
+      "filename": "MyForeverManager-0.5.0-Trial-win-x64-Setup.exe",
+      "url": "https://afabiaoge.xyz/manager/downloads/MyForeverManager-0.5.0-Trial-win-x64-Setup.exe",
+      "size_bytes": 53926307,
+      "sha256": "dae5d5a475df5e17fd92489851e664b6a9f39d6f74f25492b51303a76a4fd68a"
+    },
+    {
+      "platform": "osx-x64",
+      "format": "dmg",
+      "filename": "MyForeverManager-0.5.0-Trial-osx-x64.dmg",
+      "url": "https://afabiaoge.xyz/manager/downloads/MyForeverManager-0.5.0-Trial-osx-x64.dmg",
+      "size_bytes": 52414231,
+      "sha256": "b22ac3606ba8916619e312aea758a34fb6a9ad818f44f29831749bffe5bc9c70"
+    }
+  ],
+  "scope": "Manager and publication support only; held PR10 gameplay and PR11 collector not merged or released.",
+  "limits": [
+    "Windows/Intel Mac native install, uninstall and update untested",
+    "Mac ad-hoc signature; no Developer ID notarization",
+    "Windows no Authenticode",
+    "No real AI model request or real game mutation during release"
+  ]
+}

@@ -1,5 +1,11 @@
 # 我的无限双插件官网部署
 
+## 2026-11-15 管理器安装器与自身更新
+
+用户验收 M 芯片 DMG 后授权发布。管理器 0.5.0 通过 PR #12 合并 main，构建源码 `08764ea`；官网部署 `20261115T073529Z`，GitHub `manager-v0.5.0` 试用发行。Mac 提供 ARM64/Intel DMG，Windows x64 提供 Setup；三个 `/manager/updates/<rid>/` 更新源上线。
+
+使用 `sync_manager_installers.py` 同步经审计的发行构建，再用现有 `deploy.py --execute` 原子切换。索引 no-cache、版本包 immutable。144 资源完整公网回读、生产下载类三平台 feed/package 验证、真实浏览器 M 芯片下载及 GitHub 资产摘要通过；43 旧 ZIP、其他插件元数据、网站块外 Caddy 和社区源代码不变。Windows/Intel 原生安装更新仍待反馈；Mac 临时签名未公证、Windows 未 Authenticode。详情见 `manager-0.5.0-publication.json` 及 `../../releases/manager-0.5.0-RELEASE.md`。
+
 ## 2026-11-14 星辉套件与午夜管理器
 
 用户进游戏接受本批 UI 后授权合并并发布。源码 `6ae77c6`，GitHub prerelease `suite-2026.11.14`；官网部署 `20261114T041752Z`。Chat 0.10.0、Professions/Navigator 0.5.0、Targets 0.2.0、Manager 0.4.0 同批上线，Coach/Macros/FieldKit 从管理器页面链接到 GitHub 手动包。全部旧包保留原哈希。

@@ -27,6 +27,8 @@ public sealed class BehaviorDay
     public bool IsPartial { get; set; }
     public bool HasLegacyData { get; set; }
     public long DetailDropped { get; set; }
+    /// <summary>True only when every contribution of this day recorded per-zone XP, deaths and combat entries from the start of the day.</summary>
+    public bool HasZoneDetail { get; set; }
 }
 public sealed class BehaviorCounts
 {
@@ -39,6 +41,7 @@ public sealed class BehaviorCounts
     public long Deaths { get; set; }
     public long CastSuccesses { get; set; }
     public long CastFailures { get; set; }
+    public long CastInterruptions { get; set; }
     public long QuestsAccepted { get; set; }
     public long QuestsTurnedIn { get; set; }
     public long XpGained { get; set; }
@@ -58,4 +61,7 @@ public sealed class BehaviorZone
     public string Name { get; set; } = "";
     public double Seconds { get; set; }
     public long Visits { get; set; }
+    public long XpGained { get; set; }
+    public long Deaths { get; set; }
+    public long CombatEntries { get; set; }
 }

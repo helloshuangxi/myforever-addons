@@ -230,7 +230,7 @@ public sealed class BehaviorDataService(string stateDirectory)
         {
             CollectedSeconds = N(time, "observedSeconds"), CombatSeconds = N(time, "combatSeconds"), NonCombatSeconds = N(time, "nonCombatSeconds"), UnknownCombatSeconds = N(time, "unknownCombatSeconds"),
             CombatEntries = L(counts, "combatsEntered"), CombatsCompleted = L(counts, "combatsCompleted"), Deaths = L(counts, "deaths"),
-            CastSuccesses = L(counts, "castsSucceeded"), CastFailures = L(counts, "castsFailed"),
+            CastSuccesses = L(counts, "castsSucceeded"), CastFailures = L(counts, "castsFailed"), CastInterruptions = L(counts, "castsInterrupted"),
             QuestsAccepted = L(counts, "questsAccepted"), QuestsTurnedIn = L(counts, "questsTurnedIn"), XpGained = L(counts, "xpGained"), LevelsGained = L(counts, "levelsGained")
         }};
         if (result.Counts.CollectedSeconds > 86_401 || result.Counts.CombatSeconds + result.Counts.NonCombatSeconds + result.Counts.UnknownCombatSeconds > result.Counts.CollectedSeconds + 2) throw new InvalidDataException();
@@ -249,8 +249,11 @@ public sealed class BehaviorDataService(string stateDirectory)
         foreach (var (key, value) in Limited(D(raw, "maps")))
         {
             var mapId = Id(key); var map = value as Dictionary<string, object?> ?? throw new InvalidDataException();
-            result.Zones.Add(new() { MapId = mapId, Name = Label(S(map, "name")), Seconds = N(map, "seconds"), Visits = L(map, "visits") });
+            // xp/deaths/combats exist from collector 0.2.1; older entries read as 0 and the day is not marked as zone detail.
+            result.Zones.Add(new() { MapId = mapId, Name = Label(S(map, "name")), Seconds = N(map, "seconds"), Visits = L(map, "visits"),
+                XpGained = L(map, "xp"), Deaths = L(map, "deaths"), CombatEntries = L(map, "combats") });
         }
+        result.HasZoneDetail = N(raw, "version", 1) >= 2;
         ValidateDay(result);
         return result;
     }
@@ -279,6 +282,7 @@ public sealed class BehaviorDataService(string stateDirectory)
     {
         var result = new BehaviorDay { Date = date };
         var days = source.ToList();
+        result.HasZoneDetail = days.Count > 0 && days.All(d => d.HasZoneDetail);
         foreach (var day in days)
         {
             Add(result.Counts, day.Counts); result.IsPartial |= day.IsPartial; result.HasLegacyData |= day.HasLegacyData; result.DetailDropped += day.DetailDropped;
@@ -287,13 +291,14 @@ public sealed class BehaviorDataService(string stateDirectory)
             result.Spells.Add(new() { SpellId = group.Key, Name = group.Select(s => s.Name).LastOrDefault(n => n.Length > 0) ?? "",
                 Successes = group.Sum(s => s.Successes), Failures = group.Sum(s => s.Failures), Interrupted = group.Sum(s => s.Interrupted) });
         foreach (var group in days.SelectMany(d => d.Zones).GroupBy(s => s.MapId))
-            result.Zones.Add(new() { MapId = group.Key, Name = group.Select(s => s.Name).LastOrDefault(n => n.Length > 0) ?? "", Seconds = group.Sum(s => s.Seconds), Visits = group.Sum(s => s.Visits) });
+            result.Zones.Add(new() { MapId = group.Key, Name = group.Select(s => s.Name).LastOrDefault(n => n.Length > 0) ?? "", Seconds = group.Sum(s => s.Seconds), Visits = group.Sum(s => s.Visits),
+                XpGained = group.Sum(s => s.XpGained), Deaths = group.Sum(s => s.Deaths), CombatEntries = group.Sum(s => s.CombatEntries) });
         return result;
     }
     internal static void Add(BehaviorCounts a, BehaviorCounts b)
     {
         a.CollectedSeconds += b.CollectedSeconds; a.CombatSeconds += b.CombatSeconds; a.NonCombatSeconds += b.NonCombatSeconds; a.UnknownCombatSeconds += b.UnknownCombatSeconds;
-        a.CombatEntries += b.CombatEntries; a.CombatsCompleted += b.CombatsCompleted; a.Deaths += b.Deaths; a.CastSuccesses += b.CastSuccesses; a.CastFailures += b.CastFailures;
+        a.CombatEntries += b.CombatEntries; a.CombatsCompleted += b.CombatsCompleted; a.Deaths += b.Deaths; a.CastSuccesses += b.CastSuccesses; a.CastFailures += b.CastFailures; a.CastInterruptions += b.CastInterruptions;
         a.QuestsAccepted += b.QuestsAccepted; a.QuestsTurnedIn += b.QuestsTurnedIn; a.XpGained += b.XpGained; a.LevelsGained += b.LevelsGained;
     }
     private static void ValidateArchive(BehaviorArchive archive)
@@ -310,7 +315,7 @@ public sealed class BehaviorDataService(string stateDirectory)
     private static void ValidateDay(BehaviorDay day)
     {
         ValidateCounts(day.Counts);
-        if (day.DetailDropped is < 0 or > 1_000_000_000_000 || day.Spells.Count > 1200 || day.Zones.Count > 1200 || day.Spells.Any(s => s is null || s.Name is null || s.Name != Label(s.Name) || s.SpellId is <= 0 or > int.MaxValue || s.Successes is < 0 or > 1_000_000_000_000 || s.Failures is < 0 or > 1_000_000_000_000 || s.Interrupted is < 0 or > 1_000_000_000_000) || day.Zones.Any(z => z is null || z.Name is null || z.Name != Label(z.Name) || z.MapId is <= 0 or > int.MaxValue || !double.IsFinite(z.Seconds) || z.Seconds < 0 || z.Seconds > 86_401 || z.Visits is < 0 or > 1_000_000_000_000)) throw new InvalidDataException();
+        if (day.DetailDropped is < 0 or > 1_000_000_000_000 || day.Spells.Count > 1200 || day.Zones.Count > 1200 || day.Spells.Any(s => s is null || s.Name is null || s.Name != Label(s.Name) || s.SpellId is <= 0 or > int.MaxValue || s.Successes is < 0 or > 1_000_000_000_000 || s.Failures is < 0 or > 1_000_000_000_000 || s.Interrupted is < 0 or > 1_000_000_000_000) || day.Zones.Any(z => z is null || z.Name is null || z.Name != Label(z.Name) || z.MapId is <= 0 or > int.MaxValue || !double.IsFinite(z.Seconds) || z.Seconds < 0 || z.Seconds > 86_401 || z.Visits is < 0 or > 1_000_000_000_000 || z.XpGained is < 0 or > 1_000_000_000_000 || z.Deaths is < 0 or > 1_000_000_000_000 || z.CombatEntries is < 0 or > 1_000_000_000_000)) throw new InvalidDataException();
     }
     private static void ValidateCounts(BehaviorCounts counts)
     {

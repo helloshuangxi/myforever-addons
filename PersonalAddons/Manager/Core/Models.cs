@@ -6,7 +6,7 @@ namespace MyForeverManager.Core;
 
 public static class ManagerVersion
 {
-    public const string Current = "0.4.0";
+    public const string Current = "0.5.0";
 }
 
 public record AddonDefinition(string Id, string DisplayName, string Description, string ManifestUrl);
@@ -29,6 +29,7 @@ public sealed class ManagerSettings
 {
     public string GameDirectory { get; set; } = "";
     public bool AutoUpdate { get; set; } = true;
+    public bool AutoUpdateManager { get; set; } = true;
     public List<string> ManagedAddons { get; set; } = [];
 }
 

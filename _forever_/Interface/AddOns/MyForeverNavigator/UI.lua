@@ -18,7 +18,7 @@ local ROW_HEIGHT, ROW_STEP, PILL_HEIGHT, PILL_GAP = 36, 38, 24, 6
 local DETAILS_HEIGHT, EXTRA_HEIGHT = 92, 132
 local npcState = {query="",category="all",subcategory="all",sort="distance",faction="own",currentZone=false,page=1,subPage=1,filters=false,more=false}
 local placeState = {query="",category="favorites",sort="distance",page=1,more=false}
-local npcPage, placePage, navigationPage, npcBrowser, placeBrowser
+local npcPage, placePage, navigationPage, routePage, npcBrowser, placeBrowser
 local categories, subcategories, workspaceTabs, placeTabs = {}, {}, {}, {}
 local subPrevious, subNext, subPageLabel, subTitle
 local createToggle, placeForm, mapInput, xInput, yInput, nameInput, saveButton, currentButton, importButton
@@ -394,7 +394,8 @@ local function refreshBrowser(browser)
         options.currentZone=state.currentZone
         options.includeCustom=false
     end
-    browser.results=NS.Search(state.query,options) or {}
+    local search = browser.kind=="npc" and state.query~="" and NS.FuzzySearch or NS.Search
+    browser.results=search(state.query,options) or {}
     local list=browser.results
     local rows=browser.visibleRows or MAX_ROWS
     local maximum=math.max(1,math.ceil(#list/rows))
@@ -485,12 +486,22 @@ local function createBrowser(parent,state,kind,headerHeight)
     local browser=CreateFrame("Frame",nil,parent)
     browser:SetWidth(INNER);browser.state=state;browser.kind=kind;browser.listWidth=INNER;browser.rows={}
     browser.headerHeight=headerHeight
-    browser.search=input(browser,INNER,kind=="npc" and "搜索 NPC 名称或用途" or "搜索收藏或自定义地点",0,0,true)
+    browser.search=input(browser,kind=="npc" and INNER-74 or INNER,kind=="npc" and "模糊搜索 NPC、地名或用途" or "搜索收藏或自定义地点",0,0,true)
+    if kind=="npc" then
+        browser.ask=button(browser,"问路线",68,30,function()NS.OpenRoutePlanner(state.query, state.query=="" and state.selectedID or nil)end,"quiet")
+        browser.ask:SetPoint("TOPRIGHT")
+    end
     browser.search:SetMaxLetters(120)
-    browser.search:SetScript("OnTextChanged",function(self)
+    browser.search:SetScript("OnTextChanged",function(self,typed)
         state.query=self:GetText() or "";state.page=1;state.selectedID=nil
         if self.hint then self.hint:SetShown(state.query=="") end
-        if ready then NS.RefreshUI() end
+        if not ready then return end
+        if typed and C_Timer and C_Timer.After then
+            local value = state.query
+            C_Timer.After(0.18,function()
+                if value == state.query and browser:IsVisible() then NS.RefreshUI() end
+            end)
+        else NS.RefreshUI() end
     end)
     browser.sort=button(browser,"最近优先",88,24,function()
         state.sort=state.sort=="distance" and "name" or "distance";state.page=1;state.selectedID=nil;NS.RefreshUI()
@@ -559,7 +570,21 @@ local function createBrowser(parent,state,kind,headerHeight)
     Style.SetType(d.location,"caption","muted")
     d.start=button(d,"开始导航",inner-216,28,function()
         local point=selectedPoint(browser)
-        if point then local ok,reason=NS.Start(point);if not ok then showMessage(reason)end;NS.RefreshHUD();NS.RefreshUI()end
+        if not point then return end
+        local ok,reason
+        if browser.kind=="npc" and NS.BuildRoute then
+            local plan
+            plan,reason=NS.BuildRoute({point.id})
+            if plan then
+                ok,reason=NS.StartRoute(plan)
+                if ok and state.query~="" then
+                    NS.RememberRoute(state.query,{point.id},{category=state.category,subcategory=state.subcategory,
+                        currentZone=state.currentZone,faction=state.faction,includeCustom=false})
+                end
+            end
+        else ok,reason=NS.Start(point) end
+        if not ok then showMessage(reason) end
+        NS.RefreshHUD();NS.RefreshUI()
     end,"primary")
     d.map=button(d,"地图",64,28,function()
         local point=selectedPoint(browser)
@@ -596,8 +621,18 @@ function NS.RefreshNavigationPage(nav)
     local view=NS.UI.nav
     nav=nav or NS.GetNavigation()
     local point=nav and nav.point
-    view.active:SetShown(point~=nil);view.empty:SetShown(point==nil)
-    if not point then return end
+    local route = NS.GetActiveRoute and NS.GetActiveRoute()
+    view.active:SetShown(point~=nil or route~=nil);view.empty:SetShown(point==nil and route==nil)
+    view.routeSteps:SetText(route and NS.RouteStepSummary(route, route.index, 4) or "")
+    view.resume.label:SetText(route and (route.index == #route.steps and "结束路线" or "下一步") or "继续指引")
+    if not point then
+        if route then
+            view.target:SetText("等待当前站点")
+            view.location:SetText("");view.distance:SetText("");view.status:SetText("可等待目录就绪，或手动跳到下一步。")
+            view.tracking:SetText("")
+        end
+        return
+    end
     view.point=point
     view.target:SetText(point.name or "目的地")
     view.location:SetText(string.format("%s · %.1f, %.1f",point.zone or "目标地图",point.x*100,point.y*100))
@@ -610,6 +645,7 @@ end
 function NS.RefreshUI()
     if not ready then return end
     npcPage:SetShown(workspace=="npc");placePage:SetShown(workspace=="places");navigationPage:SetShown(workspace=="navigation")
+    if routePage then routePage:SetShown(workspace=="route") end
     placeForm:SetShown(workspace=="places" and formShown)
     for id,b in pairs(workspaceTabs)do activeButton(b,id==workspace)end
     if workspace=="npc" then
@@ -627,6 +663,7 @@ function NS.RefreshUI()
         browserLayout(placeBrowser,PAGE_HEIGHT-top);refreshBrowser(placeBrowser)
         NS.UI.search,NS.UI.rows,NS.UI.details=placeBrowser.search,placeBrowser.rows,placeBrowser.details
         NS.UI.moreToggle=placeBrowser.details.more
+    elseif workspace=="route" and NS.RefreshRoutePlanner then NS.RefreshRoutePlanner()
     else NS.RefreshNavigationPage()end
     NS.UI.workspace=workspace
 end
@@ -651,7 +688,7 @@ function NS.CreateUI()
     if Style.TitleRule then Style.TitleRule(panel,16,nil,220,38) end
     if Style.HintBar then Style.HintBar(panel,{{"左键","选择"},{"Esc","关闭"}},"/myui 摆放面板") end
     local close=Style.CloseButton(panel,function()panel:Hide()end);close:SetPoint("TOPRIGHT",-8,-8)
-    for i,item in ipairs({{"npc","找 NPC"},{"places","我的地点"},{"navigation","当前导航"}})do
+    for i,item in ipairs({{"npc","找 NPC"},{"places","我的地点"},{"navigation","当前导航"},{"route","问路"}})do
         local id=item[1]
         local b=button(panel,item[2],96,26,function()setWorkspace(id)end,"pill");b:SetPoint("TOPLEFT",16+(i-1)*102,-44)
         workspaceTabs[id]=b
@@ -659,6 +696,10 @@ function NS.CreateUI()
     npcPage=CreateFrame("Frame",nil,panel);npcPage:SetPoint("TOPLEFT",16,-PAGE_TOP);npcPage:SetSize(INNER,PAGE_HEIGHT)
     placePage=CreateFrame("Frame",nil,panel);placePage:SetPoint("TOPLEFT",16,-PAGE_TOP);placePage:SetSize(INNER,PAGE_HEIGHT)
     navigationPage=CreateFrame("Frame",nil,panel);navigationPage:SetPoint("TOPLEFT",16,-PAGE_TOP);navigationPage:SetSize(INNER,PAGE_HEIGHT)
+    if NS.CreateRoutePlanner then
+        routePage=CreateFrame("Frame",nil,panel);routePage:SetPoint("TOPLEFT",16,-PAGE_TOP);routePage:SetSize(INNER,PAGE_HEIGHT)
+        NS.CreateRoutePlanner(routePage, {label=label, button=button, input=input, colors=colors, open=setWorkspace})
+    end
     -- NPC page: search, purpose pills, subcategory pills, then the result list.
     for _,c in ipairs(categoryList())do
         local id=c.id
@@ -742,7 +783,17 @@ function NS.CreateUI()
     Style.SetType(nav.status,"secondary","secondary")
     nav.tracking=label(nav.active,INNER-28,18,"GameFontHighlightSmall",colors.muted);nav.tracking:SetPoint("TOPLEFT",14,-186)
     Style.SetType(nav.tracking,"caption","muted")
+    nav.routeSteps=label(nav.active,INNER,212,"GameFontHighlight",colors.white)
+    nav.routeSteps:SetPoint("TOPLEFT",6,-282)
     nav.resume=button(nav.active,"继续指引",180,30,function()
+        local route = NS.GetActiveRoute and NS.GetActiveRoute()
+        if route then
+            if route.index == #route.steps then NS.Stop();NS.RefreshHUD();NS.RefreshNavigationPage();return end
+            local ok, reason=NS.NextRouteStep()
+            if not ok then showMessage(reason) end
+            NS.RefreshHUD();NS.RefreshNavigationPage()
+            return
+        end
         local point=NS.GetPoint(NS.DB.activeID)
         if point then local ok,reason=NS.Start(point);if not ok then showMessage(reason)end;NS.RefreshHUD();NS.RefreshNavigationPage()end
     end,"primary")
@@ -767,7 +818,7 @@ function NS.CreateUI()
         subPrevious=subPrevious,subNext=subNext,subPageLabel=subPageLabel,subTitle=subTitle,sidebarHint=hint,placeTabs=placeTabs,
         createToggle=createToggle,form=placeForm,filterToggle=npcBrowser.filterToggle,
         npcBrowser=npcBrowser,placeBrowser=placeBrowser,npcPage=npcPage,placePage=placePage,navigationPage=navigationPage,
-        nav=nav,mapInput=mapInput,xInput=xInput,yInput=yInput,nameInput=nameInput,save=saveButton,current=currentButton,import=importButton,
+        nav=nav,routePage=routePage,mapInput=mapInput,xInput=xInput,yInput=yInput,nameInput=nameInput,save=saveButton,current=currentButton,import=importButton,
         faction=npcBrowser.faction,zone=npcBrowser.zone,sort=npcBrowser.sort}
     panel.controls=NS.UI
     ready=true;NS.RefreshUI()

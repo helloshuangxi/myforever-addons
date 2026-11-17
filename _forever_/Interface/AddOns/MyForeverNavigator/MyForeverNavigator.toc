@@ -1,11 +1,11 @@
 ## Interface: 16001
 ## Title: 我的无限 · |cffe8be75世界向导|r
-## Notes: 接入 Questie NPC 数据搜索导航；职业和专业训练师、声望军需官、任务与地点导航。/mynav
+## Notes: 向我的无限客户端询问任务或目的地，按游戏内地点分段导航。/mynav
 ## Author: Personal Addons
-## Version: 0.5.0
+## Version: 0.7.0
 ## OptionalDeps: Questie, QuestieDB
 ## SavedVariables: MyForeverStyleDB
-## SavedVariablesPerCharacter: MyForeverNavigatorDB
+## SavedVariablesPerCharacter: MyForeverNavigatorDB, MyForeverNavigatorOutbox
 
 MyForeverStyle.lua
 Core.lua
@@ -14,8 +14,16 @@ Classification.lua
 Provider.lua
 QuestieCatalog.lua
 Navigation.lua
+RoutePhrases.lua
+FuzzySearch.lua
+RouteData.lua
+Routes.lua
+RoutePlanner.lua
 QuestData.lua
 QuestNavigation.lua
+ClientInbox.lua
+GameBridge.lua
 UI.lua
+RouteUI.lua
 QuestUI.lua
 Main.lua

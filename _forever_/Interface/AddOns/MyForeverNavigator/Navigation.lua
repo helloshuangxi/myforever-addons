@@ -379,7 +379,7 @@ local function refresh()
     call(NS.RefreshUI)
 end
 
-function NS.Start(id)
+function NS.Start(id, route, automaticStep)
     local selected = type(id) == "table" and id or nil
     if selected then id = selected.id end
     local point
@@ -390,12 +390,17 @@ function NS.Start(id)
         if point and point.questie and NS.FreezeQuestiePoint then point = NS.FreezeQuestiePoint(point) end
     end
     if not NS.DB or not point or not NS.ValidPoint(point) then return false, "目的地坐标不可用" end
+    -- A player-initiated start may set a pin. Automatic transfers may replace
+    -- only a still-owned native target, including after a reload.
+    if automaticStep then NS.GetNativeTrackingStatus() end
+    local updateNative = not automaticStep or (nativeOwned ~= nil and nativeTracked and nativeMode == "active")
     if NS.TransientPoint and NS.TransientPoint.id ~= id then NS.TransientPoint = nil end
     NS.DB.activeID = id
+    NS.DB.route = route
     NS.QuestieDestination = point.questie and point or nil
     viewedID = nil
     arrivalNotified = nil
-    setNativeTarget(point)
+    if updateNative then setNativeTarget(point) end
     refresh()
     return true
 end
@@ -423,7 +428,7 @@ end
 function NS.Stop()
     releaseOwnedTracking()
     nativeMode, nativeReason = "hud", "导航已停止"
-    if NS.DB then NS.DB.activeID = nil end
+    if NS.DB then NS.DB.activeID, NS.DB.route = nil, nil end
     NS.TransientPoint = nil
     NS.QuestieDestination = nil
     viewedID = nil

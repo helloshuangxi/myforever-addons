@@ -10,12 +10,16 @@ docs = root / "PersonalAddons"
 addon = root / "_forever_/Interface/AddOns/MyForeverNavigator"
 version = re.search(r"^## Version: ([0-9.]+)$", (addon / "MyForeverNavigator.toc").read_text(), re.M).group(1)
 dest = docs / "dist" / f"MyForeverNavigator-{version}-Trial.zip"
-files = ["MyForeverNavigator.toc", "Core.lua", "Data.lua", "Classification.lua", "Provider.lua", "QuestieCatalog.lua", "Navigation.lua", "QuestData.lua", "QuestNavigation.lua", "UI.lua", "QuestUI.lua", "Main.lua"]
+files = ["MyForeverNavigator.toc", "MyForeverStyle.lua", "Core.lua", "Data.lua", "Classification.lua", "Provider.lua", "QuestieCatalog.lua", "Navigation.lua", "RoutePhrases.lua", "FuzzySearch.lua", "RouteData.lua", "Routes.lua", "RoutePlanner.lua", "RouteUI.lua", "QuestData.lua", "QuestNavigation.lua", "ClientInbox.lua", "GameBridge.lua", "UI.lua", "QuestUI.lua", "Main.lua"]
 extras = {"README.md": docs / "世界向导使用说明.md", "SOURCES.md": docs / "NAVIGATOR-SOURCES.md",
           "VALIDATION.md": docs / "NAVIGATOR-VALIDATION.md"}
-payload = {name: (addon / name).read_bytes() for name in files}
+# The installed inbox can already contain a private reply. Always ship a fresh mailbox.
+payload = {name: (addon / name).read_bytes() for name in files if name != "ClientInbox.lua"}
+payload["ClientInbox.lua"] = b"MyForeverNavigatorInbox = {version=1,replies={}}\n"
 payload.update({name: path.read_bytes() for name, path in extras.items()})
 assert f"## Version: {version}" in payload["MyForeverNavigator.toc"].decode()
+toc_files = [line.strip() for line in payload["MyForeverNavigator.toc"].decode().splitlines() if line.strip().endswith(".lua")]
+assert set(toc_files) == {name for name in files if name.endswith(".lua")}, "Package differs from TOC"
 assert all(b"\0" not in b for b in payload.values())
 dest.parent.mkdir(parents=True, exist_ok=True)
 if dest.exists():

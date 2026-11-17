@@ -133,6 +133,10 @@ NS.GetNavigation=function()
 end
 dofile("_forever_/Interface/AddOns/MyForeverNavigator/MyForeverStyle.lua")
 assert(loadfile(root.."UI.lua"))("MyForeverNavigator",NS)
+assert(loadfile(root.."RoutePlanner.lua"))("MyForeverNavigator",NS)
+assert(loadfile(root.."GameBridge.lua"))("MyForeverNavigator",NS)
+NS.DB.clientAI=NS.NormalizeClientAI(nil)
+assert(loadfile(root.."RouteUI.lua"))("MyForeverNavigator",NS)
 NS.CreateUI()
 local ui=NS.UI
 local function category(id)
@@ -484,4 +488,109 @@ for _,browser in ipairs({ui.npcBrowser,ui.placeBrowser})do
     if not wasOpen then browser.details.more.scripts.OnClick(browser.details.more) end
     eq(browser.details.height,92,"collapsed card returns to its compact height")
 end
+-- Route workflow uses actual catalogue searches and the on-click and paste handlers.
+assert(loadfile(root.."FuzzySearch.lua"))("MyForeverNavigator",NS)
+NS.Initialize(nil)
+function methods:HighlightText() self.highlighted=true end
+local routesStarted=0
+NS.BuildRoute=function(ids)
+    local plan={steps={}}
+    for _,id in ipairs(ids) do
+        local point=NS.GetPoint(id)
+        if not point then return nil,"目标已失效" end
+        plan.steps[#plan.steps+1]={id=id,mode="walk",label="前往"..point.name}
+    end
+    return plan
+end
+NS.StartRoute=function(plan)
+    routesStarted=routesStarted+1;plan.index=1;NS.DB.route=plan
+    return NS.Start(NS.GetPoint(plan.steps[1].id))
+end
+NS.GetActiveRoute=function()return NS.DB.route end
+NS.NextRouteStep=function()NS.DB.route=nil;NS.Stop();return true end
+local r=NS.RoutePlannerUI
+ui.workspaceTabs.route:Click()
+eq(ui.workspace,"route","dedicated directions tab opens")
+NS.OpenRoutePlanner("完全查不到的测试问法")
+eq(r.reload:IsVisible(),true,"ask submits to desktop bridge")
+eq(MyForeverNavigatorOutbox.question,"完全查不到的测试问法","only submitted question is staged")
+eq(r.reload.label.text,"重载发送","explicit first reload")
+local reloads=0
+ReloadUI=function()reloads=reloads+1 end
+InCombatLockdown=function()return true end
+r.reload:Click()
+eq(reloads,0,"combat leaves game unchanged")
+InCombatLockdown=function()return false end
+r.reload:Click()
+eq(reloads,1,"reload only on explicit click")
+r.cancel:Click()
+eq(NS.ClientQuestionStatus(),"none","explicit cancel clears pending request")
+-- Existing pasted route codes can still be reviewed after upgrading.
+NS.RouteWebURL("完全查不到的测试问法")
+NS.OpenRoutePlanner("/mynav route MFN1@9de35399~采矿训练师~钓鱼训练师")
+eq(r.start:IsVisible(),false,"pasted suggestions never start automatically")
+contains(r.title.text,"1 / 2","first model intent shown")
+r.rows[1]:Click()
+contains(r.title.text,"2 / 2","second intent follows first selection")
+r.rows[1]:Click()
+contains(r.title.text,"路线预览","both confirmed stops appear in preview")
+eq(routesStarted,0,"preview leaves old navigation alone")
+r.start:Click()
+eq(routesStarted,1,"explicit launch")
+eq(NS.NewRouteQuery("完全查不到的测试问法").source,"cache","confirmed browser response learns original UTF-8 question")
+local oldMapAPI=C_Map.GetBestMapForUnit
+C_Map.GetBestMapForUnit=function()return 1429 end
+local elsewhere=NS.NewRouteQuery("完全查不到的测试问法")
+eq(elsewhere.plan,nil,"another map recomputes candidates")
+eq(elsewhere.terms[2],"钓鱼训练师","a confirmed model interpretation stays local across maps")
+C_Map.GetBestMapForUnit=oldMapAPI
+eq(NS.NormalizeDB(NS.DB).routeIntents[1].body,"采矿训练师~钓鱼训练师","confirmed semantic memory survives reload")
+eq(NS.NewRouteQuery("MFN1@00000000~铁炉堡").question,nil,"foreign code never associates an unrelated pending question")
+eq(ui.workspace,"navigation","current journey shows steps")
+contains(ui.nav.routeSteps.text,"1. ","current journey has numbered legs")
+eq(ui.nav.resume.label.text,"下一步","next-leg action exposed in panel")
+ui.nav.resume:Click()
+eq(NS.GetActiveRoute(),nil,"skip uses the route state machine")
+NS.OpenRoutePlanner();r.query:SetText("军需官");r.localSearch:Click()
+
+eq(r.zones:IsVisible(),true,"results support geographical grouping")
+r.zones:Click()
+eq(r.rows[1].mapKey~=nil,true,"group row references an actual map")
+r.rows[1]:Click()
+eq(r.rows[1].pointID~=nil,true,"map selection reveals actual local points")
+r.rows[1]:Click();r.start:Click()
+NS.OpenRoutePlanner();r.query:SetText("军需官");r.localSearch:Click()
+
+contains(r.title.text,"已记住","confirmed query reuses local knowledge")
+r.repick:Click()
+eq(r.start:IsVisible(),false,"cached selection can be reconsidered")
+NS.OpenRoutePlanner("MFN1~不存在|Hplayer")
+eq(r.start:IsVisible(),false,"invalid markup cannot initiate a route")
+contains(r.detail.text,"无效","invalid handoff feedback")
+NS.OpenRoutePlanner("军需官",professionPoints[1].id)
+contains(r.rows[1].label.text,professionPoints[1].name,"explicit selected point beats a previously cached search")
+r.start:Click()
+eq(NS.DB.activeID,professionPoints[1].id,"explicit point ID reaches navigation")
+eq(NS.NewRouteQuery("军需官").ids[1]~=professionPoints[1].id,true,"an explicit selection does not rewrite an unrelated cached phrase")
+-- A character returning after the send reload sees the waiting question,
+-- then the reply on the next login. Only the explicit start begins navigation.
+NS.OpenRoutePlanner()
+local q=assert(NS.SubmitClientQuestion("我想找一位采矿训练师"))
+local beforeClientStart=routesStarted
+NS.RestoreClientQuestion()
+eq(r.query:GetText(),q.question,"restore shows the saved question")
+eq(r.reload.label.text,"重载接收","saved question exposes receive action")
+MyForeverNavigatorInbox={version=1,replies={[q.id]={id=q.id,message="请前往训练师处。",steps={
+    {kind="place",term="采矿训练师",text="学习采矿。"}
+}}}}
+NS.RestoreClientQuestion()
+if not r.start:IsVisible() then r.rows[1]:Click() end
+eq(r.start:IsVisible(),true,"returned route can be started")
+eq(r.reload:IsVisible(),false,"received reply hides reload")
+eq(routesStarted,beforeClientStart,"return only previews the answer")
+r.start:Click()
+eq(routesStarted,beforeClientStart+1,"start activates native itinerary")
+eq(NS.ClientQuestionStatus(),"none","completed request consumed")
+NS.OpenRoutePlanner("我想找一位采矿训练师")
+eq(NS.ClientQuestionStatus(),"none","confirmed question needs no desktop round-trip")
 print("Navigator UI: "..checks.." behavior checks passed (simulated)")

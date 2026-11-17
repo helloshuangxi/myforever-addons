@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "source_commit": "567895f5a4757ef6b1deb167263cb8746b7ad5a6",
+  "source_dirty": false,
+  "results": [
+    {
+      "platform": "osx-arm64",
+      "version": "0.6.0",
+      "installer_sha256": "ba66829108479831a30c76141dcdbcf15a70778f59aa9ec6003ef28bb099a0d8",
+      "feed_verified": true,
+      "personal_data_excluded": true,
+      "dmg_readonly_mount_and_signature": true
+    },
+    {
+      "platform": "osx-x64",
+      "version": "0.6.0",
+      "installer_sha256": "3030f78b5004c237368b70c2b4489c057f63c436bb2286d1983c57db4458bbfe",
+      "feed_verified": true,
+      "personal_data_excluded": true,
+      "dmg_readonly_mount_and_signature": true
+    },
+    {
+      "platform": "win-x64",
+      "version": "0.6.0",
+      "installer_sha256": "8fad5d86638115631db3116214c8db01baf9ba42dd872a0d1a17ed5a6ebe0caf",
+      "feed_verified": true,
+      "personal_data_excluded": true,
+      "setup_pe_verified": true,
+      "native_windows_tested": false
+    }
+  ]
+}

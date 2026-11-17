@@ -24,6 +24,30 @@ internal sealed class BehaviorLuaReader(string input)
         reader.Skip(); if (reader.position != reader.source.Length) throw Bad();
         return result;
     }
+    // SavedVariables files may have several top-level assignments. Walk literal
+    // syntax so an apparent assignment inside another value can never be taken
+    // for a request. Only the requested table is retained.
+    internal static Dictionary<string, object?>? ReadVariable(string text, string name)
+    {
+        if (Encoding.UTF8.GetByteCount(text) > 8 * 1024 * 1024) throw Bad();
+        var reader = new BehaviorLuaReader(text.TrimStart('\uFEFF'));
+        Dictionary<string, object?>? selected = null;
+        var names = new HashSet<string>(StringComparer.Ordinal);
+        while (true)
+        {
+            reader.Skip();
+            if (reader.position == reader.source.Length) return selected;
+            var match = IdentifierPattern.Match(reader.source, reader.position);
+            if (!match.Success || names.Count >= 8 || !names.Add(match.Value)) throw Bad();
+            reader.position += match.Length;
+            reader.Take("=");
+            var keep = match.Value == name;
+            var value = reader.Value(0, keep);
+            if (keep && value is not null) selected = value as Dictionary<string, object?> ?? throw Bad();
+            reader.Skip();
+            if (reader.At(';')) reader.position++;
+        }
+    }
     private static InvalidDataException Bad() => new("采集存档不是受支持的数据格式，原文件未修改。");
     private bool At(char c) => position < source.Length && source[position] == c;
     private void Skip()
@@ -41,13 +65,13 @@ internal sealed class BehaviorLuaReader(string input)
         Skip(); if (!source.AsSpan(position).StartsWith(token, StringComparison.Ordinal)) throw Bad();
         position += token.Length;
     }
-    private object? Value(int depth)
+    private object? Value(int depth, bool keep = true)
     {
         // Eight retained sessions plus 90 days of bounded cumulative maps can
         // legitimately contain more than 200k scalar keys and values.
         if (depth > 32 || ++items > 1_000_000) throw Bad();
         Skip(); if (position >= source.Length) throw Bad();
-        if (At('{')) return Table(depth + 1);
+        if (At('{')) return Table(depth + 1, keep);
         if (At('"') || At('\'')) return String();
         foreach (var (word, value) in new (string, object?)[] { ("true", true), ("false", false), ("nil", null) })
         {
@@ -58,9 +82,9 @@ internal sealed class BehaviorLuaReader(string input)
         if (!match.Success || !double.TryParse(match.Value, NumberStyles.Float, CultureInfo.InvariantCulture, out var number) || !double.IsFinite(number)) throw Bad();
         position += match.Length; return number;
     }
-    private Dictionary<string, object?> Table(int depth)
+    private Dictionary<string, object?>? Table(int depth, bool keep)
     {
-        Take("{"); var result = new Dictionary<string, object?>(StringComparer.Ordinal); int implicitIndex = 1;
+        Take("{"); var result = keep ? new Dictionary<string, object?>(StringComparer.Ordinal) : null; int implicitIndex = 1;
         while (true)
         {
             Skip(); if (At('}')) { position++; return result; }
@@ -69,17 +93,17 @@ internal sealed class BehaviorLuaReader(string input)
             {
                 position++; var raw = Value(depth); Take("]"); Take("=");
                 key = raw switch { string s => s, double n when n >= 0 && n <= 9_007_199_254_740_991 && n == Math.Truncate(n) => n.ToString("0", CultureInfo.InvariantCulture), _ => throw Bad() };
-                value = Value(depth);
+                value = Value(depth, keep);
             }
             else
             {
                 var saved = position;
                 var id = IdentifierPattern.Match(source, position);
                 if (id.Success) { position += id.Length; Skip(); }
-                if (id.Success && At('=')) { position++; key = id.Value; value = Value(depth); }
-                else { position = saved; key = (implicitIndex++).ToString(CultureInfo.InvariantCulture); value = Value(depth); }
+                if (id.Success && At('=')) { position++; key = id.Value; value = Value(depth, keep); }
+                else { position = saved; key = (implicitIndex++).ToString(CultureInfo.InvariantCulture); value = Value(depth, keep); }
             }
-            if (!result.TryAdd(key, value)) throw Bad();
+            if (result is not null && !result.TryAdd(key, value)) throw Bad();
             Skip(); if (At(',') || At(';')) position++;
             else if (!At('}')) throw Bad();
         }

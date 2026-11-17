@@ -1,0 +1,57 @@
+{
+  "version": "0.2.1",
+  "changed": [
+    "index.html",
+    "sitemap.xml",
+    "targets/index.html",
+    "targets/latest.json",
+    "targets/releases.json"
+  ],
+  "added": [
+    "downloads/MyForeverTargets-0.2.1-Trial.zip",
+    "downloads/MyForeverTargets-0.2.1-Trial.zip.sha256"
+  ],
+  "prior_resources": 146,
+  "prior_archives_unchanged": 49,
+  "sha256": "a86a002c87ffbf0a5dae0c096364be5522da6f5714ef542bff58d40a4c7db390",
+  "site_verification": "passed",
+  "release_regressions": 10,
+  "manager050_local_checks": 68,
+  "game_cast_verified": false,
+  "published": true,
+  "status": "published_trial_game_validation_pending",
+  "release": "20261115T094105Z",
+  "completed_at": "2026-11-15T09:51:57.848027+00:00",
+  "https_resources": 146,
+  "manager_version": "0.5.0",
+  "manager_live_checks": 74,
+  "source_files_match_package": true,
+  "public_page": "https://afabiaoge.xyz/targets/",
+  "download": "https://afabiaoge.xyz/downloads/MyForeverTargets-0.2.1-Trial.zip",
+  "production_snapshot": "PersonalAddons/work/targets-0.2.1-site",
+  "historical_main_public_used": false,
+  "other_versions": {
+    "chat": "0.10.0",
+    "professions": "0.5.0",
+    "navigator": "0.5.0",
+    "manager": "0.5.0"
+  },
+  "www": {
+    "status": 301,
+    "location": "https://afabiaoge.xyz/"
+  },
+  "chat_health": {
+    "status": 200
+  },
+  "studio_protected": {
+    "status": 200,
+    "final_url": "https://studio.afabiaoge.xyz/login",
+    "login_required": true
+  },
+  "community": {
+    "status": 200,
+    "returned_items": 0,
+    "has_more": false,
+    "write_test_performed": false
+  }
+}

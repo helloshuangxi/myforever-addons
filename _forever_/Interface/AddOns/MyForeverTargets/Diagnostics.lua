@@ -3,7 +3,11 @@ local D = {MAX_EVENTS=5000, MAX_SECONDS=14400, CAST_WINDOW_SECONDS=5}
 NS.Diagnostics = D
 local db, frame, tick, lastState = nil, nil, 0, nil
 local layoutTick,layoutStates=0,{}
+local lastCastRoute=nil
 local castWindows,attemptSerial={},0
+local enemyRosterState,enemyRosterTime=nil,nil
+D.ENEMY_ROSTER_MIN_SECONDS=2
+D.ENEMY_ROSTER_HEARTBEAT_SECONDS=30
 
 -- Keep diagnostics outside the settings normalizer. Never serialize a secret,
 -- frame, arbitrary table, macro body, chat message, or Lua error stack.
@@ -112,6 +116,69 @@ end
 local function now()
     local value=NS.Read(GetTime)
     return NS.Number(value) and value or nil
+end
+
+local enemyRosterCounts={"rawTokens","nameplateTokens","uniqueValid","displayed","actionable","limit",
+    "restrictedTokens","restrictedDisplayed","nameRenderErrors",
+    "invalid_token","no_exists","exists_unknown","player_unknown","not_friendly","cannot_attack",
+    "attack_unknown","guid_unreadable","name_unreadable","visibility","duplicate"}
+local instanceTypes={none=true,party=true,raid=true,pvp=true,arena=true,scenario=true}
+
+function D.EnemyRosterSnapshot(summary)
+    if not D.Enabled() then return false end
+    local ok,recorded=pcall(function()
+        if not NS.Public(summary) or type(summary)~="table" then return false end
+        local fields={version=safe(NS.VERSION),combat=read(InCombatLockdown),observationOnly=true}
+        for _,key in ipairs(enemyRosterCounts) do
+            local accessed,value=pcall(function() return summary[key] end)
+            local cap=(key=="displayed" or key=="actionable" or key=="limit"
+                or key=="restrictedDisplayed" or key=="nameRenderErrors") and 20 or 2048
+            if not accessed then fields[key]="[api-error]"
+            elseif not NS.Public(value) then fields[key]="[restricted]"
+            elseif NS.Number(value) and value>=0 and value<=cap and value%1==0 then fields[key]=value
+            else fields[key]="[invalid-count]" end
+        end
+        fields.discovered=fields.uniqueValid
+        local mode=NS.Read(function() return summary.rosterMode end)
+        fields.rosterMode=(mode=="bound" or mode=="combat_display") and mode or "[unknown]"
+        if type(IsInInstance)=="function" then
+            local success,inside,kind=pcall(IsInInstance)
+            if not success then fields.inInstance,fields.instanceType="[api-error]","[api-error]"
+            else
+                if not NS.Public(inside) then fields.inInstance="[restricted]"
+                elseif type(inside)=="boolean" then fields.inInstance=inside
+                else fields.inInstance="[unknown]" end
+                fields.instanceType=not NS.Public(kind) and "[restricted]"
+                    or type(kind)=="string" and instanceTypes[kind] and kind or "[unknown]"
+            end
+        else fields.inInstance,fields.instanceType="[unavailable]","[unavailable]" end
+        local getter=C_CVar and C_CVar.GetCVar or GetCVar
+        for _,key in ipairs({"nameplateShowEnemies","nameplateShowAll"}) do
+            local value=read(getter,key)
+            fields[key]=(value=="0" or value=="1" or value=="[restricted]"
+                or value=="[api-error]" or value=="[unavailable]") and value or "[unknown]"
+        end
+        -- Only these bounded scalar fields take part in the state key. No
+        -- GUID/name, arbitrary table or raw error/macro text is serialized.
+        local keys={}
+        for key in pairs(fields) do keys[#keys+1]=key end
+        table.sort(keys)
+        local parts={}
+        for _,key in ipairs(keys) do parts[#parts+1]=key.."="..tostring(fields[key]) end
+        local state=table.concat(parts,";")
+        local current=now() or db.activeSeconds
+        if enemyRosterTime and current<enemyRosterTime then enemyRosterTime=current end
+        local elapsed=enemyRosterTime and current-enemyRosterTime or nil
+        local reason=not enemyRosterState and "initial"
+            or state~=enemyRosterState and elapsed>=D.ENEMY_ROSTER_MIN_SECONDS and "changed"
+            or elapsed>=D.ENEMY_ROSTER_HEARTBEAT_SECONDS and "heartbeat"
+        if not reason then return false end
+        fields.reason=reason
+        if D.Record("INSTANCE_ENEMY_ROSTER",fields)~=true then return false end
+        enemyRosterState,enemyRosterTime=state,current
+        return true
+    end)
+    return ok and recorded==true
 end
 
 local function windowAge(window,current)
@@ -262,6 +329,90 @@ local function samePublicGUID(a,b)
     if type(a)~="string" or type(b)~="string" or a=="" or b==""
         or a:sub(1,1)=="[" or b:sub(1,1)=="[" then return "[unknown]" end
     return a==b
+end
+
+-- A separate bounded record keeps routing evidence out of the much larger
+-- general snapshot. In particular, a shield can receive the mouse while no
+-- unit row is hovered; record that blocked row without making it clickable.
+function D.CastRouteSnapshot(reason,observedRow)
+    if not D.Enabled() then return false end
+    return pcall(function()
+        local row=observedRow or NS.HoveredEnemyTarget or NS.HoveredTile
+        local clientVersion,clientBuild,_,clientInterface=NS.Read(GetBuildInfo)
+        local fields={version=NS.VERSION,combat=read(InCombatLockdown),
+            clientVersion=safe(clientVersion),clientBuild=safe(clientBuild),clientInterface=safe(clientInterface),
+            row=row and read(row.GetName,row) or "[none]",side=row and safe(row.side) or "[none]",
+            unit=row and safe(row.unit) or "[none]",expectedGUID=row and safe(row.expectedGUID) or "[none]",
+            unitExists="[none]",
+            liveGUID=row and read(UnitGUID,row.unit) or "[none]",
+            frameUnit=row and read(row.GetAttribute,row,"unit") or "[none]",
+            shieldShown=row and row.shield and read(row.shield.IsShown,row.shield) or false,
+            legacyEnabled=NS.DB and safe(NS.DB.legacyNameBridgeEnabled) or false,
+            targetGUID=read(UnitGUID,"target"),targetExists=read(UnitExists,"target"),
+            zBinding=read(GetBindingAction,"Z",true),wBinding=read(GetBindingAction,"W",true),
+            observationOnly=true,recipientProven=false}
+        if row then fields.unitExists=read(UnitExists,row.unit) end
+        fields.identityMatches=samePublicGUID(fields.expectedGUID,fields.liveGUID)
+        local names=NS.CombatCast
+        local status=names and NS.Read(names.Status,row)
+        if type(status)=="table" then
+            fields.namePrepared=safe(status.prepared)
+            fields.nameReason=safe(status.reason)
+            fields.nameKeys=safe(status.count)
+            fields.nameGUID=safe(status.guid)
+            fields.nameMatchesRow=samePublicGUID(fields.expectedGUID,fields.nameGUID)
+            fields.nameGuardPolicy=safe(status.nameGuardPolicy)
+        end
+        local fixed=NS.CombatHover
+        local direct=fixed and NS.Read(fixed.Status,row)
+        if type(direct)=="table" then
+            fields.fixedEnabled=safe(direct.enabled)
+            fields.fixedReady=safe(direct.ready)
+            fields.fixedStable=safe(direct.stable)
+            fields.fixedKeys=safe(direct.availableKeys)
+        end
+        local controller=fixed and fixed.owner
+        fields.fixedCombat=controller and read(controller.GetAttribute,controller,"mfch-combat") or false
+        fields.nameCombat=names and names.owner and read(names.owner.GetAttribute,names.owner,"combat-active") or false
+        local keys=0
+        if row then
+            if fields.fixedReady==true and controller and (row.side=="friendly" or row.side=="enemy") then
+                local count=NS.Read(controller.GetAttribute,controller,row.side.."-keys")
+                if NS.Number(count) then
+                    keys=math.max(0,math.floor(count))
+                    for i=1,math.min(keys,4) do
+                        local key=read(controller.GetAttribute,controller,row.side.."-key"..i)
+                        local index=NS.Read(controller.GetAttribute,controller,row.side.."-keyproxy"..i)
+                        fields["key"..i]=key
+                        fields["binding"..i]=type(key)=="string" and read(GetBindingAction,key,true) or "[unknown]"
+                        fields["proxy"..i]=NS.Number(index) and read(controller.GetAttribute,controller,row.side.."-proxyname"..index) or "[unknown]"
+                    end
+                end
+            else
+                local count=NS.Read(row.GetAttribute,row,"combat-key-count")
+                if NS.Number(count) then
+                    keys=math.max(0,math.floor(count))
+                    for i=1,math.min(keys,4) do
+                        local key=read(row.GetAttribute,row,"combat-key"..i)
+                        fields["key"..i]=key
+                        fields["binding"..i]=type(key)=="string" and read(GetBindingAction,key,true) or "[unknown]"
+                        fields["proxy"..i]=read(row.GetAttribute,row,"combat-proxy"..i)
+                    end
+                end
+            end
+        end
+        fields.keysNotExpanded=math.max(0,keys-4)
+        local ordered={}
+        for key in pairs(fields) do ordered[#ordered+1]=key end
+        table.sort(ordered)
+        local parts={}
+        for _,key in ipairs(ordered) do parts[#parts+1]=key.."="..tostring(fields[key]) end
+        local signature=table.concat(parts,";")
+        if signature==lastCastRoute then return end
+        lastCastRoute=signature
+        fields.reason=reason or "poll"
+        D.Record("CAST_ROUTE",fields)
+    end)
 end
 
 local function snapshotFields(observedRow,observedFoci)
@@ -591,6 +742,7 @@ end
 function D.Snapshot(kind,extra)
     if not D.Enabled() then return false end
     return pcall(function()
+        D.CastRouteSnapshot(kind or "snapshot")
         local fields=snapshotFields()
         for key,value in pairs(fieldsCopy(extra)) do fields[key]=value end
         D.Record(kind or "SNAPSHOT",fields)
@@ -598,6 +750,7 @@ function D.Snapshot(kind,extra)
 end
 
 local function poll()
+    D.CastRouteSnapshot("poll")
     local fields=fieldsCopy(snapshotFields())
     local cast=NS.NearbyCast
     local activeHover=NS.HoveredTile~=nil or NS.HoveredEnemyTarget~=nil or cast and cast.row~=nil
@@ -640,7 +793,8 @@ function D.Start()
     db.session=db.session+1
     db.enabled=true
     db.activeSeconds=0
-    tick,lastState,layoutTick,layoutStates=0,nil,0,{}
+    tick,lastState,layoutTick,layoutStates,lastCastRoute=0,nil,0,{},nil
+    enemyRosterState,enemyRosterTime=nil,nil
     D.Snapshot("START",{version=NS.VERSION,maxSeconds=D.MAX_SECONDS,maxEvents=D.MAX_EVENTS,
         note="SUCCEEDED is a cast event, not proof of damage or exact recipient"})
 end
@@ -651,6 +805,17 @@ local function onEvent(_,event,a,b,c,d)
     elseif event:match("^UNIT_SPELLCAST_") then
         if not NS.Public(a) or a~="player" then return end
         if event=="UNIT_SPELLCAST_SENT" then
+            -- The general snapshot has a bounded field budget. Keep the raw
+            -- native recipient argument in its own small record so it cannot
+            -- be lost among UI/route fields. It is still not recipient proof.
+            local row=NS.HoveredEnemyTarget or NS.HoveredTile
+            local names=NS.CombatCast and NS.Read(NS.CombatCast.Status,row)
+            D.Record("SPELL_SENT_DETAIL",{version=NS.VERSION,caster=a,spellID=d,castGUID=c,
+                sentTarget=b,combat=read(InCombatLockdown),
+                row=row and read(row.GetName,row) or "[none]",rowUnit=row and safe(row.unit) or "[none]",
+                expectedGUID=row and safe(row.expectedGUID) or "[none]",
+                expectedName=type(names)=="table" and safe(names.name) or "[unknown]",
+                targetGUIDAtEvent=read(UnitGUID,"target"),observationOnly=true,recipientProven=false})
             D.Snapshot(event,{caster=a,sentTarget=b,castGUID=c,spellID=d})
             observeCastEvent(event,d)
         else D.Snapshot(event,{caster=a,castGUID=b,spellID=c});observeCastEvent(event,c) end

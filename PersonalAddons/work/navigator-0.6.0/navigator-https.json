@@ -1,0 +1,92 @@
+[
+  {
+    "path": "/navigator/latest.json",
+    "bytes": 1876,
+    "mime": "application/json",
+    "sha256": "a06bf10e3ea6d9e995af36119d3a1fc8aeab0eb4f2524e9af15109f003aaa42f"
+  },
+  {
+    "path": "/navigator/releases.json",
+    "bytes": 30691,
+    "mime": "application/json",
+    "sha256": "70888b67e694759576f53d450faece7294ee6ef8a39f7220005f1c76499e7884"
+  },
+  {
+    "path": "/downloads/MyForeverNavigator-0.6.0-Trial.zip",
+    "bytes": 624540,
+    "mime": "application/zip",
+    "sha256": "5659350990cca7e475b42c83237f05eb2cf54ab9f800f66dff5df89ddbe3a84f"
+  },
+  {
+    "path": "/navigator/planner/",
+    "bytes": 2007,
+    "mime": "text/html",
+    "sha256": "51b92a0a14c101503ba89cba4cbf771155b381e1b66fc5cc4e33d5afb780158e"
+  },
+  {
+    "path": "/navigator/planner/phrases.json",
+    "bytes": 2077,
+    "mime": "application/json",
+    "sha256": "991ccae3e2012fc68f8b5812a0c795b87daa4d9bbeff162d177501f4b7697a5d"
+  },
+  {
+    "path": "/navigator/planner/planner.js",
+    "bytes": 5716,
+    "mime": "text/javascript",
+    "sha256": "dd6cb4d3a102b131016c4a262c82da3ac6739ba0daaadf308f8542b1f4101dac"
+  },
+  {
+    "path": "/navigator/planner/sources.txt",
+    "bytes": 1703,
+    "mime": "text/plain",
+    "sha256": "4b9b26cfae37404de924d3aa7946cbdfd4e390ec92c2fa0d2e782343fbd04df4"
+  },
+  {
+    "path": "/navigator/planner/intents.mjs",
+    "bytes": 9713,
+    "mime": "text/javascript",
+    "sha256": "6bc05299b9a8edfc2e5eb1c7761300ee2b1fd030bdc2e809f31c24220fc7873b"
+  },
+  {
+    "path": "/navigator/planner/catalog.json",
+    "bytes": 17859,
+    "mime": "application/json",
+    "sha256": "9103cdd306288908f9ffe91ceba8ea5aeaed582102cac6705546af4b4996c42a"
+  },
+  {
+    "path": "/navigator/planner/model.js",
+    "bytes": 3004,
+    "mime": "text/javascript",
+    "sha256": "c57cff428acb2b0fdb4bcf9074587b1d11e87abc348ce371877ed01535825aa6"
+  },
+  {
+    "path": "/navigator/planner/planner.css",
+    "bytes": 2084,
+    "mime": "text/css",
+    "sha256": "505b6e57234499940642863846c67c8f85da16ea072cd857b48d73b990d47766"
+  },
+  {
+    "path": "/navigator/planner/vendor/qwen2-0.5b-q4f32.wasm",
+    "bytes": 4980266,
+    "mime": "application/wasm",
+    "sha256": "e9e8485cdb34adba3afa3b01ea31d323a96fc95e2cf04535f5f5841336efbe94"
+  },
+  {
+    "path": "/navigator/planner/vendor/WebLLM-LICENSE.txt",
+    "bytes": 11737,
+    "mime": "text/plain",
+    "sha256": "d412ab9d5ac17e6931705aac01e5a0d323da5acd2e89a2c19aa8fc05becc59ad"
+  },
+  {
+    "path": "/navigator/planner/vendor/web-llm-0.2.80.js",
+    "bytes": 6010255,
+    "mime": "text/javascript",
+    "sha256": "ef77cc550c47c441f0243d7d173864548164814a9565c1a9a0b8b57f82167199"
+  },
+  {
+    "path": "/navigator/planner/vendor/pfQuest-LICENSE.txt",
+    "bytes": 1081,
+    "mime": "text/plain",
+    "sha256": "7ee3c5402cd719de230f3bbc59a6506a3b2b65981d0d793f143fa5b08f926510"
+  }
+]

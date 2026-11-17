@@ -112,12 +112,18 @@ end
 
 local function refreshDisplay(row,data,rowVisible)
     local display=row.enemyTargetDisplay
-    local ownerValid=rowVisible and row.data and row.data.guid==row.expectedGUID
-        and NS.ValidToken(row.unit) and guid(row.expectedGUID)
-        and NS.Read(UnitGUID,row.unit)==row.expectedGUID
+    local visual=row.displayReadOnly~=nil
+    local ownerUnit,ownerGUID=row.unit,row.expectedGUID
+    if visual then ownerUnit,ownerGUID=row.displayUnit,row.displayGUID end
+    local ownerValid=rowVisible and row.data and row.data.guid==ownerGUID
+        and NS.ValidToken(ownerUnit) and guid(ownerGUID)
+        and NS.Read(UnitGUID,ownerUnit)==ownerGUID
     local known=ownerValid and data and data.state=="known"
     local identity=known and guid(data.guid) or nil
-    if identity and guid(NS.Read(UnitGUID,row.unit.."target"))~=identity then identity=nil end
+    if identity and guid(NS.Read(UnitGUID,ownerUnit.."target"))~=identity then
+        identity=nil
+        if visual then known=false end
+    end
     NS.RefreshIdentityBorders(display,identity,identity~=nil and guid(NS.Read(UnitGUID,"target"))==identity)
     local color=known and data.color or nil
     local r,g,b=color and color.r or .82,color and color.g or .85,color and color.b or .9
@@ -173,6 +179,7 @@ end
 
 local function usable(row,data)
     local button=row.enemyTargetButton
+    if row.displayReadOnly~=nil and row.displayActionReady~=true then return false end
     if not button or not button.bindingReady or not NS.ValidToken(row.unit)
         or not guid(row.expectedGUID) or button.bindingOwnerGUID~=row.expectedGUID
         or button.unit~=row.unit.."target" then return false end
@@ -189,6 +196,23 @@ local function usable(row,data)
             and not (NS.Public(data.harm) and data.harm==true) then return false end
     elseif not NS.Public(data.assist) or data.assist~=true then return false end
     return NS.Read(UnitGUID,button.unit)==data.guid
+end
+
+local function readOnlyTooltip(row,shield)
+    if row.displayReadOnly~=true or not row.data or not GameTooltip then return false end
+    local ownerUnit,ownerGUID=row.displayUnit,guid(row.displayGUID)
+    local data=row.enemyTarget
+    if not NS.ValidToken(ownerUnit) or not ownerGUID or NS.Read(UnitGUID,ownerUnit)~=ownerGUID
+        or not data or data.state~="known" or not guid(data.guid)
+        or NS.Read(UnitGUID,ownerUnit.."target")~=data.guid then return false end
+    GameTooltip:SetOwner(shield,"ANCHOR_RIGHT")
+    local ok,result=false,nil
+    if type(GameTooltip.SetUnit)=="function" then ok,result=pcall(GameTooltip.SetUnit,GameTooltip,ownerUnit.."target") end
+    if not ok or not NS.Public(result) or result~=true then GameTooltip:SetText(data.name) end
+    GameTooltip:AddLine("这是敌人的目标，当前仅显示信息。",1,.76,.4,true)
+    GameTooltip:AddLine("脱战后准备格子操作；此条不执行选中、焦点、标记或悬停施法。",.82,.85,.9,true)
+    GameTooltip:Show()
+    return true
 end
 
 -- A target-of-enemy token is admitted only through its owning enemy row and
@@ -335,8 +359,14 @@ function H.Create(row)
     shield:SetFrameLevel(row:GetFrameLevel()+5)
     shield:EnableMouse(true)
     if NS.Read(shield.IsProtected,shield)==true then error("Enemy target shield must remain unprotected") end
-    shield:SetScript("OnEnter",function() H.Clear() end)
-    shield:SetScript("OnLeave",function() clearButton(button) end)
+    shield:SetScript("OnEnter",function()
+        H.Clear()
+        if not readOnlyTooltip(row,shield) and GameTooltip then GameTooltip:Hide() end
+    end)
+    shield:SetScript("OnLeave",function()
+        clearButton(button)
+        if GameTooltip and NS.Read(GameTooltip.GetOwner,GameTooltip)==shield then GameTooltip:Hide() end
+    end)
     shield:Hide()
     button.shield=shield
     button:SetScript("OnEnter",function()
@@ -414,7 +444,13 @@ function H.Refresh(row,data)
             if button:GetAttribute(key)~=values[i] then button:SetAttribute(key,values[i]) end
         end
     end
-    if rowVisible and visible(button) and not valid then button.shield:Show() else button.shield:Hide() end
+    if rowVisible and not valid and (visible(button) or row.restrictedIdentity==true
+        or row.displayReadOnly==true and visible(row.enemyTargetDisplay)) then
+        button.shield:Show()
+    else button.shield:Hide() end
+    if GameTooltip and NS.Read(GameTooltip.GetOwner,GameTooltip)==button.shield then
+        if not readOnlyTooltip(row,button.shield) then GameTooltip:Hide() end
+    end
     if NS.HoveredEnemyTarget==button then
         if not valid or not visible(button) then
             statusFor(button,data,false)

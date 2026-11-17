@@ -293,6 +293,20 @@ local function AppendPoints(destination, entity, id, sourceKind)
     end
 end
 
+-- Read title keys without materializing thousands of objective/spawn lists.
+function NS.MatchReferenceQuest(question)
+    local best, length, tied = nil, 0, false
+    for id,row in pairs(quests) do
+        local title=row[1]
+        if #title >= 3 and question:find(title,1,true) then
+            if #title > length then best,length,tied=id,#title,false
+            elseif #title == length then tied=true end
+        end
+    end
+    if not tied then return best end
+    return nil,true
+end
+
 -- Every returned table is a fresh copy. Static tables stay private so caller
 -- selection/sorting or saved navigation state cannot corrupt later lookups.
 function NS.GetQuestReference(questID)

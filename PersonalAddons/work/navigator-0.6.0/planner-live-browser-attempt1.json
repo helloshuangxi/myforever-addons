@@ -1,0 +1,42 @@
+{
+  "url": "https://afabiaoge.xyz/navigator/planner/",
+  "startedUTC": "2026-11-17T02:55:05.589Z",
+  "environment": "New isolated headless Chrome profile, WebGPU, public HTTPS origin",
+  "assets": [
+    {
+      "path": "/navigator/planner/",
+      "status": 200,
+      "mime": "text/html"
+    },
+    {
+      "path": "/navigator/planner/planner.css",
+      "status": 200,
+      "mime": "text/css"
+    },
+    {
+      "path": "/navigator/planner/planner.js",
+      "status": 200,
+      "mime": "text/javascript"
+    },
+    {
+      "path": "/navigator/planner/intents.mjs",
+      "status": 200,
+      "mime": "text/javascript"
+    },
+    {
+      "path": "/navigator/planner/catalog.json",
+      "status": 200,
+      "mime": "application/json"
+    },
+    {
+      "path": "/navigator/planner/phrases.json",
+      "status": 200,
+      "mime": "application/json"
+    }
+  ],
+  "observations": {},
+  "status": "failed",
+  "error": "Error: SyntaxError: missing ) after argument list",
+  "completedUTC": "2026-11-17T02:55:07.830Z",
+  "diagnosis": "Test driver evaluated bare top-level await rather than an async function in the Chrome DevTools Protocol. Web page had loaded, no model call had occurred."
+}

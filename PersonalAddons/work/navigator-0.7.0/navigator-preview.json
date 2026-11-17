@@ -1,0 +1,14 @@
+{
+  "status": "dry-run",
+  "name": "MyForeverNavigator",
+  "version": "0.7.0",
+  "changed_files": [
+    "navigator/index.html",
+    "navigator/latest.json",
+    "navigator/releases.json",
+    "downloads/MyForeverNavigator-0.7.0-Trial.zip",
+    "downloads/MyForeverNavigator-0.7.0-Trial.zip.sha256",
+    "index.html"
+  ],
+  "sha256": "313c864d40de97ae6a6264303a8626939f712f44e995b32b590caf8c7f972531"
+}

@@ -1,5 +1,5 @@
 local _, NS = ...
-NS.VERSION = "0.1.45"
+NS.VERSION = "0.2.8"
 -- This client read back 512x256 after the requested native expansion. Keep the
 -- incompatible trial unavailable until a separately verified implementation.
 NS.NativeTrialUnavailable = "native_size_clamped_512x256"
@@ -12,6 +12,11 @@ NS.LegacyNameBridge = true
 -- Legacy combat/GUID controllers stay disabled. The separately authorized
 -- out-of-combat bridge restores the pre-cast target after a temporary switch.
 NS.PreserveCastTarget = true
+-- 2026-11-14 user authorization: the name bridge continues into combat for
+-- units whose name was confirmed unique before combat. Keys are armed out of
+-- combat; in combat the frozen name is used (/targetexact, cast, restore).
+-- Ordinary spells only; user macros and items keep their original behavior.
+NS.CombatNameBridge = true
 NS.Nameplates = {}
 
 function NS.Public(value)
@@ -130,8 +135,23 @@ end
 
 function NS.Print(message)
     if DEFAULT_CHAT_FRAME then
-        DEFAULT_CHAT_FRAME:AddMessage("|cff80c9ef目标选择|r " .. tostring(message))
+        DEFAULT_CHAT_FRAME:AddMessage((MyForeverStyle and MyForeverStyle.Prefix("目标选择") or "目标选择") .. " " .. tostring(message))
     end
+end
+
+-- Feedback next to the panel the player just used (the chat line stays as the
+-- record). Prefers a shown enemy panel, then friendly, then the launcher.
+function NS.Notify(message, short, kind)
+    NS.Print(message)
+    local S = rawget(_G, "MyForeverStyle")
+    if type(S) ~= "table" or type(S.Toast) ~= "function" then return end
+    local anchor
+    for _, side in ipairs({ "enemy", "friendly" }) do
+        local section = NS.UI and NS.UI[side]
+        local frame = section and section.frame
+        if not anchor and frame and frame.IsVisible and frame:IsVisible() then anchor = frame end
+    end
+    pcall(S.Toast, anchor or NS.Launcher, short or message, kind)
 end
 
 function NS.ValidToken(unit)

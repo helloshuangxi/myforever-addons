@@ -17,6 +17,11 @@ internal static class Program
     [STAThread]
     public static void Main(string[] args)
     {
+        Velopack.VelopackApp.Build().SetAutoApplyOnStartup(false).Run();
+#if SELF_UPDATE_PROBE
+        if (args.FirstOrDefault() is "--self-update-probe" or "--self-update-probe-record")
+        { SelfUpdateProbe.RunAsync(args).GetAwaiter().GetResult(); return; }
+#endif
         var stateDirectory = Environment.GetEnvironmentVariable("MYFOREVER_MANAGER_STATE_DIR");
         Store = new SettingsStore(string.IsNullOrWhiteSpace(stateDirectory) ? null : stateDirectory);
         FileStream? instanceLock = null;
@@ -47,9 +52,10 @@ public sealed class ManagerApp : Application
 {
     public override void Initialize()
     {
-        RequestedThemeVariant = ThemeVariant.Light;
+        // Suite direction B "Midnight" (2026-11-14): dark Fluent variant, electric-blue accent.
+        RequestedThemeVariant = ThemeVariant.Dark;
         Styles.Add(new FluentTheme());
-        Resources["SystemAccentColor"] = Color.Parse("#2864B3");
+        Resources["SystemAccentColor"] = Color.Parse("#7C93FF");
     }
 
     public override void OnFrameworkInitializationCompleted()

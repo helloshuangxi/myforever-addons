@@ -273,3 +273,36 @@ Path('ops/live-verification-server.json').write_text(
 部署 `20261113T105612Z`，冻结 `PersonalAddons/work/navigator-0.4.1-site`。包585107字节、15白名单文件，SHA-256 `6ad246ffc2d9505d4a72b8a8e0b72089860f19a6cc0b662e4085e1a23ce82414`。公开管理器0.2.1冻结源码重新构建后，公网HTTPS／fake目录安装、更新、备份恢复71项通过，未安装至真实游戏。
 
 公网114资源逐字节／哈希通过，35旧ZIP不变；Chat0.9.3、Professions0.4.6、Targets0.1.46、Manager0.2.1与私有社区源码保留，未发布专业实验候选或本机管理器候选。www、chat健康、studio登录保护及建议只读接口正常。证据：`navigator-0.4.1-publish.log`、`navigator-0.4.1-live-verification.json`、`release-navigator-0.4.1-validation.json`及work中的专业/管理器检查记录。
+
+
+## 目标选择 0.2.1 公开试用版（2026-11-15）
+
+用户明确要求“上线吧”，授权发布本机友方战斗接管及日志候选。31文件ZIP、215547字节，SHA-256 `a86a002c87ffbf0a5dae0c096364be5522da6f5714ef542bff58d40a4c7db390`。26 Lua语法、22套10689模拟及独立复核通过；真实战斗受法者与恢复仍待用户验收，网站、包内说明均明确，不以模拟冒充游戏修复。源码冻结在 `PersonalAddons/work/targets-0.2.1-release-root`。
+
+主工作目录public/ops落后于当前线上，因此从 `myforever-manager-050-release-20261115` 工作区取与生产全部146文件hash一致的完整快照及最新ops，冻结为 `PersonalAddons/work/targets-0.2.1-site`。仅目标页、目标JSON、首页生成卡片、sitemap及新增ZIP/校验改变；49个旧ZIP/安装器/nupkg、Chat0.10.0、Professions0.5.0、Navigator0.5.0、Manager0.5.0及其自身更新feed原字节保持。私有社区源码沿用生产hash。
+
+用冻结目录的 `ops/sync_targets_release.py --dry-run`、`--publish` 发布，部署标识 `20261115T094105Z`。10项同步回归通过，公网HTTPS逐字节核验146资源通过；本机另10项页面/版本/新ZIP重点核验通过。公开管理器0.5.0同源Core/Tests独立构建，候选隔离68项、真实HTTPS隔离74项均0失败；无真实游戏/个人设置写入。www、chat健康、studio登录保护与建议只读接口正常，没有生产写入测试。
+
+维护时请以已验证生产快照为基线，不直接用主目录的历史public覆盖新生产。证据：`ops/release-targets-0.2.1-validation.json`、`ops/targets-0.2.1-publish.log`、`ops/targets-0.2.1-live-verification.json`；管理器证据在 `PersonalAddons/local-logs/targets-0.2.1-release-20261115/manager050/`。
+
+
+## 目标选择 0.2.2 公开试用版（2026-11-15）
+
+用户明确授权官网及客户端同步。冻结源为 `PersonalAddons/work/targets-0.2.2-release-root`，31文件ZIP、217113字节，SHA-256 `28f17a2f21805f7aac5df6636ad6655044c1aa8339289b0be32cb9664e52751a`。本轮战斗单场景记录19次准确选中/恢复、4次正确对象发送及3次同施法编号成功，尚未确认buff实际附加或其他技能/边界。26 Lua语法、23套11423模拟及独立复核通过；不扩大敌方、子条或战斗同名怪GUID焦点范围。
+
+从当前生产148文件逐字节快照构建 `PersonalAddons/work/targets-0.2.2-site`，使用该冻结目录的 `ops/sync_targets_release.py --zip ../../dist/MyForeverTargets-0.2.2-Trial.zip --notes ops/release-targets-0.2.2.json --publish --reuse-current`，部署 `20261115T115356Z`。这份冻结目录现为最新生产基线；主目录历史public/ops仍不能直接覆盖生产。
+
+本次差量归档239623字节，新增2个文件并修改4个页面/元数据路径，150文件全树hash核对通过。50个旧ZIP/DMG/EXE/NUPKG与原148文件版本目录均保持原字节；不可变旧包复用硬链接，变更路径单独新建。没有删除历史发布或数据。Chat0.10.0、Professions0.5.0、Navigator0.5.0、Manager0.5.0及自身更新feed保留；社区源码hash保持。服务器空间不足以安全再全量复制历史包，因此使用显式复用模式。
+
+复用模式仍遵循站点校验→部署→公网核验官方链；full/reuse共用远端持久flock，锁在读取旧状态前取得并持有至提交/回滚完成，切换前核验base，提交前核验current所有权。差量清单拒绝删除旧路径、改写旧不可变包、路径穿越、链接/重复成员及hash错配，核对完整新树后才切换。28项隔离测试及独立审查通过；不持同锁的旧外部脚本仍无法保证并发安全，未声称完整远端失败回滚已实测。
+
+10项同步回归、148资源本机公网HTTPS逐字节/缓存核验、另10项重点核验通过；管理器0.5.0发行同源Core/Tests重新构建后，候选隔离68项及真实HTTPS隔离74项通过，不接触真实游戏或个人配置。www跳转、chat健康、studio登录保护、建议只读接口正常，无生产留言测试。证据见本冻结目录 `ops/release-targets-0.2.2-validation.json`、`targets-0.2.2-publish.log`、`targets-0.2.2-live-verification.json` 与 `targets-0.2.2-remote-tree-verification.json`；管理器回执在 `PersonalAddons/local-logs/targets-0.2.2-release-20261115/manager/`。
+
+### 世界向导 0.6.0 · 2026-11-17
+
+世界向导与网页问路已发布。生产 `20261117T025257Z`，冻结站位于 `PersonalAddons/work/navigator-0.6.0-site`。基于 `20261115T163629Z` 的增量发布更新 19 项，全部 168 个服务端文件与冻结站一致。53 个旧不可变文件保持原哈希，公开 HTTPS 校验通过。新 ZIP 有 22 项，624540 字节，SHA-256 为 `5659350990cca7e475b42c83237f05eb2cf54ab9f800f66dff5df89ddbe3a84f`。公开管理器 0.5.0 冻结源码的公网安装、升级与恢复回归在假游戏目录完成。网页模型与模型地图验证见 `PersonalAddons/work/navigator-0.6.0`，游戏角色实际行程待验。
+
+
+## 2026-11-17 世界向导 0.7.0 与管理器 0.6.0
+
+已部署 `20261117T034754Z`。基于 `20261117T025257Z` 更新 24 项，完整 180 个线上文件与 `PersonalAddons/work/navigator-0.7.0-site/public` 的 SHA-256 对齐。54 个旧不可变文件逐一核验。两款 Mac DMG、Windows Setup 和三平台 Velopack feed 与完整包在同批同步。管理器源提交 `567895f`，游戏端源 `3ac5785`。新增导航 ZIP 637146 字节，SHA-256 为 `313c864d40de97ae6a6264303a8626939f712f44e995b32b590caf8c7f972531`。原生模型实际应答、Lua/C# 双向回放、安装验证和生产文件清单见 `PersonalAddons/work/navigator-0.7.0/`。游戏内角色实际行程待验。

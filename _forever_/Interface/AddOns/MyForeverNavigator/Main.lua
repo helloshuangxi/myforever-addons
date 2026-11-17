@@ -1,9 +1,20 @@
 local addonName, NS = ...
+-- Shared layout hooks (grid while dragging, snap on release, /myui tags).
+local function mfLayout(name, ...)
+    local S = rawget(_G, "MyForeverStyle")
+    local fn = type(S) == "table" and rawget(S, name)
+    if type(fn) == "function" then
+        local ok, result = pcall(fn, ...)
+        return ok and result or nil
+    end
+end
+local restoredQuestion
 local initialized, tick, mapTick = false, 0, 0
 
 function NS.HandleCommand(message)
-    local command, rest = (message or ""):match("^%s*(%S*)%s*(.-)%s*$")
+    local command, rest = (message or ""):match("^[ \t]*([^ \t]*)[ \t]*(.-)[ \t]*$")
     command = string.lower(command)
+    if command == "route" or command == "ask" then NS.OpenRoutePlanner(rest,nil,command == "ask"); return end
     if command == "stop" then NS.Stop(); return end
     if command == "reset" then
         NS.DB.panel, NS.DB.hud = {x=0,y=0}, {x=0,y=0}
@@ -19,7 +30,7 @@ function NS.HandleCommand(message)
         return
     end
     if command == "help" then
-        NS.Print("双击原生任务列表可导航任务目标；/mynav quest [任务ID]；/mynav 打开目录或搜索；/mynav way X Y 名称；/mynav way #地图ID X Y 名称；/mynav go 地图ID X Y 名称；/mynav pin；/mynav save 名称；/mynav stop。坐标填 0–100。")
+        NS.Print("/mynav ask 问题 交给我的无限客户端分步问路；双击原生任务列表可导航任务目标；/mynav quest [任务ID]；/mynav 打开目录或搜索；/mynav way X Y 名称；/mynav way #地图ID X Y 名称；/mynav go 地图ID X Y 名称；/mynav pin；/mynav save 名称；/mynav stop。坐标填 0–100。")
         return
     end
     if command == "quest" then
@@ -94,14 +105,26 @@ local function makeLauncher()
     b:EnableMouse(true)
     b:RegisterForClicks("LeftButtonUp", "RightButtonUp")
     b:RegisterForDrag("LeftButton")
+    mfLayout("RegisterLayout", b, "世界向导 · 图标", {
+        save = function(frame)
+            local point,_,relativePoint,x,y=frame:GetPoint()
+            NS.DB.launcher={point=point,relativePoint=relativePoint,x=x,y=y}
+        end,
+        reset = function()
+            NS.DB.launcher={point="TOPRIGHT",relativePoint="TOPRIGHT",x=-30,y=-287}
+            b:ClearAllPoints();b:SetPoint("TOPRIGHT",UIParent,"TOPRIGHT",-30,-287)
+        end,
+    })
     b:SetScript("OnClick", function(_, button)
         if button == "RightButton" then NS.Stop() else NS.ToggleUI() end
     end)
     b:SetScript("OnDragStart", function(self)
         self:StartMoving()
+        mfLayout("BeginDrag", self)
     end)
     b:SetScript("OnDragStop", function(self)
         self:StopMovingOrSizing()
+        mfLayout("SnapToGrid", self)
         local point,_,relativePoint,x,y=self:GetPoint()
         NS.DB.launcher={point=point,relativePoint=relativePoint,x=x,y=y}
     end)
@@ -134,7 +157,14 @@ frame:SetScript("OnEvent", function(_, event, name)
         SlashCmdList.MYFOREVERNAVIGATOR = NS.HandleCommand
         NS.Print("世界向导 "..NS.VERSION.." 试用版已加载，点击绿色「导」或 /mynav 打开。Questie 就绪后扩展 NPC 目录，坐标是参考位置。")
     elseif initialized and event ~= "ADDON_LOADED" then
-        if event == "QUEST_LOG_UPDATE" and NS.RefreshQuestSession then NS.RefreshQuestSession() end
+        if event == "PLAYER_ENTERING_WORLD" and not restoredQuestion then
+            restoredQuestion = true
+            if NS.RestoreClientQuestion then NS.RestoreClientQuestion() end
+        end
+        if event == "QUEST_LOG_UPDATE" then
+            if NS.RefreshQuestSession then NS.RefreshQuestSession() end
+            if NS.RefreshClientQuestion then NS.RefreshClientQuestion() end
+        end
         NS.RefreshHUD()
         if not NS.Panel or NS.Panel:IsShown() then NS.RefreshUI() end
         if NS.UpdateMapPin then NS.UpdateMapPin() end
@@ -146,6 +176,7 @@ frame:SetScript("OnUpdate", function(_, elapsed)
     tick, mapTick = tick + elapsed, mapTick + elapsed
     if tick >= 0.2 then
         tick = 0
+        if NS.UpdateRouteProgress then NS.UpdateRouteProgress() end
         if NS.DB.activeID then NS.RefreshHUD() end
     end
     if mapTick >= 0.2 then

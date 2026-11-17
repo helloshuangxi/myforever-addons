@@ -49,7 +49,7 @@ def run(root, locale="zhCN", faction="Alliance"):
         _verifyNS={}
     """)
     ns = g[b"_verifyNS"]
-    for name in ("Core", "Data", "Classification", "Provider", "QuestieCatalog", "Navigation"):
+    for name in ("Core", "Data", "Classification", "Provider", "QuestieCatalog", "Navigation", "RoutePhrases", "FuzzySearch", "RouteData", "Routes", "RoutePlanner"):
         lua.execute((addon / (name + ".lua")).read_bytes(), b"MyForeverNavigator", ns)
     ns[b"Initialize"](None)
     serialize = lua.eval(b"""function(value)
@@ -167,6 +167,40 @@ def run(root, locale="zhCN", faction="Alliance"):
         raw = db[b"Npc"][b"GetAll"](npc_id, source_fields)
         trainer_flag = db[b"Enum"][b"npcFlags"][b"TRAINER"]
         assert not (int(raw[4] or 0) & int(trainer_flag))
+    # Cross-module replay from a representative service query with a modeled character.
+    query = "先学挖矿再学打铁".encode()
+    journey = ns[b"NewRouteQuery"](query)
+    assert len(journey[b"terms"]) == 2
+    stops = []
+    for i, expected in enumerate(("mining","blacksmithing"), 1):
+        rows, map_count = ns[b"GetRouteCandidates"](journey)
+        assert map_count > 1 and len(rows) >= map_count
+        point = next((p for _,p in rows.items() if text(ns[b"GetPointProfession"](p) or b"") == expected), None)
+        assert point is not None
+        assert ns[b"ChooseRouteCandidate"](journey, point[b"id"]) is True
+        stops.append({"term":text(journey[b"terms"][i]),"point":text(point[b"id"]),"maps":map_count})
+    assert journey[b"plan"]
+    confirmed = ns[b"ConfirmRouteQuery"](journey)
+    assert (confirmed[0] if isinstance(confirmed, tuple) else confirmed) is True, confirmed
+    assert ns[b"GetActiveRoute"]()[b"destinationID"] == journey[b"ids"][2]
+    assert ns[b"NewRouteQuery"](query)[b"source"] == b"cache"
+    ns[b"Stop"]()
+    # Replay the actual two-stop clipboard response produced in the WebGPU smoke test.
+    model_question = "我想寄存装备，以后再拿出来，再去拍卖行".encode()
+    ns[b"RouteWebURL"](model_question)
+    imported = ns[b"NewRouteQuery"]("/mynav route MFN1@78c7328e~银行职员~拍卖师".encode())
+    assert imported[b"source"] == b"import" and imported[b"question"] == model_question
+    imported_stops = []
+    for service in ("银行", "拍卖"):
+        rows, count = ns[b"GetRouteCandidates"](imported)
+        point = next(p for _,p in rows.items() if service in text(p[b"service"] or b""))
+        assert ns[b"ChooseRouteCandidate"](imported,point[b"id"]) is True
+        imported_stops.append({"id":text(point[b"id"]), "maps":count, "service":text(point[b"service"])})
+    confirmed = ns[b"ConfirmRouteQuery"](imported)
+    assert (confirmed[0] if isinstance(confirmed, tuple) else confirmed) is True, confirmed
+    assert ns[b"NewRouteQuery"](model_question)[b"source"] == b"cache"
+    assert ns[b"DB"][b"routeIntents"][1][b"body"] == "银行职员~拍卖师".encode()
+    ns[b"Stop"]()
     assert serialize(ns[b"Points"]) == source_points_before
     assert all(serialize(db[b"Npc"][b"GetAll"](npc_id, source_fields)) == before for npc_id, before in db_before.items())
     timings = {}
@@ -176,7 +210,7 @@ def run(root, locale="zhCN", faction="Alliance"):
         timings[query or "all"] = {"milliseconds": round((time.perf_counter() - t) * 1000, 2), "returned_points": len(result)}
     assert len(ns[b"Search"]("definitely-not-a-npc-name-784922".encode(), lua.table_from({b"faction": b"all"}))) == 0
     return {"status": "passed", "scope": "actual installed DB + Navigator Lua, modeled client maps; not in-game validation",
-            "source": {"questie_db_version": text(metadata[b"Version"]), "commit": text(metadata[b"X-BUILD-COMMIT"]), "lua_files_loaded": len(loaded)},
+            "route_query_replay": stops, "web_model_replay": imported_stops, "source": {"questie_db_version": text(metadata[b"Version"]), "commit": text(metadata[b"X-BUILD-COMMIT"]), "lua_files_loaded": len(loaded)},
             "persona": {"locale": locale, "faction": faction}, "build_frames": frames,
             "elapsed_ms": round((time.perf_counter() - started) * 1000, 2), "curated_points": original_count,
             "total_points": len(points), "unique_npcs": len({pair[0] for pair in unique}), "maps": len(maps),

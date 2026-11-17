@@ -1,4 +1,15 @@
 local _, NS = ...
+-- Shared layout hooks (grid while dragging, snap on release, /myui tags).
+local function mfLayout(name, ...)
+    local S = rawget(_G, "MyForeverStyle")
+    local fn = type(S) == "table" and rawget(S, name)
+    if type(fn) == "function" then
+        local ok, result = pcall(fn, ...)
+        return ok and result or nil
+    end
+end
+local Style = MyForeverStyle
+local function C(name,alpha) return Style.Color(name,alpha) end
 
 -- Unit attributes and tooltips retain the real unit alias. Native mouseover
 -- identity is read back from the client rather than inferred from tile hover.
@@ -25,8 +36,8 @@ local function cellHeight(side)
 end
 local WIDTH = PAD * 2 + TILE_WIDTH * COLUMNS + GAP * (COLUMNS - 1)
 local WHITE = "Interface\\Buttons\\WHITE8X8"
-local BACKDROP = {bgFile=WHITE, edgeFile="Interface\\Tooltips\\UI-Tooltip-Border", edgeSize=10,
-    insets={left=3,right=3,top=3,bottom=3}}
+-- Flat 1px edge (suite style); the 3px target/focus outlines are separate textures.
+local BACKDROP = {bgFile=WHITE, edgeFile=WHITE, edgeSize=1, insets={left=0,right=0,top=0,bottom=0}}
 local MODES = {{"raid","团队"},{"party","小队"},{"nearby","附近"}}
 local MARK_NAMES = {"星星","圆圈","菱形","三角","月亮","方块","十字","骷髅"}
 
@@ -47,6 +58,10 @@ local function observedRead(fn,...)
 end
 local function observedGUID(value)
     return NS.Public(value) and type(value)=="string" and value~="" and value:sub(1,1)~="[" and value or nil
+end
+local function visualIdentity(row)
+    if row.side=="enemy" and row.displayReadOnly~=nil then return row.displayUnit,row.displayGUID end
+    return row.unit,row.expectedGUID
 end
 local function uiDiagnostics()
     local diagnostics=NS.Diagnostics
@@ -109,6 +124,10 @@ local function observeRow(kind,row,button,down)
     uiObservation(kind,function() return rowObservation(row,button,down) end)
 end
 local function observeShield(shield,row,kind,button)
+    local diagnostics=NS.Diagnostics
+    if diagnostics and type(diagnostics.CastRouteSnapshot)=="function" then
+        pcall(diagnostics.CastRouteSnapshot,"shield_blocked",row)
+    end
     uiObservation("UI_SHIELD_BLOCKED",function()
         local fields=rowObservation(row,button)
         local key=table.concat({kind,tostring(fields.button),tostring(fields.unit),tostring(fields.expectedGUID),
@@ -205,13 +224,13 @@ local function text(parent, size, color)
     local label = parent:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     local font = label:GetFont()
     if font then label:SetFont(font, size or 12, "OUTLINE") end
-    label:SetTextColor(unpack(color or {0.88,0.9,0.93,1}))
+    label:SetTextColor(unpack(color or {C("text")}))
     return label
 end
 local function background(frame, color, edge)
     frame:SetBackdrop(BACKDROP)
-    frame:SetBackdropColor(unpack(color or {0.045,0.055,0.075,0.97}))
-    frame:SetBackdropBorderColor(unpack(edge or {0.28,0.32,0.38,1}))
+    frame:SetBackdropColor(unpack(color or {C("outer",0.97)}))
+    frame:SetBackdropBorderColor(unpack(edge or {C("line")}))
 end
 local function icon(texture, index)
     if SetRaidTargetIconTexture then
@@ -258,9 +277,37 @@ local function hideTooltip() if GameTooltip then GameTooltip:Hide() end end
 local function readEnemyTarget(row)
     row.enemyTarget=nil
     if row.side=="enemy" and type(NS.ReadEnemyTarget)=="function" then
-        row.enemyTarget=NS.ReadEnemyTarget(row.unit,row.expectedGUID)
+        local unit,guid=visualIdentity(row)
+        row.enemyTarget=NS.ReadEnemyTarget(unit,guid)
     end
     return row.enemyTarget
+end
+
+local function readOnlyTooltip(row,owner)
+    if row.restrictedIdentity==true then
+        if row.restrictedRendered~=true or not GameTooltip then return false end
+        GameTooltip:SetOwner(owner,"ANCHOR_RIGHT")
+        GameTooltip:SetText("身份受限的敌人")
+        GameTooltip:AddLine("客户端只允许显示姓名和血量，插件无法确认这个单位的身份。",1,.76,.4,true)
+        GameTooltip:AddLine("此格仅显示信息，不执行选中、焦点、标记或悬停施法。",.82,.85,.9,true)
+        GameTooltip:Show()
+        return true
+    end
+    if row.displayReadOnly~=true or not row.data then return false end
+    local unit,guid=visualIdentity(row)
+    if not NS.ValidToken(unit) or not observedGUID(guid) or NS.Read(UnitGUID,unit)~=guid then return false end
+    local data=NS.ReadUnit(unit,"enemy")
+    if not data or data.guid~=guid or NS.Read(UnitGUID,unit)~=guid then return false end
+    if not GameTooltip then return false end
+    GameTooltip:SetOwner(owner,"ANCHOR_RIGHT")
+    local ok,result=false,nil
+    if type(GameTooltip.SetUnit)=="function" then ok,result=pcall(GameTooltip.SetUnit,GameTooltip,unit) end
+    if not ok or not NS.Public(result) or result~=true then GameTooltip:SetText(data.name) end
+    GameTooltip:AddLine("战斗中此格当前仅显示信息，脱战后准备格子操作。",1,.76,.4,true)
+    GameTooltip:AddLine("此格不执行选中、焦点或标记，也不新增该敌人的技能接管。",.82,.85,.9,true)
+    GameTooltip:AddLine("红框为当前目标，黄框为焦点；相关效果过多时用滚轮浏览。",.82,.85,.9,true)
+    GameTooltip:Show()
+    return true
 end
 
 local function enemyTargetTooltip(row)
@@ -280,7 +327,25 @@ local function combatCastStatus(row)
         if not NS.DB.legacyNameBridgeEnabled or reason=="disabled" then
             state.nativeText="普通技能悬停兼容已关闭，可点上方“施法”开启。"
         elseif NS.InCombat() or reason=="out_of_combat_only" then
-            state.nativeText="临时选目标施法仅支持脱战；战斗中交还原技能键。"
+            local fixed=NS.CombatHover and NS.Read(NS.CombatHover.Status,row)
+            -- Fixed tokens use CombatHover; prepared nameplates keep CombatCast.
+            local combat=not row.bridgeTarget and NS.CombatCast and NS.CombatCast.legacy
+                and NS.Read(NS.CombatCast.Status,row)
+            if type(fixed)=="table" and fixed.ready==true and fixed.enabled==true then
+                state.prepared,state.count,state.combat=true,fixed.availableKeys,true
+                state.nativeText="战斗中：固定单位格按普通技能键直接施法，不切换目标（待游戏验收）。"
+            elseif type(combat)=="table" and combat.prepared==true and NS.Number(combat.count) and combat.count>0
+                and NS.Text(combat.guid)==NS.Text(row.expectedGUID) then
+                state.prepared,state.count,state.combat=true,combat.count,true
+                state.nativeText="战斗中：已准备 "..combat.count.." 个普通技能键；按战前确认的名字临时选中、施法，再恢复原目标。"
+            elseif type(combat)=="table" and combat.reason=="not_unique" then
+                state.reason="not_unique"
+                state.nativeText="战前有同名单位，未准备战斗中施法。"
+            elseif type(combat)=="table" then
+                state.nativeText="此单位没有在脱战时准备好，战斗中不能临时建立；按原技能键作用于当前目标。"
+            else
+                state.nativeText="临时选目标施法仅支持脱战；战斗中交还原技能键。"
+            end
         elseif state.prepared then
             state.nativeText="已准备 "..count.." 个普通技能键；按键时短暂选中此单位，施法后恢复原目标。"
         elseif reason=="not_unique" then
@@ -591,20 +656,20 @@ local function button(parent, label, width, action)
     local b = CreateFrame("Button", nil, parent, "BackdropTemplate")
     b:SetFrameLevel(parent:GetFrameLevel()+3)
     b:SetSize(width or 46, 20)
-    background(b, {0.08,0.10,0.13,1}, {0.23,0.28,0.34,1})
+    background(b, {C("surface")}, {C("surface")})
     b.label = text(b, 11)
     b.label:SetPoint("CENTER")
     b.label:SetText(label)
     b:SetScript("OnClick", action)
     b:SetScript("OnEnter", function(self)
-        self:SetBackdropBorderColor(0.65,0.72,0.8,1)
+        self:SetBackdropBorderColor(C("secondary"))
         if self.tipTitle then
             local lines=type(self.tipLines)=="function" and self.tipLines() or self.tipLines
             tooltip(self,self.tipTitle,lines)
         end
     end)
     b:SetScript("OnLeave", function(self)
-        self:SetBackdropBorderColor(self.active and 0.78 or 0.23,self.active and 0.65 or 0.28,self.active and 0.35 or 0.34,1)
+        self:SetBackdropBorderColor(C(self.active and "accent" or "surface"))
         hideTooltip()
     end)
     return b
@@ -622,6 +687,16 @@ local function inputShield(row)
         NS.HoveredTile=nil
         if NS.EnemyTargetHover then NS.EnemyTargetHover.Clear() end
         if NS.SetHoverUnit then NS.SetHoverUnit(nil) end
+        if not readOnlyTooltip(row,shield) then hideTooltip() end
+    end)
+    shield:SetScript("OnLeave",function()
+        if GameTooltip and NS.Read(GameTooltip.GetOwner,GameTooltip)==shield then hideTooltip() end
+    end)
+    shield:EnableMouseWheel(true)
+    shield:SetScript("OnMouseWheel",function(_,delta)
+        if row.displayReadOnly==true and row.data and row.auras and NS.Auras and type(NS.Auras.Scroll)=="function" then
+            NS.Auras.Scroll(row.auras,delta)
+        end
     end)
     shield:HookScript("OnEnter",function(self) observeShield(self,row,"target_tile") end)
     shield:HookScript("OnMouseUp",function(self,button) observeShield(self,row,"target_tile",button) end)
@@ -1042,6 +1117,19 @@ function NS.StopDragging()
     end
 end
 
+local function refreshCastDot(row)
+    local dot=row.castDot
+    if not dot then return end
+    if not legacyBridge(row.side) then dot:Hide() return end
+    local state=combatCastStatus(row)
+    local reason=type(state)=="table" and state.reason or nil
+    if type(state)=="table" and state.prepared and NS.DB.legacyNameBridgeEnabled then
+        dot:SetVertexColor(C("accent"));dot:Show()
+    elseif reason=="not_unique" and NS.DB.legacyNameBridgeEnabled then
+        dot:SetVertexColor(C("warning"));dot:Show()
+    else dot:Hide() end
+end
+
 local function createTile(panel,side,index,menu)
     -- Leave the XML-installed native action handler untouched. TargetUnit in
     -- Forever requires this direct hardware-click path, without a Lua wrapper.
@@ -1055,12 +1143,12 @@ local function createTile(panel,side,index,menu)
     row:SetAttribute("*type1","target")
     row.nativeHandlerWasPresent=row:GetScript("OnClick")==SecureActionButton_OnClick
     NS.SetupClickActions(row,menu)
-    background(row,{0.035,0.045,0.06,1},{0.24,0.29,0.35,1})
+    background(row,{C("side")},{C("line")})
     row.health=CreateFrame("StatusBar",nil,row)
     row.health:EnableMouse(false)
     row.health:SetPoint("TOPLEFT",3,-3)
     row.health:SetPoint("BOTTOMRIGHT",-3,3)
-    row.health:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
+    row.health:SetStatusBarTexture(WHITE)
     row.health:SetOrientation("HORIZONTAL")
     row.health:SetMinMaxValues(0,1)
     row.health:SetValue(0)
@@ -1098,7 +1186,7 @@ local function createTile(panel,side,index,menu)
     row.topline:SetPoint("TOPLEFT",4,-1)
     row.topline:SetPoint("TOPRIGHT",-4,-1)
     row.topline:SetHeight(1)
-    row.topline:SetVertexColor(0.24,0.29,0.35,1)
+    row.topline:SetVertexColor(C("line"))
     row.nameText=text(row.labels,10)
     row.nameText:SetPoint("TOPLEFT",10,-3)
     row.nameText:SetPoint("TOPRIGHT",-10,-3)
@@ -1166,6 +1254,15 @@ local function createTile(panel,side,index,menu)
     row.hover:SetPoint("BOTTOMRIGHT",-4,4)
     row.hover:SetVertexColor(1,0.9,0.5,0.13)
     row.hover:Hide()
+    -- Hover-cast readiness, visible on the tile itself instead of only inside the tooltip:
+    -- accent = an ordinary skill key is prepared for this unit now; warning = same-name unit, cannot be
+    -- prepared; hidden = not available (combat, switched off, still checking). A plain texture, so it can
+    -- be shown or hidden in combat without touching protected attributes.
+    row.castDot=row.labels:CreateTexture(nil,"OVERLAY")
+    row.castDot:SetTexture(WHITE)
+    row.castDot:SetSize(6,6)
+    row.castDot:SetPoint("BOTTOMRIGHT",-6,6)
+    row.castDot:Hide()
     row.shield=inputShield(row)
     local function showUnitTooltip(self,data)
         local distance="距离未知"
@@ -1208,7 +1305,7 @@ local function createTile(panel,side,index,menu)
         end
         local castInstruction
         if legacyBridge(self.side) then
-            castInstruction="脱战悬停后按原普通技能键：友方接治疗／增益，敌方接攻击；内部临时选中此单位、施法并恢复原目标。移开或入战交还原键；已有宏和物品不接管。"
+            castInstruction="悬停后按原普通技能键：友方接治疗／增益，敌方接攻击。脱战时临时选中此单位、施法并恢复原目标；战斗中只有自己、小队、团队、宠物、目标、焦点、首领、竞技场这类固定单位格直接对该单位施法，敌方姓名板仅沿用战前唯一名称桥，新出现或同名格不接管。已有宏和物品不接管。"
         elseif NS.NativeMacroOnly then
             castInstruction="悬停方块后，按原 @mouseover 宏的原按键。保留原宏写法与后备分支；插件不改变当前目标。鼠标单位未确认时，宏可能回退当前目标。"
         elseif NS.PreserveCastTarget then
@@ -1246,6 +1343,7 @@ local function createTile(panel,side,index,menu)
     end
     row.showUnitTooltip=showUnitTooltip
     local function showUnitHover(self)
+        if self.displayReadOnly==true then return false end
         local current=NS.ReadUnit(self.unit,self.side)
         local data=focusCycleData(self) or current
         if not data or data.guid ~= self.expectedGUID then return false end
@@ -1284,6 +1382,7 @@ local function createTile(panel,side,index,menu)
     row.nativeClick=row:GetScript("OnClick")
     if side=="enemy" and NS.EnemyTargetHover then NS.EnemyTargetHover.Create(row) end
     if (not NS.NativeMacroOnly or legacyBridge(side)) and NS.NearbyCast then NS.NearbyCast.Install(row) end
+    if legacyBridge(side) and NS.CombatHover then NS.CombatHover.Install(row) end
     return row
 end
 
@@ -1293,8 +1392,8 @@ local function makePanel(side,menu)
     p:SetSize(WIDTH,GRID_TOP+cellHeight(side)*4+GAP*3+PAD)
     p:SetClampedToScreen(true)
     p:SetMovable(true)
-    background(p)
-    p.title=text(p,11,{0.93,0.85,0.65,1})
+    Style.Round(p,"outer",Style.alpha.window,10)
+    p.title=text(p,11,{C("text")})
     p.title:SetPoint("TOPLEFT",PAD+2,-7)
     p.title:SetText(side == "friendly" and "友方" or "敌方")
     local section={side=side,frame=p,tiles={},tabs={},limits={}}
@@ -1311,6 +1410,22 @@ local function makePanel(side,menu)
     proxy.caption:SetText("释放鼠标以移动")
     proxy:Hide()
     p.dragProxy=proxy
+    mfLayout("RegisterLayout",p,side=="friendly" and "目标选择 · 友方" or "目标选择 · 敌方",{
+        -- Layout mode is closed in combat; these never run there.
+        save=function(frame)
+            if NS.InCombat() then return end
+            local position=topLeftPosition(frame,true)
+            if position then NS.DB[side.."Position"]=position;frame.positionKey=nil end
+        end,
+        reset=function()
+            if NS.InCombat() then return end
+            local default=NS.NormalizeDB(nil)[side.."Position"]
+            NS.DB[side.."Position"]=default
+            p:ClearAllPoints();p:SetPoint(default.point,UIParent,default.relativePoint,default.x,default.y)
+            p.positionKey=nil
+        end,
+        scale={get=function() return NS.DB.scale end,set=function(value) NS.SetScale(value) end,min=.7,max=1.4,step=.05},
+    })
     p:SetScript("OnHide",function()
         if p.dragging then proxy:StopMovingOrSizing() end
         proxy:Hide()
@@ -1337,10 +1452,12 @@ local function makePanel(side,menu)
         p.dragging=true
         proxy:Show()
         proxy:StartMoving()
+        mfLayout("BeginDrag",proxy,p)
     end)
     drag:SetScript("OnDragStop",function()
         if not p.dragging then return end
         proxy:StopMovingOrSizing()
+        if not NS.InCombat() then mfLayout("SnapToGrid",proxy) end
         local position=not NS.InCombat() and topLeftPosition(proxy,true,NS.Read(p.GetScale,p)) or nil
         proxy:Hide()
         p.dragging=false
@@ -1374,7 +1491,7 @@ local function makePanel(side,menu)
             lines[#lines+1]="附近目标按距离由近到远；距离未知的排在后面。"
         end
         if legacyBridge(side) then
-            lines[#lines+1]="仅脱战：悬停后按普通技能键，临时选中、施法，再恢复原目标。"
+            lines[#lines+1]="悬停后按普通技能键：脱战临时选中、施法再恢复目标；战斗中仅固定单位格（小队/团队/焦点/首领等）直接施法。"
         elseif NS.PreserveCastTarget and side=="enemy" then
             lines[#lines+1]="悬停怪物后按原普通技能键做GUID直施尝试；不切换当前目标，实际施法待验证。"
         end
@@ -1454,7 +1571,9 @@ local function makePanel(side,menu)
             return {"友方、敌方及下方目标条：脱战悬停后按原普通技能键。",
                 "临时选中悬停单位、施法，再恢复原目标；原来无目标则恢复为空。",
                 "友方接治疗／增益、敌方接伤害；已有宏、物品及其他插件占用的键保持原行为。",
-                "移开、隐藏或入战会交还原键。同名怪物无法确认唯一时不准备名称施法。",
+                "战斗中固定单位格可直接施法（待实测）；移开或隐藏交还原键，同名怪物未确认唯一时不准备名称施法。",
+                "敌方战斗中：脱战时已确认名字唯一的怪物继续可用，沿用战前名字；战斗中新出现的和同名的不接管。友方固定单位格走直接施法候选。",
+                "格子右下角绿点＝此单位现在可悬停施法；黄点＝有同名单位，未准备。",
                 NS.DB.legacyNameBridgeEnabled and "点击关闭普通技能悬停兼容。" or "点击开启普通技能悬停兼容。"}
         end
         if NS.NativeMacroOnly then
@@ -1493,9 +1612,10 @@ end
 
 local function active(b,value)
     b.active=value
-    b:SetBackdropColor(value and 0.22 or 0.08,value and 0.19 or 0.1,value and 0.12 or 0.13,1)
-    b:SetBackdropBorderColor(value and 0.78 or 0.23,value and 0.65 or 0.28,value and 0.35 or 0.34,1)
-    b.label:SetTextColor(value and 1 or 0.76,value and 0.88 or 0.8,value and 0.6 or 0.86,1)
+    -- Active toggles use the suite accent; gold stays reserved for the focus outline.
+    b:SetBackdropColor(C(value and "accentSoft" or "surface"))
+    b:SetBackdropBorderColor(C(value and "accentSoft" or "surface"))
+    b.label:SetTextColor(C(value and "accent" or "secondary"))
 end
 
 function NS.RefreshControls()
@@ -1565,6 +1685,8 @@ function NS.BindTiles(side,tokens,limit)
     local panel=section.frame
     refreshPanelLayouts()
     for i,row in ipairs(section.tiles) do
+        row.displayUnit,row.displayGUID,row.displayReadOnly,row.displayActionReady=nil,nil,nil,nil
+        row.restrictedIdentity,row.restrictedRendered=nil,nil
         local token=tokens[i]
         row.unit=i <= limit and token or nil
         local data=row.unit and NS.ReadUnit(row.unit,side) or nil
@@ -1588,31 +1710,156 @@ function NS.BindTiles(side,tokens,limit)
             row:SetAttribute("*macrotext1",nil)
         end
         shown(row,i <= limit)
+        if NS.CombatHover then NS.CombatHover.BindRow(row) end
         if side=="enemy" and NS.EnemyTargetHover then NS.EnemyTargetHover.Bind(row) end
         if i > limit or not NS.IsPanelShown(side) then row.shield:Hide() end
-        if not NS.NativeMacroOnly and NS.CombatCast and type(NS.CombatCast.ArmRow)=="function" then NS.CombatCast.ArmRow(row) end
+        if (not NS.NativeMacroOnly or NS.CombatCast and NS.CombatCast.legacy) and NS.CombatCast
+            and type(NS.CombatCast.ArmRow)=="function" then NS.CombatCast.ArmRow(row) end
     end
     section.hasBound=true
     restoreFocusedTile(section)
+end
+
+local function renderRestrictedEnemy(row,entry,display,index,visible)
+    -- No anonymous payload is published as row.data or as an action identity.
+    -- Raw names go through one native setter and amounts through nativeAmount;
+    -- neither is cached, compared, concatenated or sent to diagnostics here.
+    row.data,row.enemyTarget=nil,nil
+    row.displayUnit,row.displayGUID=entry.unit,nil
+    row.displayReadOnly,row.displayActionReady=true,false
+    row.restrictedIdentity,row.restrictedRendered=true,false
+    row.tooltipName,row.tooltipEnemyTarget,row.tooltipDistance=nil,nil,nil
+    row.hover:Hide()
+    NS.RefreshIdentityBorders(row,nil,false)
+    row.targetFill:Hide();row.targetBadge:Hide();row.questBadge:Hide()
+    row.marker:Hide();row.castDot:Hide()
+    row.nameText:SetText("");row.classText:SetText("");row.statusText:SetText("")
+    row.indexText:SetText(string.format("%02d",index))
+    row.topline:SetVertexColor(C("line"))
+    row:SetBackdropBorderColor(C("line"))
+    nativeAmount(row.health,nil,nil,false)
+    nativeAmount(row.power,nil,nil,false);row.powerTrack:Hide()
+    if NS.HoveredTile==row then
+        NS.HoveredTile=nil
+        if NS.SetHoverUnit then NS.SetHoverUnit(nil) end
+    end
+    if GameTooltip and NS.Read(GameTooltip.GetOwner,GameTooltip)==row then hideTooltip() end
+    if NS.NearbyCast and type(NS.NearbyCast.Leave)=="function" then NS.NearbyCast.Leave(row,"restricted_identity") end
+    if row.auras and NS.Auras and type(NS.Auras.Update)=="function" then NS.Auras.Update(row.auras) end
+    shown(row.shield,visible)
+    local current=type(display.IsCurrent)=="function" and display.IsCurrent(entry)
+    local payload=visible and current and NS.Read(NS.ReadRestrictedEnemyVisual,entry.unit) or nil
+    local qualified=NS.Public(payload) and type(payload)=="table" and NS.Public(payload.restrictedIdentity)
+        and payload.restrictedIdentity==true and display.IsCurrent(entry)
+    local nameError=false
+    if qualified then
+        local named=NS.Read(NS.SetRestrictedEnemyName,row.nameText,entry.unit)==true
+        local stable=display.IsCurrent(entry)
+        if named and stable then
+            row.restrictedRendered=true
+            row.indexText:SetText("")
+            local color=NS.Public(payload.color) and type(payload.color)=="table" and payload.color or nil
+            local r=color and NS.Number(color.r) and color.r or .82
+            local g=color and NS.Number(color.g) and color.g or .85
+            local b=color and NS.Number(color.b) and color.b or .9
+            row.nameText:SetTextColor(r,g,b,1)
+            row.topline:SetVertexColor(r,g,b,1)
+            local dead=NS.Public(payload.dead) and payload.dead==true
+            local offline=NS.Public(payload.offline) and payload.offline==true
+            if dead or offline then row.health:SetStatusBarColor(.18,.21,.24,1)
+            else row.health:SetStatusBarColor(.60,.19,.22,1) end
+            nativeAmount(row.health,dead and 0 or payload.healthCurrent,payload.healthMax,
+                NS.Public(payload.healthAvailable) and payload.healthAvailable==true)
+            local powerColor=NS.Public(payload.powerColor) and type(payload.powerColor)=="table" and payload.powerColor or nil
+            local powerReady=not dead and not offline and NS.Public(payload.powerAvailable)
+                and payload.powerAvailable==true and powerColor and NS.Number(powerColor.r)
+                and NS.Number(powerColor.g) and NS.Number(powerColor.b)
+            if powerReady then row.power:SetStatusBarColor(powerColor.r,powerColor.g,powerColor.b,1) end
+            local powerShown=nativeAmount(row.power,payload.powerCurrent,payload.powerMax,powerReady==true)
+            shown(row.powerTrack,powerShown)
+            if dead then row.statusText:SetText("死亡")
+            elseif offline then row.statusText:SetText("离线")
+            elseif NS.Number(payload.health) then row.statusText:SetText(math.floor(payload.health*100+.5).."%") end
+        else
+            -- The setter returns only a public success flag. Never retain or
+            -- stringify a native error, or read the label back to verify it.
+            row.nameText:SetText("")
+            nameError=true
+        end
+    end
+    if row.restrictedRendered and not display.IsCurrent(entry) then
+        row.restrictedRendered=false;nameError=true
+        row.nameText:SetText("");row.statusText:SetText("")
+        row.indexText:SetText(string.format("%02d",index))
+        nativeAmount(row.health,nil,nil,false)
+        nativeAmount(row.power,nil,nil,false);row.powerTrack:Hide()
+        row.topline:SetVertexColor(C("line"))
+    end
+    if NS.EnemyTargetHover then NS.EnemyTargetHover.Refresh(row,nil) end
+    if GameTooltip and NS.Read(GameTooltip.GetOwner,GameTooltip)==row.shield then
+        if not readOnlyTooltip(row,row.shield) then hideTooltip() end
+    end
+    return row.restrictedRendered,nameError
 end
 
 function NS.RefreshTiles()
     if not NS.UI then return end
     for _,side in ipairs({"friendly","enemy"}) do
         local section=NS.UI[side]
-        local validCount=0
+        local validCount,actionableCount,restrictedCount,nameRenderErrors=0,0,0,0
+        local display=side=="enemy" and NS.EnemyDisplay
+        local sectionDisplayActive=display and display.active==true and type(display.Get)=="function"
         for i,row in ipairs(section.tiles) do
             local visible=i <= (section.limit or 20) and section.frame:IsShown()
-            local pinned=visible and focusCycleData(row) or nil
-            local data=visible and (pinned or NS.ReadUnit(row.unit,side)) or nil
+            local nativeOwned,nativeEntry=false,nil
+            if side=="enemy" and NS.InstanceActions and type(NS.InstanceActions.VisualEntry)=="function" then
+                nativeOwned,nativeEntry=NS.InstanceActions.VisualEntry(row)
+            end
+            local displayActive=sectionDisplayActive or nativeOwned
+            local entry
+            if nativeOwned then entry=visible and nativeEntry or nil
+            elseif sectionDisplayActive then entry=visible and display.Get(i) or nil end
+            if entry and entry.restrictedIdentity==true then
+                local rendered,failed=renderRestrictedEnemy(row,entry,display,i,visible)
+                if rendered then validCount=validCount+1;restrictedCount=restrictedCount+1 end
+                if failed then nameRenderErrors=nameRenderErrors+1 end
+            else
+            row.restrictedIdentity,row.restrictedRendered=nil,nil
+            local pinned=not displayActive and visible and focusCycleData(row) or nil
+            local unit,guid=row.unit,row.expectedGUID
+            if displayActive then
+                unit,guid=entry and entry.unit,entry and observedGUID(entry.guid)
+                row.displayUnit,row.displayGUID=unit,guid
+            else
+                row.displayUnit,row.displayGUID,row.displayReadOnly,row.displayActionReady=nil,nil,nil,nil
+            end
+            local data=visible and (pinned or NS.ReadUnit(unit,side)) or nil
             -- A reused nameplate/target alias must never silently become a new
-            -- clickable unit in the same combat. A fresh OOC binding re-arms it.
-            if data and data.guid ~= row.expectedGUID then data=nil end
+            -- clickable unit in the same combat. Combat visuals have their own
+            -- identity; the secure button keeps the original OOC identity.
+            if data and (data.guid~=guid or displayActive and NS.Read(UnitGUID,unit)~=guid) then data=nil end
+            local actionValid=data~=nil and data~=false
+            if displayActive then
+                local prepared=actionValid and guid==row.expectedGUID and NS.ReadUnit(row.unit,side) or nil
+                actionValid=prepared~=nil and prepared~=false and prepared.guid==guid
+                    and NS.Read(UnitGUID,row.unit)==guid
+                row.displayReadOnly,row.displayActionReady=not actionValid,actionValid
+                if not actionValid then
+                    row.hover:Hide()
+                    if NS.HoveredTile==row then
+                        NS.HoveredTile=nil
+                        if NS.SetHoverUnit then NS.SetHoverUnit(nil) end
+                    end
+                    if GameTooltip and NS.Read(GameTooltip.GetOwner,GameTooltip)==row then hideTooltip() end
+                    if NS.NearbyCast and type(NS.NearbyCast.Leave)=="function" then NS.NearbyCast.Leave(row,"display_only") end
+                end
+            end
             row.data=data
             local valid=data ~= nil and data ~= false
-            shown(row.shield,visible and not valid)
+            shown(row.shield,visible and not actionValid)
+            if visible and actionValid then actionableCount=actionableCount+1 end
             if row.auras and NS.Auras and type(NS.Auras.Update)=="function" then
-                NS.Auras.Update(row.auras,valid and row.unit or nil,valid and row.expectedGUID or nil,side)
+                NS.Auras.Update(row.auras,valid and unit or nil,valid and guid or nil,side)
             end
             if data then
                 validCount=validCount+1
@@ -1625,8 +1872,8 @@ function NS.RefreshTiles()
                 row.classText:SetTextColor(r,g,b,1)
                 row.topline:SetVertexColor(r,g,b,1)
                 if data.dead or data.offline then row.health:SetStatusBarColor(.18,.21,.24,1)
-                elseif side=="friendly" then row.health:SetStatusBarColor(.10,.60,.27,1)
-                else row.health:SetStatusBarColor(.66,.20,.15,1) end
+                elseif side=="friendly" then row.health:SetStatusBarColor(.16,.52,.36,1)
+                else row.health:SetStatusBarColor(.60,.19,.22,1) end
                 local healthCurrent=data.healthCurrent
                 if data.dead then healthCurrent=0 end
                 nativeAmount(row.health,healthCurrent,data.healthMax,data.healthAvailable)
@@ -1649,10 +1896,11 @@ function NS.RefreshTiles()
                 local status=data.offline and "离线" or data.dead and "死亡" or
                     (NS.Number(data.health) and (math.floor(data.health*100+.5) .. "%") or "")
                 row.statusText:SetText(focusCycleStatus(row) or status)
-                row:SetBackdropBorderColor(selected and 1 or .24,selected and .15 or .29,selected and .12 or .35,1)
+                if selected then row:SetBackdropBorderColor(1,.15,.12,1) else row:SetBackdropBorderColor(C("line")) end
                 shown(row.targetFill,selected)
                 shown(row.targetBadge,selected)
                 shown(row.questBadge,side == "enemy" and not data.player and data.questTarget == true)
+                if actionValid then refreshCastDot(row) else row.castDot:Hide() end
                 if data.raidMarker and data.raidMarker >= 1 and data.raidMarker <= 8 then
                     icon(row.marker,data.raidMarker);row.marker:Show()
                 else row.marker:Hide() end
@@ -1683,15 +1931,23 @@ function NS.RefreshTiles()
                 row.indexText:SetText(string.format("%02d",i))
                 nativeAmount(row.health,nil,nil,false)
                 nativeAmount(row.power,nil,nil,false);row.powerTrack:Hide()
-                row.topline:SetVertexColor(.24,.29,.35,1)
-                row:SetBackdropBorderColor(.24,.29,.35,1)
+                row.topline:SetVertexColor(C("line"))
+                row:SetBackdropBorderColor(C("line"))
                 row.marker:Hide()
+                row.castDot:Hide()
             end
             if side=="enemy" and NS.EnemyTargetHover then
                 NS.EnemyTargetHover.Refresh(row,valid and row.enemyTarget or nil)
             end
+            if row.displayReadOnly==true and GameTooltip and NS.Read(GameTooltip.GetOwner,GameTooltip)==row.shield then
+                if not readOnlyTooltip(row,row.shield) then hideTooltip() end
+            end
+            end
         end
         section.validCount=validCount
+        section.actionableCount=actionableCount
+        section.restrictedCount=restrictedCount
+        section.nameRenderErrors=nameRenderErrors
         if section.mouseover and legacyBridge(side) then
             section.mouseover.label:SetText("施法")
             section.mouseover.tipTitle="普通技能悬停"

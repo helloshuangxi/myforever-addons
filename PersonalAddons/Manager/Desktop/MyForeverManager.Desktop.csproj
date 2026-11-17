@@ -6,8 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyName>MyForeverManager</AssemblyName>
     <RootNamespace>MyForeverManager.Desktop</RootNamespace>
-    <Version>0.3.1</Version>
-    <InformationalVersion>0.3.1</InformationalVersion>
+    <Version>0.6.0</Version>
+    <InformationalVersion>0.6.0</InformationalVersion>
     <Product>我的无限插件管理器</Product>
     <Company>Hyder</Company>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -21,6 +21,7 @@
     <PackageReference Include="Avalonia" Version="11.3.22" />
     <PackageReference Include="Avalonia.Desktop" Version="11.3.22" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.22" />
+    <PackageReference Include="Velopack" Version="1.2.161" />
     <ProjectReference Include="../Core/MyForeverManager.Core.csproj" />
   </ItemGroup>
 </Project>

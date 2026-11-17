@@ -1,0 +1,27 @@
+{
+  "live_manager_version": "0.5.0",
+  "live_manager_latest_sha256": "da1caf38a675dd1320c666bccabc87d80ee39a5d9d143230a25f31b7b2819d8b",
+  "metadata_matches_release_worktree": true,
+  "source_commit": "08764eaa04a1256dc15aaf094fd3c57e85b437ba",
+  "source": "/Users/mashuangxi/.codex/worktrees/myforever-manager-050-release-20261115/PersonalAddons/Manager",
+  "source_files_sha256": {
+    "Core/BehaviorLuaReader.cs": "982e975e8573dfb4eab87bee828133e512d619b5a9d047b8976af5d84b38decb",
+    "Core/UpdateService.cs": "eed2800161c6438f8945c87915667edbb1e7f8731ee05d76daaf174744ed98cc",
+    "Core/BehaviorAiCoach.cs": "4419361698c3d359d1ecb2b41853716695b0d9e3d1febb86dbbecf287a4c5440",
+    "Core/ManagerAppUpdates.cs": "1ef1b0dbf7499f50c02de9a7f2b7ebcd2677d0bf2872e416fc0dff0a6376a491",
+    "Core/Models.cs": "2b4df375e31dc672d2513f2c2047166e3d2c16cb3244a296e1a68d58ab4fcfba",
+    "Core/BehaviorModels.cs": "7361965405d41cfb11f5587fdba2c8afd64df3b503ac977fef87de5990b45582",
+    "Core/BehaviorLegacyAnalysis.cs": "486dc8857f9c2a875625b13d99b9feb5d97a42db47959126df4bedf311c9475c",
+    "Core/MyForeverManager.Core.csproj": "9b8458580be4e786dd73ed606f80627ab81a4545fbe8834e205dc430a56e7544",
+    "Core/BehaviorInsights.cs": "ad7b3fcd9b27992a377b58947f304d875891609c4a406b9c22f316b265bf55f3",
+    "Core/BehaviorDataService.cs": "c999aa51550771ec567474867ba9168367bba73f1273dbb017f5f86b982adcda",
+    "Core/GamePaths.cs": "649b65d2a15571466bd714e9d93f48fb4e4c70ea5ee3352e359e52cb54ee1d93",
+    "Tests/MyForeverManager.Tests.csproj": "d05567d63c5c3827d912d5d535ce20c8ae4f2c7e6a529ea7d69946c8d2492cd6",
+    "Tests/Program.cs": "386a0893349ba65e2aef96ea16848750364ca5f34b67f14f397e93b3e9247478"
+  },
+  "isolated_source": "/private/tmp/navigator06-manager050-g5jp1muo",
+  "real_game_modified": false,
+  "real_settings_accessed": false,
+  "source_commit_head": "4f4537bb9288d53ff518a511efa2f53eef79e52e",
+  "candidate_manager_metadata_sha256": "da1caf38a675dd1320c666bccabc87d80ee39a5d9d143230a25f31b7b2819d8b"
+}

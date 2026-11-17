@@ -117,7 +117,7 @@ local before=MyForeverTargetsLogDB.sequence
 ns,D=loadAddon()
 eq(D.Enabled(),true,"enabled state resumes after reload")
 eq(last().kind,"RESUME","reload marker")
-eq(MyForeverTargetsLogDB.sequence,before+1,"reload preserves sequence")
+eq(MyForeverTargetsLogDB.sequence,before+2,"reload preserves sequence across the route snapshot and resume marker")
 eq(#MyForeverTargetsLogDB.events,5000,"reload preserves bounded history")
 eq(MyForeverTargetsLogDB.activeSeconds,accumulated,"reload preserves accumulated duration instead of silently resetting it")
 D.Command("stop")

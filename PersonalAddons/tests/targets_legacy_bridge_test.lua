@@ -122,6 +122,18 @@ UnitExists=function(unit)
     return exists(unit)
 end
 UnitIsDeadOrGhost=function(unit) return units[unit] and units[unit].dead end
+local deathConditionOverride
+SecureCmdOptionParse=function(condition)
+    if deathConditionOverride~=nil then
+        if deathConditionOverride=="error" then error("diagnostic parser unavailable") end
+        if deathConditionOverride=="nil" then return nil end
+        return deathConditionOverride
+    end
+    local unit=condition:match("^%[@(player),dead%] dead; alive$")
+        or condition:match("^%[@(target),dead%] dead; alive$")
+    assert(unit,"only fixed scoped death expressions may be inspected")
+    return units[unit] and units[unit].dead==true and "dead" or "alive"
+end
 UnitIsConnected=function(unit) local value=units[unit];return value and not value.offline end
 UnitCanAssist=function(_,unit) return units[unit] and units[unit].side=="friendly" end
 UnitCanAttack=function(_,unit) return units[unit] and units[unit].side=="enemy" end
@@ -176,7 +188,7 @@ eq(Cast.FrozenUserMacro("/cast 火球术"),nil,"combat macro preparation stays d
 eq(Cast.MacroHasHarmfulCast("/cast 火球术"),false,"no user macro is parsed for harmful branches")
 eq(Cast.SnapshotRow({}),nil,"combat snapshots remain disabled")
 local restoreMacro=Cast.BuildMacro("Windfury Emberbeard","圣光术",true,"friendly")
-yes(restoreMacro:find("/stopmacro [combat][dead]",1,true),"name action has native combat and death guards")
+yes(restoreMacro:find("/stopmacro [combat][@player,dead]",1,true),"name action scopes native death guard to the player")
 yes(restoreMacro:find("/targetexact [nocombat] Windfury Emberbeard",1,true),"complete player name survives")
 yes(restoreMacro:match("/targetlasttarget$"),"existing current target has a restoration command")
 yes(Cast.BuildMacro("Windfury Emberbeard","圣光术",false,"friendly"):match("/cleartarget$"),"original lack of target is restored")
@@ -192,7 +204,7 @@ yes(Cast.Install(row),"friendly row installs the authorized path")
 local wrapperCount=#wrappers
 Cast.Install(row)
 eq(#wrappers,wrapperCount,"installation is idempotent")
-yes(drivers[1].condition:find("[dead] dead",1,true),"secure driver also clears on death")
+eq(drivers[1].condition,"[combat] combat; [@player,dead] dead; idle","secure driver clears for player death rather than a dead current target")
 yes(Cast.owner:GetAttribute("_onstate-combat"):find('newstate ~= "idle"',1,true),"combat and death share safe binding cleanup")
 eq(#Cast.DiscoverActions("friendly"),1,"only plain helpful spell with available keys is found")
 local entered,count=Cast.Enter(row)
@@ -222,12 +234,166 @@ eq(records[#records].data.afterTargetGUID,originalTarget.guid,"attempt reads the
 eq(records[#records].data.targetRestorationObserved,true,"unchanged public target identity is recorded as observation")
 eq(records[#records].data.recipientProven,false,"target readback never claims the spell recipient")
 eq(records[#records].data.spellID,639,"diagnostics records the helpful spell")
+eq(records[#records-1].data.version,NS.VERSION,"pre records the currently loaded candidate version")
+eq(records[#records-1].data.deathGuardUnit,"player","pre labels the player-only death policy")
+eq(records[#records-1].data.configuredCommand,"ACTIONBUTTON1","pre records the configured action binding")
+eq(records[#records-1].data.configuredKey1,"1","pre records the first configured key")
+eq(records[#records-1].data.configuredKey2,"CTRL-1","pre records the alternate configured key")
+eq(records[#records-1].data.playerDead,false,"pre distinguishes a living player")
+eq(records[#records-1].data.playerDeadState,"public","pre distinguishes public false from an unreadable state")
+eq(records[#records-1].data.targetDead,false,"pre records the original target's separate death state")
+eq(records[#records-1].data.nativePlayerDead,false,"pre observes the fixed native player-death condition")
+eq(records[#records-1].data.nativeTargetDead,false,"pre observes the fixed native target-death condition")
+eq(records[#records-1].data.generatedDeathGuardMatches,true,"pre checks the actual internal proxy macro guard")
+eq(records[#records].data.afterGeneratedDeathGuardMatches,true,"post repeats the actual internal guard observation")
+eq(records[#records].data.afterPlayerDeadState,"public","post records its own death-read state")
 for _,event in ipairs(records) do yes(not event.kind:find("GUID",1,true),"name bridge emits no GUID-attempt events") end
+
+-- Interpret only the first generated stop condition and the driver condition.
+-- This is an offline rule model, not a client macro or secure-engine execution.
+local function firstLineStops(macro,playerDead,targetDead,inCombat)
+    local first=macro:match("^([^\n]+)")
+    if not first:find("/stopmacro",1,true) then return false end
+    for clause in first:gmatch("%[([^%]]+)%]") do
+        if clause=="combat" and inCombat then return true end
+        if clause=="@player,dead" and playerDead then return true end
+        if clause=="dead" and targetDead then return true end
+    end
+    return false
+end
+eq(firstLineStops("/stopmacro [combat][dead]\n/cast 旧版",false,true,false),true,"model reproduces the old corpse-current-target guard defect")
+eq(firstLineStops(restoreMacro,false,true,false),false,"living hovered friend remains admissible with a corpse current target")
+eq(firstLineStops(restoreMacro,false,false,false),false,"live current targets retain the same admission rule")
+eq(firstLineStops(restoreMacro,false,nil,false),false,"empty original target does not trigger player death")
+eq(firstLineStops(restoreMacro,true,false,false),true,"player death still blocks the generated name action")
+eq(firstLineStops(restoreMacro,false,false,true),true,"combat still blocks the out-of-combat name action")
+local function modelDriver(condition,playerDead,targetDead,inCombat)
+    if inCombat then return "combat" end
+    if condition:find("[@player,dead] dead",1,true) and playerDead
+        or condition:find("[dead] dead",1,true) and targetDead then return "dead" end
+    return "idle"
+end
+eq(modelDriver("[combat] combat; [dead] dead; idle",false,true,false),"dead","driver model reproduces old corpse-target binding cleanup")
+eq(modelDriver(drivers[1].condition,false,true,false),"idle","corrected driver keeps bindings when only the old target is dead")
+eq(modelDriver(drivers[1].condition,true,false,false),"dead","corrected driver still clears bindings for a dead player")
+eq(modelDriver(drivers[1].condition,false,false,true),"combat","corrected driver still clears outside-combat bindings on combat entry")
+for _,side in ipairs({"friendly","enemy"}) do
+    local fallback=Cast.BuildFallback(side=="friendly" and "圣光术" or "火球术",side)
+    yes(fallback:match("^/stopmacro %[@player,dead%]\n"),side.." fallback scopes death to player")
+    eq(firstLineStops(fallback,false,true,false),false,side.." fallback does not stop because another target is a corpse")
+    eq(firstLineStops(fallback,true,false,false),true,side.." fallback still blocks a dead player")
+    yes(fallback:find("nodead",1,true),side.." fallback retains recipient living-state eligibility")
+end
+originalTarget.dead=true
+yes(overrides["1"],"corpse-state driver comparison starts with an owned friendly key")
+local corpseDriverState=modelDriver(drivers[1].condition,units.player.dead,originalTarget.dead,combat)
+if corpseDriverState~="idle" then clearOwner(Cast.owner) end
+eq(corpseDriverState,"idle","corpse original target does not enter driver cleanup state")
+yes(overrides["1"],"modeled secure driver preserves the friendly key when only target is dead")
+press(proxy)
+eq(proxy:GetAttribute("macrotext"),restoreMacro,"a corpse original target still prepares the guarded friend-and-restore command")
+eq(records[#records-1].data.playerDead,false,"corpse-target pre records player alive separately")
+eq(records[#records-1].data.targetDead,true,"corpse-target pre records the corpse")
+eq(records[#records-1].data.nativePlayerDead,false,"native player condition does not match the corpse target")
+eq(records[#records-1].data.nativeTargetDead,true,"native target condition explains the old guard failure")
+eq(records[#records-1].data.generatedDeathGuardMatches,true,"corpse-target pre confirms the corrected proxy guard")
+eq(records[#records].data.afterTargetDead,true,"post preserves the separate current-target death readback")
+eq(records[#records].data.targetRestorationObserved,true,"unchanged corpse readback remains an observation only")
+row.unit,row.expectedGUID="player",units.player.guid
+Cast.Enter(row);press(proxy)
+yes(proxy:GetAttribute("macrotext"):find("/targetexact [nocombat] 自己",1,true),"self hover also prepares while the original target is a corpse")
+eq(records[#records-1].data.playerDead,false,"self hover explicitly records the player alive")
+eq(records[#records-1].data.targetDead,true,"self hover keeps the separate corpse-target diagnostic")
+row.unit,row.expectedGUID="nameplate1",units.nameplate1.guid
+Cast.Enter(row)
+originalTarget.dead=false
+
+for _,bad in ipairs({"error","nil",secret,"unexpected",27}) do
+    deathConditionOverride=bad
+    press(proxy)
+    eq(proxy:GetAttribute("macrotext"),restoreMacro,"diagnostic condition failures cannot alter the prepared action")
+    local expected=bad=="error" and "error" or bad=="nil" and "nil" or bad==secret and "restricted" or "invalid_result"
+    eq(records[#records-1].data.nativePlayerDeadState,expected,"pre preserves parser failure type without inferring alive")
+    eq(records[#records-1].data.nativePlayerDead,nil,"unknown native death result has no invented boolean")
+    eq(records[#records].data.afterNativeTargetDeadState,expected,"post preserves its own parser read state")
+end
+deathConditionOverride=nil
+local parser=SecureCmdOptionParse
+SecureCmdOptionParse=nil;press(proxy)
+eq(records[#records-1].data.nativePlayerDeadState,"unavailable","missing native parser is explicit")
+eq(proxy:GetAttribute("macrotext"),restoreMacro,"missing diagnostic parser does not disable the action")
+SecureCmdOptionParse=parser
+
+local deathAPI=UnitIsDeadOrGhost
+for _,bad in ipairs({"error","nil",secret,"not_boolean"}) do
+    UnitIsDeadOrGhost=function(unit)
+        if unit~="target" then return deathAPI(unit) end
+        if bad=="error" then error("target diagnostic unavailable") end
+        if bad=="nil" then return nil end
+        return bad
+    end
+    press(proxy)
+    eq(proxy:GetAttribute("macrotext"),restoreMacro,"target-death diagnostic failure cannot change live hovered eligibility")
+    eq(records[#records-1].data.targetDeadState,bad=="not_boolean" and "nonboolean" or bad==secret and "restricted" or bad,"target-death API state stays explicit")
+    eq(records[#records-1].data.targetDead,nil,"unreadable current-target death never becomes false")
+end
+UnitIsDeadOrGhost=deathAPI
+
+local getter=proxy.GetAttribute
+for _,bad in ipairs({"error","nil",secret,27,"/stopmacro [combat][dead]\n/cast stale"}) do
+    proxy.GetAttribute=function(self,key)
+        if key~="macrotext" then return getter(self,key) end
+        if bad=="error" then error("diagnostic getter unavailable") end
+        if bad=="nil" then return nil end
+        return bad
+    end
+    press(proxy)
+    eq(proxy.attrs.macrotext,restoreMacro,"failed or mismatched diagnostic macro read does not rewrite the prepared action")
+    local expected=bad=="error" and "error" or bad=="nil" and "nil" or bad==secret and "restricted"
+        or type(bad)~="string" and "nonstring" or "public"
+    eq(records[#records-1].data.generatedDeathGuardMatchesState,expected,"actual proxy guard read state stays explicit")
+    local expectedMatch
+    if expected=="public" then expectedMatch=false end
+    eq(records[#records-1].data.generatedDeathGuardMatches,expectedMatch,"mismatched guard is false only for a public macro read")
+end
+proxy.GetAttribute=getter
+
+local logger=NS.Diagnostics
+local diagnosticReads=0
+SecureCmdOptionParse=function(condition) diagnosticReads=diagnosticReads+1;return parser(condition) end
+NS.Diagnostics={Enabled=function() return false end,Record=function() error("disabled logger must not receive records") end}
+eq(pcall(press,proxy),true,"disabled logging cannot abort the action")
+eq(diagnosticReads,0,"disabled logging performs no extra macro-condition reads")
+eq(proxy:GetAttribute("macrotext"),restoreMacro,"disabled logging leaves generated action unchanged")
+NS.Diagnostics={Enabled=function() error("logging status unavailable") end,Record=function() error("status failure must stop observation") end}
+eq(pcall(press,proxy),true,"logger status failure cannot abort the action")
+eq(diagnosticReads,0,"failed logging status performs no extra condition reads")
+NS.Diagnostics={Enabled=function() return true end,Record=function() error("disk observer failure") end}
+eq(pcall(press,proxy),true,"logging record failure cannot abort the action")
+eq(proxy:GetAttribute("macrotext"),restoreMacro,"record failure does not alter action attributes")
+NS.Diagnostics=nil
+eq(pcall(press,proxy),true,"missing logger remains optional")
+eq(proxy:GetAttribute("macrotext"),restoreMacro,"missing logger leaves generated action unchanged")
+SecureCmdOptionParse=parser;NS.Diagnostics=logger
+local clearedByObserver=false
+NS.Diagnostics={Enabled=function() return true end,Record=function(kind,data)
+    if kind=="NAME_BRIDGE_PRE" and not clearedByObserver then
+        clearedByObserver=true;Cast.Leave(row)
+    end
+end}
+eq(pcall(press,proxy),true,"observer callback cleanup does not cause a preparation error")
+eq(next(overrides),nil,"observer-requested cleanup is not undone by later logging")
+eq(proxy:GetAttribute("type"),nil,"diagnostics never reinstall an action after cleanup")
+eq(proxy:GetAttribute("macrotext"),nil,"post diagnostic reads do not restore a cleared macro")
+NS.Diagnostics=logger;NS.HoveredTile=row;Cast.Enter(row)
 
 units.target=nil;press(proxy)
 yes(proxy:GetAttribute("macrotext"):match("/cleartarget$"),"each key press rechecks absent original target")
 eq(records[#records].data.beforeTargetExists,false,"absence of original target is recorded explicitly")
 eq(records[#records].data.targetRestorationObserved,true,"observed empty target can be reported separately")
+eq(records[#records-1].data.playerDead,false,"empty original target retains the separate living player diagnosis")
+eq(records[#records-1].data.targetDeadState,"nil","empty original target is not invented as public false")
+eq(records[#records-1].data.nativeTargetDead,false,"explicit native target-death condition is false with no target")
 units.target=originalTarget
 targetExistsOverride="unknown";press(proxy)
 eq(proxy:GetAttribute("type"),nil,"unknown prior target existence cannot trigger a name switch")
@@ -249,6 +415,12 @@ units.nameplate1.offline=false
 units.player.dead=true;press(proxy)
 eq(proxy:GetAttribute("type"),nil,"player death is rechecked immediately before a key action")
 eq(Cast.Status(row).reason,"player_dead","status explains player death")
+eq(records[#records-1].data.playerDead,true,"blocked request logs actual player death")
+eq(records[#records-1].data.generatedDeathGuardMatchesState,"not_applicable","blocked request does not claim a prepared internal macro")
+local deadDriverState=modelDriver(drivers[1].condition,units.player.dead,originalTarget.dead,combat)
+if deadDriverState~="idle" then clearOwner(Cast.owner) end
+eq(deadDriverState,"dead","driver recognizes player death even with a live current target")
+eq(overrides["1"],nil,"modeled secure driver clears the temporary key when the player is dead")
 for _,f in ipairs(frames) do if f.events and f.events.PLAYER_DEAD then f.scripts.OnEvent(f,"PLAYER_DEAD") end end
 eq(overrides["1"],nil,"death event immediately returns owned keys outside combat")
 units.player.dead=false
@@ -522,4 +694,21 @@ eq(isolated.NearbyCast.BuildGUIDMacro("Creature-0-1-2-3-4-5","火球术"),nil,"d
 for _,event in ipairs(records) do
     if event.kind=="NAME_BRIDGE_POST" then eq(event.data.recipientProven,false,"all post-click records remain observations") end
 end
-print("Targets authorized name-bridge simulated checks: "..checks.."; no native macro, spell or restoration was executed")
+local maxNameFields=0
+local publicNameFields=true
+for _,event in ipairs(records) do
+    if event.kind=="NAME_BRIDGE_PRE" or event.kind=="NAME_BRIDGE_POST" then
+        local count=1 -- Diagnostics adds professionsGatherMethod after copying.
+        for key,value in pairs(event.data) do
+            count=count+1
+            local kind=type(value)
+            if type(key)~="string" or #key>48 or value==secret
+                or kind~="string" and kind~="boolean" and kind~="number" then publicNameFields=false end
+            if key=="macro" or key=="macrotext" or key=="macroBody" or key=="generatedCommand" then publicNameFields=false end
+        end
+        maxNameFields=math.max(maxNameFields,count)
+    end
+end
+yes(maxNameFields<=64,"all pre/post fields including added diagnostic context fit the logger field budget")
+yes(publicNameFields,"name diagnostics contain public scalars without command text or secret values")
+print("Targets authorized name-bridge simulated checks: "..checks.."; maximum diagnostic fields "..maxNameFields.."; no native macro, spell or restoration was executed")

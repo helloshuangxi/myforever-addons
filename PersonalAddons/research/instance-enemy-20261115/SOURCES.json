@@ -1,0 +1,19 @@
+{
+  "client_build": 70938,
+  "ui_source_commit": "bebcb6bf309cf41b41bd74f8ca651e6a105b2676",
+  "primary_sources": [
+    {
+      "url": "https://github.com/Gethe/wow-ui-source/blob/bebcb6bf309cf41b41bd74f8ca651e6a105b2676/Interface/AddOns/Blizzard_FrameXML/SecureTemplates.lua#L474",
+      "reason": "native target/focus uses Unit aliases; GUID output alone supplies no direct identity action"
+    },
+    {
+      "url": "https://github.com/Gethe/wow-ui-source/blob/bebcb6bf309cf41b41bd74f8ca651e6a105b2676/Interface/AddOns/Blizzard_RestrictedAddOnEnvironment/SecureHandlers.lua#L273-L305",
+      "reason": "restricted OnLeave is gated by motion and prior wrapped-enter state; ordinary shield show cannot prove overrides cleared"
+    },
+    {
+      "url": "https://github.com/Gethe/wow-ui-source/blob/bebcb6bf309cf41b41bd74f8ca651e6a105b2676/Interface/AddOns/Blizzard_RestrictedAddOnEnvironment/RestrictedFrames.lua#L284-L343",
+      "reason": "IsUnderMouse checks geometry and restricted interface exposes no direct focus query"
+    }
+  ],
+  "conclusion": "Only implement visual roster refresh; retain prepared identity/action guards and reserve active protected-hover rows until native owner releases. Source reasoning is not native execution proof."
+}

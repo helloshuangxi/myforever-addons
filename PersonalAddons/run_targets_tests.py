@@ -26,5 +26,8 @@ assert tests, "No Targets tests found"
 for path in tests:
     runtime = LuaRuntime(unpack_returned_tuples=True)
     runtime.globals().print = lambda *args: print(*args, flush=True)
+    # Production loads the shared visual API before every Targets module.
+    if "MyForeverStyle.lua" in entries:
+        runtime.execute((addon / "MyForeverStyle.lua").read_text())
     runtime.execute(path.read_text())
 print("All Targets simulated checks passed. These are not in-game tests.", flush=True)

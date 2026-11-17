@@ -64,6 +64,23 @@ local function dimension(self,horizontal)
 end
 function methods:GetWidth() return dimension(self,true) end
 function methods:GetHeight() return dimension(self,false) end
+-- Resolve relative anchors in screen coordinates, so position regressions can
+-- compare independent edges rather than depending on a particular SetPoint.
+local function coordinate(self,horizontal)
+    local name,p=next(self.points)
+    if not p then return 0 end
+    local relative=p.parent or self.parent
+    local origin=relative and coordinate(relative,horizontal) or 0
+    local relativeSize=relative and (horizontal and relative:GetWidth() or relative:GetHeight()) or 0
+    local size=horizontal and self:GetWidth() or self:GetHeight()
+    return origin+axis(p.relativePoint,horizontal)*relativeSize+(horizontal and p.x or p.y)-axis(name,horizontal)*size
+end
+function methods:GetLeft() return coordinate(self,true) end
+function methods:GetRight() return self:GetLeft()+self:GetWidth() end
+function methods:GetBottom() return coordinate(self,false) end
+function methods:GetTop() return self:GetBottom()+self:GetHeight() end
+function methods:GetCenter() return self:GetLeft()+self:GetWidth()/2,self:GetBottom()+self:GetHeight()/2 end
+function methods:GetEffectiveScale() return 1 end
 function methods:GetFont() return "Font",self.fontSize or 14,"" end
 function methods:GetFrameLevel() return self.frameLevel or 1 end
 function methods:SetFrameLevel(n) self.frameLevel=n end
@@ -168,8 +185,21 @@ assert(loadfile(base.."Main.lua"))("MyForeverChat",NS)
 local eventFrame
 for _,f in ipairs(frames) do if f.events.PLAYER_LOGIN then eventFrame=f end end
 eventFrame.scripts.OnEvent(eventFrame,"ADDON_LOADED","MyForeverChat")
+-- Capture the actual UI callbacks registered for shared-layout nudge/undo.
+-- Only the initial build sees this lightweight bridge; ordinary styling tests
+-- continue without a synthetic style implementation.
+local registeredLayouts={}
+local originalStyle=rawget(_G,"MyForeverStyle")
+_G.MyForeverStyle={RegisterLayout=function(frame,label,opts) registeredLayouts[frame]=opts end}
 eventFrame.scripts.OnEvent(eventFrame,"PLAYER_LOGIN")
+_G.MyForeverStyle=originalStyle
 local ui=NS.ui; local panel=ui.panel
+local function expandReply()
+    local q=ui.quickReply
+    check(q and q:IsShown() and not panel:IsShown(),"a reply opens the compact composer without the history panel")
+    q.expand.scripts.OnClick(q.expand,"LeftButton"); ui.render()
+    check(panel:IsShown() and not q:IsShown(),"explicit expand transfers editing to the history panel")
+end
 local function visibleWidget(f)
     while f do
         if not f:IsShown() then return false end
@@ -211,7 +241,7 @@ local function chat(event,msg,author,lineID,guid,channelIndex,channelBase,bnetID
 end
 chat("CHAT_MSG_WHISPER","你好","苏氏集团-小王",1)
 check(NS.UnreadTotal()==1 and ui.launcher.badge:GetText()=="1","inactive private conversation gains unread badge")
-SlashCmdList.MYFOREVERCHAT("reply"); ui.render()
+SlashCmdList.MYFOREVERCHAT("reply"); ui.render(); expandReply()
 local recipient=NS.GetSelected()
 check(recipient.target=="苏氏集团-小王" and NS.UnreadTotal()==0,"reply recent selects exact full recipient and reads conversation")
 check(#ui.messageRows>=1 and ui.messageRows[1].content:GetText()=="你好","incoming message renders as bubble")
@@ -451,7 +481,7 @@ chat("CHAT_MSG_WHISPER","看这里[微笑]","路过 玩家-家族",2001)
 check(ui.toast:IsShown() and ui.toast.conversationId==discovered.id,"incoming message while minimized shows exact conversation toast")
 check(ui.toast.preview:GetText()=="看这里[微笑]","toast previews incoming message")
 ui.toast.scripts.OnClick(ui.toast,"LeftButton"); ui.render()
-check(panel:IsShown() and NS.GetSelected().id==discovered.id and not ui.toast:IsShown() and discovered.unread==0,"clicking bubble opens correct chat and marks read")
+check(not panel:IsShown() and ui.quickReply:IsShown() and ui.quickReply.conversationId==discovered.id and not ui.toast:IsShown() and discovered.unread==0,"clicking bubble opens compact input at the exact chat and marks read")
 NS.ToggleMute(discovered.id); NS.MinimizeUI()
 chat("CHAT_MSG_WHISPER","不要弹泡泡","路过 玩家-家族",2002)
 check(not ui.toast:IsShown() and discovered.unread==1,"muted new messages preserve unread without popup")
@@ -536,7 +566,8 @@ chat("CHAT_MSG_WHISPER","第二条","陌生 完整名-家族",2022)
 check(ui.toasts[1]:IsShown() and ui.toasts[2]:IsShown(),"multiple new messages have separate visible toasts")
 check(timers[#timers].delay==60,"private toast remains available for sixty seconds")
 ui.toasts[1].scripts.OnClick(ui.toasts[1],"LeftButton"); ui.render()
-check(NS.GetSelected().id==discovered.id and ui.toasts[1]:IsShown() and ui.toasts[1].conversationId==incomingPerson.id,"opening one chat does not dismiss other conversation notification")
+check(ui.quickReply.conversationId==discovered.id and ui.toasts[1]:IsShown() and ui.toasts[1].conversationId==incomingPerson.id,"opening a compact reply does not dismiss another conversation notification")
+expandReply()
 local unreadBeforeClear=NS.UnreadTotal()
 ui.clearToasts.scripts.OnClick(ui.clearToasts)
 check(not ui.toasts[1]:IsShown() and not ui.clearToasts:IsShown() and NS.UnreadTotal()==unreadBeforeClear,"clear all hides notifications without marking messages read")
@@ -643,30 +674,31 @@ chat("CHAT_MSG_WHISPER","较早的泡泡","快捷甲-家族",5001)
 chat("CHAT_MSG_WHISPER","最新的泡泡","快捷乙-家族",5002)
 check(ui.toasts[1]:IsShown() and ui.toasts[2]:IsShown(),"two new conversations have visible shortcut targets")
 NS.QuickReply()
-check(panel:IsShown() and NS.GetSelected().target=="快捷乙-家族" and panel.editor:HasFocus(),"shortcut opens newest visible bubble and focuses composer")
+local shortcutComposer=ui.quickReply
+check(not panel:IsShown() and shortcutComposer:IsShown() and shortcutComposer.conversationId=="whisper:快捷乙-家族" and shortcutComposer.editor:HasFocus(),"shortcut opens newest visible bubble and focuses the compact composer")
 check(ui.toasts[1]:IsShown() and ui.toasts[1].conversationId=="whisper:快捷甲-家族" and not ui.toasts[2]:IsShown(),
     "shortcut dismisses only the opened conversation's bubbles")
-panel.editor:SetText("不要剪切这段草稿"); panel.editor:SetFocus()
-control=true; panel.editor.scripts.OnKeyDown(panel.editor,"X"); control=false
-check(not panel:IsShown() and not panel.editor:HasFocus() and NS.GetSelected().draft=="不要剪切这段草稿",
-    "focused composer Ctrl-X minimizes and preserves the draft")
-check(panel.editor:GetText()=="不要剪切这段草稿","minimize does not alter editor text")
+shortcutComposer.editor:SetText("不要剪切这段草稿"); shortcutComposer.editor:SetFocus()
+control=true; shortcutComposer.editor.scripts.OnKeyDown(shortcutComposer.editor,"X"); NS.RunQuickReplyShortcut(); control=false
+check(not panel:IsShown() and not shortcutComposer:IsShown() and not shortcutComposer.editor:HasFocus()
+    and NS.db.conversations["whisper:快捷乙-家族"].draft=="不要剪切这段草稿",
+    "Ctrl-X through focused field plus same-frame native binding closes once and preserves the draft")
 NS.QuickReply()
-check(NS.GetSelected().target=="快捷甲-家族" and panel:IsShown(),"next shortcut replies to the remaining visible bubble")
+check(shortcutComposer.conversationId=="whisper:快捷甲-家族" and shortcutComposer:IsShown(),"next shortcut replies to the remaining visible bubble")
 NS.MinimizeUI()
 chat("CHAT_MSG_WHISPER","悬停的泡泡","快捷甲-家族",5003)
 chat("CHAT_MSG_WHISPER","更晚的泡泡","快捷乙-家族",5004)
 ui.toasts[1].IsMouseOver=function() return true end
 NS.QuickReply()
-check(NS.GetSelected().target=="快捷甲-家族","hovered older bubble has priority over newest visible bubble")
+check(shortcutComposer.conversationId=="whisper:快捷甲-家族","hovered older bubble has priority over newest visible bubble")
 ui.toasts[1].IsMouseOver=nil
 NS.MinimizeUI(); NS.ClearNotifications(); NS.QuickReply()
-check(NS.GetSelected().target=="快捷乙-家族" and panel.editor:GetText()=="不要剪切这段草稿",
+check(shortcutComposer.conversationId=="whisper:快捷乙-家族" and shortcutComposer.editor:GetText()=="不要剪切这段草稿",
     "no-bubble fallback restores recent private conversation's own draft")
 NS.db.lastWhisperId="whisper:missing"; NS.MinimizeUI(); NS.QuickReply()
-check(panel:IsShown() and NS.GetSelected().target=="快捷乙-家族","missing last private conversation safely reopens current conversation")
+check(shortcutComposer:IsShown() and NS.db.conversations[shortcutComposer.conversationId],"missing last private conversation safely opens an existing target")
 NS.QuickReply()
-check(not panel:IsShown(),"shown window always minimizes even if bubbles remain")
+check(not panel:IsShown() and not shortcutComposer:IsShown(),"shown compact window minimizes even if bubbles remain")
 check(#sent==sentBeforeShortcut,"all shortcut paths open or minimize without sending any chat")
 -- Priority conversations remain discoverable independently of collapsed lists.
 NS.ClearNotifications(); NS.ResetAppearance()
@@ -717,7 +749,7 @@ check(ui.toasts[1].title:GetText():find("[公会]",1,true) and distinct(ui.toast
     and contrast(ui.toasts[1].preview.textColor,ui.toasts[1].color)>=4.5,
     "notification bubbles carry a readable category label and distinct color")
 NS.QuickReply()
-check(NS.GetSelected().id=="guild","quick reply follows newest arrival even when priority puts it at the top")
+check(ui.quickReply.conversationId=="guild","quick reply follows newest arrival even when priority puts it at the top")
 check(#sent==sentBeforeShortcut,"category display and quick reply never send chat on their own")
 -- Sender identity and available profile details belong to each message, not its channel.
 local originalMessageProfile=NS.GetMessageProfile
@@ -737,7 +769,7 @@ for index,case in ipairs({{"guild","CHAT_MSG_GUILD",20},{"group","CHAT_MSG_PARTY
         "notification hover preserves full sender profile and reply/paging/dismiss instructions: "..case[1])
     toast.scripts.OnLeave(toast)
     check(timers[#timers].delay==case[3],"category notification has its requested lifetime: "..case[1])
-    toast.scripts.OnClick(toast,"LeftButton"); ui.render()
+    toast.scripts.OnClick(toast,"LeftButton"); ui.render(); expandReply()
     local row=ui.messageRows[#NS.GetSelected().messages]
     check(row.meta:GetText():find("发言家族 发言名字",1,true) and row.senderDetail:GetText():find("32级 · 法师",1,true),
         "history retains sender and level/class separately from content: "..case[1])
@@ -752,7 +784,7 @@ check(ui.toasts[1].sender:GetText()=="资料未知的玩家" and not GameTooltip
 ui.toasts[1].scripts.OnLeave(ui.toasts[1])
 NS.GetMessageProfile=originalMessageProfile
 -- Paging works with the same clickable bubbles, without restarting active timers.
-NS.ClearNotifications(); NS.MinimizeUI(); UIParent:SetSize(1600,560)
+NS.ClearNotifications(); NS.MinimizeUI(); UIParent:SetSize(1600,460)
 for index=1,6 do chat("CHAT_MSG_WHISPER","分页 "..index,"分页玩家-家族",7200+index) end
 check(ui.toastPrevious:IsShown() and not ui.toastPrevious:IsEnabled() and ui.toastNext:IsEnabled()
     and ui.toastPage:GetText():find("1–3 / 6",1,true),"small screen exposes correct range and paging controls")
@@ -1087,10 +1119,22 @@ do
         ["channel-zone:1"]={kind="channel",target=joined[1][2],channelZoneID=1,
             messages={{id=9900,text="迁移中的发送",author="本人",outgoing=true,time=1}}},
     }})
-    ui.render(); ui.send()
-    check(not panel.send.enabled,"legacy channel send waits for native echo")
+    ui.render(); NS.OpenQuickReply(legacyID)
+    local migrating=ui.quickReply
+    local sendsBeforeMigration=#sent
+    migrating.editor.scripts.OnEnterPressed(migrating.editor)
+    check(not migrating.send.enabled and #sent==sendsBeforeMigration+1 and sent[#sent].target==joined[1][1],
+        "legacy compact channel attempt uses its verified slot and waits for native echo")
     C_ChatInfo.GetChannelInfoFromIdentifier=infoAPI; NS.SyncChannels(); ui.render()
-    check(panel.editor:GetText()=="迁移中的发送" and not panel.send.enabled,"imported matching outgoing history cannot acknowledge a new pending send")
+    check(not migrating:IsShown() and migrating.conversationId=="channel-zone:1"
+        and NS.db.conversations[migrating.conversationId].draft=="迁移中的发送",
+        "certified channel migration closes the old composer and retains its draft on the new identity")
+    migrating.editor.scripts.OnEnterPressed(migrating.editor)
+    check(#sent==sendsBeforeMigration+1,"pending migrated quick reply cannot be sent a second time")
+    NS.OpenQuickReply("channel-zone:1")
+    check(migrating.editor:GetText()=="迁移中的发送" and not migrating.send.enabled,
+        "reopened certified target retains pending state despite imported matching outgoing history")
+    expandReply()
     expire(); ui.render()
     check(NS.GetSelected().id=="channel-zone:1" and panel.editor:GetText()=="迁移中的发送" and panel.send.enabled,
         "pending send timeout follows merged channel identity and retains its draft")
@@ -1230,8 +1274,9 @@ do
     panel.communityCreate.scripts.OnClick(panel.communityCreate)
     check(CommunitiesFrame:IsShown() and not panel:IsShown() and #clubSends==0,
         "create/join exposes native community UI without overlay, sending or silently creating a group")
-    NS.QuickReply(); ui.render()
+    NS.QuickReply(); ui.render(); expandReply()
     check(panel:IsShown(),"quick reply reopens the plugin after native create/join handoff")
+    panel.clubsTab.scripts.OnClick(panel.clubsTab)
     joined=true
     history["10:101"]={raw(1,"已有群历史",false),raw(2,"重复文本",true),raw(3,"未知作者消息",false,true)}
     history["20:202"]={raw(1,"乙群历史",false)}
@@ -1260,7 +1305,7 @@ do
         "native management selects the current community and stream")
     check(not panel:IsShown() and a.draft=="管理前保留的群草稿",
         "native community management removes plugin overlay while preserving the current draft")
-    NS.QuickReply(); ui.render()
+    NS.QuickReply(); ui.render(); expandReply()
     check(panel:IsShown() and NS.GetSelected()==a and panel.editor:GetText()=="管理前保留的群草稿",
         "quick reply returns from native management to the selected group and its unchanged draft")
     InCombatLockdown=function() return true end
@@ -1288,7 +1333,7 @@ do
     inviteAllowed=true; panel.inviteClub.scripts.OnClick(panel.inviteClub)
     check(invitationTarget==a.id and not panel:IsShown() and #clubSends==0 and a.draft=="管理前保留的群草稿",
         "successful invite handoff targets the current group, exposes native UI and preserves unsent text")
-    NS.QuickReply(); ui.render()
+    NS.QuickReply(); ui.render(); expandReply()
     check(panel:IsShown() and NS.GetSelected()==a and panel.editor:GetText()=="管理前保留的群草稿",
         "quick reply returns to the group draft after invitation handoff")
     NS.Communities.OpenInvite=originalInvite
@@ -1366,7 +1411,7 @@ do
     check(GameTooltip:GetText():find("测试乙群 · 战术",1,true),
         "compact community hover retains its full group and stream identity")
     ui.toasts[1].scripts.OnLeave(ui.toasts[1])
-    ui.toasts[1].scripts.OnClick(ui.toasts[1],"LeftButton"); ui.render()
+    ui.toasts[1].scripts.OnClick(ui.toasts[1],"LeftButton"); ui.render(); expandReply()
     check(NS.GetSelected()==b and panel.communityCreate:IsShown(),"group notification opens the matching independent group view")
 
     history["20:202"][4]=raw(4,"|Kw9|k",false)
@@ -1402,7 +1447,7 @@ do
     history["20:202"][5]=raw(5,longHandle,false)
     eventFrame.scripts.OnEvent(eventFrame,"CLUB_MESSAGE_ADDED",20,202,history["20:202"][5].messageId)
     check(ui.toasts[1].preview:GetText()==longHandle,"native notification content remains whole rather than byte/character-truncating its handle")
-    ui.toasts[1].scripts.OnClick(ui.toasts[1],"LeftButton"); ui.render()
+    ui.toasts[1].scripts.OnClick(ui.toasts[1],"LeftButton"); ui.render(); expandReply()
     check(NS.DisplayText("|Kw9|k",false)=="||Kw9||k" and NS.DisplayText("||Kw9||k",false)=="||Kw9||k",
         "ordinary chat sanitizer still escapes arbitrary or literal native-looking handles")
     local saved=NS.db
@@ -1463,6 +1508,24 @@ do
     check(ui.clearToasts.label:GetText()=="清除泡泡 (1)" and ui.toasts[1].conversationId==public.id,
         "reenabled public reminders start with the next new channel message only")
     NS.SetChannelRemindersEnabled(false); NS.ClearNotifications()
+    local q=ui.quickReply
+    NS.OpenQuickReply(b.id)
+    NS.Select(a.id)
+    q.editor:SetText("乙群小窗提交")
+    local nativeBefore=#clubSends
+    local oldPrivileges=C_Club.GetClubPrivileges
+    C_Club.GetClubPrivileges=function() return {canCreateMessage=false} end
+    q.editor.scripts.OnEnterPressed(q.editor)
+    check(#clubSends==nativeBefore and q.editor:GetText()=="乙群小窗提交" and not panel:IsShown(),
+        "quick community submit rechecks native permission while another group is selected, keeping the draft on rejection")
+    C_Club.GetClubPrivileges=oldPrivileges
+    q.editor.scripts.OnEnterPressed(q.editor); q.editor.scripts.OnEnterPressed(q.editor)
+    check(#clubSends==nativeBefore+1 and clubSends[#clubSends].clubId==20 and clubSends[#clubSends].streamId==202
+        and clubSends[#clubSends].text=="乙群小窗提交","quick community repeat Enter submits once only to the bound native stream")
+    check(q.editor:GetText()=="" and q.status:GetText():find("已提交",1,true) and not q.status:GetText():find("已送达",1,true)
+        and b.latestSubmission.text=="乙群小窗提交" and not panel:IsShown(),
+        "community quick reply reports submission only, stores last submitted text and keeps history panel closed")
+    q.close.scripts.OnClick(q.close)
     C_Club,C_SocialRestrictions,CommunitiesFrame,InCombatLockdown=originalClub,originalSocial,originalNative,originalCombat
 end
 -- Compact notifications give the body two full lines while keeping metadata
@@ -1472,7 +1535,7 @@ do
     local originalWidth,originalHeight=UIParent:GetWidth(),UIParent:GetHeight()
     local originalPresence=NS.GetContactPresence
     NS.GetContactPresence=function() return "online" end
-    UIParent:SetSize(1600,620)
+    UIParent:SetSize(1600,540)
     local sendsBefore,timersBefore=#sent,#timers
     for index=1,6 do
         chat("CHAT_MSG_WHISPER",string.rep("两行通知正文",14)..index,"紧凑泡泡测试-家族",14000+index,"Player-Compact")
@@ -1505,20 +1568,20 @@ do
                 local senderRight=toast.sender.points.TOPLEFT.x+toast.sender:GetWidth()
                 local titleLeft=toast:GetWidth()+toast.title.points.TOPRIGHT.x-toast.title:GetWidth()
                 check(senderRight+2<=titleLeft,description..": long sender names stay clear of the right-aligned category")
-                local top=-toast.points.TOPLEFT.y
-                if previousBottom then check(top>=previousBottom+6,description..": stacked bubbles retain a visible gap") end
-                previousBottom=top+toast:GetHeight()
-                check(previousBottom<=UIParent:GetHeight(),description..": visible bubble stays on screen")
+                local top,bottom=toast:GetTop(),toast:GetBottom()
+                if previousBottom then check(previousBottom>=top+6,description..": priority order stays top-to-bottom with a visible stacking gap") end
+                previousBottom=bottom
+                check(toast:GetRight()==UIParent:GetWidth()-24 and toast:GetLeft()>=0 and top<=UIParent:GetHeight() and bottom>=0,
+                    description..": right-side visible bubble stays on screen with its fixed right margin")
             end
         end
     end
     check(visibleCount()==4 and ui.toastPage:GetText():find("1–4 / 6",1,true),
-        "compact default notifications fit four per page on a 620px screen")
-    local bubbleLeft=firstToast.points.TOPLEFT.x
-    local bubbleRight=bubbleLeft+firstToast:GetWidth()
-    local clearLeft=ui.clearToasts.points.BOTTOMLEFT.x
-    local previousLeft=ui.toastPrevious.points.BOTTOMLEFT.x
-    local nextLeft=ui.toastNext.points.BOTTOMLEFT.x
+        "compact default notifications fit four per page on a 540px screen")
+    local bubbleLeft,bubbleRight=firstToast:GetLeft(),firstToast:GetRight()
+    local clearLeft=ui.clearToasts:GetLeft()
+    local previousLeft=ui.toastPrevious:GetLeft()
+    local nextLeft=ui.toastNext:GetLeft()
     check(ui.clearToasts:IsShown() and ui.toastPrevious:IsShown() and ui.toastNext:IsShown()
         and clearLeft>=bubbleLeft and previousLeft>=bubbleLeft and nextLeft>=bubbleLeft
         and clearLeft+ui.clearToasts:GetWidth()<=bubbleRight
@@ -1572,6 +1635,283 @@ do
     check(#sent==sendsBefore,"notification resizing and paging never send chat")
     NS.GetContactPresence=originalPresence
     NS.ClearNotifications(); expire(); NS.ResetAppearance(); UIParent:SetSize(originalWidth,originalHeight)
+end
+
+-- Drive real compact controls and native-event stubs. The history selection
+-- and the active quick-reply recipient must never become interchangeable.
+do
+    NS.ClearNotifications(); expire()
+    NS.InitDB({shown=true}); panel:Show(); ui.render()
+    local q=ui.quickReply
+    local before=#sent
+    local oldPresence,oldNotFound=NS.GetContactPresence,ERR_CHAT_PLAYER_NOT_FOUND_S
+    local presence="offline"
+    NS.GetContactPresence=function() return presence end
+    ERR_CHAT_PLAYER_NOT_FOUND_S="未找到在线角色 %s。"
+    local a=NS.OpenWhisper("小窗甲-一区"); local b=NS.OpenWhisper("小窗乙-二区")
+    ui.render(); panel.editor:SetText("乙的主窗草稿")
+    NS.MinimizeUI()
+    chat("CHAT_MSG_WHISPER","来自甲的预览",a.target,15001)
+    ui.toasts[1].scripts.OnClick(ui.toasts[1],"LeftButton")
+    check(q:IsShown() and not panel:IsShown() and q.editor:HasFocus() and q.conversationId==a.id
+        and q.title:GetText():find(a.target,1,true) and q.preview:GetText():find("来自甲的预览",1,true),
+        "bubble opens focused compact reply with exact target and incoming preview")
+    check(q.status:GetText():find("对方离线",1,true) and not q.send:IsEnabled(),
+        "compact private reply warns about known offline target before typing")
+    chat("CHAT_MSG_WHISPER","甲更新了预览",a.target,15008)
+    check(q.preview:GetText():find("甲更新了预览",1,true) and q.editor:HasFocus() and a.unread==0
+        and not ui.toasts[1]:IsShown(),"fresh incoming from the open compact recipient updates preview without an extra bubble or unread")
+    q.editor:SetText("甲的草稿"); q.editor.scripts.OnEnterPressed(q.editor)
+    check(#sent==before and a.draft=="甲的草稿" and not panel:IsShown(),"offline Enter keeps quick draft without a native attempt")
+    NS.Select(b.id); ui.render()
+    local hiddenBody=panel.editor:GetText()
+    chat("CHAT_MSG_WHISPER","乙也来信",b.target,15002)
+    check(q.conversationId==a.id and q.editor:GetText()=="甲的草稿" and q.editor:HasFocus() and not panel:IsShown()
+        and NS.GetSelected()==b and b.draft=="乙的主窗草稿" and ui.toasts[1]:IsShown() and ui.toasts[1].conversationId==b.id,
+        "incoming B still shows its own bubble without retargeting A or taking the compact editor focus")
+    check(q.preview:GetText():find("甲更新了预览",1,true) and not q.preview:GetText():find("乙也来信",1,true),
+        "compact preview cannot display another recipient's incoming content")
+    q.editor:ClearFocus()
+    check(not NS.InsertNativeItemLink(nativeLink),"unfocused compact reply does not capture native item links")
+    q.editor:SetFocus()
+    check(NS.InsertNativeItemLink(nativeLink) and q.editor:GetText()=="甲的草稿"..nativeLink
+        and a.draft==q.editor:GetText() and b.draft=="乙的主窗草稿" and panel.editor:GetText()==hiddenBody,
+        "focused compact input receives full native link without touching hidden history editor or other draft")
+    q.editor.scripts.OnEscapePressed(q.editor)
+    check(not q:IsShown() and not panel:IsShown() and not q.editor:HasFocus() and #sent==before,
+        "Escape closes compact reply without opening history, sending or deleting draft")
+    NS.OpenQuickReply(b.id)
+    check(q.editor:GetText()=="乙的主窗草稿","explicit quick target switch restores B's own draft")
+    NS.OpenQuickReply(a.id); NS.Select(b.id)
+    check(q.editor:GetText()=="甲的草稿"..nativeLink,"reopening A restores its distinct draft including the item link")
+    presence="unknown"; NS.RefreshUI(); q.editor:SetText("小窗只给甲")
+    check(q.send:IsEnabled() and q.status:GetText():find("在线状态未知",1,true),
+        "compact input explicitly distinguishes unknown presence from known offline")
+    q.editor.scripts.OnEnterPressed(q.editor); q.editor.scripts.OnEnterPressed(q.editor); q.send.scripts.OnClick(q.send)
+    check(#sent==before+1 and sent[#sent].target==a.target and sent[#sent].message=="小窗只给甲" and NS.GetSelected()==b,
+        "Enter plus repeated Enter/click makes one native submission to the fixed quick target even with B selected")
+    check(q.editor:GetText()=="小窗只给甲" and not q.send:IsEnabled() and q.status:GetText():find("正在发送",1,true)
+        and not panel:IsShown(),"pending quick reply keeps original input and never opens the history window")
+    chat("CHAT_MSG_WHISPER_INFORM","小窗只给甲",b.target,15003)
+    check(q.editor:GetText()=="小窗只给甲" and not q.send:IsEnabled(),"B's identical outgoing echo cannot confirm A")
+    expandReply()
+    check(NS.GetSelected()==a and panel.editor:GetText()=="小窗只给甲" and not panel.send:IsEnabled(),
+        "expand carries exact compact target, draft and pending state into main window")
+    panel.editor.scripts.OnEnterPressed(panel.editor)
+    check(#sent==before+1,"switching surfaces cannot resend the same pending draft")
+    NS.OpenQuickReply(a.id)
+    expire()
+    check(q.retry:IsShown() and q.retry.label:GetText()=="允许重试" and q.status:GetText():find("尚未确认送达",1,true)
+        and not q.send:IsEnabled() and q.editor:GetText()=="小窗只给甲",
+        "unconfirmed private reply times out visibly in compact input and requires explicit retry")
+    q.editor.scripts.OnEnterPressed(q.editor)
+    check(#sent==before+1,"timed-out compact Enter cannot blindly resend")
+    q.retry.scripts.OnClick(q.retry)
+    check(q.send:IsEnabled() and q.editor:GetText()=="小窗只给甲" and #sent==before+1,
+        "explicit compact retry acknowledgement restores manual sending without submitting")
+    q.editor.scripts.OnEnterPressed(q.editor)
+    check(#sent==before+2 and sent[#sent].target==a.target,"deliberate Enter after compact retry sends exactly once")
+    eventFrame.scripts.OnEvent(eventFrame,"CHAT_MSG_SYSTEM",string.format(ERR_CHAT_PLAYER_NOT_FOUND_S,a.target))
+    check(q.status:GetText():find("对方不在线或角色名无效",1,true) and not q.send:IsEnabled()
+        and q.editor:GetText()=="小窗只给甲" and not panel:IsShown(),
+        "native offline rejection appears in the active compact input and preserves draft")
+    expandReply()
+    check(panel.editor:GetText()=="小窗只给甲" and not panel.send:IsEnabled() and visibleText("对方不在线或角色名无效"),
+        "the same offline failure follows its recipient when expanding the compact reply")
+    NS.OpenQuickReply(a.id); q.editor:SetText("我后来改写了")
+    chat("CHAT_MSG_WHISPER_INFORM","小窗只给甲",a.target,15004)
+    check(q.editor:GetText()=="我后来改写了" and a.draft=="我后来改写了" and q.send:IsEnabled(),
+        "genuine late compact echo clears failure without consuming newly typed text")
+    q.send.scripts.OnClick(q.send); chat("CHAT_MSG_WHISPER_INFORM","我后来改写了",a.target,15005)
+    check(#sent==before+3 and q.editor:GetText()=="" and a.draft=="" and not panel:IsShown(),
+        "matching echo clears only the original quick draft and leaves history closed")
+    local normalHeight=q:GetHeight()
+    NS.UpdateAppearance({fontSize=22})
+    check(q:IsShown() and q:GetWidth()>=300 and q:GetWidth()<=400 and q:GetHeight()>normalHeight and q:GetHeight()<=180
+        and q.editor.fontSize==22 and q.editor:GetHeight()>=2*22 and q.editorScroll:GetHeight()>=2*22,
+        "large type keeps two readable input lines inside a compact reply")
+    NS.ResetAppearance()
+    check(q:GetHeight()==normalHeight and q.editor.fontSize==14,"restoring appearance updates the already-visible compact input")
+    q.editor:SetText("同文小窗"); q.editor.scripts.OnEnterPressed(q.editor)
+    q.editor:SetText(""); q.editor:SetText("同文小窗")
+    chat("CHAT_MSG_WHISPER_INFORM","同文小窗",a.target,15006)
+    check(q.editor:GetText()=="同文小窗" and a.draft=="同文小窗" and q.send:IsEnabled(),
+        "confirmation of the first attempt cannot erase an identical new compact draft retyped before echo")
+    q.editor:SetText("留给主窗口"); SlashCmdList.MYFOREVERCHAT(""); ui.render()
+    check(panel:IsShown() and not q:IsShown() and panel.editor:GetText()=="留给主窗口",
+        "explicit /wx opens full chat even from compact reply and preserves the draft")
+    panel.editor:SetText("同文主窗"); panel.editor.scripts.OnEnterPressed(panel.editor)
+    panel.editor:SetText(""); panel.editor:SetText("同文主窗")
+    chat("CHAT_MSG_WHISPER_INFORM","同文主窗",a.target,15007); ui.render()
+    check(panel.editor:GetText()=="同文主窗" and a.draft=="同文主窗" and panel.send:IsEnabled(),
+        "main composer also keeps an identical retyped draft on confirmation of a prior revision")
+    panel.editor:SetText("只切窗口不改稿"); panel.editor.scripts.OnEnterPressed(panel.editor)
+    NS.OpenQuickReply(a.id)
+    check(q.editor:GetText()=="只切窗口不改稿" and not q.send:IsEnabled(),
+        "main-to-compact transition exposes the same pending draft, without submitting again")
+    chat("CHAT_MSG_WHISPER_INFORM","只切窗口不改稿",a.target,15009)
+    check(q.editor:GetText()=="" and a.draft=="",
+        "opening the other editor alone is not a new draft revision and cannot prevent normal confirmation")
+    NS.MinimizeUI(); NS.OpenQuickReply(a.id); before=#sent
+    NS.CloseConversation(a.id,true); NS.OpenWhisper(a.target); NS.Select(b.id); NS.RefreshUI()
+    q.editor.scripts.OnEnterPressed(q.editor); q.send.scripts.OnClick(q.send)
+    check(not q:IsShown() and #sent==before and NS.GetSelected()==b,
+        "deleted quick target, including a replacement with the same ID, cannot receive stale send/click actions")
+    NS.GetContactPresence,ERR_CHAT_PLAYER_NOT_FOUND_S=oldPresence,oldNotFound
+end
+
+-- Notification placement is a bottom-right stack, with its controls above
+-- the highest visible bubble. Geometry is checked from resolved screen edges.
+do
+    NS.ClearNotifications(); NS.MinimizeUI(); expire(); NS.InitDB({shown=false}); NS.ResetAppearance()
+    local screenWidth,screenHeight=UIParent:GetWidth(),UIParent:GetHeight()
+    local oldPresence=NS.GetContactPresence
+    NS.GetContactPresence=function() return "online" end
+    local before=#sent
+    for _,height in ipairs({1000,540,300,180}) do
+        for _,fontSize in ipairs({14,22}) do
+            NS.ClearNotifications(); expire(); UIParent:SetSize(500,height); NS.UpdateAppearance({fontSize=fontSize})
+            for index=1,6 do chat("CHAT_MSG_WHISPER","右下位置 "..index,"角落检查-家族",16000+height+fontSize+index) end
+            local count,lastBottom,firstTop=0,nil,nil
+            for _,toast in ipairs(ui.toasts) do
+                if toast:IsShown() then
+                    count=count+1
+                    firstTop=firstTop or toast:GetTop()
+                    check(toast:GetRight()==UIParent:GetWidth()-24 and toast:GetLeft()>=0
+                        and toast:GetBottom()>=0 and toast:GetTop()<=height,
+                        "bottom-right notifications stay entirely on screen for both font sizes and small screens")
+                    if lastBottom then check(lastBottom>=toast:GetTop()+6,"visible array priority remains top-first while the stack grows upward") end
+                    lastBottom=toast:GetBottom()
+                end
+            end
+            check(count>=1 and count<=4,"screen-fit notification capacity remains within the manager's visible limits")
+            check(lastBottom<=120 and (height<300 or lastBottom==120),"lowest bubble uses the 120-unit action-bar margin unless the screen is too short")
+            check(ui.clearToasts:GetBottom()>=firstTop+8 and ui.clearToasts:GetTop()<=height,
+                "clear action stays above the highest bubble without crossing the screen edge")
+            if ui.toastPrevious:IsShown() then
+                check(ui.toastPrevious:GetBottom()==ui.clearToasts:GetBottom()
+                    and ui.toastNext:GetBottom()==ui.clearToasts:GetBottom()
+                    and ui.toastPage:GetBottom()>=ui.clearToasts:GetTop()
+                    and ui.toastPage:GetBottom()+ui.toastPage:GetStringHeight()<=height,
+                    "paging controls and range stay in their own on-screen band above the stack")
+            end
+        end
+    end
+    NS.ClearNotifications(); expire(); UIParent:SetSize(1600,1000); NS.ResetAppearance()
+    chat("CHAT_MSG_WHISPER","先收到的私聊","优先级位置-家族",17901)
+    chat("CHAT_MSG_GUILD","后收到的公会","公会位置成员",17902)
+    check(ui.toasts[1].conversationId=="guild" and ui.toasts[1]:GetBottom()>=ui.toasts[2]:GetTop()+6,
+        "priority guild reminder remains above private reminders after moving the group to bottom-right")
+    check(#sent==before,"notification geometry never initiates a native send")
+    NS.ClearNotifications(); expire(); NS.GetContactPresence=oldPresence; UIParent:SetSize(screenWidth,screenHeight)
+end
+-- A quick reply opens at the live launcher, ignoring an old standalone window
+-- position. Relative geometry may change near edges, but target/draft state must not.
+do
+    NS.ClearNotifications(); NS.MinimizeUI(); expire(); NS.InitDB({shown=false}); NS.ResetAppearance()
+    local screenWidth,screenHeight=UIParent:GetWidth(),UIParent:GetHeight()
+    UIParent:SetSize(1000,700)
+    local q,launcher=ui.quickReply,ui.launcher
+    local oldPresence=NS.GetContactPresence
+    NS.GetContactPresence=function() return "online" end
+    local target=NS.OpenWhisper("图标位置好友-家族")
+    local legacy={point="TOPRIGHT",relativePoint="TOPRIGHT",x=-611,y=-481}
+    local launcherSaved={point="CENTER",relativePoint="CENTER",x=87,y=-54}
+    local mainSaved={point="CENTER",relativePoint="CENTER",x=31,y=-27,width=840,height=560}
+    NS.db.quickReplyWindow=legacy; NS.db.launcher=launcherSaved; NS.db.window=mainSaved
+    local before=#sent
+    local function place(point,x,y,relative,relativePoint)
+        launcher:ClearAllPoints(); launcher:SetPoint(point,relative or UIParent,relativePoint or point,x,y)
+    end
+    local function inside(description)
+        check(q:GetLeft()>=8 and q:GetRight()<=UIParent:GetWidth()-8
+            and q:GetBottom()>=8 and q:GetTop()<=UIParent:GetHeight()-8,
+            description..": compact input is bounded by the screen margins")
+        check(q.conversationId==target.id and q.editor:GetText()==target.draft and not panel:IsShown(),
+            description..": repositioning preserves exact recipient and draft without opening history")
+    end
+    local cases={{"TOPLEFT",10,-10,"left","top"},{"TOPRIGHT",-10,-10,"right","top"},
+        {"BOTTOMLEFT",10,10,"left","bottom"},{"BOTTOMRIGHT",-10,10,"right","bottom"}}
+    for _,case in ipairs(cases) do
+        place(case[1],case[2],case[3]); NS.OpenQuickReply(target.id)
+        q.editor:SetText("位置变化保留的草稿")
+        inside(case[1])
+        if case[4]=="left" then check(q:GetLeft()==launcher:GetRight()+8,"left-side launcher opens the reply toward the right without covering the icon")
+        else check(q:GetRight()==launcher:GetLeft()-8,"right-side launcher opens the reply toward the left without covering the icon") end
+        if case[5]=="top" then check(q:GetTop()==launcher:GetTop(),"upper launcher keeps the reply below its top edge")
+        else check(q:GetBottom()==launcher:GetBottom(),"lower launcher keeps the reply above its bottom edge") end
+        q.close.scripts.OnClick(q.close)
+        check(NS.db.quickReplyWindow==legacy and legacy.x==-611 and legacy.y==-481,
+            "opening and closing at the icon does not overwrite the legacy standalone position")
+    end
+    -- Shared-layout nudges and undo call RegisterLayout.save without a mouse
+    -- drag. Exercise that same callback so later typing cannot snap them back.
+    place("TOPLEFT",40,-200); NS.OpenQuickReply(target.id)
+    local layout=registeredLayouts[q]
+    check(layout and type(layout.save)=="function","quick reply registers a shared-layout save callback")
+    local undo={q:GetPoint()}
+    local originalLeft,originalBottom=q:GetLeft(),q:GetBottom()
+    q:ClearAllPoints(); q:SetPoint(undo[1],undo[2],undo[3],undo[4]+13,undo[5]+7)
+    layout.save(q)
+    local nudgedLeft,nudgedBottom=q:GetLeft(),q:GetBottom()
+    check(nudgedLeft==originalLeft+13 and nudgedBottom==originalBottom+7,
+        "shared-layout save keeps the explicit nudge rather than reanchoring immediately")
+    q.editor:SetText("布局微调后的草稿"); NS.RefreshUI()
+    check(q:GetLeft()==nudgedLeft and q:GetBottom()==nudgedBottom and q.conversationId==target.id
+        and target.draft=="布局微调后的草稿",
+        "typing after shared-layout nudge preserves both the temporary position and target draft")
+    check(NS.db.quickReplyWindow==legacy and legacy.x==-611 and NS.db.launcher==launcherSaved and NS.db.window==mainSaved,
+        "a layout nudge does not write the legacy quick position or move launcher/full-window storage")
+    -- Undo a second nudge back to the first (non-default) position. A snap to
+    -- the icon would therefore fail this check even though it fits on screen.
+    local undoMoved={q:GetPoint()}
+    q:ClearAllPoints(); q:SetPoint(undoMoved[1],undoMoved[2],undoMoved[3],undoMoved[4]+9,undoMoved[5]-4); layout.save(q)
+    q:ClearAllPoints(); q:SetPoint(unpack(undoMoved)); layout.save(q)
+    q.editor:SetText("位置变化保留的草稿"); NS.RefreshUI()
+    check(q:GetLeft()==nudgedLeft and q:GetBottom()==nudgedBottom,
+        "typing after layout undo preserves the restored non-default position instead of snapping to the icon")
+    q.close.scripts.OnClick(q.close)
+    check(NS.db.quickReplyWindow==legacy and legacy.x==-611 and legacy.y==-481,
+        "closing a layout-adjusted reply cannot indirectly overwrite the old standalone position")
+    place("BOTTOMRIGHT",-35,90); NS.OpenQuickReply(target.id)
+    check(q:GetRight()==launcher:GetLeft()-8 and q:GetBottom()==launcher:GetBottom()
+        and q.editor:GetText()=="位置变化保留的草稿",
+        "the next open follows the current icon again after a nudge or undo while retaining the draft")
+    q.close.scripts.OnClick(q.close)
+    place("TOPRIGHT",-2,-2); NS.UpdateAppearance({fontSize=22}); NS.OpenQuickReply(target.id)
+    inside("maximum font at the top-right edge")
+    check(q.editor.fontSize==22 and q:GetHeight()<=152,"launcher placement uses the current large-font reply dimensions")
+    q.close.scripts.OnClick(q.close)
+    NS.ResetAppearance(); place("BOTTOMLEFT",2,2); NS.OpenQuickReply(target.id); inside("bottom-left edge")
+    q.close.scripts.OnClick(q.close)
+    place("TOPLEFT",40,-200); NS.OpenQuickReply(target.id)
+    local dragHandle
+    for _,frame in ipairs(frames) do if frame.parent==q and frame.scripts.OnDragStart then dragHandle=frame; break end end
+    check(dragHandle and dragHandle.scripts.OnDragStop,"quick reply exposes a real drag handle for temporary positioning")
+    dragHandle.scripts.OnDragStart(dragHandle)
+    q:ClearAllPoints(); q:SetPoint("BOTTOMLEFT",UIParent,"BOTTOMLEFT",480,200)
+    dragHandle.scripts.OnDragStop(dragHandle); NS.RefreshUI()
+    check(q:GetLeft()==480 and q:GetBottom()==200,"a user drag stays in place through refresh for the rest of this open reply")
+    q.close.scripts.OnClick(q.close)
+    place("BOTTOMRIGHT",-35,90); NS.OpenQuickReply(target.id)
+    inside("reopened after a temporary drag and launcher move")
+    check(q:GetRight()==launcher:GetLeft()-8 and q:GetBottom()==launcher:GetBottom(),
+        "reopening follows the newly moved icon rather than the prior dragged window")
+    q.close.scripts.OnClick(q.close)
+    -- Frame edge APIs can return nil before layout; the saved anchor describes
+    -- the live launcher even when its old account position no longer matches.
+    place("TOPLEFT",29,-90)
+    for _,name in ipairs({"GetLeft","GetRight","GetBottom","GetTop","GetCenter"}) do launcher[name]=function() return nil end end
+    NS.OpenQuickReply(target.id); inside("launcher before edge APIs are ready")
+    check(q:GetLeft()==coordinate(launcher,true)+launcher:GetWidth()+8 and q:GetTop()==coordinate(launcher,false)+launcher:GetHeight(),
+        "unresolved launcher pixels fall back to its current anchor rather than its stale saved position")
+    for _,name in ipairs({"GetLeft","GetRight","GetBottom","GetTop","GetCenter"}) do launcher[name]=nil end
+    q.close.scripts.OnClick(q.close)
+    check(NS.db.launcher==launcherSaved and launcherSaved.x==87 and launcherSaved.y==-54
+        and NS.db.window==mainSaved and mainSaved.x==31 and mainSaved.y==-27,
+        "quick positioning never changes the launcher's stored location or the full chat window position")
+    check(#sent==before and target.draft=="位置变化保留的草稿","placement, closing and reopening never send or discard the draft")
+    NS.MinimizeUI(); NS.GetContactPresence=oldPresence; UIParent:SetSize(screenWidth,screenHeight)
 end
 
 print("chat_ui_test: "..checks.." checks passed")

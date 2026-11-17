@@ -1,4 +1,15 @@
 local _, NS = ...
+-- Shared layout hooks (grid while dragging, snap on release, /myui tags).
+local function mfLayout(name, ...)
+    local S = rawget(_G, "MyForeverStyle")
+    local fn = type(S) == "table" and rawget(S, name)
+    if type(fn) == "function" then
+        local ok, result = pcall(fn, ...)
+        return ok and result or nil
+    end
+end
+local Style = MyForeverStyle
+local function C(name,alpha) return Style.Color(name,alpha) end
 
 local WHITE="Interface\\Buttons\\WHITE8X8"
 local BACKDROP={bgFile=WHITE,edgeFile="Interface\\Tooltips\\UI-Tooltip-Border",edgeSize=10,
@@ -15,7 +26,7 @@ end
 local function label(parent,size)
     local text=parent:CreateFontString(nil,"OVERLAY","GameFontNormalSmall")
     if text.SetFont and STANDARD_TEXT_FONT then text:SetFont(STANDARD_TEXT_FONT,size or 11,"") end
-    text:SetTextColor(.92,.88,.75)
+    text:SetTextColor(C("text"))
     return text
 end
 
@@ -58,12 +69,12 @@ local function menuButton(menu,key,y,action)
     button:SetSize(MENU_WIDTH-12,22)
     button:SetPoint("TOPLEFT",6,-y)
     button:SetBackdrop(BACKDROP)
-    button:SetBackdropColor(.08,.10,.13,1)
-    button:SetBackdropBorderColor(.23,.28,.34,1)
+    button:SetBackdropColor(C("surface"))
+    button:SetBackdropBorderColor(C("line"))
     button.label=label(button,11)
     button.label:SetPoint("CENTER")
-    button:SetScript("OnEnter",function(self) self:SetBackdropBorderColor(.85,.72,.38,1) end)
-    button:SetScript("OnLeave",function(self) self:SetBackdropBorderColor(.23,.28,.34,1) end)
+    button:SetScript("OnEnter",function(self) self:SetBackdropBorderColor(C("accent")) end)
+    button:SetScript("OnLeave",function(self) self:SetBackdropBorderColor(C("line")) end)
     button:SetScript("OnClick",function()
         action()
         NS.RefreshLauncher()
@@ -124,8 +135,8 @@ function NS.CreateLauncher()
     menu:SetClampedToScreen(true)
     menu:EnableMouse(true)
     menu:SetBackdrop(BACKDROP)
-    menu:SetBackdropColor(.035,.045,.065,.98)
-    menu:SetBackdropBorderColor(.65,.55,.31,1)
+    menu:SetBackdropColor(C("outer",.98))
+    menu:SetBackdropBorderColor(C("line"))
     menu.buttons={}
     menu.title=label(menu,11)
     menu.title:SetPoint("TOPLEFT",9,-8)
@@ -144,6 +155,15 @@ function NS.CreateLauncher()
     menu:Hide()
     icon.menu=menu
     NS.Launcher=icon
+    mfLayout("RegisterLayout",icon,"目标选择 · 图标",{
+        save=function(frame)
+            local point,_,relativePoint,x,y=frame:GetPoint()
+            if type(point)=="string" and type(relativePoint)=="string" and NS.Number(x) and NS.Number(y) then
+                NS.DB.launcherPosition={point=point,relativePoint=relativePoint,x=x,y=y,manual=true}
+            end
+        end,
+        reset=function() NS.ResetLauncherPosition() end,
+    })
     icon:SetScript("OnEnter",function(self)
         self:SetAlpha(.82)
         if self.dragging or not GameTooltip then return end
@@ -169,11 +189,13 @@ function NS.CreateLauncher()
         menu:Hide();hideTip()
         self.dragging=true
         self:StartMoving()
+        mfLayout("BeginDrag",self)
     end)
     icon:SetScript("OnDragStop",function(self)
         if not self.dragging then return end
         self:StopMovingOrSizing()
         self.dragging=false
+        if not NS.InCombat() then mfLayout("SnapToGrid",self) end
         local point,relativeTo,relativePoint,x,y=self:GetPoint()
         if (relativeTo==nil or relativeTo==UIParent) and type(point)=="string" and type(relativePoint)=="string"
             and NS.Number(x) and NS.Number(y) then

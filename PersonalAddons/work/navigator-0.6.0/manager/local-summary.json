@@ -1,0 +1,39 @@
+{
+  "time": "2026-11-17T02:52:57.925950+00:00",
+  "mode": "local",
+  "manager_version": "0.5.0",
+  "manager_source_hashes_matched": 13,
+  "navigator_version": "0.6.0",
+  "navigator_bytes": 624540,
+  "navigator_sha256": "5659350990cca7e475b42c83237f05eb2cf54ab9f800f66dff5df89ddbe3a84f",
+  "results": [
+    {
+      "group": "directed",
+      "passed": 20,
+      "failed": 0,
+      "command": [
+        "/Users/mashuangxi/.cache/afabiaoge-dotnet/dotnet",
+        "/private/tmp/navigator06-manager050-g5jp1muo/Directed/bin/Release/net10.0/Directed.dll",
+        "/Users/mashuangxi/World of Warcraft/PersonalAddons/work/navigator-0.6.0-site/public"
+      ]
+    },
+    {
+      "group": "official",
+      "passed": 68,
+      "failed": 0,
+      "command": [
+        "/Users/mashuangxi/.cache/afabiaoge-dotnet/dotnet",
+        "/private/tmp/navigator06-manager050-g5jp1muo/Tests/bin/Release/net10.0/MyForeverManager.Tests.dll",
+        "--site-root",
+        "/Users/mashuangxi/World of Warcraft/PersonalAddons/work/navigator-0.6.0-site/public",
+        "--navigator-zip",
+        "/Users/mashuangxi/World of Warcraft/PersonalAddons/work/navigator-0.6.0-site/public/downloads/MyForeverNavigator-0.6.0-Trial.zip",
+        "--targets-zip",
+        "/Users/mashuangxi/World of Warcraft/PersonalAddons/work/navigator-0.6.0-site/public/downloads/MyForeverTargets-0.2.2-Trial.zip"
+      ]
+    }
+  ],
+  "real_game_modified": false,
+  "real_manager_settings_accessed": false,
+  "desktop_binary_or_ui_exercised": false
+}

@@ -1,0 +1,18 @@
+世界向导 · 网页问路数据和运行组件
+
+地点名称与地图名称来自 MyForeverNavigator 随包发布的精选 Data.lua（427 个 NPC 名称，45 个地图名）。另读取插件 RouteData.lua 的 36 个交通站点与路口名称。生成入口为 PersonalAddons/tools/build_navigator_planner_catalog.py。原始精选数据来源为 pfQuest 104f35678ca39ab1fb78b655f815cc7016f5e0c8。MIT 许可见 vendor/pfQuest-LICENSE.txt。
+https://github.com/shagu/pfQuest/tree/104f35678ca39ab1fb78b655f815cc7016f5e0c8
+
+浏览器推理使用 Apache-2.0 许可的 MLC WebLLM 0.2.80。运行库原样取自注册表发行档下的 package/lib/index.js。Apache 许可收于 vendor/WebLLM-LICENSE.txt。
+https://github.com/mlc-ai/web-llm
+https://registry.npmjs.org/@mlc-ai/web-llm/-/web-llm-0.2.80.tgz
+npm archive integrity: sha512-Hwy1OCsK5cOU4nKr2wIJ2qA1g595PENtO5f2d9Wd/GgFsj5X04uxfaaJfqED8eFAJOpQpn/DirogdEY/yp5jQg==
+vendor/web-llm-0.2.80.js sha256: ef77cc550c47c441f0243d7d173864548164814a9565c1a9a0b8b57f82167199
+
+模型 WASM 由 MLC 官方提供，随站点固定版本提供。来源和校验值如下。
+https://raw.githubusercontent.com/mlc-ai/binary-mlc-llm-libs/5b7251f3bdce957be2a7bf73a6f6c560d9874df4/web-llm-models/v0_2_80/Qwen2-0.5B-Instruct-q4f32_1-ctx4k_cs1k-webgpu.wasm
+vendor/qwen2-0.5b-q4f32.wasm sha256: e9e8485cdb34adba3afa3b01ea31d323a96fc95e2cf04535f5f5841336efbe94
+
+模型权重为 Qwen2.5 0.5B Instruct（MLC 量化），由浏览器从固定的 Hugging Face 版本下载。模型只在本机 WebGPU 上运行。
+https://huggingface.co/mlc-ai/Qwen2.5-0.5B-Instruct-q4f32_1-MLC/tree/8e6ec5f417c7d0e1414703ef619b8a24686e3ab0
+https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct

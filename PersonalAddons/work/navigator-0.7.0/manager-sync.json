@@ -1,0 +1,22 @@
+{
+  "status": "synced",
+  "version": "0.6.0",
+  "changed_files": [
+    "manager/downloads/MyForeverManager-0.6.0-Trial-osx-arm64.dmg",
+    "manager/downloads/MyForeverManager-0.6.0-Trial-osx-arm64.dmg.sha256",
+    "manager/updates/osx-arm64/MyForeverManagerApp-0.6.0-osx-arm64-full.nupkg",
+    "manager/updates/osx-arm64/releases.osx-arm64.json",
+    "manager/downloads/MyForeverManager-0.6.0-Trial-win-x64-Setup.exe",
+    "manager/downloads/MyForeverManager-0.6.0-Trial-win-x64-Setup.exe.sha256",
+    "manager/updates/win-x64/MyForeverManagerApp-0.6.0-win-x64-full.nupkg",
+    "manager/updates/win-x64/releases.win-x64.json",
+    "manager/downloads/MyForeverManager-0.6.0-Trial-osx-x64.dmg",
+    "manager/downloads/MyForeverManager-0.6.0-Trial-osx-x64.dmg.sha256",
+    "manager/updates/osx-x64/MyForeverManagerApp-0.6.0-osx-x64-full.nupkg",
+    "manager/updates/osx-x64/releases.osx-x64.json",
+    "manager/latest.json",
+    "manager/releases.json",
+    "manager/index.html",
+    "sitemap.xml"
+  ]
+}

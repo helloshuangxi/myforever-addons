@@ -135,11 +135,11 @@ local function zoneFor(point)
     local name = clean(tableValue(map) and map.name or point.zone, 90)
     return name ~= "" and name or ("地图 " .. point.mapID)
 end
-local function addReferenceTargets(state, references, rows, context)
+local function addReferenceTargets(state, references, rows, context, includeCompleted)
     local progress = state.ready and {} or progressFor(references, rows)
     for index, reference in ipairs(references) do
         local status = progress[index]
-        if state.ready or not status or not status.finished then
+        if includeCompleted or state.ready or not status or not status.finished then
             local groups = {}
             for _, point in ipairs(tableValue(reference.points) and reference.points or {}) do
                 if tableValue(point) and NS.ValidPoint(point) then
@@ -177,11 +177,75 @@ local function addReferenceTargets(state, references, rows, context)
                     target.note = target.note .. "未能与当前目标文字核对进度，请确认任务要求后再选择。"
                     state.hasUncertain = true
                 end
+                if includeCompleted then
+                    target.refKey = state.ready and "turnin" or reference.kind .. ":" .. tostring(reference.id or index)
+                    target.referenceName = clean(reference.name,120)
+                    target.sourceFaction = point.faction
+                    target.objectiveFinished = status and status.finished or false
+                end
                 target.service = state.ready and "任务交付" or (kind == "item" and "任务物品来源" or "任务目标")
                 state.targets[#state.targets+1] = target
             end
         end
     end
+end
+
+-- A desktop model can order these semantic objectives, while local game
+-- state supplies all coordinates and determines when work is complete.
+function NS.BuildClientQuestFacts(id)
+    if not validID(id) then return end
+    local title, rows, reference = titleFor(id), objectiveRows(id), NS.Call(NS.GetQuestReference,id)
+    local facts = {title=title, rows=rows, groups={}, byRef={}, byID={}, ready=readyForTurnIn(id),
+        onQuest=truth(NS.Call(C_QuestLog and C_QuestLog.IsOnQuest,id))
+            or validID(NS.Call(C_QuestLog and C_QuestLog.GetLogIndexForQuestID,id)),
+        handedIn=truth(NS.Call((C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted) or IsQuestFlaggedCompleted,id))}
+    if title=="任务 "..id and reference then facts.title=reference.name end
+    local raw={questID=id,targets={},ready=false}
+    local context=NS.Call(NS.GetLocationContext)
+    if reference then
+        addReferenceTargets(raw,reference.objectives or {},rows,context,true)
+        raw.ready=true
+        addReferenceTargets(raw,reference.turnin or {},{},context,true)
+    end
+    local faction=NS.Call(UnitFactionGroup,"player")
+    local function insert(p,ref,name,kind,done)
+        local group=facts.byRef[ref]
+        if not group then
+            group={ref=ref, name=name, kind=kind, detail=p.objectiveText or name, done=done, points={}}
+            facts.byRef[ref]=group
+            facts.groups[#facts.groups+1]=group
+        end
+        p.id=p.id:gsub("^quest:","askq:")
+        p.bridgeQuest=true
+        p.transient=true
+        p.refKey=ref
+        facts.byID[p.id]=p
+        group.points[#group.points+1]=p
+    end
+    local usable=0
+    for _,p in ipairs(raw.targets) do
+        local delivery=p.questPhase=="turnin"
+        if not delivery or not faction or not p.sourceFaction or p.sourceFaction=="Neutral" or p.sourceFaction==faction then
+            insert(p,p.refKey,p.referenceName,delivery and "turnin" or "objective",
+                not delivery and (facts.ready or p.objectiveFinished) or facts.handedIn and not facts.onQuest)
+            if p.questPhase==(facts.ready and "turnin" or "objective") and not p.objectiveFinished then usable=usable+1 end
+        end
+    end
+    if usable==0 and facts.onQuest then
+        local p=nativePoint(id)
+        if p then
+            local phase=facts.ready and "turnin" or "objective"
+            local ref=facts.ready and "turnin" or "native"
+            p.id="quest:"..id..":native:"..phase
+            p.questID,p.questPhase,p.nativeQuestTracking=id,phase,true
+            p.name=facts.ready and "客户端交付地点" or "客户端任务下一站"
+            p.zone,p.category,p.faction=zoneFor(p),"quest","Neutral"
+            p.objectiveText=facts.title
+            for _,row in ipairs(rows) do if not row.finished then p.objectiveText=row.text;break end end
+            insert(p,ref,p.name,facts.ready and "turnin" or "native",false)
+        end
+    end
+    return facts
 end
 
 function NS.BuildQuestNavigation(questID)
@@ -257,7 +321,12 @@ function NS.OpenQuestNavigation(questID)
     return false, state.message
 end
 function NS.RefreshQuestSession()
+    if NS.InvalidateClientQuestFacts then NS.InvalidateClientQuestFacts(true) end
     local point = NS.DB and NS.GetPoint(NS.DB.activeID)
+    if point and point.bridgeQuest then
+        NS.Call(NS.UpdateRouteProgress)
+        return
+    end
     if not point or not validID(point.questID) then return end
     if falsehood(NS.Call(C_QuestLog and C_QuestLog.IsOnQuest, point.questID)) then
         NS.Stop();NS.Call(NS.RefreshHUD);NS.Call(NS.RefreshUI)

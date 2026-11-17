@@ -1,0 +1,85 @@
+{
+  "navigator": "0.7.0",
+  "manager": "0.6.0",
+  "versions_channel": "trial",
+  "installer_source": "567895f5a4757ef6b1deb167263cb8746b7ad5a6",
+  "addon_source": "3ac5785aab6381ac74ceb0954d7d0cf29c45b7ee",
+  "local_install": {
+    "files_matching_installed_addon": 24,
+    "sha256": "313c864d40de97ae6a6264303a8626939f712f44e995b32b590caf8c7f972531",
+    "published_version": "0.7.0",
+    "gameplay_tested": false,
+    "installed_manager": "0.6.0"
+  },
+  "production": {
+    "release": "20261117T034754Z",
+    "matched_files": 180,
+    "unchanged_old_immutable": 54,
+    "verified_public_releases": {
+      "navigator": "0.7.0",
+      "manager": "0.6.0"
+    }
+  },
+  "real_model_e2e": {
+    "model": "navigator-test",
+    "native_manager_bridge": true,
+    "in_game": false,
+    "cases": [
+      {
+        "question": "林中的群狼这个任务怎么做",
+        "model_steps": [
+          "item:750",
+          "turnin"
+        ],
+        "navigation": [
+          "收集任务物品 · 硬狼肉：0/8 · 前往1429 · 硬狼肉 · 幼狼",
+          "向伊根·派特斯金纳交付任务 · 前往1429 · 伊根·派特斯金纳"
+        ],
+        "active": true,
+        "confirmed_query_reused": true
+      },
+      {
+        "question": "我要去铁炉堡",
+        "model_steps": [
+          "铁炉堡"
+        ],
+        "navigation": [
+          "前往艾尔文森林 · 暴风城城门外",
+          "通过入口，前往暴风城 · 暴风城城门内",
+          "前往暴风城 · 矮人区地铁入口",
+          "乘地铁到铁炉堡 · 地铁镇地铁入口",
+          "前往铁炉堡。 · 前往铁炉堡 · 铁炉堡城门内"
+        ],
+        "active": true,
+        "confirmed_query_reused": true
+      }
+    ]
+  },
+  "desktop_native_transport_regressions": 30,
+  "desktop_file_bridge_regressions": 20,
+  "combined_game_suite": [
+    "Lua 5.1 syntax: 20 files passed",
+    "Navigator catalogue: 427 NPC points, 45 maps; categories, coordinates, identities and search passed",
+    "Navigator trainers: nine classes, exact counts, faction coverage and bilingual search passed",
+    "Navigator classification: 427 source records, stable groups, composite purposes and immutable counts passed",
+    "Navigator Questie roles: class/profession/pet separation, merchants, services, quest contacts and hostility passed",
+    "Navigator client question bridge and quest itinerary: 76 checks passed",
+    "Navigator core: search, factions, favorites, custom locations, invalid data and saved state passed",
+    "Fuzzy query and learned route checks: 374",
+    "Navigator startup: event lifecycle, slash search, coordinate navigation, save and stop passed",
+    "navigator_navigation_test: 249 checks passed",
+    "Navigator profession trainers: 319 behavioral checks passed (simulated client, not in-game tests)",
+    "Navigator provider: optional data, phases, map matching, immutable fallback passed",
+    "Navigator quest data: 3817 quests; all bounds, source ownership, representative goals and isolated copies passed (831039 returned points checked)",
+    "Navigator quest navigation: 7083 checks passed (simulated)",
+    "Navigator quest UI: 263 behavior checks passed (simulated)",
+    "Navigator Questie catalogue: 328 checks passed (simulated provider, not in-game tests)",
+    "Navigator Questie integration: 44 behavioral checks passed (simulated client, not in-game tests)",
+    "Navigator routes: 141 checks passed",
+    "Navigator UI: 673 behavior checks passed (simulated)",
+    "All Navigator simulated checks passed. These are not in-game tests."
+  ],
+  "manager_live_game_fixture_tests": "RESULT: 74 passed, 0 failed",
+  "in_game_playthrough": false,
+  "verified_http_resources": 177
+}

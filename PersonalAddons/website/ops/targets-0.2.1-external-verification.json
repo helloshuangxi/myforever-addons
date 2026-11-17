@@ -1,0 +1,77 @@
+{
+  "status": "passed",
+  "vantage": "local Mac public HTTPS",
+  "checked_at": "2026-11-15T09:48:30.344924+00:00",
+  "files": [
+    {
+      "path": "/",
+      "status": 200,
+      "bytes": 11780,
+      "sha256": "52ef85644a14bd0168bf8ee84edd19242715d7793a5dc68341a7994b3b41ed06",
+      "cache_control": "no-cache"
+    },
+    {
+      "path": "/targets/",
+      "status": 200,
+      "bytes": 21753,
+      "sha256": "37d92c5cb94454d29fce26ce1bf31d9a60aaa804f7eaefe02eab422da6b64c2e",
+      "cache_control": "no-cache"
+    },
+    {
+      "path": "/targets/latest.json",
+      "status": 200,
+      "bytes": 3212,
+      "sha256": "7fe0135c00643084f4368ae6bf6b3d08b8b1ea54634e824bb3bc050fc78b7690",
+      "cache_control": "no-cache"
+    },
+    {
+      "path": "/targets/releases.json",
+      "status": 200,
+      "bytes": 13103,
+      "sha256": "5038161b17481c59c69ec373ed04b0a2de2b56b2dc71a9edcad613e9e0475133",
+      "cache_control": "no-cache"
+    },
+    {
+      "path": "/downloads/MyForeverTargets-0.2.1-Trial.zip",
+      "status": 200,
+      "bytes": 215547,
+      "sha256": "a86a002c87ffbf0a5dae0c096364be5522da6f5714ef542bff58d40a4c7db390",
+      "cache_control": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "/downloads/MyForeverTargets-0.2.1-Trial.zip.sha256",
+      "status": 200,
+      "bytes": 99,
+      "sha256": "4b1672b06a384eb7b52f958d9d30b5978d8314e81a7673eb05176dbf4241fa8e",
+      "cache_control": null
+    },
+    {
+      "path": "/latest.json",
+      "status": 200,
+      "bytes": 1850,
+      "sha256": "cf0a3f13bf7079781d4e1e01e0cb480d22fc5a811d6f15736e7ed40d0f79d5c3",
+      "cache_control": "no-cache"
+    },
+    {
+      "path": "/professions/latest.json",
+      "status": 200,
+      "bytes": 1990,
+      "sha256": "4c90d6cf3c8d23fb228641812a31579cb4c56357ccb10dd29fb84c19766aec43",
+      "cache_control": "no-cache"
+    },
+    {
+      "path": "/navigator/latest.json",
+      "status": 200,
+      "bytes": 1901,
+      "sha256": "d21cdfbfab0c2fb4c916db6c0f7e1b0863ac447fb16ac35bb58c34f10897ef63",
+      "cache_control": "no-cache"
+    },
+    {
+      "path": "/manager/latest.json",
+      "status": 200,
+      "bytes": 4797,
+      "sha256": "da1caf38a675dd1320c666bccabc87d80ee39a5d9d143230a25f31b7b2819d8b",
+      "cache_control": "no-cache"
+    }
+  ]
+}

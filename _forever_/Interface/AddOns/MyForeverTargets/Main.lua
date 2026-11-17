@@ -25,6 +25,13 @@ local function sameBinding(previous,tokens,side,limit,mode)
 end
 
 local function holdHoveredSide(previous,side,limit,mode)
+    local actions=NS.InstanceActions
+    if side=="enemy" and previous and previous.limit==limit and previous.mode==mode
+        and actions and type(actions.Enabled)=="function" and NS.Read(actions.Enabled)==true then
+        -- The opt-in layer owns fixed native addresses. Do not prepare an
+        -- unrelated production action beneath it while the roster changes.
+        return true
+    end
     local scaleProbe=NS.NativeScaleProbe
     local scaleStatus=scaleProbe and type(scaleProbe.Status)=="function" and NS.Read(scaleProbe.Status)
     if side=="enemy" and previous and previous.limit==limit and previous.mode==mode
@@ -37,14 +44,92 @@ local function holdHoveredSide(previous,side,limit,mode)
     return current~=nil and current.guid==row.expectedGUID
 end
 
+local function enemyDiagnosticsEnabled()
+    local d=NS.Diagnostics
+    return d and type(d.Enabled)=="function" and NS.Read(d.Enabled)==true
+        and type(d.EnemyRosterSnapshot)=="function"
+end
+
+local function restrictedEnemyTokens()
+    if not worldActive or type(NS.RestrictedEnemyTokens)~="function" then return {} end
+    local tokens=NS.Read(NS.RestrictedEnemyTokens)
+    return NS.Public(tokens) and type(tokens)=="table" and tokens or {}
+end
+
+local function recordEnemyRoster(summary,combat,restrictedTokens)
+    if not summary or not enemyDiagnosticsEnabled() then return end
+    -- Observation errors must not affect the display or any prepared action.
+    pcall(function()
+        local section=NS.UI and NS.UI.enemy
+        local limit=section and section.limit or NS.DB.enemyLimit
+        summary.limit=limit
+        summary.rosterMode=combat and "combat_display" or "bound"
+        summary.displayed,summary.actionable=0,0
+        for i,row in ipairs(section and section.tiles or {}) do
+            if i>limit or i>20 then break end
+            local data=row.data
+            if NS.Public(data) and type(data)=="table" and NS.Public(data.guid)
+                and type(data.guid)=="string" and data.guid~="" then
+                summary.displayed=summary.displayed+1
+                local identityReady=data.guid==row.expectedGUID
+                    and NS.Read(UnitGUID,row.unit)==row.expectedGUID
+                    and (not combat or row.displayActionReady==true)
+                local shield=row.shield
+                if identityReady and shield and NS.Read(shield.IsShown,shield)==false then
+                    summary.actionable=summary.actionable+1
+                end
+            end
+        end
+        -- RefreshTiles owns the actual rendered/shielded counts. Do not turn
+        -- discovered tokens into a claim that a visible cell was produced.
+        local displayed=section and section.validCount
+        local actionable=section and section.actionableCount
+        if NS.Number(displayed) and displayed>=0 and displayed<=limit and displayed%1==0 then
+            summary.displayed=displayed
+        end
+        if NS.Number(actionable) and actionable>=0 and actionable<=summary.displayed and actionable%1==0 then
+            summary.actionable=actionable
+        end
+        summary.restrictedTokens=type(restrictedTokens)=="table" and #restrictedTokens or 0
+        local restricted=section and section.restrictedCount
+        local nameErrors=section and section.nameRenderErrors
+        summary.restrictedDisplayed=NS.Number(restricted) and restricted>=0 and restricted<=summary.displayed
+            and restricted%1==0 and restricted or 0
+        summary.nameRenderErrors=NS.Number(nameErrors) and nameErrors>=0 and nameErrors<=limit
+            and nameErrors%1==0 and nameErrors or 0
+        NS.Diagnostics.EnemyRosterSnapshot(summary)
+    end)
+end
+
 function NS.RequestRefresh()
     dirty=true
-    if not ready or NS.InCombat() then return end
+    if not ready then return end
+    local combat=NS.InCombat()
+    local diagnostics=enemyDiagnosticsEnabled()
+    if combat then
+        -- Discover fresh enemies during a pull without rewriting any secure
+        -- unit, GUID, action or layout. New identities are display-only until
+        -- the existing out-of-combat binding pass can prepare their actions.
+        local tokens,total,summary=NS.Collect("enemy","enemy",20,diagnostics)
+        NS.Totals.enemy=total
+        local restricted=restrictedEnemyTokens()
+        NS.Totals.enemyRestricted=#restricted
+        local section=NS.UI and NS.UI.enemy
+        if section and NS.EnemyDisplay then
+            NS.EnemyDisplay.Update(tokens,section.limit,section.tiles,restricted)
+        end
+        if NS.RefreshTiles then NS.RefreshTiles() end
+        recordEnemyRoster(summary,true,restricted)
+        return
+    end
+    if NS.EnemyDisplay then NS.EnemyDisplay.Reset() end
     local friendlyLimit=NS.DB.friendlyTab=="raid" and 20 or NS.DB.friendlyTab=="party" and 5 or NS.DB.nearbyLimit
+    local enemySummary,enemyTokens
     for _,side in ipairs({"friendly","enemy"}) do
         local limit=side=="friendly" and friendlyLimit or NS.DB.enemyLimit
         local mode=side=="friendly" and NS.DB.friendlyTab or "enemy"
-        local tokens,total=NS.Collect(side,mode,limit)
+        local tokens,total,summary=NS.Collect(side,mode,limit,side=="enemy" and diagnostics)
+        if side=="enemy" then enemySummary,enemyTokens=summary,tokens end
         NS.Totals[side]=total
         if not sameBinding(NS.Bindings[side],tokens,side,limit,mode) and not holdHoveredSide(NS.Bindings[side],side,limit,mode) then
             -- A live native hit area must be released before reusing its cell.
@@ -58,7 +143,16 @@ function NS.RequestRefresh()
         end
     end
     if NS.RefreshControls then NS.RefreshControls() end
+    -- Anonymous native display addresses never enter BindTiles or the prepared
+    -- action roster. Outside combat they only fill remaining visual cells.
+    local restricted=restrictedEnemyTokens()
+    NS.Totals.enemyRestricted=#restricted
+    local enemySection=NS.UI and NS.UI.enemy
+    if #restricted>0 and enemySection and NS.EnemyDisplay then
+        NS.EnemyDisplay.Update(enemyTokens or {},enemySection.limit,enemySection.tiles,restricted)
+    end
     if NS.RefreshTiles then NS.RefreshTiles() end
+    recordEnemyRoster(enemySummary,false,restricted)
     dirty=false
 end
 
@@ -136,13 +230,16 @@ function NS.ApplySetting(key,value)
     elseif key=="shown" or key=="friendlyShown" or key=="enemyShown"
         or key=="locked" or key=="legacyNameBridgeEnabled" then value=value==true
     else return false end
+    if not NS.InCombat() and NS.InstanceActions and NS.Read(NS.InstanceActions.Enabled)==true then
+        NS.InstanceActions.Off()
+    end
     if NS.InCombat() then
         NS.PendingSettings=NS.PendingSettings or {}
         if key=="shown" then
             NS.PendingSettings.friendlyShown,NS.PendingSettings.enemyShown=value,value
         else NS.PendingSettings[key]=value end
         if NS.RefreshLauncher then NS.RefreshLauncher() end
-        NS.Print("已记住设置，脱战后应用；战斗中名单与位置保持固定。")
+        NS.Notify("已记住设置，脱战后应用；战斗中名单与位置保持固定。","已记住，脱战后应用","pending")
         return false
     end
     if not releaseNativeHit() then
@@ -260,6 +357,16 @@ end
 function NS.HandleCommand(message)
     local command,argument=NS.Text(message):match("^%s*(%S*)%s*(.-)%s*$")
     command=command:lower()
+    if command=="unitmatch" then
+        if NS.UnitMatchProbe and type(NS.UnitMatchProbe.Command)=="function" then NS.UnitMatchProbe.Command(argument)
+        else NS.Print("单位匹配测试未加载，请 /reload。");end
+        return
+    end
+    if command=="instanceactions" then
+        if NS.InstanceActions and type(NS.InstanceActions.Command)=="function" then NS.InstanceActions.Command(argument)
+        else NS.Print("原生操作试验未加载，请 /reload。");end
+        return
+    end
     if command=="platescale" then
         if NS.NativeScaleProbe and type(NS.NativeScaleProbe.Command)=="function" then NS.NativeScaleProbe.Command(argument)
         else NS.Print("缩放诊断模块未加载，请 /reload 后重试。") end
@@ -285,7 +392,17 @@ function NS.HandleCommand(message)
             NS.ApplySetting("legacyNameBridgeEnabled",argument=="on")
         end
         NS.Print("普通技能悬停兼容："..(NS.DB.legacyNameBridgeEnabled and "开启" or "关闭")..
-            "；仅脱战，按键时临时选中悬停单位、施法并恢复原目标。/mytargets legacycast on 或 off")
+            "；脱战时临时选中悬停单位、施法并恢复原目标；战斗中固定单位格直接施法。/mytargets legacycast on 或 off；/mytargets combatcast 查看战斗准备。")
+        return
+    end
+    if command=="combatcast" then
+        local module=NS.CombatHover
+        local status=module and NS.Read(module.Status)
+        if type(status)~="table" then NS.Print("战斗悬停模块未加载，请 /reload。");return end
+        NS.Print("战斗悬停施法："..(status.enabled and "开启" or "关闭")..
+            "；友方 "..tostring(status.friendlySpells).." 个技能/"..tostring(status.friendlyKeys).." 个键，"..
+            "敌方 "..tostring(status.enemySpells).." 个技能/"..tostring(status.enemyKeys).." 个键。"..
+            "固定单位格（自己、小队、团队、宠物、目标、焦点、首领、竞技场）可在战斗中直接施法，待游戏验收；敌方战前唯一名称桥沿用，附近新出现或同名格不接管。技能或键位改动后脱战自动重读。")
         return
     end
     if command=="debug" then
@@ -339,7 +456,7 @@ function NS.HandleCommand(message)
         end
     elseif command=="help" then
         if NS.NativeMacroOnly then
-            NS.Print("/mytargets 显隐；raid 团队；party 小队；nearby 5/10/20；enemy 5/10/20；legacycast on/off 普通技能兼容；macro 原生宏说明；plates on/off 附近识别与原设置恢复；scale 0.7–1.4；lock/unlock；reset；log start/stop/status/mark。")
+            NS.Print("/mytargets 显隐；raid 团队；party 小队；nearby 5/10/20；enemy 5/10/20；legacycast on/off 普通技能兼容；combatcast 战斗悬停状态；macro 原生宏说明；plates on/off 附近识别与原设置恢复；scale 0.7–1.4；lock/unlock；reset；log start/stop/status/mark。")
             return
         end
         local guidHelp=NS.PreserveCastTarget and "guid 查看GUID直施尝试说明。悬停正常敌方方块后按普通技能键，当前目标保持。" or
@@ -377,7 +494,7 @@ function NS.HandleCommand(message)
         if argument=="on" or argument=="off" then NS.SetDetectionEnabled(argument=="on")
         else local _,status=NS.DetectionStatus();NS.Print(status.."；/mytargets plates on 或 off。") end
     elseif command=="reset" then
-        if NS.InCombat() then NS.PendingReset=true;NS.Print("脱战后重置位置。")
+        if NS.InCombat() then NS.PendingReset=true;NS.Notify("脱战后重置位置。",nil,"pending")
         elseif not releaseNativeHit() then NS.PendingReset=true;NS.Print("原生命中区恢复后再重置位置。")
         else resetPositions();NS.SetShown(true) end
     elseif command=="" then NS.SetShown()
@@ -427,7 +544,7 @@ function NS.HandleEvent(event,unit)
             NS.DB.mouseoverRequested=false
             if NS.LegacyNameBridge==true then
                 NS.Print("目标选择 "..NS.VERSION.." 已加载；全部目标普通技能兼容"..
-                    (NS.DB.legacyNameBridgeEnabled and "已开启" or "已关闭").."，仅脱战，施法时临时选人并恢复原目标。")
+                    (NS.DB.legacyNameBridgeEnabled and "已开启" or "已关闭").."；脱战临时选人施法，战斗中固定单位格直接施法。")
             else
                 NS.Print("目标选择 "..NS.VERSION.." 本机试用版已加载；使用自己的 @mouseover 宏和原按键，/mytargets macro 查看识别状态。")
             end
@@ -437,6 +554,10 @@ function NS.HandleEvent(event,unit)
         return
     end
     if not initialized then return end
+    -- Invalidate frozen probe addresses before the visual roster can advance
+    -- their epochs or expose a reused token to any subsequent observer.
+    if NS.UnitMatchProbe and type(NS.UnitMatchProbe.OnEvent)=="function" then NS.UnitMatchProbe.OnEvent(event,unit) end
+    if NS.InstanceActions and type(NS.InstanceActions.OnEvent)=="function" then NS.InstanceActions.OnEvent(event,unit) end
     if NS.FocusCycle and type(NS.FocusCycle.OnEvent)=="function" then NS.FocusCycle.OnEvent(event,unit) end
     if NS.Auras and type(NS.Auras.OnEvent)=="function" then NS.Auras.OnEvent(event,unit) end
     if event=="PLAYER_LEAVING_WORLD" or event=="PLAYER_LOGOUT" then
@@ -445,6 +566,10 @@ function NS.HandleEvent(event,unit)
     elseif event=="PLAYER_ENTERING_WORLD" then
         worldActive=true
     end
+    if NS.EnemyDisplay and type(NS.EnemyDisplay.OnEvent)=="function" then
+        NS.EnemyDisplay.OnEvent(event,unit)
+    end
+    if NS.UnitMatchProbe and type(NS.UnitMatchProbe.OnAfterEvent)=="function" then NS.UnitMatchProbe.OnAfterEvent(event,unit) end
     if NS.EnemyNativeHover and type(NS.EnemyNativeHover.OnEvent)=="function" then
         NS.EnemyNativeHover.OnEvent(event,unit)
     end
@@ -494,6 +619,7 @@ function NS.HandleEvent(event,unit)
                 if NS.CloseMarkMenu then NS.CloseMarkMenu() end
                 leaveHiddenCast(settings)
                 applyVisualSettings()
+                if NS.Notify then NS.Notify("战斗中记住的设置已应用。","设置已应用","success") end
             end
             if NS.PendingReset and canApplyLayout then
                 NS.PendingReset=nil;resetPositions();saveSettings({shown=true});applyVisualSettings()
@@ -545,6 +671,7 @@ events:SetScript("OnUpdate",function(_,elapsed)
     if visualTick>=.1 then
         local delta=visualTick
         visualTick=0
+        if NS.UnitMatchProbe and type(NS.UnitMatchProbe.Tick)=="function" then NS.UnitMatchProbe.Tick(delta) end
         if NS.EnemyNativeHover and type(NS.EnemyNativeHover.Tick)=="function" then NS.EnemyNativeHover.Tick() end
         if NS.EnemyNativeTrial and type(NS.EnemyNativeTrial.Tick)=="function" then NS.EnemyNativeTrial.Tick(delta) end
         if NS.DB.shown and NS.RefreshTiles then NS.RefreshTiles() end
@@ -552,7 +679,7 @@ events:SetScript("OnUpdate",function(_,elapsed)
     end
     if rosterTick>=.5 then
         rosterTick=0
-        if NS.DB.shown and not NS.InCombat() then NS.RequestRefresh() end
+        if NS.DB.shown then NS.RequestRefresh() end
     end
     if probeTick>=1 then
         probeTick=0

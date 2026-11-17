@@ -5,7 +5,7 @@ local events = CreateFrame("Frame")
 ns.events = events
 
 function ns.Print(message)
-    if DEFAULT_CHAT_FRAME then DEFAULT_CHAT_FRAME:AddMessage("|cffe8be75商业技能助手|r " .. message) end
+    if DEFAULT_CHAT_FRAME then DEFAULT_CHAT_FRAME:AddMessage((MyForeverStyle and MyForeverStyle.Prefix("商业技能助手") or "商业技能助手") .. " " .. message) end
 end
 
 local function initialize()

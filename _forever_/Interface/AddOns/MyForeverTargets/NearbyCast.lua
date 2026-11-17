@@ -6,6 +6,9 @@ NS.NearbyCast = Cast
 local legacyNameOnly=NS.Public(NS.NativeMacroOnly) and NS.NativeMacroOnly==true
     and NS.Public(NS.LegacyNameBridge) and NS.LegacyNameBridge==true
 Cast.legacyName=legacyNameOnly
+-- In-combat continuation of the name bridge (CombatCast). Startup policy.
+local combatName=legacyNameOnly and NS.Public(NS.CombatNameBridge) and NS.CombatNameBridge==true
+Cast.combatName=combatName
 
 -- This startup policy requires a UI reload. Native mouseover macros keep their
 -- original action slots and keys; no bridge frame, event, or action is installed.
@@ -70,9 +73,9 @@ function Cast.BuildFallback(spell,side)
     side=sideName(side)
     spell=plain(spell)
     if not spell or not side then return nil end
-    if side=="enemy" then return (legacyNameOnly and "/stopmacro [dead]\n" or "")
+    if side=="enemy" then return (legacyNameOnly and "/stopmacro [@player,dead]\n" or "")
         .."/cast [nocombat,@target,harm,nodead] "..spell end
-    return (legacyNameOnly and "/stopmacro [dead]\n" or "")
+    return (legacyNameOnly and "/stopmacro [@player,dead]\n" or "")
         .."/cast [nocombat,@target,help,nodead][nocombat,@player] "..spell
 end
 
@@ -81,7 +84,7 @@ local function namedAction(name,body,hasTarget)
     if not name or type(body)~="string" or type(hasTarget)~="boolean" then return nil end
     -- Refuse a call that starts in combat. Once admitted, target restoration
     -- must still run if this cast itself begins combat before the last line.
-    local macro=table.concat({legacyNameOnly and "/stopmacro [combat][dead]" or "/stopmacro [combat]","/cleartarget [nocombat]",
+    local macro=table.concat({legacyNameOnly and "/stopmacro [combat][@player,dead]" or "/stopmacro [combat]","/cleartarget [nocombat]",
         "/targetexact [nocombat] "..name,body,
         hasTarget and "/targetlasttarget" or "/cleartarget"},"\n")
     if #macro>1023 then return nil end
@@ -630,7 +633,16 @@ Cast.ReadRow=readRow
 local function usableRow(row) return readRow(row,true) end
 
 function Cast.SnapshotRow(row)
-    if legacyNameOnly then return nil,false end
+    if legacyNameOnly then
+        -- Out-of-combat snapshot for CombatCast. Unlike the hover check, the
+        -- current target gets no exemption: it may change once combat starts,
+        -- so an NPC must be independently unique among the known units.
+        if not combatName or not idle() then return nil,false end
+        local data=readRow(row,false)
+        if not data then return nil,false end
+        if data.player then return data,true end
+        return data,Cast.KnownUniqueNPC(data,row)
+    end
     if not idle() then return nil end
     local data=readRow(row,false,true)
     if not data then return nil end
@@ -648,7 +660,7 @@ local function owner()
     frame:SetAttribute("_onstate-combat",legacyNameOnly
         and [[if newstate ~= "idle" then self:ClearBindings() end]]
         or [[if newstate == "combat" then self:ClearBindings() end]])
-    RegisterStateDriver(frame,"combat",legacyNameOnly and "[combat] combat; [dead] dead; idle" or "[combat] combat; idle")
+    RegisterStateDriver(frame,"combat",legacyNameOnly and "[combat] combat; [@player,dead] dead; idle" or "[combat] combat; idle")
     Cast.owner=frame
     return frame
 end
@@ -711,6 +723,59 @@ local function inert(proxy)
     proxy.castLogAttemptID=nil
 end
 
+local function diagnosticBoolean(fn,...)
+    if type(fn)~="function" then return nil,"unavailable" end
+    local ok,value=pcall(fn,...)
+    if not ok then return nil,"error" end
+    if not NS.Public(value) then return nil,"restricted" end
+    if value==nil then return nil,"nil" end
+    if type(value)~="boolean" then return nil,"nonboolean" end
+    return value,"public"
+end
+
+local function diagnosticDeathCondition(unit)
+    if type(SecureCmdOptionParse)~="function" then return nil,"unavailable" end
+    -- Fixed diagnostic expressions only. These reads never authorize an action.
+    local ok,value=pcall(SecureCmdOptionParse,"[@"..unit..",dead] dead; alive")
+    if not ok then return nil,"error" end
+    if not NS.Public(value) then return nil,"restricted" end
+    if value==nil then return nil,"nil" end
+    if value~="dead" and value~="alive" then return nil,"invalid_result" end
+    return value=="dead","public"
+end
+
+local function recordDeathFields(proxy,event,prefix)
+    local function key(name)
+        return prefix=="" and name or prefix..name:sub(1,1):upper()..name:sub(2)
+    end
+    local function put(name,value,state)
+        event[key(name)],event[key(name.."State")]=value,state
+    end
+    put("playerDead",diagnosticBoolean(UnitIsDeadOrGhost,"player"))
+    put("targetDead",diagnosticBoolean(UnitIsDeadOrGhost,"target"))
+    put("nativePlayerDead",diagnosticDeathCondition("player"))
+    put("nativeTargetDead",diagnosticDeathCondition("target"))
+    -- Inspect only this addon's already-generated proxy action. Never copy its
+    -- command text or inspect a user's macro/action-slot body for diagnostics.
+    if event.branch~="name_bridge" and event.branch~="current_target" then
+        put("generatedDeathGuardMatches",nil,"not_applicable")
+        return
+    end
+    if type(proxy.GetAttribute)~="function" then
+        put("generatedDeathGuardMatches",nil,"unavailable");return
+    end
+    local ok,macro=pcall(proxy.GetAttribute,proxy,"macrotext")
+    if not ok then put("generatedDeathGuardMatches",nil,"error")
+    elseif not NS.Public(macro) then put("generatedDeathGuardMatches",nil,"restricted")
+    elseif macro==nil then put("generatedDeathGuardMatches",nil,"nil")
+    elseif type(macro)~="string" then put("generatedDeathGuardMatches",nil,"nonstring")
+    else
+        local expected=event.branch=="name_bridge" and "/stopmacro [combat][@player,dead]\n"
+            or "/stopmacro [@player,dead]\n"
+        put("generatedDeathGuardMatches",macro:sub(1,#expected)==expected,"public")
+    end
+end
+
 local function recordNamePre(proxy,button,down,fields)
     if not NS.Public(button) or button==nil then return end
     -- Keep the attempt on its proxy until PostClick, even if target-change
@@ -726,6 +791,16 @@ local function recordNamePre(proxy,button,down,fields)
     pcall(function()
         local d=NS.Diagnostics
         if type(d)~="table" or type(d.Record)~="function" or NS.Read(d.Enabled)~=true then return end
+        event.version=NS.VERSION
+        event.deathGuardUnit="player"
+        local entry=proxy.entry
+        if entry then
+            event.configuredCommand=plain(NS.Read(function() return entry.command end))
+            for i=1,2 do
+                event["configuredKey"..i]=plain(NS.Read(function() return entry.keys and entry.keys[i] end))
+            end
+        end
+        recordDeathFields(proxy,event,"")
         local copy={}
         for key,value in pairs(event) do copy[key]=value end
         d.Record("NAME_BRIDGE_PRE",copy)
@@ -742,6 +817,7 @@ local function recordNamePost(proxy,button,down)
         if type(d)~="table" or type(d.Record)~="function" or NS.Read(d.Enabled)~=true then return end
         event.afterTargetExists=NS.Read(UnitExists,"target")
         event.afterTargetGUID=NS.Read(UnitGUID,"target")
+        recordDeathFields(proxy,event,"after")
         event.targetRestorationObserved=(event.beforeTargetExists==false and event.afterTargetExists==false)
             or (event.beforeTargetExists==true and event.afterTargetExists==true
                 and plain(event.beforeTargetGUID)~=nil and event.beforeTargetGUID==event.afterTargetGUID)

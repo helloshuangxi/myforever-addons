@@ -131,7 +131,12 @@ NS.GetNavigation=function()
     if NS.DB.activeID then return {point=NS.GetPoint(NS.DB.activeID),mode=mode,angle=angle,distance=distance,status=statusText,detail=detailText,nativeTracking=nativeTracking,nativeReason=nativeReason}end
     return {mode="unavailable",status="没有目标"}
 end
+dofile("_forever_/Interface/AddOns/MyForeverNavigator/MyForeverStyle.lua")
 assert(loadfile(root.."UI.lua"))("MyForeverNavigator",NS)
+assert(loadfile(root.."RoutePlanner.lua"))("MyForeverNavigator",NS)
+assert(loadfile(root.."GameBridge.lua"))("MyForeverNavigator",NS)
+NS.DB.clientAI=NS.NormalizeClientAI(nil)
+assert(loadfile(root.."RouteUI.lua"))("MyForeverNavigator",NS)
 NS.CreateUI()
 local ui=NS.UI
 local function category(id)
@@ -154,27 +159,38 @@ eq(NS.HUD.helpTarget.mouse,true,"HUD title remains interactive")
 eq(#UISpecialFrames,1,"Escape registered once")
 NS.ToggleUI(true);NS.ToggleUI(true)
 eq(NS.Panel:IsShown(),true,"force show does not toggle closed")
-eq(NS.Panel.width,900,"organized directory width")
-eq(NS.Panel.height,600,"organized directory height")
+eq(NS.Panel.width,440,"compact single-column directory width")
+eq(NS.Panel.height,690,"compact directory height")
+eq(NS.Panel.width*NS.Panel.height<900*600*0.6,true,"directory occupies well under the former 900x600 area")
 eq(#ui.npcCategories,#NS.Categories+1,"NPC sidebar adapts to all registered purposes")
 eq(ui.npcCategories[2].category,"trainers","class trainers immediately follow all NPCs")
 eq(ui.npcCategories[3].category,"profession-trainers","profession trainers have their own purpose after class trainers")
 for _,b in ipairs(ui.npcCategories)do eq(b.category~="favorites"and b.category~="custom",true,"personal places excluded from NPC purposes")end
 local function top(control)return -control.point[3]end
-local previousBottom=0
-for _,b in ipairs(ui.npcCategories)do
-    eq(top(b)>=previousBottom,true,"purpose buttons do not overlap")
-    eq(b.height>=24,true,"purpose buttons retain readable click targets")
-    previousBottom=top(b)+b.height
+local function left(control)return control.point[2]end
+local function overlaps(a,b)
+    return left(a)<left(b)+b.width and left(b)<left(a)+a.width and top(a)<top(b)+b.height and top(b)<top(a)+a.height
 end
-eq(top(ui.subTitle)>=previousBottom+8,true,"subcategory heading below all purposes")
-previousBottom=top(ui.subTitle)+ui.subTitle.height
-for _,b in ipairs(ui.subcategories)do
-    eq(top(b)>=previousBottom+4,true,"subcategory rows do not overlap heading or each other")
-    previousBottom=top(b)+b.height
+-- Pills flow left to right and wrap; checks are two-dimensional.
+local purposeBottom=0
+for i,b in ipairs(ui.npcCategories)do
+    eq(b.height>=24,true,"purpose pills retain readable click targets")
+    eq(left(b)>=0 and left(b)+b.width<=ui.npcPage.width,true,"purpose pill stays inside the page width")
+    for j=i+1,#ui.npcCategories do eq(overlaps(b,ui.npcCategories[j]),false,"purpose pills do not overlap") end
+    purposeBottom=math.max(purposeBottom,top(b)+b.height)
 end
-eq(top(ui.subNext)>=previousBottom+8,true,"subcategory pager clears the final row")
-eq(top(ui.subNext)+ui.subNext.height<=ui.npcPage.height-ui.sidebarHint.height-4,true,"pager clears bottom Escape hint")
+eq(top(ui.subTitle)>=purposeBottom+8,true,"subcategory heading below all purposes")
+local subBottom=top(ui.subTitle)+ui.subTitle.height
+local shownSubs={}
+for _,b in ipairs(ui.subcategories)do if b:IsShown() then shownSubs[#shownSubs+1]=b end end
+for i,b in ipairs(shownSubs)do
+    eq(top(b)>=subBottom+2,true,"subcategory pills sit below their heading")
+    eq(left(b)+b.width<=ui.npcPage.width,true,"subcategory pill stays inside the page width")
+    for j=i+1,#shownSubs do eq(overlaps(b,shownSubs[j]),false,"subcategory pills do not overlap") end
+end
+eq(top(ui.subNext)<top(ui.subTitle)+ui.subTitle.height,true,"subcategory pager shares the heading line")
+eq(left(ui.subNext)+ui.subNext.width<=ui.npcPage.width,true,"subcategory pager inside the page")
+eq(ui.sidebarHint,nil,"no instructional text on the panel; Escape still closes it")
 NS.RefreshUI()
 eq(lastOptions.includeCustom,false,"NPC search excludes custom coordinates")
 eq(lastOptions.sort,"distance","NPC search defaults to nearest")
@@ -279,7 +295,12 @@ eq(ui.npcPage:IsVisible(),false,"NPC sidebar not visible on places page")
 ui.placeTabs.custom:Click();eq(lastOptions.category,"custom","custom places subtab")
 eq(ui.placeBrowser.rows[1].point.id,custom.id,"custom list displayed separately")
 ui.createToggle:Click();eq(ui.form:IsShown(),true,"form appears only after New place")
-eq(ui.placeBrowser.visibleRows,4,"expanded form reduces rows to fit")
+do
+    -- The taller compact page now fits the form and all six rows; what matters is that it fits.
+    local b=ui.placeBrowser
+    eq(b.visibleRows>=3 and b.visibleRows<=6,true,"expanded form keeps a usable list")
+    eq(b.listTop+b.visibleRows*38+28+92<=b.height,true,"expanded form: list, pager and card fit in the page")
+end
 ui.mapInput:SetText("1455");ui.xInput:SetText("12.4");ui.yInput:SetText("34.6");ui.nameInput:SetText("自建地点")
 ui.save:Click()
 eq(ui.form:IsShown(),false,"successful save folds form")
@@ -457,6 +478,119 @@ eq(shownResults(ui.npcBrowser),6,"six NPC rows shown")
 for _,browser in ipairs({ui.npcBrowser,ui.placeBrowser})do
     local y=-browser.next.point[3]
     eq(y+browser.next.height<=browser.height,true,"pager within browser height")
+    -- The card grows upward when expanded; its extra text must stay inside it.
+    local wasOpen=browser.state.more
+    -- The places page may be hidden here; invoke the handler directly.
+    if not wasOpen then browser.details.more.scripts.OnClick(browser.details.more) end
+    eq(browser.details.extra:IsShown(),browser.state.selectedID~=nil,"details expand on demand when something is selected")
     eq(-browser.details.extra.point[3]+browser.details.extra.height<=browser.details.height,true,"expanded details within card")
+    eq(-browser.details.point[3]+browser.details.height<=browser.height,true,"expanded card stays inside the page")
+    if not wasOpen then browser.details.more.scripts.OnClick(browser.details.more) end
+    eq(browser.details.height,92,"collapsed card returns to its compact height")
 end
+-- Route workflow uses actual catalogue searches and the on-click and paste handlers.
+assert(loadfile(root.."FuzzySearch.lua"))("MyForeverNavigator",NS)
+NS.Initialize(nil)
+function methods:HighlightText() self.highlighted=true end
+local routesStarted=0
+NS.BuildRoute=function(ids)
+    local plan={steps={}}
+    for _,id in ipairs(ids) do
+        local point=NS.GetPoint(id)
+        if not point then return nil,"目标已失效" end
+        plan.steps[#plan.steps+1]={id=id,mode="walk",label="前往"..point.name}
+    end
+    return plan
+end
+NS.StartRoute=function(plan)
+    routesStarted=routesStarted+1;plan.index=1;NS.DB.route=plan
+    return NS.Start(NS.GetPoint(plan.steps[1].id))
+end
+NS.GetActiveRoute=function()return NS.DB.route end
+NS.NextRouteStep=function()NS.DB.route=nil;NS.Stop();return true end
+local r=NS.RoutePlannerUI
+ui.workspaceTabs.route:Click()
+eq(ui.workspace,"route","dedicated directions tab opens")
+NS.OpenRoutePlanner("完全查不到的测试问法")
+eq(r.reload:IsVisible(),true,"ask submits to desktop bridge")
+eq(MyForeverNavigatorOutbox.question,"完全查不到的测试问法","only submitted question is staged")
+eq(r.reload.label.text,"重载发送","explicit first reload")
+local reloads=0
+ReloadUI=function()reloads=reloads+1 end
+InCombatLockdown=function()return true end
+r.reload:Click()
+eq(reloads,0,"combat leaves game unchanged")
+InCombatLockdown=function()return false end
+r.reload:Click()
+eq(reloads,1,"reload only on explicit click")
+r.cancel:Click()
+eq(NS.ClientQuestionStatus(),"none","explicit cancel clears pending request")
+-- Existing pasted route codes can still be reviewed after upgrading.
+NS.RouteWebURL("完全查不到的测试问法")
+NS.OpenRoutePlanner("/mynav route MFN1@9de35399~采矿训练师~钓鱼训练师")
+eq(r.start:IsVisible(),false,"pasted suggestions never start automatically")
+contains(r.title.text,"1 / 2","first model intent shown")
+r.rows[1]:Click()
+contains(r.title.text,"2 / 2","second intent follows first selection")
+r.rows[1]:Click()
+contains(r.title.text,"路线预览","both confirmed stops appear in preview")
+eq(routesStarted,0,"preview leaves old navigation alone")
+r.start:Click()
+eq(routesStarted,1,"explicit launch")
+eq(NS.NewRouteQuery("完全查不到的测试问法").source,"cache","confirmed browser response learns original UTF-8 question")
+local oldMapAPI=C_Map.GetBestMapForUnit
+C_Map.GetBestMapForUnit=function()return 1429 end
+local elsewhere=NS.NewRouteQuery("完全查不到的测试问法")
+eq(elsewhere.plan,nil,"another map recomputes candidates")
+eq(elsewhere.terms[2],"钓鱼训练师","a confirmed model interpretation stays local across maps")
+C_Map.GetBestMapForUnit=oldMapAPI
+eq(NS.NormalizeDB(NS.DB).routeIntents[1].body,"采矿训练师~钓鱼训练师","confirmed semantic memory survives reload")
+eq(NS.NewRouteQuery("MFN1@00000000~铁炉堡").question,nil,"foreign code never associates an unrelated pending question")
+eq(ui.workspace,"navigation","current journey shows steps")
+contains(ui.nav.routeSteps.text,"1. ","current journey has numbered legs")
+eq(ui.nav.resume.label.text,"下一步","next-leg action exposed in panel")
+ui.nav.resume:Click()
+eq(NS.GetActiveRoute(),nil,"skip uses the route state machine")
+NS.OpenRoutePlanner();r.query:SetText("军需官");r.localSearch:Click()
+
+eq(r.zones:IsVisible(),true,"results support geographical grouping")
+r.zones:Click()
+eq(r.rows[1].mapKey~=nil,true,"group row references an actual map")
+r.rows[1]:Click()
+eq(r.rows[1].pointID~=nil,true,"map selection reveals actual local points")
+r.rows[1]:Click();r.start:Click()
+NS.OpenRoutePlanner();r.query:SetText("军需官");r.localSearch:Click()
+
+contains(r.title.text,"已记住","confirmed query reuses local knowledge")
+r.repick:Click()
+eq(r.start:IsVisible(),false,"cached selection can be reconsidered")
+NS.OpenRoutePlanner("MFN1~不存在|Hplayer")
+eq(r.start:IsVisible(),false,"invalid markup cannot initiate a route")
+contains(r.detail.text,"无效","invalid handoff feedback")
+NS.OpenRoutePlanner("军需官",professionPoints[1].id)
+contains(r.rows[1].label.text,professionPoints[1].name,"explicit selected point beats a previously cached search")
+r.start:Click()
+eq(NS.DB.activeID,professionPoints[1].id,"explicit point ID reaches navigation")
+eq(NS.NewRouteQuery("军需官").ids[1]~=professionPoints[1].id,true,"an explicit selection does not rewrite an unrelated cached phrase")
+-- A character returning after the send reload sees the waiting question,
+-- then the reply on the next login. Only the explicit start begins navigation.
+NS.OpenRoutePlanner()
+local q=assert(NS.SubmitClientQuestion("我想找一位采矿训练师"))
+local beforeClientStart=routesStarted
+NS.RestoreClientQuestion()
+eq(r.query:GetText(),q.question,"restore shows the saved question")
+eq(r.reload.label.text,"重载接收","saved question exposes receive action")
+MyForeverNavigatorInbox={version=1,replies={[q.id]={id=q.id,message="请前往训练师处。",steps={
+    {kind="place",term="采矿训练师",text="学习采矿。"}
+}}}}
+NS.RestoreClientQuestion()
+if not r.start:IsVisible() then r.rows[1]:Click() end
+eq(r.start:IsVisible(),true,"returned route can be started")
+eq(r.reload:IsVisible(),false,"received reply hides reload")
+eq(routesStarted,beforeClientStart,"return only previews the answer")
+r.start:Click()
+eq(routesStarted,beforeClientStart+1,"start activates native itinerary")
+eq(NS.ClientQuestionStatus(),"none","completed request consumed")
+NS.OpenRoutePlanner("我想找一位采矿训练师")
+eq(NS.ClientQuestionStatus(),"none","confirmed question needs no desktop round-trip")
 print("Navigator UI: "..checks.." behavior checks passed (simulated)")

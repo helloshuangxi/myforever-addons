@@ -504,7 +504,12 @@ do
         section.drag:GetScript("OnDragStart")(section.drag)
         local proxy=section.frame.dragProxy
         proxy:ClearAllPoints();proxy:SetPoint(point,UIParent,point,x,y)
+        -- This block verifies exact manual-position ownership. Use the real
+        -- shared layout's Alt bypass so grid snapping is a separate concern.
+        local oldAlt=IsAltKeyDown
+        IsAltKeyDown=function() return true end
         section.drag:GetScript("OnDragStop")(section.drag)
+        IsAltKeyDown=oldAlt
     end
     local function stable(side,label)
         local frame=NS.UI[side].frame
@@ -2097,6 +2102,29 @@ NS.ReadEnemyTarget=savedEnemyTargetReader
     yes(tooltipContains("短暂"),"enemy tooltip discloses temporary selection")
     yes(tooltipContains("恢复原目标"),"enemy tooltip describes target restoration")
     eq(tooltipContains("GUID直施"),false,"enemy ordinary-spell tooltip does not revive GUID casting")
+    do
+        local oldNames,oldFixed=NS.CombatCast,NS.CombatHover
+        local frozenGUID=friendlyRow.expectedGUID
+        NS.CombatCast={legacy=true,Status=function()
+            return {prepared=true,count=2,guid=frozenGUID,reason="prepared"}
+        end}
+        NS.CombatHover=nil
+        combat=true
+        resetTooltipOperations();friendlyRow:GetScript("OnEnter")(friendlyRow)
+        yes(tooltipContains("已准备 2 个普通技能键"),"friendly nameplate tooltip exposes its prepared combat name route")
+        yes(tooltipContains("恢复原目标"),"friendly combat name route describes restoration")
+        eq(tooltipContains("仅支持脱战"),false,"prepared friendly name route is not mislabeled OOC-only")
+        frozenGUID="Player-OldPreparation"
+        resetTooltipOperations();friendlyRow:GetScript("OnEnter")(friendlyRow)
+        yes(tooltipContains("没有在脱战时准备好"),"stale friendly snapshot is not advertised as usable")
+        eq(tooltipContains("已准备 2 个普通技能键"),false,"GUID mismatch suppresses the friendly prepared count")
+        NS.CombatHover={Status=function() return {ready=true,enabled=true,availableKeys=1} end}
+        resetTooltipOperations();friendlyRow:GetScript("OnEnter")(friendlyRow)
+        yes(tooltipContains("固定单位格"),"fixed friendly route keeps its own description")
+        yes(tooltipContains("不切换目标"),"fixed route does not advertise the name-switch bridge")
+        combat=false
+        NS.CombatCast,NS.CombatHover=oldNames,oldFixed
+    end
     NS.HoveredTile=nil
     for _,limit in ipairs({5,10,20}) do
         NS.ApplySetting("nearbyLimit",limit)
@@ -2604,5 +2632,359 @@ end)()
     combat=false;NS.UI.friendly.frame:Hide();NS.RefreshTiles()
     eq(friend.auras.last.unit,nil,"hidden panel leaves no resident aura unit")
     NS.Auras=nil
+end)()
+
+-- Combat visual roster is separate from the frozen action identity. New mobs
+-- get information cards while stale actions and spell readiness stay blocked.
+;(function()
+    combat=false
+    local oldCast,oldHover,oldNearby=NS.CombatCast,NS.CombatHover,NS.NearbyCast
+    local oldTarget,oldBridge,oldReader=NS.EnemyTargetHover,NS.ReadBridgeTarget,NS.ReadEnemyTarget
+    local leaves,enters,scrolls=0,0,{}
+    NS.NativeMacroOnly,NS.LegacyNameBridge=true,true
+    NS.DB.shown,NS.DB.friendlyShown,NS.DB.enemyShown,NS.DB.legacyNameBridgeEnabled=true,true,true,true
+    NS.CombatHover=nil
+    NS.CombatCast={legacy=true,ArmRow=function() end,Status=function(row)
+        return {prepared=true,count=2,guid=row.expectedGUID}
+    end}
+    NS.NearbyCast={legacyName=true,Install=function() end,Leave=function() leaves=leaves+1 end,
+        Enter=function() enters=enters+1 end,Status=function() return {prepared=true,count=2,reason="prepared"} end}
+    NS.Auras={Create=function() return {} end,
+        Update=function(view,unit,guid,side) view.last={unit=unit,guid=guid,side=side} end,
+        Scroll=function(view,delta) scrolls[#scrolls+1]={view=view,delta=delta} end}
+    assert(loadfile(root.."EnemyTargetHover.lua"))("MyForeverTargets",NS)
+    assert(loadfile(root.."EnemyDisplay.lua"))("MyForeverTargets",NS)
+    local display=NS.EnemyDisplay
+    local targets={}
+    local targetReads={}
+    NS.ReadEnemyTarget=function(unit,guid)
+        targetReads[#targetReads+1]={unit=unit,guid=guid}
+        if unit and live[unit] and live[unit].guid==guid then return targets[unit] end
+        return {state="unavailable"}
+    end
+    local function enemy(unit,guid,name)
+        live[unit]={unit=unit,side="enemy",guid=guid,name=name or "同名怪物",player=false,targetName=name or "同名怪物",
+            health=.5,healthCurrent=50,healthMax=100,healthAvailable=true,
+            powerCurrent=25,powerMax=100,powerAvailable=true,powerColor={r=1,g=.7,b=.1},
+            color={r=1,g=.4,b=.3},dead=false,offline=false}
+    end
+    live.party1={unit="party1",side="friendly",guid="Display-Friend",name="原友方",player=true,
+        targetName="原友方",health=.7,healthCurrent=70,healthMax=100,healthAvailable=true,
+        color={r=1,g=1,b=1},dead=false,offline=false}
+    NS.UI=nil;NS.HoveredTile=nil;NS.HoveredEnemyTarget=nil
+    NS.CreateUI();NS.BindTiles("friendly",{"party1"},5);NS.BindTiles("enemy",{},5)
+    local section=NS.UI.enemy
+    local row,friend=section.tiles[1],NS.UI.friendly.tiles[1]
+    local oldWidth,oldHeight,oldPoint=row:GetWidth(),row:GetHeight(),row.point
+    local oldUnit,oldGUID,oldAttr=row.unit,row.expectedGUID,row:GetAttribute("unit")
+    enemy("nameplate51","Display-A");enemy("nameplate52","Display-B")
+    live.nameplate51.target=true;live.focus={guid="Display-B"}
+    live.nameplate51target={guid="Display-Victim"}
+    targets.nameplate51={state="known",guid="Display-Victim",name="新敌人的队友目标",className="牧师",
+        assist=true,harm=false,player=true,dead=false,offline=false,targetName="新敌人的队友目标",
+        health=.8,healthCurrent=80,healthMax=100,healthAvailable=true,color={r=1,g=1,b=1}}
+    combat=true
+    display.Update({"nameplate51","nameplate52"},5,section.tiles)
+    NS.RefreshTiles()
+    eq(row.nameText:GetText(),"同名怪物","empty before combat now displays the newly observed creature")
+    eq(section.tiles[2].nameText:GetText(),"同名怪物","same-name different GUID has its own information card")
+    eq(row.health.value,50,"new enemy health uses the new visual unit")
+    eq(row.power.value,25,"new enemy resource strip uses the new visual unit")
+    eq(row.auras.last.unit,"nameplate51","related effects read the new visual unit")
+    eq(row.auras.last.guid,"Display-A","related effects retain the visual GUID")
+    eq(row.targetBadge:IsShown(),true,"current-target indicator follows visual identity")
+    eq(section.tiles[2].focused,true,"focus border follows the other visual creature")
+    eq(row.displayReadOnly,true,"new combat creature has no prepared actions")
+    eq(row.displayActionReady,false,"new combat creature is explicitly not actionable")
+    eq(row.shield:IsShown(),true,"new creature cannot inherit an empty prepared native button")
+    eq(row.castDot:IsShown(),false,"old prepared status cannot advertise casting for a new visual identity")
+    eq(row.unit,oldUnit,"combat display preserves the original ordinary action unit")
+    eq(row.expectedGUID,oldGUID,"combat display preserves the original expected action GUID")
+    eq(row:GetAttribute("unit"),oldAttr,"combat display preserves the protected unit attribute")
+    eq(row:GetWidth(),oldWidth,"combat display does not change card width")
+    eq(row:GetHeight(),oldHeight,"combat display does not change card height")
+    eq(row.point,oldPoint,"combat display does not reanchor a protected card")
+    eq(section.validCount,2,"display count includes new combat enemies")
+    eq(section.actionableCount,0,"action count excludes unprepared combat creatures")
+    eq(friend.nameText:GetText(),"原友方","friendly unit display remains unchanged")
+    eq(friend.unit,"party1","friendly action identity remains unchanged")
+    eq(friend.shield:IsShown(),false,"valid prepared friendly input remains available")
+    eq(row.enemyTargetDisplay.nameText:GetText(),"新敌人的队友目标","small target strip follows visual parent")
+    eq(row.enemyTargetDisplay.health.value,80,"small strip health follows visual parent target")
+    eq(row.enemyTargetButton.expectedGUID,nil,"new parent target never receives prepared interaction identity")
+    eq(row.enemyTargetButton:GetAttribute("unit"),nil,"empty prepared child keeps its protected unit nil")
+    eq(row.enemyTargetButton.shield:IsShown(),true,"read-only visual strip has a shield even if native child is hidden")
+    eq(targetReads[#targetReads].unit,"nameplate52","target reads never substitute the old prepared unit")
+    resetTooltipOperations();row.shield:GetScript("OnEnter")(row.shield)
+    eq(GameTooltip.unit,"nameplate51","read-only tooltip uses the visual creature")
+    yes(tooltipContains("当前仅显示信息"),"read-only tooltip states the actual operation limit")
+    eq(NS.HoveredTile,nil,"read-only tooltip never publishes a cast hover row")
+    eq(row.showUnitHover(row),false,"direct ordinary enter cannot authorize a read-only display")
+    row.shield:GetScript("OnMouseWheel")(row.shield,-1)
+    eq(scrolls[1].view,row.auras,"read-only input shield forwards effect scrolling to its own view")
+    eq(scrolls[1].delta,-1,"read-only scrolling preserves user direction")
+    row.shield:GetScript("OnLeave")(row.shield)
+    resetTooltipOperations();row.enemyTargetButton.shield:GetScript("OnEnter")(row.enemyTargetButton.shield)
+    eq(GameTooltip.unit,"nameplate51target","small read-only tooltip uses visual target relation")
+    yes(tooltipContains("当前仅显示信息"),"small read-only tooltip does not promise native input")
+    eq(NS.HoveredEnemyTarget,nil,"small read-only tooltip never starts child casting")
+    eq(enters,0,"neither read-only shield enters the spell bridge")
+    row.enemyTargetButton.shield:GetScript("OnLeave")(row.enemyTargetButton.shield)
+    -- A still-present old GUID can use another visual alias, but may not use
+    -- the prepared action whose own alias now points at a different creature.
+    combat=false;display.Reset();enemy("nameplate51","Prepared-A","战前怪")
+    NS.BindTiles("enemy",{"nameplate51"},5);NS.RefreshTiles()
+    local macro=row:GetAttribute("*macrotext1")
+    combat=true;enemy("target","Prepared-A","战前怪");enemy("nameplate51","Replacement-C","替换怪")
+    display.Update({"nameplate51","target"},5,section.tiles);NS.RefreshTiles()
+    eq(row.displayGUID,"Prepared-A","old creature remains in its visual slot through another alias")
+    eq(row.displayUnit,"target","old creature visual alias changes independently")
+    eq(row.nameText:GetText(),"战前怪","visual identity never changes to the reused prepared alias")
+    eq(row.displayActionReady,false,"same visible GUID does not excuse a reused prepared action alias")
+    eq(row.shield:IsShown(),true,"reused prepared action remains shielded")
+    eq(row:GetAttribute("*macrotext1"),macro,"visual alias replacement never rewrites a prepared macro")
+    eq(row.auras.last.unit,"target","effects follow the correct alternate visual alias")
+    -- A GUID change inside the visual reader fails closed, not as mixed data.
+    local normalReader=NS.ReadUnit
+    NS.ReadUnit=function(unit,side)
+        local value=normalReader(unit,side)
+        if unit=="target" and value then live.target={side="enemy",guid="Raced",name="后来怪",player=false} end
+        return value
+    end
+    NS.RefreshTiles()
+    eq(row.nameText:GetText(),"","GUID race after visual fields read clears the card")
+    eq(row.auras.last.unit,nil,"GUID race clears related effects")
+    eq(row.shield:IsShown(),true,"GUID race never exposes an old native action")
+    NS.ReadUnit=normalReader
+    combat=false;display.Reset();NS.BindTiles("enemy",{"nameplate51"},5);NS.RefreshTiles()
+    eq(row.nameText:GetText(),"替换怪","out-of-combat binding restores the normal current creature")
+    eq(row.expectedGUID,"Replacement-C","out-of-combat binding rearms its correct action identity")
+    eq(row.displayReadOnly,nil,"out-of-combat binding clears visual-only state")
+    eq(row.shield:IsShown(),false,"fresh normal binding restores eligible input")
+    eq(section.actionableCount,1,"normal binding count reflects the eligible action")
+    NS.Auras=nil;NS.CombatCast,NS.CombatHover,NS.NearbyCast=oldCast,oldHover,oldNearby
+    NS.EnemyTargetHover,NS.ReadBridgeTarget,NS.ReadEnemyTarget=oldTarget,oldBridge,oldReader
+end)()
+
+-- Production Units + visual roster + UI: secret identity is a native display
+-- sink only. It never enters a row snapshot, tooltip, action, or roster GUID.
+;(function()
+    combat=false
+    NS.NativeMacroOnly,NS.LegacyNameBridge=true,true
+    NS.CombatCast,NS.CombatHover,NS.NearbyCast=nil,nil,nil
+    NS.DB.shown,NS.DB.friendlyShown,NS.DB.enemyShown=true,true,true
+    NS.UI=nil;NS.HoveredTile=nil;NS.HoveredEnemyTarget=nil;NS.Nameplates={}
+    local nativeReads,nativeNames,rawLogs=0,0,0
+    local opaque=setmetatable({},{__tostring=function() error("raw name stringified") end,
+        __concat=function() error("raw name concatenated") end,__eq=function() error("raw name compared") end})
+    local opaqueGUID=setmetatable({},{__tostring=function() error("raw GUID stringified") end,
+        __concat=function() error("raw GUID concatenated") end,__eq=function() error("raw GUID compared") end})
+    local rawHealth,rawMaximum,rawPower,rawPowerMax=17771,39999,173,711
+    issecretvalue=function(value)
+        return rawequal(value,opaque) or rawequal(value,opaqueGUID) or rawequal(value,rawHealth)
+            or rawequal(value,rawMaximum) or rawequal(value,rawPower) or rawequal(value,rawPowerMax)
+    end
+    local units={nameplate70={guid=opaqueGUID,name=opaque,enemy=true,player=false},
+        party1={guid="Secret-Fixture-Friend",name="公开友方",enemy=false,player=true},
+        player={guid="Secret-Fixture-Self",name="自己",enemy=false,player=true}}
+    UnitExists=function(unit) return units[unit]~=nil end
+    UnitGUID=function(unit) return units[unit] and units[unit].guid end
+    UnitName=function(unit) nativeReads=nativeReads+1;return units[unit] and units[unit].name end
+    UnitIsPlayer=function(unit) return units[unit] and units[unit].player end
+    UnitCanAttack=function(_,unit) return units[unit] and units[unit].enemy end
+    UnitCanAssist=function(_,unit) return units[unit] and units[unit].player==true and units[unit].enemy==false end
+    UnitIsDeadOrGhost=function() return false end
+    UnitIsConnected=function() return true end
+    UnitClass=function() return "牧师","PRIEST" end
+    UnitHealth=function(unit) return unit=="nameplate70" and rawHealth or 80 end
+    UnitHealthMax=function(unit) return unit=="nameplate70" and rawMaximum or 100 end
+    UnitPower=function(unit) return unit=="nameplate70" and rawPower or 20 end
+    UnitPowerMax=function(unit) return unit=="nameplate70" and rawPowerMax or 100 end
+    UnitPowerType=function() return 0,"MANA" end
+    UnitIsUnit=function(a,b) return a==b end
+    GetRaidTargetIndex=function() return nil end
+    C_NamePlate={GetNamePlates=function() return {{namePlateUnitToken="nameplate70"}} end}
+    NS.Diagnostics={Enabled=function() return true end,Record=function(_,fields)
+        for _,value in pairs(fields or {}) do
+            if rawequal(value,opaque) or rawequal(value,opaqueGUID) then rawLogs=rawLogs+1 end
+        end
+    end}
+    NS.Auras={Create=function() return {} end,Update=function(view,unit,guid) view.last={unit=unit,guid=guid} end}
+    assert(loadfile(root.."Units.lua"))("MyForeverTargets",NS)
+    assert(loadfile(root.."EnemyDisplay.lua"))("MyForeverTargets",NS)
+    assert(loadfile(root.."EnemyTargetHover.lua"))("MyForeverTargets",NS)
+    local display=NS.EnemyDisplay
+    display.OnEvent("NAME_PLATE_UNIT_ADDED","nameplate70")
+    NS.CreateUI();NS.BindTiles("friendly",{"party1"},5);NS.BindTiles("enemy",{},5)
+    local section=NS.UI.enemy
+    local row,friend=section.tiles[1],NS.UI.friendly.tiles[1]
+    local width,height,point=row:GetWidth(),row:GetHeight(),row.point
+    local originalText,originalGetText,originalValue=methods.SetText,methods.GetText,methods.SetValue
+    local failSink,nameHook,healthHook=false,nil,nil
+    methods.SetText=function(self,value)
+        if self==row.nameText and rawequal(value,opaque) then
+            nativeNames=nativeNames+1
+            if failSink then error(opaque) end
+            if nameHook then local fn=nameHook;nameHook=nil;fn() end
+        end
+        return originalText(self,value)
+    end
+    methods.GetText=function(self)
+        if self==row.nameText then error("restricted native label read back") end
+        return originalGetText(self)
+    end
+    methods.SetValue=function(self,value)
+        if self==row.health and rawequal(value,rawHealth) and healthHook then
+            local fn=healthHook;healthHook=nil;fn()
+        end
+        return originalValue(self,value)
+    end
+    local function update()
+        display.Update({},5,section.tiles,NS.RestrictedEnemyTokens());NS.RefreshTiles()
+    end
+    eq(NS.ReadUnit("nameplate70","enemy"),nil,"original public unit reader rejects a secret GUID outside combat")
+    update()
+    eq(row.restrictedRendered,true,"OOC secret identity now renders via production native name sink")
+    eq(rawequal(row.nameText.text,opaque),true,"opaque name reaches the native FontString without Lua conversion")
+    eq(rawequal(row.health.value,rawHealth),true,"native health amount reaches the native StatusBar")
+    eq(rawequal(row.health.maximum,rawMaximum),true,"native maximum reaches the native StatusBar")
+    eq(rawequal(row.power.value,rawPower),true,"native resource amount reaches the native StatusBar")
+    eq(rawequal(row.power.maximum,rawPowerMax),true,"native resource maximum reaches the native StatusBar")
+    eq(row.powerTrack:IsShown(),true,"public resource type permits its native resource strip")
+    eq(row.data,nil,"anonymous card never publishes a normal unit snapshot")
+    eq(row.displayGUID,nil,"anonymous display has no fake GUID")
+    eq(row.expectedGUID,nil,"anonymous display never changes prepared expected GUID")
+    eq(row:GetAttribute("unit"),nil,"anonymous display never binds a protected unit")
+    eq(row:GetAttribute("*macrotext1"),nil,"anonymous display never prepares a name macro")
+    eq(row.displayReadOnly,true,"anonymous card is always read-only outside combat")
+    eq(row.displayActionReady,false,"anonymous card never claims prepared actions")
+    eq(row.shield:IsShown(),true,"anonymous main input shield always blocks native actions")
+    eq(row.enemyTargetButton.shield:IsShown(),true,"anonymous child shield blocks even a hidden native child")
+    eq(row.enemyTargetDisplay:IsShown(),false,"anonymous card exposes no guessed target relationship")
+    eq(row.auras.last.unit,nil,"anonymous card clears old related effects")
+    eq(row.auras.last.guid,nil,"anonymous card publishes no GUID to effect queries")
+    eq(row.targetBadge:IsShown(),false,"anonymous card cannot guess current target")
+    eq(row.focused,false,"anonymous card cannot guess focus identity")
+    eq(row.questBadge:IsShown(),false,"anonymous card cannot guess quest identity")
+    eq(row.marker:IsShown(),false,"anonymous card cannot guess raid marker identity")
+    eq(row.castDot:IsShown(),false,"anonymous card never claims skill readiness")
+    eq(row.tooltipName,nil,"anonymous native name is never cached as tooltip text")
+    eq(section.validCount,1,"visible count includes a successful native-only card")
+    eq(section.restrictedCount,1,"restricted count separately records native-only rendering")
+    eq(section.actionableCount,0,"native rendering never becomes an actionable identity")
+    eq(section.nameRenderErrors,0,"successful native sink records no render failure")
+    eq(friend.nameText:GetText(),"公开友方","friendly public rendering is unchanged")
+    eq(friend.shield:IsShown(),false,"friendly prepared input is unchanged")
+    eq(row:GetWidth(),width,"restricted card keeps compact width")
+    eq(row:GetHeight(),height,"restricted card keeps compact height")
+    eq(row.point,point,"restricted rendering never moves a secure card")
+    -- An explicitly enabled native-action layer fixes the visual address to
+    -- its own cell. An unavailable address must not fall through to the roster.
+    local savedEntry=display.slots[1]
+    NS.InstanceActions={VisualEntry=function(candidate)
+        if candidate==row then return true,nil end
+        return false
+    end}
+    NS.RefreshTiles()
+    eq(row.nameText.text,"","native owned missing address does not display another roster entry")
+    eq(row.shield:IsShown(),true,"missing native address keeps original input shield")
+    eq(friend.nameText:GetText(),"公开友方","native enemy override never changes friendly cells")
+    local fixedEntry=display.RestrictedEntry("nameplate70")
+    display.slots[1]=nil
+    NS.InstanceActions.VisualEntry=function(candidate)
+        if candidate==row then return true,fixedEntry end
+        return false
+    end
+    NS.RefreshTiles()
+    eq(row.restrictedRendered,true,"native owned cell displays its fixed live address despite roster movement")
+    eq(row.displayUnit,"nameplate70","rendered native address equals the separately prepared action address")
+    eq(row:GetAttribute("unit"),nil,"experimental visual override never rebinds the original secure cell")
+    display.slots[1]=savedEntry;NS.InstanceActions=nil;NS.RefreshTiles()
+    eq(row.restrictedRendered,true,"disabling native override returns to accepted default display")
+    resetTooltipOperations();row.shield:GetScript("OnEnter")(row.shield)
+    eq(hasTooltipOperation("SetUnit"),false,"anonymous tooltip is static and never attaches an unknown unit")
+    yes(tooltipContains("身份"),"anonymous tooltip explains the missing trusted identity")
+    eq(NS.HoveredTile,nil,"anonymous tooltip never starts a casting hover")
+    row.shield:GetScript("OnLeave")(row.shield)
+    for key,value in pairs(display.Get(1)) do
+        eq(key=="unit" or key=="restrictedIdentity" or key=="tokenEpoch",true,"display entry contains only public lifecycle metadata")
+        eq(rawequal(value,opaque) or rawequal(value,opaqueGUID),false,"display entry never stores raw name or GUID")
+    end
+    -- Direct native name setter rejection cannot leak an error or leave a fake card.
+    failSink=true;update()
+    eq(row.restrictedRendered,false,"native name sink failure clears the card")
+    eq(row.nameText.text,"","rejected secret name leaves no previous label")
+    eq(row.health:IsShown(),false,"rejected secret name leaves no old health fill")
+    eq(section.validCount,0,"failed native sink is not counted as displayed")
+    eq(section.nameRenderErrors,1,"native sink failure records only a public error count")
+    eq(row.shield:IsShown(),true,"native sink failure never exposes prepared actions")
+    failSink=false
+    nameHook=function() display.OnEvent("NAME_PLATE_UNIT_REMOVED","nameplate70") end
+    update()
+    eq(row.restrictedRendered,false,"lifecycle change inside native name setter clears the card")
+    eq(row.nameText.text,"","post-setter epoch check removes the raw native label")
+    eq(section.nameRenderErrors,1,"post-setter lifecycle failure records a fixed public failure count")
+    display.Reset();update()
+    eq(section.restrictedCount,0,"removed plate cannot reappear after an OOC Reset with stale native existence")
+    display.OnEvent("NAME_PLATE_UNIT_ADDED","nameplate70");update()
+    eq(section.restrictedCount,1,"new added lifecycle can render the same token again")
+    healthHook=function() display.OnEvent("NAME_PLATE_UNIT_REMOVED","nameplate70") end
+    update()
+    eq(row.restrictedRendered,false,"lifecycle change during native health painting clears the entire card")
+    eq(row.health:IsShown(),false,"final epoch check hides any just-painted stale health")
+    eq(row.nameText.text,"","final epoch check clears the native label without reading it")
+    display.OnEvent("NAME_PLATE_UNIT_ADDED","nameplate70");update()
+    units.nameplate70.guid=nil;update()
+    eq(section.restrictedCount,0,"ordinary nil GUID is not evidence for restricted rendering")
+    eq(row.restrictedRendered,nil,"nil GUID never admits an anonymous native name sink")
+    units.nameplate70.guid=opaqueGUID;update()
+    -- A newly bound public action owns slot one, even if anonymous content was there.
+    units.nameplate1={guid="Mixed-Public",name="公开敌人",enemy=true,player=false}
+    NS.BindTiles("enemy",{"nameplate1"},5)
+    display.Update({"nameplate1"},5,section.tiles,NS.RestrictedEnemyTokens());NS.RefreshTiles()
+    eq(row.nameText.text,"公开敌人","mixed OOC public identity stays on its prepared cell")
+    eq(row.expectedGUID,"Mixed-Public","mixed OOC public expected GUID remains trusted")
+    eq(row.shield:IsShown(),false,"mixed public action remains available")
+    eq(row.displayActionReady,true,"mixed public action readiness is preserved")
+    eq(section.tiles[2].restrictedRendered,true,"mixed anonymous content uses the remaining cell")
+    eq(section.tiles[2].data,nil,"mixed anonymous cell remains outside all action snapshots")
+    eq(section.actionableCount,1,"mixed count includes only the real prepared identity")
+    eq(section.restrictedCount,1,"mixed count separately includes the native-only card")
+    combat=true;NS.RefreshTiles()
+    eq(section.tiles[2].restrictedRendered,true,"the same isolated native channel also works during combat")
+    eq(section.tiles[2].shield:IsShown(),true,"combat anonymous input remains shielded")
+    eq(section.tiles[2].enemyTargetButton.shield:IsShown(),true,"combat anonymous child remains shielded")
+    -- HoldRoster can leave an armed public cell stale outside combat. Native
+    -- state entry uses geometry, not the ordinary shield's mouse focus, so the
+    -- cell must stay blank rather than advertise a different public/opaque mob.
+    combat=false
+    row:SetAttribute("combat-prepared",true);row:SetAttribute("combat-key-count",1)
+    row:SetAttribute("combat-key1","9");row:SetAttribute("combat-proxy1","OldPreparedSpell")
+    row:SetAttribute("mfch-ready",false);row:SetAttribute("combat-row-index",1)
+    units.nameplate1.guid="Reused-While-Held"
+    local nativeOwner=newFrame("Frame",nil,UIParent)
+    nativeOwner:SetAttribute("combat-hover-index",1);nativeOwner.refs.row1=row
+    local bound=0
+    nativeOwner.ClearBindings=function() bound=0 end
+    nativeOwner.SetBindingClick=function() bound=bound+1 end
+    row.IsUnderMouse=function() return true end
+    NS.CombatCast={owner=nativeOwner}
+    display.Update({},5,section.tiles,NS.RestrictedEnemyTokens());NS.RefreshTiles()
+    eq(display.Get(1),nil,"held stale armed OOC cell is reserved instead of displaying anonymous content")
+    eq(row.nameText.text,"","reserved armed OOC cell stays visually blank")
+    eq(row.shield:IsShown(),true,"reserved armed OOC cell stays shielded")
+    local file=assert(io.open(root.."CombatCast.lua","r"));local source=file:read("*a");file:close()
+    local bind=assert(source:match("local BIND=%[%[(.-)%]%]"))
+    local before,after=source:match("local STATE=%[%[(.-)%]%]%.%.BIND%.%.%[%[(.-)%]%]")
+    yes(before and after,"stationary combat regression uses actual production state snippet")
+    combat=true;modelSecure("local newstate='combat'\n"..before..bind..after,nativeOwner,nativeOwner)
+    eq(bound,1,"model reproduces retained old binding on geometric stationary combat entry despite ordinary shield")
+    display.Update({},5,section.tiles,NS.RestrictedEnemyTokens());NS.RefreshTiles()
+    eq(display.Get(1),nil,"active native owner keeps its stale cell blank after combat entry")
+    eq(row.restrictedIdentity,nil,"old native action never shares a cell showing an unknown creature")
+    eq(rawLogs,0,"no raw name or GUID reaches ordinary diagnostics")
+    yes(nativeNames>0 and nativeReads>0,"fixture exercised production native name read and sink")
+    combat=false;methods.SetText,methods.GetText,methods.SetValue=originalText,originalGetText,originalValue
+    NS.Diagnostics=nil;NS.Auras=nil;issecretvalue=function() return false end
 end)()
 print("Targets UI simulated checks: "..checks.."; secure engine and world rendering remain in-game checks")

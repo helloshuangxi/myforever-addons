@@ -87,7 +87,7 @@ internal static class BehaviorLegacyAnalysis
                 if (spell is null) day.Spells.Add(spell = new() { SpellId = id });
                 if (eventName == "UNIT_SPELLCAST_SUCCEEDED") { counts.CastSuccesses++; spell.Successes++; }
                 if (eventName == "UNIT_SPELLCAST_FAILED") { counts.CastFailures++; spell.Failures++; }
-                if (eventName == "UNIT_SPELLCAST_INTERRUPTED") spell.Interrupted++;
+                if (eventName == "UNIT_SPELLCAST_INTERRUPTED") { counts.CastInterruptions++; spell.Interrupted++; }
             }
             else if (kind == "death")
             {

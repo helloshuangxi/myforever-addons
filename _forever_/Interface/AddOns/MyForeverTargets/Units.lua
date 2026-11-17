@@ -124,16 +124,21 @@ function NS.ReadEnemyTarget(unit, expectedGUID)
 end
 
 function NS.ReadUnit(unit, side)
-    if not NS.ValidToken(unit) or (side ~= "friendly" and side ~= "enemy") then return nil end
-    if NS.Read(UnitExists,unit) ~= true then return nil end
+    if not NS.ValidToken(unit) or (side ~= "friendly" and side ~= "enemy") then return nil,"invalid_token" end
+    local exists=NS.Read(UnitExists,unit)
+    if exists ~= true then return nil,exists==false and "no_exists" or "exists_unknown" end
     local player = NS.Read(UnitIsPlayer,unit)
-    if player~=true and player~=false then return nil end
+    if player~=true and player~=false then return nil,"player_unknown" end
     if side == "friendly" then
         local friend = NS.Read(UnitCanAssist or UnitIsFriend,"player",unit)
-        if player ~= true or friend ~= true then return nil end
-    elseif NS.Read(UnitCanAttack,"player",unit) ~= true then return nil end
+        if player ~= true or friend ~= true then return nil,"not_friendly" end
+    else
+        local attackable=NS.Read(UnitCanAttack,"player",unit)
+        if attackable~=true then return nil,attackable==false and "cannot_attack" or "attack_unknown" end
+    end
     local guid, name = NS.Read(UnitGUID,unit), NS.Text(NS.Read(UnitName,unit))
-    if type(guid) ~= "string" or guid == "" or name == "" then return nil end
+    if type(guid) ~= "string" or guid == "" then return nil,"guid_unreadable" end
+    if name == "" then return nil,"name_unreadable" end
     local className, classToken = NS.Read(UnitClass,unit)
     className, classToken = NS.Text(className), NS.Text(classToken)
     local color = player == true and classColors[classToken] or nil
@@ -206,7 +211,105 @@ function NS.NameplateTokens()
     return tokens
 end
 
-function NS.Collect(side, mode, limit)
+local function restrictedPlateToken(unit)
+    return NS.ValidToken(unit) and unit:match("^nameplate[1-9]%d*$")~=nil
+end
+
+local function confirmedSecret(value)
+    if type(issecretvalue)~="function" then return false end
+    local ok,result=pcall(issecretvalue,value)
+    -- A failed public-value check is not proof that the value is a secret.
+    return ok and NS.Public(result) and result==true
+end
+
+local function identityReadableOrSecret(fn,unit)
+    if type(fn)~="function" then return false,false end
+    local ok,value=pcall(fn,unit)
+    if not ok then return false,false end
+    if confirmedSecret(value) then return true,true end
+    return NS.Public(value) and type(value)=="string" and value~="",false
+end
+
+local function restrictedEnemyQualification(unit)
+    if not restrictedPlateToken(unit) or NS.Read(UnitExists,unit)~=true then return nil end
+    local player=NS.Read(UnitIsPlayer,unit)
+    if player~=true and player~=false then return nil end
+    if NS.Read(UnitCanAttack,"player",unit)~=true then return nil end
+    local guidValid,guidSecret=identityReadableOrSecret(UnitGUID,unit)
+    local nameValid,nameSecret=identityReadableOrSecret(UnitName,unit)
+    if not guidValid or not nameValid or not (guidSecret or nameSecret) then return nil end
+    return {player=player}
+end
+
+-- This payload never enters a secure unit snapshot. It has no identity/name
+-- fields; raw numeric amounts may only be consumed by native status bars.
+function NS.ReadRestrictedEnemyVisual(unit)
+    local before=restrictedEnemyQualification(unit)
+    if not before then return nil end
+    local className,classToken="",""
+    if before.player then
+        className,classToken=NS.Read(UnitClass,unit)
+        className,classToken=NS.Text(className),NS.Text(classToken)
+    end
+    local ratio,current,maximum,available=readAmounts(UnitHealth,UnitHealthMax,unit)
+    local powerRatio,powerToken,powerColor,powerCurrent,powerMax,powerAvailable=readPower(unit)
+    local dead=NS.Read(UnitIsDeadOrGhost,unit)
+    if dead~=true and dead~=false then dead=nil end
+    local connected=NS.Read(UnitIsConnected,unit)
+    local offline
+    if connected==true then offline=false elseif connected==false then offline=true end
+    local after=restrictedEnemyQualification(unit)
+    if not after or after.player~=before.player then return nil end
+    return {unit=unit,restrictedIdentity=true,player=before.player,
+        className=before.player and (className~="" and className or "玩家") or "怪物",
+        classToken=classToken,color=before.player and classColors[classToken] or {r=1,g=.40,b=.34},
+        health=ratio,healthCurrent=current,healthMax=maximum,healthAvailable=available,
+        powerRatio=powerRatio,powerToken=powerToken,powerColor=powerColor,
+        powerCurrent=powerCurrent,powerMax=powerMax,powerAvailable=powerAvailable,
+        dead=dead,offline=offline}
+end
+
+function NS.SetRestrictedEnemyName(fontString,unit)
+    if not NS.Public(fontString) or (type(fontString)~="table" and type(fontString)~="userdata") then return false end
+    local setter=NS.Read(function() return fontString.SetText end)
+    if type(setter)~="function" then return false end
+    local function failed()
+        pcall(setter,fontString,"")
+        return false
+    end
+    local before=restrictedEnemyQualification(unit)
+    if not before or type(UnitName)~="function" then return failed() end
+    local ok,rawName=pcall(UnitName,unit)
+    if not ok then return failed() end
+    -- Only the public secrecy flag is tested. The secret string itself is
+    -- never compared, transformed, retained in data or returned to the caller.
+    if not confirmedSecret(rawName) and (not NS.Public(rawName) or type(rawName)~="string" or rawName=="") then
+        return failed()
+    end
+    local after=restrictedEnemyQualification(unit)
+    if not after or after.player~=before.player then return failed() end
+    if not pcall(setter,fontString,rawName) then return failed() end
+    after=restrictedEnemyQualification(unit)
+    if not after or after.player~=before.player then return failed() end
+    return true
+end
+
+function NS.RestrictedEnemyTokens()
+    local result,seen={},{}
+    local tokens=NS.Read(NS.NameplateTokens)
+    if not NS.Public(tokens) or type(tokens)~="table" then return result end
+    for _,unit in ipairs(tokens) do
+        if restrictedPlateToken(unit) and not seen[unit] and NS.ReadRestrictedEnemyVisual(unit) then
+            seen[unit]=true;result[#result+1]=unit
+        end
+    end
+    return result
+end
+
+local collectionReasons={"invalid_token","no_exists","exists_unknown","player_unknown","not_friendly",
+    "cannot_attack","attack_unknown","guid_unreadable","name_unreadable","visibility","duplicate"}
+
+function NS.Collect(side, mode, limit, withSummary)
     local tokens, visibleOnly={},false
     if side=="friendly" and mode=="raid" then
         limit=20
@@ -223,8 +326,14 @@ function NS.Collect(side, mode, limit)
         for _,unit in ipairs(NS.NameplateTokens()) do tokens[#tokens+1]=unit end
     end
     local result, seen, candidates={}, {}, {}
+    local summary
+    if withSummary==true then
+        summary={rawTokens=#tokens,nameplateTokens=0,uniqueValid=0}
+        for _,reason in ipairs(collectionReasons) do summary[reason]=0 end
+    end
     for _,unit in ipairs(tokens) do
-        local data=NS.ReadUnit(unit,side)
+        local data,reason=NS.ReadUnit(unit,side)
+        if summary and unit:match("^nameplate%d+$") then summary.nameplateTokens=summary.nameplateTokens+1 end
         -- A live nameplate already proves the client exposed this nearby unit.
         -- UnitIsVisible can be restricted even when the plate token is readable.
         local visible=not visibleOnly or unit=="player" or NS.Read(UnitIsVisible,unit)==true or unit:match("^nameplate")
@@ -232,6 +341,9 @@ function NS.Collect(side, mode, limit)
             seen[data.guid]=true
             candidates[#candidates+1]={unit=unit,index=#candidates+1,
                 range=visibleOnly and NS.MeasureDistance and NS.MeasureDistance(unit) or nil}
+        elseif summary then
+            reason=data and (not visible and "visibility" or "duplicate") or reason
+            if summary[reason]~=nil then summary[reason]=summary[reason]+1 end
         end
     end
     if visibleOnly then
@@ -247,5 +359,6 @@ function NS.Collect(side, mode, limit)
     -- Rank all eligible units before clipping; a late-discovered near unit must
     -- displace a farther unit when the player chooses five or ten slots.
     for i=1,math.min(limit,#candidates) do result[i]=candidates[i].unit end
-    return result,#candidates
+    if summary then summary.uniqueValid=#candidates end
+    return result,#candidates,summary
 end

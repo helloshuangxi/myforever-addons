@@ -1,4 +1,13 @@
 local _, NS = ...
+-- Shared layout hooks (grid while dragging, snap on release, /myui tags).
+local function mfLayout(name, ...)
+    local S = rawget(_G, "MyForeverStyle")
+    local fn = type(S) == "table" and rawget(S, name)
+    if type(fn) == "function" then
+        local ok, result = pcall(fn, ...)
+        return ok and result or nil
+    end
+end
 
 local call, number = NS.Call, NS.Number
 local DOUBLE_CLICK_SECONDS, CURSOR_TOLERANCE, PAGE_SIZE = 0.35, 12, 6
@@ -8,8 +17,10 @@ local trackerHooks = setmetatable({}, {__mode="k"})
 local titleWrappers = setmetatable({}, {__mode="k"})
 local detailsHooks, detailsStates = {}, setmetatable({}, {__mode="k"})
 local refreshDetailsNavigation
-local colors = {surface={0.035,0.046,0.06,0.98}, raised={0.075,0.092,0.11,1},
-    border={0.29,0.34,0.38,1}, gold={0.94,0.78,0.48}, white={0.92,0.94,0.95}, muted={0.68,0.74,0.78}}
+local Style = MyForeverStyle
+local function token(name, alpha) local r, g, b = Style.Color(name); return {r, g, b, alpha} end
+local colors = {surface=token("outer",Style.alpha.window), raised=token("surface",1),
+    border=token("line",1), gold=token("text"), white=token("text"), muted=token("muted")}
 local kindNames = {npc="任务 NPC",item="物品来源",object="任务物件",location="任务地点",area="任务地点",
     turnin="交付地点",turnIn="交付地点",["turn-in"]="交付地点",finish="交付地点",giver="任务 NPC"}
 
@@ -267,15 +278,21 @@ local function createPopup()
     local frame=CreateFrame("Frame","MyForeverNavigatorQuestTargets",UIParent,"BackdropTemplate")
     frame:SetSize(560,540);frame:SetPoint("CENTER");frame:SetFrameStrata("DIALOG")
     frame:SetClampedToScreen(true);frame:SetMovable(true);frame:EnableMouse(true);backdrop(frame,colors.surface)
+    -- 星辉 window treatment (corners, motion, sounds) and console hints.
+    if Style.Panel then Style.Panel(frame,"popup") end
+    if Style.TitleRule then Style.TitleRule(frame,18,nil,240,60) end
+    if Style.HintBar then Style.HintBar(frame,{{"左键","选择"},{"Esc","关闭"}},"/myui 摆放面板") end
     ui={frame=frame,rows={},targets={},page=1}
     NS.QuestUI=ui
     frame.controls=ui
     local drag=CreateFrame("Frame",nil,frame)
     drag:SetPoint("TOPLEFT");drag:SetPoint("TOPRIGHT",-36,0);drag:SetHeight(58)
     drag:EnableMouse(true);drag:RegisterForDrag("LeftButton")
-    drag:SetScript("OnDragStart",function()frame:StartMoving()end)
-    drag:SetScript("OnDragStop",function()frame:StopMovingOrSizing()end)
+    drag:SetScript("OnDragStart",function()frame:StartMoving();mfLayout("BeginDrag",frame)end)
+    drag:SetScript("OnDragStop",function()frame:StopMovingOrSizing();mfLayout("SnapToGrid",frame)end)
+    mfLayout("RegisterLayout",frame,"世界向导 · 任务目标")
     ui.title=label(frame,496,44,"GameFontNormalLarge",colors.gold);ui.title:SetPoint("TOPLEFT",18,-14)
+    if Style.SetType then Style.SetType(ui.title,"title","titleText") end
     ui.message=label(frame,524,44,"GameFontHighlightSmall",colors.muted);ui.message:SetPoint("TOPLEFT",18,-68)
     ui.close=button(frame,"×",24,24,function()NS.HideQuestTargets()end);ui.close:SetPoint("TOPRIGHT",-6,-6)
     for i=1,PAGE_SIZE do
@@ -284,7 +301,7 @@ local function createPopup()
         row:SetHighlightTexture("Interface\\Buttons\\WHITE8X8");row:GetHighlightTexture():SetVertexColor(.7,.9,.85,.1)
         if type(row.SetMotionScriptsWhileDisabled)=="function" then row:SetMotionScriptsWhileDisabled(true) end
         row.name=label(row,390,20,"GameFontNormal",colors.white);row.name:SetPoint("TOPLEFT",10,-6);row.name:SetWordWrap(false)
-        row.kind=label(row,100,18,"GameFontHighlightSmall",colors.gold);row.kind:SetPoint("TOPRIGHT",-10,-7);row.kind:SetJustifyH("RIGHT");row.kind:SetWordWrap(false)
+        row.kind=label(row,100,18,"GameFontHighlightSmall",colors.muted);row.kind:SetPoint("TOPRIGHT",-10,-7);row.kind:SetJustifyH("RIGHT");row.kind:SetWordWrap(false)
         row.summary=label(row,508,18,"GameFontHighlightSmall",colors.muted);row.summary:SetPoint("TOPLEFT",10,-29);row.summary:SetWordWrap(false)
         row:SetScript("OnClick",function(self)
             local target=self.target

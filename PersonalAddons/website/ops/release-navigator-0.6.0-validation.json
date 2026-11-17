@@ -1,0 +1,120 @@
+{
+  "version": "0.6.0",
+  "published_at": "2026-11-17",
+  "status": "published-and-verified",
+  "package": {
+    "url": "https://afabiaoge.xyz/downloads/MyForeverNavigator-0.6.0-Trial.zip",
+    "filename": "MyForeverNavigator-0.6.0-Trial.zip",
+    "size_bytes": 624540,
+    "sha256": "5659350990cca7e475b42c83237f05eb2cf54ab9f800f66dff5df89ddbe3a84f"
+  },
+  "production": {
+    "release": "20261117T025257Z",
+    "base": "20261115T163629Z",
+    "public_files": 168,
+    "old_immutable_matches": 53,
+    "full_remote_tree_matches": true
+  },
+  "public_https_files": 166,
+  "lua_suites": 15,
+  "game_client_travel": "Not exercised on a real character",
+  "browser": {
+    "url": "https://afabiaoge.xyz/navigator/planner/",
+    "startedUTC": "2026-11-17T02:58:49.208Z",
+    "environment": "New isolated headless Chrome profile, WebGPU, public HTTPS origin",
+    "assets": [
+      {
+        "path": "/navigator/planner/",
+        "status": 200,
+        "mime": "text/html"
+      },
+      {
+        "path": "/navigator/planner/planner.css",
+        "status": 200,
+        "mime": "text/css"
+      },
+      {
+        "path": "/navigator/planner/planner.js",
+        "status": 200,
+        "mime": "text/javascript"
+      },
+      {
+        "path": "/navigator/planner/intents.mjs",
+        "status": 200,
+        "mime": "text/javascript"
+      },
+      {
+        "path": "/navigator/planner/catalog.json",
+        "status": 200,
+        "mime": "application/json"
+      },
+      {
+        "path": "/navigator/planner/phrases.json",
+        "status": 200,
+        "mime": "application/json"
+      },
+      {
+        "path": "/navigator/planner/model.js",
+        "status": 200,
+        "mime": "text/javascript"
+      },
+      {
+        "path": "/navigator/planner/vendor/web-llm-0.2.80.js",
+        "status": 200,
+        "mime": "text/javascript"
+      },
+      {
+        "path": "/navigator/planner/vendor/qwen2-0.5b-q4f32.wasm",
+        "status": 200,
+        "mime": "application/wasm"
+      }
+    ],
+    "observations": {
+      "local": {
+        "url": "https://afabiaoge.xyz/navigator/planner/",
+        "query": "先去暴风城的银行，再去铁炉堡的拍卖行",
+        "command": "/mynav route MFN1@903c9ac3~暴风城 银行职员~铁炉堡 拍卖师",
+        "source": "已从地点目录找到目的地。"
+      },
+      "shared": {
+        "command": "/mynav route MFN1@b62b1d94~采矿训练师",
+        "source": "已从共享问法库找到目的地。"
+      },
+      "model": {
+        "question": "我想寄存装备，以后再拿出来，再去拍卖行",
+        "command": "/mynav route MFN1@78c7328e~银行职员~拍卖师",
+        "source": "模型建议了以下目的地，请核对顺序后复制。"
+      },
+      "copy": {
+        "status": "已复制。回到游戏，在聊天框粘贴并发送。",
+        "clipboardMatchesCommand": true
+      },
+      "reloadedCache": {
+        "command": "/mynav route MFN1@78c7328e~银行职员~拍卖师",
+        "source": "已找到你在此浏览器确认过的路线。"
+      }
+    },
+    "version": "0.6.0",
+    "modelRequestedForExactQuery": false,
+    "huggingFacePublicResponses": 11,
+    "repeatedModelNetworkCalls": 0,
+    "status": "passed",
+    "completedUTC": "2026-11-17T02:59:41.286Z"
+  },
+  "manager": {
+    "directed": 20,
+    "official": 74
+  },
+  "actual_db_web_command_replay": [
+    {
+      "id": "questie-npc-8119-1413",
+      "maps": 10,
+      "service": "银行职员"
+    },
+    {
+      "id": "questie-npc-258878-1413",
+      "maps": 9,
+      "service": "拍卖师"
+    }
+  ]
+}

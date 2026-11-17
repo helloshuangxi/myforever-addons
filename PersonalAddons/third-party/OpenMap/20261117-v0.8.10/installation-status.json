@@ -1,0 +1,16 @@
+{
+  "version": "v0.8.10",
+  "interface": "16001",
+  "required_dependencies": [],
+  "optional_dependencies": "Questie, Leatrix_Maps, BetterMaps, HighFidelityWorldMap, HiddenMaps, Mapster, Magnify",
+  "has_zhCN": true,
+  "file_count": 2811,
+  "unpacked_bytes": 456767976,
+  "toc_files_complete": true,
+  "archive_sha256": "b7566bdc098a5a127e47108ec771ab9d7d72b0197c8c00397e85e8d2ebe5bf1f",
+  "installed": true,
+  "runtime_tested": false,
+  "installed_path": "/Users/mashuangxi/World of Warcraft/_forever_/Interface/AddOns/OpenMap",
+  "installed_at": "2026-11-17T12:01:03+08:00",
+  "installed_files_verified": true
+}

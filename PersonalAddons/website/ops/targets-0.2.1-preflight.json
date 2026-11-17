@@ -1,0 +1,22 @@
+{
+  "version": "0.2.1",
+  "changed": [
+    "index.html",
+    "sitemap.xml",
+    "targets/index.html",
+    "targets/latest.json",
+    "targets/releases.json"
+  ],
+  "added": [
+    "downloads/MyForeverTargets-0.2.1-Trial.zip",
+    "downloads/MyForeverTargets-0.2.1-Trial.zip.sha256"
+  ],
+  "prior_resources": 146,
+  "prior_archives_unchanged": 49,
+  "sha256": "a86a002c87ffbf0a5dae0c096364be5522da6f5714ef542bff58d40a4c7db390",
+  "site_verification": "passed",
+  "release_regressions": 10,
+  "manager050_local_checks": 68,
+  "game_cast_verified": false,
+  "published": false
+}

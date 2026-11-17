@@ -52,6 +52,7 @@ id_ed25519*
 *.zip
 *.tar.gz
 *.dmg
+*.nupkg
 *.dmp
 *.dll
 *.dylib
@@ -79,6 +80,8 @@ id_ed25519*
 /PersonalAddons/work/*-dotnet/
 /PersonalAddons/work/coach-validation/
 /PersonalAddons/work/behavior-validation/*.json
+/PersonalAddons/work/*/manager-final/
+/PersonalAddons/work/*-release-root/
 
 # Downloaded reference implementations are not our source. Keep our reports,
 # provenance and small data generators; install upstream addons separately.

@@ -1,5 +1,5 @@
 local _, NS = ...
-NS.VERSION = "0.4.1"
+NS.VERSION = "0.7.0"
 
 function NS.Number(value)
     return not (issecretvalue and issecretvalue(value)) and type(value) == "number"
@@ -62,12 +62,25 @@ function NS.NormalizeDB(value)
             end
         end
     end
+    if NS.Number(old.nextCustomID) and old.nextCustomID % 1 == 0 and old.nextCustomID <= 2147483647 then
+        db.nextCustomID = math.max(db.nextCustomID, old.nextCustomID)
+    end
+    if NS.NormalizeRouteKnowledge then db.routeKnowledge = NS.NormalizeRouteKnowledge(old.routeKnowledge) end
     if type(old.activeID) == "string" and #old.activeID <= 100 then db.activeID = old.activeID end
+    if NS.NormalizeRouteIntents then db.routeIntents=NS.NormalizeRouteIntents(old.routeIntents) end
+    if NS.NormalizeClientAI then db.clientAI=NS.NormalizeClientAI(old.clientAI) end
+    if NS.NormalizeRoute then db.route = NS.NormalizeRoute(old.route, db.activeID) end
+    if NS.NormalizeTransit then db.transit = NS.NormalizeTransit(old.transit) end
     return db
 end
 function NS.GetPoint(id)
     if type(id) ~= "string" then return nil end
+    if id:match("^askq:%d+:") and NS.GetClientQuestPoint then return NS.GetClientQuestPoint(id) end
     if NS.TransientPoint and NS.TransientPoint.id == id then return NS.TransientPoint end
+    if NS.GetTransitPoint then
+        local stop = NS.GetTransitPoint(id)
+        if stop then return stop end
+    end
     if NS.GetQuestiePoint then
         local p = NS.GetQuestiePoint(id)
         if p then
@@ -90,15 +103,16 @@ end
 function NS.Initialize(value)
     NS.TransientPoint = nil
     NS.QuestieDestination = nil
+    if NS.InvalidateClientQuestFacts then NS.InvalidateClientQuestFacts() end
     NS.DB = NS.NormalizeDB(value)
     -- Questie builds after its locale and Forever corrections are ready.
     -- Keep a stable catalogue ID pending; never persist third-party records.
     if not NS.GetPoint(NS.DB.activeID) and not (type(NS.DB.activeID) == "string"
-        and NS.DB.activeID:match("^questie%-npc%-%d+%-%d+$")) then NS.DB.activeID = nil end
+        and (NS.DB.activeID:match("^questie%-npc%-%d+%-%d+$") or (NS.DB.route and NS.DB.activeID:match("^askq:%d+:")))) then NS.DB.activeID = nil end
     return NS.DB
 end
 function NS.Print(message)
-    if DEFAULT_CHAT_FRAME then DEFAULT_CHAT_FRAME:AddMessage("|cffe8be75世界向导|r " .. tostring(message)) end
+    if DEFAULT_CHAT_FRAME then DEFAULT_CHAT_FRAME:AddMessage((MyForeverStyle and MyForeverStyle.Prefix("世界向导") or "世界向导") .. " " .. tostring(message)) end
 end
 function NS.ToggleFavorite(id)
     local point = NS.GetPoint(id)
@@ -171,16 +185,21 @@ function NS.ParseCoordinateInput(input, currentMapID)
     return p
 end
 local searchText = setmetatable({}, {__mode="k"})
-local function matches(p, terms)
-    if #terms == 0 then return true end
+local function searchableText(p)
     local haystack = searchText[p]
     if not haystack then
-    local values = {p.name or "", p.english or "", p.zone or "", p.service or "", p.note or "", p.tags or "", tostring(p.npcID or "")}
-    haystack = table.concat(values, " "):gsub("[A-Z]", string.lower)
-    searchText[p] = haystack
+        local values = {p.name or "", p.english or "", p.zone or "", p.service or "", p.note or "", p.tags or "", tostring(p.npcID or "")}
+        haystack = table.concat(values, " "):gsub("[A-Z]", string.lower)
+        searchText[p] = haystack
     end
     local aliases = NS.Call(NS.GetPointSearchAliases, p)
     if type(aliases) == "string" and aliases ~= "" then haystack = haystack .. " " .. aliases:gsub("[A-Z]", string.lower) end
+    return haystack
+end
+local function match(p, terms, rankPoint)
+    if not rankPoint and #terms == 0 then return true end
+    local haystack = searchableText(p)
+    if rankPoint then return rankPoint(p, haystack) end
     for _, word in ipairs(terms) do if not haystack:find(word, 1, true) then return false end end
     return true
 end
@@ -194,6 +213,19 @@ function NS.Search(query, options)
     local category = options.category or "all"
     local favorites = NS.DB and NS.DB.favorites or {}
     local context = NS.Call(NS.GetLocationContext)
+    local function appendMatch(point, score, kind)
+        -- Only read Questie spawns for matching records. Invisible phases
+        -- may remove a lexical match from the final results.
+        if point.questieSpawns and NS.ResolvePoint then point = NS.ResolvePoint(point, context) end
+        if not point then return end
+        local entry = {}
+        for k, v in pairs(point) do entry[k] = v end
+        if kind then entry.matchScore, entry.matchKind = score, kind end
+        local distance, scope = NS.Call(NS.MeasurePoint, point, context)
+        if NS.Number(distance) and distance >= 0 then entry.distance = distance else entry.distance = nil end
+        entry.scope = scopeOrder[scope] and scope or (point.mapID == mapID and "same-map" or "unknown")
+        result[#result + 1] = entry
+    end
     local function append(points)
         for _, original in ipairs(points) do
             local p = original
@@ -203,25 +235,17 @@ function NS.Search(query, options)
             local factionOK = options.faction == "all" or not faction or p.faction == "Neutral" or p.faction == "Hostile" or p.faction == faction
             local subcategoryOK = not options.subcategory or options.subcategory == "all"
                 or NS.Call(NS.PointMatchesSubcategory, p, options.subcategory) == true
-            if NS.ValidPoint(p) and categoryOK and subcategoryOK and factionOK and (not options.currentZone or p.mapID == mapID) and matches(p, terms) then
-                -- Dynamic records already contain localized search fields.
-                -- Resolve only matches; querying every DB entity on each key
-                -- press would stall a world-sized catalogue.
-                if p.questieSpawns and NS.ResolvePoint then p = NS.ResolvePoint(p, context) end
-                if p then
-                local entry = {}
-                for k, v in pairs(p) do entry[k] = v end
-                local distance, scope = NS.Call(NS.MeasurePoint, p, context)
-                if NS.Number(distance) and distance >= 0 then entry.distance = distance else entry.distance = nil end
-                entry.scope = scopeOrder[scope] and scope or (p.mapID == mapID and "same-map" or "unknown")
-                result[#result + 1] = entry
-                end
+            if NS.ValidPoint(p) and categoryOK and subcategoryOK and factionOK and (not options.currentZone or p.mapID == mapID) then
+                local score, kind = match(p, terms, options.rankPoint)
+                if score then appendMatch(p, score, kind) end
             end
         end
     end
     append(NS.GetCatalogPoints and NS.GetCatalogPoints() or NS.Points or {})
+    if options.includeTransit and NS.GetTransitStops then append(NS.GetTransitStops()) end
     if options.includeCustom ~= false then append(NS.DB and NS.DB.custom or {}) end
     table.sort(result, function(a, b)
+        if a.matchScore and b.matchScore and a.matchScore ~= b.matchScore then return a.matchScore > b.matchScore end
         if options.sort ~= "name" then
             -- Comparable world distances may cross a zone border. Do not put a
             -- distant same-zone vendor before a nearer vendor just over it.

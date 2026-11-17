@@ -6,7 +6,9 @@ NS.CombatCast=Combat
 
 -- Evaluated once at startup; changing this policy requires a UI reload.
 -- Native mouseover macros never need a generated action or key override.
-if not NS.Public(NS.NativeMacroOnly) or NS.NativeMacroOnly~=false then
+local legacy=NS.NearbyCast and NS.NearbyCast.combatName==true
+Combat.legacy=legacy
+if not legacy and (not NS.Public(NS.NativeMacroOnly) or NS.NativeMacroOnly~=false) then
     local function disabled() return false,0 end
     Combat.native=true
     Combat.Snippets={}
@@ -33,8 +35,26 @@ local function plain(value)
 end
 
 local function preserveTarget()
+    -- The name-bridge continuation never uses the unverified GUID route.
+    if legacy then return false end
     local value=NS.PreserveCastTarget
     return not NS.Public(value) or value~=false
+end
+
+-- Trust only a live player's native canonical full name, read once when the
+-- OOC snapshot is armed. Camelot uses a first-name/surname separator here;
+-- generic Name-Realm reconstruction or whitespace rewriting is not equivalent.
+local function trustedFriendlyPlayer(data,row)
+    local expectedGUID,expectedName=data.guid,data.targetName
+    if not legacy or not row or row.side~="friendly" or row.bridgeTarget==true
+        or not NS.Public(data.player) or data.player~=true
+        or not plain(expectedGUID) or not plain(expectedName)
+        or not NS.Public(row.expectedGUID) or row.expectedGUID~=expectedGUID
+        or NS.Read(UnitGUID,data.unit)~=expectedGUID then return false end
+    local canonical=NS.Read(NameUtil and NameUtil.GetUnmodifiedUnitFullName,data.unit)
+    return plain(canonical)~=nil and canonical==expectedName
+        and data.guid==expectedGUID and data.targetName==expectedName
+        and NS.Read(UnitGUID,data.unit)==expectedGUID
 end
 
 function Combat.BuildMacros(data,entry)
@@ -52,6 +72,20 @@ function Combat.BuildMacros(data,entry)
             guard="[@"..data.unit..",exists,harm,nodead] valid"}
     end
     if not plain(data.targetName) then return nil end
+    local playerNameRoute=legacy and entry.side=="friendly" and NS.Public(data.player) and data.player==true
+        and NS.Public(data.trustedPlayerName) and data.trustedPlayerName==true
+        and entry.actionKind=="spell" and plain(entry.spell)~=nil
+    if playerNameRoute then
+        -- Clearing first prevents a failed exact selection from healing the old
+        -- target. Explicit exists/help/nodead has no auto-self fallback. Never
+        -- stop the macro after clearing: its last line must restore the target.
+        local prefix="/cleartarget\n/targetexact "..data.targetName
+            .."\n/cast [@target,exists,help,nodead] "..entry.spell.."\n"
+        local withTarget,withoutTarget=prefix.."/targetlasttarget",prefix.."/cleartarget"
+        if #withTarget>1023 or #withoutTarget>1023 then return nil end
+        return {withTarget=withTarget,withoutTarget=withoutTarget,
+            guard="[@"..data.unit..",exists,help,nodead] valid",playerNameRoute=true}
+    end
     local relation=entry.side=="enemy" and "harm" or "help"
     local body,fallback
     if entry.actionKind=="macro" and entry.side=="enemy" then
@@ -87,7 +121,8 @@ local STATE=[[
     if newstate == "combat" and not self:GetAttribute("guid-probe-suspended") then
         local index = self:GetAttribute("combat-hover-index")
         local row = index and self:GetFrameRef("row" .. index)
-        if row and row:GetAttribute("combat-prepared") and row:IsVisible() and row:IsUnderMouse() then
+        if row and row:GetAttribute("combat-prepared") and not row:GetAttribute("mfch-ready")
+            and row:IsVisible() and row:IsUnderMouse() then
 ]]..BIND..[[
         end
     end
@@ -96,7 +131,7 @@ local ENTER=[[
     control:ClearBindings()
     control:SetAttribute("combat-hover-index", self:GetAttribute("combat-row-index"))
     if control:GetAttribute("combat-active") and not control:GetAttribute("guid-probe-suspended")
-        and self:GetAttribute("combat-prepared") then
+        and self:GetAttribute("combat-prepared") and not self:GetAttribute("mfch-ready") then
         local count = self:GetAttribute("combat-key-count") or 0
         for i = 1, count do
             local key = self:GetAttribute("combat-key" .. i)
@@ -146,7 +181,15 @@ local PRECLICK=[[
         return
     end
     local macro
-    if not SecureCmdOptionParse(self:GetAttribute("snapshot-guard")) then
+    if self:GetAttribute("snapshot-player-name-route") then
+        if SecureCmdOptionParse("[@target,exists] present") then
+            macro = self:GetAttribute("snapshot-with-target")
+            self:SetAttribute("combat-branch", "player_name_restore")
+        else
+            macro = self:GetAttribute("snapshot-without-target")
+            self:SetAttribute("combat-branch", "player_name_clear")
+        end
+    elseif not SecureCmdOptionParse(self:GetAttribute("snapshot-guard")) then
         macro = self:GetAttribute("snapshot-fallback")
         self:SetAttribute("combat-branch", "fallback")
     elseif SecureCmdOptionParse("[@target,exists] present") then
@@ -177,11 +220,9 @@ local function owner()
     return frame
 end
 
-local function observedAliasGuard(proxy)
+local function observedCondition(condition)
     if type(SecureCmdOptionParse)~="function" then return "[unavailable]" end
-    local guard=NS.Read(proxy.GetAttribute,proxy,"snapshot-guard")
-    if type(guard)~="string" then return "[guard-unreadable]" end
-    local ok,value=pcall(SecureCmdOptionParse,guard)
+    local ok,value=pcall(SecureCmdOptionParse,condition)
     if not ok then return "[api-error]" end
     if not NS.Public(value) then return "[restricted]" end
     if value==nil then return "[nil]" end
@@ -189,9 +230,16 @@ local function observedAliasGuard(proxy)
     return "[unsupported]"
 end
 
+local function observedAliasGuard(proxy)
+    local guard=NS.Read(proxy.GetAttribute,proxy,"snapshot-guard")
+    if type(guard)~="string" then return "[guard-unreadable]" end
+    return observedCondition(guard)
+end
+
 local function observe(proxy,button,down)
     pcall(function()
         proxy.guidHoverLogID=nil
+        proxy.combatClickBefore=nil
         if NS.Public(button) and button==nil then return end
         if not Combat.owner or NS.Read(Combat.owner.GetAttribute,Combat.owner,"combat-active")~=true then return end
         local diagnostics=NS.Diagnostics
@@ -199,35 +247,60 @@ local function observe(proxy,button,down)
             or type(diagnostics.Enabled)=="function" and NS.Read(diagnostics.Enabled)~=true then return end
         local entry,data,row=proxy.entry,proxy.snapshot,proxy.row
         if not entry or not data then return end
+        if NS.Public(down) and type(down)=="boolean" and down~=(entry.useOnKeyDown==true) then return end
         local preserving=NS.Read(proxy.GetAttribute,proxy,"snapshot-preserve-target")==true
         local targetGUID,targetExists=NS.Read(UnitGUID,"target"),NS.Read(UnitExists,"target")
-        if preserving then proxy.guidHoverBefore={guid=targetGUID,exists=targetExists} end
+        proxy.combatClickBefore={guid=targetGUID,exists=targetExists}
+        if preserving then proxy.guidHoverBefore=proxy.combatClickBefore end
         local fields={button=button,down=down,combat=NS.Read(InCombatLockdown),
             snapshotName=data.targetName,snapshotGUID=data.guid,snapshotUnit=data.unit,
             rowUnit=row and row.unit,rowGUID=row and NS.Read(UnitGUID,row.unit),expectedGUID=row and row.expectedGUID,
             targetGUID=targetGUID,targetGUIDBefore=targetGUID,targetExistsBefore=targetExists,targetName=NS.Read(UnitName,"target"),
             nativeMouseoverGUID=NS.Read(UnitGUID,"mouseover"),activeZBinding=NS.Read(GetBindingAction,"Z",true),
             slot=entry.slot,spellID=entry.spellID,actionKind=entry.actionKind,side=entry.side,
-            configuredCommand=entry.command,branch=NS.Read(proxy.GetAttribute,proxy,"combat-branch"),
+            configuredCommand=entry.command,spellName=entry.spell,
+            branch=NS.Read(proxy.GetAttribute,proxy,"combat-branch"),
+            nameGuardPolicy=NS.Read(proxy.GetAttribute,proxy,"snapshot-player-name-route")==true
+                and "friendly_player_name" or "alias",
+            snapshotPlayer=data.player,snapshotNameTrusted=data.trustedPlayerName==true,
             preserveTarget=preserving,castMode=preserving and "guid_hover" or "legacy_name",
             frozenNameSnapshot=not preserving,frozenGUIDSnapshot=preserving}
         local snapshotMacro
+        fields.selectedActionType=NS.Read(proxy.GetAttribute,proxy,"type") or "[nil]"
+        fields.aliasGuardPublicResult=observedAliasGuard(proxy)
+        if legacy and NS.ValidToken(data.unit) then
+            fields.aliasExistsPublicResult=observedCondition("[@"..data.unit..",exists] valid")
+            fields.aliasHelpPublicResult=observedCondition("[@"..data.unit..",help] valid")
+            fields.aliasNodeadPublicResult=observedCondition("[@"..data.unit..",nodead] valid")
+        end
         if preserving then
             snapshotMacro=NS.Read(proxy.GetAttribute,proxy,"snapshot-guid-macro")
             fields.snapshotMacroPresent=type(snapshotMacro)=="string" and snapshotMacro~=""
-            fields.aliasGuardPublicResult=observedAliasGuard(proxy)
-            fields.selectedActionType=NS.Read(proxy.GetAttribute,proxy,"type") or "[nil]"
             fields.selectedCommandMatches=fields.snapshotMacroPresent
                 and NS.Read(proxy.GetAttribute,proxy,"macrotext")==snapshotMacro
+        else
+            local attribute=(fields.branch=="name_bridge_restore" or fields.branch=="player_name_restore") and "snapshot-with-target"
+                or (fields.branch=="name_bridge_clear" or fields.branch=="player_name_clear") and "snapshot-without-target"
+                or fields.branch=="fallback" and "snapshot-fallback"
+            snapshotMacro=attribute and NS.Read(proxy.GetAttribute,proxy,attribute)
+            fields.selectedCommandMatches=type(snapshotMacro)=="string" and snapshotMacro~=""
+                and NS.Read(proxy.GetAttribute,proxy,"macrotext")==snapshotMacro or false
         end
         for i,key in ipairs(entry.keys) do fields["configuredKey"..i]=key end
         diagnostics.Record("COMBAT_KEY_PREPARE",fields)
-        if preserving and fields.branch=="guid_hover" and type(diagnostics.BeginCastAttempt)=="function" then
-            local attempt={route="combat",row=NS.Read(row and row.GetName,row),rowUnit=row and row.unit,
+        local attempted=fields.selectedActionType=="macro" and fields.selectedCommandMatches==true
+            and (preserving and fields.branch=="guid_hover"
+                or not preserving and (fields.branch=="name_bridge_restore" or fields.branch=="name_bridge_clear"
+                    or fields.branch=="player_name_restore" or fields.branch=="player_name_clear"))
+        if attempted and type(diagnostics.BeginCastAttempt)=="function" then
+            local route=preserving and "combat" or fields.nameGuardPolicy=="friendly_player_name"
+                and "combat_player_name" or "combat_name"
+            local attempt={route=route,row=NS.Read(row and row.GetName,row),rowUnit=row and row.unit,
                 expectedGUID=data.guid,spellID=entry.spellID,slot=entry.slot,
-                generatedCommand=snapshotMacro,selectedActionType=fields.selectedActionType,
+                generatedCommand=preserving and snapshotMacro or nil,selectedActionType=fields.selectedActionType,
                 beforeTargetGUID=targetGUID,beforeTargetExists=targetExists,
-                button=button,down=down,recipientProven=false}
+                side=entry.side,combat=NS.Read(InCombatLockdown),configuredCommand=entry.command,
+                actionKind=entry.actionKind,button=button,down=down,recipientProven=false}
             attempt.selectedCommandMatches=fields.selectedCommandMatches
             for i,key in ipairs(entry.keys) do attempt["configuredKey"..i]=key end
             proxy.guidHoverLogID=NS.Read(diagnostics.BeginCastAttempt,attempt)
@@ -240,13 +313,15 @@ local function observePost(proxy,button,down)
     proxy.guidHoverLogID=nil
     pcall(function()
         if NS.Public(button) and button==nil then return end
-        if not Combat.owner or NS.Read(Combat.owner.GetAttribute,Combat.owner,"combat-active")~=true
-            or NS.Read(proxy.GetAttribute,proxy,"snapshot-preserve-target")~=true then return end
+        if not Combat.owner or NS.Read(Combat.owner.GetAttribute,Combat.owner,"combat-active")~=true then return end
         local diagnostics=NS.Diagnostics
         if type(diagnostics)~="table" or type(diagnostics.Record)~="function"
             or type(diagnostics.Enabled)=="function" and NS.Read(diagnostics.Enabled)~=true then return end
-        local entry,data,before=proxy.entry,proxy.snapshot,proxy.guidHoverBefore
+        local preserving=NS.Read(proxy.GetAttribute,proxy,"snapshot-preserve-target")==true
+        local entry,data=proxy.entry,proxy.snapshot
+        local before=preserving and proxy.guidHoverBefore or proxy.combatClickBefore
         if not entry or not data then return end
+        if NS.Public(down) and type(down)=="boolean" and down~=(entry.useOnKeyDown==true) then return end
         local afterGUID,afterExists=NS.Read(UnitGUID,"target"),NS.Read(UnitExists,"target")
         local changed
         if before then
@@ -256,23 +331,43 @@ local function observePost(proxy,button,down)
                 elseif before.exists==false then changed=false end
             end
         end
-        local fields={button=button,down=down,combat=NS.Read(InCombatLockdown),castMode="guid_hover",preserveTarget=true,
+        local branch=NS.Read(proxy.GetAttribute,proxy,"combat-branch")
+        local fields={button=button,down=down,combat=NS.Read(InCombatLockdown),
+            castMode=preserving and "guid_hover" or "legacy_name",preserveTarget=preserving,
             snapshotGUID=data.guid,snapshotUnit=data.unit,expectedGUID=data.guid,slot=entry.slot,spellID=entry.spellID,
+            spellName=entry.spell,nameGuardPolicy=NS.Read(proxy.GetAttribute,proxy,"snapshot-player-name-route")==true
+                and "friendly_player_name" or "alias",
             targetGUIDBefore=before and before.guid,targetExistsBefore=before and before.exists,
             targetGUIDAfter=afterGUID,targetExistsAfter=afterExists,targetChangedObserved=changed,
-            beforeAvailable=before~=nil,branch=NS.Read(proxy.GetAttribute,proxy,"combat-branch"),
+            beforeAvailable=before~=nil,branch=branch,
             nativeMouseoverGUID=NS.Read(UnitGUID,"mouseover"),activeZBinding=NS.Read(GetBindingAction,"Z",true)}
+        if not preserving then
+            fields.side=entry.side
+            if (branch=="name_bridge_restore" or branch=="name_bridge_clear"
+                or branch=="player_name_restore" or branch=="player_name_clear") and changed~=nil then
+                fields.targetRestoredObserved=not changed
+            end
+            -- The original target readback is evidence about restoration only.
+            -- It cannot establish the native spell's recipient or success.
+            fields.recipientProven=false
+        end
         for i,key in ipairs(entry.keys) do fields["configuredKey"..i]=key end
-        diagnostics.Record("GUID_HOVER_POSTCLICK",fields)
+        diagnostics.Record(preserving and "GUID_HOVER_POSTCLICK" or "COMBAT_NAME_POST",fields)
         if attemptID and type(diagnostics.EndCastAttempt)=="function" then
             diagnostics.EndCastAttempt(attemptID,fields)
         end
-        proxy.guidHoverBefore=nil
     end)
+    proxy.guidHoverBefore=nil
+    proxy.combatClickBefore=nil
 end
 
 function Combat.Install(row)
     if Combat.installed[row] then return true end
+    -- Install both main-row sides before NearbyCast/CombatHover finish their
+    -- cleanup wrappers. ArmRow chooses the nameplate route after unit binding;
+    -- fixed friendly tokens remain exclusively on CombatHover. Target sub-bars
+    -- follow a changing relationship and must not use a frozen name snapshot.
+    if legacy and (row.bridgeTarget==true or row.side~="friendly" and row.side~="enemy") then return false end
     local frame=owner()
     if not frame then return false end
     local index=#Combat.rows+1
@@ -296,6 +391,7 @@ local function disarm(row,state,reason)
     row:SetAttribute("combat-key-count",0)
     state.prepared,state.count,state.reason=false,0,reason
     state.data=nil
+    state.nameGuardPolicy="alias"
     state.preserveTarget=preserveTarget()
 end
 
@@ -303,7 +399,11 @@ function Combat.ArmRow(row,actions)
     if not idle() then return false end
     if not Combat.Install(row) then return false end
     local state=Combat.states[row]
-    if not NS.DB or not NS.DB.mouseoverRequested then disarm(row,state,"disabled");return false end
+    local enabled=NS.DB and (legacy and NS.DB.legacyNameBridgeEnabled or not legacy and NS.DB.mouseoverRequested)
+    if not enabled then disarm(row,state,"disabled");return false end
+    -- An enemy's target bar follows that enemy's live target, which changes
+    -- during combat; a name frozen before combat would no longer describe it.
+    if legacy and row.bridgeTarget==true then disarm(row,state,"out_of_combat_only");return false end
     if row.side=="friendly" and type(row.unit)=="string" and not row.unit:match("^nameplate%d+$") then
         disarm(row,state,"native_unit");return false
     end
@@ -316,6 +416,12 @@ function Combat.ArmRow(row,actions)
         if not NS.Public(data.player) or data.player~=false then disarm(row,state,"unsupported_guid_unit");return false end
         if not plain(data.guid) then disarm(row,state,"invalid_guid");return false end
     elseif not unique then disarm(row,state,"not_unique");return false end
+    -- Do not mutate a ReadUnit provider's shared table or carry an old trust
+    -- marker into a new preparation after the unit/name becomes unavailable.
+    local snapshot={}
+    for key,value in pairs(data) do snapshot[key]=value end
+    snapshot.trustedPlayerName=trustedFriendlyPlayer(data,row)
+    data=snapshot
     local entries=actions or NS.NearbyCast.DiscoverActions(row.side,true)
     local count=0
     for i,entry in ipairs(entries) do
@@ -340,6 +446,7 @@ function Combat.ArmRow(row,actions)
             proxy:SetAttribute("action",nil)
             proxy:SetAttribute("macrotext",nil)
             proxy:SetAttribute("snapshot-guard",macros.guard)
+            proxy:SetAttribute("snapshot-player-name-route",macros.playerNameRoute==true)
             proxy:SetAttribute("snapshot-preserve-target",macros.preserveTarget==true)
             proxy:SetAttribute("snapshot-guid-macro",macros.guidMacro)
             proxy:SetAttribute("snapshot-with-target",macros.withTarget)
@@ -356,6 +463,7 @@ function Combat.ArmRow(row,actions)
     end
     if count==0 then disarm(row,state,"no_actions");return false end
     state.prepared,state.count,state.reason,state.data=true,count,"prepared",data
+    state.nameGuardPolicy=data.trustedPlayerName==true and "friendly_player_name" or "alias"
     state.preserveTarget=preserveTarget()
     row:SetAttribute("combat-key-count",count)
     row:SetAttribute("combat-prepared",true)
@@ -371,6 +479,7 @@ function Combat.Status(row)
         return {prepared=state and state.prepared or false,count=state and state.count or 0,
             name=data and data.targetName,guid=data and data.guid,unit=data and data.unit,
             reason=state and state.reason or "not_installed",
+            nameGuardPolicy=state and state.nameGuardPolicy or "alias",
             preserveTarget=preserving,castMode=preserving and "guid_hover" or "legacy_name"}
     end
     local preparedCount=0
@@ -386,6 +495,23 @@ end
 
 function Combat.Reconcile()
     if not idle() or Combat.reconciling then return false end
+    if legacy then
+        -- Track only this module's own hover index. The out-of-combat bridge
+        -- (NearbyCast) reconciles itself; it is not cleared or re-entered here.
+        Combat.reconciling=true
+        if Combat.owner then ClearOverrideBindings(Combat.owner) end
+        local foci,index=NS.Read(GetMouseFoci),nil
+        if type(foci)=="table" then
+            for _,focus in ipairs(foci) do
+                if NS.Public(focus) and Combat.installed[focus] and NS.Read(focus.IsVisible,focus)==true then
+                    index=Combat.installed[focus];break
+                end
+            end
+        end
+        if Combat.owner then Combat.owner:SetAttribute("combat-hover-index",index) end
+        Combat.reconciling=false
+        return index~=nil
+    end
     Combat.reconciling=true
     if Combat.owner then ClearOverrideBindings(Combat.owner) end
     local foci=NS.Read(GetMouseFoci)

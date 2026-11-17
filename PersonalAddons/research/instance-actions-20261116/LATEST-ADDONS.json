@@ -1,0 +1,15 @@
+[
+  {
+    "project": "EnemyFrames",
+    "version": "1.4.0",
+    "url": "https://edge.forgecdn.net/files/9580/727/EnemyFrames-1.4.0.zip",
+    "sha256": "92b478e241586514c21e1009c365da0c8297550abeb2ab60e6e4f7983f67bc97",
+    "executed": false
+  },
+  {
+    "project": "AKForeverTargeter",
+    "version": "v0.3.1",
+    "published_at": "2026-11-14T05:28:10Z",
+    "url": "https://github.com/ajkatz/AKForeverTargeter/releases/tag/v0.3.1"
+  }
+]

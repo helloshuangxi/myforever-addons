@@ -1,0 +1,98 @@
+{
+  "automation_id": "nodesight",
+  "triggeredAt": "2026-11-15T02:04:22.700Z",
+  "checkedAt": "2026-11-15T02:06:42.655373+00:00",
+  "localDate": "2026-11-15",
+  "timezone": "Asia/Shanghai",
+  "comparedWith": [
+    "nodesight-monitor-20261114.json",
+    "../professions-upstream-20261113/UPSTREAM.json"
+  ],
+  "github": {
+    "release": "3.0.1",
+    "tagCommit": "ea4b1ba4148f2c2a99072e64a478fd02505e7019",
+    "releasePublishedAt": "2026-11-13T17:22:21Z",
+    "releaseUrl": "https://github.com/Krelock/NodeSight/releases/tag/v3.0.1",
+    "mainCommit": "b4ebfaf643f1b9aae2e4907338332277149978b3",
+    "compareToPreviousMain": "identical",
+    "commitsSincePrevious": 0,
+    "tocInterface": 16001,
+    "tocVersion": "3.0.1",
+    "tocEvidence": "Previous pinned main unchanged by current uncached official API compare; not an independent new TOC read."
+  },
+  "curseforge": {
+    "version": "3.0.2",
+    "fileId": 9595864,
+    "type": "Release",
+    "siteDisplayDate": "2026-11-13",
+    "client": "WoW Forever1.60.1",
+    "url": "https://www.curseforge.com/wow/addons/node-sight/files/9595864",
+    "newSinceYesterday": false,
+    "independentlyCheckedBy": "readonly_cf_agent",
+    "sourcePackageDownloadedOrAudited": false,
+    "comments": "Login required; not inspected"
+  },
+  "newPullRequestActivity": {
+    "number": 22,
+    "url": "https://github.com/Krelock/NodeSight/pull/22",
+    "title": "Collecting: remember where herbs and ore were gathered",
+    "head": "64715815a9468a57a764b98e7754e6b64727396b",
+    "updatedAt": "2026-11-14T13:06:55Z",
+    "state": "open",
+    "draft": false,
+    "merged": false,
+    "change": "Contributor rewrote old scan-derived history feature for3.0.0 as Collect.lua; successful gathering cast plus object loot records player map position, then draws historical places on world map.",
+    "sourceReviewed": "Official PR metadata/comments/commit and files patch; static only, not installed or executed.",
+    "contributorTestClaim": "Forever1.60.1 build70938 deDE, including Wilted Peacebloom and Stunted Silverleaf; not our validation.",
+    "noNewAuthorComment": "Only existing Nov12 author comment6826843204 about old scan idea, not an endorsement of this rewritten implementation.",
+    "assessment": "Requires actual gathering first; no current-presence test, minimap-name reader or automatic resource-name/sound alert source; unmerged, does not satisfy live minimap ore alerts."
+  },
+  "methodAssessment": {
+    "currentMainUnchanged": true,
+    "publicApi": "Previously reviewed same pinned core still empty GetSymbols/no-op callback; current compare identical.",
+    "minimapNameRecoveryFound": false,
+    "independentFreshResourceFeedFound": false,
+    "noMapMovementSolutionFound": false,
+    "newActionableNearNameSoundInputFixFound": false,
+    "sources": [
+      "https://github.com/Krelock/NodeSight/blob/b4ebfaf643f1b9aae2e4907338332277149978b3/NodeSight.lua#L279-L283",
+      "https://www.curseforge.com/wow/addons/node-sight",
+      "https://github.com/Krelock/NodeSight/pull/22"
+    ]
+  },
+  "localBaseline": {
+    "version": "0.4.7-dev.22",
+    "runtimeRecord": "../professions-upstream-20261113/runtime-dev22.json",
+    "lastVerifiedBuild": "70938",
+    "lastVerifiedInterface": 16001,
+    "lastObservedState": "restricted/restricted-text after10 samples, no accepted name; native map restored",
+    "freshNearbyAudioRightMouseVisualAcceptance": "still pending, not retested by heartbeat",
+    "overall": "NOT_ACCEPTED",
+    "releaseAllowed": false
+  },
+  "verification": {
+    "officialGitHubApiNoCache": true,
+    "officialReleaseAndIssuePages": true,
+    "officialCurseforgeCheckedIndependently": true,
+    "gameOperated": false,
+    "addonModified": false,
+    "settingsModified": false,
+    "thirdPartyInstalled": false,
+    "thirdPartyExecuted": false,
+    "publicZipCreated": false,
+    "websiteChanged": false,
+    "deployed": false,
+    "newLocalRuntimeTest": false,
+    "limitations": [
+      "CF package source and gated comments not reviewed",
+      "PR contributor gameplay claim not independently validated",
+      "No conclusion beyond existing observed local restricted-text session about all client APIs or all resources"
+    ]
+  },
+  "notificationDecision": "DONT_NOTIFY",
+  "notificationReason": "GH main/release and CF unchanged; rewritten unmerged PR22 stores gathering history only. No actionable recovery for fresh minimap-name popup/sound; keep publication hold.",
+  "automationUpdate": {
+    "needed": false,
+    "reason": "Existing monitor purpose, version baseline, local dev22 facts, read-only scope and publication hold remain valid. New PR history-only activity recorded here; no new requested work or schedule change."
+  }
+}

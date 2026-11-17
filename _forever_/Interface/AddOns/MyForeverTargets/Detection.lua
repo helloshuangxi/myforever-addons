@@ -27,7 +27,7 @@ function NS.SetDetectionEnabled(enabled,quiet)
     enabled=enabled==true
     if NS.InCombat() then
         NS.PendingDetection=enabled
-        if not quiet then NS.Print("附近识别设置将在脱战后应用。") end
+        if not quiet then (NS.Notify or NS.Print)("附近识别设置将在脱战后应用。","附近识别：脱战后应用","pending") end
         return false
     end
     NS.DB.detectionRequested=enabled

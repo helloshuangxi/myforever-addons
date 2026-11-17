@@ -1,0 +1,28 @@
+{
+  "UnitDocumentation.lua": {
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/bebcb6bf309cf41b41bd74f8ca651e6a105b2676/Interface/AddOns/Blizzard_APIDocumentationGenerated/UnitDocumentation.lua",
+    "sha256": "93004ac1b260127741471b7861360cdf7536afcb18d4c1db73b7259faa43e61c",
+    "line_count": 5075,
+    "methods": {
+      "UnitGUID": 1241,
+      "UnitName": 2489
+    }
+  },
+  "SimpleFontStringAPIDocumentation.lua": {
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/bebcb6bf309cf41b41bd74f8ca651e6a105b2676/Interface/AddOns/Blizzard_APIDocumentationGenerated/SimpleFontStringAPIDocumentation.lua",
+    "sha256": "156e370421081e6a8ec78afdee8e4306686cecc99f0d2163c1b62ce9a5ddbe96",
+    "line_count": 744,
+    "methods": {
+      "SetText": 664
+    }
+  },
+  "SimpleStatusBarAPIDocumentation.lua": {
+    "url": "https://raw.githubusercontent.com/Gethe/wow-ui-source/bebcb6bf309cf41b41bd74f8ca651e6a105b2676/Interface/AddOns/Blizzard_APIDocumentationGenerated/SimpleStatusBarAPIDocumentation.lua",
+    "sha256": "8a1adba0e8b921e31b3d537f5a24095a946bb69ea9014db134f2c175245265e0",
+    "line_count": 381,
+    "methods": {
+      "SetMinMaxValues": 229,
+      "SetValue": 355
+    }
+  }
+}

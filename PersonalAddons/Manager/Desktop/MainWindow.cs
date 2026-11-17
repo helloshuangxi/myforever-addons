@@ -11,12 +11,19 @@ using MyForeverManager.Core;
 
 namespace MyForeverManager.Desktop;
 
-public sealed class MainWindow : Window
+public sealed partial class MainWindow : Window
 {
-    private static readonly IBrush Ink = Brush.Parse("#18344F");
-    private static readonly IBrush Muted = Brush.Parse("#596F83");
-    private static readonly IBrush Cream = Brush.Parse("#F4F7FA");
-    private static readonly IBrush Line = Brush.Parse("#DCE4EC");
+    // Suite palette, direction B "Midnight". Names kept from the light theme.
+    private static readonly IBrush Ink = Brush.Parse("#EEF1FF");
+    private static readonly IBrush Muted = Brush.Parse("#A3ABCB");
+    private static readonly IBrush Cream = Brush.Parse("#0A0E19");
+    private static readonly IBrush Line = Brush.Parse("#232B48");
+    private static readonly IBrush Card = Brush.Parse("#121830");
+    private static readonly IBrush Raised = Brush.Parse("#1B2242");
+    private static readonly IBrush Well = Brush.Parse("#0D1222");
+    private static readonly IBrush Accent = Brush.Parse("#7C93FF");
+    private static readonly IBrush OnAccent = Brush.Parse("#0B1030");
+    private static readonly IBrush Warning = Brush.Parse("#FF9A7A");
     private readonly SettingsStore store;
     private readonly UpdateService service;
     private ManagerSettings settings = new();
@@ -37,7 +44,7 @@ public sealed class MainWindow : Window
     {
         this.store = store;
         service = new UpdateService(store.DirectoryPath);
-        Title = "我的无限 · 插件与行为统计";
+        Title = "我的无限 · 插件管理、行为统计与问路";
         Width = 1080;
         Height = 840;
         MinWidth = 760;
@@ -50,7 +57,7 @@ public sealed class MainWindow : Window
             if (icon is not null) Icon = new WindowIcon(icon);
         WindowStartupLocation = WindowStartupLocation.CenterScreen;
         Closing += OnClosing;
-        Closed += (_, _) => { timer.Stop(); behaviorView?.Dispose(); service.Dispose(); operationCancellation?.Dispose(); };
+        Closed += (_, _) => { timer.Stop(); SuspendNavigator(); CloseManagerUpdates(); behaviorView?.Dispose(); service.Dispose(); operationCancellation?.Dispose(); };
         PropertyChanged += (_, change) =>
         {
             if (change.Property == WindowStateProperty)
@@ -58,6 +65,8 @@ public sealed class MainWindow : Window
         };
         timer.Tick += async (_, _) =>
         {
+            if (!exitRequested && DateTimeOffset.UtcNow - lastManagerAttempt >= TimeSpan.FromMinutes(30))
+                await CheckManagerAsync(automatic: true);
             if (busy || dialogOpen || !dashboard || exitRequested) return;
             if (pending.Count > 0 || DateTimeOffset.UtcNow - lastCheck >= TimeSpan.FromMinutes(30))
                 await RunAsync(() => CheckAndUpdateAsync(settings.AutoUpdate));
@@ -73,6 +82,7 @@ public sealed class MainWindow : Window
 
         try { settings = store.Load(); }
         catch (Exception ex) { startupMessage = "原有设置无法读取，请重新选择目录。" + FriendlyError(ex); }
+        InitializeManagerUpdates();
         if (string.IsNullOrWhiteSpace(settings.GameDirectory)) ShowSetup(startupMessage);
         else
         {
@@ -83,6 +93,7 @@ public sealed class MainWindow : Window
         Opened += async (_, _) =>
         {
             timer.Start();
+            _ = CheckManagerAsync(automatic: true);
             if (dashboard) await RunAsync(() => CheckAndUpdateAsync(settings.AutoUpdate));
         };
     }
@@ -98,9 +109,9 @@ public sealed class MainWindow : Window
         var button = new Button
         {
             Content = label, Padding = new Thickness(18, 11), MinHeight = 42,
-            CornerRadius = new CornerRadius(7), FontWeight = FontWeight.SemiBold,
-            Background = primary ? Ink : Brushes.White, Foreground = primary ? Brushes.White : Ink,
-            BorderBrush = primary ? Ink : Line, BorderThickness = new Thickness(1)
+            CornerRadius = new CornerRadius(10), FontWeight = FontWeight.SemiBold,
+            Background = primary ? Accent : Raised, Foreground = primary ? OnAccent : Ink,
+            BorderBrush = primary ? Accent : Raised, BorderThickness = new Thickness(1)
         };
         button.Click += async (_, _) => await action();
         return button;
@@ -108,8 +119,8 @@ public sealed class MainWindow : Window
 
     private static Border Surface(Control child, Thickness? padding = null) => new()
     {
-        Background = Brushes.White, BorderBrush = Line, BorderThickness = new Thickness(1),
-        CornerRadius = new CornerRadius(12), Padding = padding ?? new Thickness(24), Child = child
+        Background = Card, BorderBrush = Line, BorderThickness = new Thickness(1),
+        CornerRadius = new CornerRadius(16), Padding = padding ?? new Thickness(24), Child = child
     };
 
     private StackPanel Shell(string eyebrow, string title, string subtitle)
@@ -123,6 +134,7 @@ public sealed class MainWindow : Window
 
     private void ShowSetup(string? message = null)
     {
+        SuspendNavigator();
         var canCancel = dashboard;
         dashboard = false;
         behaviorTabSelected = false;
@@ -163,7 +175,7 @@ public sealed class MainWindow : Window
         var auto = new CheckBox { Content = "自动安装所选插件，并在有新版本时自动更新", IsChecked = settings.AutoUpdate };
         panel.Children.Add(auto);
         panel.Children.Add(Text("程序运行期间每 30 分钟检查一次；游戏运行时等待退出后再安装。可以最小化程序继续管理，关闭窗口即退出。", 13, false, Muted));
-        var error = Text(message ?? "", 13, false, Brush.Parse("#9A4F25"));
+        var error = Text(message ?? "", 13, false, Warning);
         panel.Children.Add(error);
         var start = MakeButton("保存并开始管理", async () =>
         {
@@ -172,7 +184,7 @@ public sealed class MainWindow : Window
                 var resolved = GamePaths.Resolve(directory.Text?.Trim() ?? "");
                 var selectedIds = selections.Where(x => x.Value.IsChecked == true).Select(x => x.Key).ToList();
                 if (selectedIds.Count == 0) { error.Text = "请至少选择一个要管理的插件。"; return; }
-                var next = new ManagerSettings { GameDirectory = resolved, ManagedAddons = selectedIds, AutoUpdate = auto.IsChecked == true };
+                var next = new ManagerSettings { GameDirectory = resolved, ManagedAddons = selectedIds, AutoUpdate = auto.IsChecked == true, AutoUpdateManager = settings.AutoUpdateManager };
                 store.Save(next);
                 settings = next;
                 pending.Clear();
@@ -187,10 +199,12 @@ public sealed class MainWindow : Window
         panel.Children.Add(actions);
         column.Children.Add(Surface(panel));
         column.Children.Add(Text("更新时校验 SHA-256，并保留上一版插件备份。个人设置和聊天记录所在的 WTF 目录保持原样。", 13, false, Muted));
+        column.Children.Add(ManagerUpdatesPanel());
     }
 
     private void ShowDashboard()
     {
+        SuspendNavigator();
         behaviorView?.Dispose();
         dashboard = true;
         cards.Clear();
@@ -259,13 +273,14 @@ public sealed class MainWindow : Window
         column.Children.Add(footer);
         column.Children.Add(Text("更新只管理所选插件目录，保留 WTF。关闭窗口会退出程序；当前试用版不设置开机启动。", 12, false, Muted));
 
-        behaviorView = new BehaviorStatisticsView(new BehaviorDataService(store.DirectoryPath), settings.GameDirectory);
+        behaviorView = new BehaviorStatisticsView(new BehaviorDataService(store.DirectoryPath), settings.GameDirectory, new BehaviorAiSettingsStore(store.DirectoryPath));
         var tabs = new TabControl
         {
             Items =
             {
                 new TabItem { Header = "插件管理", Content = new ScrollViewer { Content = column, HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled } },
-                new TabItem { Header = "行为统计", Content = behaviorView }
+                new TabItem { Header = "行为统计", Content = behaviorView },
+                new TabItem { Header = "游戏问路", Content = BuildNavigatorPage() }
             },
             SelectedIndex = 1
         };
@@ -284,7 +299,8 @@ public sealed class MainWindow : Window
             Margin = new Thickness(36, 24, 36, 18), Spacing = 5, Children =
             {
                 Text("我的无限", 23, true),
-                Text($"v{ManagerVersion.Current} 本机候选  ·  插件管理与玩家行为统计", 12, false, Muted)
+                Text($"v{ManagerVersion.Current} 试用版  ·  插件管理、行为统计与问路", 12, false, Muted),
+                ManagerUpdatesPanel()
             }
         });
         Grid.SetRow(tabs, 1); root.Children.Add(tabs);
@@ -425,7 +441,7 @@ public sealed class MainWindow : Window
     private void SetStatus(string value, bool error = false)
     {
         statusText.Text = value;
-        statusText.Foreground = error ? Brush.Parse("#9A4F25") : Muted;
+        statusText.Foreground = error ? Warning : Muted;
     }
 
     private static string FriendlyError(Exception ex) => ex switch
@@ -466,8 +482,23 @@ public sealed class MainWindow : Window
 
     private void OnClosing(object? sender, WindowClosingEventArgs args)
     {
-        behaviorView?.Dispose();
-        if (!busy) return;
+        if (!busy)
+        {
+            if (managerUpdates is not null)
+            {
+                var scheduled = managerUpdates.ApplyAfterExit(settings.AutoUpdateManager, restartManager, addonOperationBusy: false);
+                if (restartManager && !scheduled)
+                {
+                    args.Cancel = true;
+                    restartManager = false;
+                    exitRequested = false;
+                    timer.Start();
+                    ApplyEnabledState();
+                    RefreshManagerUpdates();
+                }
+            }
+            return;
+        }
         args.Cancel = true;
         exitRequested = true;
         timer.Stop();
@@ -518,7 +549,7 @@ public sealed class MainWindow : Window
             notes = new TextBox
             {
                 IsReadOnly = true, AcceptsReturn = true, TextWrapping = TextWrapping.Wrap,
-                Height = 145, Background = Brush.Parse("#F6F8F4"), BorderThickness = new Thickness(0),
+                Height = 145, Background = Well, BorderThickness = new Thickness(0),
                 Padding = new Thickness(12), FontSize = 12, Foreground = Muted,
                 Text = "检查更新后，在这里查看作者的更新说明与验证范围。"
             };
@@ -553,7 +584,7 @@ public sealed class MainWindow : Window
         public void SetNotice(string message, bool error = false)
         {
             notice.Text = message;
-            notice.Foreground = error ? Brush.Parse("#9A4F25") : Muted;
+            notice.Foreground = error ? Warning : Muted;
         }
 
         public void ApplyEnabledState(bool enabled)

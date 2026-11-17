@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "baseline": "20261115T094105Z",
+  "files_before": 148,
+  "files_after": 150,
+  "old_binaries_preserved": 50,
+  "changed_files": [
+    "downloads/MyForeverTargets-0.2.2-Trial.zip",
+    "downloads/MyForeverTargets-0.2.2-Trial.zip.sha256",
+    "index.html",
+    "targets/index.html",
+    "targets/latest.json",
+    "targets/releases.json"
+  ],
+  "versions": {
+    "chat/": "0.10.0",
+    "professions/": "0.5.0",
+    "navigator/": "0.5.0",
+    "targets/": "0.2.2",
+    "manager/": "0.5.0"
+  },
+  "source_runtime_sha256_verified": true,
+  "package_privacy_audit": "passed",
+  "simulated_suites": 23,
+  "simulated_checks": 11423,
+  "release_sync_tests": 10,
+  "manager_local_checks": 68,
+  "minimap": {
+    "original_read_mode": true,
+    "reload_performed": true,
+    "visible_map_pixels_verified": true,
+    "source_edited": false
+  },
+  "game_incident": "During minimap diagnosis a nil-method error dialog interfered with combat; character died. Error was dismissed, user informed, resurrection left to user."
+}

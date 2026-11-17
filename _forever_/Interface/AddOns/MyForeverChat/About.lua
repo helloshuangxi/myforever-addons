@@ -50,7 +50,8 @@ local function wheel(_, delta)
 end
 
 local function build()
-    local frame = CreateFrame("Frame", "MyForeverChatAboutFrame", UIParent, "BasicFrameTemplateWithInset")
+    local Style = rawget(_G, "MyForeverStyle")
+    local frame = CreateFrame("Frame", "MyForeverChatAboutFrame", UIParent, Style and "BackdropTemplate" or "BasicFrameTemplateWithInset")
     frame:SetSize(560, 600)
     frame:SetPoint("CENTER")
     frame:SetFrameStrata("DIALOG")
@@ -60,7 +61,14 @@ local function build()
     frame:RegisterForDrag("LeftButton")
     frame:SetScript("OnDragStart", frame.StartMoving)
     frame:SetScript("OnDragStop", frame.StopMovingOrSizing)
-    frame.TitleText:SetText("关于 · 我的微信式聊天")
+    if Style then
+        -- Suite window (星辉): rounded panel, gold corners, title bar with close.
+        Style.Panel(frame, "popup")
+        local bar = Style.TitleBar(frame, "关于 · 我的微信式聊天", function() frame:Hide() end)
+        frame.TitleText = bar.title
+    else
+        frame.TitleText:SetText("关于 · 我的微信式聊天")
+    end
 
     local scroll = CreateFrame("ScrollFrame", nil, frame, "UIPanelScrollFrameTemplate")
     scroll:SetPoint("TOPLEFT", 18, -40)
@@ -102,13 +110,17 @@ local function build()
     local hint = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     hint:SetPoint("BOTTOMLEFT", 18, 45)
     hint:SetText("选中文字复制：Ctrl+C · macOS Cmd+C；滚轮查看完整许可证。")
-    local selectAll = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
-    selectAll:SetSize(100, 24)
+    if Style then Style.SetType(hint, "caption", "muted") end
+    if Style and Style.SkinScroll then Style.SkinScroll(scroll) end
+    local selectAll = Style and Style.Button(frame, "全选文字", 100, 26, nil, "default")
+        or CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+    selectAll:SetSize(100, Style and 26 or 24)
     selectAll:SetPoint("BOTTOMLEFT", 18, 14)
     selectAll:SetText("全选文字")
     selectAll:SetScript("OnClick", function() body:SetFocus(); body:HighlightText() end)
-    local close = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
-    close:SetSize(90, 24)
+    local close = Style and Style.Button(frame, "关闭", 90, 26, nil, "primary")
+        or CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+    close:SetSize(90, Style and 26 or 24)
     close:SetPoint("BOTTOMRIGHT", -18, 14)
     close:SetText("关闭")
     close:SetScript("OnClick", function() frame:Hide() end)

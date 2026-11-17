@@ -1,0 +1,35 @@
+{
+  "model": "mock",
+  "native_manager_bridge": true,
+  "in_game": false,
+  "cases": [
+    {
+      "question": "林中的群狼这个任务怎么做",
+      "model_steps": [
+        "item:750",
+        "turnin"
+      ],
+      "navigation": [
+        "硬狼肉 · 前往1429 · 硬狼肉 · 幼狼",
+        "伊根·派特斯金纳 · 前往1429 · 伊根·派特斯金纳"
+      ],
+      "active": true,
+      "confirmed_query_reused": true
+    },
+    {
+      "question": "我要去铁炉堡",
+      "model_steps": [
+        "铁炉堡"
+      ],
+      "navigation": [
+        "前往艾尔文森林 · 暴风城城门外",
+        "通过入口，前往暴风城 · 暴风城城门内",
+        "前往暴风城 · 矮人区地铁入口",
+        "乘地铁到铁炉堡 · 地铁镇地铁入口",
+        "前往铁炉堡。 · 前往铁炉堡 · 铁炉堡城门内"
+      ],
+      "active": true,
+      "confirmed_query_reused": true
+    }
+  ]
+}

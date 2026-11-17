@@ -112,7 +112,7 @@ function NS.SetMouseoverEnabled(enabled, quiet)
     end
     if NS.InCombat() then
         NS.PendingMouseover=enabled
-        if not quiet then NS.Print("悬停施法设置将在脱战后应用。") end
+        if not quiet then (NS.Notify or NS.Print)("悬停施法设置将在脱战后应用。","悬停施法：脱战后应用","pending") end
         return false
     end
     NS.DB.mouseoverRequested=enabled

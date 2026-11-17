@@ -1,0 +1,167 @@
+{
+  "automation_id": "nodesight",
+  "triggeredAt": "2026-11-17T01:59:17.708Z",
+  "checkedAt": "2026-11-17T02:02:24.779203+00:00",
+  "localDate": "2026-11-17",
+  "timezone": "Asia/Shanghai",
+  "comparedWith": [
+    "nodesight-monitor-20261116.json",
+    "../professions-upstream-20261113/UPSTREAM.json"
+  ],
+  "github": {
+    "releaseListLatest": "3.0.1",
+    "releasePublishedAt": "2026-11-13T17:22:21Z",
+    "releaseUrl": "https://github.com/Krelock/NodeSight/releases/tag/v3.0.1",
+    "latestTag": {
+      "name": "v3.1.0.2",
+      "sha": "e4a7272a1bca639ae4e6e8f506f267bb6eddb11e"
+    },
+    "specificReleaseEndpoint": {
+      "status": 404
+    },
+    "mainCommit": "012fdb6fcdee7fbf085fd37b8dd3368ff4b8fee8",
+    "mainCommitMessage": "Merge pull request #24 from tester617/cultivation-icon\n\nCultivation: its icon over a herb you can cultivate now (Tauren)",
+    "tocVersion": "3.1.0.2",
+    "tocInterface": 16001,
+    "tagAndMainSame": false,
+    "releaseTagMainCaution": "Same TOC3.1.0.2 is not same code: main includes later merged Cultivation code absent from the earlier release tag; do not describe CF package as containing merged main. GitHub release endpoint404 is not version rollback.",
+    "newCommits": [
+      {
+        "sha": "012fdb6fcdee7fbf085fd37b8dd3368ff4b8fee8",
+        "message": "Merge pull request #24 from tester617/cultivation-icon\n\nCultivation: its icon over a herb you can cultivate now (Tauren)",
+        "date": "2026-11-17T01:24:54Z"
+      },
+      {
+        "sha": "069a3f5bb33659d8154e9cb118278ee8942c722b",
+        "message": "Cultivation: stay off when Cultivation.lua isn't loaded, no old-client fallbacks\n\nAfter an update with only a /reload the game loads the old file list, so Sparkles.lua\nran without Cultivation.lua and every nameplate and interact target change errored\non ns.CultivationOn. SparklesOn now stays off then, as the rest of the addon does.\nThe IsPlayerSpell and global GetSpellCooldown fallbacks are gone: Forever doesn't\nhave them, and C_SpellBook.IsSpellKnown and C_Spell.GetSpellCooldown are in both\nclients.",
+        "date": "2026-11-17T01:24:43Z"
+      },
+      {
+        "sha": "43cde313e8980a39dd7e52306b390e8244a441a6",
+        "message": "Cultivation: its icon over a herb you can cultivate now (Tauren)\n\nA Tauren sees the racial Cultivation's icon (round, thin green ring, slow pulse), laid opaque over the game's interact icon on a herb, while Cultivation is ready, the level is high enough for that herb (a fifth of its Herbalism value) and the herb wasn't cultivated this session. Herbs count as cultivated after your own Cultivation cast finishes (1312643, the 3 s cast that can be interrupted) and after the \"That herb has already been cultivated.\" error (session only). Combat hide and instance hide apply as for sparkles; in combat the icon goes, because cooldowns are secret there, and it comes back after.\n\nThe new switch \"Show when Cultivation is ready\" is off by default and works without herb sparkles and without Herbalism. With only this switch on, Blizzard's object plates and the NPC interact icon size stay as they are; the interact settings for game objects are still set.\n\nBoth addons get it: Cultivation.lua is new in NodeSight and NodeSight Sparkles, the switch is in the sparkle window's general tab and on the options pages, and while it is on the herb in the window's preview shows the icon, and the Enable Interact Key notice also counts this switch.",
+        "date": "2026-11-16T20:14:19Z"
+      },
+      {
+        "sha": "3ac2ad2c6532354023d119dce558357089e21d1e",
+        "message": "NodeSight Sparkles 1.3.0.1",
+        "date": "2026-11-16T02:15:30Z"
+      },
+      {
+        "sha": "e4a7272a1bca639ae4e6e8f506f267bb6eddb11e",
+        "message": "NodeSight 3.1.0.2",
+        "date": "2026-11-16T02:15:29Z"
+      }
+    ],
+    "changedFiles": [
+      "Cultivation.lua",
+      "NodeSight.lua",
+      "NodeSight.toc",
+      "NodeSightSparkles/Cultivation.lua",
+      "NodeSightSparkles/NodeSightSparkles.lua",
+      "NodeSightSparkles/NodeSightSparkles.toc",
+      "NodeSightSparkles/Settings.lua",
+      "NodeSightSparkles/SparkleWindow.lua",
+      "NodeSightSparkles/Sparkles.lua",
+      "Settings.lua",
+      "SparkleWindow.lua",
+      "Sparkles.lua"
+    ]
+  },
+  "curseforge": {
+    "version": "3.1.0.2",
+    "fileId": 9641272,
+    "type": "Release",
+    "siteDisplayDate": "2026-11-16",
+    "client": "WoW Forever1.60.1",
+    "url": "https://www.curseforge.com/wow/addons/node-sight/files/9641272",
+    "changes": [
+      "Lootable-corpse sparkle fades immediately on loot window opening instead of waiting for nameplate removal"
+    ],
+    "independentlyCheckedBy": "readonly_cf_agent",
+    "sourcePackageDownloadedOrAudited": false
+  },
+  "pullRequests": {
+    "pr24": {
+      "url": "https://github.com/Krelock/NodeSight/pull/24",
+      "merged": true,
+      "mergedAt": "2026-11-17T01:24:54Z",
+      "mergeCommit": "012fdb6fcdee7fbf085fd37b8dd3368ff4b8fee8",
+      "summary": "Opt-in Tauren Cultivation icon over eligible nearby herb nameplate using public spell readiness, herb name and GUID session set; cooldown secrets hide it, not bypassed.",
+      "defaultOff": true,
+      "inputEffect": "Can enable owned game interact setup independently from sparkle switches; no automatic local adoption.",
+      "latestMergeFix": "Stay off if new Cultivation module not loaded after an update/reload; remove unsupported old-client fallbacks.",
+      "notCurrentMineralSource": true,
+      "releaseStatus": "Merged main, not proven in published CF3.1.0.2 or a new tagged release."
+    },
+    "pr22": {
+      "url": "https://github.com/Krelock/NodeSight/pull/22",
+      "head": "64715815a9468a57a764b98e7754e6b64727396b",
+      "state": "open",
+      "merged": false,
+      "updatedAt": "2026-11-16T23:29:32Z",
+      "newComments": [
+        {
+          "id": 6932557679,
+          "html_url": "https://github.com/Krelock/NodeSight/pull/22#issuecomment-6932557679",
+          "created_at": "2026-11-16T23:29:32Z",
+          "author_association": "OWNER",
+          "body": "Working on adding this"
+        }
+      ],
+      "assessment": "Author says working on adding this; pending implementation/adoption of historical gathering positions only. Unchanged branch cannot identify a currently present ore or restore minimap scanning."
+    }
+  },
+  "methodAssessment": {
+    "pinnedCoreUrl": "https://github.com/Krelock/NodeSight/blob/012fdb6fcdee7fbf085fd37b8dd3368ff4b8fee8/NodeSight.lua#L295-L299",
+    "GetSymbols": "still returns empty table",
+    "RegisterCallback": "still no-op",
+    "minimapNameRecoveryFound": false,
+    "independentFreshResourceFeedFound": false,
+    "oldSoftCursorRestored": false,
+    "actionableLocalNearbyOrInputRecoveryFound": false,
+    "sourceReviewScope": "Official main diff and fixed core/TOC/Cultivation source plus PR metadata and comments; CF announcement checked separately, package not audited.",
+    "reason": "New main herb eligibility icon, corpse fade and pending collection history do not provide a fresh minimap mineral-name/sound source; reload guard belongs to new optional module, not evidence of a new fix for local dev22."
+  },
+  "localBaseline": {
+    "version": "0.4.7-dev.22",
+    "runtimeRecord": "../professions-upstream-20261113/runtime-dev22.json",
+    "lastVerifiedBuild": "70938",
+    "lastVerifiedInterface": 16001,
+    "lastObservedState": "restricted/restricted-text after10 samples, no accepted name; native map restored",
+    "freshNearbyAudioRightMouseVisualAcceptance": "still pending, not retested by heartbeat",
+    "overall": "NOT_ACCEPTED",
+    "releaseAllowed": false
+  },
+  "verification": {
+    "officialGitHubApiNoCache": true,
+    "officialReleaseAndPrPages": true,
+    "officialCurseforgeCheckedIndependently": true,
+    "gameOperated": false,
+    "addonModified": false,
+    "settingsModified": false,
+    "thirdPartyInstalled": false,
+    "thirdPartyExecuted": false,
+    "publicZipCreated": false,
+    "websiteChanged": false,
+    "deployed": false,
+    "newRuntimeOrAudioTest": false,
+    "limitations": [
+      "No CF source/package byte audit or gameplay verification",
+      "No proof that main Cultivation is already in a release despite matching TOC3.1.0.2",
+      "Pending author PR comment not a completed fix",
+      "Do not generalize the prior local restricted-text session to all APIs or resource points"
+    ]
+  },
+  "notificationDecision": "DONT_NOTIFY",
+  "notificationReason": "Main adds optional Tauren herb icon, CF fixes corpse fade, PR22 author says working on history. No actionable automatic mining-name/sound recovery; pending/non-actionable changes are quiet.",
+  "automationUpdate": {
+    "needed": true,
+    "reason": "Refresh main/tag/CF baseline and distinguish untagged merged Cultivation from CF same-version package; preserve read-only schedule/thread/release hold.",
+    "verified": true,
+    "schedulePreserved": true,
+    "threadPreserved": true,
+    "status": "ACTIVE",
+    "readOnlyPreserved": true,
+    "publicationHoldPreserved": true
+  }
+}

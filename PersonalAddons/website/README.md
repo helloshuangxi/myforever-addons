@@ -1,5 +1,11 @@
 # 我的无限插件下载与更新网站
 
+> **2026-11-17 当前生产快照为 `PersonalAddons/work/navigator-0.7.0-site`，发布号 `20261117T034754Z`。** 世界向导 0.7.0 与桌面管理器 0.6.0 同步上线。下一次发布从该快照的 `public/`、`community/`、`ops/` 及 `ops/production-after.json` 开始，先核对远端 current 与所有文件哈希。本目录 `public/` 为历史副本。管理器三平台安装程序与自身更新源由 `ops/sync_manager_installers.py` 生成，世界向导由 `ops/sync_navigator_release.py` 维护。原生客户端问路源码位于公开分支 `codex/navigator-client-bridge`，管理器发版源为 `567895f`，插件为 `3ac5785`。
+
+
+> **上一份生产快照（2026-11-16）：`PersonalAddons/work/chat-0.10.2-site`。** Chat 0.10.2 消息右下／回复跟图标已发布并核验；本目录 `public/` 仍是历史副本，不能直接覆盖生产。最新隔离站含所有插件、Manager 0.5.0 与更新 feed。聊天同步支持 `--publish --reuse-current`，部署前核对 current 和 `ops/production-before.json`。最终生产号 `20261115T163629Z`，154 文件全树与完整公网核验通过，52 个旧不可变文件保持。详见该站 `ops/release-chat-0.10.2-validation.json`。
+
+
 公开地址：[afabiaoge.xyz](https://afabiaoge.xyz/)。仅 `public/` 是发布目录。当前独立维护 MyForeverChat、MyForeverProfessions、MyForeverNavigator 与 MyForeverTargets，发版时同步下载包、版本号、更新记录和相关使用说明，遵循游戏根目录 `AGENTS.md`。用户已授权相应插件的上线及管理器下载更新流程，无需为同范围常规发布重复确认。商业技能助手尚未获准上线的本机候选仍须保留在发布目录之外。
 
 ## 内容维护
@@ -142,3 +148,27 @@ python3 ops/sync_targets_release.py --zip ../dist/MyForeverTargets-<版本>-Tria
 发布说明明确：友方普通技能悬停兼容仅脱战，通过临时选中和恢复完成；同名怪焦点仅脱战按提示多次右键逐次 GUID 核验；战斗中任意怪物自动匹配焦点仍未解决。空原目标合并模式、更多步恢复和敌方／子目标施法尚未完整实测，不将模拟或旧分步成功冒充这些场景通过。
 
 证据：`ops/release-targets-0.1.46-validation.json`、`ops/targets-0.1.46-publish.log`、`ops/targets-0.1.46-live-verification.json`、`ops/targets-0.1.46-external-verification.json` 与 `ops/targets-0.1.46-manager-isolated-live.json`。
+
+
+## 目标选择 0.2.1 公开试用版（2026-11-15）
+
+用户明确要求“上线吧”，授权发布本机友方战斗接管及日志候选。31文件ZIP、215547字节，SHA-256 `a86a002c87ffbf0a5dae0c096364be5522da6f5714ef542bff58d40a4c7db390`。26 Lua语法、22套10689模拟及独立复核通过；真实战斗受法者与恢复仍待用户验收，网站、包内说明均明确，不以模拟冒充游戏修复。源码冻结在 `PersonalAddons/work/targets-0.2.1-release-root`。
+
+主工作目录public/ops落后于当前线上，因此从 `myforever-manager-050-release-20261115` 工作区取与生产全部146文件hash一致的完整快照及最新ops，冻结为 `PersonalAddons/work/targets-0.2.1-site`。仅目标页、目标JSON、首页生成卡片、sitemap及新增ZIP/校验改变；49个旧ZIP/安装器/nupkg、Chat0.10.0、Professions0.5.0、Navigator0.5.0、Manager0.5.0及其自身更新feed原字节保持。私有社区源码沿用生产hash。
+
+用冻结目录的 `ops/sync_targets_release.py --dry-run`、`--publish` 发布，部署标识 `20261115T094105Z`。10项同步回归通过，公网HTTPS逐字节核验146资源通过；本机另10项页面/版本/新ZIP重点核验通过。公开管理器0.5.0同源Core/Tests独立构建，候选隔离68项、真实HTTPS隔离74项均0失败；无真实游戏/个人设置写入。www、chat健康、studio登录保护与建议只读接口正常，没有生产写入测试。
+
+维护时请以已验证生产快照为基线，不直接用主目录的历史public覆盖新生产。证据：`ops/release-targets-0.2.1-validation.json`、`ops/targets-0.2.1-publish.log`、`ops/targets-0.2.1-live-verification.json`；管理器证据在 `PersonalAddons/local-logs/targets-0.2.1-release-20261115/manager050/`。
+
+
+## 目标选择 0.2.2 公开试用版（2026-11-15）
+
+用户明确授权官网及客户端同步。冻结源为 `PersonalAddons/work/targets-0.2.2-release-root`，31文件ZIP、217113字节，SHA-256 `28f17a2f21805f7aac5df6636ad6655044c1aa8339289b0be32cb9664e52751a`。本轮战斗单场景记录19次准确选中/恢复、4次正确对象发送及3次同施法编号成功，尚未确认buff实际附加或其他技能/边界。26 Lua语法、23套11423模拟及独立复核通过；不扩大敌方、子条或战斗同名怪GUID焦点范围。
+
+从当前生产148文件逐字节快照构建 `PersonalAddons/work/targets-0.2.2-site`，使用该冻结目录的 `ops/sync_targets_release.py --zip ../../dist/MyForeverTargets-0.2.2-Trial.zip --notes ops/release-targets-0.2.2.json --publish --reuse-current`，部署 `20261115T115356Z`。这份冻结目录现为最新生产基线；主目录历史public/ops仍不能直接覆盖生产。
+
+本次差量归档239623字节，新增2个文件并修改4个页面/元数据路径，150文件全树hash核对通过。50个旧ZIP/DMG/EXE/NUPKG与原148文件版本目录均保持原字节；不可变旧包复用硬链接，变更路径单独新建。没有删除历史发布或数据。Chat0.10.0、Professions0.5.0、Navigator0.5.0、Manager0.5.0及自身更新feed保留；社区源码hash保持。服务器空间不足以安全再全量复制历史包，因此使用显式复用模式。
+
+复用模式仍遵循站点校验→部署→公网核验官方链；full/reuse共用远端持久flock，锁在读取旧状态前取得并持有至提交/回滚完成，切换前核验base，提交前核验current所有权。差量清单拒绝删除旧路径、改写旧不可变包、路径穿越、链接/重复成员及hash错配，核对完整新树后才切换。28项隔离测试及独立审查通过；不持同锁的旧外部脚本仍无法保证并发安全，未声称完整远端失败回滚已实测。
+
+10项同步回归、148资源本机公网HTTPS逐字节/缓存核验、另10项重点核验通过；管理器0.5.0发行同源Core/Tests重新构建后，候选隔离68项及真实HTTPS隔离74项通过，不接触真实游戏或个人配置。www跳转、chat健康、studio登录保护、建议只读接口正常，无生产留言测试。证据见本冻结目录 `ops/release-targets-0.2.2-validation.json`、`targets-0.2.2-publish.log`、`targets-0.2.2-live-verification.json` 与 `targets-0.2.2-remote-tree-verification.json`；管理器回执在 `PersonalAddons/local-logs/targets-0.2.2-release-20261115/manager/`。

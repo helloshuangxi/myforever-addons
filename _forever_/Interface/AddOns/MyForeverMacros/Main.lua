@@ -1,4 +1,13 @@
 local _, NS = ...
+-- Shared layout hooks (grid while dragging, snap on release, /myui tags).
+local function mfLayout(name, ...)
+    local S = rawget(_G, "MyForeverStyle")
+    local fn = type(S) == "table" and rawget(S, name)
+    if type(fn) == "function" then
+        local ok, result = pcall(fn, ...)
+        return ok and result or nil
+    end
+end
 local frame, picker
 local selected = 1
 local family = "general"
@@ -7,29 +16,50 @@ local function templates()
     return family == "priest" and NS.priestTemplates or NS.templates
 end
 
-local function label(parent, text, x, y, width, font)
-    local f = parent:CreateFontString(nil, "OVERLAY", font or "GameFontHighlight")
+local Style = MyForeverStyle
+local function label(parent, text, x, y, width, level)
+    local f = Style.Text(parent, level or "secondary", width, text)
     f:SetPoint("TOPLEFT", x, y)
-    f:SetWidth(width)
-    f:SetJustifyH("LEFT")
-    f:SetText(text)
     return f
 end
-local function button(parent, text, x, y, width, callback)
-    local b = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
-    b:SetSize(width, 28)
+local function button(parent, text, x, y, width, callback, kind)
+    local b = Style.Button(parent, text, width, 24, callback, kind)
     b:SetPoint("TOPLEFT", x, y)
-    b:SetText(text)
-    b:SetScript("OnClick", callback)
     return b
 end
+-- A choice in a list or tab row. The chosen one is marked, not greyed out:
+-- it is disabled only so a second click does nothing.
+local function choice(parent, text, x, y, width, callback, row)
+    local b = button(parent, text, x, y, width, callback, "quiet")
+    if row then
+        -- List rows read left to right; tabs stay centred.
+        b.label:ClearAllPoints()
+        b.label:SetPoint("LEFT", b, "LEFT", 20, 0)
+        b.isRow = true
+        b.label:SetPoint("RIGHT", b, "RIGHT", -8, 0)
+        b.label:SetJustifyH("LEFT")
+    else
+        b.styleRadius = 12
+    end
+    b:SetScript("OnDisable", nil)
+    b:SetScript("OnEnable", nil)
+    return b
+end
+local function mark(b, chosen)
+    if b.isRow and Style.MarkSelected then
+        -- 星辉 cursor for list rows; tabs keep the selected pill.
+        Style.SetButtonKind(b, "quiet")
+        Style.MarkSelected(b, chosen)
+        if b.label then Style.SetType(b.label, "button", chosen and "text" or "secondary") end
+    else
+        Style.SetButtonKind(b, chosen and "selected" or "quiet")
+    end
+    b:SetEnabled(not chosen)
+end
 local function edit(parent, x, y, width)
-    local e = CreateFrame("EditBox", nil, parent, "InputBoxTemplate")
-    e:SetSize(width, 26)
-    e:SetPoint("TOPLEFT", x, y)
-    e:SetAutoFocus(false)
+    local e, holder = Style.Input(parent, width, 26)
+    holder:SetPoint("TOPLEFT", x, y)
     e:SetMaxLetters(100)
-    e:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
     e:SetScript("OnEnterPressed", function(self) self:ClearFocus() end)
     return e
 end
@@ -38,9 +68,8 @@ local function status(message)
 end
 local function refresh()
     local t = templates()[selected]
-    frame.TitleText:SetText(family == "priest" and "MyForever · 牧师宏工坊" or "MyForever · 个人宏工坊")
-    frame.generalTab:SetEnabled(family ~= "general")
-    frame.priestTab:SetEnabled(family ~= "priest")
+    mark(frame.generalTab, family == "general")
+    mark(frame.priestTab, family == "priest")
     frame.hint:SetText(t.hint)
     frame.first:SetEnabled(t.spells >= 1)
     frame.firstPick:SetEnabled(t.spells >= 1 and not NS.InCombat())
@@ -58,8 +87,9 @@ local function refresh()
     for i, b in ipairs(frame.templates) do
         local entry = templates()[i]
         b:SetShown(entry ~= nil)
-        b:SetText(entry and entry.label or "")
-        b:SetEnabled(i ~= selected)
+        -- The tab already says which family; the row shows only what differs.
+        b:SetText(entry and (family == "priest" and entry.label:gsub("^牧师%s*·%s*", "") or entry.label) or "")
+        mark(b, i == selected)
     end
     if NS.InCombat() then status("战斗中暂停法术本读取和宏创建；脱战后可继续。")
     elseif err then status(err)
@@ -94,18 +124,20 @@ end
 local function showPicker(destination)
     if NS.InCombat() then status("请脱战后选择技能。") return end
     if not picker then
-        picker = CreateFrame("Frame", "MyForeverSpellPicker", frame, "BasicFrameTemplateWithInset")
-        picker:SetSize(350, 410)
+        picker = CreateFrame("Frame", "MyForeverSpellPicker", frame, "BackdropTemplate")
+        picker:SetSize(300, 372)
         picker:SetPoint("CENTER", frame, "CENTER", 90, 0)
         picker:SetFrameStrata("DIALOG")
         picker:SetClampedToScreen(true)
-        picker.TitleText:SetText("选择本角色已学技能")
-        picker.search = edit(picker, 22, -40, 305)
+        picker:EnableMouse(true)
+        Style.Panel(picker, "popup")
+        Style.TitleBar(picker, "选择本角色已学技能")
+        picker.search = edit(picker, 12, -40, 276)
         picker.search:SetMaxLetters(60)
         picker.rows = {}
         picker.page = 1
-        picker.note = label(picker, "", 18, -337, 310, "GameFontHighlightSmall")
-        picker.note:SetHeight(45)
+        picker.note = label(picker, "", 12, -326, 276, "caption")
+        picker.note:SetHeight(40)
         local function update()
             local query = NS.trim(picker.search:GetText()):lower()
             local filtered = {}
@@ -125,15 +157,16 @@ local function showPicker(destination)
             picker.next:SetEnabled(picker.page < pages)
         end
         for i = 1, 8 do
-            local row = button(picker, "", 18, -73 - (i - 1) * 28, 310, function(self)
+            local row = choice(picker, "", 12, -74 - (i - 1) * 26, 276, function(self)
                 if NS.InCombat() then picker:Hide() return end
                 if self.spell then picker.destination:SetText(self.spell.name); picker.destination:ClearFocus(); picker:Hide(); refresh() end
-            end)
+            end, true)
             picker.rows[i] = row
         end
-        picker.previous = button(picker, "上一页", 18, -303, 90, function() picker.page = picker.page - 1; update() end)
-        picker.next = button(picker, "下一页", 238, -303, 90, function() picker.page = picker.page + 1; update() end)
-        picker.pageText = label(picker, "", 130, -311, 100)
+        picker.previous = button(picker, "上一页", 12, -290, 80, function() picker.page = picker.page - 1; update() end)
+        picker.next = button(picker, "下一页", 208, -290, 80, function() picker.page = picker.page + 1; update() end)
+        picker.pageText = label(picker, "", 100, -295, 100, "caption")
+        picker.pageText:SetJustifyH("CENTER")
         picker.search:SetScript("OnTextChanged", function() picker.page = 1; update() end)
         picker.update = update
         UISpecialFrames[#UISpecialFrames + 1] = "MyForeverSpellPicker"
@@ -150,59 +183,78 @@ local function showPicker(destination)
 end
 
 local function createUI()
-    frame = CreateFrame("Frame", "MyForeverMacrosFrame", UIParent, "BasicFrameTemplateWithInset")
-    frame:SetSize(780, 580)
+    frame = CreateFrame("Frame", "MyForeverMacrosFrame", UIParent, "BackdropTemplate")
+    frame:SetSize(600, 458)
     frame:SetPoint("CENTER")
     frame:SetClampedToScreen(true)
     frame:SetMovable(true)
     frame:EnableMouse(true)
-    frame:RegisterForDrag("LeftButton")
-    frame:SetScript("OnDragStart", function(self) self:StartMoving() end)
-    frame:SetScript("OnDragStop", function(self) self:StopMovingOrSizing() end)
+    Style.Panel(frame, "window")
+    frame.bar = Style.TitleBar(frame, "宏工坊")
+    if Style.HintBar then Style.HintBar(frame, { { "Esc", "关闭" } }, "/myui 摆放面板") end
+    frame.bar.handle:EnableMouse(true)
+    frame.bar.handle:RegisterForDrag("LeftButton")
+    frame.bar.handle:SetScript("OnDragStart", function() frame:StartMoving(); mfLayout("BeginDrag", frame) end)
+    frame.bar.handle:SetScript("OnDragStop", function() frame:StopMovingOrSizing(); mfLayout("SnapToGrid", frame) end)
+    mfLayout("RegisterLayout", frame, "宏助手")
     frame:SetScript("OnHide", function()
         frame.first:ClearFocus(); frame.second:ClearFocus(); frame.name:ClearFocus(); frame.preview:ClearFocus()
         if picker then picker:Hide() end
     end)
-    frame.TitleText:SetText("MyForever · 个人宏工坊")
-    frame.generalTab = button(frame, "通用", 16, -35, 82, function() selectFamily("general") end)
-    frame.priestTab = button(frame, "牧师", 104, -35, 82, function() selectFamily("priest") end)
+    -- Left column: what kind of macro. Right column: fill in, preview, create.
+    local side = CreateFrame("Frame", nil, frame)
+    side:SetPoint("TOPLEFT", 8, -36)
+    side:SetPoint("BOTTOMLEFT", 8, 8)
+    side:SetWidth(160)
+    Style.Round(side, "side", 1, 10)
+    frame.generalTab = choice(frame, "通用", 16, -44, 68, function() selectFamily("general") end)
+    frame.priestTab = choice(frame, "牧师", 88, -44, 68, function() selectFamily("priest") end)
     frame.templates = {}
     for i = 1, math.max(#NS.templates, #NS.priestTemplates) do
         local templateIndex = i
-        frame.templates[i] = button(frame, "", 16, -73 - (i - 1) * 35, 170, function()
+        frame.templates[i] = choice(frame, "", 14, -78 - (i - 1) * 26, 148, function()
             selectTemplate(templateIndex)
-        end)
+        end, true)
     end
-    label(frame, "技能一（与游戏内名称一致）", 207, -42, 450, "GameFontNormal")
-    frame.first = edit(frame, 212, -66, 405)
-    frame.firstPick = button(frame, "从法术本选", 636, -65, 124, function() showPicker(frame.first) end)
-    label(frame, "技能二（仅 Shift 双技能使用）", 207, -108, 450, "GameFontNormal")
-    frame.second = edit(frame, 212, -132, 405)
-    frame.secondPick = button(frame, "从法术本选", 636, -131, 124, function() showPicker(frame.second) end)
-    label(frame, "角色宏名称", 207, -173, 100, "GameFontNormal")
-    frame.name = edit(frame, 322, -167, 295)
+    -- Owned by the column frame: text on the window itself would sit under this child frame.
+    local help = label(side, "/mymacro 打开宏工坊\n/mypriest 打开牧师页\n宏在 /macro 中管理", 10, -356, 140, "caption")
+    help:SetSpacing(3)
+    label(frame, "技能一（与游戏内名称一致）", 182, -42, 300, "caption")
+    frame.first = edit(frame, 182, -58, 300)
+    frame.firstPick = button(frame, "从法术本选", 490, -59, 96, function() showPicker(frame.first) end)
+    label(frame, "技能二（仅 Shift 双技能使用）", 182, -92, 300, "caption")
+    frame.second = edit(frame, 182, -108, 300)
+    frame.secondPick = button(frame, "从法术本选", 490, -109, 96, function() showPicker(frame.second) end)
+    label(frame, "角色宏名称", 182, -142, 200, "caption")
+    frame.name = edit(frame, 182, -158, 200)
     frame.name:SetMaxLetters(16)
     frame.name:SetText(templates()[selected].name)
-    frame.hint = label(frame, "", 207, -208, 548)
-    frame.hint:SetHeight(66)
+    frame.hint = label(frame, "", 182, -194, 404)
+    frame.hint:SetHeight(50)
     frame.hint:SetJustifyV("TOP")
-    frame.length = label(frame, "预览", 207, -286, 548, "GameFontNormal")
-    local scroll = CreateFrame("ScrollFrame", nil, frame, "UIPanelScrollFrameTemplate")
-    scroll:SetPoint("TOPLEFT", 210, -310)
-    scroll:SetSize(523, 145)
+    frame.length = label(frame, "预览", 182, -250, 404, "caption")
+    local well = CreateFrame("Frame", nil, frame)
+    well:SetPoint("TOPLEFT", 182, -266)
+    well:SetSize(404, 104)
+    Style.Round(well, "side", 1, 8)
+    local scroll = CreateFrame("ScrollFrame", nil, well, "UIPanelScrollFrameTemplate")
+    if Style.SkinScroll then Style.SkinScroll(scroll) end
+    scroll:SetPoint("TOPLEFT", 8, -8)
+    scroll:SetPoint("BOTTOMRIGHT", -28, 8)
     frame.preview = CreateFrame("EditBox", nil, scroll)
     frame.preview:SetMultiLine(true)
     frame.preview:SetAutoFocus(false)
     frame.preview:SetFontObject(ChatFontNormal)
-    frame.preview:SetWidth(515)
-    frame.preview:SetHeight(145)
+    frame.preview:SetWidth(366)
+    frame.preview:SetHeight(88)
     frame.preview:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
     -- Preview can be selected/copied. Changes are reverted so creation always matches the visible preview.
     frame.preview:SetScript("OnTextChanged", function(self, userInput)
         if userInput then self:SetText(frame.body or "") end
     end)
     scroll:SetScrollChild(frame.preview)
-    frame.create = button(frame, "创建角色宏", 207, -470, 170, function()
+    -- One primary action per view: creating the macro is why the window is open.
+    frame.create = button(frame, "创建角色宏", 182, -382, 120, function()
         local body, err = NS.Build(templates()[selected], frame.first:GetText(), frame.second:GetText())
         if not body then status(err) return end
         local name = NS.trim(frame.name:GetText())
@@ -211,17 +263,16 @@ local function createUI()
         if index then lastCreated = { name = name, body = body } end
         refresh()
         status(message)
-    end)
-    frame.pickup = button(frame, "取到鼠标", 389, -470, 148, function()
+    end, "primary")
+    frame.pickup = button(frame, "取到鼠标", 310, -382, 96, function()
         if not lastCreated then return end
         local _, message = NS.Pickup(lastCreated.name, lastCreated.body)
         status(message)
     end)
-    button(frame, "选中预览", 549, -470, 170, function() frame.preview:SetFocus(); frame.preview:HighlightText() end)
-    frame.status = label(frame, "", 207, -513, 550, "GameFontHighlightSmall")
-    frame.status:SetHeight(48)
+    button(frame, "选中预览", 414, -382, 84, function() frame.preview:SetFocus(); frame.preview:HighlightText() end, "quiet")
+    frame.status = label(frame, "", 182, -416, 404, "caption")
+    frame.status:SetHeight(32)
     frame.status:SetJustifyV("TOP")
-    label(frame, "/mypriest 打开牧师页\n/mymacro 打开宏工坊\n宏在 /macro 中管理", 22, -478, 163, "GameFontHighlightSmall")
     frame.first:SetScript("OnTextChanged", refresh)
     frame.second:SetScript("OnTextChanged", refresh)
     frame.name:SetScript("OnTextChanged", refresh)
@@ -255,5 +306,5 @@ SlashCmdList.MYFOREVERPRIEST = function() SlashCmdList.MYFOREVERMACROS("priest")
 local loader = CreateFrame("Frame")
 loader:RegisterEvent("PLAYER_LOGIN")
 loader:SetScript("OnEvent", function()
-    print("|cff70d6ccMyForever|r 宏工坊已加载：/mypriest 牧师页，/mymacro 通用入口。")
+    print(Style.Prefix("宏工坊") .. " 已加载：/mypriest 牧师页，/mymacro 通用入口。")
 end)

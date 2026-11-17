@@ -1,0 +1,51 @@
+{
+  "status": "passed",
+  "environment": "Isolated Chrome on macOS, WebGPU, localhost staging page, pinned public model weights via HTTPS",
+  "model": "Qwen2.5-0.5B-Instruct-q4f32_1-MLC",
+  "weight_revision": "8e6ec5f417c7d0e1414703ef619b8a24686e3ab0",
+  "runtime": "WebLLM 0.2.80, same-site script and model WASM",
+  "test_query": "我想寄存装备，以后再拿出来，再去拍卖行",
+  "observed": {
+    "directory": [
+      "已从地点目录找到目的地。",
+      "/mynav route MFN1@903c9ac3~暴风城 银行职员~铁炉堡 拍卖师",
+      [
+        "暴风城 银行职员",
+        "铁炉堡 拍卖师"
+      ]
+    ],
+    "inference": [
+      "模型建议了以下目的地，请核对顺序后复制。",
+      "/mynav route MFN1@78c7328e~银行职员~拍卖师",
+      [
+        "银行职员",
+        "拍卖师"
+      ]
+    ],
+    "cache": [
+      "已找到你在此浏览器确认过的路线。",
+      "/mynav route MFN1@78c7328e~银行职员~拍卖师",
+      [
+        "银行职员",
+        "拍卖师"
+      ]
+    ],
+    "hearth": [
+      "模型建议了以下目的地，请核对顺序后复制。",
+      "/mynav route MFN1@af0e97b2~暴风城 旅店老板",
+      [
+        "暴风城 旅店老板"
+      ]
+    ],
+    "manual": [
+      "已按你选择的目的地排列路线。",
+      "/mynav route MFN1@4d291a24~银行职员",
+      [
+        "银行职员"
+      ]
+    ]
+  },
+  "unknown_place_refused": true,
+  "first_model_load_offered": true,
+  "limits": "The model can decline or misinterpret unfamiliar phrasing. A manual candidate picker and explicit confirmation are available. Game route execution and production HTTPS are separate checks."
+}

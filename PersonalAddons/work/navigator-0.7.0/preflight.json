@@ -1,0 +1,31 @@
+{
+  "base": "20261117T025257Z",
+  "public_files": 180,
+  "changed": [
+    "assets/manager-navigation-0.6.0.png",
+    "downloads/MyForeverNavigator-0.7.0-Trial.zip",
+    "downloads/MyForeverNavigator-0.7.0-Trial.zip.sha256",
+    "index.html",
+    "manager/downloads/MyForeverManager-0.6.0-Trial-osx-arm64.dmg",
+    "manager/downloads/MyForeverManager-0.6.0-Trial-osx-arm64.dmg.sha256",
+    "manager/downloads/MyForeverManager-0.6.0-Trial-osx-x64.dmg",
+    "manager/downloads/MyForeverManager-0.6.0-Trial-osx-x64.dmg.sha256",
+    "manager/downloads/MyForeverManager-0.6.0-Trial-win-x64-Setup.exe",
+    "manager/downloads/MyForeverManager-0.6.0-Trial-win-x64-Setup.exe.sha256",
+    "manager/index.html",
+    "manager/latest.json",
+    "manager/releases.json",
+    "manager/style.css",
+    "manager/updates/osx-arm64/MyForeverManagerApp-0.6.0-osx-arm64-full.nupkg",
+    "manager/updates/osx-arm64/releases.osx-arm64.json",
+    "manager/updates/osx-x64/MyForeverManagerApp-0.6.0-osx-x64-full.nupkg",
+    "manager/updates/osx-x64/releases.osx-x64.json",
+    "manager/updates/win-x64/MyForeverManagerApp-0.6.0-win-x64-full.nupkg",
+    "manager/updates/win-x64/releases.win-x64.json",
+    "navigator/index.html",
+    "navigator/latest.json",
+    "navigator/releases.json",
+    "sitemap.xml"
+  ],
+  "old_immutable": 54
+}

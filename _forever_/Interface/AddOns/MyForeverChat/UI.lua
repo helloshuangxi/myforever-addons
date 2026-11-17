@@ -1,8 +1,20 @@
 local _, NS = ...
+-- Shared layout hooks (grid while dragging, snap on release, /myui tags).
+local function mfLayout(name, ...)
+    local S = rawget(_G, "MyForeverStyle")
+    local fn = type(S) == "table" and rawget(S, name)
+    if type(fn) == "function" then
+        local ok, result = pcall(fn, ...)
+        return ok and result or nil
+    end
+end
 local panel, launcher, copyWindow, emoteWindow, actionWindow, clearToasts, notifications
+local quickReply, refreshQuickReply
+local quickBinding=false
+local draftRevisions,draftValues,draftOwners={},{},{}
 local toastFrames={}
 local toastPrevious,toastNext,toastPage
-local TOAST_GAP=6
+local TOAST_GAP,TOAST_HEADER=6,64
 local dirty, rendering, displayedId
 local pendingById={}
 local failedById={}
@@ -45,8 +57,8 @@ local function updateFont(f)
     local face=f:GetFont()
     if face then f:SetFont(face,math.max(10,f.appearanceBaseSize+(f.chatFont and options().fontSize-14 or 0)),"") end
 end
-local function box(kind, parent, color, rounded)
-    local f = CreateFrame(kind or "Frame", nil, parent, "BackdropTemplate")
+local function box(kind, parent, color, rounded, name)
+    local f = CreateFrame(kind or "Frame", name, parent, "BackdropTemplate")
     f:SetBackdrop({bgFile="Interface\\Buttons\\WHITE8X8", edgeFile=rounded and "Interface\\Tooltips\\UI-Tooltip-Border" or nil,
         edgeSize=rounded and 8 or 0, insets={left=rounded and 3 or 0,right=rounded and 3 or 0,top=rounded and 3 or 0,bottom=rounded and 3 or 0}})
     registerSurface(f,color)
@@ -165,6 +177,7 @@ function NS.ApplyAppearance()
         e:SetTextColor(unpack(e.appearanceFixedTextColor or C.text))
     end
     if panel and panel.editor then panel.editor:SetHeight(math.max(52,setting.fontSize*2+10)) end
+    if refreshQuickReply then refreshQuickReply() end
     dirty=true
     if NS.SyncAppearanceSettings then NS.SyncAppearanceSettings() end
 end
@@ -322,18 +335,35 @@ local function status(message,good)
     if panel then panel.status:SetText(message or ""); panel.status:SetTextColor(unpack(good and C.accentText or C.muted)) end
 end
 local function current() return NS.GetSelected() end
+local function observeDraft(id)
+    local conv=NS.db and NS.db.conversations[id]
+    if not conv then return draftRevisions[id] or 0 end
+    if draftOwners[id]~=conv or draftValues[id]~=conv.draft then
+        draftRevisions[id]=(draftRevisions[id] or 0)+1
+        draftValues[id],draftOwners[id]=conv.draft,conv
+    end
+    return draftRevisions[id]
+end
+local function activeLinkEditor()
+    if quickReply and quickReply:IsShown() and quickReply.editor:HasFocus()
+        and NS.db.conversations[quickReply.conversationId]==quickReply.conversation then return quickReply.editor,quickReply.conversationId end
+    if panel and panel:IsShown() and panel.editor:HasFocus() then
+        local selected=current()
+        if selected and selected.id==displayedId then return panel.editor,selected.id end
+    end
+end
 function NS.GetNativeItemLinkTarget()
-    if not panel or not panel:IsShown() or not panel.editor:HasFocus() then return end
-    local selected=current()
-    if selected and selected.id==displayedId then return selected.id end
+    local _,id=activeLinkEditor(); return id
 end
 function NS.InsertNativeItemLink(link)
-    if not NS.GetNativeItemLinkTarget() or not public(link) or type(link)~="string" then return false end
-    if #panel.editor:GetText()+#link>NS.CHAT_DRAFT_BYTES then
-        status("草稿空间不足，请先发送或缩短现有文字，再插入物品链接。")
+    local editor,id=activeLinkEditor()
+    if not editor or not public(link) or type(link)~="string" then return false end
+    if #editor:GetText()+#link>NS.CHAT_DRAFT_BYTES then
+        local note="草稿空间不足，请先发送或缩短现有文字，再插入物品链接。"
+        if quickReply and quickReply:IsShown() and quickReply.conversationId==id then quickReply.status:SetText(note) else status(note) end
         return true
     end
-    panel.editor:Insert(link)
+    editor:Insert(link)
     return true
 end
 local function contactPresence(conv)
@@ -410,6 +440,24 @@ local function updateComposer()
         panel.counter:SetText(visible.."/"..NS.CHAT_VISIBLE_BYTES.." 字节 · 草稿保留")
     end
     updateDeliveryNotice(selected,presence,pending,failed)
+    if refreshQuickReply then refreshQuickReply() end
+end
+local function composerStatus(id,message,good)
+    if displayedId==id then status(message,good) end
+    if quickReply and quickReply:IsShown() and quickReply.conversationId==id then
+        quickReply.feedback,quickReply.feedbackGood=message,good
+        quickReply.status:SetText(message or "")
+        quickReply.status:SetTextColor(unpack(good and C.accentText or C.muted))
+    end
+end
+local function clearConfirmedDraft(id,original,revision,owner)
+    local conv=NS.db.conversations[id]
+    if conv~=owner or observeDraft(id)~=revision or conv.draft~=original then return end
+    conv.draft=""; observeDraft(id)
+    quickBinding=true
+    if displayedId==id and panel.editor:GetText()==original then panel.editor:SetText("") end
+    if quickReply and quickReply.conversationId==id and quickReply.editor:GetText()==original then quickReply.editor:SetText("") end
+    quickBinding=false
 end
 local function checkEcho()
     for _,states in ipairs({pendingById,failedById}) do
@@ -423,14 +471,13 @@ local function checkEcho()
                 if msg==pending.previousLast then break end
                 if msg==pending.failedAfterMessage then afterFailure=false end
                 if msg.outgoing and msg.text==pending.text then
-                    if conv.draft==pending.original then conv.draft="" end
-                    if displayedId==id and panel.editor:GetText()==pending.original then panel.editor:SetText("") end
+                    clearConfirmedDraft(id,pending.original,pending.draftRevision,pending.conversation)
                     states[id]=nil
-                    if displayedId==id then status("已发送。",true) end
+                    composerStatus(id,"已发送。",true)
                     break
                 elseif states==failedById and pending.failureKind=="offline" and afterFailure and not msg.outgoing and isPerson(conv) then
                     states[id]=nil
-                    if displayedId==id then status("已收到对方消息，可以继续发送；草稿已保留。",true) end
+                    composerStatus(id,"已收到对方消息，可以继续发送；草稿已保留。",true)
                     break
                 end
             end
@@ -452,50 +499,57 @@ local function failPending(id,kind,title,detail)
     local conv=NS.db.conversations[id]
     token.failedPresence=contactPresence(conv)
     token.failedAfterMessage=conv and conv.messages[#conv.messages]
-    if displayedId==id then status(title.."；草稿已保留。") end
+    composerStatus(id,title.."；草稿已保留。")
     updateComposer()
     return true
 end
-local function send()
-    local conv=current(); if not conv then return end
-    if conv.kind=="channel" and conv.channelCommunity then
-        updateComposer(); status("这是旧群频道记录；请复制草稿到“群聊”中的对应会话发送。")
+local function sendFrom(id,editor,fullWindow)
+    local conv=NS.db.conversations[id]
+    if not conv then
+        composerStatus(id,"此会话已不可用，请重新选择；未发送消息。")
         return
     end
-    if pendingById[conv.id] then return end
-    if failedById[conv.id] then updateComposer(); status("尚未发送，请先查看输入区上方的提示；草稿已保留。"); return end
-    if isPerson(conv) and contactPresence(conv)=="offline" then
-        updateComposer(); status("对方离线，消息未发送。草稿已保留。"); return
+    if conv.kind=="channel" and conv.channelCommunity then
+        updateComposer(); composerStatus(id,"这是旧群频道记录；请展开并复制草稿到对应群聊发送。")
+        return
     end
-    if displayedId~=conv.id then
+    if pendingById[id] then return end
+    if failedById[id] then updateComposer(); composerStatus(id,"尚未发送，请先重新检查或允许重试；草稿已保留。"); return end
+    if isPerson(conv) and contactPresence(conv)=="offline" then
+        updateComposer(); composerStatus(id,"对方离线，消息未发送。草稿已保留。"); return
+    end
+    if fullWindow and (current()~=conv or displayedId~=id) then
         if render then render() end
         status("会话已切换，请确认当前输入内容后再发送。")
         return
     end
-    local original=panel.editor:GetText(); local content,err=NS.ValidateText(original)
-    if not content then status(err); return end
+    local original=editor:GetText(); local content,err=NS.ValidateText(original)
+    if not content then composerStatus(id,err); return end
+    local revision=observeDraft(id)
+    local function submit()
+        if fullWindow then return NS.Send(content) end
+        return NS.SendToConversation(id,content)
+    end
     if conv.kind=="club" then
-        local ok,message=NS.Send(content)
+        local ok,message=submit()
         if ok then
-            if conv.draft==original then conv.draft="" end
-            if displayedId==conv.id and panel.editor:GetText()==original then panel.editor:SetText("") end
+            clearConfirmedDraft(id,original,revision,conv)
             if render then render() end
-            status("已提交，投递由游戏处理；可用“找回上次发送”恢复内容。",true)
-        else
-            updateComposer(); status(message)
-        end
+            composerStatus(id,"已提交，投递由游戏处理；可展开找回上次发送。",true)
+            updateComposer()
+        else updateComposer(); composerStatus(id,message) end
         return
     end
-    local token={id=conv.id,text=content,original=original,previousLast=conv.messages[#conv.messages]}
+    local token={id=id,text=content,original=original,previousLast=conv.messages[#conv.messages],draftRevision=revision,conversation=conv}
     if conv.kind=="bnet" and NS.GetBattleNetContact then
         local friend=NS.GetBattleNetContact(conv.target)
         if friend and public(friend.accountID) and type(friend.accountID)=="number" then token.accountID=friend.accountID end
     end
-    pendingById[conv.id]=token; updateComposer()
-    local ok,message=NS.Send(content)
-    if not ok then pendingById[conv.id]=nil; updateComposer(); status(message); return end
-    if pendingById[conv.id]==token then
-        status("正在发送，文字会在游戏确认后清空。")
+    pendingById[id]=token; updateComposer()
+    local ok,message=submit()
+    if not ok then pendingById[id]=nil; updateComposer(); composerStatus(id,message); return end
+    if pendingById[id]==token then
+        composerStatus(id,"正在发送，等待游戏确认。")
         C_Timer.After(8,function()
             if pendingById[token.id]==token then
                 local target=NS.db.conversations[token.id]
@@ -504,10 +558,13 @@ local function send()
                     return
                 end
                 pendingById[token.id]=nil; updateComposer()
-                if displayedId==token.id then status("尚未确认送达，文字已保留。请查看游戏提示后再决定是否重发。") end
+                composerStatus(token.id,"尚未确认送达，草稿已保留；请查看游戏提示。")
             end
         end)
     end
+end
+local function send()
+    local conv=current(); if conv then sendFrom(conv.id,panel.editor,true) end
 end
 local function savePosition()
     local point,_,relativePoint,x,y=panel:GetPoint()
@@ -523,9 +580,15 @@ local function followCursor(scroll,_,y,_,height)
 end
 local function showCopy(value,nativeContent)
     if not copyWindow then
-        copyWindow=CreateFrame("Frame","MyForeverChatCopy",panel,"BasicFrameTemplateWithInset")
+        local Style=rawget(_G,"MyForeverStyle")
+        copyWindow=CreateFrame("Frame","MyForeverChatCopy",panel,Style and "BackdropTemplate" or "BasicFrameTemplateWithInset")
         copyWindow:SetSize(500,220); copyWindow:SetPoint("CENTER"); copyWindow:SetFrameStrata("FULLSCREEN_DIALOG")
         copyWindow:EnableMouse(true)
+        if Style then
+            -- Suite popup (星辉) instead of the grey Blizzard frame.
+            Style.Panel(copyWindow,"popup")
+            copyWindow.TitleText=Style.TitleBar(copyWindow,"复制消息 · Ctrl/Cmd+C",function() copyWindow:Hide() end).title
+        end
         copyWindow.TitleText:SetText("复制消息 · Ctrl/Cmd+C")
         local scroll=CreateFrame("ScrollFrame",nil,copyWindow,"UIPanelScrollFrameTemplate")
         scroll:SetPoint("TOPLEFT",18,-40); scroll:SetSize(440,150)
@@ -536,6 +599,7 @@ local function showCopy(value,nativeContent)
         copyWindow.edit.appearanceFixedTextColor={0.91,0.94,0.93,1}
         copyWindow.edit:SetTextColor(unpack(copyWindow.edit.appearanceFixedTextColor))
         copyWindow.edit:SetScript("OnCursorChanged",function(_,x,y,w,h) followCursor(scroll,x,y,w,h) end)
+        if Style and Style.SkinScroll then Style.SkinScroll(scroll) end
         UISpecialFrames[#UISpecialFrames+1]="MyForeverChatCopy"
     end
     copyWindow.TitleText:SetText(nativeContent and "受保护的群消息" or "复制消息 · Ctrl/Cmd+C")
@@ -615,6 +679,13 @@ function NS.ChannelConversationMigrated(oldID,newID)
     if failedById[oldID] and not failedById[newID] then failedById[newID]=failedById[oldID]; failedById[newID].id=newID end
     pendingById[oldID],failedById[oldID]=nil,nil
     if displayedId==oldID then displayedId=nil end
+    if quickReply and quickReply.conversationId==oldID then
+        quickReply.conversationId,quickReply.conversation=newID,NS.db.conversations[newID]
+        quickBinding=true; quickReply.editor:SetText(quickReply.conversation and quickReply.conversation.draft or ""); quickBinding=false
+        quickReply.feedback,quickReply.feedbackGood=nil,nil
+        -- A migrated/merged draft may differ. Require a fresh deliberate open.
+        quickReply:Hide()
+    end
     if notifications then notifications:DismissConversation(oldID) end
 end
 local function showEmotes()
@@ -1229,6 +1300,228 @@ end
 local function scrollNotifications(_,delta)
     if notifications and delta~=0 then notifications:Scroll(delta>0 and -1 or 1) end
 end
+local function layoutNumber(frame,method)
+    local fn=frame and frame[method]
+    if type(fn)~="function" then return nil end
+    local ok,value=pcall(fn,frame)
+    if ok and public(value) and type(value)=="number" and value==value and math.abs(value)<10000000 then return value end
+end
+local function screenSize()
+    local width,height=layoutNumber(UIParent,"GetWidth"),layoutNumber(UIParent,"GetHeight")
+    return width and width>0 and width or 1600,height and height>0 and height or 900
+end
+local anchorRatios={BOTTOMLEFT={0,0},BOTTOM={0.5,0},BOTTOMRIGHT={1,0},LEFT={0,0.5},CENTER={0.5,0.5},RIGHT={1,0.5},TOPLEFT={0,1},TOP={0.5,1},TOPRIGHT={1,1}}
+local function frameBounds(frame,depth)
+    local screenWidth,screenHeight=screenSize()
+    if frame==UIParent then return 0,0,screenWidth,screenHeight end
+    if not frame or (depth or 0)>6 then return nil end
+    local rootScale=layoutNumber(UIParent,"GetEffectiveScale") or 1
+    if rootScale<=0 then rootScale=1 end
+    local ownScale=layoutNumber(frame,"GetEffectiveScale") or rootScale
+    local ratio=ownScale>0 and ownScale/rootScale or 1
+    local left,right=layoutNumber(frame,"GetLeft"),layoutNumber(frame,"GetRight")
+    local bottom,top=layoutNumber(frame,"GetBottom"),layoutNumber(frame,"GetTop")
+    if left and right and bottom and top and right>=left and top>=bottom then
+        return left*ratio,bottom*ratio,right*ratio,top*ratio
+    end
+    local width,height=layoutNumber(frame,"GetWidth"),layoutNumber(frame,"GetHeight")
+    if not width or not height then return nil end
+    width,height=width*ratio,height*ratio
+    if type(frame.GetCenter)=="function" then
+        local ok,x,y=pcall(frame.GetCenter,frame)
+        if ok and public(x) and public(y) and type(x)=="number" and type(y)=="number"
+            and x==x and y==y and math.abs(x)<10000000 and math.abs(y)<10000000 then
+            return x*ratio-width/2,y*ratio-height/2,x*ratio+width/2,y*ratio+height/2
+        end
+    end
+    if type(frame.GetPoint)~="function" then return nil end
+    local ok,point,relative,relativePoint,x,y=pcall(frame.GetPoint,frame)
+    if not ok or not public(point) or type(point)~="string" or not anchorRatios[point]
+        or (relativePoint~=nil and (not public(relativePoint) or type(relativePoint)~="string" or not anchorRatios[relativePoint])) then return nil end
+    if not public(relative) then relative=UIParent end
+    local pl,pb,pr,pt=frameBounds(relative or UIParent,(depth or 0)+1)
+    if not pl then return nil end
+    if not public(x) or type(x)~="number" or x~=x or math.abs(x)>=10000000 then x=0 end
+    if not public(y) or type(y)~="number" or y~=y or math.abs(y)>=10000000 then y=0 end
+    local own,ref=anchorRatios[point],anchorRatios[relativePoint or point]
+    left=pl+(pr-pl)*ref[1]+x*ratio-width*own[1]
+    bottom=pb+(pt-pb)*ref[2]+y*ratio-height*own[2]
+    return left,bottom,left+width,bottom+height
+end
+local function positionQuickReply(frame)
+    if not frame or not launcher then return end
+    local screenWidth,screenHeight=screenSize()
+    local left,bottom,right,top=frameBounds(launcher)
+    if not left then
+        local saved=type(NS.db.launcher)=="table" and NS.db.launcher or {}
+        local own=anchorRatios[saved.point] or anchorRatios.TOPRIGHT
+        local ref=anchorRatios[saved.relativePoint] or anchorRatios.TOPRIGHT
+        local x=public(saved.x) and type(saved.x)=="number" and saved.x==saved.x and math.abs(saved.x)<10000 and saved.x or -30
+        local y=public(saved.y) and type(saved.y)=="number" and saved.y==saved.y and math.abs(saved.y)<10000 and saved.y or -235
+        left,bottom=screenWidth*ref[1]+x-42*own[1],screenHeight*ref[2]+y-42*own[2]
+        right,top=left+42,bottom+42
+    end
+    local width,height=frame:GetWidth(),frame:GetHeight()
+    local rightRoom,leftRoom=screenWidth-right-8,left-8
+    local openRight=(left+right)/2<=screenWidth/2
+    if openRight and rightRoom<width and leftRoom>rightRoom then openRight=false
+    elseif not openRight and leftRoom<width and rightRoom>leftRoom then openRight=true end
+    local alignTop=(bottom+top)/2>=screenHeight/2
+    local desiredLeft=openRight and right+8 or left-width-8
+    local desiredBottom=alignTop and top-height or bottom
+    local padX=math.min(8,math.max(0,(screenWidth-width)/2))
+    local padY=math.min(8,math.max(0,(screenHeight-height)/2))
+    local clampedLeft=math.max(padX,math.min(desiredLeft,screenWidth-width-padX))
+    local clampedBottom=math.max(padY,math.min(desiredBottom,screenHeight-height-padY))
+    local point=(alignTop and "TOP" or "BOTTOM")..(openRight and "LEFT" or "RIGHT")
+    local relativePoint=(alignTop and "TOP" or "BOTTOM")..(openRight and "RIGHT" or "LEFT")
+    local x=(openRight and clampedLeft or clampedLeft+width)-(openRight and right or left)
+    local y=(alignTop and clampedBottom+height or clampedBottom)-(alignTop and top or bottom)
+    frame:ClearAllPoints(); frame:SetPoint(point,launcher,relativePoint,x,y)
+end
+local function quickStatusState(conv)
+    local id=conv.id
+    local pending,failed=pendingById[id],failedById[id]
+    local presence=contactPresence(conv)
+    if pending then return "pending","正在发送 · 请勿重复发送",false end
+    if failed then return failed.failureKind,failed.failureTitle,false end
+    if isPerson(conv) and presence=="offline" then return "offline","对方离线 · 草稿已保留",false end
+    if conv.kind=="club" and conv.available~=true then return "unavailable","群频道暂不可用 · 可展开检查",false end
+    if conv.kind=="channel" and (conv.channelCommunity or conv.channelArchive) then return "archive","旧频道记录 · 请展开复制草稿",false end
+    if isPerson(conv) and presence=="unknown" then return "unknown","在线状态未知 · 发送后等待确认",true end
+    return "ready",nil,true
+end
+local refreshingQuick=false
+refreshQuickReply=function()
+    if not quickReply or not quickReply:IsShown() or refreshingQuick then return end
+    refreshingQuick=true
+    local conv=NS.db.conversations[quickReply.conversationId]
+    if not conv or conv~=quickReply.conversation then quickReply:Hide(); refreshingQuick=false; return end
+    local size=options().fontSize
+    quickReply:SetHeight(136+2*math.max(0,size-14))
+    if quickReply.followLauncher then positionQuickReply(quickReply) end
+    quickReply.editor:SetHeight(size*2+10)
+    quickReply.title:SetText("回复 · "..conv.title)
+    local latest
+    for i=#conv.messages,1,-1 do
+        if not conv.messages[i].outgoing then latest=conv.messages[i]; break end
+    end
+    latest=latest or conv.messages[#conv.messages]
+    quickReply.preview:SetText(latest and messagePreview(conv,latest,70) or "暂无消息 · 可直接输入")
+    local state,note,allowed=quickStatusState(conv)
+    if quickReply.state~=state and state=="ready" and not quickReply.feedbackGood then quickReply.feedback=nil end
+    quickReply.state=state
+    local content=quickReply.editor:GetText() or ""
+    local valid=NS.ValidateText(content)
+    quickReply.send:SetEnabled(allowed and valid~=nil)
+    quickReply.send:SetAlpha(quickReply.send:IsEnabled() and 1 or 0.45)
+    quickReply.send.label:SetText(state=="pending" and "发送中" or "发送")
+    local failed=failedById[conv.id]
+    local retry=failed~=nil or state=="offline" or state=="unavailable"
+    quickReply.retry:SetShown(retry); quickReply.retry:SetEnabled(not pendingById[conv.id])
+    quickReply.retry.label:SetText(failed and failed.failureKind=="timeout" and "允许重试" or "重新检查")
+    quickReply.status:SetWidth(retry and 190 or 282)
+    quickReply.status:SetText((state=="unknown" and quickReply.feedback) or note or quickReply.feedback or "Enter 发送 · Esc 收起")
+    quickReply.status:SetTextColor(unpack((state=="offline" or state=="unavailable" or failed) and {1,0.68,0.48,1}
+        or quickReply.feedbackGood and not note and C.accentText or C.muted))
+    if conv.unread~=0 then NS.MarkRead(conv.id) end
+    refreshingQuick=false
+end
+local function buildQuickReply()
+    if quickReply then return end
+    local f=box("Frame",UIParent,C.outer,true,"MyForeverChatQuickReply")
+    quickReply=f
+    f:SetSize(360,136); f:SetFrameStrata("DIALOG"); f:SetClampedToScreen(true); f:EnableMouse(true); f:SetMovable(true)
+    f.followLauncher=true; positionQuickReply(f)
+    local function saveQuickPosition()
+        if f.followLauncher then return end
+        local point,_,relativePoint,x,y=f:GetPoint()
+        NS.db.quickReplyWindow={point=point,relativePoint=relativePoint,x=x,y=y}
+    end
+    f.title=text(f,12,C.muted); f.title:SetPoint("TOPLEFT",10,-10); f.title:SetWidth(240); f.title:SetMaxLines(1)
+    f.preview=text(f,12,C.text); f.preview:SetPoint("TOPLEFT",10,-32); f.preview:SetWidth(340); f.preview:SetMaxLines(1)
+    local drag=CreateFrame("Frame",nil,f); drag:SetPoint("TOPLEFT",4,-4); drag:SetSize(244,22)
+    drag:EnableMouse(true); drag:RegisterForDrag("LeftButton")
+    drag:SetScript("OnDragStart",function() f.followLauncher=false; f:StartMoving(); mfLayout("BeginDrag",f) end)
+    drag:SetScript("OnDragStop",function() f:StopMovingOrSizing(); mfLayout("SnapToGrid",f); saveQuickPosition() end)
+    drag:SetScript("OnEnter",function(self)
+        local conv=NS.db.conversations[f.conversationId]
+        if conv then GameTooltip:SetOwner(self,"ANCHOR_TOP"); GameTooltip:SetText(conv.title.."\n"..(routeLabels[conv.kind] or "聊天")); GameTooltip:Show() end
+    end)
+    drag:SetScript("OnLeave",function(self) if GameTooltip.IsOwned and GameTooltip:IsOwned(self) then GameTooltip:Hide() end end)
+    f.close=button(f,"×",22,22,function() f:Hide() end); f.close:SetPoint("TOPRIGHT",-6,-5)
+    f.expand=button(f,"展开",44,22,function()
+        local id=f.conversationId
+        if not NS.db.conversations[id] then f:Hide(); return end
+        f:Hide(); select(id)
+        if NS.db.conversations[id] and NS.db.conversations[id].kind=="club" then openedCommunityThisShow=NS.db.conversations[id] end
+        panel:Show(); render(); panel.editor:SetFocus()
+    end); f.expand:SetPoint("TOPRIGHT",-34,-5)
+    f.surface=box("Frame",f,C.surface,false); f.surface:SetPoint("TOPLEFT",8,-52); f.surface:SetPoint("BOTTOMRIGHT",-8,36)
+    f.editorScroll=CreateFrame("ScrollFrame",nil,f.surface); f.editorScroll:SetPoint("TOPLEFT",4,-4); f.editorScroll:SetPoint("BOTTOMRIGHT",-4,4)
+    f.editorScroll:EnableMouseWheel(true); f.editorScroll:SetScript("OnMouseWheel",wheel)
+    f.editor=field(f.editorScroll,328,38); f.editor:SetMultiLine(true); f.editor:SetMaxBytes(NS.CHAT_DRAFT_BYTES)
+    f.editor.chatFont=true; f.editor.focusSurface=f.surface; f.editor:SetCountInvisibleLetters(true); f.editorScroll:SetScrollChild(f.editor)
+    f.editor:SetScript("OnTextChanged",function(self)
+        if quickBinding then return end
+        local conv=NS.db.conversations[f.conversationId]
+        if conv and conv==f.conversation then
+            conv.draft=self:GetText(); observeDraft(conv.id); f.feedback,f.feedbackGood=nil,nil
+            if panel:IsShown() and displayedId==conv.id and panel.editor:GetText()~=conv.draft then panel.editor:SetText(conv.draft) end
+        end
+        refreshQuickReply()
+    end)
+    local function sendQuick()
+        if not f:IsShown() or f.editor:GetText()=="" then return end
+        if NS.db.conversations[f.conversationId]~=f.conversation then refreshQuickReply(); return end
+        sendFrom(f.conversationId,f.editor,false)
+    end
+    f.sendMessage=sendQuick
+    f.editor:SetScript("OnEnterPressed",sendQuick)
+    f.editor:SetScript("OnEscapePressed",function() f:Hide() end)
+    f.editor:SetScript("OnCursorChanged",function(_,x,y,w,h) followCursor(f.editorScroll,x,y,w,h) end)
+    local function focusQuick(_,mouseButton) if mouseButton=="LeftButton" then f.editor:SetFocus() end end
+    f.surface:EnableMouse(true); f.surface:SetScript("OnMouseDown",focusQuick)
+    f.editorScroll:EnableMouse(true); f.editorScroll:SetScript("OnMouseDown",focusQuick)
+    f.send=button(f,"发送",52,24,sendQuick,C.green); f.send:SetPoint("BOTTOMRIGHT",-8,6)
+    f.retry=button(f,"重新检查",84,24,function()
+        local conv=NS.db.conversations[f.conversationId]
+        if not conv or conv~=f.conversation or pendingById[conv.id] then return end
+        failedById[conv.id]=nil; f.feedback,f.feedbackGood=nil,nil
+        if conv.kind=="club" and NS.Communities then NS.Communities.Refresh()
+        elseif NS.RequestContactLists then NS.RequestContactLists() end
+        updateComposer()
+    end); f.retry:SetPoint("BOTTOMRIGHT",-66,6)
+    f.status=text(f,10,C.muted); f.status:SetPoint("BOTTOMLEFT",10,8); f.status:SetWidth(282); f.status:SetHeight(24); f.status:SetMaxLines(2)
+    f:SetScript("OnHide",function() f.editor:ClearFocus() end)
+    mfLayout("RegisterLayout",f,"聊天 · 快速回复",{
+        -- Explicit /myui nudges and undo keep this opening's chosen position.
+        -- They do not replace the legacy saved window or the launcher's data.
+        save=function() f.followLauncher=false end,
+        reset=function() f.followLauncher=true; positionQuickReply(f) end,
+    })
+    f:Hide()
+    UISpecialFrames[#UISpecialFrames+1]="MyForeverChatQuickReply"
+end
+function NS.CloseQuickReply()
+    if quickReply then quickReply:Hide() end
+end
+function NS.OpenQuickReply(id)
+    if not panel or not quickReply or not public(id) or type(id)~="string" then return false end
+    local conv=NS.db.conversations[id]
+    if not conv then return false end
+    panel:Hide()
+    select(id)
+    conv=NS.db.conversations[id]
+    if not conv then return false end
+    quickReply.conversationId,quickReply.conversation=id,conv
+    quickReply.feedback,quickReply.feedbackGood,quickReply.state=nil,nil,nil
+    quickBinding=true; quickReply.editor:SetText(conv.draft or ""); quickBinding=false
+    quickReply.editorScroll:SetVerticalScroll(0)
+    quickReply.followLauncher=true
+    quickReply:Show(); refreshQuickReply(); quickReply.editor:SetFocus()
+    return true
+end
 local function showToastTooltip(widget)
     local message=widget.item and widget.item.message
     if not message then return end
@@ -1262,7 +1555,7 @@ local function makeToast()
         if not item then return end
         if mouseButton=="RightButton" then notifications:Dismiss(item); return end
         if NS.db.conversations[item.conversationId] then
-            select(item.conversationId); panel:Show(); render(); panel.editor:SetFocus()
+            NS.OpenQuickReply(item.conversationId)
         else notifications:Dismiss(item) end
     end)
     f:SetScript("OnEnter",function(self) self:SetAlpha(0.90); showToastTooltip(self) end)
@@ -1274,18 +1567,23 @@ local function makeToast()
     f:Hide()
     return f
 end
-local function toastBase()
-    return math.max(40,UIParent:GetHeight()*0.26)
+local function toastLayout()
+    local _,height=screenSize()
+    -- One queue-wide budget keeps the top toolbar and all bubbles on screen.
+    local bottom=math.min(120,math.max(0,height-toastHeight()-TOAST_HEADER))
+    local capacity=math.max(1,math.floor((height-bottom-TOAST_HEADER+TOAST_GAP)/toastStep()))
+    return bottom,capacity
 end
 local function paintNotifications(visible,queued,pageInfo)
-    local base=toastBase()
+    local bottom=toastLayout()
+    local highestTop=bottom+#visible*toastHeight()+math.max(0,#visible-1)*TOAST_GAP
     for i,item in ipairs(visible) do
         local f=toastFrames[i] or makeToast()
         toastFrames[i]=f
         local conv=NS.db.conversations[item.conversationId]
         f.item=item; f.conversationId=item.conversationId
         f:SetHeight(toastHeight())
-        f:ClearAllPoints(); f:SetPoint("TOPLEFT",UIParent,"TOPLEFT",35,-base-(i-1)*toastStep())
+        f:ClearAllPoints(); f:SetPoint("BOTTOMRIGHT",UIParent,"BOTTOMRIGHT",-24,bottom+(#visible-i)*toastStep())
         local bubbleColor,style=typeShade(conv,item.message,false)
         shade(f,bubbleColor); setTypeStripe(f,style.color)
         local label=conv.kind=="channel" and conversationLetter(conv) or style.label
@@ -1313,18 +1611,18 @@ local function paintNotifications(visible,queued,pageInfo)
         local f=toastFrames[i]
         f.item=nil; f.conversationId=nil; f:Hide()
     end
-    clearToasts:ClearAllPoints(); clearToasts:SetPoint("BOTTOMLEFT",UIParent,"TOPLEFT",35,-base+8)
+    clearToasts:ClearAllPoints(); clearToasts:SetPoint("BOTTOMLEFT",UIParent,"BOTTOMRIGHT",-284,highestTop+8)
     local info=pageInfo or (notifications and notifications.GetPageInfo and notifications:GetPageInfo())
         or {first=1,last=#visible,total=#visible+#queued}
     clearToasts.label:SetText("清除泡泡 ("..info.total..")")
     clearToasts:SetShown(#visible>0)
     local paged=#visible>0 and (info.hasPrevious or info.hasNext)
-    toastPrevious:ClearAllPoints(); toastPrevious:SetPoint("BOTTOMLEFT",UIParent,"TOPLEFT",159,-base+8)
-    toastNext:ClearAllPoints(); toastNext:SetPoint("BOTTOMLEFT",UIParent,"TOPLEFT",231,-base+8)
+    toastPrevious:ClearAllPoints(); toastPrevious:SetPoint("BOTTOMLEFT",UIParent,"BOTTOMRIGHT",-160,highestTop+8)
+    toastNext:ClearAllPoints(); toastNext:SetPoint("BOTTOMLEFT",UIParent,"BOTTOMRIGHT",-88,highestTop+8)
     toastPrevious:SetEnabled(info.hasPrevious==true); toastNext:SetEnabled(info.hasNext==true)
     toastPrevious:SetAlpha(info.hasPrevious and 1 or 0.4); toastNext:SetAlpha(info.hasNext and 1 or 0.4)
     toastPrevious:SetShown(paged); toastNext:SetShown(paged)
-    toastPage:ClearAllPoints(); toastPage:SetPoint("BOTTOMLEFT",UIParent,"TOPLEFT",35,-base+34)
+    toastPage:ClearAllPoints(); toastPage:SetPoint("BOTTOMLEFT",UIParent,"BOTTOMRIGHT",-284,highestTop+34)
     toastPage:SetText((info.first or 0).."–"..(info.last or 0).." / "..info.total)
     toastPage:SetShown(paged)
 end
@@ -1332,12 +1630,13 @@ local function notifyIncoming()
     local incoming=NS.lastIncoming
     if not incoming or incoming.message==lastIncoming then return end
     lastIncoming=incoming.message
-    if panel:IsShown() then return end
+    if panel:IsShown() or (quickReply and quickReply:IsShown() and quickReply.conversationId==incoming.conversationId) then return end
     return notifications:Push(incoming.conversationId,incoming.message)
 end
 function NS.RefreshUI()
     if not panel then return end
     if appliedAppearance~=NS.db.appearance then NS.ApplyAppearance() end
+    for id in pairs(NS.db.conversations) do observeDraft(id) end
     checkEcho()
     local changed=notifications:Refresh()
     if not notifyIncoming() and not changed and #notifications.visible>0 then
@@ -1357,6 +1656,7 @@ function NS.ClearNotifications()
 end
 function NS.MinimizeUI()
     if panel then panel:Hide() end
+    if quickReply then quickReply:Hide() end
 end
 function NS.ShowAppearanceSettings()
     if not panel then return end
@@ -1395,16 +1695,20 @@ function NS.ShowWhisperOfflineNotice(...)
 end
 function NS.ToggleUI()
     if not panel then return end
-    if panel:IsShown() then panel:Hide() else panel:Show(); render(); panel.editor:SetFocus() end
+    if panel:IsShown() then panel:Hide() else
+        NS.CloseQuickReply(); panel:Show(); render(); panel.editor:SetFocus()
+    end
 end
 function NS.ReplyRecent()
     if not panel then return end
-    if NS.db.lastWhisperId and NS.db.conversations[NS.db.lastWhisperId] then select(NS.db.lastWhisperId) end
-    panel:Show(); render(); panel.editor:SetFocus()
+    local id=NS.db.lastWhisperId
+    if not id or not NS.db.conversations[id] then local conv=current(); id=conv and conv.id end
+    return NS.OpenQuickReply(id)
 end
 function NS.QuickReply()
     if not panel then return end
     if panel:IsShown() then NS.MinimizeUI(); return end
+    if quickReply and quickReply:IsShown() then quickReply:Hide(); return end
     if notifications then notifications:Refresh() end
     local target,newestOrder=nil,-1
     -- Priority changes screen order; arrival order still determines quick reply.
@@ -1416,7 +1720,7 @@ function NS.QuickReply()
         end
     end
     if target then
-        select(target); panel:Show(); render(); panel.editor:SetFocus()
+        NS.OpenQuickReply(target)
     else
         NS.ReplyRecent()
     end
@@ -1427,6 +1731,9 @@ function NS.ResetPosition()
     launcher:ClearAllPoints(); launcher:SetPoint("TOPRIGHT",UIParent,"TOPRIGHT",-30,-235)
     NS.db.launcher={point="TOPRIGHT",relativePoint="TOPRIGHT",x=-30,y=-235}
     savePosition()
+    if quickReply then
+        quickReply:Hide(); quickReply.followLauncher=true; positionQuickReply(quickReply)
+    end
     panel:Show(); render()
 end
 function NS.BuildUI()
@@ -1588,8 +1895,12 @@ function NS.BuildUI()
     local drag=CreateFrame("Frame",nil,panel)
     drag:SetPoint("TOPLEFT",220,0); drag:SetPoint("TOPRIGHT",-198,0); drag:SetHeight(65)
     drag:EnableMouse(true); drag:RegisterForDrag("LeftButton")
-    drag:SetScript("OnDragStart",function() panel:StartMoving() end)
-    drag:SetScript("OnDragStop",function() panel:StopMovingOrSizing(); savePosition() end)
+    drag:SetScript("OnDragStart",function() panel:StartMoving(); mfLayout("BeginDrag",panel) end)
+    drag:SetScript("OnDragStop",function() panel:StopMovingOrSizing(); mfLayout("SnapToGrid",panel); savePosition() end)
+    mfLayout("RegisterLayout",panel,"微信式聊天",{
+        save=function() savePosition() end,
+        reset=function() panel:ClearAllPoints(); panel:SetPoint("CENTER",UIParent,"CENTER",0,0); savePosition() end,
+    })
     panel.history,panel.historyChild=makeScroll(panel)
     panel.history:SetPoint("TOPLEFT",231,-110); panel.history:SetPoint("BOTTOMRIGHT",-12,148)
     panel.empty=text(panel.history,14,C.muted); panel.empty:SetPoint("CENTER"); panel.empty:SetText("选好会话，从这里开始聊天。")
@@ -1614,7 +1925,13 @@ function NS.BuildUI()
     editorScroll:EnableMouse(true); editorScroll:SetScript("OnMouseDown",focusComposer)
     composeBackground:EnableMouse(true); composeBackground:SetScript("OnMouseDown",focusComposer)
     panel.editor:SetScript("OnTextChanged",function(self)
-        if displayedId and NS.db.conversations[displayedId] then NS.db.conversations[displayedId].draft=self:GetText() end
+        if quickBinding then return end
+        if displayedId and NS.db.conversations[displayedId] then
+            NS.db.conversations[displayedId].draft=self:GetText(); observeDraft(displayedId)
+            if quickReply and quickReply.conversationId==displayedId and quickReply.editor:GetText()~=self:GetText() then
+                quickBinding=true; quickReply.editor:SetText(self:GetText()); quickBinding=false
+            end
+        end
         updateComposer()
     end)
     panel.editor:SetScript("OnEnterPressed",send)
@@ -1650,6 +1967,7 @@ function NS.BuildUI()
     local elapsed=0
     panel:SetScript("OnUpdate",function(_,dt) elapsed=elapsed+dt; if dirty and elapsed>=0.05 then elapsed=0; render() end end)
     panel:SetScript("OnShow",function()
+        NS.CloseQuickReply()
         NS.db.shown=true; NS.MarkRead(current().id); dirty=true
         if notifications then notifications:DismissConversation(current().id) end
         openSelectedCommunity()
@@ -1671,12 +1989,21 @@ function NS.BuildUI()
     launcher:SetFrameStrata("MEDIUM")
     launcher.badge=text(launcher,12,{1,0.48,0.40,1}); launcher.badge:SetPoint("TOPRIGHT",3,4)
     launcher:SetMovable(true); launcher:SetClampedToScreen(true); launcher:RegisterForDrag("LeftButton")
-    launcher:SetScript("OnDragStart",function() launcher:StartMoving() end)
+    launcher:SetScript("OnDragStart",function() launcher:StartMoving(); mfLayout("BeginDrag",launcher) end)
+    mfLayout("RegisterLayout",launcher,"微信式聊天 · 图标",{
+        save=function() local p,_,rp,x,y=launcher:GetPoint(); NS.db.launcher={point=p,relativePoint=rp,x=x,y=y} end,
+        reset=function()
+            NS.db.launcher={point="TOPRIGHT",relativePoint="TOPRIGHT",x=-30,y=-235}
+            launcher:ClearAllPoints(); launcher:SetPoint("TOPRIGHT",UIParent,"TOPRIGHT",-30,-235)
+        end,
+    })
     launcher:SetScript("OnDragStop",function()
         launcher:StopMovingOrSizing()
+        mfLayout("SnapToGrid",launcher)
         local p,_,rp,x,y=launcher:GetPoint()
         NS.db.launcher={point=p,relativePoint=rp,x=x,y=y}
     end)
+    buildQuickReply()
     toastFrames[1]=makeToast()
     clearToasts=button(UIParent,"清除泡泡",116,22,NS.ClearNotifications,C.surface)
     clearToasts:SetFrameStrata("HIGH"); clearToasts:SetClampedToScreen(true); clearToasts:Hide()
@@ -1690,19 +2017,20 @@ function NS.BuildUI()
     toastPage=text(clearToasts,10,C.muted); toastPage:Hide()
     notifications=NS.CreateNotifications({
         canShow=function(id)
-            return NS.CanNotifyConversation(NS.db.conversations[id])
+            return not (quickReply and quickReply:IsShown() and quickReply.conversationId==id)
+                and NS.CanNotifyConversation(NS.db.conversations[id])
         end,
         priority=function(id) return NS.IsPriorityConversation(NS.db.conversations[id]) and 1 or 0 end,
         duration=function(id)
             local conv=NS.db.conversations[id]
             return conv and (isPerson(conv) or conv.kind=="group" or conv.kind=="raid" or conv.kind=="club") and 60 or 20
         end,
-        maxVisible=function() return math.floor((UIParent:GetHeight()-toastBase()-120)/toastStep()) end,
+        maxVisible=function() local _,capacity=toastLayout(); return capacity end,
         after=function(seconds,callback) C_Timer.After(seconds,callback) end,
         onChange=paintNotifications,
     })
     lastIncoming=NS.lastIncoming and NS.lastIncoming.message
-    NS.ui={panel=panel,launcher=launcher,toast=toastFrames[1],toasts=toastFrames,clearToasts=clearToasts,
+    NS.ui={panel=panel,launcher=launcher,quickReply=quickReply,toast=toastFrames[1],toasts=toastFrames,clearToasts=clearToasts,
         conversationRows=conversationRows,messageRows=messageRows,render=render,send=send,
         toastPrevious=toastPrevious,toastNext=toastNext,toastPage=toastPage}
     NS.NotifyChanged=NS.RefreshUI

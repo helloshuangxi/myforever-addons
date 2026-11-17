@@ -23,3 +23,5 @@
 # Preserve imported third-party notices and the dated research note verbatim.
 PersonalAddons/Manager/packaging/THIRD-PARTY-NOTICES.txt whitespace=-blank-at-eol
 PersonalAddons/research/focus-api-70862-20261111/SECURE_CYCLE_GUID_RESEARCH.md whitespace=-blank-at-eof
+# Preserve vendored runtime and license bytes, including upstream whitespace.
+PersonalAddons/website/public/navigator/planner/vendor/** -text -whitespace

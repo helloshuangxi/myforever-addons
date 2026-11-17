@@ -1,0 +1,30 @@
+{
+  "version": "0.6.0",
+  "status": "trial-local",
+  "sha256": "e64138d119b924f8013a07edc6c3ec558e79432b18beff76aafc005a7d1fffec",
+  "files": {
+    "MyForeverNavigator.toc": "689f513e7324da9e384f3a64ac1050fdb3460a5310d90f9e73a17f77faf6f0b3",
+    "MyForeverStyle.lua": "64b87f8964cc75cffc1a044c4638bea7fa3499fa61852dd60ee73951e2de4621",
+    "Core.lua": "0ecc00687440222648356ca16b1904c61abc7f22184f6e90b58d563dd2155cbc",
+    "Data.lua": "1234cc696c6adac4b5badfdffa8e76752a8ff29cdd4f5d46b539e3b3a8506b9a",
+    "Classification.lua": "642944a1c19219473147d4d4d494504f543fa1f4ff5b4fd7fa3860ad77e6bcf5",
+    "Provider.lua": "975b8bc2e03020df8eda7a92c84e42cf2762c0012044ac2ecfebf05126d98d67",
+    "QuestieCatalog.lua": "ec67f8f36b23d6f5b14e65c1aca609ed0206113b1db5467c4be8e3202b5cd4fe",
+    "Navigation.lua": "0d8ce8e50225f93d2ad54656864950df44f13c991824e7f5a3c04015e1bbc5a0",
+    "RoutePhrases.lua": "94fa6b7e11bd8cdf40b9689957823fb77e6484c4e6a3374354bf59d92c0ac4d5",
+    "FuzzySearch.lua": "67458bf951e3b6d58668590310fe0f09591645b55a0cb1b2bfd242ec2644201a",
+    "RouteData.lua": "e521fd72bee37e1eae924bc16d57aa877e7c460e2839a2f29bd9e7cddadd9ff3",
+    "Routes.lua": "cf5dcc5454f301277445b243bd0b77c86525b96e6dfc3dadbe24112c6b05ea66",
+    "RoutePlanner.lua": "e7cff082b95be3b393fc34a3b5be4014d570c31c9e6118ef35687fe649dd9faa",
+    "RouteUI.lua": "24a327218a447acf509039a38938b90c3d086fe02f5ac7cede01f4e7650360be",
+    "QuestData.lua": "7f615745903c60bac834999966034d0ede52c9f782444d0d205c9e5a6d0f46bf",
+    "QuestNavigation.lua": "9aef265463166859ef19e10e95869c5a12e16a4c38d9a523343aed880d1d78cc",
+    "UI.lua": "4046e2c68eebcedf7a6a62b7bd594f49844e4e440de48cd1c6f7f0c01dc05a13",
+    "QuestUI.lua": "81f3932b5d82f4cf0afd432315d82be623834ac1f7634051e89e1e8851abbf84",
+    "Main.lua": "3301f2c119e740222df5a10621d8b925d276757bc289eebaa3cf6050077bdb90",
+    "README.md": "081ad54a7230f6f0f0ba771ce89347e4258a6897284ffb2df87cfaad9c12bbef",
+    "SOURCES.md": "7353ddab010a2b1b033857fcbbd795d935a0afbbd9c673ed63c483cbabb3e143",
+    "VALIDATION.md": "f2ce7da32208490d2e0efcbccbd7ead2725c4549f49434e3486f7670f6e20c79"
+  },
+  "validation": "See included VALIDATION.md for simulation and observed in-game scope"
+}

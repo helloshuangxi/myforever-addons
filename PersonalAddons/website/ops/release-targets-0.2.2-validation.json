@@ -1,0 +1,75 @@
+{
+  "status": "published-and-verified",
+  "version": "0.2.2",
+  "channel": "trial",
+  "checked_at": "2026-11-15T11:57:18.814022+00:00",
+  "release": "20261115T115356Z",
+  "site": "https://afabiaoge.xyz/targets/",
+  "download": "https://afabiaoge.xyz/downloads/MyForeverTargets-0.2.2-Trial.zip",
+  "sha256": "28f17a2f21805f7aac5df6636ad6655044c1aa8339289b0be32cb9664e52751a",
+  "bytes": 217113,
+  "package_members": 31,
+  "frozen_site": "/Users/mashuangxi/World of Warcraft/PersonalAddons/work/targets-0.2.2-site",
+  "frozen_source": "/Users/mashuangxi/World of Warcraft/PersonalAddons/work/targets-0.2.2-release-root",
+  "checks": {
+    "lua51_files": 26,
+    "simulated_suites": 23,
+    "simulated_checks": 11423,
+    "sync_tests": 10,
+    "static_reuse_tests": 28,
+    "public_resources_verified": 148,
+    "local_focused_https": 10,
+    "remote_entire_tree_files": 150,
+    "old_binary_archives_preserved": 50,
+    "manager050_isolated": 68,
+    "manager050_real_https_isolated": 74
+  },
+  "unchanged_versions": {
+    "chat": "0.10.0",
+    "professions": "0.5.0",
+    "navigator": "0.5.0",
+    "manager": "0.5.0"
+  },
+  "deployment": {
+    "official_publish_chain": true,
+    "reuse_current": true,
+    "delta_archive_bytes": 239623,
+    "service_source_hashes_preserved": true,
+    "production_community_write_test": false,
+    "old_releases_deleted": false
+  },
+  "game_validation": {
+    "nearby_friendly_player": "Wisdom Blessing rank 1, combat, original hostile target",
+    "correct_selection_and_restoration": 19,
+    "correct_recipient_name_sent": 4,
+    "same_castguid_success": 3,
+    "aura_application_verified": false,
+    "other_scenarios_verified": false
+  },
+  "minimap": {
+    "restored": true,
+    "read_mode": "original",
+    "reload": true,
+    "visible_pixels_verified": true,
+    "professions_source_changed": false,
+    "incident": "While diagnosing minimap, nil-method error dialog interfered with combat and character died. Error frame dismissed; user informed; no resurrection input performed."
+  },
+  "limitations": [
+    "Broader friendly skills and restoration boundaries still require game validation.",
+    "Enemy/subtarget casting and combat arbitrary same-name NPC GUID focus remain unresolved.",
+    "Release lock serializes this frozen script; older external publishers not using the lock cannot be absolutely serialized."
+  ],
+  "evidence_sha256": {
+    "ops/release-targets-0.2.2.json": "56020b33b3961b10f9e35c3e878c39c1ae9e86401ec2505ed364420bd6962336",
+    "ops/targets-0.2.2-preflight.json": "a4c216e576a6cc69f733c151ff39d774b1c4f95e82c429a439171e81d70ae450",
+    "ops/targets-0.2.2-live-verification.json": "5e1ae732f94c358395befa329d722fa3a11ea76de1afc078c934f650b7d87796",
+    "ops/targets-0.2.2-external-verification.json": "718926ef37399e908be7be92026a9db5927372d28407e5a5439c8ba1be5d87a1",
+    "ops/targets-0.2.2-remote-tree-verification.json": "12a234f415aabc275fd7dc41a9f7d21bd3cf52e9579829314c83047409ed7d75",
+    "ops/targets-0.2.2-publish.log": "343e2ad412f5d40a5442f928ae76b2eb314e33fe4644ce0f8e9c9190fcf84d6b",
+    "ops/static-reuse-tests.log": "331f5e6fb72b3c6fc7b75e480d3c0dcebf5171e4f22b62a92a519fd1c2f752df",
+    "manager/local-result.json": "2d2408029234828f40556bb7b7ebe01774316dc44426f4d4402843e041ed0683",
+    "manager/live-result.json": "8713e131f436ca685226821c49cedffd34a6d5bbf270c980c95722e5bbb310d0",
+    "manager/source-isolation.json": "1abea3a07b020fc8bf3be3b86af8c19e8d40d7da8809805c284ca5995209180d",
+    "manager/live-tests.log": "188fb976d6eae38490b325ebd363c755f35adb79e087e786434fdd8720461885"
+  }
+}

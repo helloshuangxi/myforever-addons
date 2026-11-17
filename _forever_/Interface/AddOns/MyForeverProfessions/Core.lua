@@ -99,6 +99,7 @@ function ns.NormalizeDB(raw)
         gatherSound = raw.gatherSound ~= false,
         gatherSparkles = raw.gatherSparkles ~= false,
         gatherMethod = raw.gatherMethod == "original" and "original" or "cursor",
+        gatherOpaque = raw.gatherOpaque ~= false,
         gatherSparkleScale = clamp(raw.gatherSparkleScale, 0.6, 1.6, 1),
         gatherSparkleCVars = sparkleSaved,
         gatherSparkleOverrides = sparkleOverrides,

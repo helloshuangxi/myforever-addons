@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "release": "20261115T115356Z",
+  "files": 150,
+  "old_files_unchanged": 148,
+  "old_binaries_reused_unchanged": 50,
+  "changed_paths_have_separate_inodes": 4,
+  "private_manifest_public": false,
+  "community_source_unchanged": true,
+  "free_bytes": 1298776064
+}

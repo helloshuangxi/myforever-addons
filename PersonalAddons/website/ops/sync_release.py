@@ -167,7 +167,7 @@ def render_portal(document, releases):
     descriptions = {
         'MyForeverChat': ('微信式聊天', '把私聊、频道和社区群聊整理在熟悉的聊天窗口里，查看记录，及时回复。', '/chat/'),
         'MyForeverProfessions': ('商业技能助手', '查看专业进度、训练推荐与材料缺口，用不同专业图标寻找附近训练师。', '/professions/'),
-        'MyForeverNavigator': ('世界向导', '启用 Questie 扩展 NPC 目录，按用途搜索导航；支持任务目标与交付地点、收藏和个人地点。', '/navigator/'),
+        'MyForeverNavigator': ('世界向导', '在游戏问任务或目的地，由我的无限客户端解析。按站导航到任务物品、交付 NPC 或交通入口，也可直接搜索 Questie 目录。', '/navigator/'),
         'MyForeverTargets': ('目标选择', '把友方、敌方和敌人的目标放进紧凑血条，查看相关效果，点击选择目标或设置焦点。', '/targets/'),
     }
     esc = html.escape

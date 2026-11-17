@@ -1,0 +1,168 @@
+{
+  "automation_id": "nodesight",
+  "triggeredAt": "2026-11-16T01:56:40.462Z",
+  "checkedAt": "2026-11-16T02:01:30.582135+00:00",
+  "localDate": "2026-11-16",
+  "timezone": "Asia/Shanghai",
+  "comparedWith": [
+    "nodesight-monitor-20261115.json",
+    "nodesight-monitor-20261114.json",
+    "../professions-upstream-20261113/UPSTREAM.json"
+  ],
+  "github": {
+    "releaseListLatest": "3.0.1",
+    "releasePublishedAt": "2026-11-13T17:22:21Z",
+    "releaseUrl": "https://github.com/Krelock/NodeSight/releases/tag/v3.0.1",
+    "newTags": [
+      {
+        "name": "v3.1.0.1",
+        "sha": "2ec865baaae023b15e6813ceec0ac3ef0bba25b4"
+      },
+      {
+        "name": "v3.1.0",
+        "sha": "78915f73ffe4f73cafda732ae7f67da260cd8e70"
+      }
+    ],
+    "specificReleaseEndpoints": {
+      "v3.1.0.1": {
+        "status": 404
+      },
+      "v3.1.0": {
+        "status": 404
+      }
+    },
+    "releaseTagDistinction": "New tags/commits exist, while specific GitHub release endpoints return404 at check time and release list still3.0.1; not treated as a version rollback.",
+    "mainCommit": "490a7855ab36773d5bf38840215573316a4862eb",
+    "mainCommitMessage": "NodeSight Sparkles 1.3.0: Stone background on by default",
+    "tocVersion": "3.1.0.1",
+    "tocInterface": 16001,
+    "tagAndMainSame": false,
+    "commits": [
+      {
+        "sha": "490a7855ab36773d5bf38840215573316a4862eb",
+        "message": "NodeSight Sparkles 1.3.0: Stone background on by default",
+        "date": "2026-11-15T21:11:27Z"
+      },
+      {
+        "sha": "2ec865baaae023b15e6813ceec0ac3ef0bba25b4",
+        "message": "NodeSight 3.1.0.1",
+        "date": "2026-11-15T21:11:27Z"
+      },
+      {
+        "sha": "39384adced6f43941cc2a8c364bd984a71ae3fa6",
+        "message": "NodeSight Sparkles 1.3.0",
+        "date": "2026-11-15T19:04:40Z"
+      },
+      {
+        "sha": "78915f73ffe4f73cafda732ae7f67da260cd8e70",
+        "message": "NodeSight 3.1.0",
+        "date": "2026-11-15T19:04:31Z"
+      }
+    ],
+    "changedFiles": [
+      "MinimapButton.lua",
+      "Names.lua",
+      "NodeSight.lua",
+      "NodeSight.toc",
+      "NodeSightSparkles/MinimapButton.lua",
+      "NodeSightSparkles/Names.lua",
+      "NodeSightSparkles/NodeSightSparkles.lua",
+      "NodeSightSparkles/NodeSightSparkles.toc",
+      "NodeSightSparkles/Settings.lua",
+      "NodeSightSparkles/SparkleWindow.lua",
+      "NodeSightSparkles/Sparkles.lua",
+      "Settings.lua",
+      "SettingsWindow.lua",
+      "SparkleWindow.lua",
+      "Sparkles.lua",
+      "Switch.lua",
+      "WhatsNew.lua"
+    ]
+  },
+  "curseforge": {
+    "version": "3.1.0.1",
+    "fileId": 9637486,
+    "type": "Release",
+    "siteDisplayDate": "2026-11-15",
+    "client": "WoW Forever1.60.1",
+    "url": "https://www.curseforge.com/wow/addons/node-sight/files/9637486",
+    "changelogHeading": "3.1.0, no separate .1 entry on viewed file page",
+    "independentlyCheckedBy": "readonly_cf_agent",
+    "sourcePackageDownloadedOrAudited": false
+  },
+  "newChanges": [
+    "Unified independent draggable settings window; avoid Blizzard Options dropdown taint during combat",
+    "Optional lootable-corpse sparkles, default off",
+    "Optional Interact Key off in towns/inns Beta, default off",
+    "Tooltip skill-line placement and visual previews; .1 source makes stone background default on with migration"
+  ],
+  "methodAssessment": {
+    "pinnedCoreUrl": "https://github.com/Krelock/NodeSight/blob/490a7855ab36773d5bf38840215573316a4862eb/NodeSight.lua#L294-L298",
+    "GetSymbols": "still returns empty table",
+    "RegisterCallback": "still no-op",
+    "minimapNameRecoveryFound": false,
+    "independentFreshResourceFeedFound": false,
+    "oldSoftCursorRestored": false,
+    "nearSoundPath": "Existing fresh public UnitName on nearby nameplate plus sparkleSound; diff does not add a remote/minimap data source or restore restricted names.",
+    "townOption": {
+      "enabledByDefault": false,
+      "source": "https://github.com/Krelock/NodeSight/blob/490a7855ab36773d5bf38840215573316a4862eb/Sparkles.lua#L1620-L1660",
+      "behavior": "Changes owned softTargetInteract to0/1 in resting/town areas when enabled, keeping gamepad bit. Uses baseline/applied CVar restore logic. This intentionally suppresses keyboard interact-based near sparkles in town, not a minimap read/input recovery fix.",
+      "adoptedLocally": false
+    },
+    "optionsFixApplicability": "MyForeverProfessions previously had no direct Options category-opening path; no fresh local bug or actionable automatic-ore fix demonstrated.",
+    "sourceReviewScope": "Static compare of four new main commits and pinned TOC/core/near-sparkle/input code; not a complete CF package audit or game test."
+  },
+  "pullRequest22": {
+    "url": "https://github.com/Krelock/NodeSight/pull/22",
+    "head": "64715815a9468a57a764b98e7754e6b64727396b",
+    "state": "open",
+    "merged": false,
+    "updatedAt": "2026-11-14T13:06:55Z",
+    "unchangedSinceYesterday": true,
+    "assessment": "Only records completed gathering/loot history, no current-presence or minimap fresh name source."
+  },
+  "issuesUpdatedSincePrevious": [],
+  "localBaseline": {
+    "version": "0.4.7-dev.22",
+    "runtimeRecord": "../professions-upstream-20261113/runtime-dev22.json",
+    "lastVerifiedBuild": "70938",
+    "lastVerifiedInterface": 16001,
+    "lastObservedState": "restricted/restricted-text after10 samples, no accepted name; native map restored",
+    "freshNearbyAudioRightMouseVisualAcceptance": "still pending, not retested by heartbeat",
+    "overall": "NOT_ACCEPTED",
+    "releaseAllowed": false
+  },
+  "verification": {
+    "officialGitHubApiNoCache": true,
+    "officialReleasePages": true,
+    "specificGitHubNewReleaseEndpointsChecked": true,
+    "officialCurseforgeCheckedIndependently": true,
+    "thirdPartyInstalled": false,
+    "thirdPartyExecuted": false,
+    "gameOperated": false,
+    "addonModified": false,
+    "settingsModified": false,
+    "publicZipCreated": false,
+    "websiteChanged": false,
+    "deployed": false,
+    "newRuntimeOrAudioTest": false,
+    "limitations": [
+      "CF3.1.0.1 package source not obtained/audited; GitHub same-version tagged source is not byte verification of that package",
+      "No actual town/inn/right-mouse/audio/GPU test",
+      "No proof about all APIs or all ore points beyond existing bounded local restricted-text session"
+    ]
+  },
+  "notificationDecision": "DONT_NOTIFY",
+  "notificationReason": "New tags/CF version contain settings, preview, corpse and opt-in town-input features. No actionable restoration for minimap-name popup/sound or a demonstrated local near-alert/input bug fix. Keep publication hold.",
+  "automationUpdate": {
+    "needed": true,
+    "reason": "New main/tag/CF versions supersede saved main/CF baseline; preserve monitor scope, schedule, thread and release hold.",
+    "verified": true,
+    "schedulePreserved": true,
+    "threadPreserved": true,
+    "status": "ACTIVE",
+    "readOnlyPreserved": true,
+    "publicationHoldPreserved": true
+  }
+}

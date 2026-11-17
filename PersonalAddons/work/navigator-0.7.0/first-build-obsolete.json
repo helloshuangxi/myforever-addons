@@ -1,0 +1,39 @@
+{
+  "name": "MyForeverManager",
+  "version": "0.6.0",
+  "candidate": false,
+  "published": false,
+  "velopack": "1.2.161",
+  "package_id": "MyForeverManagerApp",
+  "source_commit": "7e770b1b78f765f83d01ae0707175ac15d68afab",
+  "source_dirty": false,
+  "artifacts": [
+    {
+      "platform": "osx-arm64",
+      "version": "0.6.0",
+      "installer": "MyForeverManager-0.6.0-Trial-osx-arm64.dmg",
+      "sha256": "7e0a094852940afd4e17f90f0437a6c42b91af0b51f51d498be3f51d7bd40dab",
+      "size_bytes": 50348854,
+      "feed": "updates/osx-arm64",
+      "update_probe_fixture": false
+    },
+    {
+      "platform": "osx-x64",
+      "version": "0.6.0",
+      "installer": "MyForeverManager-0.6.0-Trial-osx-x64.dmg",
+      "sha256": "0ba83259714f8b5656133d484f9076eff5fcea68180b9202fd437c4c8165de29",
+      "size_bytes": 52358713,
+      "feed": "updates/osx-x64",
+      "update_probe_fixture": false
+    },
+    {
+      "platform": "win-x64",
+      "version": "0.6.0",
+      "installer": "MyForeverManager-0.6.0-Trial-win-x64-Setup.exe",
+      "sha256": "3340a2282a2fc72bbc1a929ac167ab2c589a812d7619f805cc97acd7d49cd38f",
+      "size_bytes": 53950963,
+      "feed": "updates/win-x64",
+      "update_probe_fixture": false
+    }
+  ]
+}

@@ -76,11 +76,13 @@ local function Changed()
 end
 
 local appearanceDefaults = {
-    fontSize = 14, opacity = 0.98, theme = "jade",
-    background = { 0.055, 0.067, 0.072 },
-    accent = { 0.42, 0.82, 0.58 },
+    -- New installs start on the suite's "midnight" look. A saved theme,
+    -- including an existing "jade", is the player's and is never migrated.
+    fontSize = 14, opacity = 0.98, theme = "midnight",
+    background = { 0.051, 0.067, 0.118 },
+    accent = { 0.486, 0.576, 1.0 },
 }
-local appearanceThemes = { jade = true, ocean = true, violet = true, amber = true, custom = true }
+local appearanceThemes = { midnight = true, jade = true, ocean = true, violet = true, amber = true, custom = true }
 
 function NS.NormalizeAppearance(value)
     local source = Public(value) and type(value) == "table" and value or {}
@@ -511,6 +513,7 @@ function NS.InitDB(value)
     db.window.width = math.max(680, math.min(1080, Number(savedWindow.width) or 840))
     db.window.height = math.max(460, math.min(900, Number(savedWindow.height) or 560))
     db.launcher = Position(old.launcher, "TOPRIGHT", -30, -235)
+    db.quickReplyWindow = Position(old.quickReplyWindow, "BOTTOMLEFT", 35, 140)
     local previous = Public(old.conversations) and type(old.conversations) == "table" and old.conversations or {}
     for _, definition in ipairs(fixed) do
         db.conversations[definition.id] = RestoreConversation(previous[definition.id], definition.id, definition.kind, definition.title)
@@ -1186,11 +1189,12 @@ function NS.ValidateText(text)
     return text
 end
 
-function NS.Send(text)
+function NS.SendToConversation(id, text)
     local body, errorText = NS.ValidateText(text)
     if not body then return false, errorText end
-    local conversation = NS.GetSelected()
-    if not conversation then return false, "请先选择会话。" end
+    id = String(id, 260)
+    local conversation = id and EnsureDB().conversations[id]
+    if not conversation then return false, "未找到发送会话，请重新选择。" end
     if conversation.kind == "whisper" or conversation.kind == "bnet" then
         -- Recheck at the actual hardware-triggered send, not only when the
         -- conversation opened. An unreadable/unknown status is not offline.
@@ -1284,6 +1288,11 @@ function NS.Send(text)
     local ok = pcall(C_ChatInfo.SendChatMessage, body, chatType, nil, target)
     if not ok then return false, "游戏未接受发送请求，请使用原生聊天框查看限制或重试。" end
     return true, "已提交，等待游戏回显；尚未确认送达。"
+end
+
+function NS.Send(text)
+    local conversation = NS.GetSelected()
+    return NS.SendToConversation(conversation and conversation.id, text)
 end
 
 function NS.UpsertCommunity(meta, passive)

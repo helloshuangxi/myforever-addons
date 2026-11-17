@@ -318,6 +318,7 @@ eq(incoming("CHAT_MSG_WHISPER", "重登后行号重新开始", first.target, 265
 eq(NS.GetSelected().messages[60].text, "重登后行号重新开始", "new session message retained")
 restored.window = { point = "BOTTOMLEFT", relativePoint = "BOTTOMLEFT", x = 112, y = 58, width = 960, height = 640 }
 restored.launcher = { point = "TOPLEFT", relativePoint = "TOPLEFT", x = 25, y = -60 }
+restored.quickReplyWindow = { point="RIGHT", relativePoint="BOTTOMRIGHT", x=-86, y=217 }
 local positioned = NS.InitDB(restored)
 eq(positioned.window.point, "BOTTOMLEFT", "window anchor persists")
 eq(positioned.window.x, 112, "window offset persists")
@@ -325,6 +326,22 @@ eq(positioned.window.width, 960, "window width persists")
 eq(positioned.window.height, 640, "window height persists")
 eq(positioned.launcher.point, "TOPLEFT", "launcher anchor persists")
 eq(positioned.launcher.y, -60, "launcher offset persists")
+eq(positioned.quickReplyWindow.point,"RIGHT","compact reply anchor restored independently from history and launcher")
+eq(positioned.quickReplyWindow.relativePoint,"BOTTOMRIGHT","compact reply relative anchor restored")
+eq(positioned.quickReplyWindow.x,-86,"compact reply horizontal position survives reload")
+eq(positioned.quickReplyWindow.y,217,"compact reply vertical position survives reload")
+eq(positioned.quickReplyWindow==restored.quickReplyWindow,false,"restored compact position does not alias source")
+do
+    local defaults=NS.InitDB({quickReplyWindow=secret}).quickReplyWindow
+    eq(defaults.point,"BOTTOMLEFT","secret compact position defaults without inspecting it")
+    eq(defaults.x,35,"missing compact position gets default horizontal offset")
+    eq(defaults.y,140,"missing compact position gets default vertical offset")
+    local normalized=NS.InitDB({quickReplyWindow={point="invalid",relativePoint=secret,x=-999999,y=math.huge}})
+    eq(normalized.quickReplyWindow.relativePoint,"BOTTOMLEFT","invalid nested compact anchor is rejected")
+    eq(normalized.quickReplyWindow.x,-10000,"extreme compact position is bounded")
+    eq(normalized.quickReplyWindow.y,140,"non-finite compact offset falls back")
+    eq(normalized.window.x,0,"malformed compact position cannot move history window")
+end
 local bad = NS.InitDB({ selectedId = secret, shown = false, x = "bad", point = "bad", conversations = {
     group = { messages = { { text = secret, author = "name" }, { text = "good", author = "name", outgoing = secret, time = secret } }, unread = -8 },
     invalid = { kind = "whisper", target = secret },
@@ -576,17 +593,18 @@ eq(#sends, sendsBeforeDiscovery, "target discovery never sends chat")
 local defaults = NS.NormalizeAppearance(nil)
 eq(defaults.fontSize, 14, "default font size")
 eq(defaults.opacity, 0.98, "default opacity")
-eq(defaults.theme, "jade", "default theme")
-eq(defaults.background[1], 0.055, "default background red")
+eq(defaults.theme, "midnight", "default theme")
+eq(defaults.background[1], 0.051, "default background red")
 eq(defaults.background[2], 0.067, "default background green")
-eq(defaults.background[3], 0.072, "default background blue")
-eq(defaults.accent[1], 0.42, "default accent red")
-eq(defaults.accent[2], 0.82, "default accent green")
-eq(defaults.accent[3], 0.58, "default accent blue")
+eq(defaults.background[3], 0.118, "default background blue")
+eq(defaults.accent[1], 0.486, "default accent red")
+eq(defaults.accent[2], 0.576, "default accent green")
+eq(defaults.accent[3], 1.0, "default accent blue")
+eq(NS.NormalizeAppearance({theme="jade"}).theme,"jade","existing jade selection survives the new default")
 defaults.background[1], defaults.accent[2], defaults.fontSize = 1, 0, 22
 local freshDefaults = NS.NormalizeAppearance(secret)
-eq(freshDefaults.background[1], 0.055, "returned colors cannot mutate internal defaults")
-eq(freshDefaults.accent[2], 0.82, "accent default table is private")
+eq(freshDefaults.background[1], 0.051, "returned colors cannot mutate internal defaults")
+eq(freshDefaults.accent[2], 0.576, "accent default table is private")
 eq(freshDefaults.fontSize, 14, "secret settings fall back safely")
 local appearance = NS.NormalizeAppearance({
     fontSize = 50, opacity = -3, theme = "untrusted/path",
@@ -594,18 +612,18 @@ local appearance = NS.NormalizeAppearance({
 })
 eq(appearance.fontSize, 22, "font maximum")
 eq(appearance.opacity, 0.25, "opacity minimum")
-eq(appearance.theme, "jade", "unknown palette rejected")
+eq(appearance.theme, "midnight", "unknown palette rejected")
 eq(appearance.background[1], 0, "color channels clamp below range")
 eq(appearance.background[2], 0.067, "NaN color falls back to matching default component")
-eq(appearance.background[3], 0.072, "secret color falls back to matching default component")
+eq(appearance.background[3], 0.118, "secret color falls back to matching default component")
 eq(appearance.accent[1], 1, "color channels clamp above range")
 eq(appearance.accent[2], 0.4, "valid color component preserved")
-eq(appearance.accent[3], 0.58, "infinite color falls back")
+eq(appearance.accent[3], 1.0, "infinite color falls back")
 appearance = NS.NormalizeAppearance({ fontSize = 11, opacity = 8, background = secret, accent = "bad", theme = secret })
 eq(appearance.fontSize, 12, "font minimum")
 eq(appearance.opacity, 1, "opacity maximum")
-eq(appearance.background[1], 0.055, "secret color table never indexed")
-eq(appearance.accent[2], 0.82, "malformed color table defaults")
+eq(appearance.background[1], 0.051, "secret color table never indexed")
+eq(appearance.accent[2], 0.576, "malformed color table defaults")
 appearance = NS.NormalizeAppearance({ fontSize = 18.9, opacity = 0 / 0 })
 eq(appearance.fontSize, 18, "font normalized to integer")
 eq(appearance.opacity, 0.98, "NaN opacity defaults")
@@ -655,8 +673,8 @@ appearance = NS.ResetAppearance()
 eq(notices, resetNotice + 1, "reset notifies once")
 eq(appearance.fontSize, 14, "reset font")
 eq(appearance.opacity, 0.98, "reset opacity")
-eq(appearance.theme, "jade", "reset theme")
-eq(appearance.accent[3], 0.58, "reset palette")
+eq(appearance.theme, "midnight", "reset theme")
+eq(appearance.accent[3], 1.0, "reset palette")
 eq(selection.draft, "切换外观保留这份草稿", "appearance reset preserves draft")
 eq(selection.messages, originalMessages, "appearance reset preserves exact history objects")
 eq(selection.unread, originalUnread, "appearance reset preserves unread")
@@ -1146,6 +1164,48 @@ do
         NS.InitDB({channelRemindersEnabled=value})
         eq(NS.ChannelRemindersEnabled(),false,"only a public boolean true can restore channel opt-in")
     end
+end
+
+-- A compact reply remains bound to its explicit recipient even when the main
+-- window selects someone else. No missing or restricted ID may fall back.
+do
+    local savedPresence=NS.GetContactPresence
+    local presence="online"
+    NS.GetContactPresence=function() return presence end
+    NS.InitDB({shown=false})
+    local a=NS.OpenWhisper("目标甲-区服")
+    local b=NS.OpenWhisper("目标乙-区服")
+    local beforeSend=#sends
+    eq(NS.SendToConversation(nil,"无目标"),false,"nil explicit recipient never falls back to selected B")
+    for _,id in ipairs({"","whisper:不存在-区服",secret,{}}) do
+        eq(NS.SendToConversation(id,"无目标"),false,"invalid explicit recipient rejected")
+    end
+    eq(#sends,beforeSend,"invalid explicit recipients never invoke native send")
+    presence="offline"
+    eq(NS.SendToConversation(a.id,"离线时不发"),false,"explicit send rechecks current recipient presence")
+    eq(#sends,beforeSend,"known offline explicit recipient is not sent to")
+    presence="unknown"
+    eq(NS.SendToConversation(a.id,"只发给甲"),true,"unverified explicit recipient can attempt once")
+    eq(sends[#sends].target,a.target,"explicit send addresses A even while B is selected")
+    eq(NS.GetSelected(),b,"explicit send cannot change main selection")
+    eq(NS.Send("主窗口消息"),true,"legacy selected-conversation sender still works")
+    eq(sends[#sends].target,b.target,"main-window sender continues to address selected B")
+    beforeSend=#sends
+    guild,party,raid,instance,instanceRaid=false,false,false,false,false
+    for _,id in ipairs({"guild","group","raid"}) do
+        eq(NS.SendToConversation(id,"没有权限"),false,"explicit route still checks membership: "..id)
+    end
+    eq(#sends,beforeSend,"unavailable explicit group routes cannot reroute to selected B")
+    NS.CloseConversation(a.id,true)
+    eq(NS.SendToConversation(a.id,"已删除"),false,"deleted explicit target cannot be sent to")
+    eq(#sends,beforeSend,"deleted explicit target never redirects")
+    channels={{8,"独立频道",false}}; NS.SyncChannels()
+    eq(NS.SendToConversation("channel:独立频道","已核对频道"),true,"explicit send resolves current joined channel")
+    eq(sends[#sends].target,8,"explicit channel send uses verified native channel number")
+    channels={}; NS.SyncChannels()
+    eq(NS.SendToConversation("channel:独立频道","已离开频道"),false,"explicit send blocks left channel")
+    eq(#sends,beforeSend+1,"unavailable explicit channel never leaks into another route")
+    NS.GetContactPresence=savedPresence
 end
 
 print("chat_core_test: " .. checks .. " checks passed")

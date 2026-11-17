@@ -1,0 +1,121 @@
+{
+  "automation_id": "nodesight",
+  "triggeredAt": "2026-11-14T02:02:18.492Z",
+  "checkedAt": "2026-11-14T02:05:59.528578+00:00",
+  "localDate": "2026-11-14",
+  "timezone": "Asia/Shanghai",
+  "comparedWith": {
+    "monitor": "nodesight-monitor-20261113.json",
+    "latest_prior_github_release": "3.0.0",
+    "latest_prior_commit": "bebe59e9aebb39a1a95df8d95b071b981358106a",
+    "upstream": "../professions-upstream-20261113/UPSTREAM.json",
+    "local_runtime": "../professions-upstream-20261113/runtime-dev22.json"
+  },
+  "github": {
+    "release": "3.0.1",
+    "tagCommit": "ea4b1ba4148f2c2a99072e64a478fd02505e7019",
+    "releasePublishedAt": "2026-11-13T17:22:21Z",
+    "releaseUrl": "https://github.com/Krelock/NodeSight/releases/tag/v3.0.1",
+    "mainCommit": "b4ebfaf643f1b9aae2e4907338332277149978b3",
+    "mainCommitMessage": "NodeSight Sparkles 1.2.3",
+    "tocVersion": "3.0.1",
+    "tocInterface": "16001",
+    "main_tag_relationship": "Main includes following standalone Sparkles1.2.3 commit; NodeSight TOC still3.0.1. Main/tag are not falsely treated as identical.",
+    "changes": [
+      "Character-only setting/minimap button controls and reload prompt",
+      "Sparkles Options page no longer automatically opens its separate window"
+    ],
+    "newCommitsSinceBaseline": [
+      {
+        "sha": "ea4b1ba4148f2c2a99072e64a478fd02505e7019",
+        "message": "NodeSight 3.0.1"
+      },
+      {
+        "sha": "b4ebfaf643f1b9aae2e4907338332277149978b3",
+        "message": "NodeSight Sparkles 1.2.3"
+      }
+    ]
+  },
+  "curseforge": {
+    "version": "3.0.2",
+    "fileId": 9595864,
+    "siteDisplayDate": "2026-11-13",
+    "type": "Release",
+    "client": "WoW Forever1.60.1",
+    "url": "https://www.curseforge.com/wow/addons/node-sight/files/9595864",
+    "independentlyCheckedBy": "readonly_cf_agent",
+    "sourcePackageDownloadedOrAudited": false,
+    "changes": [
+      "Minimap button tooltip grouping, Herb/Ore Switch naming",
+      "Shift-click prints settings path instead of directly opening Options to avoid Edit Mode taint"
+    ],
+    "githubCfNotInSync": true
+  },
+  "issues": {
+    "newRelevantIssue": 23,
+    "url": "https://github.com/Krelock/NodeSight/issues/23",
+    "authorFixComment": "https://github.com/Krelock/NodeSight/issues/23#issuecomment-6860596436",
+    "authorStatement": "Fixed in3.0.2",
+    "interpretation": "Edit Mode/Options taint fix, not a public minimap-name reading fix",
+    "pr22": "Open historical-spots proposal is not fresh resource evidence; no new recovery comment"
+  },
+  "methodAssessment": {
+    "pinnedCoreUrl": "https://github.com/Krelock/NodeSight/blob/b4ebfaf643f1b9aae2e4907338332277149978b3/NodeSight.lua#L279-L283",
+    "GetSymbols": "still returns empty table",
+    "RegisterCallback": "still no-op",
+    "minimapNameRecoveryFound": false,
+    "independentFreshResourceFeedFound": false,
+    "oldSoftCursorRestored": false,
+    "sourceReviewScope": "GitHub compare from3.0.0 to pinned main, TOC and selected resource API; CF3.0.2 announcement only, not CF package source",
+    "localDirectApplicability": "No automatic Options category-opening path found in MyForeverProfessions. Similar EditModeMinimapSetting enum use is not the same path; no game taint test performed."
+  },
+  "localBaseline": {
+    "version": "0.4.7-dev.22",
+    "runtimeRecord": "../professions-upstream-20261113/runtime-dev22.json",
+    "lastVerifiedBuild": "70938",
+    "lastVerifiedInterface": 16001,
+    "lastObservedState": "restricted/restricted-text after10 samples, no accepted name; native map restored",
+    "freshNearbyAudioRightMouseVisualAcceptance": "still pending, not retested by heartbeat",
+    "overall": "NOT_ACCEPTED",
+    "releaseAllowed": false
+  },
+  "verification": {
+    "officialGitHubApiNoCache": true,
+    "officialReleasePages": true,
+    "officialCurseforgeCheckedIndependently": true,
+    "thirdPartyInstalled": false,
+    "thirdPartyExecuted": false,
+    "gameOperated": false,
+    "addonModified": false,
+    "settingsModified": false,
+    "publicZipCreated": false,
+    "websiteChanged": false,
+    "deployed": false,
+    "limitations": [
+      "CF3.0.2 package source not obtained or reviewed",
+      "No local runtime or audio test",
+      "No proof that all game interfaces or all resource points are restricted; observed local session remains the bounded baseline"
+    ]
+  },
+  "notificationDecision": "DONT_NOTIFY",
+  "notificationReason": "New versions only change settings/UI and Options taint; no actionable recovery for fresh minimap ore-name alerts or sound. Publication hold remains unchanged.",
+  "automationUpdate": {
+    "needed": true,
+    "reason": "Replace stale dev21/login-pending baseline with verified dev22 restriction and latest distinct GH/CF versions",
+    "preserveSchedule": true,
+    "preserveThread": true,
+    "preserveReadOnly": true,
+    "preservePublicationHold": true,
+    "verified": true,
+    "checks": {
+      "active": true,
+      "heartbeat": true,
+      "daily10": true,
+      "thread": true,
+      "updated_baseline": true,
+      "readonly": true,
+      "release_hold": true,
+      "distinct_versions": true
+    }
+  }
+}

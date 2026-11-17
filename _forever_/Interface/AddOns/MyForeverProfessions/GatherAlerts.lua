@@ -1,4 +1,13 @@
 local _, ns = ...
+-- Shared layout hooks (grid while dragging, snap on release, /myui tags).
+local function mfLayout(name, ...)
+    local S = rawget(_G, "MyForeverStyle")
+    local fn = type(S) == "table" and rawget(S, name)
+    if type(fn) == "function" then
+        local ok, result = pcall(fn, ...)
+        return ok and result or nil
+    end
+end
 local call = ns.SafeCall
 local scanner = ns.GatherScan
 
@@ -173,14 +182,49 @@ function ns.PlayGatherNotice(name, source, preview)
     return true, "played"
 end
 
+-- Fallback display for a secret name: Blizzard's tooltip renders the stored
+-- tooltip record through its own secure path. Created on first use.
+local nameTip
+local function hideNameTip() if nameTip then pcall(nameTip.Hide, nameTip) end end
+local function showNameTip(data)
+    if not plain(data, "table") then return false end
+    if not nameTip then
+        local ok, tip = pcall(CreateFrame, "GameTooltip", "MyForeverProfessionsGatherNameTip", UIParent, "GameTooltipTemplate")
+        if not ok or not tip then return false end
+        nameTip = tip
+    end
+    local ok = pcall(function()
+        nameTip:SetOwner(hud, "ANCHOR_NONE")
+        nameTip:ClearAllPoints()
+        nameTip:SetPoint("TOPLEFT", hud, "BOTTOMLEFT", 0, -2)
+        nameTip:ProcessInfo({ tooltipData = data })
+    end)
+    if not ok then hideNameTip() end
+    return ok
+end
+
 local function clearTarget()
     target, targetUntil = nil, nil
+    hideNameTip()
     hud:Hide()
     ns.gatherAlertLabel = nil
 end
 
+-- A secret-name hit cannot be matched against the resource catalogue. It is accepted
+-- only while a gathering tracking mode the character has learned is active, and takes
+-- that mode's kind for colour. Its skill requirement is unknown and is not claimed.
+local function opaqueKind(ranks)
+    if not activeTracking then return end
+    for _, kind in ipairs({"mining", "herbalism", "fishing"}) do
+        if activeTracking[kind] and ranks[skills[kind]] then return kind end
+    end
+end
+
 local function eligibleResource(name, ranks, requireTracking)
     if not plain(name, "string") then return end
+    if name == ns.GATHER_OPAQUE_NAME then
+        return ns.GatherOpaqueAllowed and ns.GatherOpaqueAllowed() and opaqueKind(ranks) or nil
+    end
     local kind, required = ns.GatherResource(name)
     local rank = kind and ranks[skills[kind]]
     if number(rank) and number(required) and rank >= required
@@ -219,7 +263,7 @@ local function minimapTarget(resources, ranks, now)
             local seen=announcements[key]
             if not chosen or (chosenSeen and not seen)
                 or ((not chosenSeen)==(not seen) and resource.name<chosen.name) then
-                chosen = {name = resource.name, kind = kind, minimap = true}
+                chosen = {name = resource.name, kind = kind, minimap = true, text = resource.text, data = resource.data}
             end
         end
     end
@@ -236,12 +280,26 @@ local function render(current)
     title:ClearAllPoints()
     title:SetPoint("TOPLEFT", hud, "TOPLEFT", 12, -10)
     title:SetWidth(HUD_WIDTH - 24)
-    title:SetText(current.layoutOnly and current.name or "附近有 " .. current.name)
+    local opaque = current.name == ns.GATHER_OPAQUE_NAME
+    local viaTip
+    if opaque then
+        -- Hand the game's own text straight back to the font string. Nothing here reads it.
+        -- If this client refuses that, let Blizzard's tooltip draw the stored record.
+        if not pcall(title.SetText, title, current.text) then
+            title:SetText("小地图有追踪资源")
+            viaTip = showNameTip(current.data)
+        else hideNameTip() end
+    else
+        hideNameTip()
+        title:SetText(current.layoutOnly and current.name or "附近有 " .. current.name)
+    end
     title:SetTextColor(unpack(colors[current.kind]))
     arrow:Hide()
-    detail:SetText(current.layoutOnly and "" or current.nearby and "就在附近" or "小地图范围内")
+    detail:SetText(current.layoutOnly and "" or current.nearby and "就在附近"
+        or viaTip and "名称见下方提示" or opaque and "小地图范围内 · 名称由游戏显示" or "小地图范围内")
     hud:Show()
-    ns.gatherAlertLabel = current.layoutOnly and nil or "附近有 " .. current.name
+    ns.gatherAlertLabel = current.layoutOnly and nil or opaque and "小地图范围内有追踪标记（名称由游戏显示）"
+        or "附近有 " .. current.name
 end
 
 local function restorePlacement()
@@ -253,16 +311,22 @@ local function restorePlacement()
         db.gatherX / db.gatherScale, db.gatherY / db.gatherScale)
 end
 
-local function stopMoving()
-    if not moving then return end
-    moving = false
-    hud:StopMovingOrSizing()
+-- Offsets are stored in UIParent units (see restorePlacement).
+local function savePlacement()
     local point, _, relativePoint, x, y = hud:GetPoint()
     if type(point) == "string" and type(relativePoint) == "string" and number(x) and number(y) then
         local db = ns.db
         db.gatherPoint, db.gatherRelativePoint = point, relativePoint
         db.gatherX, db.gatherY = x * db.gatherScale, y * db.gatherScale
     end
+end
+
+local function stopMoving()
+    if not moving then return end
+    moving = false
+    hud:StopMovingOrSizing()
+    mfLayout("SnapToGrid", hud)
+    savePlacement()
 end
 
 local function adjustmentLabel()
@@ -334,9 +398,23 @@ function ns.CreateGatherAlerts()
         if not resize then
             hud:StartMoving()
             moving = true
+            mfLayout("BeginDrag", hud)
         end
     end)
     hud:SetScript("OnDragStop", finishInteraction)
+    mfLayout("RegisterLayout", hud, "商业技能 · 采集提示", {
+        save = function() savePlacement() end,
+        reset = function()
+            local db = ns.db
+            db.gatherPoint, db.gatherRelativePoint, db.gatherX, db.gatherY = "CENTER", "CENTER", 0, 170
+            restorePlacement()
+        end,
+        scale = {
+            get = function() return ns.db.gatherScale end,
+            set = function(value) ns.db.gatherScale = value; restorePlacement() end,
+            min = 0.7, max = 1.3, step = 0.05,
+        },
+    })
     hud:SetScript("OnMouseUp", function(_, button)
         if button == "LeftButton" then finishInteraction() end
     end)
@@ -456,7 +534,8 @@ function ns.CreateGatherAlerts()
                 local resources = {}
                 for _, item in ipairs(names) do
                     if plain(item, "table") and plain(item.name, "string") then
-                        resources[#resources + 1] = {name = item.name, seenAt = now}
+                        -- item.text may be a secret; it is carried, never examined.
+                        resources[#resources + 1] = {name = item.name, seenAt = now, text = item.text, data = item.data}
                     end
                 end
                 target = minimapTarget(resources, ranks, now)
@@ -537,9 +616,14 @@ function ns.GatherCommand(action)
         setAdjusting(false)
     elseif action == "mute" or action == "unmute" then
         ns.db.gatherSound = action == "unmute"
+    elseif action == "passthrough on" or action == "passthrough off" then
+        -- Off restores the earlier rule: a secret name pauses minimap reading for the session.
+        ns.db.gatherOpaque = action == "passthrough on"
+        scanner.Reset()
     end
     ns.Print("采集提醒" .. (ns.db.gatherAlerts and "已开启" or "已关闭") .. "，声音" .. (ns.db.gatherSound and "开启" or "静音") .. "。")
     ns.Print("读取方式：" .. (ns.db.gatherMethod == "cursor" and "替身地图实验（仅本机）" or "原方式") .. "。")
+    ns.Print("加密名称直显：" .. (ns.db.gatherOpaque == true and "开启" or "关闭") .. "（/myprof gather passthrough on / off）。")
     local hint = capabilityHint()
     if hint then
         ns.Print(hint)

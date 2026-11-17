@@ -99,6 +99,17 @@ end
 
 -- Explicit aliases share a notice receipt; unrelated nodes with the same rank
 -- remain separate. Keep the client-provided spelling in the visible label.
+-- Secret-name passthrough. In clients where the minimap tooltip text is a secret
+-- value the addon can never read, compare or classify the name, but the official
+-- API documentation for this build marks FontString:SetText as
+-- SecretArguments = "AllowedWhenTainted": addon code may hand the secret back to
+-- a font string and let the game draw it. A confirmed minimap hit is then
+-- published under this placeholder key and its text is displayed, not inspected.
+ns.GATHER_OPAQUE_NAME = "<加密名称>"
+-- Saved settings turn it on by default (Core.NormalizeDB); without that explicit
+-- setting the earlier rule holds and a secret name pauses minimap reading.
+function ns.GatherOpaqueAllowed() return ns.db ~= nil and ns.db.gatherOpaque == true end
+
 function ns.GatherResourceKey(name)
     if type(name) ~= "string" or (issecretvalue and issecretvalue(name)) then return nil end
     local resource = resources[name]

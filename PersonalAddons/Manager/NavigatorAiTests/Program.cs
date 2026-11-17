@@ -50,6 +50,11 @@ try
     h.Content = place;
     var concurrent = await Task.WhenAll(Enumerable.Range(0, 5).Select(i => aiService.AnswerAsync(settings, travel with { Id = "example-" + i })));
     Check(h.Calls == 4 && concurrent.Count(r => r.FromCache) == 4, "in-flight equivalent questions share one request");
+    var nearby = travel with { Question = "我要去最近的银行。" };
+    var callsBeforeNearby = h.Calls;
+    await aiService.AnswerAsync(settings, nearby);
+    var moved = await aiService.AnswerAsync(settings, nearby with { Id = "moved-nearby" });
+    Check(!moved.FromCache && h.Calls == callsBeforeNearby + 2, "relative destination bypasses persisted cache");
     await MustFail(() => aiService.AnswerAsync(settings, quest with { Question = new string('界', 61) }), "question UTF-8 byte bound");
     await MustFail(() => aiService.AnswerAsync(settings, quest with { Choices = [quest.Choices[0], quest.Choices[0]] }), "duplicate keys");
     await MustFail(() => aiService.AnswerAsync(settings, quest with { QuestId = 0 }), "context without task ID");

@@ -193,7 +193,11 @@ public static class BehaviorAiCoach
         return new UriBuilder(uri) { Path = full }.Uri;
     }
 
-    public static async Task<string> AskAsync(BehaviorAiSettings settings, string userMessage, HttpMessageHandler? handler = null, CancellationToken cancellationToken = default)
+    public static Task<string> AskAsync(BehaviorAiSettings settings, string userMessage, HttpMessageHandler? handler = null, CancellationToken cancellationToken = default)
+        => CompleteAsync(settings, SystemPrompt, userMessage, false, handler, cancellationToken);
+
+    internal static async Task<string> CompleteAsync(BehaviorAiSettings settings, string systemPrompt, string userMessage,
+        bool structured, HttpMessageHandler? handler, CancellationToken cancellationToken)
     {
         var url = ChatEndpoint(settings.Endpoint);
         var model = (settings.Model ?? "").Trim();
@@ -203,11 +207,12 @@ public static class BehaviorAiCoach
         if (key.Any(ch => ch < 0x21 || ch > 0x7E)) throw new BehaviorAiException("API Key 含有无效字符，请重新粘贴。");
         var body = new JsonObject
         {
-            ["model"] = model, ["temperature"] = 0.4, ["max_tokens"] = 1500, ["stream"] = false,
+            ["model"] = model, ["temperature"] = structured ? 0 : 0.4, ["max_tokens"] = 1500, ["stream"] = false,
             ["messages"] = new JsonArray(
-                new JsonObject { ["role"] = "system", ["content"] = SystemPrompt },
+                new JsonObject { ["role"] = "system", ["content"] = systemPrompt },
                 new JsonObject { ["role"] = "user", ["content"] = userMessage })
         };
+        if (structured) body["response_format"] = new JsonObject { ["type"] = "json_object" };
         // DeepSeek Flash currently defaults to thinking; reserve the short
         // answer budget for the visible review rather than hidden reasoning.
         if (url.Host.Equals("api.deepseek.com", StringComparison.OrdinalIgnoreCase))
@@ -253,8 +258,8 @@ public static class BehaviorAiCoach
         try { content = JsonNode.Parse(text)?["choices"]?[0]?["message"]?["content"]?.GetValue<string>(); }
         catch (Exception e) when (e is JsonException or InvalidOperationException or FormatException or ArgumentOutOfRangeException)
         { throw new BehaviorAiException("模型服务返回的内容无法识别，请确认它兼容 OpenAI Chat Completions 接口。"); }
-        var answer = CleanAnswer(content);
-        if (answer.Length == 0) throw new BehaviorAiException("模型没有返回复盘内容，请重试或更换模型。");
+        var answer = structured ? (content ?? "").Trim() : CleanAnswer(content);
+        if (answer.Length == 0) throw new BehaviorAiException("模型没有返回内容，请重试或更换模型。");
         return answer;
     }
 

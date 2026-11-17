@@ -6,8 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyName>MyForeverManager</AssemblyName>
     <RootNamespace>MyForeverManager.Desktop</RootNamespace>
-    <Version>0.5.0</Version>
-    <InformationalVersion>0.5.0</InformationalVersion>
+    <Version>0.6.0</Version>
+    <InformationalVersion>0.6.0</InformationalVersion>
     <Product>我的无限插件管理器</Product>
     <Company>Hyder</Company>
     <ApplicationManifest>app.manifest</ApplicationManifest>

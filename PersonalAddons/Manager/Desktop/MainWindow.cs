@@ -44,7 +44,7 @@ public sealed partial class MainWindow : Window
     {
         this.store = store;
         service = new UpdateService(store.DirectoryPath);
-        Title = "我的无限 · 插件与行为统计";
+        Title = "我的无限 · 插件管理、行为统计与问路";
         Width = 1080;
         Height = 840;
         MinWidth = 760;
@@ -57,7 +57,7 @@ public sealed partial class MainWindow : Window
             if (icon is not null) Icon = new WindowIcon(icon);
         WindowStartupLocation = WindowStartupLocation.CenterScreen;
         Closing += OnClosing;
-        Closed += (_, _) => { timer.Stop(); CloseManagerUpdates(); behaviorView?.Dispose(); service.Dispose(); operationCancellation?.Dispose(); };
+        Closed += (_, _) => { timer.Stop(); SuspendNavigator(); CloseManagerUpdates(); behaviorView?.Dispose(); service.Dispose(); operationCancellation?.Dispose(); };
         PropertyChanged += (_, change) =>
         {
             if (change.Property == WindowStateProperty)
@@ -134,6 +134,7 @@ public sealed partial class MainWindow : Window
 
     private void ShowSetup(string? message = null)
     {
+        SuspendNavigator();
         var canCancel = dashboard;
         dashboard = false;
         behaviorTabSelected = false;
@@ -203,6 +204,7 @@ public sealed partial class MainWindow : Window
 
     private void ShowDashboard()
     {
+        SuspendNavigator();
         behaviorView?.Dispose();
         dashboard = true;
         cards.Clear();
@@ -277,7 +279,8 @@ public sealed partial class MainWindow : Window
             Items =
             {
                 new TabItem { Header = "插件管理", Content = new ScrollViewer { Content = column, HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled } },
-                new TabItem { Header = "行为统计", Content = behaviorView }
+                new TabItem { Header = "行为统计", Content = behaviorView },
+                new TabItem { Header = "游戏问路", Content = BuildNavigatorPage() }
             },
             SelectedIndex = 1
         };
@@ -296,7 +299,7 @@ public sealed partial class MainWindow : Window
             Margin = new Thickness(36, 24, 36, 18), Spacing = 5, Children =
             {
                 Text("我的无限", 23, true),
-                Text($"v{ManagerVersion.Current} 试用版  ·  插件管理与玩家行为统计", 12, false, Muted),
+                Text($"v{ManagerVersion.Current} 试用版  ·  插件管理、行为统计与问路", 12, false, Muted),
                 ManagerUpdatesPanel()
             }
         });

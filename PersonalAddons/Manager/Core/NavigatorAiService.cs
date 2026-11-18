@@ -96,7 +96,7 @@ public sealed class NavigatorAiService(string stateDirectory, HttpMessageHandler
         catch (EncoderFallbackException) { return false; }
     }
 
-    private static string RequestPayload(NavigatorQuestion q)
+    internal static string RequestPayload(NavigatorQuestion q)
     {
         if (q is null || !Plain(q.Id, 64) || !Regex.IsMatch(q.Id, "^[a-z0-9-]+$")
             || !Plain(q.Question, 180) || !Plain(q.Locale, 12, true) || !Plain(q.Faction, 20, true)

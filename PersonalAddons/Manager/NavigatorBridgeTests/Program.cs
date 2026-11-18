@@ -74,6 +74,21 @@ internal static class Program
             return Reply(q,ct);
         }
         Task<NavigatorBridgeStatus> Poll(bool force=false) => bridge.PollAsync(world.Game,Solve,default,retryNow:force);
+        var packet="MFNQ1~sample-1~去%257E和%7E处~zhCN~1429~Alliance~33~任务~1~q1~objective~目标~细节~END";
+        var transferred=NavigatorClipboard.ReadQuestion(packet);
+        Check(transferred.Question=="去%7E和~处" && transferred.Choices.Single().Name=="目标","clipboard escaped delimiters and UTF-8");
+        Check(NavigatorClipboard.WriteReply(transferred,new([new("quest","q1",null,"进度 50%~完成")],"好"))
+            =="MFNA1~sample-1~好~1~quest~q1~进度 50%25%7E完成~END","reply format is correlated and escaped");
+        foreach (var malformed in new[]{packet[..^2],packet.Replace("~1~q1","~24~q1"),"ordinary clipboard",packet.Replace("%257E","%00")})
+        {
+            try { NavigatorClipboard.ReadQuestion(malformed); throw new Exception("invalid packet accepted"); }
+            catch (BehaviorAiException) { Check(true,"malformed packet rejected"); }
+        }
+        var manual=world.SV("Manual",Request("manual").Replace("[\"version\"] = 1,","[\"version\"] = 1, delivery=\"clipboard\","));
+        Check(bridge.LatestSavedQuestion(world.Game,default)?.Id=="manual","visible before enabling a model");
+        await Poll();
+        Check(seen.Count==0,"clipboard questions never charged again by background disk poll");
+        File.Delete(manual);
         string alpha=world.SV("Alpha",Request("alpha-1"));
         var beta=world.SV("Beta",Request("beta-1","另一个问题"));
         string privateData = Path.Combine(Path.GetDirectoryName(beta)!, "OtherAddon.lua");

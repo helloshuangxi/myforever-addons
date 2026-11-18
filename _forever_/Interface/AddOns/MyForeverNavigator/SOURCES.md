@@ -1,4 +1,4 @@
-# 世界向导 0.7.0 数据来源
+# 世界向导 0.7.1 数据来源
 
 交通站点位于 RouteData.lua。公开船、飞艇、地铁与区域入口依本机 Forever 地图资料核对；基础飞行连接按 Leatrix Plus 航线参考核对。点位是靠近入口或码头的参考坐标。飞行可达观察来自角色打开的原生飞行地图。问路共享词典由项目维护者编写，源文件为 PersonalAddons/data/navigator-route-phrases.json，通过 build_navigator_route_phrases.py 同步游戏与网页。Questie 仍在游戏内只读解析。客户端使用玩家配置的模型。它只返回意图、步骤与任务候选编号。游戏插件在当前角色目录、游戏任务日志和内置任务参考中解析这些步骤，每站坐标来自本地数据。
 

@@ -68,6 +68,23 @@ public sealed class NavigatorBridge
         return files;
     }
 
+    public NavigatorQuestion? LatestSavedQuestion(string selection, CancellationToken token)
+    {
+        var game = GamePaths.Resolve(selection);
+        var paths = FindCharacterFiles(game, token).OrderByDescending(File.GetLastWriteTimeUtc);
+        foreach (var path in paths)
+        {
+            token.ThrowIfCancellationRequested();
+            try
+            {
+                if (NavigatorMailbox.ReadQuestion(path, includeClipboard: true) is { } question)
+                    return question;
+            }
+            catch (Exception e) when (FileProblem(e)) { continue; }
+        }
+        return null;
+    }
+
     private NavigatorQuestion? ReadSnapshot(string path)
     {
         var file = new FileInfo(path);

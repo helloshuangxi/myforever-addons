@@ -6,7 +6,7 @@ namespace MyForeverManager.Core;
 
 public static class ManagerVersion
 {
-    public const string Current = "0.6.0";
+    public const string Current = "0.6.2";
 }
 
 public record AddonDefinition(string Id, string DisplayName, string Description, string ManifestUrl);

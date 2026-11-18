@@ -512,17 +512,19 @@ local r=NS.RoutePlannerUI
 ui.workspaceTabs.route:Click()
 eq(ui.workspace,"route","dedicated directions tab opens")
 NS.OpenRoutePlanner("完全查不到的测试问法")
-eq(r.reload:IsVisible(),true,"ask submits to desktop bridge")
+eq(r.copy:IsVisible(),true,"no reload is required to send")
 eq(MyForeverNavigatorOutbox.question,"完全查不到的测试问法","only submitted question is staged")
-eq(r.reload.label.text,"重载发送","explicit first reload")
-local reloads=0
-ReloadUI=function()reloads=reloads+1 end
-InCombatLockdown=function()return true end
-r.reload:Click()
-eq(reloads,0,"combat leaves game unchanged")
-InCombatLockdown=function()return false end
-r.reload:Click()
-eq(reloads,1,"reload only on explicit click")
+local question=MyForeverNavigatorOutbox.question
+contains(r.question.text,question,"submitted question remains visible")
+r.query:SetText("还在编辑的新草稿")
+contains(r.question.text,question,"draft does not erase the pending question")
+eq(r.copy:IsVisible(),true,"pending controls survive editing a draft")
+r.copy:Click()
+contains(r.outgoing:GetText(),"MFNQ1~","complete request can be copied")
+eq(r.outgoing.highlighted,true,"request selected for actual system copy")
+r.exchange:SetText("MFNA1~wrong~答~0~END")
+contains(r.detail.text,"另一条","reject mismatched answer without clearing original")
+eq(NS.ClientQuestionStatus(),"pending","stale reply does not consume pending question")
 r.cancel:Click()
 eq(NS.ClientQuestionStatus(),"none","explicit cancel clears pending request")
 -- Existing pasted route codes can still be reviewed after upgrading.
@@ -579,14 +581,12 @@ local q=assert(NS.SubmitClientQuestion("我想找一位采矿训练师"))
 local beforeClientStart=routesStarted
 NS.RestoreClientQuestion()
 eq(r.query:GetText(),q.question,"restore shows the saved question")
-eq(r.reload.label.text,"重载接收","saved question exposes receive action")
-MyForeverNavigatorInbox={version=1,replies={[q.id]={id=q.id,message="请前往训练师处。",steps={
-    {kind="place",term="采矿训练师",text="学习采矿。"}
-}}}}
-NS.RestoreClientQuestion()
+eq(r.exchange.holder:IsVisible(),true,"saved question accepts a live paste")
+r.exchange:SetText("MFNA1~"..q.id.."~请前往训练师处。~1~place~采矿训练师~学习采矿。~END")
 if not r.start:IsVisible() then r.rows[1]:Click() end
 eq(r.start:IsVisible(),true,"returned route can be started")
-eq(r.reload:IsVisible(),false,"received reply hides reload")
+eq(r.copy:IsVisible(),false,"received reply hides transfer controls")
+contains(r.question.text,q.question,"answer keeps the original question visible")
 eq(routesStarted,beforeClientStart,"return only previews the answer")
 r.start:Click()
 eq(routesStarted,beforeClientStart+1,"start activates native itinerary")

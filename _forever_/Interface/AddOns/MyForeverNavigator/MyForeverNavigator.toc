@@ -2,7 +2,7 @@
 ## Title: 我的无限 · |cffe8be75世界向导|r
 ## Notes: 向我的无限客户端询问任务或目的地，按游戏内地点分段导航。/mynav
 ## Author: Personal Addons
-## Version: 0.7.0
+## Version: 0.7.1
 ## OptionalDeps: Questie, QuestieDB
 ## SavedVariables: MyForeverStyleDB
 ## SavedVariablesPerCharacter: MyForeverNavigatorDB, MyForeverNavigatorOutbox

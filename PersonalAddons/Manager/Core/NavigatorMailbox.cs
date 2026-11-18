@@ -60,10 +60,11 @@ internal static class NavigatorMailbox
         for (int i = 1; i <= array.Count; i++)
             yield return Table(array.GetValueOrDefault(i.ToString(CultureInfo.InvariantCulture)));
     }
-    internal static NavigatorQuestion? ReadQuestion(string path)
+    internal static NavigatorQuestion? ReadQuestion(string path, bool includeClipboard = false)
     {
         var d = BehaviorLuaReader.ReadVariable(ReadText(path, MaxSnapshot), "MyForeverNavigatorOutbox");
         if (d is null || d.Count == 0 || !d.ContainsKey("id")) return null;
+        if (!includeClipboard && d.GetValueOrDefault("delivery") is "clipboard") return null;
         if (Number(d,"version") != 1) throw new InvalidDataException("世界向导问路协议版本不同。");
         var id = TextField(d,"id",64);
         if (!Id.IsMatch(id)) throw new InvalidDataException("问题标识无效。");

@@ -2,7 +2,7 @@ local _, NS = ...
 local ui, state, candidates, mapCount, page, catalogue
 local zones, byMap, selectedMap, choosingMap
 local pageSize = 5
-local pendingStatus, notice, submittedID
+local pendingStatus, notice, submittedQuestion
 local function useState(nextState)
     state, candidates, page = nextState, {}, 1
 end
@@ -46,6 +46,7 @@ function NS.RefreshRoutePlanner()
     ui.zones:SetShown(canGroup and true or false)
     ui.zones.label:SetText((choosingMap or group) and "全部地点" or "按地图选")
     ui.title:SetWidth(ui.width - (canGroup and 90 or 0))
+    ui.question:SetText(submittedQuestion and ("我的问题 · "..submittedQuestion) or "")
     local pages = math.max(1, math.ceil(count / pageSize))
     page = math.max(1, math.min(page or 1, pages))
     if state then
@@ -66,8 +67,8 @@ function NS.RefreshRoutePlanner()
             ui.detail:SetText(instruction and instruction ~= "" and instruction.."\n"..detail or detail)
         end
     else
-        ui.title:SetText(pendingStatus == "pending" and "等待客户端答复" or pendingStatus == "error" and "问路需要处理" or "问任务或目的地")
-        ui.detail:SetText(notice or "例如「这个任务怎么做」或「我要去铁炉堡」。在我的无限客户端开启游戏问路后即可提问。")
+        ui.title:SetText(pendingStatus == "pending" and "交给我的无限客户端" or pendingStatus == "error" and "问路需要处理" or "问任务或目的地")
+        ui.detail:SetText(notice or "例如「这个任务怎么做」或「我要去铁炉堡」。复杂问题可交给我的无限客户端，已确认的路线可直接复用。")
     end
     for i,row in ipairs(ui.rows) do
         local k = (page-1)*pageSize+i
@@ -92,14 +93,17 @@ function NS.RefreshRoutePlanner()
     ui.ground:SetShown(plan and (plan.hasUnconfirmedFlights or state.noUnconfirmedFlights) or false)
     ui.ground.label:SetText(state and state.noUnconfirmedFlights and "允许待开航点" or "避开待开航点")
     ui.repick:SetShown(state~=nil and ((state.index or 1)>1 or plan~=nil))
-    ui.reload:SetShown(pendingStatus == "pending")
-    local box = MyForeverNavigatorOutbox
-    ui.reload.label:SetText(box and submittedID and box.id == submittedID and "重载发送" or "重载接收")
+    local waiting = pendingStatus == "pending"
+    ui.copy:SetShown(waiting)
+    ui.exchange.holder:SetShown(waiting)
+    ui.outgoing.holder:SetShown(waiting)
     ui.cancel:SetShown(pendingStatus == "pending" or pendingStatus == "error")
-    ui.search.label:SetText(pendingStatus == "error" and "重新提问" or "问客户端")
+    ui.search.label:SetText(pendingStatus == "error" and "重新提问" or "问路")
 end
 
 local function begin(input, preferredID)
+    NS.CancelClientQuestion()
+    submittedQuestion=NS.CleanText(input,180)
     local nextState, reason
     if preferredID then
         local plan
@@ -125,35 +129,34 @@ local function receive()
     pendingStatus = status ~= "ready" and status or nil
     notice = reason or message
     if status == "pending" and message ~= "正在等待游戏载入任务日志。" then
-        notice = submittedID and MyForeverNavigatorOutbox.id == submittedID
-            and "点「重载发送」保存问题。请保持我的无限客户端开启。"
-            or "请在我的无限客户端查看进度。客户端显示已答复后，点「重载接收」。"
+        notice = "复制下方问题码，在客户端「游戏问路」点「粘贴问题并询问」。答复就绪后，复制并粘到下框。"
     end
     useState(nextState)
     if state and not state.plan then refreshCandidates() end
     NS.RefreshRoutePlanner()
 end
 
-local function ask(input)
+local function ask(input,forceClient)
     ui.query:ClearFocus()
-    local cached = NS.LookupClientRouteState(input)
+    local cached = NS.LookupClientRouteState(input) or (not forceClient and NS.KnownPlaceRoute(input))
     if cached then
         if MyForeverNavigatorOutbox then NS.CancelClientQuestion() end
-        submittedID, pendingStatus, notice = nil, nil, nil
+        submittedQuestion, pendingStatus, notice = cached.question or input, nil, nil
         useState(cached)
         if not state.plan then refreshCandidates() end
         NS.RefreshRoutePlanner()
         return
     end
-    local oldID = MyForeverNavigatorOutbox and MyForeverNavigatorOutbox.id
     local request, err = NS.SubmitClientQuestion(input, nil, pendingStatus == "error")
     if not request then
-        notice = err
-        useState(nil)
         NS.RefreshRoutePlanner()
+        ui.detail:SetText(err)
         return
     end
-    if request.id ~= oldID then submittedID = request.id end
+    ui.outgoing:SetText(NS.ExportClientQuestion() or "")
+    request.delivery="clipboard"
+    submittedQuestion=request.question
+    ui.exchange:SetText("")
     receive()
 end
 
@@ -162,6 +165,8 @@ function NS.RestoreClientQuestion()
     if not ui or type(request) ~= "table" or not request.id or NS.ClientQuestionStatus() == "none" then return end
     NS.ToggleUI(true)
     ui.open("route")
+    submittedQuestion=request.question
+    ui.outgoing:SetText(NS.ExportClientQuestion() or "")
     ui.query:SetText(request.question)
     receive()
 end
@@ -169,7 +174,7 @@ end
 -- Quest-log data can arrive after the first world-entry event.
 function NS.RefreshClientQuestion()
     local box=MyForeverNavigatorOutbox
-    if not ui or not ui.query:IsVisible() or type(box)~="table" or box.question~=ui.query:GetText() then return end
+    if not ui or not ui.query:IsVisible() or type(box)~="table" or box.question~=submittedQuestion then return end
     if pendingStatus then
         if NS.ClientQuestionStatus()~=pendingStatus then receive() end
     elseif state and state.clientSteps and not state.plan and #(candidates or {})==0 then
@@ -187,7 +192,7 @@ function NS.OpenRoutePlanner(input, preferredID, askClient)
         if preferredID or (not askClient and (input:match("^MFN%d") or input:match("^/mynav +route +MFN%d"))) then
             begin(input,preferredID)
         else
-            ask(input)
+            ask(input,askClient)
         end
     elseif preferredID then
         local point=NS.GetPoint(preferredID)
@@ -218,25 +223,23 @@ function NS.CreateRoutePlanner(parent, widgets)
     ui.query:SetScript("OnTextChanged",function(self)
         local value=self:GetText() or ""
         if self.hint then self.hint:SetShown(value=="") end
-        if ui.detail then
-            useState(nil)
-            pendingStatus,notice=nil,nil
-            NS.RefreshRoutePlanner()
-        end
+
     end)
     ui.query:SetScript("OnEnterPressed",submit)
-    ui.search=action("问客户端",80,width-166,0,submit,"primary")
+    ui.search=action("问路",80,width-166,0,submit,"primary")
     ui.localSearch=action("本地查找",80,width-80,0,function()
         ui.query:ClearFocus();begin(ui.query:GetText() or "")
     end,"quiet")
-    ui.zones=action("按地图选",82,width-82,52,function()
+    ui.zones=action("按地图选",82,width-82,83,function()
         if selectedMap or choosingMap then selectedMap,choosingMap=nil,false else choosingMap=true end
         page=1;NS.RefreshRoutePlanner()
     end,"quiet")
-    ui.title=caption(width,28,58,widgets.colors.title,"GameFontNormalLarge")
-    ui.detail=caption(width,56,94,widgets.colors.muted)
+    ui.question=caption(width,48,34,widgets.colors.title)
+    ui.question:SetWordWrap(true)
+    ui.title=caption(width,28,84,widgets.colors.title,"GameFontNormalLarge")
+    ui.detail=caption(width,64,113,widgets.colors.muted)
     for i=1,pageSize do
-        local row=action("",width,0,156+(i-1)*39,function(self)
+        local row=action("",width,0,179+(i-1)*34,function(self)
             if self.mapKey then
                 selectedMap,choosingMap,page=self.mapKey,false,1
                 NS.RefreshRoutePlanner();return
@@ -247,7 +250,7 @@ function NS.CreateRoutePlanner(parent, widgets)
             if not state.plan then refreshCandidates() else page=1 end
             NS.RefreshRoutePlanner()
         end)
-        row:SetHeight(36);row.label:SetHeight(32);row.label:SetWordWrap(true);row.label:SetJustifyH("LEFT")
+        row:SetHeight(32);row.label:SetHeight(30);row.label:SetWordWrap(true);row.label:SetJustifyH("LEFT")
         ui.rows[i]=row
     end
     ui.prev=action("上一页",72,0,355,function()page=page-1;NS.RefreshRoutePlanner()end,"quiet")
@@ -259,8 +262,7 @@ function NS.CreateRoutePlanner(parent, widgets)
         if not ok then ui.detail:SetText(err);return end
         if state.clientSteps then
             useState(nil)
-            submittedID,pendingStatus,notice=nil,nil,nil
-            ui.query:SetText("")
+            pendingStatus,notice=nil,nil
         end
         NS.RefreshHUD();ui.open("navigation")
     end,"primary")
@@ -271,14 +273,35 @@ function NS.CreateRoutePlanner(parent, widgets)
         state.noUnconfirmedFlights=nil
         refreshCandidates();NS.RefreshRoutePlanner()
     end,"quiet")
-    ui.reload=action("重载发送",124,0,412,function()
-        if NS.Call(InCombatLockdown) then ui.detail:SetText("请在战斗结束后重载。");return end
-        local reload = C_UI and C_UI.Reload or ReloadUI
-        if reload then reload() else ui.detail:SetText("请在游戏内输入 /reload。") end
+    ui.outgoing=widgets.input(parent,width-136,"问题码",136,-180,true)
+    ui.outgoing:SetMaxLetters(36864)
+    ui.exchange=widgets.input(parent,width,"把客户端答复粘贴在这里",0,-222,true)
+    ui.exchange:SetMaxLetters(36864)
+    local function importReply()
+        local ok,why=NS.ImportClientReply(ui.exchange:GetText() or "")
+        if not ok then ui.detail:SetText(why);return end
+        ui.exchange:ClearFocus()
+        ui.exchange:SetText("")
+        receive()
+    end
+    ui.exchange:SetScript("OnEnterPressed",importReply)
+    ui.exchange:SetScript("OnTextChanged",function(self)
+        local value=self:GetText() or ""
+        if self.hint then self.hint:SetShown(value=="") end
+        if value:sub(1,6)=="MFNA1~" and value:sub(-4)=="~END" then importReply() end
+    end)
+    ui.copy=action("选中问题码",124,0,180,function()
+        local code=NS.ExportClientQuestion()
+        if not code then return end
+        ui.outgoing:SetText(code)
+        ui.outgoing:SetFocus()
+        ui.outgoing:HighlightText()
+        ui.detail:SetText("按 Ctrl+C（Mac 可用 ⌘C）复制。客户端答复后，粘贴到下方答复框。")
     end,"primary")
     ui.cancel=action("取消问题",100,width-100,412,function()
         NS.CancelClientQuestion()
-        submittedID,pendingStatus,notice=nil,nil,nil
+        submittedQuestion,pendingStatus,notice=nil,nil,nil
+        ui.exchange:ClearFocus();ui.exchange:SetText("")
         useState(nil);NS.RefreshRoutePlanner()
     end,"quiet")
     ui.ground=action("避开待开航点",132,154,412,function()

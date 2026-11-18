@@ -182,7 +182,9 @@ local function current()
     if type(req) == "table" and req.version == 1 and requestID(req.id) and ctx and ctx.id == req.id
         and plain(req.question,180) and (req.questID == 0 or integer(req.questID)) then return req,ctx end
 end
+local pastedReply
 function NS.CancelClientQuestion()
+    pastedReply = nil
     MyForeverNavigatorOutbox = nil
     if NS.DB and NS.DB.clientAI then NS.DB.clientAI.context = nil end
 end
@@ -305,7 +307,7 @@ local function readReply()
     end
     local inbox=MyForeverNavigatorInbox
     local list=type(inbox)=="table" and inbox.version==1 and inbox.replies
-    local row=type(list)=="table" and list[req.id]
+    local row=pastedReply and pastedReply.id==req.id and pastedReply or (type(list)=="table" and list[req.id])
     if row == nil or row == false then return "pending","等待我的无限客户端回答。" end
     local invalid="客户端回答格式无效，请重新提问。"
     if type(row)~="table" or row.id~=req.id or not stepsArray(row.steps,true)
@@ -363,6 +365,57 @@ local function readReply()
     end
     record.requestID=req.id
     return "ready",nil,record
+end
+-- The game and desktop exchange plain UTF-8 through a player-controlled edit box.
+-- Escape only the field delimiter and escape character. Never evaluate pasted text.
+local function encodeField(value)
+    return (tostring(value):gsub("%%","%%25"):gsub("~","%%7E"))
+end
+function NS.ExportClientQuestion()
+    local q=current()
+    if not q then return end
+    local fields={"MFNQ1"}
+    local function add(v) fields[#fields+1]=encodeField(v) end
+    add(q.id); add(q.question); add(q.locale); add(q.mapID); add(q.faction)
+    add(q.questID); add(q.questTitle); add(#q.choices)
+    for _,choice in ipairs(q.choices) do
+        add(choice.key); add(choice.kind); add(choice.name); add(choice.detail)
+    end
+    return table.concat(fields,"~").."~END"
+end
+function NS.ImportClientReply(code)
+    local req=current()
+    if not req then return false,"请先提交一个问题。" end
+    local invalid="答复码不完整，请在客户端重新复制整条答复。"
+    if type(code)~="string" or #code>16384 or code:find("[%z\1-\31\127|]") or code:sub(1,6)~="MFNA1~" then
+        return false,invalid
+    end
+    local fields={}
+    for field in (code.."~"):gmatch("(.-)~") do
+        if #fields>=24 or field:gsub("%%25",""):gsub("%%7E",""):find("%%") then return false,invalid end
+        fields[#fields+1]=(field:gsub("%%7E","~"):gsub("%%25","%%"))
+    end
+    if fields[2]~=req.id then return false,"这份答复属于另一条提问，请复制当前问题的答复。" end
+    local count=tonumber(fields[4])
+    if not count or count<0 or count>MAX_STEPS or tostring(count)~=fields[4] or count%1~=0
+        or #fields~=5+count*3 or fields[#fields]~="END" then return false,invalid end
+    local row={id=req.id,message=fields[3],steps={}}
+    if row.message~="" and not plain(row.message,360) then return false,invalid end
+    if count==0 and row.message=="" then return false,invalid end
+    local allowed={}
+    for _,choice in ipairs(req.choices) do allowed[choice.key]=true end
+    for i=1,count do
+        local pos=5+(i-1)*3
+        local kind,target,instruction=fields[pos],fields[pos+1],fields[pos+2]
+        if not plain(instruction,180) then return false,invalid end
+        if kind=="quest" and allowed[target] then
+            row.steps[i]={kind=kind,key=target,text=instruction}
+        elseif kind=="place" and plain(target,120) then
+            row.steps[i]={kind=kind,term=target,text=instruction}
+        else return false,invalid end
+    end
+    pastedReply=row
+    return true
 end
 function NS.ClientQuestionStatus()
     local status,why=readReply()
@@ -555,6 +608,26 @@ local function stateFor(record,source)
     local ok,why=fillSingleChoices(state)
     if not ok then return nil,why end
     return state
+end
+-- Only exact map names and curated phrases can bypass a first desktop query.
+function NS.KnownPlaceRoute(question)
+    question=cleanQuestion(question)
+    if not question or relativeQuestion(question) then return end
+    local terms=NS.LookupRoutePhrase and NS.LookupRoutePhrase(question)
+    if not terms then
+        local destination=question:match("^我要去(.+)$") or question:match("^去(.+)$")
+        if destination then
+            local entrances=regionEntrances(destination)
+            if entrances and #entrances>0 then terms={destination} end
+        end
+    end
+    if not terms or #terms==0 then return end
+    local record={question=question,locale=locale(),questID=0,signature="",steps={},message="已在本地地点库找到。"}
+    for _,term in ipairs(terms) do
+        record.steps[#record.steps+1]={kind="place",term=term,text="前往"..term}
+    end
+    local state=stateFor(record,"local")
+    if state and (state.plan or #NS.GetClientCandidates(state)>0) then return state end
 end
 function NS.BuildClientRouteState(reply)
     local currentReply,why=NS.ReadClientAnswer()

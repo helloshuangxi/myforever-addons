@@ -256,4 +256,13 @@ check(not NS.UpdateRouteProgress() and not NS.GetActiveRoute().complete,"放弃�
 handedIn=false;now=120
 lifecycle(nil,"QUEST_TURNED_IN",61,100,100)
 check(NS.GetActiveRoute().complete,"重复任务可以用当前真实交付事件完成")
+local clipboard=assert(NS.SubmitClientQuestion("我想去 50%~的地方"))
+check(NS.ExportClientQuestion():find("50%%25%%7E")~=nil,"问题码保留百分号与字段分隔符")
+local prefix="MFNA1~"..clipboard.id.."~"
+check(not NS.ImportClientReply(prefix.."说明~1~quest~q24~不认识的目标~END"),"拒绝无依据任务步骤")
+check(not NS.ImportClientReply(prefix.."说明~1~place~铁炉堡~残缺"),"拒绝截断答复")
+check(NS.ImportClientReply(prefix.."已完成 50%25%7E~1~place~铁炉堡~出发~END"),"接收同一游戏会话的答复")
+check(NS.ReadClientAnswer().message=="已完成 50%~","解码有标点的中文")
+check(NS.KnownPlaceRoute("我要去铁炉堡")~=nil,"已知城市直接给出本地落点")
+check(NS.KnownPlaceRoute("不知道这个任务怎么做")==nil,"未命中地点库的问题交给客户端")
 print("Navigator client question bridge and quest itinerary: "..checks.." checks passed")
